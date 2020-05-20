@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A55414BB-7DA6-4B38-918B-C258963AB701}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LibEntityVentas</RootNamespace>
+    <AssemblyName>LibEntityVentas</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="clientes.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="clientes_grupo.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="clientes_zonas.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cxc.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cxc_documentos.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cxc_medio_pago.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cxc_recibos.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="empresa_agencias.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="empresa_cobradores.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="empresa_departamentos.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="empresa_depositos.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="empresa_medios.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="empresa_series_fiscales.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="empresa_tasas.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="empresa_transporte.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelLibVentas.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelLibVentas.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelLibVentas.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelLibVentas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelLibVentas.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Principal.cs" />
+    <Compile Include="productos.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_conceptos.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_deposito.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_grupo.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_kardex.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_marca.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_medida.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sistema_configuracion.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sistema_contadores.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sistema_estados.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usuarios.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usuarios_grupo.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vendedores.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ventas.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ventas_detalle.cs">
+      <DependentUpon>ModelLibVentas.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="ModelLibVentas.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelLibVentas.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="ModelLibVentas.edmx.diagram">
+      <DependentUpon>ModelLibVentas.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ModelLibVentas.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelLibVentas.edmx</DependentUpon>
+      <LastGenOutput>ModelLibVentas.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ModelLibVentas.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelLibVentas.edmx</DependentUpon>
+      <LastGenOutput>ModelLibVentas.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

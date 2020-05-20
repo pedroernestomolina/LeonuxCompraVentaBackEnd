@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0145E27D-9971-4DC0-8C56-C34A0147130A}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ConsolePrueba</RootNamespace>
+    <AssemblyName>ConsolePrueba</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DtoLibCompra\DtoLibCompra.csproj">
+      <Project>{3fa8a530-2a67-4ae4-b4aa-bee712d6b928}</Project>
+      <Name>DtoLibCompra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DtoLibVenta\DtoLibVenta.csproj">
+      <Project>{63850826-d176-4d1c-8fbc-403ae1be3178}</Project>
+      <Name>DtoLibVenta</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DtoLib\DtoLib.csproj">
+      <Project>{e3c87f6f-706f-49fe-bf6e-bdeeef37945d}</Project>
+      <Name>DtoLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ILibCompras\ILibCompras.csproj">
+      <Project>{b2145b78-eb48-4705-ada8-68da9ac0d632}</Project>
+      <Name>ILibCompras</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ILibVentas\ILibVentas.csproj">
+      <Project>{dceaf01d-4ab3-4406-856f-119a9fba09d3}</Project>
+      <Name>ILibVentas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IPosOffLine\IPosOffLine.csproj">
+      <Project>{aa9b9896-e936-4ad5-8be1-646b1e2ffd0b}</Project>
+      <Name>IPosOffLine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibEntityCompras\LibEntityCompras.csproj">
+      <Project>{75d3e2b3-c5bc-4960-810d-710f279abcd3}</Project>
+      <Name>LibEntityCompras</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibEntityVentas\LibEntityVentas.csproj">
+      <Project>{a55414bb-7da6-4b38-918b-c258963ab701}</Project>
+      <Name>LibEntityVentas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProvLibCompra\ProvLibCompra.csproj">
+      <Project>{c15017da-c618-44ae-9851-5fc9d06acab5}</Project>
+      <Name>ProvLibCompra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProvLibVenta\ProvLibVenta.csproj">
+      <Project>{97914c74-9088-463d-96fa-fcc665fae949}</Project>
+      <Name>ProvLibVenta</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProvSqLitePosOffLine\ProvSqLitePosOffLine.csproj">
+      <Project>{47362316-48f5-4243-9553-ff8c37cc14d1}</Project>
+      <Name>ProvSqLitePosOffLine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

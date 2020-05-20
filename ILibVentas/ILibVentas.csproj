@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DCEAF01D-4AB3-4406-856F-119A9FBA09D3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ILibVentas</RootNamespace>
+    <AssemblyName>ILibVentas</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IAgencia.cs" />
+    <Compile Include="ICliente.cs" />
+    <Compile Include="ICobrador.cs" />
+    <Compile Include="IConfiguracion.cs" />
+    <Compile Include="IDeposito.cs" />
+    <Compile Include="IExistencia.cs" />
+    <Compile Include="IFiscal.cs" />
+    <Compile Include="IMedioCobro.cs" />
+    <Compile Include="IMovInvConcepto.cs" />
+    <Compile Include="IPermiso.cs" />
+    <Compile Include="IPrecio.cs" />
+    <Compile Include="IProducto.cs" />
+    <Compile Include="IProvider.cs" />
+    <Compile Include="ISeries.cs" />
+    <Compile Include="ISucursal.cs" />
+    <Compile Include="ITransporte.cs" />
+    <Compile Include="IUsuario.cs" />
+    <Compile Include="IVendedor.cs" />
+    <Compile Include="IVenta.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DtoLibVenta\DtoLibVenta.csproj">
+      <Project>{63850826-d176-4d1c-8fbc-403ae1be3178}</Project>
+      <Name>DtoLibVenta</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DtoLib\DtoLib.csproj">
+      <Project>{e3c87f6f-706f-49fe-bf6e-bdeeef37945d}</Project>
+      <Name>DtoLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
