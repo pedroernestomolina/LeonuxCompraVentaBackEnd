@@ -87,6 +87,16 @@
           <Property Name="monto" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="renglones" Type="integer" Nullable="false" />
         </EntityType>
+        <EntityType Name="Permiso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="modulo" Type="integer" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="requiereClave" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
         <EntityType Name="Producto">
           <Key>
             <PropertyRef Name="auto" />
@@ -170,6 +180,10 @@
           <Property Name="autoMedioPagoDivisa" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="autoMedioPagoElectronico" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="autoMedioPagoOtro" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="clave1" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="clave2" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="clave3" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="clavePos" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Transporte">
           <Key>
@@ -335,6 +349,7 @@
           <EntitySet Name="Item" EntityType="Self.Item" store:Type="Tables" />
           <EntitySet Name="MedioCobro" EntityType="Self.MedioCobro" store:Type="Tables" />
           <EntitySet Name="Pendiente" EntityType="Self.Pendiente" store:Type="Tables" />
+          <EntitySet Name="Permiso" EntityType="Self.Permiso" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" store:Type="Tables" />
           <EntitySet Name="ProductoBarra" EntityType="Self.ProductoBarra" store:Type="Tables" />
           <EntitySet Name="Sistema" EntityType="Self.Sistema" store:Type="Tables" />
@@ -365,6 +380,7 @@
           <EntitySet Name="Cobrador" EntityType="LeonuxPosOffLineModel.Cobrador" />
           <EntitySet Name="Transporte" EntityType="LeonuxPosOffLineModel.Transporte" />
           <EntitySet Name="VentaPago" EntityType="LeonuxPosOffLineModel.VentaPago" />
+          <EntitySet Name="Permiso" EntityType="LeonuxPosOffLineModel.Permiso" />
           <EntitySet Name="Sistema" EntityType="LeonuxPosOffLineModel.Sistema" />
         </EntityContainer>
         <EntityType Name="ProductoBarra">
@@ -665,6 +681,16 @@
           <Property Name="lote" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="referencia" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Permiso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="modulo" Type="Int64" Nullable="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="requiereClave" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Sistema">
           <Key>
             <PropertyRef Name="auto" />
@@ -688,6 +714,10 @@
           <Property Name="autoMedioPagoDivisa" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="autoMedioPagoElectronico" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="autoMedioPagoOtro" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="clave1" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="clave2" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="clave3" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="clavePos" Type="Int64" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1008,9 +1038,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Permiso">
+            <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Permiso">
+              <MappingFragment StoreEntitySet="Permiso">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="requiereClave" ColumnName="requiereClave" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="modulo" ColumnName="modulo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Sistema">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Sistema">
               <MappingFragment StoreEntitySet="Sistema">
+                <ScalarProperty Name="clavePos" ColumnName="clavePos" />
+                <ScalarProperty Name="clave3" ColumnName="clave3" />
+                <ScalarProperty Name="clave2" ColumnName="clave2" />
+                <ScalarProperty Name="clave1" ColumnName="clave1" />
                 <ScalarProperty Name="autoMedioPagoOtro" ColumnName="autoMedioPagoOtro" />
                 <ScalarProperty Name="autoMedioPagoElectronico" ColumnName="autoMedioPagoElectronico" />
                 <ScalarProperty Name="autoMedioPagoDivisa" ColumnName="autoMedioPagoDivisa" />

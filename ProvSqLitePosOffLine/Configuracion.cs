@@ -509,6 +509,50 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibPosOffLine.Configuracion.ClaveAcceso.Ficha> Configuracion_ClavePos()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPosOffLine.Configuracion.ClaveAcceso.Ficha>();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var ent = cnn.Sistema.Find("0000000001");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "ENTIDAD CONFIGURACION DEL POS NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    };
+
+                    var clave = "";
+                    switch (ent.clavePos) 
+                    {
+                        case 1:
+                            clave = ent.clave1;
+                            break;
+                        case 2:
+                            clave = ent.clave2;
+                            break;
+                        case 3:
+                            clave = ent.clave3;
+                            break;
+                    }
+
+                    var nr = new DtoLibPosOffLine.Configuracion.ClaveAcceso.Ficha();
+                    nr.Clave = clave;
+                    result.Entidad = nr;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

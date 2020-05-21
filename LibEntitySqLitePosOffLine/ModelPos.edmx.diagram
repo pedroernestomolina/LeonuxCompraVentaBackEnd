@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="eb60b3614d814707b7ef7859a6faee73" Name="Diagram1" ZoomLevel="59">
+      <Diagram DiagramId="eb60b3614d814707b7ef7859a6faee73" Name="Diagram1" ZoomLevel="58">
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.ProductoBarra" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Cliente" Width="1.5" PointX="4.875" PointY="3.5" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.UsuarioGrupo" Width="1.5" PointX="3.375" PointY="6.75" />
@@ -20,7 +20,8 @@
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Cobrador" Width="1.5" PointX="12.375" PointY="3.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Transporte" Width="1.5" PointX="12.375" PointY="6.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.VentaPago" Width="1.5" PointX="12.375" PointY="9.75" />
-        <EntityTypeShape EntityType="LeonuxPosOffLineModel.Sistema" Width="1.5" PointX="3.375" PointY="9.75" />
+        <EntityTypeShape EntityType="LeonuxPosOffLineModel.Permiso" Width="1.5" PointX="5.375" PointY="13.75" />
+        <EntityTypeShape EntityType="LeonuxPosOffLineModel.Sistema" Width="1.5" PointX="10.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

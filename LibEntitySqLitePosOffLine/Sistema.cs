@@ -33,5 +33,9 @@ namespace LibEntitySqLitePosOffLine
         public string autoMedioPagoDivisa { get; set; }
         public string autoMedioPagoElectronico { get; set; }
         public string autoMedioPagoOtro { get; set; }
+        public string clave1 { get; set; }
+        public string clave2 { get; set; }
+        public string clave3 { get; set; }
+        public long clavePos { get; set; }
     }
 }

@@ -189,6 +189,9 @@ namespace ProvSqLitePosOffLine
             var list9 = new List<DataTransporte>();
             var exito = false;
             var factorCambio=0.0m;
+            var clave1 = "";
+            var clave2 = "";
+            var clave3 = "";
 
             try
             {
@@ -218,6 +221,10 @@ namespace ProvSqLitePosOffLine
                     var sql8 = "select auto,codigo,nombre from empresa_medios where estatus_cobro='1'";
                     var sql9 = "select auto,codigo,nombre from empresa_cobradores";
                     var sqlA = "select auto,codigo,nombre from empresa_transporte";
+                    var sqlB = "select usuario from sistema_configuracion where codigo='GLOBAL17'";
+                    var sqlC = "select usuario from sistema_configuracion where codigo='GLOBAL18'";
+                    var sqlD = "select usuario from sistema_configuracion where codigo='GLOBAL19'";
+
 
                     var sql1 = "select now()";
                     MySqlCommand comando1 = new MySqlCommand(sql1);
@@ -431,6 +438,30 @@ namespace ProvSqLitePosOffLine
                     }
                     reader.Close();
 
+                    MySqlCommand comandoB = new MySqlCommand(sqlB);
+                    comandoB.Connection = cn;
+                    var _cmB = comandoB.ExecuteScalar();
+                    if (_cmB != null)
+                    {
+                        clave1 = _cmB.ToString();
+                    }
+
+                    MySqlCommand comandoC = new MySqlCommand(sqlC);
+                    comandoC.Connection = cn;
+                    var _cmC = comandoC.ExecuteScalar();
+                    if (_cmC != null)
+                    {
+                        clave2=_cmC.ToString();
+                    }
+
+                    MySqlCommand comandoD = new MySqlCommand(sqlD);
+                    comandoD.Connection = cn;
+                    var _cmD = comandoD.ExecuteScalar();
+                    if (_cmD != null)
+                    {
+                        clave3=_cmD.ToString();
+                    }
+
                     exito = true;
                 };
             }
@@ -462,6 +493,9 @@ namespace ProvSqLitePosOffLine
                         if (factorCambio>0)
                         {
                             sistema.factorCambio =factorCambio;
+                            sistema.clave1 = clave1;
+                            sistema.clave2 = clave2;
+                            sistema.clave3 = clave3;
                             cnn.SaveChanges();
                         }
 
