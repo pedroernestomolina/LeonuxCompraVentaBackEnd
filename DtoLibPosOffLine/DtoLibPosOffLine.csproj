@@ -47,6 +47,7 @@
     <Compile Include="Configuracion\Cobrador\Ficha.cs" />
     <Compile Include="Configuracion\Deposito\Ficha.cs" />
     <Compile Include="Configuracion\Enumerados.cs" />
+    <Compile Include="Configuracion\Guardar\Ficha.cs" />
     <Compile Include="Configuracion\MedioCobro\Ficha.cs" />
     <Compile Include="Configuracion\MedioCobro\Medio.cs" />
     <Compile Include="Configuracion\ModoPos\Ficha.cs" />
@@ -78,6 +79,9 @@
     <Compile Include="VentaDocumento\AgregarItem.cs" />
     <Compile Include="VentaDocumento\AgregarItemLimpiar.cs" />
     <Compile Include="VentaDocumento\AgregarMetodoPago.cs" />
+    <Compile Include="VentaDocumento\Lista\Enumerados.cs" />
+    <Compile Include="VentaDocumento\Lista\Filtro.cs" />
+    <Compile Include="VentaDocumento\Lista\Resumen.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DtoLib\DtoLib.csproj">

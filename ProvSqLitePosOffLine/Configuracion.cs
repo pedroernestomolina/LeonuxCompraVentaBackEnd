@@ -553,6 +553,55 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
+        public DtoLib.Resultado Configuracion_Actualizar(DtoLibPosOffLine.Configuracion.Guardar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var ent = cnn.Sistema.Find("0000000001");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "ENTIDAD CONFIGURACION DEL POS NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    };
+
+                    ent.sucursalCodigo = ficha.CodigoSucursal;
+                    ent.activarRepesaje = ficha.ActivarRepesaje;
+                    ent.limiteRepesajeInferior = ficha.LimiteInferiorRepesaje;
+                    ent.limiteRepesajeSuperior = ficha.LimiteSuperiorRepesaje;
+                    ent.activarBusquedaPorDescripcion = ficha.ActivarBusquedaPorDescripcion;
+                    ent.clavePos = ent.clavePos;
+
+                    ent.serieFactura = ficha.SerieFactura;
+                    ent.serieNotaCredito = ficha.SerieNotaCredito;
+                    ent.serieNotaDebito= ficha.SerieNotaDebito;
+
+                    ent.autoDeposito = ficha.AutoDeposito;
+                    ent.autoCobrador = ficha.AutoCobrador;
+                    ent.autoVendedor = ficha.AutoVendedor;
+                    ent.autoTransporte = ficha.AutoTransporte;
+
+                    ent.autoMedioPagoEfectivo = ficha.AutoMedioEfectivo;
+                    ent.autoMedioPagoDivisa = ficha.AutoMedioDivisa;
+                    ent.autoMedioPagoElectronico= ficha.AutoMedioElectronico;
+                    ent.autoMedioPagoOtro = ficha.AutoMedioOtro;
+
+                    cnn.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

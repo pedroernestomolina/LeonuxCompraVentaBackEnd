@@ -192,6 +192,74 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
+        public DtoLib.ResultadoLista<DtoLibPosOffLine.VentaDocumento.Lista.Resumen> VentaDocumento_Lista(DtoLibPosOffLine.VentaDocumento.Lista.Filtro filtro)
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibPosOffLine.VentaDocumento.Lista.Resumen>();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var q = cnn.Venta.ToList();
+
+                    var list = new List<DtoLibPosOffLine.VentaDocumento.Lista.Resumen>();
+                    if (q != null)
+                    {
+                        if (q.Count() > 0)
+                        {
+                            result.Lista = q.Select(s =>
+                            {
+                                var isActivo = s.estatusActivo == 1 ? true : false;
+                                var tipoDocumento = DtoLibPosOffLine.VentaDocumento.Lista.Enumerados.EnumTipoDocumento.SinDefinir;
+                                switch (s.tipoDocumento) 
+                                {
+                                    case 1:
+                                        tipoDocumento = DtoLibPosOffLine.VentaDocumento.Lista.Enumerados.EnumTipoDocumento.Factura;
+                                        break;
+                                    case 2:
+                                        tipoDocumento = DtoLibPosOffLine.VentaDocumento.Lista.Enumerados.EnumTipoDocumento.NotaDebito;
+                                        break;
+                                    case 3:
+                                        tipoDocumento = DtoLibPosOffLine.VentaDocumento.Lista.Enumerados.EnumTipoDocumento.NotaCredito;
+                                        break;
+                                }
+                                var r = new DtoLibPosOffLine.VentaDocumento.Lista.Resumen()
+                                {
+                                     Id=(int)s.id,
+                                     Documento=s.documento,
+                                     Control=s.control,
+                                     FechaEmision=DateTime.Parse(s.fecha),
+                                     HoraEmision=s.hora,
+                                     NombreRazonSocial=s.nombreRazonSocial,
+                                     CiRif=s.ciRif,
+                                     Monto=s.montoTotal,
+                                     TipoDocumento=tipoDocumento,
+                                     IsActivo=isActivo,
+                                     Signo=(int)s.signo,
+                                };
+                                return r;
+                            }).ToList();
+                        }
+                        else
+                        {
+                            result.Lista = list;
+                        }
+                    }
+                    else
+                    {
+                        result.Lista = list;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

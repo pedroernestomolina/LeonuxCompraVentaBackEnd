@@ -23,6 +23,7 @@ namespace IPosOffLine
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Configuracion.MedioCobro.Ficha> Configuracion_MedioCobro();
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Configuracion.ClaveAcceso.Ficha> Configuracion_ClavePos();
         DtoLib.ResultadoEntidad<bool> Configuracion_ActivarBusquedaPorDescripcion();
+        DtoLib.Resultado Configuracion_Actualizar(DtoLibPosOffLine.Configuracion.Guardar.Ficha ficha);
 
     }
 
