@@ -42,5 +42,6 @@ namespace LibEntitySqLitePosOffLine
         public virtual DbSet<VentaPago> VentaPago { get; set; }
         public virtual DbSet<Permiso> Permiso { get; set; }
         public virtual DbSet<Sistema> Sistema { get; set; }
+        public virtual DbSet<Serie> Serie { get; set; }
     }
 }

@@ -157,6 +157,14 @@
           <Property Name="autoProducto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
+        <EntityType Name="Serie">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="serie" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="control" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
         <EntityType Name="Sistema">
           <Key>
             <PropertyRef Name="auto" />
@@ -352,6 +360,7 @@
           <EntitySet Name="Permiso" EntityType="Self.Permiso" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" store:Type="Tables" />
           <EntitySet Name="ProductoBarra" EntityType="Self.ProductoBarra" store:Type="Tables" />
+          <EntitySet Name="Serie" EntityType="Self.Serie" store:Type="Tables" />
           <EntitySet Name="Sistema" EntityType="Self.Sistema" store:Type="Tables" />
           <EntitySet Name="Transporte" EntityType="Self.Transporte" store:Type="Tables" />
           <EntitySet Name="UsuarioGrupo" EntityType="Self.UsuarioGrupo" store:Type="Tables" />
@@ -382,6 +391,7 @@
           <EntitySet Name="VentaPago" EntityType="LeonuxPosOffLineModel.VentaPago" />
           <EntitySet Name="Permiso" EntityType="LeonuxPosOffLineModel.Permiso" />
           <EntitySet Name="Sistema" EntityType="LeonuxPosOffLineModel.Sistema" />
+          <EntitySet Name="Serie" EntityType="LeonuxPosOffLineModel.Serie" />
         </EntityContainer>
         <EntityType Name="ProductoBarra">
           <Key>
@@ -718,6 +728,14 @@
           <Property Name="clave2" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="clave3" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="clavePos" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Serie">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="serie1" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="control" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1074,6 +1092,15 @@
                 <ScalarProperty Name="serieFactura" ColumnName="serieFactura" />
                 <ScalarProperty Name="sucursalCodigo" ColumnName="sucursalCodigo" />
                 <ScalarProperty Name="factorCambio" ColumnName="factorCambio" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Serie">
+            <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Serie">
+              <MappingFragment StoreEntitySet="Serie">
+                <ScalarProperty Name="control" ColumnName="control" />
+                <ScalarProperty Name="serie1" ColumnName="serie" />
                 <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>

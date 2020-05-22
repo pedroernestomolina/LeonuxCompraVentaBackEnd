@@ -70,6 +70,7 @@
     <Compile Include="Producto\Precio.cs" />
     <Compile Include="Producto\Resumen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serie\Ficha.cs" />
     <Compile Include="Transporte\Ficha.cs" />
     <Compile Include="Usuario\Ficha.cs" />
     <Compile Include="Vendedor\Ficha.cs" />

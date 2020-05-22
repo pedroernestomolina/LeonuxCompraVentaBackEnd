@@ -127,6 +127,13 @@ namespace ProvSqLitePosOffLine
         public string Nombre { get; set; }
     }
 
+    public class DataSerie
+    {
+        public string Auto { get; set; }
+        public string Serie { get; set; }
+        public string Control { get; set; }
+    }
+
 
     public partial class Provider : IPosOffLine.IProvider
     {
@@ -187,6 +194,7 @@ namespace ProvSqLitePosOffLine
             var list7 = new List<DataMedioCobro>();
             var list8 = new List<DataCobrador>();
             var list9 = new List<DataTransporte>();
+            var listA = new List<DataSerie>();
             var exito = false;
             var factorCambio=0.0m;
             var clave1 = "";
@@ -224,6 +232,7 @@ namespace ProvSqLitePosOffLine
                     var sqlB = "select usuario from sistema_configuracion where codigo='GLOBAL17'";
                     var sqlC = "select usuario from sistema_configuracion where codigo='GLOBAL18'";
                     var sqlD = "select usuario from sistema_configuracion where codigo='GLOBAL19'";
+                    var sqlE = "select auto, serie, control from empresa_series_fiscales where estatus='Activo'";
 
 
                     var sql1 = "select now()";
@@ -461,6 +470,19 @@ namespace ProvSqLitePosOffLine
                     {
                         clave3=_cmD.ToString();
                     }
+
+                    MySqlCommand comandoE = new MySqlCommand(sqlE);
+                    comandoE.Connection = cn;
+                    reader = comandoE.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var nr = new DataSerie();
+                        nr.Auto = reader.GetString("auto");
+                        nr.Serie = reader.GetString("serie");
+                        nr.Control = reader.GetString("control");
+                        listA.Add(nr);
+                    }
+                    reader.Close();
 
                     exito = true;
                 };
@@ -711,6 +733,20 @@ namespace ProvSqLitePosOffLine
                         cnn.Transporte.AddRange(listTransporte);
                         cnn.SaveChanges();
 
+
+                        var listSerie = new List<LibEntitySqLitePosOffLine.Serie>();
+                        foreach (var r in listA)
+                        {
+                            var nr = new LibEntitySqLitePosOffLine.Serie()
+                            {
+                                auto = r.Auto,
+                                serie1=r.Serie,
+                                control=r.Control,
+                            };
+                            listSerie.Add(nr);
+                        }
+                        cnn.Serie.AddRange(listSerie);
+                        cnn.SaveChanges();
 
                         cnn.Configuration.AutoDetectChangesEnabled = true;
                     }
