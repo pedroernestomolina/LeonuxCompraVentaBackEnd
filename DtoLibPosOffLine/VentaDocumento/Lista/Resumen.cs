@@ -22,6 +22,7 @@ namespace DtoLibPosOffLine.VentaDocumento.Lista
         public Enumerados.EnumTipoDocumento TipoDocumento { get; set; }
         public bool IsActivo { get; set; }
         public int Signo { get; set; }
+        public int Renglones { get; set; }
 
     }
 

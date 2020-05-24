@@ -236,6 +236,7 @@ namespace ProvSqLitePosOffLine
                                      TipoDocumento=tipoDocumento,
                                      IsActivo=isActivo,
                                      Signo=(int)s.signo,
+                                     Renglones=(int)s.renglones,
                                 };
                                 return r;
                             }).ToList();
