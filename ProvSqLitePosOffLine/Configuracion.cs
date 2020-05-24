@@ -574,7 +574,7 @@ namespace ProvSqLitePosOffLine
                     ent.limiteRepesajeInferior = ficha.LimiteInferiorRepesaje;
                     ent.limiteRepesajeSuperior = ficha.LimiteSuperiorRepesaje;
                     ent.activarBusquedaPorDescripcion = ficha.ActivarBusquedaPorDescripcion;
-                    ent.clavePos = ent.clavePos;
+                    ent.clavePos = ficha.ClavePos;
 
                     ent.serieFactura = ficha.SerieFactura;
                     ent.serieNotaCredito = ficha.SerieNotaCredito;
@@ -591,6 +591,56 @@ namespace ProvSqLitePosOffLine
                     ent.autoMedioPagoOtro = ficha.AutoMedioOtro;
 
                     cnn.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibPosOffLine.Configuracion.Actual.Ficha> Configuracion_ActualCargar()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPosOffLine.Configuracion.Actual.Ficha>();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var ent = cnn.Sistema.Find("0000000001");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "ENTIDAD CONFIGURACION DEL POS NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    };
+
+                    var ficha = new DtoLibPosOffLine.Configuracion.Actual.Ficha();
+                    ficha.CodigoSucursal =ent.sucursalCodigo ;
+                    ficha.ActivarRepesaje= ent.activarRepesaje.Trim().ToUpper()=="S"?true:false;
+                    ficha.LimiteInferiorRepesaje=ent.limiteRepesajeInferior;
+                    ficha.LimiteSuperiorRepesaje=ent.limiteRepesajeSuperior;
+                    ficha.ActivarBusquedaPorDescripcion=ent.activarBusquedaPorDescripcion.Trim().ToUpper()=="S"?true:false;
+                    ficha.ClavePos=(int)ent.clavePos ;
+
+                    ficha.SerieFactura=ent.serieFactura;
+                    ficha.SerieNotaCredito= ent.serieNotaCredito;
+                    ficha.SerieNotaDebito= ent.serieNotaDebito;
+
+                    ficha.AutoDeposito = ent.autoDeposito;
+                    ficha.AutoCobrador=ent.autoCobrador;
+                    ficha.AutoVendedor=ent.autoVendedor;
+                    ficha.AutoTransporte= ent.autoTransporte;
+
+                    ficha.AutoMedioEfectivo= ent.autoMedioPagoEfectivo;
+                    ficha.AutoMedioDivisa= ent.autoMedioPagoDivisa;
+                    ficha.AutoMedioElectronico= ent.autoMedioPagoElectronico;
+                    ficha.AutoMedioOtro= ent.autoMedioPagoOtro;
+
+                    result.Entidad = ficha;
                 }
             }
             catch (Exception e)

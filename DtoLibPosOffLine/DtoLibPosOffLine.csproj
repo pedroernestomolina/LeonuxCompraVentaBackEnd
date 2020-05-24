@@ -43,6 +43,7 @@
     <Compile Include="Cliente\Ficha.cs" />
     <Compile Include="Cliente\Resumen.cs" />
     <Compile Include="Cobrador\Ficha.cs" />
+    <Compile Include="Configuracion\Actual\Ficha.cs" />
     <Compile Include="Configuracion\ClaveAcceso\Ficha.cs" />
     <Compile Include="Configuracion\Cobrador\Ficha.cs" />
     <Compile Include="Configuracion\Deposito\Ficha.cs" />
