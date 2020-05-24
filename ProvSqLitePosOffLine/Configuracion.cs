@@ -135,11 +135,41 @@ namespace ProvSqLitePosOffLine
                         return result;
                     };
 
+                    var factura = "";
+                    if (ent.serieFactura != "") 
+                    {
+                        var entSerieFactura = cnn.Serie.Find(ent.serieFactura);
+                        if (entSerieFactura != null) 
+                        {
+                            factura = entSerieFactura.serie1;
+                        }
+                    }
+
+                    var ntCredito= "";
+                    if (ent.serieNotaCredito != "")
+                    {
+                        var entSerieNotaCredito= cnn.Serie.Find(ent.serieNotaCredito);
+                        if (entSerieNotaCredito != null)
+                        {
+                            ntCredito = entSerieNotaCredito.serie1;
+                        }
+                    }
+
+                    var ntDebito= "";
+                    if (ent.serieNotaDebito != "")
+                    {
+                        var entSerieNotaDebito= cnn.Serie.Find(ent.serieNotaDebito);
+                        if (entSerieNotaDebito != null)
+                        {
+                            ntDebito = entSerieNotaDebito.serie1;
+                        }
+                    }
+
                     var nr = new DtoLibPosOffLine.Configuracion.Serie.Ficha()
                     {
-                        ParaFactura=ent.serieFactura,
-                        ParaNotaCredito=ent.serieNotaCredito,
-                        ParaNotaDebito=ent.serieNotaDebito,
+                        ParaFactura=factura,
+                        ParaNotaCredito=ntCredito,
+                        ParaNotaDebito=ntDebito,
                     };
                     result.Entidad = nr;
                 }
