@@ -13,6 +13,7 @@ namespace IPosOffLine
 
         DtoLib.ResultadoId VentaDocumento_Agregar(DtoLibPosOffLine.VentaDocumento.Agregar agregar);
         DtoLib.ResultadoLista<DtoLibPosOffLine.VentaDocumento.Lista.Resumen> VentaDocumento_Lista(DtoLibPosOffLine.VentaDocumento.Lista.Filtro filtro);
+        DtoLib.Resultado VentaDocumento_Anular(int idDocumento);
 
     }
 

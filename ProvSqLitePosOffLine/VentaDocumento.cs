@@ -261,6 +261,41 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
+        public DtoLib.Resultado VentaDocumento_Anular(int idDocumento)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var entVenta = cnn.Venta.Find(idDocumento);
+                    if (entVenta == null) 
+                    {
+                        result.Mensaje = "[ ID ] DOCUMENTO DE VENTA, NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    if (entVenta.estatusActivo==0)
+                    {
+                        result.Mensaje = "DOCUMENTO DE VENTA, YA SE ENCUENTRA ANULADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    entVenta.estatusActivo = 0;
+                    cnn.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

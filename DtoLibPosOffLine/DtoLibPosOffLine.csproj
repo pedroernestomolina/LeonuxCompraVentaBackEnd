@@ -66,6 +66,8 @@
     <Compile Include="Pendiente\DejarEnPendiente\Agregar.cs" />
     <Compile Include="Pendiente\DejarEnPendiente\AgregarItem.cs" />
     <Compile Include="Pendiente\Listar\Resumen.cs" />
+    <Compile Include="Permiso\AdmDocumento\Ficha.cs" />
+    <Compile Include="Permiso\permiso.cs" />
     <Compile Include="Permiso\Pos\Ficha.cs" />
     <Compile Include="Permiso\Pos\Permiso.cs" />
     <Compile Include="Producto\Ficha.cs" />

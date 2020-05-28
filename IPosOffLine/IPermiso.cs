@@ -12,6 +12,7 @@ namespace IPosOffLine
     {
 
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Permiso.Pos.Ficha> Permiso_ManejoPos();
+        DtoLib.ResultadoEntidad<DtoLibPosOffLine.Permiso.AdmDocumento.Ficha> Permiso_AdmDocumento();
 
     }
 

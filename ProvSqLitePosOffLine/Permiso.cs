@@ -122,6 +122,57 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibPosOffLine.Permiso.AdmDocumento.Ficha> Permiso_AdmDocumento()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPosOffLine.Permiso.AdmDocumento.Ficha>();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var anular = new DtoLibPosOffLine.Permiso.permiso();
+                    var reimprimir  = new DtoLibPosOffLine.Permiso.permiso();
+                    var notacredito  = new DtoLibPosOffLine.Permiso.permiso();
+                    var nr = new DtoLibPosOffLine.Permiso.AdmDocumento.Ficha();
+
+                    var ent = cnn.Permiso.FirstOrDefault(f => f.modulo == 3 && f.codigo == "01");
+                    if (ent != null)
+                    {
+                        anular.Codigo = ent.codigo;
+                        anular.Descripcion = ent.descripcion;
+                        anular.RequiereClave = ent.requiereClave.Trim().ToUpper() == "S" ? true : false;
+                    }
+                    nr.Anular = anular;
+
+                    ent = cnn.Permiso.FirstOrDefault(f => f.modulo == 3 && f.codigo == "02");
+                    if (ent != null)
+                    {
+                        notacredito.Codigo = ent.codigo;
+                        notacredito.Descripcion = ent.descripcion;
+                        notacredito.RequiereClave = ent.requiereClave.Trim().ToUpper() == "S" ? true : false;
+                    }
+                    nr.NotaCredito = notacredito;
+
+                    ent = cnn.Permiso.FirstOrDefault(f => f.modulo == 3 && f.codigo == "03");
+                    if (ent != null)
+                    {
+                        reimprimir.Codigo = ent.codigo;
+                        reimprimir.Descripcion = ent.descripcion;
+                        reimprimir.RequiereClave = ent.requiereClave.Trim().ToUpper() == "S" ? true : false;
+                    }
+                    nr.ReImprimir = reimprimir;
+                    result.Entidad = nr;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }
