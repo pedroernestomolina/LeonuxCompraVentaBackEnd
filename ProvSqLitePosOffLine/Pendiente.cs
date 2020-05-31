@@ -115,59 +115,6 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
-        public DtoLib.Resultado Pendiente_AbrirCtaEnPendiente(int id)
-        {
-            var result = new DtoLib.Resultado();
-
-            try
-            {
-                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
-                {
-
-                    using (var ts = cnn.Database.BeginTransaction())
-                    {
-                        var entPend = cnn.Pendiente.Find(id);
-                        if (entPend == null) 
-                        {
-                            result.Mensaje = "CUENTA PENDIENTE NO ENCONTRADA";
-                            result.Result = DtoLib.Enumerados.EnumResult.isError;
-                            return result;
-                        }
-
-                        var entItems = cnn.Item.Where(w => w.idPendiente == id).ToList();
-                        if (entItems == null) 
-                        {
-                            result.Mensaje = "ITEMS NO DEFINIDOS";
-                            result.Result = DtoLib.Enumerados.EnumResult.isError;
-                            return result;
-                        }
-                        if (entItems.Count==0)
-                        {
-                            result.Mensaje = "ITEMS NO ENCONTRADOS";
-                            result.Result = DtoLib.Enumerados.EnumResult.isError;
-                            return result;
-                        }
-
-                        cnn.Pendiente.Remove(entPend);
-                        foreach (var rg in entItems)
-                        {
-                            rg.idPendiente = -1;
-                            cnn.SaveChanges();
-                        }
-
-                        ts.Commit();
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                result.Mensaje = e.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return result;
-        }
-
         public DtoLib.Resultado Pendiente_EliminarCtaEnPendiente(int id)
         {
             var result = new DtoLib.Resultado();
@@ -207,6 +154,92 @@ namespace ProvSqLitePosOffLine
                         cnn.Item.RemoveRange(entItems);
                         cnn.SaveChanges();
 
+                        ts.Commit();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        DtoLib.ResultadoEntidad<DtoLibPosOffLine.Pendiente.CtaAbrir.Ficha> IPosOffLine.IPendiente.Pendiente_AbrirCtaEnPendiente(int id)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPosOffLine.Pendiente.CtaAbrir.Ficha>();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    using (var ts = cnn.Database.BeginTransaction())
+                    {
+                        var ficha = new DtoLibPosOffLine.Pendiente.CtaAbrir.Ficha();
+                        var list = new List<DtoLibPosOffLine.Item.Ficha>();
+
+                        var entPend = cnn.Pendiente.Find(id);
+                        if (entPend == null)
+                        {
+                            result.Mensaje = "CUENTA PENDIENTE NO ENCONTRADA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        var entItems = cnn.Item.Where(w => w.idPendiente == id).ToList();
+                        if (entItems == null)
+                        {
+                            result.Mensaje = "ITEMS NO DEFINIDOS";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        if (entItems.Count == 0)
+                        {
+                            result.Mensaje = "ITEMS NO ENCONTRADOS";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        ficha.IdCliente =(int) entPend.idCliente;
+                        cnn.Pendiente.Remove(entPend);
+                        foreach (var s in entItems)
+                        {
+                            var esPesado = s.esPesado == 1 ? true : false;
+                            var nr = new DtoLibPosOffLine.Item.Ficha()
+                            {
+                                Id = (int)s.id,
+                                AutoPrd = s.autoPrd,
+                                NombrePrd = s.nombrePrd,
+                                Cantidad = s.cantidad,
+                                TasaImpuesto = s.tasaIva,
+                                PrecioNeto = s.precioNeto,
+                                EsPesado = esPesado,
+                                TipoIva = s.tipoIva,
+                                CostoCompraUnd = s.costoUnd,
+                                CostoPromedioUnd = s.costoPromUnd,
+                                AutoDepartamento = s.autoDepartamento,
+                                AutoGrupo = s.autoGrupo,
+                                AutoSubGrupo = s.autoSubGrupo,
+                                AutoTasaIva = s.autoTasa,
+                                Categoria = s.categoria,
+                                CodigoPrd = s.codigoProducto,
+                                Decimales = s.decimales,
+                                DiasEmpaqueGarantia = (int)s.diasEmpaqueGarantia,
+                                EmpContenido = (int)s.empaqueContenido,
+                                EmpCodigo = s.empaqueCodigo,
+                                EmpDescripcion = s.empaqueDescripcion,
+                                TarifaPrecio = s.tarifaPrecio,
+                                PrecioSugerido = s.precioSugerido,
+                            };
+                            list.Add(nr);
+
+                            s.idPendiente = -1;
+                            cnn.SaveChanges();
+                        }
+                        ficha.Items = list;
+                        result.Entidad = ficha;
                         ts.Commit();
                     }
                 }

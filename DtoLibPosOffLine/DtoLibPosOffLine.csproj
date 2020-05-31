@@ -63,6 +63,7 @@
     <Compile Include="Item\Agregar.cs" />
     <Compile Include="Item\Ficha.cs" />
     <Compile Include="MedioCobro\Ficha.cs" />
+    <Compile Include="Pendiente\CtaAbrir\Ficha.cs" />
     <Compile Include="Pendiente\DejarEnPendiente\Agregar.cs" />
     <Compile Include="Pendiente\DejarEnPendiente\AgregarItem.cs" />
     <Compile Include="Pendiente\Listar\Resumen.cs" />
@@ -92,9 +93,7 @@
       <Name>DtoLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pendiente\AbrirEnPendiente\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
