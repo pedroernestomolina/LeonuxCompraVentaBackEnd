@@ -289,6 +289,7 @@
           <Property Name="montoRecibido" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="cambioDar" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="esCredito" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="idCliente" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="VentaDetalle">
           <Key>
@@ -333,6 +334,9 @@
           <Property Name="utilidadPorct" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="precioItem" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="totalDescuento" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="tipoIva" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="esPesado" Type="integer" Nullable="false" />
+          <Property Name="empaqueCodigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="VentaPago">
           <Key>
@@ -527,6 +531,7 @@
           <Property Name="montoRecibido" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="cambioDar" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="esCredito" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="idCliente" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="VentaDetalle">
           <Key>
@@ -571,6 +576,9 @@
           <Property Name="utilidadPorct" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="precioItem" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="totalDescuento" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="tipoIva" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="esPesado" Type="Int64" Nullable="false" />
+          <Property Name="empaqueCodigo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Producto">
           <Key>
@@ -816,6 +824,7 @@
           <EntitySetMapping Name="Venta">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Venta">
               <MappingFragment StoreEntitySet="Venta">
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
                 <ScalarProperty Name="esCredito" ColumnName="esCredito" />
                 <ScalarProperty Name="cambioDar" ColumnName="cambioDar" />
                 <ScalarProperty Name="montoRecibido" ColumnName="montoRecibido" />
@@ -887,6 +896,9 @@
           <EntitySetMapping Name="VentaDetalle">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.VentaDetalle">
               <MappingFragment StoreEntitySet="VentaDetalle">
+                <ScalarProperty Name="empaqueCodigo" ColumnName="empaqueCodigo" />
+                <ScalarProperty Name="esPesado" ColumnName="esPesado" />
+                <ScalarProperty Name="tipoIva" ColumnName="tipoIva" />
                 <ScalarProperty Name="totalDescuento" ColumnName="totalDescuento" />
                 <ScalarProperty Name="precioItem" ColumnName="precioItem" />
                 <ScalarProperty Name="utilidadPorct" ColumnName="utilidadPorct" />

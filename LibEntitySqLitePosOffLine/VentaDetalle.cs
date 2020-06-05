@@ -53,5 +53,8 @@ namespace LibEntitySqLitePosOffLine
         public decimal utilidadPorct { get; set; }
         public decimal precioItem { get; set; }
         public decimal totalDescuento { get; set; }
+        public string tipoIva { get; set; }
+        public long esPesado { get; set; }
+        public string empaqueCodigo { get; set; }
     }
 }

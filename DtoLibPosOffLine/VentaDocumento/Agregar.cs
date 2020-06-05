@@ -16,6 +16,7 @@ namespace DtoLibPosOffLine.VentaDocumento
         public string UsuarioDescripcion { get; set; }
         public string Estacion { get; set; }
 
+        public string HoraEmision { get; set; }
         public string Serie { get; set; }
         public string Documento { get; set; }
         public string Control { get; set; }
@@ -26,6 +27,7 @@ namespace DtoLibPosOffLine.VentaDocumento
         public int Renglones { get; set; }
         public string CodigoSucursal { get; set; }
 
+        public int ClienteId { get; set; }
         public string ClienteCiRif { get; set; }
         public string ClienteNombreRazonSocial { get; set; }
         public string ClienteDirFiscal { get; set; }

@@ -79,5 +79,6 @@ namespace LibEntitySqLitePosOffLine
         public decimal montoRecibido { get; set; }
         public decimal cambioDar { get; set; }
         public string esCredito { get; set; }
+        public long idCliente { get; set; }
     }
 }

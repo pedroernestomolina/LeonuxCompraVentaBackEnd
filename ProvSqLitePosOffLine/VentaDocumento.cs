@@ -22,7 +22,7 @@ namespace ProvSqLitePosOffLine
 
                     using (var ts = cnn.Database.BeginTransaction())
                     {
-                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select date('now')").FirstOrDefault();
+                        var fechaSistema = DateTime.Now.Date; //cnn.Database.SqlQuery<DateTime>("select date('now')").FirstOrDefault();
                         var mesRelacion = fechaSistema.Month.ToString().Trim().PadLeft(2, '0');
                         var anoRelacion = fechaSistema.Year.ToString();
 
@@ -30,6 +30,7 @@ namespace ProvSqLitePosOffLine
                         {
                             documento = ficha.Documento,
                             fecha = fechaSistema.ToShortDateString(),
+                            idCliente=ficha.ClienteId,
                             nombreRazonSocial = ficha.ClienteNombreRazonSocial,
                             dirFiscal = ficha.ClienteDirFiscal,
                             ciRif = ficha.ClienteCiRif,
@@ -61,7 +62,7 @@ namespace ProvSqLitePosOffLine
                             factorCambio = ficha.FactorCambio,
                             usuario = ficha.UsuarioDescripcion,
                             usuarioCodigo = ficha.UsuarioCodigo,
-                            hora = fechaSistema.ToShortTimeString(),
+                            hora = ficha.HoraEmision,
                             montoDivisa = ficha.MontoDivisa,
                             estacion = ficha.Estacion,
                             renglones = ficha.Renglones,
@@ -118,6 +119,7 @@ namespace ProvSqLitePosOffLine
                                 diaEmpaqueGarantia = rg.DiasEmpaqueGarantia,
                                 empaqueContenido = rg.EmpaqueContenido,
                                 empaqueDescripcion = rg.EmpaqueDescripcion,
+                                empaqueCodigo=rg.EmpaqueCodigo,
                                 montoDesc1 = rg.MontoDscto_1,
                                 montoDesc2 = rg.MontoDscto_2,
                                 montoDesc3 = rg.MontoDscto_3,
@@ -139,6 +141,8 @@ namespace ProvSqLitePosOffLine
                                 utilidadMonto = rg.MontoUtilidad,
                                 utilidadPorct = rg.PorctUtilidad,
                                 totalDescuento = rg.TotalDescuento,
+                                tipoIva=rg.TipoIva,
+                                esPesado=rg.EsPesado,
                             };
                             cnn.VentaDetalle.Add(entItem);
                             cnn.SaveChanges();
@@ -285,6 +289,184 @@ namespace ProvSqLitePosOffLine
 
                     entVenta.estatusActivo = 0;
                     cnn.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibPosOffLine.VentaDocumento.Cargar.Ficha> VentaDocumento_Cargar(int idDocumento)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPosOffLine.VentaDocumento.Cargar.Ficha>();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var q = cnn.Venta.Find(idDocumento);
+                    var qd = cnn.VentaDetalle.Where(f=>f.idVenta==idDocumento).ToList();
+
+                    if (qd==null)
+                    {
+                        result.Entidad=null;
+                        result.Mensaje="DETALLES/ITEM NO ENCONTRADOS";
+                        result.Result= DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    if (qd.Count==0)
+                    {
+                        result.Entidad=null;
+                        result.Mensaje="DETALLES/ITEM NO ENCONTRADOS";
+                        result.Result= DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    if (q != null)
+                    {
+                        var s = q;
+                        var isActivo = s.estatusActivo == 1 ? true : false;
+                        var isCredito = s.esCredito.Trim().ToUpper() == "S" ? true : false;
+                        var tipoDocumento = DtoLibPosOffLine.VentaDocumento.Cargar.Enumerados.EnumTipoDocumento.SinDefinir;
+                        switch (s.tipoDocumento)
+                        {
+                            case 1:
+                                tipoDocumento = DtoLibPosOffLine.VentaDocumento.Cargar.Enumerados.EnumTipoDocumento.Factura;
+                                break;
+                            case 2:
+                                tipoDocumento = DtoLibPosOffLine.VentaDocumento.Cargar.Enumerados.EnumTipoDocumento.NotaDebito;
+                                break;
+                            case 3:
+                                tipoDocumento = DtoLibPosOffLine.VentaDocumento.Cargar.Enumerados.EnumTipoDocumento.NotaCredito;
+                                break;
+                        }
+
+                        var nr = new DtoLibPosOffLine.VentaDocumento.Cargar.Ficha()
+                        {
+                            AnoRelacion = s.anoRelacion,
+                            Aplica = s.aplica,
+                            Base1 = s.base1,
+                            Base2 = s.base2,
+                            Base3 = s.base3,
+                            CambioDar = s.cambioDar,
+                            CargoMonto_1 = s.cargoMonto1,
+                            CargoPorc_1 = s.cargoPorc_1,
+                            CiRif = s.ciRif,
+                            ClienteDirFiscal = s.dirFiscal,
+                            ClienteId =(int) s.idCliente,
+                            ClienteNombre = s.nombreRazonSocial,
+                            ClienteTelefono = s.telefono,
+                            CobradorAuto = s.autoCobrador,
+                            CobradorCodigo = s.codigoCobrador,
+                            CobradorNombre = s.cobrador,
+                            CodigoSucursal = s.codigoSucursal,
+                            Control = s.control,
+                            DepositoAuto = s.autoDeposito,
+                            DepositoCodigo = s.codigoDeposito,
+                            DepositoNombre = s.deposito,
+                            DesctoMonto_1 = s.descuentoMonto1,
+                            DesctoMonto_2 = s.descuentoMonto2,
+                            DesctoPorc_1 = s.descuentoPorc1,
+                            DesctoPorc_2 = s.descuentoPorc2,
+                            Documento = s.documento,
+                            Estacion = s.estacion,
+                            FactorCambio = s.factorCambio,
+                            Fecha = DateTime.Parse(s.fecha),
+                            Hora = s.hora,
+                            Impuesto1 = s.impuesto1,
+                            Impuesto2 = s.impuesto2,
+                            Impuesto3 = s.impuesto3,
+                            IsActiva = isActivo,
+                            IsCredito = isCredito,
+                            MesRelacion = s.mesRelacion,
+                            MontoBase = s.montoBase,
+                            MontoCostoVenta = s.montoCostoVenta,
+                            MontoDivisa = s.montoDivisa,
+                            MontoExento = s.montoExento,
+                            MontoImpuesto = s.montoImpuesto,
+                            MontoRecibido = s.montoRecibido,
+                            MontoSubt = s.montoSubTotal,
+                            MontoSubtImpuesto = s.montoSubTotalImpuesto,
+                            MontoSubtNeto = s.montoSubTotalNeto,
+                            MontoTotal = s.montoTotal,
+                            MontoUtilidad = s.montoUtilidad,
+                            MontoUtilidadPorc = s.montoUtilidadPorc,
+                            MontoVentaNeta = s.montoVentaNeta,
+                            Renglones = (int)s.renglones,
+                            Serie = s.serie,
+                            Signo = (int)s.signo,
+                            TasaIva1 = s.tasaIva1,
+                            TasaIva2 = s.tasaIva2,
+                            TasaIva3 = s.tasaIva3,
+                            TipoDocumento = tipoDocumento,
+                            TranporteAuto = s.autoTransporte,
+                            TranporteCodigo = s.codigoTransporte,
+                            TranporteNombre = s.transporte,
+                            UsuarioAuto = s.autoUsuario,
+                            UsuarioCodigo = s.usuarioCodigo,
+                            UsuarioNombre = s.usuario,
+                            VendedorAuto = s.autoVendedor,
+                            VendedorCodigo = s.codigoVendedor,
+                            VendedorNombre = s.vendedor,
+                        };
+
+                        var det = qd.Select(t =>
+                        {
+                            var esPesado = t.esPesado == 1 ? true : false;
+                            var rg = new DtoLibPosOffLine.VentaDocumento.Cargar.Detalle()
+                            {
+                                AutoDepartamento = t.autoDepartamento,
+                                AutoGrupo = t.autoGrupo,
+                                AutoProducto = t.autoProducto,
+                                AutoSubGrupo = t.autoSubGrupo,
+                                AutoTasa = t.autoTasa,
+                                Cantidad = t.cantidad,
+                                CantidadUnd = t.cantidadUnd,
+                                Categoria = t.categoria,
+                                CodigoProducto = t.codigoProducto,
+                                CostoCompraUnd = t.costoCompraUnd,
+                                CostoPromedioUnd = t.costoPromedioUnd,
+                                CostoVenta = t.costoVenta,
+                                Decimales = t.decimales,
+                                DiaEmpaqueGarantia = (int)t.diaEmpaqueGarantia,
+                                EmpaqueContenido = (int)t.empaqueContenido,
+                                EmpaqueDescripcion = t.empaqueDescripcion,
+                                EmpaqueCodigo=t.empaqueCodigo,
+                                Id = (int)t.id,
+                                MontoDscto_1 = t.montoDesc1,
+                                MontoDscto_2 = t.montoDesc2,
+                                MontoDscto_3 = t.montoDesc3,
+                                MontoIva = t.montoIva,
+                                NombreProducto = t.NombreProducto,
+                                Notas = t.notas,
+                                PorcDscto_1 = t.porctDesc1,
+                                PorcDscto_2 = t.porctDesc2,
+                                PorcDscto_3 = t.porctDesc3,
+                                PrecioFinal = t.precioFinal,
+                                PrecioItem = t.precioItem,
+                                PrecioNeto = t.precioNeto,
+                                PrecioSugerido = t.precioSugerido,
+                                PrecioUnd = t.precioSugerido,
+                                Tarifa = t.tarifa,
+                                TasaIva = t.tasaIva,
+                                Total = t.total,
+                                TotalDescuento = t.totalDescuento,
+                                TotalNeto = t.totalNeto,
+                                UtilidadMonto = t.utilidadMonto,
+                                UtilidadPorct = t.utilidadPorct,
+                                EsPesado=esPesado,
+                                TipoIva=t.tipoIva,
+                            };
+                            return rg;
+                        }).ToList();
+
+                        nr.Detalles = det;
+                        result.Entidad = nr;
+                    }
                 }
             }
             catch (Exception e)
