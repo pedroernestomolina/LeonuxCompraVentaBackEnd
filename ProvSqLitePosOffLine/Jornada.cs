@@ -99,16 +99,22 @@ namespace ProvSqLitePosOffLine
                     }
                     var estatus = DtoLibPosOffLine.Jornada.Enumerado.EnumEstatus.SinDefinir;
                     var estatusTransmitida = DtoLibPosOffLine.Jornada.Enumerado.EnumEstatusTrasmicion.SinDefinir;
+                    DateTime? fechaCierre = null;
+                    if (ent.fechaCierre.Trim().ToUpper() != "") 
+                    {
+                        fechaCierre = DateTime.Parse(ent.fechaCierre);
+                    }
                     estatus = ent.estatus == "A" ? DtoLibPosOffLine.Jornada.Enumerado.EnumEstatus.Abierta : DtoLibPosOffLine.Jornada.Enumerado.EnumEstatus.Cerrada;
                     estatusTransmitida = ent.estatusTransmitida == "T" ? DtoLibPosOffLine.Jornada.Enumerado.EnumEstatusTrasmicion.Transmitida : DtoLibPosOffLine.Jornada.Enumerado.EnumEstatusTrasmicion.NoTransmitida;
-
+                    
                     var nr = new DtoLibPosOffLine.Jornada.Cargar.Ficha()
                     {
+                        Id=(int)ent.id,
                         Estatus = estatus,
                         EstatusTransmicion =estatusTransmitida,
                         FechaApertura= DateTime.Parse(ent.fechaApertura),
                         HoraApertura=ent.horaApertura,
-                        FechaCierre = DateTime.Parse(ent.fechaCierre),
+                        FechaCierre = fechaCierre,
                         HoraCierre = ent.horaCierre,
                     };
                     result.Entidad = nr;
