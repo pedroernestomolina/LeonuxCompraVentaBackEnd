@@ -68,6 +68,18 @@
           <Property Name="tarifaPrecio" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="precioSugerido" Type="decimal" Precision="53" Scale="0" Nullable="false" />
         </EntityType>
+        <EntityType Name="Jornada">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechaApertura" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="horaApertura" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="estatus" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="fechaCierre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="horaCierre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="estatusTransmitida" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
         <EntityType Name="MedioCobro">
           <Key>
             <PropertyRef Name="auto" />
@@ -75,6 +87,21 @@
           <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="descripcion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Operador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idJornada" Type="integer" Nullable="false" />
+          <Property Name="autoUsuario" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="codigoUsuario" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="usuario" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="fechaApertura" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="horaApertura" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="estatus" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="fechaCierre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="horaCierre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="Pendiente">
           <Key>
@@ -359,7 +386,9 @@
           <EntitySet Name="Deposito" EntityType="Self.Deposito" store:Type="Tables" />
           <EntitySet Name="Fiscal" EntityType="Self.Fiscal" store:Type="Tables" />
           <EntitySet Name="Item" EntityType="Self.Item" store:Type="Tables" />
+          <EntitySet Name="Jornada" EntityType="Self.Jornada" store:Type="Tables" />
           <EntitySet Name="MedioCobro" EntityType="Self.MedioCobro" store:Type="Tables" />
+          <EntitySet Name="Operador" EntityType="Self.Operador" store:Type="Tables" />
           <EntitySet Name="Pendiente" EntityType="Self.Pendiente" store:Type="Tables" />
           <EntitySet Name="Permiso" EntityType="Self.Permiso" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" store:Type="Tables" />
@@ -396,6 +425,8 @@
           <EntitySet Name="Permiso" EntityType="LeonuxPosOffLineModel.Permiso" />
           <EntitySet Name="Sistema" EntityType="LeonuxPosOffLineModel.Sistema" />
           <EntitySet Name="Serie" EntityType="LeonuxPosOffLineModel.Serie" />
+          <EntitySet Name="Operador" EntityType="LeonuxPosOffLineModel.Operador" />
+          <EntitySet Name="Jornada" EntityType="LeonuxPosOffLineModel.Jornada" />
         </EntityContainer>
         <EntityType Name="ProductoBarra">
           <Key>
@@ -744,6 +775,33 @@
           <Property Name="auto" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="serie1" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="control" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Operador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idJornada" Type="Int64" Nullable="false" />
+          <Property Name="autoUsuario" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="codigoUsuario" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="fechaApertura" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="horaApertura" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="estatus" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCierre" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="horaCierre" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Jornada">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechaApertura" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="horaApertura" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="estatus" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCierre" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="horaCierre" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="estatusTransmitida" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1114,6 +1172,35 @@
                 <ScalarProperty Name="control" ColumnName="control" />
                 <ScalarProperty Name="serie1" ColumnName="serie" />
                 <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operador">
+            <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Operador">
+              <MappingFragment StoreEntitySet="Operador">
+                <ScalarProperty Name="horaCierre" ColumnName="horaCierre" />
+                <ScalarProperty Name="fechaCierre" ColumnName="fechaCierre" />
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="horaApertura" ColumnName="horaApertura" />
+                <ScalarProperty Name="fechaApertura" ColumnName="fechaApertura" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="codigoUsuario" ColumnName="codigoUsuario" />
+                <ScalarProperty Name="autoUsuario" ColumnName="autoUsuario" />
+                <ScalarProperty Name="idJornada" ColumnName="idJornada" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jornada">
+            <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Jornada">
+              <MappingFragment StoreEntitySet="Jornada">
+                <ScalarProperty Name="estatusTransmitida" ColumnName="estatusTransmitida" />
+                <ScalarProperty Name="horaCierre" ColumnName="horaCierre" />
+                <ScalarProperty Name="fechaCierre" ColumnName="fechaCierre" />
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="horaApertura" ColumnName="horaApertura" />
+                <ScalarProperty Name="fechaApertura" ColumnName="fechaApertura" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

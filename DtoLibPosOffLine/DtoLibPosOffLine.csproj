@@ -62,6 +62,10 @@
     <Compile Include="Item\Actualizar.cs" />
     <Compile Include="Item\Agregar.cs" />
     <Compile Include="Item\Ficha.cs" />
+    <Compile Include="Jornada\Abrir\Ficha.cs" />
+    <Compile Include="Jornada\Cargar\Ficha.cs" />
+    <Compile Include="Jornada\Cerrar\Ficha.cs" />
+    <Compile Include="Jornada\Enumerado.cs" />
     <Compile Include="MedioCobro\Ficha.cs" />
     <Compile Include="Pendiente\CtaAbrir\Ficha.cs" />
     <Compile Include="Pendiente\DejarEnPendiente\Agregar.cs" />
