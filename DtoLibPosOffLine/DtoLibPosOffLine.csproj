@@ -67,6 +67,10 @@
     <Compile Include="Jornada\Cerrar\Ficha.cs" />
     <Compile Include="Jornada\Enumerado.cs" />
     <Compile Include="MedioCobro\Ficha.cs" />
+    <Compile Include="Operador\Abrir\Ficha.cs" />
+    <Compile Include="Operador\Cargar\Ficha.cs" />
+    <Compile Include="Operador\Cerrar\Ficha.cs" />
+    <Compile Include="Operador\Enumerado.cs" />
     <Compile Include="Pendiente\CtaAbrir\Ficha.cs" />
     <Compile Include="Pendiente\DejarEnPendiente\Agregar.cs" />
     <Compile Include="Pendiente\DejarEnPendiente\AgregarItem.cs" />
