@@ -150,7 +150,7 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
-        public DtoLib.ResultadoEntidad<bool> Jornada_Abrir_Verifica()
+        public DtoLib.ResultadoEntidad<bool> Jornada_Abrir_VerificaIsOk()
         {
             var result = new DtoLib.ResultadoEntidad<bool>();
 
@@ -159,12 +159,15 @@ namespace ProvSqLitePosOffLine
                 using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
                 {
                     var ent = cnn.Jornada.FirstOrDefault(f => f.estatus.Trim().ToUpper() == "A");
-                    if (ent == null)
+                    if (ent == null) //NO HAY NINGUNA ABIERTA, TODO OK
                     {
-                        result.Entidad =false;
-                        return result;
+                        result.Entidad = true;
                     }
-                    result.Entidad = true;
+                    else // HAY UNA JORNADA ABIERTA, PROBLEMA
+                    {
+                        result.Mensaje ="EXISTE UNA JORNADA ABIERTA";
+                        result.Entidad = false;
+                    }
                 }
             }
             catch (Exception e)

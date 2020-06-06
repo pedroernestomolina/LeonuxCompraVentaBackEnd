@@ -15,7 +15,7 @@ namespace IPosOffLine
         DtoLib.Resultado Jornada_Cerrar (DtoLibPosOffLine.Jornada.Cerrar.Ficha ficha);
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Jornada.Cargar.Ficha> Jornada_Cargar(int idJornada);
         DtoLib.ResultadoEntidad<int> Jornada_Activa();
-        DtoLib.ResultadoEntidad<bool> Jornada_Abrir_Verifica();
+        DtoLib.ResultadoEntidad<bool> Jornada_Abrir_VerificaIsOk();
 
     }
 
