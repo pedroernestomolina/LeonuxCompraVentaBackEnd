@@ -317,6 +317,8 @@
           <Property Name="cambioDar" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="esCredito" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="idCliente" Type="integer" Nullable="false" />
+          <Property Name="idJornada" Type="integer" Nullable="false" />
+          <Property Name="idOperador" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="VentaDetalle">
           <Key>
@@ -563,6 +565,8 @@
           <Property Name="cambioDar" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="esCredito" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="idCliente" Type="Int64" Nullable="false" />
+          <Property Name="idJornada" Type="Int64" Nullable="false" />
+          <Property Name="idOperador" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="VentaDetalle">
           <Key>
@@ -882,6 +886,8 @@
           <EntitySetMapping Name="Venta">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Venta">
               <MappingFragment StoreEntitySet="Venta">
+                <ScalarProperty Name="idOperador" ColumnName="idOperador" />
+                <ScalarProperty Name="idJornada" ColumnName="idJornada" />
                 <ScalarProperty Name="idCliente" ColumnName="idCliente" />
                 <ScalarProperty Name="esCredito" ColumnName="esCredito" />
                 <ScalarProperty Name="cambioDar" ColumnName="cambioDar" />

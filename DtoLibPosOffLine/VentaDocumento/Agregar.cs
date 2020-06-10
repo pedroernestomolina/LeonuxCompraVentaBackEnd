@@ -11,6 +11,9 @@ namespace DtoLibPosOffLine.VentaDocumento
     public class Agregar
     {
 
+        public int IdJornada { get; set; }
+        public int IdOperador { get; set; }
+
         public string AutoUsuario { get; set; }
         public string UsuarioCodigo { get; set; }
         public string UsuarioDescripcion { get; set; }

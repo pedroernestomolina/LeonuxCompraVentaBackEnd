@@ -10,6 +10,15 @@ namespace DtoLibPosOffLine.VentaDocumento.Lista
     
     public class Filtro
     {
+
+        public int IdJornada { get; set; }
+
+
+        public Filtro()
+        {
+            IdJornada = -1;
+        }
+
     }
 
 }

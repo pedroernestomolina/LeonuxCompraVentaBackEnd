@@ -80,5 +80,7 @@ namespace LibEntitySqLitePosOffLine
         public decimal cambioDar { get; set; }
         public string esCredito { get; set; }
         public long idCliente { get; set; }
+        public long idJornada { get; set; }
+        public long idOperador { get; set; }
     }
 }

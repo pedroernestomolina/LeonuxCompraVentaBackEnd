@@ -16,10 +16,14 @@ namespace ProvSqLitePosOffLine
 
         static EntityConnectionStringBuilder _cnn;
         static MySqlConnectionStringBuilder _cnn2;
+        static string _bdRemotoInstancia;
+        static string _bdRemotaBaseDatos;
+        static string _bdLocal;
 
 
         public Provider(string pathDB) 
         {
+            _bdLocal = pathDB;
             _cnn = new EntityConnectionStringBuilder()
             {
                 Metadata = @"res://*/ModelPos.csdl|res://*/ModelPos.ssdl|res://*/ModelPos.msl",
@@ -44,6 +48,9 @@ namespace ProvSqLitePosOffLine
 
         public void setServidorRemoto(string instancia, string baseDatos)
         {
+            _bdRemotoInstancia = instancia;
+            _bdRemotaBaseDatos = baseDatos;
+
             var _usuario = "root";
             var _password = "123";
             var _instancia = instancia ;
@@ -74,6 +81,21 @@ namespace ProvSqLitePosOffLine
                 result.Mensaje = e.Message;
                 result.Result = DtoLib.Enumerados.EnumResult.isError;
             }
+
+            return result;
+        }
+
+
+        public DtoLib.ResultadoEntidad<DtoLibPosOffLine.Sistema.InformacionBD.Ficha> InformacionBD()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPosOffLine.Sistema.InformacionBD.Ficha>();
+
+            var inf = new DtoLibPosOffLine.Sistema.InformacionBD.Ficha()
+            {
+                 BD_Remota= _bdRemotoInstancia+"\\"+_bdRemotaBaseDatos,
+                 BD_Local=_bdLocal,
+            };
+            result.Entidad = inf;
 
             return result;
         }

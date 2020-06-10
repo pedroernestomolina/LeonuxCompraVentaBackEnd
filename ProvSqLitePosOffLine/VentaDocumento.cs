@@ -28,6 +28,8 @@ namespace ProvSqLitePosOffLine
 
                         var entVenta = new LibEntitySqLitePosOffLine.Venta()
                         {
+                            idJornada=ficha.IdJornada,
+                            idOperador=ficha.IdOperador,
                             documento = ficha.Documento,
                             fecha = fechaSistema.ToShortDateString(),
                             idCliente=ficha.ClienteId,
@@ -205,6 +207,10 @@ namespace ProvSqLitePosOffLine
                 using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
                 {
                     var q = cnn.Venta.ToList();
+                    if (filtro.IdJornada != -1) 
+                    {
+                        q = q.Where(w => w.idJornada == filtro.IdJornada).ToList();
+                    }
 
                     var list = new List<DtoLibPosOffLine.VentaDocumento.Lista.Resumen>();
                     if (q != null)

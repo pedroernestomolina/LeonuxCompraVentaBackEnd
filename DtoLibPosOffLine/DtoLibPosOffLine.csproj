@@ -84,7 +84,17 @@
     <Compile Include="Producto\Resumen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serie\Ficha.cs" />
+    <Compile Include="Servidor\RecogerDataEnviar\Documento.cs" />
+    <Compile Include="Servidor\RecogerDataEnviar\DocumentoDetalle.cs" />
+    <Compile Include="Servidor\RecogerDataEnviar\DocumentoPago.cs" />
+    <Compile Include="Servidor\RecogerDataEnviar\Enumerados.cs" />
+    <Compile Include="Servidor\RecogerDataEnviar\Ficha.cs" />
+    <Compile Include="Servidor\EnviarData\Ficha.cs" />
+    <Compile Include="Servidor\EnviarData\Venta.cs" />
+    <Compile Include="Servidor\RecogerDataEnviar\Jornada.cs" />
+    <Compile Include="Sistema\InformacionBD\Ficha.cs" />
     <Compile Include="Transporte\Ficha.cs" />
+    <Compile Include="Usuario\Cargar.cs" />
     <Compile Include="Usuario\Ficha.cs" />
     <Compile Include="Vendedor\Ficha.cs" />
     <Compile Include="VentaDocumento\Agregar.cs" />

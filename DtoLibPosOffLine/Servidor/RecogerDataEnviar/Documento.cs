@@ -5,14 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibPosOffLine.VentaDocumento.Cargar
+namespace DtoLibPosOffLine.Servidor.RecogerDataEnviar
 {
     
-    public class Ficha
+    public class Documento
     {
 
         public int Id { get; set; }
-        public string Documento { get; set; }
+        public int IdJornada { get; set; }
+        public int IdOperador { get; set; }
+
+        public string DocumentoNro { get; set; }
         public DateTime Fecha { get; set; }
         public string Hora { get; set; }
 
@@ -46,7 +49,7 @@ namespace DtoLibPosOffLine.VentaDocumento.Cargar
         public decimal CargoMonto_1 { get; set; }
         public decimal CargoPorc_1 { get; set; }
         public bool IsActiva { get; set; }
-        public DtoLibPosOffLine.VentaDocumento.Cargar.Enumerados.EnumTipoDocumento  TipoDocumento { get; set; }
+        public Enumerados.EnumTipoDocumento TipoDocumento { get; set; }
         public string Aplica { get; set; }
         public int Signo { get; set; }
         public string Serie { get; set; }
@@ -88,7 +91,8 @@ namespace DtoLibPosOffLine.VentaDocumento.Cargar
         public decimal CambioDar { get; set; }
         public bool IsCredito { get; set; }
 
-        public List<Detalle> Detalles { get; set; }
+        public List<DocumentoDetalle> Detalles { get; set; }
+        public List<DocumentoPago > MetodosPago { get; set; }
 
     }
 
