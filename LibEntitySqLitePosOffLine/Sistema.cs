@@ -37,5 +37,8 @@ namespace LibEntitySqLitePosOffLine
         public string clave2 { get; set; }
         public string clave3 { get; set; }
         public long clavePos { get; set; }
+        public string tarifaAsignada { get; set; }
+        public string EtiquetarPrecioPorTipoNegocio { get; set; }
+        public string serieNotaEntrega { get; set; }
     }
 }

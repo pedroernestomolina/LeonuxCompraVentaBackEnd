@@ -11,7 +11,6 @@ namespace DtoLibPosOffLine.Configuracion.Guardar
     public class Ficha
     {
 
-        public string CodigoSucursal { get; set; }
         public string ActivarRepesaje { get; set; }
         public decimal LimiteSuperiorRepesaje { get; set; }
         public decimal LimiteInferiorRepesaje { get; set; }
@@ -21,8 +20,8 @@ namespace DtoLibPosOffLine.Configuracion.Guardar
         public string SerieFactura { get; set; }
         public string SerieNotaCredito { get; set; }
         public string SerieNotaDebito { get; set; }
+        public string SerieNotaEntrega { get; set; }
 
-        public string AutoDeposito { get; set; }
         public string AutoCobrador { get; set; }
         public string AutoVendedor { get; set; }
         public string AutoTransporte { get; set; }

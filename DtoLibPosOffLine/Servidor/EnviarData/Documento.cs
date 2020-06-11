@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace DtoLibPosOffLine.Servidor.EnviarData
 {
     
-    public class Venta
+    public class Documento
     {
 
         public string Auto { get; set; }
-        public string Documento { get; set; }
+        public string DocumentoNro { get; set; }
         public DateTime Fecha { get; set; }
         public DateTime FechaVencimiento { get; set; }
         public string RazonSocial { get; set; }
@@ -115,11 +115,15 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
         public DateTime FechaRetencion { get; set; }
         public string EstatusCierreContable { get; set; }
 
+        public List<DocumentoDetalle> Detalles { get; set; }
+        public List<ProductoKardex> MovKardex { get; set; }
+        public List<ProductoDeposito> ActDeposito { get; set; }
 
-        public Venta()
+
+        public Documento()
         {
-            Auto = "0000000003";
-            Documento = "";
+            Auto = "";
+            DocumentoNro = "";
             Fecha = DateTime.Now.Date;
             FechaVencimiento = DateTime.Now.Date;
             RazonSocial = "";
@@ -144,7 +148,7 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
             TasaRetencionIslr = 0.0m;
             RetencionIva=0.0m;
             RetencionIslr = 0.0m;
-            AutoCliente = "0000000001";
+            AutoCliente = "";
             CodigoCliente = "";
             MesRelacion = "";
             Control = "";
@@ -166,13 +170,13 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
             FactorCambio = 0.0m;
             CodigoVendedor = "";
             Vendedor = "";
-            AutoVendedor = "0000000001";
+            AutoVendedor = "";
             FechaPedido = DateTime.Now.Date;
             Pedido = "";
             CondicionPago = "";
             Usuario = "";
             CodigoUsuario = "";
-            CodigoSucursal = "001";
+            CodigoSucursal = "";
             Hora = "";
             Transporte = "";
             CodigoTransporte = "";
@@ -187,7 +191,7 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
             AnoRelacion = "";
             ComprobanteRetencionIslr = "";
             DiasValidez = 0;
-            AutoUsuario = "0000000001";
+            AutoUsuario = "";
             AutoTransporte = "";
             Situacion = "";
             Signo = 1;
@@ -221,6 +225,10 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
             Cierre = "";
             FechaRetencion = DateTime.Now.Date;
             EstatusCierreContable = "";
+
+            Detalles = new List<DocumentoDetalle>();
+            MovKardex = new List<ProductoKardex>();
+            ActDeposito = new List<ProductoDeposito>();
         }
 
     }

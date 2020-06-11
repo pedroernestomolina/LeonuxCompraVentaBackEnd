@@ -17,10 +17,13 @@ namespace DtoLibPosOffLine.Configuracion.Actual
         public decimal LimiteInferiorRepesaje { get; set; }
         public bool ActivarBusquedaPorDescripcion { get; set; }
         public int ClavePos { get; set; }
+        public string TarifaPrecio { get; set; }
+        public bool EtiquetarPrecioPorTipoNegocio { get; set; }
 
         public string SerieFactura { get; set; }
         public string SerieNotaCredito { get; set; }
         public string SerieNotaDebito { get; set; }
+        public string SerieNotaEntrega { get; set; }
 
         public string AutoDeposito { get; set; }
         public string AutoCobrador { get; set; }

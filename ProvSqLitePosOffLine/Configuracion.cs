@@ -165,11 +165,22 @@ namespace ProvSqLitePosOffLine
                         }
                     }
 
+                    var ntEntrega= "";
+                    if (ent.serieNotaEntrega != "")
+                    {
+                        var entSerieNotaEntrega = cnn.Serie.Find(ent.serieNotaEntrega);
+                        if (entSerieNotaEntrega != null)
+                        {
+                            ntEntrega= entSerieNotaEntrega.serie1;
+                        }
+                    }
+
                     var nr = new DtoLibPosOffLine.Configuracion.Serie.Ficha()
                     {
                         ParaFactura=factura,
                         ParaNotaCredito=ntCredito,
                         ParaNotaDebito=ntDebito,
+                        ParaNotaEntrega = ntEntrega,
                     };
                     result.Entidad = nr;
                 }
@@ -599,7 +610,6 @@ namespace ProvSqLitePosOffLine
                         return result;
                     };
 
-                    ent.sucursalCodigo = ficha.CodigoSucursal;
                     ent.activarRepesaje = ficha.ActivarRepesaje;
                     ent.limiteRepesajeInferior = ficha.LimiteInferiorRepesaje;
                     ent.limiteRepesajeSuperior = ficha.LimiteSuperiorRepesaje;
@@ -609,8 +619,8 @@ namespace ProvSqLitePosOffLine
                     ent.serieFactura = ficha.SerieFactura;
                     ent.serieNotaCredito = ficha.SerieNotaCredito;
                     ent.serieNotaDebito= ficha.SerieNotaDebito;
+                    ent.serieNotaEntrega= ficha.SerieNotaEntrega;
 
-                    ent.autoDeposito = ficha.AutoDeposito;
                     ent.autoCobrador = ficha.AutoCobrador;
                     ent.autoVendedor = ficha.AutoVendedor;
                     ent.autoTransporte = ficha.AutoTransporte;
@@ -654,11 +664,14 @@ namespace ProvSqLitePosOffLine
                     ficha.LimiteInferiorRepesaje=ent.limiteRepesajeInferior;
                     ficha.LimiteSuperiorRepesaje=ent.limiteRepesajeSuperior;
                     ficha.ActivarBusquedaPorDescripcion=ent.activarBusquedaPorDescripcion.Trim().ToUpper()=="S"?true:false;
-                    ficha.ClavePos=(int)ent.clavePos ;
+                    ficha.ClavePos=(int)ent.clavePos;
+                    ficha.TarifaPrecio = ent.tarifaAsignada;
+                    ficha.EtiquetarPrecioPorTipoNegocio = ent.EtiquetarPrecioPorTipoNegocio.Trim().ToUpper() == "S" ? true : false;
 
                     ficha.SerieFactura=ent.serieFactura;
                     ficha.SerieNotaCredito= ent.serieNotaCredito;
                     ficha.SerieNotaDebito= ent.serieNotaDebito;
+                    ficha.SerieNotaEntrega = ent.serieNotaEntrega;
 
                     ficha.AutoDeposito = ent.autoDeposito;
                     ficha.AutoCobrador=ent.autoCobrador;
@@ -671,6 +684,60 @@ namespace ProvSqLitePosOffLine
                     ficha.AutoMedioOtro= ent.autoMedioPagoOtro;
 
                     result.Entidad = ficha;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<string> Configuracion_TarifaPrecio()
+        {
+            var result = new DtoLib.ResultadoEntidad<string>();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var ent = cnn.Sistema.Find("0000000001");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "ENTIDAD CONFIGURACION DEL POS NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    };
+                    result.Entidad = ent.tarifaAsignada;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<bool> Configuracion_EtiquetarPrecioPorTipoNegocio()
+        {
+            var result = new DtoLib.ResultadoEntidad<bool>();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var ent = cnn.Sistema.Find("0000000001");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "ENTIDAD CONFIGURACION DEL POS NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    };
+                    result.Entidad = ent.EtiquetarPrecioPorTipoNegocio.Trim().ToUpper()=="S"?true:false;
                 }
             }
             catch (Exception e)

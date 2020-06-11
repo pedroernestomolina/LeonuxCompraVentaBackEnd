@@ -253,6 +253,35 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<bool> Pendiente_HayCuentasPorProcesar()
+        {
+            var result = new DtoLib.ResultadoEntidad<bool>();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var rt=false;
+                    var q = cnn.Pendiente.ToList();
+                    if (q != null)
+                    {
+                        if (q.Count() > 0)
+                        {
+                            rt = true;
+                        }
+                    }
+                    result.Entidad = rt;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

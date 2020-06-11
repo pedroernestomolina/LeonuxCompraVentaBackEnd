@@ -11,7 +11,8 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
     public class Ficha
     {
 
-        public List<Venta> Ventas { get; set; }
+        public List<int> Jornadas { get; set; }
+        public List<Documento> Documentos { get; set; }
 
     }
 

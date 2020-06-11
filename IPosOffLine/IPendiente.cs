@@ -15,6 +15,7 @@ namespace IPosOffLine
         DtoLib.Resultado Pendiente_DejarCtaEnPendiente(DtoLibPosOffLine.Pendiente.DejarEnPendiente.Agregar ficha);
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Pendiente.CtaAbrir.Ficha> Pendiente_AbrirCtaEnPendiente(int id);
         DtoLib.Resultado Pendiente_EliminarCtaEnPendiente(int id);
+        DtoLib.ResultadoEntidad<bool> Pendiente_HayCuentasPorProcesar();
 
     }
 

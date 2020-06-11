@@ -201,6 +201,11 @@ namespace ProvSqLitePosOffLine
             var clave2 = "";
             var clave3 = "";
 
+            var _etiquetarPrecioPorTipoNegocio = false;
+            var _codigoSucursal = "";
+            var _depositoAsignado = "";
+            var _tarifaAsignada = "1";
+
             try
             {
                 MySqlDataReader reader;
@@ -233,6 +238,11 @@ namespace ProvSqLitePosOffLine
                     var sqlC = "select usuario from sistema_configuracion where codigo='GLOBAL18'";
                     var sqlD = "select usuario from sistema_configuracion where codigo='GLOBAL19'";
                     var sqlE = "select auto, serie, control from empresa_series_fiscales where estatus='Activo'";
+                    var sqlF = "select usuario from sistema_configuracion where codigo='GLOBAL49'"; //PRECIO POR TIPO DE NEGOCIO
+                    var sqlG = "select codigo_empresa from sistema"; //CODIGO SUCURSAL 
+                    var sqlH = "select es.autoDepositoPrincipal as autoDeposito, eg.idPrecio as Tarifa " +
+                        "from empresa_sucursal as es join empresa_grupo as eg on es.autoEmpresaGrupo=eg.Auto " +
+                        "where codigo=@codigo"; //DEPOSITO, TARIFA PARA EL TIPO DE NEGOCIO INDICADO
 
 
                     var sql1 = "select now()";
@@ -484,6 +494,32 @@ namespace ProvSqLitePosOffLine
                     }
                     reader.Close();
 
+                    MySqlCommand comandoF = new MySqlCommand(sqlF);
+                    comandoF.Connection = cn;
+                    var xetiquetarPrecioPorTipoNegocio = comandoF.ExecuteScalar().ToString(); // SI,NO
+                    if (xetiquetarPrecioPorTipoNegocio.Trim().ToUpper()=="SI") 
+                    {
+                        _etiquetarPrecioPorTipoNegocio = true;
+                    }
+
+                    MySqlCommand comandoG = new MySqlCommand(sqlG);
+                    comandoG.Connection = cn;
+                    _codigoSucursal = comandoG.ExecuteScalar().ToString();
+
+                    if (_etiquetarPrecioPorTipoNegocio) 
+                    {
+                        MySqlCommand comandoH = new MySqlCommand(sqlH);
+                        comandoH.Parameters.AddWithValue("@codigo", _codigoSucursal);
+                        comandoH.Connection = cn;
+                        MySqlDataReader dataReader = comandoH.ExecuteReader();
+                        while (dataReader.Read())
+                        {
+                            _depositoAsignado = dataReader.GetString(0);
+                            _tarifaAsignada = dataReader.GetString(1);
+                        }
+                        dataReader.Close();
+                    }
+
                     exito = true;
                 };
             }
@@ -509,6 +545,7 @@ namespace ProvSqLitePosOffLine
                         var depositoList = cnn.Deposito.ToList();
                         var cobradorList = cnn.Cobrador.ToList();
                         var transporteList = cnn.Transporte.ToList();
+                        var serieList = cnn.Serie.ToList();
 
 
                         var sistema = cnn.Sistema.Find("0000000001");
@@ -518,6 +555,10 @@ namespace ProvSqLitePosOffLine
                             sistema.clave1 = clave1;
                             sistema.clave2 = clave2;
                             sistema.clave3 = clave3;
+                            sistema.sucursalCodigo = _codigoSucursal;
+                            sistema.autoDeposito = _depositoAsignado;
+                            sistema.tarifaAsignada = _tarifaAsignada;
+                            sistema.EtiquetarPrecioPorTipoNegocio = _etiquetarPrecioPorTipoNegocio?"S":"N";
                             cnn.SaveChanges();
                         }
 
@@ -539,6 +580,8 @@ namespace ProvSqLitePosOffLine
                         cnn.Cobrador.RemoveRange(cobradorList);
                         cnn.SaveChanges();
                         cnn.Transporte.RemoveRange(transporteList);
+                        cnn.SaveChanges();
+                        cnn.Serie.RemoveRange(serieList);
                         cnn.SaveChanges();
 
 
@@ -811,7 +854,7 @@ namespace ProvSqLitePosOffLine
                         var aVenta = (int)aVentaObj;
                         var sqlVenta = InsertarVenta;
                         comando1 = new MySqlCommand(sqlVenta, cn, tr);
-                        foreach (var v in ficha.Ventas)
+                        foreach (var v in ficha.Documentos)
                         {
                             aVenta += 1;
                             var codSucursal = v.CodigoSucursal.Trim();
@@ -819,7 +862,7 @@ namespace ProvSqLitePosOffLine
 
                             comando1.Parameters.Clear();
                             comando1.Parameters.AddWithValue("?auto", autoVenta);
-                            comando1.Parameters.AddWithValue("?documento", v.Documento);
+                            comando1.Parameters.AddWithValue("?documento", v.DocumentoNro);
                             comando1.Parameters.AddWithValue("?fecha", v.Fecha);
                             comando1.Parameters.AddWithValue("?fecha_vencimiento", v.FechaVencimiento);
                             comando1.Parameters.AddWithValue("?razon_social", v.RazonSocial);

@@ -219,6 +219,9 @@
           <Property Name="clave2" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="clave3" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="clavePos" Type="integer" Nullable="false" />
+          <Property Name="tarifaAsignada" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="EtiquetarPrecioPorTipoNegocio" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="serieNotaEntrega" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="Transporte">
           <Key>
@@ -771,6 +774,9 @@
           <Property Name="clave2" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="clave3" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="clavePos" Type="Int64" Nullable="false" />
+          <Property Name="tarifaAsignada" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="EtiquetarPrecioPorTipoNegocio" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="serieNotaEntrega" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Serie">
           <Key>
@@ -1146,6 +1152,9 @@
           <EntitySetMapping Name="Sistema">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Sistema">
               <MappingFragment StoreEntitySet="Sistema">
+                <ScalarProperty Name="serieNotaEntrega" ColumnName="serieNotaEntrega" />
+                <ScalarProperty Name="EtiquetarPrecioPorTipoNegocio" ColumnName="EtiquetarPrecioPorTipoNegocio" />
+                <ScalarProperty Name="tarifaAsignada" ColumnName="tarifaAsignada" />
                 <ScalarProperty Name="clavePos" ColumnName="clavePos" />
                 <ScalarProperty Name="clave3" ColumnName="clave3" />
                 <ScalarProperty Name="clave2" ColumnName="clave2" />
