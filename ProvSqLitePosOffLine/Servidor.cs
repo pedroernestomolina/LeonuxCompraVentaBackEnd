@@ -13,7 +13,6 @@ namespace ProvSqLitePosOffLine
 
     public class DataPrd
     {
-
         public string Auto { get; set; }
         public string AutoDepartamento { get; set; }
         public string AutoGrupo { get; set; }
@@ -59,6 +58,7 @@ namespace ProvSqLitePosOffLine
         public DataPrecio Precio_2 { get; set; }
         public DataPrecio Precio_3 { get; set; }
         public DataPrecio Precio_4 { get; set; }
+        public DataPrecio Precio_5 { get; set; }
     }
 
     public class DataPrecio
@@ -216,14 +216,16 @@ namespace ProvSqLitePosOffLine
                         "pm.nombre as pv1Nombre, pm.decimales as pv1Decimales, " +
                         "pm2.nombre as pv2Nombre, pm2.decimales as pv2Decimales, " +
                         "pm3.nombre as pv3Nombre, pm3.decimales as pv3Decimales, " +
-                        "pm4.nombre as pv4Nombre, pm4.decimales as pv4Decimales " +
+                        "pm4.nombre as pv4Nombre, pm4.decimales as pv4Decimales, " +
+                        "pm5.nombre as pv5Nombre, pm5.decimales as pv5Decimales " +
                         "from productos as p join empresa_departamentos as d on p.auto_departamento=d.auto " +
                         " join productos_grupo as g on p.auto_grupo=g.auto " +
                         " join productos_marca as m on p.auto_marca=m.auto " +
                         " join productos_medida as pm on p.auto_precio_1=pm.auto " +
                         " join productos_medida as pm2 on p.auto_precio_2=pm2.auto " +
                         " join productos_medida as pm3 on p.auto_precio_3=pm3.auto " +
-                        " join productos_medida as pm4 on p.auto_precio_4=pm4.auto ";
+                        " join productos_medida as pm4 on p.auto_precio_4=pm4.auto " +
+                        " join productos_medida as pm5 on p.auto_precio_pto=pm5.auto ";
                     var sql2 = "select * from productos_alterno";
                     var sql3 = "select u.*,g.nombre as nombreGrupo from usuarios as u " +
                         " join usuarios_grupo as g on u.auto_grupo=g.auto";
@@ -329,11 +331,19 @@ namespace ProvSqLitePosOffLine
                             Empaque = reader.GetString("pv4Nombre"),
                             Neto = reader.GetDecimal("precio_4"),
                         };
+                        var pv5 = new DataPrecio()
+                        {
+                            Contenido = reader.GetInt32("contenido_pto"),
+                            Decimales = reader.GetString("pv5Decimales"),
+                            Empaque = reader.GetString("pv5Nombre"),
+                            Neto = reader.GetDecimal("precio_pto"),
+                        };
 
                         nr.Precio_1 = pv1;
                         nr.Precio_2 = pv2;
                         nr.Precio_3 = pv3;
                         nr.Precio_4 = pv4;
+                        nr.Precio_5 = pv5;
 
                         list.Add(nr);
                     }
@@ -609,6 +619,7 @@ namespace ProvSqLitePosOffLine
                                 cont_2 = r.Precio_2.Contenido,
                                 cont_3 = r.Precio_3.Contenido,
                                 cont_4 = r.Precio_4.Contenido,
+                                cont_5 = r.Precio_5.Contenido,
                                 costo = r.Costo,
                                 costoPromedio = r.CostoPromedio,
                                 costoPromedioUnidad = r.CostoPromedioUnidad,
@@ -617,6 +628,7 @@ namespace ProvSqLitePosOffLine
                                 dec_2 = r.Precio_2.Decimales,
                                 dec_3 = r.Precio_3.Decimales,
                                 dec_4 = r.Precio_4.Decimales,
+                                dec_5 = r.Precio_5.Decimales,
                                 departamento = r.NombreDepartamento,
                                 descripcionPrd = "",
                                 dias_Empaque_Garantia = r.DiasEmpaqueGarantia,
@@ -624,6 +636,7 @@ namespace ProvSqLitePosOffLine
                                 emp_2 = r.Precio_2.Empaque,
                                 emp_3 = r.Precio_3.Empaque,
                                 emp_4 = r.Precio_4.Empaque,
+                                emp_5 = r.Precio_5.Empaque,
                                 grupo = r.NombreGrupo,
                                 isActivo = r.IsActivo ? 1 : 0,
                                 isDivisa = r.IsDivisa ? 1 : 0,
@@ -641,6 +654,7 @@ namespace ProvSqLitePosOffLine
                                 precio_2 = r.Precio_2.Neto,
                                 precio_3 = r.Precio_3.Neto,
                                 precio_4 = r.Precio_4.Neto,
+                                precio_5 = r.Precio_5.Neto,
                                 referencia = r.Referencia,
                                 tasaImpuesto = r.TasaImpuesto,
                                 autoDepartamento = r.AutoDepartamento,

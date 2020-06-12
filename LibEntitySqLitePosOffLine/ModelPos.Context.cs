@@ -32,7 +32,6 @@ namespace LibEntitySqLitePosOffLine
         public virtual DbSet<Fiscal> Fiscal { get; set; }
         public virtual DbSet<Venta> Venta { get; set; }
         public virtual DbSet<VentaDetalle> VentaDetalle { get; set; }
-        public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<Deposito> Deposito { get; set; }
         public virtual DbSet<Vendedor> Vendedor { get; set; }
         public virtual DbSet<Pendiente> Pendiente { get; set; }
@@ -45,5 +44,6 @@ namespace LibEntitySqLitePosOffLine
         public virtual DbSet<Serie> Serie { get; set; }
         public virtual DbSet<Operador> Operador { get; set; }
         public virtual DbSet<Jornada> Jornada { get; set; }
+        public virtual DbSet<Producto> Producto { get; set; }
     }
 }

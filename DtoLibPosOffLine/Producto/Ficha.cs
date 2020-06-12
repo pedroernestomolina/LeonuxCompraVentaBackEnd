@@ -55,6 +55,7 @@ namespace DtoLibPosOffLine.Producto
         public Precio Precio_2 { get; set; }
         public Precio Precio_3 { get; set; }
         public Precio Precio_4 { get; set; }
+        public Precio Precio_5 { get; set; }
 
     }
 

@@ -62,5 +62,9 @@ namespace LibEntitySqLitePosOffLine
         public string autoMarca { get; set; }
         public string autoSubGrupo { get; set; }
         public string autoTasaIva { get; set; }
+        public decimal precio_5 { get; set; }
+        public long cont_5 { get; set; }
+        public string dec_5 { get; set; }
+        public string emp_5 { get; set; }
     }
 }

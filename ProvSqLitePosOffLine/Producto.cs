@@ -184,6 +184,13 @@ namespace ProvSqLitePosOffLine
                         Neto = entPrd.precio_4,
                         Empaque = entPrd.emp_4,
                     };
+                    var pv_5 = new DtoLibPosOffLine.Producto.Precio()
+                    {
+                        Contenido = (int)entPrd.cont_5,
+                        Decimales = entPrd.dec_5,
+                        Neto = entPrd.precio_5,
+                        Empaque = entPrd.emp_5,
+                    };
                     var r = new DtoLibPosOffLine.Producto.Ficha()
                     {
                         Auto = entPrd.auto,
@@ -218,7 +225,8 @@ namespace ProvSqLitePosOffLine
                         Precio_2=pv_2,
                         Precio_3=pv_3,
                         Precio_4=pv_4,
-                        Referencia=entPrd.referencia,
+                        Precio_5=pv_5,
+                        Referencia = entPrd.referencia,
                         TasaImpuesto= entPrd.tasaImpuesto,
 
                         DiasEmpaqueGarantia=(int) entPrd.dias_Empaque_Garantia,

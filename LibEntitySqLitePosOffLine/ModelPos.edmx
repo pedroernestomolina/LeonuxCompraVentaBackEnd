@@ -176,6 +176,10 @@
           <Property Name="autoMarca" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="autoSubGrupo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="autoTasaIva" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="precio_5" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="cont_5" Type="integer" Nullable="false" />
+          <Property Name="dec_5" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="emp_5" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="ProductoBarra">
           <Key>
@@ -419,7 +423,6 @@
           <EntitySet Name="Fiscal" EntityType="LeonuxPosOffLineModel.Fiscal" />
           <EntitySet Name="Venta" EntityType="LeonuxPosOffLineModel.Venta" />
           <EntitySet Name="VentaDetalle" EntityType="LeonuxPosOffLineModel.VentaDetalle" />
-          <EntitySet Name="Producto" EntityType="LeonuxPosOffLineModel.Producto" />
           <EntitySet Name="Deposito" EntityType="LeonuxPosOffLineModel.Deposito" />
           <EntitySet Name="Vendedor" EntityType="LeonuxPosOffLineModel.Vendedor" />
           <EntitySet Name="Pendiente" EntityType="LeonuxPosOffLineModel.Pendiente" />
@@ -432,6 +435,7 @@
           <EntitySet Name="Serie" EntityType="LeonuxPosOffLineModel.Serie" />
           <EntitySet Name="Operador" EntityType="LeonuxPosOffLineModel.Operador" />
           <EntitySet Name="Jornada" EntityType="LeonuxPosOffLineModel.Jornada" />
+          <EntitySet Name="Producto" EntityType="LeonuxPosOffLineModel.Producto" />
         </EntityContainer>
         <EntityType Name="ProductoBarra">
           <Key>
@@ -618,59 +622,6 @@
           <Property Name="esPesado" Type="Int64" Nullable="false" />
           <Property Name="empaqueCodigo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Producto">
-          <Key>
-            <PropertyRef Name="auto" />
-          </Key>
-          <Property Name="auto" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="codigoPrd" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="nombrePrd" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="isActivo" Type="Int64" Nullable="false" />
-          <Property Name="plu" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="descripcionPrd" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="referencia" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="categoria" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="codDepartamento" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="departamento" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="codGrupo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="grupo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="marca" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="modelo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="pasilo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="isPesado" Type="Int64" Nullable="false" />
-          <Property Name="isOferta" Type="Int64" Nullable="false" />
-          <Property Name="isDivisa" Type="Int64" Nullable="false" />
-          <Property Name="tasaImpuesto" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="ofertaDesde" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="ofertaHasta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="ofertaprecio" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="precio_1" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="precio_2" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="precio_3" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="precio_4" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="cont_1" Type="Int64" Nullable="false" />
-          <Property Name="cont_2" Type="Int64" Nullable="false" />
-          <Property Name="cont_3" Type="Int64" Nullable="false" />
-          <Property Name="cont_4" Type="Int64" Nullable="false" />
-          <Property Name="dec_1" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="dec_2" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="dec_3" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="dec_4" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="emp_1" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="emp_2" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="emp_3" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="emp_4" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="dias_Empaque_Garantia" Type="Int64" Nullable="false" />
-          <Property Name="costo" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="costoPromedio" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="costoUnidad" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="costoPromedioUnidad" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="autoDepartamento" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="autoGrupo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="autoMarca" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="autoSubGrupo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="autoTasaIva" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Deposito">
           <Key>
             <PropertyRef Name="auto" />
@@ -812,6 +763,63 @@
           <Property Name="fechaCierre" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="horaCierre" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="estatusTransmitida" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="codigoPrd" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="nombrePrd" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="isActivo" Type="Int64" Nullable="false" />
+          <Property Name="plu" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="descripcionPrd" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="referencia" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="categoria" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="codDepartamento" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="departamento" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="codGrupo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="grupo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="marca" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="modelo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="pasilo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="isPesado" Type="Int64" Nullable="false" />
+          <Property Name="isOferta" Type="Int64" Nullable="false" />
+          <Property Name="isDivisa" Type="Int64" Nullable="false" />
+          <Property Name="tasaImpuesto" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="ofertaDesde" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ofertaHasta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ofertaprecio" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="precio_1" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="precio_2" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="precio_3" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="precio_4" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="cont_1" Type="Int64" Nullable="false" />
+          <Property Name="cont_2" Type="Int64" Nullable="false" />
+          <Property Name="cont_3" Type="Int64" Nullable="false" />
+          <Property Name="cont_4" Type="Int64" Nullable="false" />
+          <Property Name="dec_1" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="dec_2" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="dec_3" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="dec_4" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="emp_1" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="emp_2" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="emp_3" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="emp_4" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="dias_Empaque_Garantia" Type="Int64" Nullable="false" />
+          <Property Name="costo" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="costoPromedio" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="costoUnidad" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="costoPromedioUnidad" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="autoDepartamento" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoGrupo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoMarca" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoSubGrupo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoTasaIva" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="precio_5" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="cont_5" Type="Int64" Nullable="false" />
+          <Property Name="dec_5" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="emp_5" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1011,60 +1019,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Producto">
-            <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Producto">
-              <MappingFragment StoreEntitySet="Producto">
-                <ScalarProperty Name="autoTasaIva" ColumnName="autoTasaIva" />
-                <ScalarProperty Name="autoSubGrupo" ColumnName="autoSubGrupo" />
-                <ScalarProperty Name="autoMarca" ColumnName="autoMarca" />
-                <ScalarProperty Name="autoGrupo" ColumnName="autoGrupo" />
-                <ScalarProperty Name="autoDepartamento" ColumnName="autoDepartamento" />
-                <ScalarProperty Name="costoPromedioUnidad" ColumnName="costoPromedioUnidad" />
-                <ScalarProperty Name="costoUnidad" ColumnName="costoUnidad" />
-                <ScalarProperty Name="costoPromedio" ColumnName="costoPromedio" />
-                <ScalarProperty Name="costo" ColumnName="costo" />
-                <ScalarProperty Name="dias_Empaque_Garantia" ColumnName="dias_Empaque_Garantia" />
-                <ScalarProperty Name="emp_4" ColumnName="emp_4" />
-                <ScalarProperty Name="emp_3" ColumnName="emp_3" />
-                <ScalarProperty Name="emp_2" ColumnName="emp_2" />
-                <ScalarProperty Name="emp_1" ColumnName="emp_1" />
-                <ScalarProperty Name="dec_4" ColumnName="dec_4" />
-                <ScalarProperty Name="dec_3" ColumnName="dec_3" />
-                <ScalarProperty Name="dec_2" ColumnName="dec_2" />
-                <ScalarProperty Name="dec_1" ColumnName="dec_1" />
-                <ScalarProperty Name="cont_4" ColumnName="cont_4" />
-                <ScalarProperty Name="cont_3" ColumnName="cont_3" />
-                <ScalarProperty Name="cont_2" ColumnName="cont_2" />
-                <ScalarProperty Name="cont_1" ColumnName="cont_1" />
-                <ScalarProperty Name="precio_4" ColumnName="precio_4" />
-                <ScalarProperty Name="precio_3" ColumnName="precio_3" />
-                <ScalarProperty Name="precio_2" ColumnName="precio_2" />
-                <ScalarProperty Name="precio_1" ColumnName="precio_1" />
-                <ScalarProperty Name="ofertaprecio" ColumnName="ofertaprecio" />
-                <ScalarProperty Name="ofertaHasta" ColumnName="ofertaHasta" />
-                <ScalarProperty Name="ofertaDesde" ColumnName="ofertaDesde" />
-                <ScalarProperty Name="tasaImpuesto" ColumnName="tasaImpuesto" />
-                <ScalarProperty Name="isDivisa" ColumnName="isDivisa" />
-                <ScalarProperty Name="isOferta" ColumnName="isOferta" />
-                <ScalarProperty Name="isPesado" ColumnName="isPesado" />
-                <ScalarProperty Name="pasilo" ColumnName="pasilo" />
-                <ScalarProperty Name="modelo" ColumnName="modelo" />
-                <ScalarProperty Name="marca" ColumnName="marca" />
-                <ScalarProperty Name="grupo" ColumnName="grupo" />
-                <ScalarProperty Name="codGrupo" ColumnName="codGrupo" />
-                <ScalarProperty Name="departamento" ColumnName="departamento" />
-                <ScalarProperty Name="codDepartamento" ColumnName="codDepartamento" />
-                <ScalarProperty Name="categoria" ColumnName="categoria" />
-                <ScalarProperty Name="referencia" ColumnName="referencia" />
-                <ScalarProperty Name="descripcionPrd" ColumnName="descripcionPrd" />
-                <ScalarProperty Name="plu" ColumnName="plu" />
-                <ScalarProperty Name="isActivo" ColumnName="isActivo" />
-                <ScalarProperty Name="nombrePrd" ColumnName="nombrePrd" />
-                <ScalarProperty Name="codigoPrd" ColumnName="codigoPrd" />
-                <ScalarProperty Name="auto" ColumnName="auto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Deposito">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Deposito">
               <MappingFragment StoreEntitySet="Deposito">
@@ -1216,6 +1170,64 @@
                 <ScalarProperty Name="horaApertura" ColumnName="horaApertura" />
                 <ScalarProperty Name="fechaApertura" ColumnName="fechaApertura" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="emp_5" ColumnName="emp_5" />
+                <ScalarProperty Name="dec_5" ColumnName="dec_5" />
+                <ScalarProperty Name="cont_5" ColumnName="cont_5" />
+                <ScalarProperty Name="precio_5" ColumnName="precio_5" />
+                <ScalarProperty Name="autoTasaIva" ColumnName="autoTasaIva" />
+                <ScalarProperty Name="autoSubGrupo" ColumnName="autoSubGrupo" />
+                <ScalarProperty Name="autoMarca" ColumnName="autoMarca" />
+                <ScalarProperty Name="autoGrupo" ColumnName="autoGrupo" />
+                <ScalarProperty Name="autoDepartamento" ColumnName="autoDepartamento" />
+                <ScalarProperty Name="costoPromedioUnidad" ColumnName="costoPromedioUnidad" />
+                <ScalarProperty Name="costoUnidad" ColumnName="costoUnidad" />
+                <ScalarProperty Name="costoPromedio" ColumnName="costoPromedio" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="dias_Empaque_Garantia" ColumnName="dias_Empaque_Garantia" />
+                <ScalarProperty Name="emp_4" ColumnName="emp_4" />
+                <ScalarProperty Name="emp_3" ColumnName="emp_3" />
+                <ScalarProperty Name="emp_2" ColumnName="emp_2" />
+                <ScalarProperty Name="emp_1" ColumnName="emp_1" />
+                <ScalarProperty Name="dec_4" ColumnName="dec_4" />
+                <ScalarProperty Name="dec_3" ColumnName="dec_3" />
+                <ScalarProperty Name="dec_2" ColumnName="dec_2" />
+                <ScalarProperty Name="dec_1" ColumnName="dec_1" />
+                <ScalarProperty Name="cont_4" ColumnName="cont_4" />
+                <ScalarProperty Name="cont_3" ColumnName="cont_3" />
+                <ScalarProperty Name="cont_2" ColumnName="cont_2" />
+                <ScalarProperty Name="cont_1" ColumnName="cont_1" />
+                <ScalarProperty Name="precio_4" ColumnName="precio_4" />
+                <ScalarProperty Name="precio_3" ColumnName="precio_3" />
+                <ScalarProperty Name="precio_2" ColumnName="precio_2" />
+                <ScalarProperty Name="precio_1" ColumnName="precio_1" />
+                <ScalarProperty Name="ofertaprecio" ColumnName="ofertaprecio" />
+                <ScalarProperty Name="ofertaHasta" ColumnName="ofertaHasta" />
+                <ScalarProperty Name="ofertaDesde" ColumnName="ofertaDesde" />
+                <ScalarProperty Name="tasaImpuesto" ColumnName="tasaImpuesto" />
+                <ScalarProperty Name="isDivisa" ColumnName="isDivisa" />
+                <ScalarProperty Name="isOferta" ColumnName="isOferta" />
+                <ScalarProperty Name="isPesado" ColumnName="isPesado" />
+                <ScalarProperty Name="pasilo" ColumnName="pasilo" />
+                <ScalarProperty Name="modelo" ColumnName="modelo" />
+                <ScalarProperty Name="marca" ColumnName="marca" />
+                <ScalarProperty Name="grupo" ColumnName="grupo" />
+                <ScalarProperty Name="codGrupo" ColumnName="codGrupo" />
+                <ScalarProperty Name="departamento" ColumnName="departamento" />
+                <ScalarProperty Name="codDepartamento" ColumnName="codDepartamento" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="referencia" ColumnName="referencia" />
+                <ScalarProperty Name="descripcionPrd" ColumnName="descripcionPrd" />
+                <ScalarProperty Name="plu" ColumnName="plu" />
+                <ScalarProperty Name="isActivo" ColumnName="isActivo" />
+                <ScalarProperty Name="nombrePrd" ColumnName="nombrePrd" />
+                <ScalarProperty Name="codigoPrd" ColumnName="codigoPrd" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
