@@ -173,6 +173,84 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibPosOffLine.Permiso.Actual.Ficha> Permiso_ActualCargar()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPosOffLine.Permiso.Actual.Ficha>();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var list = new List<DtoLibPosOffLine.Permiso.Actual.Permiso>();
+                    var q = cnn.Permiso.ToList();
+                    if (q != null) 
+                    {
+                        if (q.Count > 0) 
+                        {
+                            list = q.Select(s =>
+                            {
+                                var rg = new DtoLibPosOffLine.Permiso.Actual.Permiso()
+                                {
+                                    CodigoFuncion = s.codigo,
+                                    Descripcion = s.descripcion,
+                                    Id = (int)s.id,
+                                    Modulo =(int) s.modulo,
+                                    RequiereClave = s.requiereClave.Trim().ToUpper()=="S"?true:false,
+                                };
+                                return rg;
+                            }).ToList();
+                        }
+                    }
+
+                    var nr = new DtoLibPosOffLine.Permiso.Actual.Ficha();
+                    nr.Permisos = list;
+                    result.Entidad = nr;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Permiso_Actualizar(DtoLibPosOffLine.Permiso.Actualizar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    using (var ts = cnn.Database.BeginTransaction())
+                    {
+                        foreach (var rg in ficha.Permisos) 
+                        {
+                            var ent = cnn.Permiso.Find(rg.Id);
+                            if (ent == null) 
+                            {
+                                result.Mensaje = "PERMISO NO ENCONTRADO";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result;
+                            }
+                            ent.requiereClave = rg.RequiereClave ? "S" : "N";
+                            cnn.SaveChanges();
+                        }
+                        ts.Commit();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

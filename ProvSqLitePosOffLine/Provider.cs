@@ -63,7 +63,6 @@ namespace ProvSqLitePosOffLine
             _cnn2.Server = _instancia;
         }
 
-
         public DtoLib.ResultadoEntidad<DateTime> FechaServidor()
         {
             var result = new DtoLib.ResultadoEntidad<DateTime>();
@@ -85,7 +84,6 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
-
         public DtoLib.ResultadoEntidad<DtoLibPosOffLine.Sistema.InformacionBD.Ficha> InformacionBD()
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibPosOffLine.Sistema.InformacionBD.Ficha>();
@@ -96,6 +94,112 @@ namespace ProvSqLitePosOffLine
                  BD_Local=_bdLocal,
             };
             result.Entidad = inf;
+
+            return result;
+        }
+
+        public DtoLib.Resultado Inicializar_BdLocal()
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var prdList = cnn.Producto.ToList();
+                    var prdBarra = cnn.ProductoBarra.ToList();
+                    var usuList = cnn.UsuarioGrupo.ToList();
+                    var fiscalList = cnn.Fiscal.ToList();
+                    var vendedorList = cnn.Vendedor.ToList();
+                    var medioList = cnn.MedioCobro.ToList();
+                    var depositoList = cnn.Deposito.ToList();
+                    var cobradorList = cnn.Cobrador.ToList();
+                    var transporteList = cnn.Transporte.ToList();
+                    var serieList = cnn.Serie.ToList();
+                    var clienteList = cnn.Cliente.ToList();
+                    var ventaPagoList = cnn.VentaPago.ToList();
+                    var ventaDetalleList = cnn.VentaDetalle.ToList();
+                    var ventaList = cnn.Venta.ToList();
+                    var operadorList = cnn.Operador.ToList();
+                    var jornadaList = cnn.Jornada.ToList();
+                    var pendienteList = cnn.Pendiente.ToList();
+                    var itemList = cnn.Item.ToList();
+
+
+                    var sistema = cnn.Sistema.Find("0000000001");
+                    if (sistema == null) 
+                    {
+                        result.Mensaje = "REGISTRO CONTROL NO ENCONTRADO, VERIFIQUE POR VADOR";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                    }
+
+                    sistema.factorCambio = 0;
+                    sistema.clave1 = "";
+                    sistema.clave2 = "";
+                    sistema.clave3 = "";
+                    sistema.sucursalCodigo = "";
+                    sistema.tarifaAsignada = "";
+                    sistema.EtiquetarPrecioPorTipoNegocio = "";
+                    sistema.serieFactura = "";
+                    sistema.serieNotaDebito= "";
+                    sistema.serieNotaCredito= "";
+                    sistema.serieNotaEntrega = "";
+
+                    sistema.autoCobrador = "";
+                    sistema.autoDeposito = "";
+                    sistema.autoMedioPagoDivisa = "";
+                    sistema.autoMedioPagoEfectivo = "";
+                    sistema.autoMedioPagoElectronico = "";
+                    sistema.autoMedioPagoOtro = "";
+                    sistema.autoTransporte = "";
+                    sistema.autoVendedor = "";
+
+                    sistema.clavePos =0;
+                    sistema.activarRepesaje = "";
+                    sistema.activarBusquedaPorDescripcion = "";
+                    sistema.limiteRepesajeInferior = 0;
+                    sistema.limiteRepesajeSuperior = 0;
+                    cnn.SaveChanges();
+
+                    cnn.Configuration.AutoDetectChangesEnabled = false;
+                    cnn.Producto.RemoveRange(prdList);
+                    cnn.SaveChanges();
+                    cnn.ProductoBarra.RemoveRange(prdBarra);
+                    cnn.SaveChanges();
+                    cnn.UsuarioGrupo.RemoveRange(usuList);
+                    cnn.SaveChanges();
+                    cnn.Fiscal.RemoveRange(fiscalList);
+                    cnn.SaveChanges();
+                    cnn.Vendedor.RemoveRange(vendedorList);
+                    cnn.SaveChanges();
+                    cnn.Deposito.RemoveRange(depositoList);
+                    cnn.SaveChanges();
+                    cnn.MedioCobro.RemoveRange(medioList);
+                    cnn.SaveChanges();
+                    cnn.Cobrador.RemoveRange(cobradorList);
+                    cnn.SaveChanges();
+                    cnn.Transporte.RemoveRange(transporteList);
+                    cnn.SaveChanges();
+                    cnn.Serie.RemoveRange(serieList);
+                    cnn.Cliente.RemoveRange(clienteList);
+                    cnn.VentaPago.RemoveRange(ventaPagoList);
+                    cnn.VentaDetalle.RemoveRange(ventaDetalleList);
+                    cnn.Venta.RemoveRange(ventaList);
+                    cnn.Operador.RemoveRange(operadorList);
+                    cnn.Jornada.RemoveRange(jornadaList);
+                    cnn.Pendiente.RemoveRange(pendienteList);
+                    cnn.Item.RemoveRange(itemList);
+                    cnn.SaveChanges();
+
+                    cnn.Configuration.AutoDetectChangesEnabled = true;
+                }
+
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
 
             return result;
         }

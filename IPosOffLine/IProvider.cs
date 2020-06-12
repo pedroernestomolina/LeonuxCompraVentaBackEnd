@@ -16,6 +16,7 @@ namespace IPosOffLine
         void setServidorRemoto(string instancia, string baseDatos);
         DtoLib.ResultadoEntidad<DateTime> FechaServidor();
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Sistema.InformacionBD.Ficha > InformacionBD();
+        DtoLib.Resultado Inicializar_BdLocal();
 
     }
 
