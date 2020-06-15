@@ -17,10 +17,6 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
         public string Documento { get; set; }
         public decimal Importe { get; set; }
         public string Operacion { get; set; }
-        public string AutoCxC { get; set; }
-        public string AutoCxCPago { get; set; }
-        public string AutoCxCRecibo { get; set; }
-        public string NumeroRecibo { get; set; }
         public DateTime FechaRecepcion { get; set; }
         public int Dias { get; set; }
         public decimal CastigoP { get; set; }

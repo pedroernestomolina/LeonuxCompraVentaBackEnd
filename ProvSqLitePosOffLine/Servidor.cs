@@ -1178,6 +1178,28 @@ namespace ProvSqLitePosOffLine
                         "?estatus_cancelado , ?resta , ?estatus_anulado , ?auto_documento , ?numero , ?auto_agencia , ?agencia , ?signo , " +
                         "?auto_vendedor , ?c_departamento , ?c_ventas , ?c_ventasp , ?serie , ?importe_neto , ?dias , ?castigop)";
 
+
+            const string InsertarCxCRecibo = @"INSERT INTO cxc_recibos (auto , documento , fecha , auto_usuario , importe , usuario , " +
+                        "monto_recibido , cobrador , auto_cliente , cliente , ci_rif , codigo , estatus_anulado , direccion , telefono , " +
+                        "auto_cobrador , anticipos , cambio , nota , codigo_cobrador , auto_cxc , retenciones , descuentos , hora , cierre ) " +
+                        "VALUES (?auto , ?documento , ?fecha , ?auto_usuario , ?importe , ?usuario , " +
+                        "?monto_recibido , ?cobrador , ?auto_cliente , ?cliente , ?ci_rif , ?codigo , ?estatus_anulado , ?direccion , ?telefono , " +
+                        "?auto_cobrador , ?anticipos , ?cambio , ?nota , ?codigo_cobrador , ?auto_cxc , ?retenciones , ?descuentos , ?hora , ?cierre)";
+
+            const string InsertarCxCDocumento = @"INSERT INTO cxc_documentos (id  , fecha , tipo_documento , documento , importe , " +
+                        "operacion , auto_cxc , auto_cxc_pago , auto_cxc_recibo , numero_recibo , fecha_recepcion , dias , " +
+                        "castigop , comisionp) "+
+                        "VALUES ( ?id  , ?fecha , ?tipo_documento , ?documento , ?importe , " +
+                        "?operacion , ?auto_cxc , ?auto_cxc_pago , ?auto_cxc_recibo , ?numero_recibo , ?fecha_recepcion , ?dias , " +
+                        "?castigop , ?comisionp)";
+
+            const string InsertarCxCMedioPago = @"INSERT INTO cxc_medio_pago (auto_recibo , auto_medio_pago , auto_agencia , " +
+                        "medio , codigo , monto_recibido , fecha , estatus_anulado , numero , agencia , auto_usuario , lote , " +
+                        "referencia , auto_cobrador , cierre , fecha_agencia) " +
+                        "VALUES (?auto_recibo , ?auto_medio_pago , ?auto_agencia , " +
+                        "?medio , ?codigo , ?monto_recibido , ?fecha , ?estatus_anulado , ?numero , ?agencia , ?auto_usuario , ?lote , " +
+                        "?referencia , ?auto_cobrador , ?cierre , ?fecha_agencia)";
+
             try
             {
                 using (var cn = new MySqlConnection(_cnn2.ConnectionString))
@@ -1210,9 +1232,57 @@ namespace ProvSqLitePosOffLine
                         }
                         var aCxC = (int)aCxCObj;
 
+                        sql0 = "select a_cxc_recibo from sistema_contadores";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        var aCxCReciboObj = comando1.ExecuteScalar();
+                        if (aCxCReciboObj == null)
+                        {
+                            result.Mensaje = "PROBLEMA AL LEER TABLA CONTADORES AUTOMATICO DE CXC RECIBO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        
+                        sql0 = "select a_cxc_recibo_numero from sistema_contadores";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        var aCxCReciboNumeroObj = comando1.ExecuteScalar();
+                        if (aCxCReciboNumeroObj == null)
+                        {
+                            result.Mensaje = "PROBLEMA AL LEER TABLA CONTADORES AUTOMATICO DE RECIBO CXC NUMERO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+
                         var aVenta = (int)aVentaObj;
+                        var aCxCRecibo = (int)aCxCReciboObj;
+                        var aCxCReciboNumero = (int)aCxCReciboNumeroObj;
+
+
                         var sqlVenta = InsertarVenta;
                         comando1 = new MySqlCommand(sqlVenta, cn, tr);
+                        
+                        var sqlVentaDetalle = InsertarVentaDetalle;
+                        var comando2 = new MySqlCommand(sqlVentaDetalle, cn, tr);
+                        
+                        var sqlMovKardex = InsertarProductoKardex  ;
+                        var comando3 = new MySqlCommand(sqlMovKardex, cn, tr);
+
+                        var sqlDeposito = UpdateProductoDeposito;
+                        var comando4 = new MySqlCommand(sqlDeposito, cn, tr);
+
+                        var sqlCxC = InsertarCxC;
+                        var comandoCxC = new MySqlCommand(sqlCxC, cn, tr);
+
+                        var sqlCxCRecibo = InsertarCxCRecibo;
+                        var comandoCxCRecibo = new MySqlCommand(sqlCxCRecibo, cn, tr);
+
+                        var sqlCxCDocumento = InsertarCxCDocumento;
+                        var comandoCxCDocumento = new MySqlCommand(sqlCxCDocumento, cn, tr);
+
+                        var sqlCxCMedioPago = InsertarCxCMedioPago;
+                        var comandoCxCMedioPago = new MySqlCommand(sqlCxCMedioPago , cn, tr);
+
+
                         foreach (var v in ficha.Documentos)
                         {
                             aVenta += 1;
@@ -1335,8 +1405,6 @@ namespace ProvSqLitePosOffLine
 
 
                             // INSERTAR CXC
-                            var sqlCxC = InsertarCxC ;
-                            var comandoCxC = new MySqlCommand(sqlCxC, cn, tr);
                             comandoCxC.Parameters.Clear();
                             comandoCxC.Parameters.AddWithValue("?auto", autoCxC);
                             comandoCxC.Parameters.AddWithValue("?c_cobranza", v.DocCxC.CCobranza );
@@ -1355,7 +1423,7 @@ namespace ProvSqLitePosOffLine
                             comandoCxC.Parameters.AddWithValue("?estatus_cancelado", v.DocCxC.EstatusCancelado);
                             comandoCxC.Parameters.AddWithValue("?resta", v.DocCxC.Resta);
                             comandoCxC.Parameters.AddWithValue("?estatus_anulado", v.DocCxC.EstatusAnulado);
-                            comandoCxC.Parameters.AddWithValue("?auto_documento", v.DocCxC.AutoDocumento);
+                            comandoCxC.Parameters.AddWithValue("?auto_documento", autoVenta);
                             comandoCxC.Parameters.AddWithValue("?numero", v.DocCxC.Numero);
                             comandoCxC.Parameters.AddWithValue("?auto_agencia", v.DocCxC.AutoAgencia);
                             comandoCxC.Parameters.AddWithValue("?agencia", v.DocCxC.Agencia);
@@ -1381,16 +1449,22 @@ namespace ProvSqLitePosOffLine
                                 aCxC += 1;
                                 var autoCxCPago = aCxC.ToString().Trim().PadLeft(10, '0');
 
+                                aCxCRecibo += 1;
+                                var autoCxCRecibo = aCxCRecibo.ToString().Trim().PadLeft(10, '0');
+                                
+                                aCxCReciboNumero += 1;
+                                var ReciboCxCNumero = aCxCReciboNumero.ToString().Trim().PadLeft(10, '0');
+
+
                                 var pago = v.DocCxCPago.Pago;
-                                // INSERTAR CXC_PAGO
-                                comandoCxC = new MySqlCommand(sqlCxC, cn, tr);
+                                // INSERTAR CXC PAGO
                                 comandoCxC.Parameters.Clear();
                                 comandoCxC.Parameters.AddWithValue("?auto", autoCxCPago);
                                 comandoCxC.Parameters.AddWithValue("?c_cobranza", pago.CCobranza);
                                 comandoCxC.Parameters.AddWithValue("?c_cobranzap", pago.CCobranzap);
                                 comandoCxC.Parameters.AddWithValue("?fecha", pago.Fecha);
                                 comandoCxC.Parameters.AddWithValue("?tipo_documento", pago.TipoDocumento);
-                                comandoCxC.Parameters.AddWithValue("?documento", pago.Documento);
+                                comandoCxC.Parameters.AddWithValue("?documento", ReciboCxCNumero);
                                 comandoCxC.Parameters.AddWithValue("?fecha_vencimiento", pago.FechaVencimiento);
                                 comandoCxC.Parameters.AddWithValue("?nota", pago.Nota);
                                 comandoCxC.Parameters.AddWithValue("?importe", pago.Importe);
@@ -1402,7 +1476,7 @@ namespace ProvSqLitePosOffLine
                                 comandoCxC.Parameters.AddWithValue("?estatus_cancelado", pago.EstatusCancelado);
                                 comandoCxC.Parameters.AddWithValue("?resta", pago.Resta);
                                 comandoCxC.Parameters.AddWithValue("?estatus_anulado", pago.EstatusAnulado);
-                                comandoCxC.Parameters.AddWithValue("?auto_documento", pago.AutoDocumento);
+                                comandoCxC.Parameters.AddWithValue("?auto_documento", autoCxCRecibo );
                                 comandoCxC.Parameters.AddWithValue("?numero", pago.Numero);
                                 comandoCxC.Parameters.AddWithValue("?auto_agencia", pago.AutoAgencia);
                                 comandoCxC.Parameters.AddWithValue("?agencia", pago.Agencia);
@@ -1422,12 +1496,103 @@ namespace ProvSqLitePosOffLine
                                     result.Result = DtoLib.Enumerados.EnumResult.isError;
                                     return result;
                                 }
+
+
+                                var rec=v.DocCxCPago.Recibo;
+                                //INSERTAR CXC RECIBO
+                                comandoCxCRecibo.Parameters.Clear();
+                                comandoCxCRecibo.Parameters.AddWithValue("?auto", autoCxCRecibo);
+                                comandoCxCRecibo.Parameters.AddWithValue("?documento", ReciboCxCNumero);
+                                comandoCxCRecibo.Parameters.AddWithValue("?fecha", rec.Fecha);
+                                comandoCxCRecibo.Parameters.AddWithValue("?auto_usuario", rec.AutoUsuario  );
+                                comandoCxCRecibo.Parameters.AddWithValue("?importe", rec.Importe );
+                                comandoCxCRecibo.Parameters.AddWithValue("?usuario", rec.Usuario );
+                                comandoCxCRecibo.Parameters.AddWithValue("?monto_recibido", rec.MontoRecibido );
+                                comandoCxCRecibo.Parameters.AddWithValue("?cobrador", rec.Cobrador );
+                                comandoCxCRecibo.Parameters.AddWithValue("?auto_cliente", rec.AutoCliente );
+                                comandoCxCRecibo.Parameters.AddWithValue("?cliente", rec.Cliente );
+                                comandoCxCRecibo.Parameters.AddWithValue("?ci_rif", rec.CiRif );
+                                comandoCxCRecibo.Parameters.AddWithValue("?codigo", rec.Codigo );
+                                comandoCxCRecibo.Parameters.AddWithValue("?estatus_anulado",rec.EstatusAnulado );
+                                comandoCxCRecibo.Parameters.AddWithValue("?direccion", rec.Direccion );
+                                comandoCxCRecibo.Parameters.AddWithValue("?telefono", rec.Telefono );
+                                comandoCxCRecibo.Parameters.AddWithValue("?auto_cobrador", rec.AutoCobrador );
+                                comandoCxCRecibo.Parameters.AddWithValue("?anticipos", rec.Anticipos);
+                                comandoCxCRecibo.Parameters.AddWithValue("?cambio", rec.Cambio);
+                                comandoCxCRecibo.Parameters.AddWithValue("?nota", rec.Nota);
+                                comandoCxCRecibo.Parameters.AddWithValue("?codigo_cobrador", rec.CodigoCobrador );
+                                comandoCxCRecibo.Parameters.AddWithValue("?auto_cxc", autoCxCPago);
+                                comandoCxCRecibo.Parameters.AddWithValue("?retenciones", rec.Retenciones);
+                                comandoCxCRecibo.Parameters.AddWithValue("?descuentos", rec.Descuentos);
+                                comandoCxCRecibo.Parameters.AddWithValue("?hora", rec.Hora);
+                                comandoCxCRecibo.Parameters.AddWithValue("?cierre", rec.Cierre );
+                                var rtCxCRecibo = comandoCxCRecibo.ExecuteNonQuery();
+                                if (rtCxCRecibo == 0)
+                                {
+                                    result.Mensaje = "PROBLEMA AL INSERTAR REGISTRO DE CXC RECIBO";
+                                    result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return result;
+                                }
+
+
+                                var cDoc = v.DocCxCPago.Documento;
+                                //INSERTAR CXC DOCUMENTO
+                                comandoCxCDocumento.Parameters.Clear();
+                                comandoCxCDocumento.Parameters.AddWithValue("?id", cDoc.Id );
+                                comandoCxCDocumento.Parameters.AddWithValue("?fecha", cDoc.Fecha  );
+                                comandoCxCDocumento.Parameters.AddWithValue("?tipo_documento", cDoc.TipoDocumento );
+                                comandoCxCDocumento.Parameters.AddWithValue("?documento", cDoc.Documento);
+                                comandoCxCDocumento.Parameters.AddWithValue("?importe", cDoc.Importe);
+                                comandoCxCDocumento.Parameters.AddWithValue("?operacion", cDoc.Operacion);
+                                comandoCxCDocumento.Parameters.AddWithValue("?auto_cxc", autoCxC );
+                                comandoCxCDocumento.Parameters.AddWithValue("?auto_cxc_pago", autoCxCPago );
+                                comandoCxCDocumento.Parameters.AddWithValue("?auto_cxc_recibo", autoCxCRecibo );
+                                comandoCxCDocumento.Parameters.AddWithValue("?numero_recibo", ReciboCxCNumero );
+                                comandoCxCDocumento.Parameters.AddWithValue("?fecha_recepcion",cDoc.FechaRecepcion );
+                                comandoCxCDocumento.Parameters.AddWithValue("?dias", cDoc.Dias );
+                                comandoCxCDocumento.Parameters.AddWithValue("?castigop", cDoc.CastigoP );
+                                comandoCxCDocumento.Parameters.AddWithValue("?comisionp", cDoc.ComisionP);
+                                var rtCxCDocumento = comandoCxCDocumento.ExecuteNonQuery();
+                                if (rtCxCDocumento == 0)
+                                {
+                                    result.Mensaje = "PROBLEMA AL INSERTAR REGISTRO DE CXC DOCUMENTO";
+                                    result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return result;
+                                }
+
+
+                                //INSERTAR CXC MEDIO PAGO
+                                foreach (var cmtPago  in v.DocCxCPago.MetodoPago)
+                                {
+                                    comandoCxCMedioPago.Parameters.Clear();
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?auto_recibo", autoCxCRecibo );
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?auto_medio_pago",  cmtPago.AutoMedioPago);
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?auto_agencia", cmtPago.AutoAgencia );
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?medio", cmtPago.Medio );
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?codigo", cmtPago.Codigo );
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?monto_recibido", cmtPago.MontoRecibido );
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?fecha", cmtPago.Fecha );
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?estatus_anulado",cmtPago.EstatusAnulado );
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?numero", cmtPago.Numero );
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?agencia", cmtPago.Agencia );
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?auto_usuario", cmtPago.AutoUsuario );
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?lote", cmtPago.Lote );
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?referencia", cmtPago.Referencia );
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?auto_cobrador", cmtPago.AutoCobrador );
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?cierre", cmtPago.Cierre );
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?fecha_agencia", cmtPago.FechaAgencia );
+                                    var rtCxCMetPago = comandoCxCMedioPago.ExecuteNonQuery();
+                                    if (rtCxCMetPago  == 0)
+                                    {
+                                        result.Mensaje = "PROBLEMA AL INSERTAR REGISTRO DE METODO DE PAGO DE CXC ";
+                                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                        return result;
+                                    }
+                                };
                             }
 
 
                             //DETALLES DEL DOCUMENTO
-                            var sqlVentaDetalle = InsertarVentaDetalle;
-                            var comando2 = new MySqlCommand(sqlVentaDetalle, cn, tr);
                             foreach (var vd in v.Detalles) 
                             {
                                 comando2.Parameters.Clear();
@@ -1508,9 +1673,7 @@ namespace ProvSqLitePosOffLine
                             }
 
 
-                            //MOVIMINETO KARDEX DEL DOCUMENTO
-                            var sqlMovKardex = InsertarProductoKardex  ;
-                            var comando3 = new MySqlCommand(sqlMovKardex, cn, tr);
+                            //MOVIMIENTO KARDEX DEL DOCUMENTO
                             foreach (var mk in v.MovKardex)
                             {
                                 comando3.Parameters.Clear();
@@ -1545,8 +1708,6 @@ namespace ProvSqLitePosOffLine
                             }
                             
                             //ACTUALIZAR DEPOSITO 
-                            var sqlDeposito = UpdateProductoDeposito ;
-                            var comando4 = new MySqlCommand(sqlDeposito, cn, tr);
                             foreach (var pd in v.ActDeposito)
                             {
                                 comando4.Parameters.Clear();
@@ -1565,9 +1726,12 @@ namespace ProvSqLitePosOffLine
 
 
                         //ACTUALIZAR CONTADOR DE VENTAS
-                        var sql = "update sistema_contadores set a_ventas=@aVentas";
+                        var sql = "update sistema_contadores set a_ventas=@aVentas, a_cxc=@aCxC, a_cxc_recibo=@aCxCRecibo, a_cxc_recibo_numero=@aCxCReciboNumero";
                         comando1 = new MySqlCommand(sql, cn, tr);
                         comando1.Parameters.AddWithValue("@aVentas", aVenta);
+                        comando1.Parameters.AddWithValue("@aCxC", aCxC);
+                        comando1.Parameters.AddWithValue("@aCxCRecibo", aCxCRecibo);
+                        comando1.Parameters.AddWithValue("@aCxCReciboNumero", aCxCReciboNumero);
                         var rtx = comando1.ExecuteNonQuery();
                         if (rtx == 0)
                         {

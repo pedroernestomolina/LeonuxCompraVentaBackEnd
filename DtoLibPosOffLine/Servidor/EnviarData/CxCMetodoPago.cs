@@ -11,7 +11,6 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
     public class CxCMetodoPago
     {
 
-        public string AutoRecibo { get; set; }
         public string AutoMedioPago { get; set; }
         public string AutoAgencia { get; set; }
         public string Medio { get; set; }
