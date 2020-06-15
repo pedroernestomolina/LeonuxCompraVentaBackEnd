@@ -38,5 +38,7 @@ namespace LibEntitySqLitePosOffLine
         public string tarifaPrecio { get; set; }
         public decimal precioSugerido { get; set; }
         public long idPendiente { get; set; }
+        public decimal costoCompra { get; set; }
+        public decimal costoPromedio { get; set; }
     }
 }

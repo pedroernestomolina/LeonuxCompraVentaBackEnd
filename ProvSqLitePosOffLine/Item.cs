@@ -54,6 +54,8 @@ namespace ProvSqLitePosOffLine
                         EmpDescripcion = ent.empaqueDescripcion,
                         TarifaPrecio=ent.tarifaPrecio,
                         PrecioSugerido=ent.precioSugerido,
+                        CostoCompra = ent.costoCompra,
+                        CostoPromedio = ent.costoPromedio,
                     };
                     result.Entidad = nr;
                 }
@@ -101,6 +103,8 @@ namespace ProvSqLitePosOffLine
                         empaqueContenido=ficha.EmpContenido,
                         tarifaPrecio=ficha.TarifaPrecio,
                         precioSugerido=ficha.PrecioSugerido,
+                        costoCompra=ficha.CostoCompra,
+                        costoPromedio=ficha.CostoPromedio,
                     };
                     cnn.Item .Add(entItem);
                     cnn.SaveChanges();
@@ -144,21 +148,23 @@ namespace ProvSqLitePosOffLine
                                     PrecioNeto = s.precioNeto,
                                     EsPesado = esPesado,
                                     TipoIva = s.tipoIva,
-                                    CostoCompraUnd=s.costoUnd,
-                                    CostoPromedioUnd=s.costoPromUnd,
-                                    AutoDepartamento= s.autoDepartamento,
-                                    AutoGrupo= s.autoGrupo,
-                                    AutoSubGrupo=s.autoSubGrupo,
-                                    AutoTasaIva= s.autoTasa,
-                                    Categoria= s.categoria,
+                                    CostoCompraUnd = s.costoUnd,
+                                    CostoPromedioUnd = s.costoPromUnd,
+                                    AutoDepartamento = s.autoDepartamento,
+                                    AutoGrupo = s.autoGrupo,
+                                    AutoSubGrupo = s.autoSubGrupo,
+                                    AutoTasaIva = s.autoTasa,
+                                    Categoria = s.categoria,
                                     CodigoPrd = s.codigoProducto,
-                                    Decimales= s.decimales,
-                                    DiasEmpaqueGarantia=(int)s.diasEmpaqueGarantia,
-                                    EmpContenido=(int)s.empaqueContenido,
-                                    EmpCodigo=s.empaqueCodigo,
-                                    EmpDescripcion=s.empaqueDescripcion,
-                                    TarifaPrecio=s.tarifaPrecio,
-                                    PrecioSugerido=s.precioSugerido,
+                                    Decimales = s.decimales,
+                                    DiasEmpaqueGarantia = (int)s.diasEmpaqueGarantia,
+                                    EmpContenido = (int)s.empaqueContenido,
+                                    EmpCodigo = s.empaqueCodigo,
+                                    EmpDescripcion = s.empaqueDescripcion,
+                                    TarifaPrecio = s.tarifaPrecio,
+                                    PrecioSugerido = s.precioSugerido,
+                                    CostoCompra = s.costoCompra,
+                                    CostoPromedio = s.costoPromedio,
                                 };
                                 return nr;
                             }).ToList();

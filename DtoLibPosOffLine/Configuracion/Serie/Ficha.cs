@@ -15,6 +15,10 @@ namespace DtoLibPosOffLine.Configuracion.Serie
         public string ParaNotaCredito { get; set; }
         public string ParaNotaDebito { get; set; }
         public string ParaNotaEntrega { get; set; }
+        public string ControlParaFactura { get; set; }
+        public string ControlParaNotaCredito { get; set; }
+        public string ControlParaNotaDebito { get; set; }
+        public string ControlParaNotaEntrega { get; set; }
 
     }
 

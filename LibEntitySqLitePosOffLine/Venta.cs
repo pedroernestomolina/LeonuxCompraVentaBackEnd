@@ -82,5 +82,13 @@ namespace LibEntitySqLitePosOffLine
         public long idCliente { get; set; }
         public long idJornada { get; set; }
         public long idOperador { get; set; }
+        public decimal saldoPendiente { get; set; }
+        public string tarifa { get; set; }
+        public string autoConceptoVenta { get; set; }
+        public string codigoConceptoVenta { get; set; }
+        public string nombreConceptoVenta { get; set; }
+        public string autoConceptoDevVenta { get; set; }
+        public string codigoConceptoDevVenta { get; set; }
+        public string nombreConceptoDevVenta { get; set; }
     }
 }

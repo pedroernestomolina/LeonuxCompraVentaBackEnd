@@ -56,5 +56,7 @@ namespace LibEntitySqLitePosOffLine
         public string tipoIva { get; set; }
         public long esPesado { get; set; }
         public string empaqueCodigo { get; set; }
+        public decimal costoCompra { get; set; }
+        public decimal costoPromedio { get; set; }
     }
 }

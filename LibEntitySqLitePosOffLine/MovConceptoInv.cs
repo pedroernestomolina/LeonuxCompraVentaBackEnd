@@ -12,11 +12,10 @@ namespace LibEntitySqLitePosOffLine
     using System;
     using System.Collections.Generic;
     
-    public partial class Serie
+    public partial class MovConceptoInv
     {
         public string auto { get; set; }
-        public string serie1 { get; set; }
-        public string control { get; set; }
-        public long correlativo { get; set; }
+        public string codigo { get; set; }
+        public string nombre { get; set; }
     }
 }

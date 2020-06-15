@@ -12,6 +12,7 @@ namespace DtoLibPosOffLine.Servidor.RecogerDataEnviar
     {
 
         public List<Jornada> Jornadas { get; set; }
+        public List<Serie> Series { get; set; }
 
     }
 

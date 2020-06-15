@@ -99,6 +99,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelPos.edmx</DependentUpon>
     </Compile>
+    <Compile Include="MovConceptoInv.cs">
+      <DependentUpon>ModelPos.tt</DependentUpon>
+    </Compile>
     <Compile Include="Operador.cs">
       <DependentUpon>ModelPos.tt</DependentUpon>
     </Compile>

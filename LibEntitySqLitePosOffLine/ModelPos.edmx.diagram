@@ -25,6 +25,7 @@
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Operador" Width="1.5" PointX="14.375" PointY="0.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Jornada" Width="1.5" PointX="12.375" PointY="13.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Producto" Width="1.5" PointX="0.75" PointY="14.75" />
+        <EntityTypeShape EntityType="LeonuxPosOffLineModel.MovConceptoInv" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

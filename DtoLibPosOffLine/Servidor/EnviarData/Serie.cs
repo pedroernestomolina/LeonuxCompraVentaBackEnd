@@ -8,12 +8,11 @@ using System.Threading.Tasks;
 namespace DtoLibPosOffLine.Servidor.EnviarData
 {
     
-    public class Ficha
+    public class Serie
     {
 
-        public List<Jornada> Jornadas { get; set; }
-        public List<Documento> Documentos { get; set; }
-        public List<Serie> Series { get; set; }
+        public string Auto { get; set; }
+        public int Correlativo { get; set; }
 
     }
 

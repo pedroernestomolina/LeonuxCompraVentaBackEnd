@@ -88,9 +88,16 @@
     <Compile Include="Producto\Resumen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serie\Ficha.cs" />
+    <Compile Include="Servidor\EnviarData\CxC.cs" />
+    <Compile Include="Servidor\EnviarData\CxCDocumento.cs" />
+    <Compile Include="Servidor\EnviarData\CxCMetodoPago.cs" />
+    <Compile Include="Servidor\EnviarData\CxCRecibo.cs" />
     <Compile Include="Servidor\EnviarData\DocumentoDetalle.cs" />
+    <Compile Include="Servidor\EnviarData\Jornada.cs" />
+    <Compile Include="Servidor\EnviarData\Pago.cs" />
     <Compile Include="Servidor\EnviarData\ProductoDeposito.cs" />
     <Compile Include="Servidor\EnviarData\ProductoKardex.cs" />
+    <Compile Include="Servidor\EnviarData\Serie.cs" />
     <Compile Include="Servidor\RecogerDataEnviar\Documento.cs" />
     <Compile Include="Servidor\RecogerDataEnviar\DocumentoDetalle.cs" />
     <Compile Include="Servidor\RecogerDataEnviar\DocumentoPago.cs" />
@@ -99,6 +106,7 @@
     <Compile Include="Servidor\EnviarData\Ficha.cs" />
     <Compile Include="Servidor\EnviarData\Documento.cs" />
     <Compile Include="Servidor\RecogerDataEnviar\Jornada.cs" />
+    <Compile Include="Servidor\RecogerDataEnviar\Serie.cs" />
     <Compile Include="Sistema\InformacionBD\Ficha.cs" />
     <Compile Include="Transporte\Ficha.cs" />
     <Compile Include="Usuario\Cargar.cs" />

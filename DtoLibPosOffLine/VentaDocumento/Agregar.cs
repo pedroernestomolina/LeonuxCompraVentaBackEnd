@@ -90,6 +90,15 @@ namespace DtoLibPosOffLine.VentaDocumento
         public decimal MontoRecibido { get; set; }
         public decimal CambioDar { get; set; }
 
+        public string Tarifa { get; set; }
+        public decimal SaldoPendiente { get; set; }
+        public string AutoConceptoVenta { get; set; }
+        public string CodigoConceptoVenta { get; set; }
+        public string NombreConceptoVenta { get; set; }
+        public string AutoConceptoDevVenta { get; set; }
+        public string CodigoConceptoDevVenta { get; set; }
+        public string NombreConceptoDevVenta { get; set; }
+
         public List<AgregarItem> Items { get; set; }
         public List<AgregarMetodoPago> MetodosPago { get; set; }
         public List<AgregarItemLimpiar> ItemsLimpiar { get; set; }

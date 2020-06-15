@@ -30,6 +30,8 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
         public decimal PrecioUnd { get; set; }
         public string Codigo { get; set; }
         public string Siglas { get; set; }
+        public string CodigoSucursal { get; set; }
+
 
 
         public ProductoKardex()
@@ -53,6 +55,7 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
             PrecioUnd = 0.0m;
             Codigo = "";
             Siglas = "";
+            CodigoSucursal = "";
         }
 
     }

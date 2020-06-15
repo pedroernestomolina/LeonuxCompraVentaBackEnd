@@ -91,6 +91,15 @@ namespace DtoLibPosOffLine.Servidor.RecogerDataEnviar
         public decimal CambioDar { get; set; }
         public bool IsCredito { get; set; }
 
+        public string Tarifa { get; set; }
+        public decimal SaldoPendiente { get; set; }
+        public string AutoConceptoVenta { get; set; }
+        public string CodigoConceptoVenta { get; set; }
+        public string NombreConceptoVenta { get; set; }
+        public string AutoConceptoDevVenta { get; set; }
+        public string CodigoConceptoDevVenta { get; set; }
+        public string NombreConceptoDevVenta { get; set; }
+
         public List<DocumentoDetalle> Detalles { get; set; }
         public List<DocumentoPago > MetodosPago { get; set; }
 

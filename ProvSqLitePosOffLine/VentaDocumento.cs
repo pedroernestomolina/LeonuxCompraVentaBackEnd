@@ -26,11 +26,24 @@ namespace ProvSqLitePosOffLine
                         var mesRelacion = fechaSistema.Month.ToString().Trim().PadLeft(2, '0');
                         var anoRelacion = fechaSistema.Year.ToString();
 
+                        var entSerie = cnn.Serie.FirstOrDefault(f => f.serie1.Trim().ToUpper() == ficha.Serie.Trim().ToUpper());
+                        if (entSerie == null) 
+                        {
+                            result.Mensaje = "SERIE DOCUMENTO NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        entSerie.correlativo += 1;
+                        cnn.SaveChanges();
+                        var _documento = entSerie.correlativo.ToString().Trim().PadLeft(10, '0');
+
+
                         var entVenta = new LibEntitySqLitePosOffLine.Venta()
                         {
                             idJornada=ficha.IdJornada,
                             idOperador=ficha.IdOperador,
-                            documento = ficha.Documento,
+                            documento = _documento,
                             fecha = fechaSistema.ToShortDateString(),
                             idCliente=ficha.ClienteId,
                             nombreRazonSocial = ficha.ClienteNombreRazonSocial,
@@ -95,6 +108,14 @@ namespace ProvSqLitePosOffLine
                             montoRecibido = ficha.MontoRecibido,
                             cambioDar = ficha.CambioDar,
                             esCredito=ficha.IsCredito,
+                            tarifa=ficha.Tarifa,
+                            saldoPendiente=ficha.SaldoPendiente,
+                            autoConceptoVenta=ficha.AutoConceptoVenta,
+                            codigoConceptoVenta=ficha.CodigoConceptoVenta,
+                            nombreConceptoVenta=ficha.NombreConceptoVenta,
+                            autoConceptoDevVenta=ficha.AutoConceptoDevVenta,
+                            codigoConceptoDevVenta=ficha.CodigoConceptoDevVenta,
+                            nombreConceptoDevVenta=ficha.NombreConceptoDevVenta,
                         };
                         cnn.Venta.Add(entVenta);
                         cnn.SaveChanges();
@@ -145,6 +166,8 @@ namespace ProvSqLitePosOffLine
                                 totalDescuento = rg.TotalDescuento,
                                 tipoIva=rg.TipoIva,
                                 esPesado=rg.EsPesado,
+                                costoCompra=rg.CostoCompra,
+                                costoPromedio=rg.CostoPromedio,
                             };
                             cnn.VentaDetalle.Add(entItem);
                             cnn.SaveChanges();
@@ -418,6 +441,14 @@ namespace ProvSqLitePosOffLine
                             VendedorAuto = s.autoVendedor,
                             VendedorCodigo = s.codigoVendedor,
                             VendedorNombre = s.vendedor,
+                            Tarifa=s.tarifa,
+                            SaldoPendiente=s.saldoPendiente,
+                            AutoConceptoVenta=s.autoConceptoVenta,
+                            CodigoConceptoVenta=s.codigoConceptoVenta,
+                            NombreConceptoVenta=s.nombreConceptoVenta,
+                            AutoConceptoDevVenta=s.autoConceptoDevVenta,
+                            CodigoConceptoDevVenta=s.codigoConceptoDevVenta,
+                            NombreConceptoDevVenta=s.nombreConceptoDevVenta,
                         };
 
                         var det = qd.Select(t =>
@@ -466,6 +497,8 @@ namespace ProvSqLitePosOffLine
                                 UtilidadPorct = t.utilidadPorct,
                                 EsPesado=esPesado,
                                 TipoIva=t.tipoIva,
+                                CostoCompra=t.costoCompra,
+                                CostoPromedio=t.costoPromedio,
                             };
                             return rg;
                         }).ToList();

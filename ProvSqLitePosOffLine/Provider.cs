@@ -124,7 +124,7 @@ namespace ProvSqLitePosOffLine
                     var jornadaList = cnn.Jornada.ToList();
                     var pendienteList = cnn.Pendiente.ToList();
                     var itemList = cnn.Item.ToList();
-
+                    var conceptoInvList = cnn.MovConceptoInv.ToList();
 
                     var sistema = cnn.Sistema.Find("0000000001");
                     if (sistema == null) 
@@ -189,6 +189,7 @@ namespace ProvSqLitePosOffLine
                     cnn.Jornada.RemoveRange(jornadaList);
                     cnn.Pendiente.RemoveRange(pendienteList);
                     cnn.Item.RemoveRange(itemList);
+                    cnn.MovConceptoInv.RemoveRange(conceptoInvList);
                     cnn.SaveChanges();
 
                     cnn.Configuration.AutoDetectChangesEnabled = true;

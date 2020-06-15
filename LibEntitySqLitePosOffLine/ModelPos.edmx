@@ -67,6 +67,8 @@
           <Property Name="empaqueContenido" Type="integer" Nullable="false" />
           <Property Name="tarifaPrecio" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="precioSugerido" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="costoCompra" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="costoPromedio" Type="decimal" Precision="53" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Jornada">
           <Key>
@@ -87,6 +89,14 @@
           <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="descripcion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MovConceptoInv">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="Operador">
           <Key>
@@ -195,6 +205,7 @@
           <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="serie" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="control" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="correlativo" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Sistema">
           <Key>
@@ -326,6 +337,14 @@
           <Property Name="idCliente" Type="integer" Nullable="false" />
           <Property Name="idJornada" Type="integer" Nullable="false" />
           <Property Name="idOperador" Type="integer" Nullable="false" />
+          <Property Name="saldoPendiente" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="tarifa" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="autoConceptoVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="codigoConceptoVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="nombreConceptoVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="autoConceptoDevVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="codigoConceptoDevVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="nombreConceptoDevVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="VentaDetalle">
           <Key>
@@ -373,6 +392,8 @@
           <Property Name="tipoIva" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="esPesado" Type="integer" Nullable="false" />
           <Property Name="empaqueCodigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="costoCompra" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="costoPromedio" Type="decimal" Precision="53" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="VentaPago">
           <Key>
@@ -397,6 +418,7 @@
           <EntitySet Name="Item" EntityType="Self.Item" store:Type="Tables" />
           <EntitySet Name="Jornada" EntityType="Self.Jornada" store:Type="Tables" />
           <EntitySet Name="MedioCobro" EntityType="Self.MedioCobro" store:Type="Tables" />
+          <EntitySet Name="MovConceptoInv" EntityType="Self.MovConceptoInv" store:Type="Tables" />
           <EntitySet Name="Operador" EntityType="Self.Operador" store:Type="Tables" />
           <EntitySet Name="Pendiente" EntityType="Self.Pendiente" store:Type="Tables" />
           <EntitySet Name="Permiso" EntityType="Self.Permiso" store:Type="Tables" />
@@ -436,6 +458,7 @@
           <EntitySet Name="Operador" EntityType="LeonuxPosOffLineModel.Operador" />
           <EntitySet Name="Jornada" EntityType="LeonuxPosOffLineModel.Jornada" />
           <EntitySet Name="Producto" EntityType="LeonuxPosOffLineModel.Producto" />
+          <EntitySet Name="MovConceptoInv" EntityType="LeonuxPosOffLineModel.MovConceptoInv" />
         </EntityContainer>
         <EntityType Name="ProductoBarra">
           <Key>
@@ -493,6 +516,8 @@
           <Property Name="tarifaPrecio" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="precioSugerido" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="idPendiente" Type="Int64" Nullable="false" />
+          <Property Name="costoCompra" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="costoPromedio" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
         </EntityType>
         <EntityType Name="Fiscal">
           <Key>
@@ -574,6 +599,14 @@
           <Property Name="idCliente" Type="Int64" Nullable="false" />
           <Property Name="idJornada" Type="Int64" Nullable="false" />
           <Property Name="idOperador" Type="Int64" Nullable="false" />
+          <Property Name="saldoPendiente" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="tarifa" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoConceptoVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="codigoConceptoVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="nombreConceptoVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoConceptoDevVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="codigoConceptoDevVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="nombreConceptoDevVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="VentaDetalle">
           <Key>
@@ -621,6 +654,8 @@
           <Property Name="tipoIva" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="esPesado" Type="Int64" Nullable="false" />
           <Property Name="empaqueCodigo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="costoCompra" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="costoPromedio" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
         </EntityType>
         <EntityType Name="Deposito">
           <Key>
@@ -736,6 +771,7 @@
           <Property Name="auto" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="serie1" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="control" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="correlativo" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="Operador">
           <Key>
@@ -821,6 +857,14 @@
           <Property Name="dec_5" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="emp_5" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="MovConceptoInv">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -861,6 +905,8 @@
           <EntitySetMapping Name="Item">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Item">
               <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="costoPromedio" ColumnName="costoPromedio" />
+                <ScalarProperty Name="costoCompra" ColumnName="costoCompra" />
                 <ScalarProperty Name="idPendiente" ColumnName="idPendiente" />
                 <ScalarProperty Name="precioSugerido" ColumnName="precioSugerido" />
                 <ScalarProperty Name="tarifaPrecio" ColumnName="tarifaPrecio" />
@@ -900,6 +946,14 @@
           <EntitySetMapping Name="Venta">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Venta">
               <MappingFragment StoreEntitySet="Venta">
+                <ScalarProperty Name="nombreConceptoDevVenta" ColumnName="nombreConceptoDevVenta" />
+                <ScalarProperty Name="codigoConceptoDevVenta" ColumnName="codigoConceptoDevVenta" />
+                <ScalarProperty Name="autoConceptoDevVenta" ColumnName="autoConceptoDevVenta" />
+                <ScalarProperty Name="nombreConceptoVenta" ColumnName="nombreConceptoVenta" />
+                <ScalarProperty Name="codigoConceptoVenta" ColumnName="codigoConceptoVenta" />
+                <ScalarProperty Name="autoConceptoVenta" ColumnName="autoConceptoVenta" />
+                <ScalarProperty Name="tarifa" ColumnName="tarifa" />
+                <ScalarProperty Name="saldoPendiente" ColumnName="saldoPendiente" />
                 <ScalarProperty Name="idOperador" ColumnName="idOperador" />
                 <ScalarProperty Name="idJornada" ColumnName="idJornada" />
                 <ScalarProperty Name="idCliente" ColumnName="idCliente" />
@@ -974,6 +1028,8 @@
           <EntitySetMapping Name="VentaDetalle">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.VentaDetalle">
               <MappingFragment StoreEntitySet="VentaDetalle">
+                <ScalarProperty Name="costoPromedio" ColumnName="costoPromedio" />
+                <ScalarProperty Name="costoCompra" ColumnName="costoCompra" />
                 <ScalarProperty Name="empaqueCodigo" ColumnName="empaqueCodigo" />
                 <ScalarProperty Name="esPesado" ColumnName="esPesado" />
                 <ScalarProperty Name="tipoIva" ColumnName="tipoIva" />
@@ -1138,6 +1194,7 @@
           <EntitySetMapping Name="Serie">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Serie">
               <MappingFragment StoreEntitySet="Serie">
+                <ScalarProperty Name="correlativo" ColumnName="correlativo" />
                 <ScalarProperty Name="control" ColumnName="control" />
                 <ScalarProperty Name="serie1" ColumnName="serie" />
                 <ScalarProperty Name="auto" ColumnName="auto" />
@@ -1227,6 +1284,15 @@
                 <ScalarProperty Name="isActivo" ColumnName="isActivo" />
                 <ScalarProperty Name="nombrePrd" ColumnName="nombrePrd" />
                 <ScalarProperty Name="codigoPrd" ColumnName="codigoPrd" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MovConceptoInv">
+            <EntityTypeMapping TypeName="LeonuxPosOffLineModel.MovConceptoInv">
+              <MappingFragment StoreEntitySet="MovConceptoInv">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>

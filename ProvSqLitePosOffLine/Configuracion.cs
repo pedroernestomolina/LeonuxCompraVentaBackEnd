@@ -136,51 +136,63 @@ namespace ProvSqLitePosOffLine
                     };
 
                     var factura = "";
+                    var controlFactura = "";
                     if (ent.serieFactura != "") 
                     {
                         var entSerieFactura = cnn.Serie.Find(ent.serieFactura);
                         if (entSerieFactura != null) 
                         {
                             factura = entSerieFactura.serie1;
+                            controlFactura = entSerieFactura.control;
                         }
                     }
 
                     var ntCredito= "";
+                    var controlNtCredito = "";
                     if (ent.serieNotaCredito != "")
                     {
                         var entSerieNotaCredito= cnn.Serie.Find(ent.serieNotaCredito);
                         if (entSerieNotaCredito != null)
                         {
                             ntCredito = entSerieNotaCredito.serie1;
+                            controlNtCredito = entSerieNotaCredito.control;
                         }
                     }
 
                     var ntDebito= "";
+                    var controlNtdebito = "";
                     if (ent.serieNotaDebito != "")
                     {
                         var entSerieNotaDebito= cnn.Serie.Find(ent.serieNotaDebito);
                         if (entSerieNotaDebito != null)
                         {
                             ntDebito = entSerieNotaDebito.serie1;
+                            controlNtdebito = entSerieNotaDebito.control;
                         }
                     }
 
                     var ntEntrega= "";
+                    var controlNtEntrega = "";
                     if (ent.serieNotaEntrega != "")
                     {
                         var entSerieNotaEntrega = cnn.Serie.Find(ent.serieNotaEntrega);
                         if (entSerieNotaEntrega != null)
                         {
                             ntEntrega= entSerieNotaEntrega.serie1;
+                            controlNtEntrega =entSerieNotaEntrega.control;
                         }
                     }
 
                     var nr = new DtoLibPosOffLine.Configuracion.Serie.Ficha()
                     {
-                        ParaFactura=factura,
-                        ParaNotaCredito=ntCredito,
-                        ParaNotaDebito=ntDebito,
+                        ParaFactura = factura,
+                        ParaNotaCredito = ntCredito,
+                        ParaNotaDebito = ntDebito,
                         ParaNotaEntrega = ntEntrega,
+                        ControlParaFactura = controlFactura,
+                        ControlParaNotaCredito = controlNtCredito,
+                        ControlParaNotaDebito = controlNtdebito,
+                        ControlParaNotaEntrega = controlNtEntrega,
                     };
                     result.Entidad = nr;
                 }
@@ -426,7 +438,7 @@ namespace ProvSqLitePosOffLine
                         return result;
                     }
 
-                    var transporte = cnn.Cobrador.Find(autoTransporte);
+                    var transporte = cnn.Transporte.Find(autoTransporte);
                     if (transporte == null)
                     {
                         result.Mensaje = "TRANSPORTE NO ENCONTRADO";

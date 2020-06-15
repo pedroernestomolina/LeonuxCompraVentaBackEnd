@@ -118,6 +118,8 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
         public List<DocumentoDetalle> Detalles { get; set; }
         public List<ProductoKardex> MovKardex { get; set; }
         public List<ProductoDeposito> ActDeposito { get; set; }
+        public CxC DocCxC { get; set; }
+        public CxCPago DocCxCPago { get; set; }
 
 
         public Documento()
@@ -148,7 +150,7 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
             TasaRetencionIslr = 0.0m;
             RetencionIva=0.0m;
             RetencionIslr = 0.0m;
-            AutoCliente = "";
+            AutoCliente = "0000000001";
             CodigoCliente = "";
             MesRelacion = "";
             Control = "";
@@ -170,7 +172,7 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
             FactorCambio = 0.0m;
             CodigoVendedor = "";
             Vendedor = "";
-            AutoVendedor = "";
+            AutoVendedor = "0000000001";
             FechaPedido = DateTime.Now.Date;
             Pedido = "";
             CondicionPago = "";
@@ -191,7 +193,7 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
             AnoRelacion = "";
             ComprobanteRetencionIslr = "";
             DiasValidez = 0;
-            AutoUsuario = "";
+            AutoUsuario = "0000000001";
             AutoTransporte = "";
             Situacion = "";
             Signo = 1;
@@ -226,6 +228,8 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
             FechaRetencion = DateTime.Now.Date;
             EstatusCierreContable = "";
 
+            DocCxC = new CxC();
+            DocCxCPago = new CxCPago();
             Detalles = new List<DocumentoDetalle>();
             MovKardex = new List<ProductoKardex>();
             ActDeposito = new List<ProductoDeposito>();

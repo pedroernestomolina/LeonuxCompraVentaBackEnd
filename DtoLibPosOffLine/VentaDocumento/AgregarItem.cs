@@ -61,6 +61,9 @@ namespace DtoLibPosOffLine.VentaDocumento
         public string TipoIva { get; set; }
         public int EsPesado { get; set; }
 
+        public decimal CostoCompra { get; set; }
+        public decimal CostoPromedio { get; set; }
+
     }
 
 }

@@ -132,6 +132,14 @@ namespace ProvSqLitePosOffLine
         public string Auto { get; set; }
         public string Serie { get; set; }
         public string Control { get; set; }
+        public int Correlativo { get; set; }
+    }
+
+    public class DataProductoConcepto
+    {
+        public string Auto { get; set; }
+        public string Codigo { get; set; }
+        public string Nombre { get; set; }
     }
 
 
@@ -195,6 +203,8 @@ namespace ProvSqLitePosOffLine
             var list8 = new List<DataCobrador>();
             var list9 = new List<DataTransporte>();
             var listA = new List<DataSerie>();
+            var listB = new List<DataProductoConcepto>();
+
             var exito = false;
             var factorCambio = 0.0m;
             var clave1 = "";
@@ -239,12 +249,13 @@ namespace ProvSqLitePosOffLine
                     var sqlB = "select usuario from sistema_configuracion where codigo='GLOBAL17'";
                     var sqlC = "select usuario from sistema_configuracion where codigo='GLOBAL18'";
                     var sqlD = "select usuario from sistema_configuracion where codigo='GLOBAL19'";
-                    var sqlE = "select auto, serie, control from empresa_series_fiscales where estatus='Activo'";
+                    var sqlE = "select auto, serie, control, correlativo from empresa_series_fiscales where estatus='Activo'";
                     var sqlF = "select usuario from sistema_configuracion where codigo='GLOBAL49'"; //PRECIO POR TIPO DE NEGOCIO
                     var sqlG = "select codigo_empresa from sistema"; //CODIGO SUCURSAL 
                     var sqlH = "select es.autoDepositoPrincipal as autoDeposito, eg.idPrecio as Tarifa " +
                         "from empresa_sucursal as es join empresa_grupo as eg on es.autoEmpresaGrupo=eg.Auto " +
                         "where codigo=@codigo"; //DEPOSITO, TARIFA PARA EL TIPO DE NEGOCIO INDICADO
+                    var sqlI = "select auto,nombre,codigo from productos_conceptos";
 
 
                     var sql1 = "select now()";
@@ -500,6 +511,7 @@ namespace ProvSqLitePosOffLine
                         nr.Auto = reader.GetString("auto");
                         nr.Serie = reader.GetString("serie");
                         nr.Control = reader.GetString("control");
+                        nr.Correlativo = reader.GetInt32("correlativo");
                         listA.Add(nr);
                     }
                     reader.Close();
@@ -530,6 +542,19 @@ namespace ProvSqLitePosOffLine
                         dataReader.Close();
                     }
 
+                    MySqlCommand comandoI = new MySqlCommand(sqlI);
+                    comandoI.Connection = cn;
+                    reader = comandoI.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var nr = new  DataProductoConcepto();
+                        nr.Auto = reader.GetString("auto");
+                        nr.Codigo = reader.GetString("codigo");
+                        nr.Nombre = reader.GetString("nombre");
+                        listB.Add(nr);
+                    }
+                    reader.Close();
+
                     exito = true;
                 };
             }
@@ -556,6 +581,7 @@ namespace ProvSqLitePosOffLine
                         var cobradorList = cnn.Cobrador.ToList();
                         var transporteList = cnn.Transporte.ToList();
                         var serieList = cnn.Serie.ToList();
+                        var movConceptoInvList = cnn.MovConceptoInv.ToList();
 
 
                         var sistema = cnn.Sistema.Find("0000000001");
@@ -592,6 +618,8 @@ namespace ProvSqLitePosOffLine
                         cnn.Transporte.RemoveRange(transporteList);
                         cnn.SaveChanges();
                         cnn.Serie.RemoveRange(serieList);
+                        cnn.SaveChanges();
+                        cnn.MovConceptoInv.RemoveRange(movConceptoInvList);
                         cnn.SaveChanges();
 
 
@@ -799,10 +827,26 @@ namespace ProvSqLitePosOffLine
                                 auto = r.Auto,
                                 serie1 = r.Serie,
                                 control = r.Control,
+                                correlativo=r.Correlativo,
                             };
                             listSerie.Add(nr);
                         }
                         cnn.Serie.AddRange(listSerie);
+                        cnn.SaveChanges();
+
+
+                        var listMovConcepto = new List<LibEntitySqLitePosOffLine.MovConceptoInv>();
+                        foreach (var r in listB)
+                        {
+                            var nr = new LibEntitySqLitePosOffLine.MovConceptoInv()
+                            {
+                                auto = r.Auto,
+                                codigo=r.Codigo,
+                                nombre=r.Nombre,
+                            };
+                            listMovConcepto.Add(nr);
+                        }
+                        cnn.MovConceptoInv.AddRange(listMovConcepto);
                         cnn.SaveChanges();
 
                         cnn.Configuration.AutoDetectChangesEnabled = true;
@@ -818,205 +862,6 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
-        public DtoLib.Resultado Servidor_EnviarData(DtoLibPosOffLine.Servidor.EnviarData.Ficha ficha)
-        {
-            var result = new DtoLib.Resultado();
-
-            const string InsertarVenta = @"INSERT INTO ventas (auto, documento, fecha, fecha_vencimiento, razon_social, dir_fiscal, ci_rif, tipo, exento," +
-                      "base1, base2, base3, impuesto1, impuesto2, impuesto3, base, impuesto, total, tasa1, tasa2, tasa3, nota, tasa_retencion_iva, " +
-                      "tasa_retencion_islr, retencion_iva, retencion_islr, auto_cliente, codigo_cliente, mes_relacion, control, fecha_registro, orden_compra," +
-                      "dias, descuento1, descuento2, cargos, descuento1p, descuento2p, cargosp, columna, estatus_anulado, aplica, comprobante_retencion," +
-                      "subtotal_neto, telefono, factor_cambio, codigo_vendedor, vendedor, auto_vendedor, fecha_pedido, pedido, condicion_pago, usuario," +
-                      "codigo_usuario, codigo_sucursal, hora, transporte, codigo_transporte, monto_divisa, despachado, dir_despacho, estacion, auto_recibo," +
-                      "recibo, renglones, saldo_pendiente, ano_relacion, comprobante_retencion_islr, dias_validez, auto_usuario, auto_transporte, situacion," +
-                      "signo, serie, tarifa, tipo_remision, documento_remision, auto_remision, documento_nombre, subtotal_impuesto, subtotal, auto_cxc, tipo_cliente," +
-                      "planilla, expediente, anticipo_iva, terceros_iva, neto, costo, utilidad, utilidadp, documento_tipo, ci_titular, nombre_titular, ci_beneficiario," +
-                      "nombre_beneficiario, clave, denominacion_fiscal, cambio, estatus_validado, cierre, fecha_retencion, estatus_cierre_contable) " +
-                      "VALUES (?auto, ?documento, ?fecha, ?fecha_vencimiento, ?razon_social, ?dir_fiscal, ?ci_rif, ?tipo, ?exento," +
-                      "?base1, ?base2, ?base3, ?impuesto1, ?impuesto2, ?impuesto3, ?base, ?impuesto, ?total, ?tasa1, ?tasa2, ?tasa3, ?nota, ?tasa_retencion_iva, " +
-                      "?tasa_retencion_islr, ?retencion_iva, ?retencion_islr, ?auto_cliente, ?codigo_cliente, ?mes_relacion, ?control, ?fecha_registro, ?orden_compra," +
-                      "?dias, ?descuento1, ?descuento2, ?cargos, ?descuento1p, ?descuento2p, ?cargosp, ?columna, ?estatus_anulado, ?aplica, ?comprobante_retencion," +
-                      "?subtotal_neto, ?telefono, ?factor_cambio, ?codigo_vendedor, ?vendedor, ?auto_vendedor, ?fecha_pedido, ?pedido, ?condicion_pago, ?usuario," +
-                      "?codigo_usuario, ?codigo_sucursal, ?hora, ?transporte, ?codigo_transporte, ?monto_divisa, ?despachado, ?dir_despacho, ?estacion, ?auto_recibo," +
-                      "?recibo, ?renglones, ?saldo_pendiente, ?ano_relacion, ?comprobante_retencion_islr, ?dias_validez, ?auto_usuario, ?auto_transporte, ?situacion," +
-                      "?signo, ?serie, ?tarifa, ?tipo_remision, ?documento_remision, ?auto_remision, ?documento_nombre, ?subtotal_impuesto, ?subtotal, ?auto_cxc, ?tipo_cliente," +
-                      "?planilla, ?expediente, ?anticipo_iva, ?terceros_iva, ?neto, ?costo, ?utilidad, ?utilidadp, ?documento_tipo, ?ci_titular, ?nombre_titular, ?ci_beneficiario," +
-                      "?nombre_beneficiario, ?clave, ?denominacion_fiscal, ?cambio, ?estatus_validado, ?cierre, ?fecha_retencion, ?estatus_cierre_contable)";
-
-
-            try
-            {
-                using (var cn = new MySqlConnection(_cnn2.ConnectionString))
-                {
-                    cn.Open();
-                    MySqlTransaction tr = null;
-
-                    try
-                    {
-                        tr = cn.BeginTransaction();
-
-                        var sql0 = "select a_ventas from sistema_contadores";
-                        MySqlCommand comando1 = new MySqlCommand(sql0, cn, tr);
-                        var aVentaObj = comando1.ExecuteScalar();
-                        if (aVentaObj == null)
-                        {
-                            result.Mensaje = "PROBLEMA AL LEER TABLA CONTADORES AUTOMATICO DE VENTAS";
-                            result.Result = DtoLib.Enumerados.EnumResult.isError;
-                            return result;
-                        }
-
-                        var aVenta = (int)aVentaObj;
-                        var sqlVenta = InsertarVenta;
-                        comando1 = new MySqlCommand(sqlVenta, cn, tr);
-                        foreach (var v in ficha.Documentos)
-                        {
-                            aVenta += 1;
-                            var codSucursal = v.CodigoSucursal.Trim();
-                            var autoVenta = codSucursal + aVenta.ToString().Trim().PadLeft(10 - codSucursal.Length, '0');
-
-                            comando1.Parameters.Clear();
-                            comando1.Parameters.AddWithValue("?auto", autoVenta);
-                            comando1.Parameters.AddWithValue("?documento", v.DocumentoNro);
-                            comando1.Parameters.AddWithValue("?fecha", v.Fecha);
-                            comando1.Parameters.AddWithValue("?fecha_vencimiento", v.FechaVencimiento);
-                            comando1.Parameters.AddWithValue("?razon_social", v.RazonSocial);
-                            comando1.Parameters.AddWithValue("?dir_fiscal", v.DirFiscal);
-                            comando1.Parameters.AddWithValue("?ci_rif", v.CiRif);
-                            comando1.Parameters.AddWithValue("?tipo", v.Tipo);
-                            comando1.Parameters.AddWithValue("?exento", v.Exento);
-                            comando1.Parameters.AddWithValue("?base1", v.Base1);
-                            comando1.Parameters.AddWithValue("?base2", v.Base2);
-                            comando1.Parameters.AddWithValue("?base3", v.Base3);
-                            comando1.Parameters.AddWithValue("?impuesto1", v.Impuesto1);
-                            comando1.Parameters.AddWithValue("?impuesto2", v.Impuesto2);
-                            comando1.Parameters.AddWithValue("?impuesto3", v.Impuesto3);
-                            comando1.Parameters.AddWithValue("?base", v.MBase);
-                            comando1.Parameters.AddWithValue("?impuesto", v.Impuesto);
-                            comando1.Parameters.AddWithValue("?total", v.Total);
-                            comando1.Parameters.AddWithValue("?tasa1", v.Tasa1);
-                            comando1.Parameters.AddWithValue("?tasa2", v.Tasa2);
-                            comando1.Parameters.AddWithValue("?tasa3", v.Tasa3);
-                            comando1.Parameters.AddWithValue("?nota", v.Nota);
-                            comando1.Parameters.AddWithValue("?tasa_retencion_iva", v.TasaRetencionIva);
-                            comando1.Parameters.AddWithValue("?tasa_retencion_islr", v.TasaRetencionIslr);
-                            comando1.Parameters.AddWithValue("?retencion_iva", v.RetencionIva);
-                            comando1.Parameters.AddWithValue("?retencion_islr", v.RetencionIslr);
-                            comando1.Parameters.AddWithValue("?auto_cliente", v.AutoCliente);
-                            comando1.Parameters.AddWithValue("?codigo_cliente", v.CodigoCliente);
-                            comando1.Parameters.AddWithValue("?mes_relacion", v.MesRelacion);
-                            comando1.Parameters.AddWithValue("?control", v.Control);
-                            comando1.Parameters.AddWithValue("?fecha_registro", v.FechaRegistro);
-                            comando1.Parameters.AddWithValue("?orden_compra", v.OrdenCompra);
-                            comando1.Parameters.AddWithValue("?dias", v.Dias);
-                            comando1.Parameters.AddWithValue("?descuento1", v.Descuento1);
-                            comando1.Parameters.AddWithValue("?descuento2", v.Descuento2);
-                            comando1.Parameters.AddWithValue("?cargos", v.Cargos);
-                            comando1.Parameters.AddWithValue("?descuento1p", v.Descuento1p);
-                            comando1.Parameters.AddWithValue("?descuento2p", v.Descuento2p);
-                            comando1.Parameters.AddWithValue("?cargosp", v.Cargosp);
-                            comando1.Parameters.AddWithValue("?columna", v.Columna);
-                            comando1.Parameters.AddWithValue("?estatus_anulado", v.EstatusAnulado);
-                            comando1.Parameters.AddWithValue("?aplica", v.Aplica);
-                            comando1.Parameters.AddWithValue("?comprobante_retencion", v.ComprobanteRetencion);
-                            comando1.Parameters.AddWithValue("?subtotal_neto", v.SubTotalNeto);
-                            comando1.Parameters.AddWithValue("?telefono", v.Telefono);
-                            comando1.Parameters.AddWithValue("?factor_cambio", v.FactorCambio);
-                            comando1.Parameters.AddWithValue("?codigo_vendedor", v.CodigoVendedor);
-                            comando1.Parameters.AddWithValue("?vendedor", v.Vendedor);
-                            comando1.Parameters.AddWithValue("?auto_vendedor", v.AutoVendedor);
-                            comando1.Parameters.AddWithValue("?fecha_pedido", v.FechaPedido);
-                            comando1.Parameters.AddWithValue("?pedido", v.Pedido);
-                            comando1.Parameters.AddWithValue("?condicion_pago", v.CondicionPago);
-                            comando1.Parameters.AddWithValue("?usuario", v.Usuario);
-                            comando1.Parameters.AddWithValue("?codigo_usuario", v.CodigoUsuario);
-                            comando1.Parameters.AddWithValue("?codigo_sucursal", v.CodigoSucursal);
-                            comando1.Parameters.AddWithValue("?hora", v.Hora);
-                            comando1.Parameters.AddWithValue("?transporte", v.Transporte);
-                            comando1.Parameters.AddWithValue("?codigo_transporte", v.CodigoTransporte);
-                            comando1.Parameters.AddWithValue("?monto_divisa", v.MontoDivisa);
-                            comando1.Parameters.AddWithValue("?despachado", v.Despachado);
-                            comando1.Parameters.AddWithValue("?dir_despacho", v.DirDespacho);
-                            comando1.Parameters.AddWithValue("?estacion", v.Estacion);
-                            comando1.Parameters.AddWithValue("?auto_recibo", v.AutoRecibo);
-                            comando1.Parameters.AddWithValue("?recibo", v.Recibo);
-                            comando1.Parameters.AddWithValue("?renglones", v.Renglones);
-                            comando1.Parameters.AddWithValue("?saldo_pendiente", v.SaldoPendiente);
-                            comando1.Parameters.AddWithValue("?ano_relacion", v.AnoRelacion);
-                            comando1.Parameters.AddWithValue("?comprobante_retencion_islr", v.ComprobanteRetencionIslr);
-                            comando1.Parameters.AddWithValue("?dias_validez", v.DiasValidez);
-                            comando1.Parameters.AddWithValue("?auto_usuario", v.AutoUsuario);
-                            comando1.Parameters.AddWithValue("?auto_transporte", v.AutoTransporte);
-                            comando1.Parameters.AddWithValue("?situacion", v.Situacion);
-                            comando1.Parameters.AddWithValue("?signo", v.Signo);
-                            comando1.Parameters.AddWithValue("?serie", v.Serie);
-                            comando1.Parameters.AddWithValue("?tarifa", v.Tarifa);
-                            comando1.Parameters.AddWithValue("?tipo_remision", v.TipoRemision);
-                            comando1.Parameters.AddWithValue("?documento_remision", v.DocumentoRemision);
-                            comando1.Parameters.AddWithValue("?auto_remision", v.AutoRemision);
-                            comando1.Parameters.AddWithValue("?documento_nombre", v.DocumentoNombre);
-                            comando1.Parameters.AddWithValue("?subtotal_impuesto", v.SubTotalImpuesto);
-                            comando1.Parameters.AddWithValue("?subtotal", v.SubTotal);
-                            comando1.Parameters.AddWithValue("?auto_cxc", v.AutoCxC);
-                            comando1.Parameters.AddWithValue("?tipo_cliente", v.TipoCliente);
-                            comando1.Parameters.AddWithValue("?planilla", v.Planilla);
-                            comando1.Parameters.AddWithValue("?expediente", v.Expendiente);
-                            comando1.Parameters.AddWithValue("?anticipo_iva", v.AnticipoIva);
-                            comando1.Parameters.AddWithValue("?terceros_iva", v.TercerosIva);
-                            comando1.Parameters.AddWithValue("?neto", v.Neto);
-                            comando1.Parameters.AddWithValue("?costo", v.Costo);
-                            comando1.Parameters.AddWithValue("?utilidad", v.Utilidad);
-                            comando1.Parameters.AddWithValue("?utilidadp", v.Utilidadp);
-                            comando1.Parameters.AddWithValue("?documento_tipo", v.DocumentoTipo);
-                            comando1.Parameters.AddWithValue("?ci_titular", v.CiTitular);
-                            comando1.Parameters.AddWithValue("?nombre_titular", v.NombreTitular);
-                            comando1.Parameters.AddWithValue("?ci_beneficiario", v.CiBeneficiario);
-                            comando1.Parameters.AddWithValue("?nombre_beneficiario", v.NombreBeneficiario);
-                            comando1.Parameters.AddWithValue("?clave", v.Clave);
-                            comando1.Parameters.AddWithValue("?denominacion_fiscal", v.DenominacionFiscal);
-                            comando1.Parameters.AddWithValue("?cambio", v.Cambio);
-                            comando1.Parameters.AddWithValue("?estatus_validado", v.EstatusValidado);
-                            comando1.Parameters.AddWithValue("?cierre", v.Cierre);
-                            comando1.Parameters.AddWithValue("?fecha_retencion", v.FechaRetencion);
-                            comando1.Parameters.AddWithValue("?estatus_cierre_contable", v.EstatusCierreContable);
-                            var rt = comando1.ExecuteNonQuery();
-                            if (rt == 0)
-                            {
-                                result.Mensaje = "PROBLEMA AL ISERTAR REGISTRO DE VENTA";
-                                result.Result = DtoLib.Enumerados.EnumResult.isError;
-                                return result;
-                            }
-                        };
-
-                        var sql = "update sistema_contadores set a_ventas=@aVentas";
-                        comando1 = new MySqlCommand(sql, cn, tr);
-                        comando1.Parameters.AddWithValue("@aVentas", aVenta);
-                        var rtx = comando1.ExecuteNonQuery();
-                        if (rtx == 0)
-                        {
-                            result.Mensaje = "PROBLEMA AL ACTUALIZAR TABLA CONTADORES AUTOMATICO DE VENTAS";
-                            result.Result = DtoLib.Enumerados.EnumResult.isError;
-                            return result;
-                        }
-
-                        tr.Commit();
-                    }
-                    catch (Exception ex1)
-                    {
-                        tr.Rollback();
-                        result.Mensaje = ex1.Message;
-                        result.Result = DtoLib.Enumerados.EnumResult.isError;
-                    }
-                };
-            }
-            catch (MySqlException ex2)
-            {
-                result.Mensaje = ex2.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return result;
-        }
-
         public DtoLib.ResultadoEntidad<DtoLibPosOffLine.Servidor.RecogerDataEnviar.Ficha> Servidor_RecogerDataEnviar()
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibPosOffLine.Servidor.RecogerDataEnviar.Ficha>();
@@ -1025,6 +870,20 @@ namespace ProvSqLitePosOffLine
             {
                 using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
                 {
+                    List<DtoLibPosOffLine.Servidor.RecogerDataEnviar.Serie> ListSeries = new List<DtoLibPosOffLine.Servidor.RecogerDataEnviar.Serie>();
+                    var qserie = cnn.Serie.ToList();
+                    foreach (var s in qserie) 
+                    {
+                        var ns = new DtoLibPosOffLine.Servidor.RecogerDataEnviar.Serie()
+                        {
+                            Auto = s.auto,
+                            Control = s.control,
+                            Correlativo =(int) s.correlativo,
+                            SerieNombre = s.serie1,
+                        };
+                        ListSeries.Add(ns);
+                    }
+
                     List<DtoLibPosOffLine.Servidor.RecogerDataEnviar.Jornada> ListJornadas = new List<DtoLibPosOffLine.Servidor.RecogerDataEnviar.Jornada>();
                     var qJornada = cnn.Jornada.Where(w => w.estatus == "C" && w.estatusTransmitida == "").ToList();
                     if (qJornada != null)
@@ -1150,6 +1009,14 @@ namespace ProvSqLitePosOffLine
                                                     VendedorAuto = s.autoVendedor,
                                                     VendedorCodigo = s.codigoVendedor,
                                                     VendedorNombre = s.vendedor,
+                                                    Tarifa = s.tarifa,
+                                                    SaldoPendiente = s.saldoPendiente,
+                                                    AutoConceptoVenta = s.autoConceptoVenta,
+                                                    CodigoConceptoVenta = s.codigoConceptoVenta,
+                                                    NombreConceptoVenta = s.nombreConceptoVenta,
+                                                    AutoConceptoDevVenta = s.autoConceptoDevVenta,
+                                                    CodigoConceptoDevVenta = s.codigoConceptoDevVenta,
+                                                    NombreConceptoDevVenta = s.nombreConceptoDevVenta,
                                                 };
 
                                                 var det = qdetalle.Select(t =>
@@ -1188,7 +1055,7 @@ namespace ProvSqLitePosOffLine
                                                         PrecioItem = t.precioItem,
                                                         PrecioNeto = t.precioNeto,
                                                         PrecioSugerido = t.precioSugerido,
-                                                        PrecioUnd = t.precioSugerido,
+                                                        PrecioUnd = t.precioUnd,
                                                         Tarifa = t.tarifa,
                                                         TasaIva = t.tasaIva,
                                                         Total = t.total,
@@ -1198,6 +1065,8 @@ namespace ProvSqLitePosOffLine
                                                         UtilidadPorct = t.utilidadPorct,
                                                         EsPesado = esPesado,
                                                         TipoIva = t.tipoIva,
+                                                        CostoCompra=t.costoCompra,
+                                                        CostoPromedio=t.costoPromedio,
                                                     };
                                                     return rg2Det;
                                                 }).ToList();
@@ -1235,6 +1104,7 @@ namespace ProvSqLitePosOffLine
                     result.Entidad = new DtoLibPosOffLine.Servidor.RecogerDataEnviar.Ficha()
                     {
                         Jornadas = ListJornadas ,
+                        Series = ListSeries,
                     };
                 }
             }
@@ -1246,6 +1116,541 @@ namespace ProvSqLitePosOffLine
 
             return result;
         }
+
+        public DtoLib.Resultado Servidor_EnviarData(DtoLibPosOffLine.Servidor.EnviarData.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            const string InsertarVenta = @"INSERT INTO ventas (auto, documento, fecha, fecha_vencimiento, razon_social, dir_fiscal, ci_rif, tipo, exento," +
+                      "base1, base2, base3, impuesto1, impuesto2, impuesto3, base, impuesto, total, tasa1, tasa2, tasa3, nota, tasa_retencion_iva, " +
+                      "tasa_retencion_islr, retencion_iva, retencion_islr, auto_cliente, codigo_cliente, mes_relacion, control, fecha_registro, orden_compra," +
+                      "dias, descuento1, descuento2, cargos, descuento1p, descuento2p, cargosp, columna, estatus_anulado, aplica, comprobante_retencion," +
+                      "subtotal_neto, telefono, factor_cambio, codigo_vendedor, vendedor, auto_vendedor, fecha_pedido, pedido, condicion_pago, usuario," +
+                      "codigo_usuario, codigo_sucursal, hora, transporte, codigo_transporte, monto_divisa, despachado, dir_despacho, estacion, auto_recibo," +
+                      "recibo, renglones, saldo_pendiente, ano_relacion, comprobante_retencion_islr, dias_validez, auto_usuario, auto_transporte, situacion," +
+                      "signo, serie, tarifa, tipo_remision, documento_remision, auto_remision, documento_nombre, subtotal_impuesto, subtotal, auto_cxc, tipo_cliente," +
+                      "planilla, expediente, anticipo_iva, terceros_iva, neto, costo, utilidad, utilidadp, documento_tipo, ci_titular, nombre_titular, ci_beneficiario," +
+                      "nombre_beneficiario, clave, denominacion_fiscal, cambio, estatus_validado, cierre, fecha_retencion, estatus_cierre_contable) " +
+                      "VALUES (?auto, ?documento, ?fecha, ?fecha_vencimiento, ?razon_social, ?dir_fiscal, ?ci_rif, ?tipo, ?exento," +
+                      "?base1, ?base2, ?base3, ?impuesto1, ?impuesto2, ?impuesto3, ?base, ?impuesto, ?total, ?tasa1, ?tasa2, ?tasa3, ?nota, ?tasa_retencion_iva, " +
+                      "?tasa_retencion_islr, ?retencion_iva, ?retencion_islr, ?auto_cliente, ?codigo_cliente, ?mes_relacion, ?control, ?fecha_registro, ?orden_compra," +
+                      "?dias, ?descuento1, ?descuento2, ?cargos, ?descuento1p, ?descuento2p, ?cargosp, ?columna, ?estatus_anulado, ?aplica, ?comprobante_retencion," +
+                      "?subtotal_neto, ?telefono, ?factor_cambio, ?codigo_vendedor, ?vendedor, ?auto_vendedor, ?fecha_pedido, ?pedido, ?condicion_pago, ?usuario," +
+                      "?codigo_usuario, ?codigo_sucursal, ?hora, ?transporte, ?codigo_transporte, ?monto_divisa, ?despachado, ?dir_despacho, ?estacion, ?auto_recibo," +
+                      "?recibo, ?renglones, ?saldo_pendiente, ?ano_relacion, ?comprobante_retencion_islr, ?dias_validez, ?auto_usuario, ?auto_transporte, ?situacion," +
+                      "?signo, ?serie, ?tarifa, ?tipo_remision, ?documento_remision, ?auto_remision, ?documento_nombre, ?subtotal_impuesto, ?subtotal, ?auto_cxc, ?tipo_cliente," +
+                      "?planilla, ?expediente, ?anticipo_iva, ?terceros_iva, ?neto, ?costo, ?utilidad, ?utilidadp, ?documento_tipo, ?ci_titular, ?nombre_titular, ?ci_beneficiario," +
+                      "?nombre_beneficiario, ?clave, ?denominacion_fiscal, ?cambio, ?estatus_validado, ?cierre, ?fecha_retencion, ?estatus_cierre_contable)";
+
+
+            const string InsertarVentaDetalle = @"INSERT INTO ventas_detalle (auto_documento, auto_producto, codigo, nombre, auto_departamento," +
+                      "auto_grupo, auto_subgrupo, auto_deposito, cantidad, empaque, precio_neto, descuento1p, descuento2p, descuento3p, descuento1," +
+                      "descuento2, descuento3, costo_venta, total_neto, tasa, impuesto, total, auto, estatus_anulado, fecha, tipo, deposito," +
+                      "signo, precio_final, auto_cliente, decimales, contenido_empaque, cantidad_und, precio_und, costo_und, utilidad, utilidadp," +
+                      "precio_item, estatus_garantia, estatus_serial, codigo_deposito, dias_garantia, detalle, precio_sugerido, auto_tasa, estatus_corte," +
+                      "x, y, z, corte, categoria, cobranzap, ventasp, cobranzap_vendedor, ventasp_vendedor, cobranza, ventas, cobranza_vendedor," +
+                      "ventas_vendedor, costo_promedio_und, costo_compra, estatus_checked, tarifa, total_descuento, codigo_vendedor, auto_vendedor, hora) " +
+                      "VALUES (?auto_documento, ?auto_producto, ?codigo, ?nombre, ?auto_departamento," +
+                      "?auto_grupo, ?auto_subgrupo, ?auto_deposito, ?cantidad, ?empaque, ?precio_neto, ?descuento1p, ?descuento2p, ?descuento3p, ?descuento1," +
+                      "?descuento2, ?descuento3, ?costo_venta, ?total_neto, ?tasa, ?impuesto, ?total, ?auto, ?estatus_anulado, ?fecha, ?tipo, ?deposito," +
+                      "?signo, ?precio_final, ?auto_cliente, ?decimales, ?contenido_empaque, ?cantidad_und, ?precio_und, ?costo_und, ?utilidad, ?utilidadp," +
+                      "?precio_item, ?estatus_garantia, ?estatus_serial, ?codigo_deposito, ?dias_garantia, ?detalle, ?precio_sugerido, ?auto_tasa, ?estatus_corte," +
+                      "?x, ?y, ?z, ?corte, ?categoria, ?cobranzap, ?ventasp, ?cobranzap_vendedor, ?ventasp_vendedor, ?cobranza, ?ventas, ?cobranza_vendedor," +
+                      "?ventas_vendedor, ?costo_promedio_und, ?costo_compra, ?estatus_checked, ?tarifa, ?total_descuento, ?codigo_vendedor, ?auto_vendedor, ?hora)";
+
+            const string InsertarProductoKardex = @"INSERT INTO productos_kardex (auto_producto, total , auto_deposito , auto_concepto , " +
+                      "auto_documento, fecha , hora , documento , modulo , entidad , signo , cantidad , cantidad_bono , cantidad_und , costo_und ," +
+                      "estatus_anulado , nota , precio_und , codigo , siglas , codigo_sucursal) " +
+                      "VALUES (?auto_producto, ?total , ?auto_deposito , ?auto_concepto , " +
+                      "?auto_documento, ?fecha , ?hora , ?documento , ?modulo , ?entidad , ?signo , ?cantidad , ?cantidad_bono , ?cantidad_und , ?costo_und ," +
+                      "?estatus_anulado , ?nota , ?precio_und , ?codigo , ?siglas , ?codigo_sucursal)";
+
+            const string UpdateProductoDeposito = @"UPDATE productos_deposito set fisica=fisica-?cantidadUnd, disponible=disponible-?cantidadUnd " +
+                      "where auto_producto=?autoProducto and auto_deposito=?autoDeposito";
+
+
+            const string InsertarCxC = @"INSERT INTO cxc (auto , c_cobranza , c_cobranzap , fecha , tipo_documento , documento ," +
+                        "fecha_vencimiento , nota , importe , acumulado , auto_cliente , cliente , ci_rif , codigo_cliente , " +
+                        "estatus_cancelado , resta , estatus_anulado , auto_documento , numero , auto_agencia , agencia , signo , " +
+                        "auto_vendedor , c_departamento , c_ventas , c_ventasp , serie , importe_neto , dias , castigop) " +
+                        "VALUES (?auto , ?c_cobranza , ?c_cobranzap , ?fecha , ?tipo_documento , ?documento ," +
+                        "?fecha_vencimiento , ?nota , ?importe , ?acumulado , ?auto_cliente , ?cliente , ?ci_rif , ?codigo_cliente , " +
+                        "?estatus_cancelado , ?resta , ?estatus_anulado , ?auto_documento , ?numero , ?auto_agencia , ?agencia , ?signo , " +
+                        "?auto_vendedor , ?c_departamento , ?c_ventas , ?c_ventasp , ?serie , ?importe_neto , ?dias , ?castigop)";
+
+            try
+            {
+                using (var cn = new MySqlConnection(_cnn2.ConnectionString))
+                {
+                    cn.Open();
+                    MySqlTransaction tr = null;
+
+                    try
+                    {
+                        tr = cn.BeginTransaction();
+
+                        var sql0 = "select a_ventas from sistema_contadores";
+                        MySqlCommand comando1 = new MySqlCommand(sql0, cn, tr);
+                        var aVentaObj = comando1.ExecuteScalar();
+                        if (aVentaObj == null)
+                        {
+                            result.Mensaje = "PROBLEMA AL LEER TABLA CONTADORES AUTOMATICO DE VENTAS";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        sql0 = "select a_cxc from sistema_contadores";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        var aCxCObj = comando1.ExecuteScalar();
+                        if (aCxCObj == null)
+                        {
+                            result.Mensaje = "PROBLEMA AL LEER TABLA CONTADORES AUTOMATICO DE CXC";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        var aCxC = (int)aCxCObj;
+
+                        var aVenta = (int)aVentaObj;
+                        var sqlVenta = InsertarVenta;
+                        comando1 = new MySqlCommand(sqlVenta, cn, tr);
+                        foreach (var v in ficha.Documentos)
+                        {
+                            aVenta += 1;
+                            aCxC += 1;
+                            var codSucursal = v.CodigoSucursal.Trim().PadLeft(3,'0');
+                            var autoVenta = codSucursal + aVenta.ToString().Trim().PadLeft(10 - codSucursal.Length, '0');
+                            var autoCxC = aCxC.ToString().Trim().PadLeft(10, '0');
+
+                            comando1.Parameters.Clear();
+                            comando1.Parameters.AddWithValue("?auto", autoVenta);
+                            comando1.Parameters.AddWithValue("?documento", v.DocumentoNro);
+                            comando1.Parameters.AddWithValue("?fecha", v.Fecha);
+                            comando1.Parameters.AddWithValue("?fecha_vencimiento", v.FechaVencimiento);
+                            comando1.Parameters.AddWithValue("?razon_social", v.RazonSocial);
+                            comando1.Parameters.AddWithValue("?dir_fiscal", v.DirFiscal);
+                            comando1.Parameters.AddWithValue("?ci_rif", v.CiRif);
+                            comando1.Parameters.AddWithValue("?tipo", v.Tipo);
+                            comando1.Parameters.AddWithValue("?exento", v.Exento);
+                            comando1.Parameters.AddWithValue("?base1", v.Base1);
+                            comando1.Parameters.AddWithValue("?base2", v.Base2);
+                            comando1.Parameters.AddWithValue("?base3", v.Base3);
+                            comando1.Parameters.AddWithValue("?impuesto1", v.Impuesto1);
+                            comando1.Parameters.AddWithValue("?impuesto2", v.Impuesto2);
+                            comando1.Parameters.AddWithValue("?impuesto3", v.Impuesto3);
+                            comando1.Parameters.AddWithValue("?base", v.MBase);
+                            comando1.Parameters.AddWithValue("?impuesto", v.Impuesto);
+                            comando1.Parameters.AddWithValue("?total", v.Total);
+                            comando1.Parameters.AddWithValue("?tasa1", v.Tasa1);
+                            comando1.Parameters.AddWithValue("?tasa2", v.Tasa2);
+                            comando1.Parameters.AddWithValue("?tasa3", v.Tasa3);
+                            comando1.Parameters.AddWithValue("?nota", v.Nota);
+                            comando1.Parameters.AddWithValue("?tasa_retencion_iva", v.TasaRetencionIva);
+                            comando1.Parameters.AddWithValue("?tasa_retencion_islr", v.TasaRetencionIslr);
+                            comando1.Parameters.AddWithValue("?retencion_iva", v.RetencionIva);
+                            comando1.Parameters.AddWithValue("?retencion_islr", v.RetencionIslr);
+                            comando1.Parameters.AddWithValue("?auto_cliente", v.AutoCliente);
+                            comando1.Parameters.AddWithValue("?codigo_cliente", v.CodigoCliente);
+                            comando1.Parameters.AddWithValue("?mes_relacion", v.MesRelacion);
+                            comando1.Parameters.AddWithValue("?control", v.Control);
+                            comando1.Parameters.AddWithValue("?fecha_registro", v.FechaRegistro);
+                            comando1.Parameters.AddWithValue("?orden_compra", v.OrdenCompra);
+                            comando1.Parameters.AddWithValue("?dias", v.Dias);
+                            comando1.Parameters.AddWithValue("?descuento1", v.Descuento1);
+                            comando1.Parameters.AddWithValue("?descuento2", v.Descuento2);
+                            comando1.Parameters.AddWithValue("?cargos", v.Cargos);
+                            comando1.Parameters.AddWithValue("?descuento1p", v.Descuento1p);
+                            comando1.Parameters.AddWithValue("?descuento2p", v.Descuento2p);
+                            comando1.Parameters.AddWithValue("?cargosp", v.Cargosp);
+                            comando1.Parameters.AddWithValue("?columna", v.Columna);
+                            comando1.Parameters.AddWithValue("?estatus_anulado", v.EstatusAnulado);
+                            comando1.Parameters.AddWithValue("?aplica", v.Aplica);
+                            comando1.Parameters.AddWithValue("?comprobante_retencion", v.ComprobanteRetencion);
+                            comando1.Parameters.AddWithValue("?subtotal_neto", v.SubTotalNeto);
+                            comando1.Parameters.AddWithValue("?telefono", v.Telefono);
+                            comando1.Parameters.AddWithValue("?factor_cambio", v.FactorCambio);
+                            comando1.Parameters.AddWithValue("?codigo_vendedor", v.CodigoVendedor);
+                            comando1.Parameters.AddWithValue("?vendedor", v.Vendedor);
+                            comando1.Parameters.AddWithValue("?auto_vendedor", v.AutoVendedor);
+                            comando1.Parameters.AddWithValue("?fecha_pedido", v.FechaPedido);
+                            comando1.Parameters.AddWithValue("?pedido", v.Pedido);
+                            comando1.Parameters.AddWithValue("?condicion_pago", v.CondicionPago);
+                            comando1.Parameters.AddWithValue("?usuario", v.Usuario);
+                            comando1.Parameters.AddWithValue("?codigo_usuario", v.CodigoUsuario);
+                            comando1.Parameters.AddWithValue("?codigo_sucursal", v.CodigoSucursal);
+                            comando1.Parameters.AddWithValue("?hora", v.Hora);
+                            comando1.Parameters.AddWithValue("?transporte", v.Transporte);
+                            comando1.Parameters.AddWithValue("?codigo_transporte", v.CodigoTransporte);
+                            comando1.Parameters.AddWithValue("?monto_divisa", v.MontoDivisa);
+                            comando1.Parameters.AddWithValue("?despachado", v.Despachado);
+                            comando1.Parameters.AddWithValue("?dir_despacho", v.DirDespacho);
+                            comando1.Parameters.AddWithValue("?estacion", v.Estacion);
+                            comando1.Parameters.AddWithValue("?auto_recibo", v.AutoRecibo);
+                            comando1.Parameters.AddWithValue("?recibo", v.Recibo);
+                            comando1.Parameters.AddWithValue("?renglones", v.Renglones);
+                            comando1.Parameters.AddWithValue("?saldo_pendiente", v.SaldoPendiente);
+                            comando1.Parameters.AddWithValue("?ano_relacion", v.AnoRelacion);
+                            comando1.Parameters.AddWithValue("?comprobante_retencion_islr", v.ComprobanteRetencionIslr);
+                            comando1.Parameters.AddWithValue("?dias_validez", v.DiasValidez);
+                            comando1.Parameters.AddWithValue("?auto_usuario", v.AutoUsuario);
+                            comando1.Parameters.AddWithValue("?auto_transporte", v.AutoTransporte);
+                            comando1.Parameters.AddWithValue("?situacion", v.Situacion);
+                            comando1.Parameters.AddWithValue("?signo", v.Signo);
+                            comando1.Parameters.AddWithValue("?serie", v.Serie);
+                            comando1.Parameters.AddWithValue("?tarifa", v.Tarifa);
+                            comando1.Parameters.AddWithValue("?tipo_remision", v.TipoRemision);
+                            comando1.Parameters.AddWithValue("?documento_remision", v.DocumentoRemision);
+                            comando1.Parameters.AddWithValue("?auto_remision", v.AutoRemision);
+                            comando1.Parameters.AddWithValue("?documento_nombre", v.DocumentoNombre);
+                            comando1.Parameters.AddWithValue("?subtotal_impuesto", v.SubTotalImpuesto);
+                            comando1.Parameters.AddWithValue("?subtotal", v.SubTotal);
+                            comando1.Parameters.AddWithValue("?auto_cxc", autoCxC );
+                            comando1.Parameters.AddWithValue("?tipo_cliente", v.TipoCliente);
+                            comando1.Parameters.AddWithValue("?planilla", v.Planilla);
+                            comando1.Parameters.AddWithValue("?expediente", v.Expendiente);
+                            comando1.Parameters.AddWithValue("?anticipo_iva", v.AnticipoIva);
+                            comando1.Parameters.AddWithValue("?terceros_iva", v.TercerosIva);
+                            comando1.Parameters.AddWithValue("?neto", v.Neto);
+                            comando1.Parameters.AddWithValue("?costo", v.Costo);
+                            comando1.Parameters.AddWithValue("?utilidad", v.Utilidad);
+                            comando1.Parameters.AddWithValue("?utilidadp", v.Utilidadp);
+                            comando1.Parameters.AddWithValue("?documento_tipo", v.DocumentoTipo);
+                            comando1.Parameters.AddWithValue("?ci_titular", v.CiTitular);
+                            comando1.Parameters.AddWithValue("?nombre_titular", v.NombreTitular);
+                            comando1.Parameters.AddWithValue("?ci_beneficiario", v.CiBeneficiario);
+                            comando1.Parameters.AddWithValue("?nombre_beneficiario", v.NombreBeneficiario);
+                            comando1.Parameters.AddWithValue("?clave", v.Clave);
+                            comando1.Parameters.AddWithValue("?denominacion_fiscal", v.DenominacionFiscal);
+                            comando1.Parameters.AddWithValue("?cambio", v.Cambio);
+                            comando1.Parameters.AddWithValue("?estatus_validado", v.EstatusValidado);
+                            comando1.Parameters.AddWithValue("?cierre", v.Cierre);
+                            comando1.Parameters.AddWithValue("?fecha_retencion", v.FechaRetencion);
+                            comando1.Parameters.AddWithValue("?estatus_cierre_contable", v.EstatusCierreContable);
+                            var rt = comando1.ExecuteNonQuery();
+                            if (rt == 0)
+                            {
+                                result.Mensaje = "PROBLEMA AL INSERTAR REGISTRO DE VENTA";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result;
+                            }
+
+
+                            // INSERTAR CXC
+                            var sqlCxC = InsertarCxC ;
+                            var comandoCxC = new MySqlCommand(sqlCxC, cn, tr);
+                            comandoCxC.Parameters.Clear();
+                            comandoCxC.Parameters.AddWithValue("?auto", autoCxC);
+                            comandoCxC.Parameters.AddWithValue("?c_cobranza", v.DocCxC.CCobranza );
+                            comandoCxC.Parameters.AddWithValue("?c_cobranzap", v.DocCxC.CCobranzap  );
+                            comandoCxC.Parameters.AddWithValue("?fecha", v.DocCxC.Fecha );
+                            comandoCxC.Parameters.AddWithValue("?tipo_documento",v.DocCxC.TipoDocumento  );
+                            comandoCxC.Parameters.AddWithValue("?documento", v.DocCxC.Documento);
+                            comandoCxC.Parameters.AddWithValue("?fecha_vencimiento", v.DocCxC.FechaVencimiento);
+                            comandoCxC.Parameters.AddWithValue("?nota", v.DocCxC.Nota );
+                            comandoCxC.Parameters.AddWithValue("?importe", v.DocCxC.Importe);
+                            comandoCxC.Parameters.AddWithValue("?acumulado", v.DocCxC.Acumulado);
+                            comandoCxC.Parameters.AddWithValue("?auto_cliente", v.DocCxC.AutoCliente );
+                            comandoCxC.Parameters.AddWithValue("?cliente", v.DocCxC.Cliente);
+                            comandoCxC.Parameters.AddWithValue("?ci_rif", v.DocCxC.CiRif);
+                            comandoCxC.Parameters.AddWithValue("?codigo_cliente", v.DocCxC.CodigoCliente);
+                            comandoCxC.Parameters.AddWithValue("?estatus_cancelado", v.DocCxC.EstatusCancelado);
+                            comandoCxC.Parameters.AddWithValue("?resta", v.DocCxC.Resta);
+                            comandoCxC.Parameters.AddWithValue("?estatus_anulado", v.DocCxC.EstatusAnulado);
+                            comandoCxC.Parameters.AddWithValue("?auto_documento", v.DocCxC.AutoDocumento);
+                            comandoCxC.Parameters.AddWithValue("?numero", v.DocCxC.Numero);
+                            comandoCxC.Parameters.AddWithValue("?auto_agencia", v.DocCxC.AutoAgencia);
+                            comandoCxC.Parameters.AddWithValue("?agencia", v.DocCxC.Agencia);
+                            comandoCxC.Parameters.AddWithValue("?signo", v.DocCxC.Signo);
+                            comandoCxC.Parameters.AddWithValue("?auto_vendedor", v.DocCxC.AutoVendedor);
+                            comandoCxC.Parameters.AddWithValue("?c_departamento",v.DocCxC.CDepartamento);
+                            comandoCxC.Parameters.AddWithValue("?c_ventas", v.DocCxC.CVentas);
+                            comandoCxC.Parameters.AddWithValue("?c_ventasp",v.DocCxC.CVentasp);
+                            comandoCxC.Parameters.AddWithValue("?serie", v.DocCxC.Serie);
+                            comandoCxC.Parameters.AddWithValue("?importe_neto", v.DocCxC.ImporteNeto);
+                            comandoCxC.Parameters.AddWithValue("?dias", v.DocCxC.Dias);
+                            comandoCxC.Parameters.AddWithValue("?castigop", v.DocCxC.Castigop);
+                            var rtCxC = comandoCxC.ExecuteNonQuery();
+                            if (rtCxC == 0)
+                            {
+                                result.Mensaje = "PROBLEMA AL INSERTAR REGISTRO DE CXC";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result;
+                            }
+
+                            if (v.DocCxCPago != null) 
+                            {
+                                aCxC += 1;
+                                var autoCxCPago = aCxC.ToString().Trim().PadLeft(10, '0');
+
+                                var pago = v.DocCxCPago.Pago;
+                                // INSERTAR CXC_PAGO
+                                comandoCxC = new MySqlCommand(sqlCxC, cn, tr);
+                                comandoCxC.Parameters.Clear();
+                                comandoCxC.Parameters.AddWithValue("?auto", autoCxCPago);
+                                comandoCxC.Parameters.AddWithValue("?c_cobranza", pago.CCobranza);
+                                comandoCxC.Parameters.AddWithValue("?c_cobranzap", pago.CCobranzap);
+                                comandoCxC.Parameters.AddWithValue("?fecha", pago.Fecha);
+                                comandoCxC.Parameters.AddWithValue("?tipo_documento", pago.TipoDocumento);
+                                comandoCxC.Parameters.AddWithValue("?documento", pago.Documento);
+                                comandoCxC.Parameters.AddWithValue("?fecha_vencimiento", pago.FechaVencimiento);
+                                comandoCxC.Parameters.AddWithValue("?nota", pago.Nota);
+                                comandoCxC.Parameters.AddWithValue("?importe", pago.Importe);
+                                comandoCxC.Parameters.AddWithValue("?acumulado", pago.Acumulado);
+                                comandoCxC.Parameters.AddWithValue("?auto_cliente", pago.AutoCliente);
+                                comandoCxC.Parameters.AddWithValue("?cliente", pago.Cliente);
+                                comandoCxC.Parameters.AddWithValue("?ci_rif", pago.CiRif);
+                                comandoCxC.Parameters.AddWithValue("?codigo_cliente", pago.CodigoCliente);
+                                comandoCxC.Parameters.AddWithValue("?estatus_cancelado", pago.EstatusCancelado);
+                                comandoCxC.Parameters.AddWithValue("?resta", pago.Resta);
+                                comandoCxC.Parameters.AddWithValue("?estatus_anulado", pago.EstatusAnulado);
+                                comandoCxC.Parameters.AddWithValue("?auto_documento", pago.AutoDocumento);
+                                comandoCxC.Parameters.AddWithValue("?numero", pago.Numero);
+                                comandoCxC.Parameters.AddWithValue("?auto_agencia", pago.AutoAgencia);
+                                comandoCxC.Parameters.AddWithValue("?agencia", pago.Agencia);
+                                comandoCxC.Parameters.AddWithValue("?signo", pago.Signo);
+                                comandoCxC.Parameters.AddWithValue("?auto_vendedor", pago.AutoVendedor);
+                                comandoCxC.Parameters.AddWithValue("?c_departamento", pago.CDepartamento);
+                                comandoCxC.Parameters.AddWithValue("?c_ventas", pago.CVentas);
+                                comandoCxC.Parameters.AddWithValue("?c_ventasp", pago.CVentasp);
+                                comandoCxC.Parameters.AddWithValue("?serie", pago.Serie);
+                                comandoCxC.Parameters.AddWithValue("?importe_neto", pago.ImporteNeto);
+                                comandoCxC.Parameters.AddWithValue("?dias", pago.Dias);
+                                comandoCxC.Parameters.AddWithValue("?castigop", pago.Castigop);
+                                rtCxC = comandoCxC.ExecuteNonQuery();
+                                if (rtCxC == 0)
+                                {
+                                    result.Mensaje = "PROBLEMA AL INSERTAR REGISTRO DE CXC PAGO";
+                                    result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return result;
+                                }
+                            }
+
+
+                            //DETALLES DEL DOCUMENTO
+                            var sqlVentaDetalle = InsertarVentaDetalle;
+                            var comando2 = new MySqlCommand(sqlVentaDetalle, cn, tr);
+                            foreach (var vd in v.Detalles) 
+                            {
+                                comando2.Parameters.Clear();
+                                comando2.Parameters.AddWithValue("?auto_documento",autoVenta);
+                                comando2.Parameters.AddWithValue("?auto_producto",vd.AutoProducto);
+                                comando2.Parameters.AddWithValue("?codigo",vd.Codigo);
+                                comando2.Parameters.AddWithValue("?nombre",vd.Nombre);
+                                comando2.Parameters.AddWithValue("?auto_departamento",vd.AutoDepartamento);
+                                comando2.Parameters.AddWithValue("?auto_grupo",vd.AutoGrupo);
+                                comando2.Parameters.AddWithValue("?auto_subgrupo",vd.AutoSubGrupo);
+                                comando2.Parameters.AddWithValue("?auto_deposito",vd.AutoDeposito);
+                                comando2.Parameters.AddWithValue("?cantidad",vd.Cantidad);
+                                comando2.Parameters.AddWithValue("?empaque",vd.Empaque);
+                                comando2.Parameters.AddWithValue("?precio_neto",vd.PrecioNeto);
+                                comando2.Parameters.AddWithValue("?descuento1p",vd.Descuento1p);
+                                comando2.Parameters.AddWithValue("?descuento2p",vd.Descuento2p);
+                                comando2.Parameters.AddWithValue("?descuento3p",vd.Descuento3p);
+                                comando2.Parameters.AddWithValue("?descuento1",vd.Descuento1);
+                                comando2.Parameters.AddWithValue("?descuento2",vd.Descuento2);
+                                comando2.Parameters.AddWithValue("?descuento3",vd.Descuento3);
+                                comando2.Parameters.AddWithValue("?costo_venta",vd.CostoVenta);
+                                comando2.Parameters.AddWithValue("?total_neto",vd.TotalNeto);
+                                comando2.Parameters.AddWithValue("?tasa",vd.Tasa);
+                                comando2.Parameters.AddWithValue("?impuesto",vd.Impuesto);
+                                comando2.Parameters.AddWithValue("?total",vd.Total);
+                                comando2.Parameters.AddWithValue("?auto",vd.Auto);
+                                comando2.Parameters.AddWithValue("?estatus_anulado",vd.EstatusAnulado);
+                                comando2.Parameters.AddWithValue("?fecha",vd.Fecha);
+                                comando2.Parameters.AddWithValue("?tipo",vd.Tipo);
+                                comando2.Parameters.AddWithValue("?deposito",vd.Deposito);
+                                comando2.Parameters.AddWithValue("?signo",vd.Signo);
+                                comando2.Parameters.AddWithValue("?precio_final",vd.PrecioFinal);
+                                comando2.Parameters.AddWithValue("?auto_cliente",vd.AutoCliente);
+                                comando2.Parameters.AddWithValue("?decimales",vd.Decimales);
+                                comando2.Parameters.AddWithValue("?contenido_empaque",vd.ContenidoEmpaque);
+                                comando2.Parameters.AddWithValue("?cantidad_und",vd.CantidadUnd);
+                                comando2.Parameters.AddWithValue("?precio_und",vd.PrecioUnd);
+                                comando2.Parameters.AddWithValue("?costo_und",vd.CostoUnd);
+                                comando2.Parameters.AddWithValue("?utilidad",vd.Utilidad);
+                                comando2.Parameters.AddWithValue("?utilidadp",vd.Utilidadp);
+                                comando2.Parameters.AddWithValue("?precio_item",vd.PrecioItem);
+                                comando2.Parameters.AddWithValue("?estatus_garantia",vd.EstatusGarantia);
+                                comando2.Parameters.AddWithValue("?estatus_serial",vd.EstatusSerial);
+                                comando2.Parameters.AddWithValue("?codigo_deposito",vd.CodigoDeposito);
+                                comando2.Parameters.AddWithValue("?dias_garantia",vd.DiasGarantia);
+                                comando2.Parameters.AddWithValue("?detalle",vd.Detalle);
+                                comando2.Parameters.AddWithValue("?precio_sugerido",vd.PrecioSugerido);
+                                comando2.Parameters.AddWithValue("?auto_tasa",vd.AutoTasa);
+                                comando2.Parameters.AddWithValue("?estatus_corte",vd.EstatusCorte);
+                                comando2.Parameters.AddWithValue("?x",vd.X);
+                                comando2.Parameters.AddWithValue("?y",vd.Y);
+                                comando2.Parameters.AddWithValue("?z",vd.Z);
+                                comando2.Parameters.AddWithValue("?corte",vd.Corte);
+                                comando2.Parameters.AddWithValue("?categoria",vd.Categoria);
+                                comando2.Parameters.AddWithValue("?cobranzap",vd.Cobranzap);
+                                comando2.Parameters.AddWithValue("?ventasp",vd.Ventasp);
+                                comando2.Parameters.AddWithValue("?cobranzap_vendedor",vd.CobranzapVendedor);
+                                comando2.Parameters.AddWithValue("?ventasp_vendedor",vd.VentaspVendedor);
+                                comando2.Parameters.AddWithValue("?cobranza",vd.Cobranza);
+                                comando2.Parameters.AddWithValue("?ventas",vd.Ventas);
+                                comando2.Parameters.AddWithValue("?cobranza_vendedor",vd.CobranzaVendedor);
+                                comando2.Parameters.AddWithValue("?ventas_vendedor",vd.VentasVendedor);
+                                comando2.Parameters.AddWithValue("?costo_promedio_und",vd.CostoPromedioUnd);
+                                comando2.Parameters.AddWithValue("?costo_compra",vd.CostoCompra);
+                                comando2.Parameters.AddWithValue("?estatus_checked",vd.EstatusChecked);
+                                comando2.Parameters.AddWithValue("?tarifa",vd.Tarifa);
+                                comando2.Parameters.AddWithValue("?total_descuento",vd.TotalDescuento);
+                                comando2.Parameters.AddWithValue("?codigo_vendedor",vd.CodigoVendedor);
+                                comando2.Parameters.AddWithValue("?auto_vendedor",vd.AutoVendedor);
+                                comando2.Parameters.AddWithValue("?hora",vd.Hora);
+                                var rt2 = comando2.ExecuteNonQuery();
+                                if (rt2 == 0)
+                                {
+                                    result.Mensaje = "PROBLEMA AL INSERTAR REGISTRO DE VENTA DETALLE";
+                                    result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return result;
+                                }
+                            }
+
+
+                            //MOVIMINETO KARDEX DEL DOCUMENTO
+                            var sqlMovKardex = InsertarProductoKardex  ;
+                            var comando3 = new MySqlCommand(sqlMovKardex, cn, tr);
+                            foreach (var mk in v.MovKardex)
+                            {
+                                comando3.Parameters.Clear();
+                                comando3.Parameters.AddWithValue("?auto_producto", mk.AutoProducto);
+                                comando3.Parameters.AddWithValue("?total", mk.Total );
+                                comando3.Parameters.AddWithValue("?auto_deposito", mk.AutoDeposito);
+                                comando3.Parameters.AddWithValue("?auto_concepto", mk.AutoConcepto);
+                                comando3.Parameters.AddWithValue("?auto_documento",autoVenta );
+                                comando3.Parameters.AddWithValue("?fecha", mk.Fecha );
+                                comando3.Parameters.AddWithValue("?hora", mk.Hora);
+                                comando3.Parameters.AddWithValue("?documento",mk.Documento );
+                                comando3.Parameters.AddWithValue("?modulo",mk.Modulo);
+                                comando3.Parameters.AddWithValue("?entidad",mk.Entidad);
+                                comando3.Parameters.AddWithValue("?signo",mk.Signo);
+                                comando3.Parameters.AddWithValue("?cantidad",mk.Cantidad);
+                                comando3.Parameters.AddWithValue("?cantidad_bono",mk.CantidadBono);
+                                comando3.Parameters.AddWithValue("?cantidad_und",mk.CantidadUnd);
+                                comando3.Parameters.AddWithValue("?costo_und",mk.CostoUnd);
+                                comando3.Parameters.AddWithValue("?estatus_anulado",mk.EstatusAnulado);
+                                comando3.Parameters.AddWithValue("?nota",mk.Nota);
+                                comando3.Parameters.AddWithValue("?precio_und",mk.PrecioUnd);
+                                comando3.Parameters.AddWithValue("?codigo",mk.Codigo);
+                                comando3.Parameters.AddWithValue("?siglas",mk.Siglas);
+                                comando3.Parameters.AddWithValue("?codigo_sucursal",mk.CodigoSucursal);
+                                var rt3 = comando3.ExecuteNonQuery();
+                                if (rt3 == 0)
+                                {
+                                    result.Mensaje = "PROBLEMA AL INSERTAR REGISTRO DE MOVIMIENTO KARDEX ";
+                                    result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return result;
+                                }
+                            }
+                            
+                            //ACTUALIZAR DEPOSITO 
+                            var sqlDeposito = UpdateProductoDeposito ;
+                            var comando4 = new MySqlCommand(sqlDeposito, cn, tr);
+                            foreach (var pd in v.ActDeposito)
+                            {
+                                comando4.Parameters.Clear();
+                                comando4.Parameters.AddWithValue("?autoProducto", pd.AutoProducto);
+                                comando4.Parameters.AddWithValue("?autoDeposito", pd.AutoDeposito);
+                                comando4.Parameters.AddWithValue("?cantidadUnd", pd.CantUnd);
+                                var rt4 = comando4.ExecuteNonQuery();
+                                if (rt4 == 0)
+                                {
+                                    result.Mensaje = "PROBLEMA AL ACTUALIZAR DEPOSITO";
+                                    result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return result;
+                                }
+                            }
+                        };
+
+
+                        //ACTUALIZAR CONTADOR DE VENTAS
+                        var sql = "update sistema_contadores set a_ventas=@aVentas";
+                        comando1 = new MySqlCommand(sql, cn, tr);
+                        comando1.Parameters.AddWithValue("@aVentas", aVenta);
+                        var rtx = comando1.ExecuteNonQuery();
+                        if (rtx == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL ACTUALIZAR TABLA CONTADORES AUTOMATICO DE VENTAS";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+
+                        //ACTUALIZAR SERIES
+                        var sqlSerie = "update empresa_series_fiscales set correlativo=?correlativo where auto=?auto";
+                        var comando5 = new MySqlCommand(sqlSerie, cn, tr);
+                        foreach (var ns in ficha.Series)
+                        {
+                            comando5.Parameters.Clear();
+                            comando5.Parameters.AddWithValue("?correlativo", ns.Correlativo);
+                            comando5.Parameters.AddWithValue("?auto", ns.Auto);
+                            var rt5 = comando5.ExecuteNonQuery();
+                            if (rt5 == 0)
+                            {
+                                result.Mensaje = "PROBLEMA AL ACTUALIZAR SERIES";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result;
+                            }
+                        }
+
+                        try
+                        {
+                            using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                            {
+                                using (var ts = cnn.Database.BeginTransaction())
+                                {
+                                    try
+                                    {
+                                        foreach (var j in ficha.Jornadas)
+                                        {
+                                            var entJornada = cnn.Jornada.Find(j.Id);
+                                            if (entJornada == null)
+                                            {
+                                                result.Mensaje = "[ ID ] JORNADA NO ENCONTRADO";
+                                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                                return result;
+                                            }
+                                            entJornada.estatusTransmitida = j.EstatusTransmitida;
+                                            cnn.SaveChanges();
+                                        }
+                                        ts.Commit();
+                                    }
+                                    catch (Exception extt)
+                                    {
+                                        result.Mensaje =  extt.Message;
+                                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                        return result;
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ext)
+                        {
+                            result.Mensaje = ext.Message;
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        tr.Commit();
+                    }
+                    catch (Exception ex1)
+                    {
+                        tr.Rollback();
+                        result.Mensaje = ex1.Message;
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                    }
+                };
+            }
+            catch (MySqlException ex2)
+            {
+                result.Mensaje = ex2.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
 
     }
 
