@@ -1061,12 +1061,9 @@ namespace ProvSqLitePosOffLine
                                                     VendedorNombre = s.vendedor,
                                                     Tarifa = s.tarifa,
                                                     SaldoPendiente = s.saldoPendiente,
-                                                    AutoConceptoVenta = s.autoConceptoVenta,
-                                                    CodigoConceptoVenta = s.codigoConceptoVenta,
-                                                    NombreConceptoVenta = s.nombreConceptoVenta,
-                                                    AutoConceptoDevVenta = s.autoConceptoDevVenta,
-                                                    CodigoConceptoDevVenta = s.codigoConceptoDevVenta,
-                                                    NombreConceptoDevVenta = s.nombreConceptoDevVenta,
+                                                    AutoConceptoMov = s.autoConceptoMov,
+                                                    CodigoConceptoMov = s.codigoConceptoMov,
+                                                    NombreConceptoMov = s.nombreConceptoMov,
                                                 };
 
                                                 var det = qdetalle.Select(t =>

@@ -30,7 +30,6 @@ namespace LibEntitySqLitePosOffLine
         public virtual DbSet<UsuarioGrupo> UsuarioGrupo { get; set; }
         public virtual DbSet<Item> Item { get; set; }
         public virtual DbSet<Fiscal> Fiscal { get; set; }
-        public virtual DbSet<Venta> Venta { get; set; }
         public virtual DbSet<VentaDetalle> VentaDetalle { get; set; }
         public virtual DbSet<Deposito> Deposito { get; set; }
         public virtual DbSet<Vendedor> Vendedor { get; set; }
@@ -47,5 +46,6 @@ namespace LibEntitySqLitePosOffLine
         public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<MovConceptoInv> MovConceptoInv { get; set; }
         public virtual DbSet<Empresa> Empresa { get; set; }
+        public virtual DbSet<Venta> Venta { get; set; }
     }
 }

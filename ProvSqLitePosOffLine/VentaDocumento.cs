@@ -111,12 +111,9 @@ namespace ProvSqLitePosOffLine
                             esCredito=ficha.IsCredito,
                             tarifa=ficha.Tarifa,
                             saldoPendiente=ficha.SaldoPendiente,
-                            autoConceptoVenta=ficha.AutoConceptoVenta,
-                            codigoConceptoVenta=ficha.CodigoConceptoVenta,
-                            nombreConceptoVenta=ficha.NombreConceptoVenta,
-                            autoConceptoDevVenta=ficha.AutoConceptoDevVenta,
-                            codigoConceptoDevVenta=ficha.CodigoConceptoDevVenta,
-                            nombreConceptoDevVenta=ficha.NombreConceptoDevVenta,
+                            autoConceptoMov=ficha.AutoConceptoMov,
+                            codigoConceptoMov=ficha.CodigoConceptoMov,
+                            nombreConceptoMov=ficha.NombreConceptoMov,
                         };
                         cnn.Venta.Add(entVenta);
                         cnn.SaveChanges();
@@ -340,6 +337,7 @@ namespace ProvSqLitePosOffLine
                 {
                     var q = cnn.Venta.Find(idDocumento);
                     var qd = cnn.VentaDetalle.Where(f=>f.idVenta==idDocumento).ToList();
+                    var qp = cnn.VentaPago.Where(f => f.idVenta == idDocumento).ToList();
 
                     if (qd==null)
                     {
@@ -444,12 +442,9 @@ namespace ProvSqLitePosOffLine
                             VendedorNombre = s.vendedor,
                             Tarifa=s.tarifa,
                             SaldoPendiente=s.saldoPendiente,
-                            AutoConceptoVenta=s.autoConceptoVenta,
-                            CodigoConceptoVenta=s.codigoConceptoVenta,
-                            NombreConceptoVenta=s.nombreConceptoVenta,
-                            AutoConceptoDevVenta=s.autoConceptoDevVenta,
-                            CodigoConceptoDevVenta=s.codigoConceptoDevVenta,
-                            NombreConceptoDevVenta=s.nombreConceptoDevVenta,
+                            AutoConceptoMov =s.autoConceptoMov,
+                            CodigoConceptoMov =s.codigoConceptoMov,
+                            NombreConceptoMov =s.nombreConceptoMov,
                         };
 
                         var det = qd.Select(t =>
@@ -503,8 +498,31 @@ namespace ProvSqLitePosOffLine
                             };
                             return rg;
                         }).ToList();
-
                         nr.Detalles = det;
+
+                        nr.MediosPago = new List<DtoLibPosOffLine.VentaDocumento.Cargar.Pago>();
+                        if (qp != null) 
+                        {
+                            if (qp.Count > 0) 
+                            {
+                                var pag = qp.Select(t =>
+                                {
+                                    var np = new DtoLibPosOffLine.VentaDocumento.Cargar.Pago()
+                                    {
+                                        Codigo = t.codioMedioCobro,
+                                        Descripcion = t.descripMedioCobro,
+                                        Importe = t.importe,
+                                        Lote = t.lote,
+                                        MontoRecibido = t.montoRecibido,
+                                        Referencia = t.referencia,
+                                        Tasa = t.tasa,
+                                    };
+                                    return np;
+                                }).ToList();
+                                nr.MediosPago = pag;
+                            }
+                        }
+
                         result.Entidad = nr;
                     }
                 }

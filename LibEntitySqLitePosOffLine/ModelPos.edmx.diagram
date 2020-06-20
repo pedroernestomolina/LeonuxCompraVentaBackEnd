@@ -10,10 +10,9 @@
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.UsuarioGrupo" Width="1.5" PointX="3.375" PointY="6.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Item" Width="1.5" PointX="6.375" PointY="6.625" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Fiscal" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="LeonuxPosOffLineModel.Venta" Width="1.5" PointX="8.375" PointY="3.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.VentaDetalle" Width="1.5" PointX="10.375" PointY="0.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Deposito" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="LeonuxPosOffLineModel.Vendedor" Width="1.5" PointX="10.375" PointY="9.75" />
+        <EntityTypeShape EntityType="LeonuxPosOffLineModel.Vendedor" Width="1.5" PointX="10.5" PointY="11.875" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Pendiente" Width="1.5" PointX="0.75" PointY="11.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.MedioCobro" Width="1.5" PointX="12.375" PointY="0.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Cobrador" Width="1.5" PointX="12.375" PointY="3.75" />
@@ -27,6 +26,7 @@
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Producto" Width="1.5" PointX="0.75" PointY="14.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.MovConceptoInv" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Empresa" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="LeonuxPosOffLineModel.Venta" Width="1.5" PointX="7.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

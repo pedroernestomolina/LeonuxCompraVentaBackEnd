@@ -123,6 +123,7 @@
     <Compile Include="VentaDocumento\Cargar\Detalle.cs" />
     <Compile Include="VentaDocumento\Cargar\Enumerados.cs" />
     <Compile Include="VentaDocumento\Cargar\Ficha.cs" />
+    <Compile Include="VentaDocumento\Cargar\Pago.cs" />
     <Compile Include="VentaDocumento\Lista\Enumerados.cs" />
     <Compile Include="VentaDocumento\Lista\Filtro.cs" />
     <Compile Include="VentaDocumento\Lista\Resumen.cs" />
