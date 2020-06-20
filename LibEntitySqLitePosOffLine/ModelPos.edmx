@@ -31,6 +31,16 @@
           <Property Name="codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="nombre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="cirif" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="direccion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="telefono" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
         <EntityType Name="Fiscal">
           <Key>
             <PropertyRef Name="auto" />
@@ -237,6 +247,10 @@
           <Property Name="tarifaAsignada" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="EtiquetarPrecioPorTipoNegocio" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="serieNotaEntrega" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="equipoNumero" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="autoConceptoMovVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="autoConceptoMovDevVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="autoConceptoMovSalida" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="Transporte">
           <Key>
@@ -345,6 +359,7 @@
           <Property Name="autoConceptoDevVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="codigoConceptoDevVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="nombreConceptoDevVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="prefijo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="VentaDetalle">
           <Key>
@@ -414,6 +429,7 @@
           <EntitySet Name="Cliente" EntityType="Self.Cliente" store:Type="Tables" />
           <EntitySet Name="Cobrador" EntityType="Self.Cobrador" store:Type="Tables" />
           <EntitySet Name="Deposito" EntityType="Self.Deposito" store:Type="Tables" />
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" store:Type="Tables" />
           <EntitySet Name="Fiscal" EntityType="Self.Fiscal" store:Type="Tables" />
           <EntitySet Name="Item" EntityType="Self.Item" store:Type="Tables" />
           <EntitySet Name="Jornada" EntityType="Self.Jornada" store:Type="Tables" />
@@ -459,6 +475,7 @@
           <EntitySet Name="Jornada" EntityType="LeonuxPosOffLineModel.Jornada" />
           <EntitySet Name="Producto" EntityType="LeonuxPosOffLineModel.Producto" />
           <EntitySet Name="MovConceptoInv" EntityType="LeonuxPosOffLineModel.MovConceptoInv" />
+          <EntitySet Name="Empresa" EntityType="LeonuxPosOffLineModel.Empresa" />
         </EntityContainer>
         <EntityType Name="ProductoBarra">
           <Key>
@@ -607,6 +624,7 @@
           <Property Name="autoConceptoDevVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="codigoConceptoDevVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="nombreConceptoDevVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="prefijo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="VentaDetalle">
           <Key>
@@ -763,6 +781,10 @@
           <Property Name="tarifaAsignada" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="EtiquetarPrecioPorTipoNegocio" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="serieNotaEntrega" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="equipoNumero" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoConceptoMovVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoConceptoMovDevVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoConceptoMovSalida" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Serie">
           <Key>
@@ -865,6 +887,16 @@
           <Property Name="codigo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="cirif" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="direccion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="telefono" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -946,6 +978,7 @@
           <EntitySetMapping Name="Venta">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Venta">
               <MappingFragment StoreEntitySet="Venta">
+                <ScalarProperty Name="prefijo" ColumnName="prefijo" />
                 <ScalarProperty Name="nombreConceptoDevVenta" ColumnName="nombreConceptoDevVenta" />
                 <ScalarProperty Name="codigoConceptoDevVenta" ColumnName="codigoConceptoDevVenta" />
                 <ScalarProperty Name="autoConceptoDevVenta" ColumnName="autoConceptoDevVenta" />
@@ -1162,6 +1195,10 @@
           <EntitySetMapping Name="Sistema">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Sistema">
               <MappingFragment StoreEntitySet="Sistema">
+                <ScalarProperty Name="autoConceptoMovSalida" ColumnName="autoConceptoMovSalida" />
+                <ScalarProperty Name="autoConceptoMovDevVenta" ColumnName="autoConceptoMovDevVenta" />
+                <ScalarProperty Name="autoConceptoMovVenta" ColumnName="autoConceptoMovVenta" />
+                <ScalarProperty Name="equipoNumero" ColumnName="equipoNumero" />
                 <ScalarProperty Name="serieNotaEntrega" ColumnName="serieNotaEntrega" />
                 <ScalarProperty Name="EtiquetarPrecioPorTipoNegocio" ColumnName="EtiquetarPrecioPorTipoNegocio" />
                 <ScalarProperty Name="tarifaAsignada" ColumnName="tarifaAsignada" />
@@ -1293,6 +1330,17 @@
               <MappingFragment StoreEntitySet="MovConceptoInv">
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresa">
+            <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Empresa">
+              <MappingFragment StoreEntitySet="Empresa">
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="cirif" ColumnName="cirif" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>

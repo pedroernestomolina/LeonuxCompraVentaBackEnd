@@ -142,6 +142,15 @@ namespace ProvSqLitePosOffLine
         public string Nombre { get; set; }
     }
 
+    public class DataEmpresa 
+    {
+        public string Auto { get; set; }
+        public string Nombre { get; set; }
+        public string CiRif { get; set; }
+        public string DirFiscal { get; set; }
+        public string Telefono { get; set; }
+    }
+
 
     public partial class Provider : IPosOffLine.IProvider
     {
@@ -204,6 +213,8 @@ namespace ProvSqLitePosOffLine
             var list9 = new List<DataTransporte>();
             var listA = new List<DataSerie>();
             var listB = new List<DataProductoConcepto>();
+            var listC = new List<DataEmpresa>();
+
 
             var exito = false;
             var factorCambio = 0.0m;
@@ -256,6 +267,7 @@ namespace ProvSqLitePosOffLine
                         "from empresa_sucursal as es join empresa_grupo as eg on es.autoEmpresaGrupo=eg.Auto " +
                         "where codigo=@codigo"; //DEPOSITO, TARIFA PARA EL TIPO DE NEGOCIO INDICADO
                     var sqlI = "select auto,nombre,codigo from productos_conceptos";
+                    var sqlJ = "select auto,nombre,rif,direccion,telefono from empresa where auto='0000000001'";
 
 
                     var sql1 = "select now()";
@@ -555,6 +567,22 @@ namespace ProvSqLitePosOffLine
                     }
                     reader.Close();
 
+
+                    MySqlCommand comandoJ = new MySqlCommand(sqlJ);
+                    comandoJ.Connection = cn;
+                    reader = comandoJ.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var nr = new DataEmpresa();
+                        nr.Auto = reader.GetString("auto");
+                        nr.Nombre = reader.GetString("nombre");
+                        nr.CiRif = reader.GetString("rif");
+                        nr.DirFiscal = reader.GetString("direccion");
+                        nr.Telefono = reader.GetString("telefono");
+                        listC.Add(nr);
+                    }
+                    reader.Close();
+
                     exito = true;
                 };
             }
@@ -582,6 +610,7 @@ namespace ProvSqLitePosOffLine
                         var transporteList = cnn.Transporte.ToList();
                         var serieList = cnn.Serie.ToList();
                         var movConceptoInvList = cnn.MovConceptoInv.ToList();
+                        var empresaList = cnn.Empresa.ToList();
 
 
                         var sistema = cnn.Sistema.Find("0000000001");
@@ -620,6 +649,8 @@ namespace ProvSqLitePosOffLine
                         cnn.Serie.RemoveRange(serieList);
                         cnn.SaveChanges();
                         cnn.MovConceptoInv.RemoveRange(movConceptoInvList);
+                        cnn.SaveChanges();
+                        cnn.Empresa.RemoveRange(empresaList);
                         cnn.SaveChanges();
 
 
@@ -849,6 +880,24 @@ namespace ProvSqLitePosOffLine
                         cnn.MovConceptoInv.AddRange(listMovConcepto);
                         cnn.SaveChanges();
 
+
+                        var listEmpresa = new List<LibEntitySqLitePosOffLine.Empresa>();
+                        foreach (var r in listC)
+                        {
+                            var nr = new LibEntitySqLitePosOffLine.Empresa()
+                            {
+                                auto = r.Auto,
+                                nombre = r.Nombre,
+                                cirif = r.CiRif,
+                                direccion = r.DirFiscal,
+                                telefono = r.Telefono,
+                            };
+                            listEmpresa.Add(nr);
+                        }
+                        cnn.Empresa.AddRange(listEmpresa);
+                        cnn.SaveChanges();
+
+
                         cnn.Configuration.AutoDetectChangesEnabled = true;
                     }
                 }
@@ -961,6 +1010,7 @@ namespace ProvSqLitePosOffLine
                                                     CobradorCodigo = s.codigoCobrador,
                                                     CobradorNombre = s.cobrador,
                                                     CodigoSucursal = s.codigoSucursal,
+                                                    Prefijo=s.prefijo,
                                                     Control = s.control,
                                                     DepositoAuto = s.autoDeposito,
                                                     DepositoCodigo = s.codigoDeposito,
@@ -1260,6 +1310,9 @@ namespace ProvSqLitePosOffLine
 
                         var sqlVenta = InsertarVenta;
                         comando1 = new MySqlCommand(sqlVenta, cn, tr);
+
+                        var sqlVentaUpdate = "update ventas set auto_recibo=?AutoRecibo, recibo=?Recibo where auto=?Auto";
+                        var comandoVtaUpdate = new MySqlCommand(sqlVentaUpdate , cn, tr);
                         
                         var sqlVentaDetalle = InsertarVentaDetalle;
                         var comando2 = new MySqlCommand(sqlVentaDetalle, cn, tr);
@@ -1287,9 +1340,9 @@ namespace ProvSqLitePosOffLine
                         {
                             aVenta += 1;
                             aCxC += 1;
-                            var codSucursal = v.CodigoSucursal.Trim().PadLeft(3,'0');
-                            var autoVenta = codSucursal + aVenta.ToString().Trim().PadLeft(10 - codSucursal.Length, '0');
-                            var autoCxC = aCxC.ToString().Trim().PadLeft(10, '0');
+                            var codSucursal = v.Prefijo.Trim().PadLeft(4,'0');
+                            var autoVenta = codSucursal + aVenta.ToString().Trim().PadLeft(6, '0');
+                            var autoCxC = codSucursal + aCxC.ToString().Trim().PadLeft(6, '0');
 
                             comando1.Parameters.Clear();
                             comando1.Parameters.AddWithValue("?auto", autoVenta);
@@ -1447,14 +1500,27 @@ namespace ProvSqLitePosOffLine
                             if (v.DocCxCPago != null) 
                             {
                                 aCxC += 1;
-                                var autoCxCPago = aCxC.ToString().Trim().PadLeft(10, '0');
+                                var autoCxCPago = codSucursal +aCxC.ToString().Trim().PadLeft(6, '0');
 
                                 aCxCRecibo += 1;
-                                var autoCxCRecibo = aCxCRecibo.ToString().Trim().PadLeft(10, '0');
+                                var autoCxCRecibo = codSucursal + aCxCRecibo.ToString().Trim().PadLeft(6, '0');
                                 
                                 aCxCReciboNumero += 1;
                                 var ReciboCxCNumero = aCxCReciboNumero.ToString().Trim().PadLeft(10, '0');
 
+
+                                //ACTUALZA VENTA , CON RECIBO Y NUMERO
+                                comandoVtaUpdate.Parameters.Clear();
+                                comandoVtaUpdate.Parameters.AddWithValue("?Auto", autoVenta);
+                                comandoVtaUpdate.Parameters.AddWithValue("?AutoRecibo", autoCxCRecibo);
+                                comandoVtaUpdate.Parameters.AddWithValue("?Recibo", ReciboCxCNumero);
+                                var rtVtaUpdate = comandoVtaUpdate.ExecuteNonQuery();
+                                if (rtVtaUpdate == 0)
+                                {
+                                    result.Mensaje = "PROBLEMA AL ACTUALIZAR TABLA VENTA RECIBO DE PAGO";
+                                    result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return result;
+                                }
 
                                 var pago = v.DocCxCPago.Pago;
                                 // INSERTAR CXC PAGO
@@ -1815,6 +1881,39 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
+        public DtoLib.Resultado Servidor_Principal_ExportarData()
+        {
+            var result = new DtoLib.Resultado();
+
+            //SELECT * INTO OUTFILE '+surl+'usuarios.txt" FROM usuarios'
+
+            try
+            {
+                using (var cn = new MySqlConnection(_cnn2.ConnectionString))
+                {
+                    cn.Open();
+                    var sql0 = "select * into outfile \"/compartida/data/usuarios.txt\" from usuarios";
+
+                    MySqlCommand comando1 = new MySqlCommand(sql0, cn);
+                    var rt= comando1.ExecuteNonQuery();
+
+                    //var aVentaObj = comando1.ExecuteScalar();
+                    //if (aVentaObj == null)
+                    //{
+                    //    result.Mensaje = "PROBLEMA AL LEER TABLA USUARIOS ";
+                    //    result.Result = DtoLib.Enumerados.EnumResult.isError;
+                    //    return result;
+                    //}
+                };
+            }
+            catch (MySqlException ex2)
+            {
+                result.Mensaje = ex2.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
 
     }
 

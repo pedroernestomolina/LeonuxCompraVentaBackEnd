@@ -46,5 +46,6 @@ namespace LibEntitySqLitePosOffLine
         public virtual DbSet<Jornada> Jornada { get; set; }
         public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<MovConceptoInv> MovConceptoInv { get; set; }
+        public virtual DbSet<Empresa> Empresa { get; set; }
     }
 }

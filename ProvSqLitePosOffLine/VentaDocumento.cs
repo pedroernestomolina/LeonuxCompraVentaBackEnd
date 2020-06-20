@@ -93,6 +93,7 @@ namespace ProvSqLitePosOffLine
                             montoUtilidadPorc = ficha.PorcUtilidad,
                             montoTotal = ficha.MontoTotal,
                             codigoSucursal = ficha.CodigoSucursal,
+                            prefijo=ficha.Prefijo,
                             autoDeposito = ficha.AutoDeposito,
                             codigoDeposito = ficha.CodigoDeposito,
                             deposito = ficha.DescripcionDeposito,

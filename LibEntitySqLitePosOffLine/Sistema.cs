@@ -40,5 +40,9 @@ namespace LibEntitySqLitePosOffLine
         public string tarifaAsignada { get; set; }
         public string EtiquetarPrecioPorTipoNegocio { get; set; }
         public string serieNotaEntrega { get; set; }
+        public string equipoNumero { get; set; }
+        public string autoConceptoMovVenta { get; set; }
+        public string autoConceptoMovDevVenta { get; set; }
+        public string autoConceptoMovSalida { get; set; }
     }
 }

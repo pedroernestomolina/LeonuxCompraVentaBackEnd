@@ -72,6 +72,9 @@
     <Compile Include="Deposito.cs">
       <DependentUpon>ModelPos.tt</DependentUpon>
     </Compile>
+    <Compile Include="Empresa.cs">
+      <DependentUpon>ModelPos.tt</DependentUpon>
+    </Compile>
     <Compile Include="Fiscal.cs">
       <DependentUpon>ModelPos.tt</DependentUpon>
     </Compile>

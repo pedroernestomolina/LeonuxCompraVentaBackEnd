@@ -226,6 +226,7 @@ namespace ProvSqLitePosOffLine
                     var nr = new DtoLibPosOffLine.Configuracion.Sucursal.Ficha() 
                     {
                         Codigo= ent.sucursalCodigo,
+                        EquipoNumero=ent.equipoNumero,
                     };
                     result.Entidad = nr;
                 }
@@ -627,6 +628,7 @@ namespace ProvSqLitePosOffLine
                     ent.limiteRepesajeSuperior = ficha.LimiteSuperiorRepesaje;
                     ent.activarBusquedaPorDescripcion = ficha.ActivarBusquedaPorDescripcion;
                     ent.clavePos = ficha.ClavePos;
+                    ent.equipoNumero = ficha.EquipoNumero;
 
                     ent.serieFactura = ficha.SerieFactura;
                     ent.serieNotaCredito = ficha.SerieNotaCredito;
@@ -641,6 +643,10 @@ namespace ProvSqLitePosOffLine
                     ent.autoMedioPagoDivisa = ficha.AutoMedioDivisa;
                     ent.autoMedioPagoElectronico= ficha.AutoMedioElectronico;
                     ent.autoMedioPagoOtro = ficha.AutoMedioOtro;
+
+                    ent.autoConceptoMovVenta = ficha.AutoMovConceptoVenta;
+                    ent.autoConceptoMovDevVenta = ficha.AutoMovConceptoDevVenta;
+                    ent.autoConceptoMovSalida = ficha.AutoMovConceptoSalida;
 
                     cnn.SaveChanges();
                 }
@@ -672,6 +678,8 @@ namespace ProvSqLitePosOffLine
 
                     var ficha = new DtoLibPosOffLine.Configuracion.Actual.Ficha();
                     ficha.CodigoSucursal =ent.sucursalCodigo ;
+                    ficha.EquipoNumero = ent.equipoNumero;
+
                     ficha.ActivarRepesaje= ent.activarRepesaje.Trim().ToUpper()=="S"?true:false;
                     ficha.LimiteInferiorRepesaje=ent.limiteRepesajeInferior;
                     ficha.LimiteSuperiorRepesaje=ent.limiteRepesajeSuperior;
@@ -694,6 +702,10 @@ namespace ProvSqLitePosOffLine
                     ficha.AutoMedioDivisa= ent.autoMedioPagoDivisa;
                     ficha.AutoMedioElectronico= ent.autoMedioPagoElectronico;
                     ficha.AutoMedioOtro= ent.autoMedioPagoOtro;
+
+                    ficha.AutoMovConceptoVenta  = ent.autoConceptoMovVenta ;
+                    ficha.AutoMovConceptoDevVenta = ent.autoConceptoMovDevVenta;
+                    ficha.AutoMovConceptoSalida = ent.autoConceptoMovSalida;
 
                     result.Entidad = ficha;
                 }

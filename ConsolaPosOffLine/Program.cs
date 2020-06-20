@@ -13,11 +13,11 @@ namespace ConsolaPosOffLine
         {
 
             IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"D:\Proyectos FoxSystem\CompraVenta\LeonuxPosOffLine.db");
-            _offLine.setServidorRemoto("localhost", "galpon2904");
+            _offLine.setServidorRemoto("localhost", "pita");
             //var fechaActual = _offLine.FechaServidor();
             //var r01 = _offLine.Producto("0000000005");
             var r01 = _offLine.Servidor_Test();
-            var r02 = _offLine.Servidor_ActualizarData();
+            var r02 = _offLine.Servidor_Principal_ExportarData();
         }
     }
 }

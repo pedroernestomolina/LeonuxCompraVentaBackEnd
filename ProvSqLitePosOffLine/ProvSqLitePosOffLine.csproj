@@ -74,6 +74,7 @@
     <Compile Include="Item.cs" />
     <Compile Include="Jornada.cs" />
     <Compile Include="MedioCobro.cs" />
+    <Compile Include="MovConceptoInv.cs" />
     <Compile Include="Operador.cs" />
     <Compile Include="Pendiente.cs" />
     <Compile Include="Permiso.cs" />

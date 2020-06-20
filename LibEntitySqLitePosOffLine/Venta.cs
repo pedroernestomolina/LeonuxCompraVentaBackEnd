@@ -90,5 +90,6 @@ namespace LibEntitySqLitePosOffLine
         public string autoConceptoDevVenta { get; set; }
         public string codigoConceptoDevVenta { get; set; }
         public string nombreConceptoDevVenta { get; set; }
+        public string prefijo { get; set; }
     }
 }

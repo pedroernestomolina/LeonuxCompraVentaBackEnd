@@ -12,6 +12,8 @@ namespace DtoLibPosOffLine.Configuracion.Actual
     {
 
         public string CodigoSucursal { get; set; }
+        public string EquipoNumero { get; set; }
+
         public bool ActivarRepesaje { get; set; }
         public decimal LimiteSuperiorRepesaje { get; set; }
         public decimal LimiteInferiorRepesaje { get; set; }
@@ -34,6 +36,10 @@ namespace DtoLibPosOffLine.Configuracion.Actual
         public string AutoMedioDivisa { get; set; }
         public string AutoMedioElectronico { get; set; }
         public string AutoMedioOtro { get; set; }
+
+        public string AutoMovConceptoVenta { get; set; }
+        public string AutoMovConceptoDevVenta { get; set; }
+        public string AutoMovConceptoSalida { get; set; }
 
     }
 

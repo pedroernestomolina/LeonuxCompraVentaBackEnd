@@ -16,6 +16,7 @@ namespace DtoLibPosOffLine.Configuracion.Guardar
         public decimal LimiteInferiorRepesaje { get; set; }
         public string ActivarBusquedaPorDescripcion { get; set; }
         public int ClavePos { get; set; }
+        public string EquipoNumero { get; set; }
 
         public string SerieFactura { get; set; }
         public string SerieNotaCredito { get; set; }
@@ -30,6 +31,10 @@ namespace DtoLibPosOffLine.Configuracion.Guardar
         public string AutoMedioDivisa { get; set; }
         public string AutoMedioElectronico { get; set; }
         public string AutoMedioOtro { get; set; }
+
+        public string AutoMovConceptoVenta { get; set; }
+        public string AutoMovConceptoDevVenta { get; set; }
+        public string AutoMovConceptoSalida { get; set; }
 
     }
 

@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibPosOffLine.Configuracion.Sucursal
+namespace DtoLibPosOffLine.MovConceptoInv
 {
-    
+
     public class Ficha
     {
 
+        public string Auto { get; set; }
         public string Codigo { get; set; }
-        public string EquipoNumero { get; set; }
+        public string Nombre { get; set; }
 
     }
 

@@ -29,6 +29,7 @@ namespace DtoLibPosOffLine.VentaDocumento
         public int SignoDocumento { get; set; }
         public int Renglones { get; set; }
         public string CodigoSucursal { get; set; }
+        public string Prefijo { get; set; }
 
         public int ClienteId { get; set; }
         public string ClienteCiRif { get; set; }

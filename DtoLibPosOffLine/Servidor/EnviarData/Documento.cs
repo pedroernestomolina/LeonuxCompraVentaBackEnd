@@ -66,6 +66,7 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
         public string Usuario { get; set; }
         public string CodigoUsuario { get; set; }
         public string CodigoSucursal { get; set; }
+        public string Prefijo { get; set; }
         public string Hora { get; set; }
         public string Transporte { get; set; }
         public string CodigoTransporte { get; set; }

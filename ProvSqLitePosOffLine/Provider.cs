@@ -126,11 +126,26 @@ namespace ProvSqLitePosOffLine
                     var itemList = cnn.Item.ToList();
                     var conceptoInvList = cnn.MovConceptoInv.ToList();
 
+
+                    var empresa = cnn.Empresa.Find("0000000001");
+                    if (empresa == null)
+                    {
+                        result.Mensaje = "REGISTRO CONTROL EMPRESA NO ENCONTRADO, VERIFIQUE POR VADOR";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    empresa.cirif = "";
+                    empresa.direccion = "";
+                    empresa.nombre = "";
+                    empresa.telefono = "";
+
+
                     var sistema = cnn.Sistema.Find("0000000001");
                     if (sistema == null) 
                     {
-                        result.Mensaje = "REGISTRO CONTROL NO ENCONTRADO, VERIFIQUE POR VADOR";
+                        result.Mensaje = "REGISTRO CONTROL SISTEMA NO ENCONTRADO, VERIFIQUE POR VADOR";
                         result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
                     }
 
                     sistema.factorCambio = 0;
@@ -138,6 +153,7 @@ namespace ProvSqLitePosOffLine
                     sistema.clave2 = "";
                     sistema.clave3 = "";
                     sistema.sucursalCodigo = "";
+                    sistema.equipoNumero = "";
                     sistema.tarifaAsignada = "";
                     sistema.EtiquetarPrecioPorTipoNegocio = "";
                     sistema.serieFactura = "";
@@ -195,6 +211,43 @@ namespace ProvSqLitePosOffLine
                     cnn.Configuration.AutoDetectChangesEnabled = true;
                 }
 
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibPosOffLine.Empresa.Ficha> Empresa_Datos()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPosOffLine.Empresa.Ficha>();  
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var ent = cnn.Empresa.Find("0000000001");
+                    if (ent == null) 
+                    {
+                        result.Entidad = null;
+                        result.Mensaje = "ENTIDAD EMPRESA NO ENCONTRADA";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var nr = new DtoLibPosOffLine.Empresa.Ficha()
+                    {
+                        Auto = ent.auto,
+                        CiRif = ent.cirif,
+                        DireccionFiscal = ent.direccion,
+                        Nombre = ent.nombre,
+                        Telefono = ent.telefono,
+                    };
+                    result.Entidad = nr;
+                }
             }
             catch (Exception e)
             {

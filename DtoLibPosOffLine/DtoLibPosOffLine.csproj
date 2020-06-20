@@ -58,6 +58,7 @@
     <Compile Include="Configuracion\Transporte\Ficha.cs" />
     <Compile Include="Configuracion\Vendedor\Ficha.cs" />
     <Compile Include="Deposito\Ficha.cs" />
+    <Compile Include="Empresa\Ficha.cs" />
     <Compile Include="Fiscal\Ficha.cs" />
     <Compile Include="Item\Actualizar.cs" />
     <Compile Include="Item\Agregar.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Jornada\Cerrar\Ficha.cs" />
     <Compile Include="Jornada\Enumerado.cs" />
     <Compile Include="MedioCobro\Ficha.cs" />
+    <Compile Include="MovConceptoInv\Ficha.cs" />
     <Compile Include="Operador\Abrir\Ficha.cs" />
     <Compile Include="Operador\Cargar\Ficha.cs" />
     <Compile Include="Operador\Cerrar\Ficha.cs" />
