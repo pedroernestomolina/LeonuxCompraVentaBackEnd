@@ -175,6 +175,10 @@ namespace ProvSqLitePosOffLine
                     sistema.activarBusquedaPorDescripcion = "";
                     sistema.limiteRepesajeInferior = 0;
                     sistema.limiteRepesajeSuperior = 0;
+
+                    sistema.autoConceptoMovVenta = "";
+                    sistema.autoConceptoMovDevVenta = "";
+                    sistema.autoConceptoMovSalida = "";
                     cnn.SaveChanges();
 
                     cnn.Configuration.AutoDetectChangesEnabled = false;

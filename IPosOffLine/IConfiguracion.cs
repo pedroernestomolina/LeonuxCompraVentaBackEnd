@@ -21,6 +21,7 @@ namespace IPosOffLine
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Configuracion.Cobrador.Ficha> Configuracion_Cobrador();
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Configuracion.Transporte.Ficha> Configuracion_Transporte();
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Configuracion.MedioCobro.Ficha> Configuracion_MedioCobro();
+        DtoLib.ResultadoEntidad<DtoLibPosOffLine.Configuracion.MovConceptoInv.Ficha> Configuracion_MovConceptoInv();
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Configuracion.ClaveAcceso.Ficha> Configuracion_ClavePos();
         DtoLib.ResultadoEntidad<string> Configuracion_TarifaPrecio();
         DtoLib.ResultadoEntidad<bool> Configuracion_EtiquetarPrecioPorTipoNegocio();

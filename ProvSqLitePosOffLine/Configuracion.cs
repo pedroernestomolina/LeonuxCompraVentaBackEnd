@@ -773,6 +773,88 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibPosOffLine.Configuracion.MovConceptoInv.Ficha> Configuracion_MovConceptoInv()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPosOffLine.Configuracion.MovConceptoInv.Ficha>();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var ent = cnn.Sistema.Find("0000000001");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "ENTIDAD CONFIGURACION DEL POS NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    };
+
+                    var autoMovConceptoVenta = ent.autoConceptoMovVenta;
+                    if (autoMovConceptoVenta == "")
+                    {
+                        result.Mensaje = "CONCEPTO MOVIMIENTO VENTA NO DEFINIDO EN [ CONFIGURACION ]";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var autoMovConceptoDevVenta = ent.autoConceptoMovDevVenta;
+                    if (autoMovConceptoDevVenta == "")
+                    {
+                        result.Mensaje = "CONCEPTO MOVIMIENTO DEV VENTA NO DEFINIDO EN [ CONFIGURACION ]";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var autoMovConceptoSalida = ent.autoConceptoMovSalida;
+                    if (autoMovConceptoSalida == "")
+                    {
+                        result.Mensaje = "CONCEPTO MOVIMIENTO SALIDA NO DEFINIDO EN [ CONFIGURACION ]";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var entMovVenta= cnn.MovConceptoInv.Find(autoMovConceptoVenta);
+                    if (entMovVenta == null)
+                    {
+                        result.Mensaje = "MOVIMIENTO CONCEPTO VENTA NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var entMovDevVenta = cnn.MovConceptoInv.Find(autoMovConceptoDevVenta);
+                    if (entMovDevVenta == null)
+                    {
+                        result.Mensaje = "MOVIMIENTO CONCEPTO DEV VENTA NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var entMovSalida = cnn.MovConceptoInv.Find(autoMovConceptoSalida );
+                    if (entMovSalida == null)
+                    {
+                        result.Mensaje = "MOVIMIENTO CONCEPTO SALIDA NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var nr = new DtoLibPosOffLine.Configuracion.MovConceptoInv.Ficha()
+                    {
+                        Venta = new DtoLibPosOffLine.Configuracion.MovConceptoInv.ConceptoMov() { Auto = entMovVenta.auto, Codigo = entMovVenta.codigo, Nombre = entMovVenta.nombre },
+                        DevVenta = new DtoLibPosOffLine.Configuracion.MovConceptoInv.ConceptoMov() { Auto = entMovDevVenta.auto, Codigo = entMovDevVenta.codigo, Nombre = entMovDevVenta.nombre },
+                        Salida = new DtoLibPosOffLine.Configuracion.MovConceptoInv.ConceptoMov() { Auto = entMovSalida.auto, Codigo = entMovSalida.codigo, Nombre = entMovSalida.nombre },
+                    };
+                    result.Entidad = nr;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

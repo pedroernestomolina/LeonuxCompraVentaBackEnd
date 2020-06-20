@@ -52,6 +52,8 @@
     <Compile Include="Configuracion\MedioCobro\Ficha.cs" />
     <Compile Include="Configuracion\MedioCobro\Medio.cs" />
     <Compile Include="Configuracion\ModoPos\Ficha.cs" />
+    <Compile Include="Configuracion\MovConceptoInv\ConceptoMov.cs" />
+    <Compile Include="Configuracion\MovConceptoInv\Ficha.cs" />
     <Compile Include="Configuracion\Repesaje\Ficha.cs" />
     <Compile Include="Configuracion\Serie\Ficha.cs" />
     <Compile Include="Configuracion\Sucursal\Ficha.cs" />
