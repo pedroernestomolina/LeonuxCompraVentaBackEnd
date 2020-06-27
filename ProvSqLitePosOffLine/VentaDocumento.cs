@@ -268,6 +268,7 @@ namespace ProvSqLitePosOffLine
                                      IsActivo=isActivo,
                                      Signo=(int)s.signo,
                                      Renglones=(int)s.renglones,
+                                     Serie=s.serie,
                                 };
                                 return r;
                             }).ToList();

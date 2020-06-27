@@ -1839,19 +1839,36 @@ namespace ProvSqLitePosOffLine
 
 
                         //ACTUALIZAR SERIES
+                        var sqlSerieA = "select correlativo from empresa_series_fiscales where auto=?auto";
+                        var comando6A = new MySqlCommand(sqlSerieA, cn, tr);
                         var sqlSerie = "update empresa_series_fiscales set correlativo=?correlativo where auto=?auto";
-                        var comando5 = new MySqlCommand(sqlSerie, cn, tr);
+                        var comando6B = new MySqlCommand(sqlSerie, cn, tr);
                         foreach (var ns in ficha.Series)
                         {
-                            comando5.Parameters.Clear();
-                            comando5.Parameters.AddWithValue("?correlativo", ns.Correlativo);
-                            comando5.Parameters.AddWithValue("?auto", ns.Auto);
-                            var rt5 = comando5.ExecuteNonQuery();
-                            if (rt5 == 0)
+                            //BUSCAR POR AUTO LA SERIE A ACTUALIZAR
+                            comando6A.Parameters.Clear();
+                            comando6A.Parameters.AddWithValue("?auto", ns.Auto);
+                            var rc = comando6A.ExecuteScalar();
+                            if (rc == null) 
                             {
-                                result.Mensaje = "PROBLEMA AL ACTUALIZAR SERIES";
+                                result.Mensaje = "SERIE NO ENCONTRADA";
                                 result.Result = DtoLib.Enumerados.EnumResult.isError;
                                 return result;
+                            }
+
+                            //VERIFICAR SI LA SERIE A ACTUALIZAR SU CORRELATIVO ES SUPERIOR AL REGISTRADO
+                            if (ns.Correlativo > int.Parse(rc.ToString())) 
+                            {
+                                comando6B.Parameters.Clear();
+                                comando6B.Parameters.AddWithValue("?correlativo", ns.Correlativo);
+                                comando6B.Parameters.AddWithValue("?auto", ns.Auto);
+                                var rt6 = comando6B.ExecuteNonQuery();
+                                if (rt6 == 0)
+                                {
+                                    result.Mensaje = "PROBLEMA AL ACTUALIZAR SERIES";
+                                    result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return result;
+                                }
                             }
                         }
 

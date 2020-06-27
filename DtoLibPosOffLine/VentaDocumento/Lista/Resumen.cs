@@ -23,6 +23,7 @@ namespace DtoLibPosOffLine.VentaDocumento.Lista
         public bool IsActivo { get; set; }
         public int Signo { get; set; }
         public int Renglones { get; set; }
+        public string Serie { get; set; }
 
     }
 
