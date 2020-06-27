@@ -137,6 +137,7 @@ namespace ProvSqLitePosOffLine
 
                     var factura = "";
                     var controlFactura = "";
+                    var corFactura=0;
                     if (ent.serieFactura != "") 
                     {
                         var entSerieFactura = cnn.Serie.Find(ent.serieFactura);
@@ -144,11 +145,13 @@ namespace ProvSqLitePosOffLine
                         {
                             factura = entSerieFactura.serie1;
                             controlFactura = entSerieFactura.control;
+                            corFactura=(int)entSerieFactura.correlativo;
                         }
                     }
 
                     var ntCredito= "";
                     var controlNtCredito = "";
+                    var corNtCredito=0;
                     if (ent.serieNotaCredito != "")
                     {
                         var entSerieNotaCredito= cnn.Serie.Find(ent.serieNotaCredito);
@@ -156,11 +159,13 @@ namespace ProvSqLitePosOffLine
                         {
                             ntCredito = entSerieNotaCredito.serie1;
                             controlNtCredito = entSerieNotaCredito.control;
+                            corNtCredito=(int)entSerieNotaCredito.correlativo;
                         }
                     }
 
                     var ntDebito= "";
                     var controlNtdebito = "";
+                    var corNtDebito =0;
                     if (ent.serieNotaDebito != "")
                     {
                         var entSerieNotaDebito= cnn.Serie.Find(ent.serieNotaDebito);
@@ -168,11 +173,13 @@ namespace ProvSqLitePosOffLine
                         {
                             ntDebito = entSerieNotaDebito.serie1;
                             controlNtdebito = entSerieNotaDebito.control;
+                            corNtDebito =(int) entSerieNotaDebito.correlativo;
                         }
                     }
 
                     var ntEntrega= "";
                     var controlNtEntrega = "";
+                    var corNtEntrega=0;
                     if (ent.serieNotaEntrega != "")
                     {
                         var entSerieNotaEntrega = cnn.Serie.Find(ent.serieNotaEntrega);
@@ -180,6 +187,7 @@ namespace ProvSqLitePosOffLine
                         {
                             ntEntrega= entSerieNotaEntrega.serie1;
                             controlNtEntrega =entSerieNotaEntrega.control;
+                            corNtEntrega=(int) entSerieNotaEntrega.correlativo;
                         }
                     }
 
@@ -193,6 +201,10 @@ namespace ProvSqLitePosOffLine
                         ControlParaNotaCredito = controlNtCredito,
                         ControlParaNotaDebito = controlNtdebito,
                         ControlParaNotaEntrega = controlNtEntrega,
+                        CorrelativoParaFactura=  corFactura,
+                        CorrelativoParaNtCredito=corNtCredito,
+                        CorrelativoParaNtDebito=corNtDebito,
+                        CorrelativoParaNtEntrega=corNtEntrega,
                     };
                     result.Entidad = nr;
                 }

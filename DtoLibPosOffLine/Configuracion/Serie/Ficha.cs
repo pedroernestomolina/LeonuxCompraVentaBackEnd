@@ -19,6 +19,10 @@ namespace DtoLibPosOffLine.Configuracion.Serie
         public string ControlParaNotaCredito { get; set; }
         public string ControlParaNotaDebito { get; set; }
         public string ControlParaNotaEntrega { get; set; }
+        public int CorrelativoParaFactura { get; set; }
+        public int CorrelativoParaNtCredito { get; set; }
+        public int CorrelativoParaNtDebito { get; set; }
+        public int CorrelativoParaNtEntrega { get; set; }
 
     }
 

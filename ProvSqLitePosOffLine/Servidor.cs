@@ -1254,6 +1254,9 @@ namespace ProvSqLitePosOffLine
                         "?medio , ?codigo , ?monto_recibido , ?fecha , ?estatus_anulado , ?numero , ?agencia , ?auto_usuario , ?lote , " +
                         "?referencia , ?auto_cobrador , ?cierre , ?fecha_agencia)";
 
+            const string InsertarPosJornadas = @"INSERT INTO pos_jornadas (id, fecha, estatus_cierre, cierre_ftp) " +
+                        "VALUES (NULL, ?fecha, '0', '0')";
+
             try
             {
                 using (var cn = new MySqlConnection(_cnn2.ConnectionString))
@@ -1327,6 +1330,11 @@ namespace ProvSqLitePosOffLine
                         var sqlDeposito = UpdateProductoDeposito;
                         var comando4 = new MySqlCommand(sqlDeposito, cn, tr);
 
+                        var sqlPosJornadaA = "select 1 from pos_jornadas where fecha=?fecha";
+                        var comando5A = new MySqlCommand(sqlPosJornadaA, cn, tr);
+                        var sqlPosJornadaB = InsertarPosJornadas;
+                        var comando5B = new MySqlCommand(sqlPosJornadaB, cn, tr);
+
                         var sqlCxC = InsertarCxC;
                         var comandoCxC = new MySqlCommand(sqlCxC, cn, tr);
 
@@ -1339,6 +1347,25 @@ namespace ProvSqLitePosOffLine
                         var sqlCxCMedioPago = InsertarCxCMedioPago;
                         var comandoCxCMedioPago = new MySqlCommand(sqlCxCMedioPago, cn, tr);
 
+
+                        foreach (var f in ficha.FechasMov) 
+                        {
+                            comando5A.Parameters.Clear();
+                            comando5A.Parameters.AddWithValue("?fecha", f.Date);
+                            var rt = comando5A.ExecuteScalar();
+                            if (rt == null) 
+                            {
+                                comando5B.Parameters.Clear();
+                                comando5B.Parameters.AddWithValue("?fecha", f.Date);
+                                var rt2 = comando5B.ExecuteNonQuery();
+                                if (rt2 == 0)
+                                {
+                                    result.Mensaje = "PROBLEMA AL INSERTAR REGISTRO POS JORNADAS";
+                                    result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return result;
+                                }
+                            }
+                        }
 
                         foreach (var v in ficha.Documentos)
                         {
@@ -1889,8 +1916,6 @@ namespace ProvSqLitePosOffLine
         {
             var result = new DtoLib.Resultado();
 
-            //SELECT * INTO OUTFILE '+surl+'usuarios.txt" FROM usuarios'
-
             try
             {
                 using (var cn = new MySqlConnection(_cnn2.ConnectionString))
@@ -2130,12 +2155,11 @@ namespace ProvSqLitePosOffLine
                         foreach (var mv in listMv)
                         {
                             comando1.Parameters.Clear();
-                            comando1.Parameters.Add("?cnt", mv.cnt);
-                            comando1.Parameters.Add("?ap", mv.autoProducto);
-                            comando1.Parameters.Add("?ad", mv.autoDeposito);
+                            comando1.Parameters.AddWithValue("?cnt", mv.cnt);
+                            comando1.Parameters.AddWithValue("?ap", mv.autoProducto);
+                            comando1.Parameters.AddWithValue("?ad", mv.autoDeposito);
                             rt = comando1.ExecuteNonQuery();
                         }
-
 
                         sql0 = "SET FOREIGN_KEY_CHECKS=1";
                         comando1 = new MySqlCommand(sql0, cn,tr);

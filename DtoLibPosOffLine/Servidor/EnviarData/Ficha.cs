@@ -12,6 +12,7 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
     {
 
         public List<Jornada> Jornadas { get; set; }
+        public List<DateTime> FechasMov { get; set; }
         public List<Documento> Documentos { get; set; }
         public List<Serie> Series { get; set; }
 
