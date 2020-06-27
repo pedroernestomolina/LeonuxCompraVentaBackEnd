@@ -142,13 +142,20 @@ namespace ProvSqLitePosOffLine
         public string Nombre { get; set; }
     }
 
-    public class DataEmpresa 
+    public class DataEmpresa
     {
         public string Auto { get; set; }
         public string Nombre { get; set; }
         public string CiRif { get; set; }
         public string DirFiscal { get; set; }
         public string Telefono { get; set; }
+    }
+
+    public class DataKardexResumen 
+    {
+        public string autoProducto { get; set; }
+        public string autoDeposito { get; set; }
+        public decimal cnt { get; set; }
     }
 
 
@@ -531,7 +538,7 @@ namespace ProvSqLitePosOffLine
                     MySqlCommand comandoF = new MySqlCommand(sqlF);
                     comandoF.Connection = cn;
                     var xetiquetarPrecioPorTipoNegocio = comandoF.ExecuteScalar().ToString(); // SI,NO
-                    if (xetiquetarPrecioPorTipoNegocio.Trim().ToUpper()=="SI") 
+                    if (xetiquetarPrecioPorTipoNegocio.Trim().ToUpper() == "SI")
                     {
                         _etiquetarPrecioPorTipoNegocio = true;
                     }
@@ -540,7 +547,7 @@ namespace ProvSqLitePosOffLine
                     comandoG.Connection = cn;
                     _codigoSucursal = comandoG.ExecuteScalar().ToString();
 
-                    if (_etiquetarPrecioPorTipoNegocio) 
+                    if (_etiquetarPrecioPorTipoNegocio)
                     {
                         MySqlCommand comandoH = new MySqlCommand(sqlH);
                         comandoH.Parameters.AddWithValue("@codigo", _codigoSucursal);
@@ -559,7 +566,7 @@ namespace ProvSqLitePosOffLine
                     reader = comandoI.ExecuteReader();
                     while (reader.Read())
                     {
-                        var nr = new  DataProductoConcepto();
+                        var nr = new DataProductoConcepto();
                         nr.Auto = reader.GetString("auto");
                         nr.Codigo = reader.GetString("codigo");
                         nr.Nombre = reader.GetString("nombre");
@@ -623,7 +630,7 @@ namespace ProvSqLitePosOffLine
                             sistema.sucursalCodigo = _codigoSucursal;
                             sistema.autoDeposito = _depositoAsignado;
                             sistema.tarifaAsignada = _tarifaAsignada;
-                            sistema.EtiquetarPrecioPorTipoNegocio = _etiquetarPrecioPorTipoNegocio?"S":"N";
+                            sistema.EtiquetarPrecioPorTipoNegocio = _etiquetarPrecioPorTipoNegocio ? "S" : "N";
                             cnn.SaveChanges();
                         }
 
@@ -858,7 +865,7 @@ namespace ProvSqLitePosOffLine
                                 auto = r.Auto,
                                 serie1 = r.Serie,
                                 control = r.Control,
-                                correlativo=r.Correlativo,
+                                correlativo = r.Correlativo,
                             };
                             listSerie.Add(nr);
                         }
@@ -872,8 +879,8 @@ namespace ProvSqLitePosOffLine
                             var nr = new LibEntitySqLitePosOffLine.MovConceptoInv()
                             {
                                 auto = r.Auto,
-                                codigo=r.Codigo,
-                                nombre=r.Nombre,
+                                codigo = r.Codigo,
+                                nombre = r.Nombre,
                             };
                             listMovConcepto.Add(nr);
                         }
@@ -914,20 +921,20 @@ namespace ProvSqLitePosOffLine
         public DtoLib.ResultadoEntidad<DtoLibPosOffLine.Servidor.RecogerDataEnviar.Ficha> Servidor_RecogerDataEnviar()
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibPosOffLine.Servidor.RecogerDataEnviar.Ficha>();
-            
+
             try
             {
                 using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
                 {
                     List<DtoLibPosOffLine.Servidor.RecogerDataEnviar.Serie> ListSeries = new List<DtoLibPosOffLine.Servidor.RecogerDataEnviar.Serie>();
                     var qserie = cnn.Serie.ToList();
-                    foreach (var s in qserie) 
+                    foreach (var s in qserie)
                     {
                         var ns = new DtoLibPosOffLine.Servidor.RecogerDataEnviar.Serie()
                         {
                             Auto = s.auto,
                             Control = s.control,
-                            Correlativo =(int) s.correlativo,
+                            Correlativo = (int)s.correlativo,
                             SerieNombre = s.serie1,
                         };
                         ListSeries.Add(ns);
@@ -943,7 +950,7 @@ namespace ProvSqLitePosOffLine
                             {
 
                                 var jornada = new DtoLibPosOffLine.Servidor.RecogerDataEnviar.Jornada();
-                                jornada.Id =(int) rg.id;
+                                jornada.Id = (int)rg.id;
 
                                 List<DtoLibPosOffLine.Servidor.RecogerDataEnviar.Documento> ListDocumentos = new List<DtoLibPosOffLine.Servidor.RecogerDataEnviar.Documento>();
                                 var qVenta = cnn.Venta.Where(w => w.idJornada == rg.id).ToList();
@@ -980,19 +987,19 @@ namespace ProvSqLitePosOffLine
                                                 switch (s.tipoDocumento)
                                                 {
                                                     case 1:
-                                                        tipoDocumento = DtoLibPosOffLine.Servidor.RecogerDataEnviar.Enumerados.EnumTipoDocumento.Factura ;
+                                                        tipoDocumento = DtoLibPosOffLine.Servidor.RecogerDataEnviar.Enumerados.EnumTipoDocumento.Factura;
                                                         break;
                                                     case 2:
-                                                        tipoDocumento = DtoLibPosOffLine.Servidor.RecogerDataEnviar.Enumerados.EnumTipoDocumento.NotaDebito ;
+                                                        tipoDocumento = DtoLibPosOffLine.Servidor.RecogerDataEnviar.Enumerados.EnumTipoDocumento.NotaDebito;
                                                         break;
                                                     case 3:
-                                                        tipoDocumento = DtoLibPosOffLine.Servidor.RecogerDataEnviar.Enumerados.EnumTipoDocumento.NotaCredito ;
+                                                        tipoDocumento = DtoLibPosOffLine.Servidor.RecogerDataEnviar.Enumerados.EnumTipoDocumento.NotaCredito;
                                                         break;
                                                 }
 
                                                 var nr = new DtoLibPosOffLine.Servidor.RecogerDataEnviar.Documento()
                                                 {
-                                                    Id=(int)s.id,
+                                                    Id = (int)s.id,
                                                     AnoRelacion = s.anoRelacion,
                                                     Aplica = s.aplica,
                                                     Base1 = s.base1,
@@ -1010,7 +1017,7 @@ namespace ProvSqLitePosOffLine
                                                     CobradorCodigo = s.codigoCobrador,
                                                     CobradorNombre = s.cobrador,
                                                     CodigoSucursal = s.codigoSucursal,
-                                                    Prefijo=s.prefijo,
+                                                    Prefijo = s.prefijo,
                                                     Control = s.control,
                                                     DepositoAuto = s.autoDeposito,
                                                     DepositoCodigo = s.codigoDeposito,
@@ -1112,8 +1119,8 @@ namespace ProvSqLitePosOffLine
                                                         UtilidadPorct = t.utilidadPorct,
                                                         EsPesado = esPesado,
                                                         TipoIva = t.tipoIva,
-                                                        CostoCompra=t.costoCompra,
-                                                        CostoPromedio=t.costoPromedio,
+                                                        CostoCompra = t.costoCompra,
+                                                        CostoPromedio = t.costoPromedio,
                                                     };
                                                     return rg2Det;
                                                 }).ToList();
@@ -1130,7 +1137,7 @@ namespace ProvSqLitePosOffLine
                                                         MontoRecibido = t.montoRecibido,
                                                         ReferenciaNro = t.referencia,
                                                         Tasa = t.tasa,
-                                                        Id=(int)t.id,
+                                                        Id = (int)t.id,
                                                     };
                                                     return pag;
                                                 }).ToList();
@@ -1150,7 +1157,7 @@ namespace ProvSqLitePosOffLine
 
                     result.Entidad = new DtoLibPosOffLine.Servidor.RecogerDataEnviar.Ficha()
                     {
-                        Jornadas = ListJornadas ,
+                        Jornadas = ListJornadas,
                         Series = ListSeries,
                     };
                 }
@@ -1235,7 +1242,7 @@ namespace ProvSqLitePosOffLine
 
             const string InsertarCxCDocumento = @"INSERT INTO cxc_documentos (id  , fecha , tipo_documento , documento , importe , " +
                         "operacion , auto_cxc , auto_cxc_pago , auto_cxc_recibo , numero_recibo , fecha_recepcion , dias , " +
-                        "castigop , comisionp) "+
+                        "castigop , comisionp) " +
                         "VALUES ( ?id  , ?fecha , ?tipo_documento , ?documento , ?importe , " +
                         "?operacion , ?auto_cxc , ?auto_cxc_pago , ?auto_cxc_recibo , ?numero_recibo , ?fecha_recepcion , ?dias , " +
                         "?castigop , ?comisionp)";
@@ -1288,7 +1295,7 @@ namespace ProvSqLitePosOffLine
                             result.Result = DtoLib.Enumerados.EnumResult.isError;
                             return result;
                         }
-                        
+
                         sql0 = "select a_cxc_recibo_numero from sistema_contadores";
                         comando1 = new MySqlCommand(sql0, cn, tr);
                         var aCxCReciboNumeroObj = comando1.ExecuteScalar();
@@ -1309,12 +1316,12 @@ namespace ProvSqLitePosOffLine
                         comando1 = new MySqlCommand(sqlVenta, cn, tr);
 
                         var sqlVentaUpdate = "update ventas set auto_recibo=?AutoRecibo, recibo=?Recibo where auto=?Auto";
-                        var comandoVtaUpdate = new MySqlCommand(sqlVentaUpdate , cn, tr);
-                        
+                        var comandoVtaUpdate = new MySqlCommand(sqlVentaUpdate, cn, tr);
+
                         var sqlVentaDetalle = InsertarVentaDetalle;
                         var comando2 = new MySqlCommand(sqlVentaDetalle, cn, tr);
-                        
-                        var sqlMovKardex = InsertarProductoKardex  ;
+
+                        var sqlMovKardex = InsertarProductoKardex;
                         var comando3 = new MySqlCommand(sqlMovKardex, cn, tr);
 
                         var sqlDeposito = UpdateProductoDeposito;
@@ -1330,14 +1337,14 @@ namespace ProvSqLitePosOffLine
                         var comandoCxCDocumento = new MySqlCommand(sqlCxCDocumento, cn, tr);
 
                         var sqlCxCMedioPago = InsertarCxCMedioPago;
-                        var comandoCxCMedioPago = new MySqlCommand(sqlCxCMedioPago , cn, tr);
+                        var comandoCxCMedioPago = new MySqlCommand(sqlCxCMedioPago, cn, tr);
 
 
                         foreach (var v in ficha.Documentos)
                         {
                             aVenta += 1;
                             aCxC += 1;
-                            var codSucursal = v.Prefijo.Trim().PadLeft(4,'0');
+                            var codSucursal = v.Prefijo.Trim().PadLeft(4, '0');
                             var autoVenta = codSucursal + aVenta.ToString().Trim().PadLeft(6, '0');
                             var autoCxC = codSucursal + aCxC.ToString().Trim().PadLeft(6, '0');
 
@@ -1423,7 +1430,7 @@ namespace ProvSqLitePosOffLine
                             comando1.Parameters.AddWithValue("?documento_nombre", v.DocumentoNombre);
                             comando1.Parameters.AddWithValue("?subtotal_impuesto", v.SubTotalImpuesto);
                             comando1.Parameters.AddWithValue("?subtotal", v.SubTotal);
-                            comando1.Parameters.AddWithValue("?auto_cxc", autoCxC );
+                            comando1.Parameters.AddWithValue("?auto_cxc", autoCxC);
                             comando1.Parameters.AddWithValue("?tipo_cliente", v.TipoCliente);
                             comando1.Parameters.AddWithValue("?planilla", v.Planilla);
                             comando1.Parameters.AddWithValue("?expediente", v.Expendiente);
@@ -1457,16 +1464,16 @@ namespace ProvSqLitePosOffLine
                             // INSERTAR CXC
                             comandoCxC.Parameters.Clear();
                             comandoCxC.Parameters.AddWithValue("?auto", autoCxC);
-                            comandoCxC.Parameters.AddWithValue("?c_cobranza", v.DocCxC.CCobranza );
-                            comandoCxC.Parameters.AddWithValue("?c_cobranzap", v.DocCxC.CCobranzap  );
-                            comandoCxC.Parameters.AddWithValue("?fecha", v.DocCxC.Fecha );
-                            comandoCxC.Parameters.AddWithValue("?tipo_documento",v.DocCxC.TipoDocumento  );
+                            comandoCxC.Parameters.AddWithValue("?c_cobranza", v.DocCxC.CCobranza);
+                            comandoCxC.Parameters.AddWithValue("?c_cobranzap", v.DocCxC.CCobranzap);
+                            comandoCxC.Parameters.AddWithValue("?fecha", v.DocCxC.Fecha);
+                            comandoCxC.Parameters.AddWithValue("?tipo_documento", v.DocCxC.TipoDocumento);
                             comandoCxC.Parameters.AddWithValue("?documento", v.DocCxC.Documento);
                             comandoCxC.Parameters.AddWithValue("?fecha_vencimiento", v.DocCxC.FechaVencimiento);
-                            comandoCxC.Parameters.AddWithValue("?nota", v.DocCxC.Nota );
+                            comandoCxC.Parameters.AddWithValue("?nota", v.DocCxC.Nota);
                             comandoCxC.Parameters.AddWithValue("?importe", v.DocCxC.Importe);
                             comandoCxC.Parameters.AddWithValue("?acumulado", v.DocCxC.Acumulado);
-                            comandoCxC.Parameters.AddWithValue("?auto_cliente", v.DocCxC.AutoCliente );
+                            comandoCxC.Parameters.AddWithValue("?auto_cliente", v.DocCxC.AutoCliente);
                             comandoCxC.Parameters.AddWithValue("?cliente", v.DocCxC.Cliente);
                             comandoCxC.Parameters.AddWithValue("?ci_rif", v.DocCxC.CiRif);
                             comandoCxC.Parameters.AddWithValue("?codigo_cliente", v.DocCxC.CodigoCliente);
@@ -1479,9 +1486,9 @@ namespace ProvSqLitePosOffLine
                             comandoCxC.Parameters.AddWithValue("?agencia", v.DocCxC.Agencia);
                             comandoCxC.Parameters.AddWithValue("?signo", v.DocCxC.Signo);
                             comandoCxC.Parameters.AddWithValue("?auto_vendedor", v.DocCxC.AutoVendedor);
-                            comandoCxC.Parameters.AddWithValue("?c_departamento",v.DocCxC.CDepartamento);
+                            comandoCxC.Parameters.AddWithValue("?c_departamento", v.DocCxC.CDepartamento);
                             comandoCxC.Parameters.AddWithValue("?c_ventas", v.DocCxC.CVentas);
-                            comandoCxC.Parameters.AddWithValue("?c_ventasp",v.DocCxC.CVentasp);
+                            comandoCxC.Parameters.AddWithValue("?c_ventasp", v.DocCxC.CVentasp);
                             comandoCxC.Parameters.AddWithValue("?serie", v.DocCxC.Serie);
                             comandoCxC.Parameters.AddWithValue("?importe_neto", v.DocCxC.ImporteNeto);
                             comandoCxC.Parameters.AddWithValue("?dias", v.DocCxC.Dias);
@@ -1494,14 +1501,14 @@ namespace ProvSqLitePosOffLine
                                 return result;
                             }
 
-                            if (v.DocCxCPago != null) 
+                            if (v.DocCxCPago != null)
                             {
                                 aCxC += 1;
-                                var autoCxCPago = codSucursal +aCxC.ToString().Trim().PadLeft(6, '0');
+                                var autoCxCPago = codSucursal + aCxC.ToString().Trim().PadLeft(6, '0');
 
                                 aCxCRecibo += 1;
                                 var autoCxCRecibo = codSucursal + aCxCRecibo.ToString().Trim().PadLeft(6, '0');
-                                
+
                                 aCxCReciboNumero += 1;
                                 var ReciboCxCNumero = aCxCReciboNumero.ToString().Trim().PadLeft(10, '0');
 
@@ -1539,7 +1546,7 @@ namespace ProvSqLitePosOffLine
                                 comandoCxC.Parameters.AddWithValue("?estatus_cancelado", pago.EstatusCancelado);
                                 comandoCxC.Parameters.AddWithValue("?resta", pago.Resta);
                                 comandoCxC.Parameters.AddWithValue("?estatus_anulado", pago.EstatusAnulado);
-                                comandoCxC.Parameters.AddWithValue("?auto_documento", autoCxCRecibo );
+                                comandoCxC.Parameters.AddWithValue("?auto_documento", autoCxCRecibo);
                                 comandoCxC.Parameters.AddWithValue("?numero", pago.Numero);
                                 comandoCxC.Parameters.AddWithValue("?auto_agencia", pago.AutoAgencia);
                                 comandoCxC.Parameters.AddWithValue("?agencia", pago.Agencia);
@@ -1561,34 +1568,34 @@ namespace ProvSqLitePosOffLine
                                 }
 
 
-                                var rec=v.DocCxCPago.Recibo;
+                                var rec = v.DocCxCPago.Recibo;
                                 //INSERTAR CXC RECIBO
                                 comandoCxCRecibo.Parameters.Clear();
                                 comandoCxCRecibo.Parameters.AddWithValue("?auto", autoCxCRecibo);
                                 comandoCxCRecibo.Parameters.AddWithValue("?documento", ReciboCxCNumero);
                                 comandoCxCRecibo.Parameters.AddWithValue("?fecha", rec.Fecha);
-                                comandoCxCRecibo.Parameters.AddWithValue("?auto_usuario", rec.AutoUsuario  );
-                                comandoCxCRecibo.Parameters.AddWithValue("?importe", rec.Importe );
-                                comandoCxCRecibo.Parameters.AddWithValue("?usuario", rec.Usuario );
-                                comandoCxCRecibo.Parameters.AddWithValue("?monto_recibido", rec.MontoRecibido );
-                                comandoCxCRecibo.Parameters.AddWithValue("?cobrador", rec.Cobrador );
-                                comandoCxCRecibo.Parameters.AddWithValue("?auto_cliente", rec.AutoCliente );
-                                comandoCxCRecibo.Parameters.AddWithValue("?cliente", rec.Cliente );
-                                comandoCxCRecibo.Parameters.AddWithValue("?ci_rif", rec.CiRif );
-                                comandoCxCRecibo.Parameters.AddWithValue("?codigo", rec.Codigo );
-                                comandoCxCRecibo.Parameters.AddWithValue("?estatus_anulado",rec.EstatusAnulado );
-                                comandoCxCRecibo.Parameters.AddWithValue("?direccion", rec.Direccion );
-                                comandoCxCRecibo.Parameters.AddWithValue("?telefono", rec.Telefono );
-                                comandoCxCRecibo.Parameters.AddWithValue("?auto_cobrador", rec.AutoCobrador );
+                                comandoCxCRecibo.Parameters.AddWithValue("?auto_usuario", rec.AutoUsuario);
+                                comandoCxCRecibo.Parameters.AddWithValue("?importe", rec.Importe);
+                                comandoCxCRecibo.Parameters.AddWithValue("?usuario", rec.Usuario);
+                                comandoCxCRecibo.Parameters.AddWithValue("?monto_recibido", rec.MontoRecibido);
+                                comandoCxCRecibo.Parameters.AddWithValue("?cobrador", rec.Cobrador);
+                                comandoCxCRecibo.Parameters.AddWithValue("?auto_cliente", rec.AutoCliente);
+                                comandoCxCRecibo.Parameters.AddWithValue("?cliente", rec.Cliente);
+                                comandoCxCRecibo.Parameters.AddWithValue("?ci_rif", rec.CiRif);
+                                comandoCxCRecibo.Parameters.AddWithValue("?codigo", rec.Codigo);
+                                comandoCxCRecibo.Parameters.AddWithValue("?estatus_anulado", rec.EstatusAnulado);
+                                comandoCxCRecibo.Parameters.AddWithValue("?direccion", rec.Direccion);
+                                comandoCxCRecibo.Parameters.AddWithValue("?telefono", rec.Telefono);
+                                comandoCxCRecibo.Parameters.AddWithValue("?auto_cobrador", rec.AutoCobrador);
                                 comandoCxCRecibo.Parameters.AddWithValue("?anticipos", rec.Anticipos);
                                 comandoCxCRecibo.Parameters.AddWithValue("?cambio", rec.Cambio);
                                 comandoCxCRecibo.Parameters.AddWithValue("?nota", rec.Nota);
-                                comandoCxCRecibo.Parameters.AddWithValue("?codigo_cobrador", rec.CodigoCobrador );
+                                comandoCxCRecibo.Parameters.AddWithValue("?codigo_cobrador", rec.CodigoCobrador);
                                 comandoCxCRecibo.Parameters.AddWithValue("?auto_cxc", autoCxCPago);
                                 comandoCxCRecibo.Parameters.AddWithValue("?retenciones", rec.Retenciones);
                                 comandoCxCRecibo.Parameters.AddWithValue("?descuentos", rec.Descuentos);
                                 comandoCxCRecibo.Parameters.AddWithValue("?hora", rec.Hora);
-                                comandoCxCRecibo.Parameters.AddWithValue("?cierre", rec.Cierre );
+                                comandoCxCRecibo.Parameters.AddWithValue("?cierre", rec.Cierre);
                                 var rtCxCRecibo = comandoCxCRecibo.ExecuteNonQuery();
                                 if (rtCxCRecibo == 0)
                                 {
@@ -1601,19 +1608,19 @@ namespace ProvSqLitePosOffLine
                                 var cDoc = v.DocCxCPago.Documento;
                                 //INSERTAR CXC DOCUMENTO
                                 comandoCxCDocumento.Parameters.Clear();
-                                comandoCxCDocumento.Parameters.AddWithValue("?id", cDoc.Id );
-                                comandoCxCDocumento.Parameters.AddWithValue("?fecha", cDoc.Fecha  );
-                                comandoCxCDocumento.Parameters.AddWithValue("?tipo_documento", cDoc.TipoDocumento );
+                                comandoCxCDocumento.Parameters.AddWithValue("?id", cDoc.Id);
+                                comandoCxCDocumento.Parameters.AddWithValue("?fecha", cDoc.Fecha);
+                                comandoCxCDocumento.Parameters.AddWithValue("?tipo_documento", cDoc.TipoDocumento);
                                 comandoCxCDocumento.Parameters.AddWithValue("?documento", cDoc.Documento);
                                 comandoCxCDocumento.Parameters.AddWithValue("?importe", cDoc.Importe);
                                 comandoCxCDocumento.Parameters.AddWithValue("?operacion", cDoc.Operacion);
-                                comandoCxCDocumento.Parameters.AddWithValue("?auto_cxc", autoCxC );
-                                comandoCxCDocumento.Parameters.AddWithValue("?auto_cxc_pago", autoCxCPago );
-                                comandoCxCDocumento.Parameters.AddWithValue("?auto_cxc_recibo", autoCxCRecibo );
-                                comandoCxCDocumento.Parameters.AddWithValue("?numero_recibo", ReciboCxCNumero );
-                                comandoCxCDocumento.Parameters.AddWithValue("?fecha_recepcion",cDoc.FechaRecepcion );
-                                comandoCxCDocumento.Parameters.AddWithValue("?dias", cDoc.Dias );
-                                comandoCxCDocumento.Parameters.AddWithValue("?castigop", cDoc.CastigoP );
+                                comandoCxCDocumento.Parameters.AddWithValue("?auto_cxc", autoCxC);
+                                comandoCxCDocumento.Parameters.AddWithValue("?auto_cxc_pago", autoCxCPago);
+                                comandoCxCDocumento.Parameters.AddWithValue("?auto_cxc_recibo", autoCxCRecibo);
+                                comandoCxCDocumento.Parameters.AddWithValue("?numero_recibo", ReciboCxCNumero);
+                                comandoCxCDocumento.Parameters.AddWithValue("?fecha_recepcion", cDoc.FechaRecepcion);
+                                comandoCxCDocumento.Parameters.AddWithValue("?dias", cDoc.Dias);
+                                comandoCxCDocumento.Parameters.AddWithValue("?castigop", cDoc.CastigoP);
                                 comandoCxCDocumento.Parameters.AddWithValue("?comisionp", cDoc.ComisionP);
                                 var rtCxCDocumento = comandoCxCDocumento.ExecuteNonQuery();
                                 if (rtCxCDocumento == 0)
@@ -1625,27 +1632,27 @@ namespace ProvSqLitePosOffLine
 
 
                                 //INSERTAR CXC MEDIO PAGO
-                                foreach (var cmtPago  in v.DocCxCPago.MetodoPago)
+                                foreach (var cmtPago in v.DocCxCPago.MetodoPago)
                                 {
                                     comandoCxCMedioPago.Parameters.Clear();
-                                    comandoCxCMedioPago.Parameters.AddWithValue("?auto_recibo", autoCxCRecibo );
-                                    comandoCxCMedioPago.Parameters.AddWithValue("?auto_medio_pago",  cmtPago.AutoMedioPago);
-                                    comandoCxCMedioPago.Parameters.AddWithValue("?auto_agencia", cmtPago.AutoAgencia );
-                                    comandoCxCMedioPago.Parameters.AddWithValue("?medio", cmtPago.Medio );
-                                    comandoCxCMedioPago.Parameters.AddWithValue("?codigo", cmtPago.Codigo );
-                                    comandoCxCMedioPago.Parameters.AddWithValue("?monto_recibido", cmtPago.MontoRecibido );
-                                    comandoCxCMedioPago.Parameters.AddWithValue("?fecha", cmtPago.Fecha );
-                                    comandoCxCMedioPago.Parameters.AddWithValue("?estatus_anulado",cmtPago.EstatusAnulado );
-                                    comandoCxCMedioPago.Parameters.AddWithValue("?numero", cmtPago.Numero );
-                                    comandoCxCMedioPago.Parameters.AddWithValue("?agencia", cmtPago.Agencia );
-                                    comandoCxCMedioPago.Parameters.AddWithValue("?auto_usuario", cmtPago.AutoUsuario );
-                                    comandoCxCMedioPago.Parameters.AddWithValue("?lote", cmtPago.Lote );
-                                    comandoCxCMedioPago.Parameters.AddWithValue("?referencia", cmtPago.Referencia );
-                                    comandoCxCMedioPago.Parameters.AddWithValue("?auto_cobrador", cmtPago.AutoCobrador );
-                                    comandoCxCMedioPago.Parameters.AddWithValue("?cierre", cmtPago.Cierre );
-                                    comandoCxCMedioPago.Parameters.AddWithValue("?fecha_agencia", cmtPago.FechaAgencia );
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?auto_recibo", autoCxCRecibo);
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?auto_medio_pago", cmtPago.AutoMedioPago);
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?auto_agencia", cmtPago.AutoAgencia);
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?medio", cmtPago.Medio);
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?codigo", cmtPago.Codigo);
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?monto_recibido", cmtPago.MontoRecibido);
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?fecha", cmtPago.Fecha);
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?estatus_anulado", cmtPago.EstatusAnulado);
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?numero", cmtPago.Numero);
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?agencia", cmtPago.Agencia);
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?auto_usuario", cmtPago.AutoUsuario);
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?lote", cmtPago.Lote);
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?referencia", cmtPago.Referencia);
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?auto_cobrador", cmtPago.AutoCobrador);
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?cierre", cmtPago.Cierre);
+                                    comandoCxCMedioPago.Parameters.AddWithValue("?fecha_agencia", cmtPago.FechaAgencia);
                                     var rtCxCMetPago = comandoCxCMedioPago.ExecuteNonQuery();
-                                    if (rtCxCMetPago  == 0)
+                                    if (rtCxCMetPago == 0)
                                     {
                                         result.Mensaje = "PROBLEMA AL INSERTAR REGISTRO DE METODO DE PAGO DE CXC ";
                                         result.Result = DtoLib.Enumerados.EnumResult.isError;
@@ -1656,76 +1663,76 @@ namespace ProvSqLitePosOffLine
 
 
                             //DETALLES DEL DOCUMENTO
-                            foreach (var vd in v.Detalles) 
+                            foreach (var vd in v.Detalles)
                             {
                                 comando2.Parameters.Clear();
-                                comando2.Parameters.AddWithValue("?auto_documento",autoVenta);
-                                comando2.Parameters.AddWithValue("?auto_producto",vd.AutoProducto);
-                                comando2.Parameters.AddWithValue("?codigo",vd.Codigo);
-                                comando2.Parameters.AddWithValue("?nombre",vd.Nombre);
-                                comando2.Parameters.AddWithValue("?auto_departamento",vd.AutoDepartamento);
-                                comando2.Parameters.AddWithValue("?auto_grupo",vd.AutoGrupo);
-                                comando2.Parameters.AddWithValue("?auto_subgrupo",vd.AutoSubGrupo);
-                                comando2.Parameters.AddWithValue("?auto_deposito",vd.AutoDeposito);
-                                comando2.Parameters.AddWithValue("?cantidad",vd.Cantidad);
-                                comando2.Parameters.AddWithValue("?empaque",vd.Empaque);
-                                comando2.Parameters.AddWithValue("?precio_neto",vd.PrecioNeto);
-                                comando2.Parameters.AddWithValue("?descuento1p",vd.Descuento1p);
-                                comando2.Parameters.AddWithValue("?descuento2p",vd.Descuento2p);
-                                comando2.Parameters.AddWithValue("?descuento3p",vd.Descuento3p);
-                                comando2.Parameters.AddWithValue("?descuento1",vd.Descuento1);
-                                comando2.Parameters.AddWithValue("?descuento2",vd.Descuento2);
-                                comando2.Parameters.AddWithValue("?descuento3",vd.Descuento3);
-                                comando2.Parameters.AddWithValue("?costo_venta",vd.CostoVenta);
-                                comando2.Parameters.AddWithValue("?total_neto",vd.TotalNeto);
-                                comando2.Parameters.AddWithValue("?tasa",vd.Tasa);
-                                comando2.Parameters.AddWithValue("?impuesto",vd.Impuesto);
-                                comando2.Parameters.AddWithValue("?total",vd.Total);
-                                comando2.Parameters.AddWithValue("?auto",vd.Auto);
-                                comando2.Parameters.AddWithValue("?estatus_anulado",vd.EstatusAnulado);
-                                comando2.Parameters.AddWithValue("?fecha",vd.Fecha);
-                                comando2.Parameters.AddWithValue("?tipo",vd.Tipo);
-                                comando2.Parameters.AddWithValue("?deposito",vd.Deposito);
-                                comando2.Parameters.AddWithValue("?signo",vd.Signo);
-                                comando2.Parameters.AddWithValue("?precio_final",vd.PrecioFinal);
-                                comando2.Parameters.AddWithValue("?auto_cliente",vd.AutoCliente);
-                                comando2.Parameters.AddWithValue("?decimales",vd.Decimales);
-                                comando2.Parameters.AddWithValue("?contenido_empaque",vd.ContenidoEmpaque);
-                                comando2.Parameters.AddWithValue("?cantidad_und",vd.CantidadUnd);
-                                comando2.Parameters.AddWithValue("?precio_und",vd.PrecioUnd);
-                                comando2.Parameters.AddWithValue("?costo_und",vd.CostoUnd);
-                                comando2.Parameters.AddWithValue("?utilidad",vd.Utilidad);
-                                comando2.Parameters.AddWithValue("?utilidadp",vd.Utilidadp);
-                                comando2.Parameters.AddWithValue("?precio_item",vd.PrecioItem);
-                                comando2.Parameters.AddWithValue("?estatus_garantia",vd.EstatusGarantia);
-                                comando2.Parameters.AddWithValue("?estatus_serial",vd.EstatusSerial);
-                                comando2.Parameters.AddWithValue("?codigo_deposito",vd.CodigoDeposito);
-                                comando2.Parameters.AddWithValue("?dias_garantia",vd.DiasGarantia);
-                                comando2.Parameters.AddWithValue("?detalle",vd.Detalle);
-                                comando2.Parameters.AddWithValue("?precio_sugerido",vd.PrecioSugerido);
-                                comando2.Parameters.AddWithValue("?auto_tasa",vd.AutoTasa);
-                                comando2.Parameters.AddWithValue("?estatus_corte",vd.EstatusCorte);
-                                comando2.Parameters.AddWithValue("?x",vd.X);
-                                comando2.Parameters.AddWithValue("?y",vd.Y);
-                                comando2.Parameters.AddWithValue("?z",vd.Z);
-                                comando2.Parameters.AddWithValue("?corte",vd.Corte);
-                                comando2.Parameters.AddWithValue("?categoria",vd.Categoria);
-                                comando2.Parameters.AddWithValue("?cobranzap",vd.Cobranzap);
-                                comando2.Parameters.AddWithValue("?ventasp",vd.Ventasp);
-                                comando2.Parameters.AddWithValue("?cobranzap_vendedor",vd.CobranzapVendedor);
-                                comando2.Parameters.AddWithValue("?ventasp_vendedor",vd.VentaspVendedor);
-                                comando2.Parameters.AddWithValue("?cobranza",vd.Cobranza);
-                                comando2.Parameters.AddWithValue("?ventas",vd.Ventas);
-                                comando2.Parameters.AddWithValue("?cobranza_vendedor",vd.CobranzaVendedor);
-                                comando2.Parameters.AddWithValue("?ventas_vendedor",vd.VentasVendedor);
-                                comando2.Parameters.AddWithValue("?costo_promedio_und",vd.CostoPromedioUnd);
-                                comando2.Parameters.AddWithValue("?costo_compra",vd.CostoCompra);
-                                comando2.Parameters.AddWithValue("?estatus_checked",vd.EstatusChecked);
-                                comando2.Parameters.AddWithValue("?tarifa",vd.Tarifa);
-                                comando2.Parameters.AddWithValue("?total_descuento",vd.TotalDescuento);
-                                comando2.Parameters.AddWithValue("?codigo_vendedor",vd.CodigoVendedor);
-                                comando2.Parameters.AddWithValue("?auto_vendedor",vd.AutoVendedor);
-                                comando2.Parameters.AddWithValue("?hora",vd.Hora);
+                                comando2.Parameters.AddWithValue("?auto_documento", autoVenta);
+                                comando2.Parameters.AddWithValue("?auto_producto", vd.AutoProducto);
+                                comando2.Parameters.AddWithValue("?codigo", vd.Codigo);
+                                comando2.Parameters.AddWithValue("?nombre", vd.Nombre);
+                                comando2.Parameters.AddWithValue("?auto_departamento", vd.AutoDepartamento);
+                                comando2.Parameters.AddWithValue("?auto_grupo", vd.AutoGrupo);
+                                comando2.Parameters.AddWithValue("?auto_subgrupo", vd.AutoSubGrupo);
+                                comando2.Parameters.AddWithValue("?auto_deposito", vd.AutoDeposito);
+                                comando2.Parameters.AddWithValue("?cantidad", vd.Cantidad);
+                                comando2.Parameters.AddWithValue("?empaque", vd.Empaque);
+                                comando2.Parameters.AddWithValue("?precio_neto", vd.PrecioNeto);
+                                comando2.Parameters.AddWithValue("?descuento1p", vd.Descuento1p);
+                                comando2.Parameters.AddWithValue("?descuento2p", vd.Descuento2p);
+                                comando2.Parameters.AddWithValue("?descuento3p", vd.Descuento3p);
+                                comando2.Parameters.AddWithValue("?descuento1", vd.Descuento1);
+                                comando2.Parameters.AddWithValue("?descuento2", vd.Descuento2);
+                                comando2.Parameters.AddWithValue("?descuento3", vd.Descuento3);
+                                comando2.Parameters.AddWithValue("?costo_venta", vd.CostoVenta);
+                                comando2.Parameters.AddWithValue("?total_neto", vd.TotalNeto);
+                                comando2.Parameters.AddWithValue("?tasa", vd.Tasa);
+                                comando2.Parameters.AddWithValue("?impuesto", vd.Impuesto);
+                                comando2.Parameters.AddWithValue("?total", vd.Total);
+                                comando2.Parameters.AddWithValue("?auto", vd.Auto);
+                                comando2.Parameters.AddWithValue("?estatus_anulado", vd.EstatusAnulado);
+                                comando2.Parameters.AddWithValue("?fecha", vd.Fecha);
+                                comando2.Parameters.AddWithValue("?tipo", vd.Tipo);
+                                comando2.Parameters.AddWithValue("?deposito", vd.Deposito);
+                                comando2.Parameters.AddWithValue("?signo", vd.Signo);
+                                comando2.Parameters.AddWithValue("?precio_final", vd.PrecioFinal);
+                                comando2.Parameters.AddWithValue("?auto_cliente", vd.AutoCliente);
+                                comando2.Parameters.AddWithValue("?decimales", vd.Decimales);
+                                comando2.Parameters.AddWithValue("?contenido_empaque", vd.ContenidoEmpaque);
+                                comando2.Parameters.AddWithValue("?cantidad_und", vd.CantidadUnd);
+                                comando2.Parameters.AddWithValue("?precio_und", vd.PrecioUnd);
+                                comando2.Parameters.AddWithValue("?costo_und", vd.CostoUnd);
+                                comando2.Parameters.AddWithValue("?utilidad", vd.Utilidad);
+                                comando2.Parameters.AddWithValue("?utilidadp", vd.Utilidadp);
+                                comando2.Parameters.AddWithValue("?precio_item", vd.PrecioItem);
+                                comando2.Parameters.AddWithValue("?estatus_garantia", vd.EstatusGarantia);
+                                comando2.Parameters.AddWithValue("?estatus_serial", vd.EstatusSerial);
+                                comando2.Parameters.AddWithValue("?codigo_deposito", vd.CodigoDeposito);
+                                comando2.Parameters.AddWithValue("?dias_garantia", vd.DiasGarantia);
+                                comando2.Parameters.AddWithValue("?detalle", vd.Detalle);
+                                comando2.Parameters.AddWithValue("?precio_sugerido", vd.PrecioSugerido);
+                                comando2.Parameters.AddWithValue("?auto_tasa", vd.AutoTasa);
+                                comando2.Parameters.AddWithValue("?estatus_corte", vd.EstatusCorte);
+                                comando2.Parameters.AddWithValue("?x", vd.X);
+                                comando2.Parameters.AddWithValue("?y", vd.Y);
+                                comando2.Parameters.AddWithValue("?z", vd.Z);
+                                comando2.Parameters.AddWithValue("?corte", vd.Corte);
+                                comando2.Parameters.AddWithValue("?categoria", vd.Categoria);
+                                comando2.Parameters.AddWithValue("?cobranzap", vd.Cobranzap);
+                                comando2.Parameters.AddWithValue("?ventasp", vd.Ventasp);
+                                comando2.Parameters.AddWithValue("?cobranzap_vendedor", vd.CobranzapVendedor);
+                                comando2.Parameters.AddWithValue("?ventasp_vendedor", vd.VentaspVendedor);
+                                comando2.Parameters.AddWithValue("?cobranza", vd.Cobranza);
+                                comando2.Parameters.AddWithValue("?ventas", vd.Ventas);
+                                comando2.Parameters.AddWithValue("?cobranza_vendedor", vd.CobranzaVendedor);
+                                comando2.Parameters.AddWithValue("?ventas_vendedor", vd.VentasVendedor);
+                                comando2.Parameters.AddWithValue("?costo_promedio_und", vd.CostoPromedioUnd);
+                                comando2.Parameters.AddWithValue("?costo_compra", vd.CostoCompra);
+                                comando2.Parameters.AddWithValue("?estatus_checked", vd.EstatusChecked);
+                                comando2.Parameters.AddWithValue("?tarifa", vd.Tarifa);
+                                comando2.Parameters.AddWithValue("?total_descuento", vd.TotalDescuento);
+                                comando2.Parameters.AddWithValue("?codigo_vendedor", vd.CodigoVendedor);
+                                comando2.Parameters.AddWithValue("?auto_vendedor", vd.AutoVendedor);
+                                comando2.Parameters.AddWithValue("?hora", vd.Hora);
                                 var rt2 = comando2.ExecuteNonQuery();
                                 if (rt2 == 0)
                                 {
@@ -1741,26 +1748,26 @@ namespace ProvSqLitePosOffLine
                             {
                                 comando3.Parameters.Clear();
                                 comando3.Parameters.AddWithValue("?auto_producto", mk.AutoProducto);
-                                comando3.Parameters.AddWithValue("?total", mk.Total );
+                                comando3.Parameters.AddWithValue("?total", mk.Total);
                                 comando3.Parameters.AddWithValue("?auto_deposito", mk.AutoDeposito);
                                 comando3.Parameters.AddWithValue("?auto_concepto", mk.AutoConcepto);
-                                comando3.Parameters.AddWithValue("?auto_documento",autoVenta );
-                                comando3.Parameters.AddWithValue("?fecha", mk.Fecha );
+                                comando3.Parameters.AddWithValue("?auto_documento", autoVenta);
+                                comando3.Parameters.AddWithValue("?fecha", mk.Fecha);
                                 comando3.Parameters.AddWithValue("?hora", mk.Hora);
-                                comando3.Parameters.AddWithValue("?documento",mk.Documento );
-                                comando3.Parameters.AddWithValue("?modulo",mk.Modulo);
-                                comando3.Parameters.AddWithValue("?entidad",mk.Entidad);
-                                comando3.Parameters.AddWithValue("?signo",mk.Signo);
-                                comando3.Parameters.AddWithValue("?cantidad",mk.Cantidad);
-                                comando3.Parameters.AddWithValue("?cantidad_bono",mk.CantidadBono);
-                                comando3.Parameters.AddWithValue("?cantidad_und",mk.CantidadUnd);
-                                comando3.Parameters.AddWithValue("?costo_und",mk.CostoUnd);
-                                comando3.Parameters.AddWithValue("?estatus_anulado",mk.EstatusAnulado);
-                                comando3.Parameters.AddWithValue("?nota",mk.Nota);
-                                comando3.Parameters.AddWithValue("?precio_und",mk.PrecioUnd);
-                                comando3.Parameters.AddWithValue("?codigo",mk.Codigo);
-                                comando3.Parameters.AddWithValue("?siglas",mk.Siglas);
-                                comando3.Parameters.AddWithValue("?codigo_sucursal",mk.CodigoSucursal);
+                                comando3.Parameters.AddWithValue("?documento", mk.Documento);
+                                comando3.Parameters.AddWithValue("?modulo", mk.Modulo);
+                                comando3.Parameters.AddWithValue("?entidad", mk.Entidad);
+                                comando3.Parameters.AddWithValue("?signo", mk.Signo);
+                                comando3.Parameters.AddWithValue("?cantidad", mk.Cantidad);
+                                comando3.Parameters.AddWithValue("?cantidad_bono", mk.CantidadBono);
+                                comando3.Parameters.AddWithValue("?cantidad_und", mk.CantidadUnd);
+                                comando3.Parameters.AddWithValue("?costo_und", mk.CostoUnd);
+                                comando3.Parameters.AddWithValue("?estatus_anulado", mk.EstatusAnulado);
+                                comando3.Parameters.AddWithValue("?nota", mk.Nota);
+                                comando3.Parameters.AddWithValue("?precio_und", mk.PrecioUnd);
+                                comando3.Parameters.AddWithValue("?codigo", mk.Codigo);
+                                comando3.Parameters.AddWithValue("?siglas", mk.Siglas);
+                                comando3.Parameters.AddWithValue("?codigo_sucursal", mk.CodigoSucursal);
                                 var rt3 = comando3.ExecuteNonQuery();
                                 if (rt3 == 0)
                                 {
@@ -1769,7 +1776,7 @@ namespace ProvSqLitePosOffLine
                                     return result;
                                 }
                             }
-                            
+
                             //ACTUALIZAR DEPOSITO 
                             foreach (var pd in v.ActDeposito)
                             {
@@ -1845,7 +1852,7 @@ namespace ProvSqLitePosOffLine
                                     }
                                     catch (Exception extt)
                                     {
-                                        result.Mensaje =  extt.Message;
+                                        result.Mensaje = extt.Message;
                                         result.Result = DtoLib.Enumerados.EnumResult.isError;
                                         return result;
                                     }
@@ -1878,7 +1885,7 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
-        public DtoLib.Resultado Servidor_Principal_ExportarData()
+        public DtoLib.Resultado Servidor_Principal_CrearBoletin(string pathDestino)
         {
             var result = new DtoLib.Resultado();
 
@@ -1889,18 +1896,259 @@ namespace ProvSqLitePosOffLine
                 using (var cn = new MySqlConnection(_cnn2.ConnectionString))
                 {
                     cn.Open();
-                    var sql0 = "select * into outfile \"/compartida/data/usuarios.txt\" from usuarios";
+                    var sql0 = "";
+                    MySqlCommand comando1;
+                    var rt = -1;
 
-                    MySqlCommand comando1 = new MySqlCommand(sql0, cn);
-                    var rt= comando1.ExecuteNonQuery();
+                    sql0 = "select * into outfile \"" + pathDestino + "usuarios.txt\" from usuarios";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
 
-                    //var aVentaObj = comando1.ExecuteScalar();
-                    //if (aVentaObj == null)
-                    //{
-                    //    result.Mensaje = "PROBLEMA AL LEER TABLA USUARIOS ";
-                    //    result.Result = DtoLib.Enumerados.EnumResult.isError;
-                    //    return result;
-                    //}
+                    sql0 = "select * into outfile \"" + pathDestino + "usuarios_grupo_permisos.txt\" from usuarios_grupo_permisos";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "empresa.txt\" from empresa";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "empresa_departamentos.txt\" from empresa_departamentos";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "empresa_tasas.txt\" from empresa_tasas";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "sistema_configuracion.txt\" from sistema_configuracion";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "productos.txt\" from productos";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "productos_alterno.txt\" from productos_alterno";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "productos_deposito.txt\" from productos_deposito";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "productos_grupo.txt\" from productos_grupo";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "productos_lista.txt\" from productos_lista";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "productos_marca.txt\" from productos_marca";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "proveeodres_grupo.txt\" from proveedores_grupo";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "proveeodres.txt\" from proveedores";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "compras.txt\" from compras where tipo='04' and  FECHA >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH)";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "compras_detalle.txt\" from compras_detalle where tipo='04' and  FECHA >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH)";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "productos_precios.txt\" from productos_precios where FECHA >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "clientes.txt\" FROM clientes where auto >'0900000001'";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "productos_kardex.txt\" FROM productos_kardex where modulo<>'Ventas'";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "empresa_grupo.txt\" FROM empresa_grupo";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "empresa_sucursal.txt\" FROM empresa_sucursal";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "sistema_menu.txt\" FROM sistema_menu";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "sistema_funciones.txt\" FROM sistema_funciones";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "empresa_depositos.txt\" FROM empresa_depositos";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "productos_movimientos.txt\" FROM productos_movimientos";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "productos_movimientos_detalle.txt\" FROM productos_movimientos_detalle";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+                };
+            }
+            catch (MySqlException ex2)
+            {
+                result.Mensaje = ex2.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Servidor_Principal_InsertarCierre(string pathOrigen)
+        {
+            var result = new DtoLib.Resultado();
+            var listMv = new List<DataKardexResumen>();
+
+            try
+            {
+                using (var cn = new MySqlConnection(_cnn2.ConnectionString))
+                {
+                    cn.Open();
+
+                    MySqlTransaction tr = null;
+                    try
+                    {
+                        tr = cn.BeginTransaction();
+
+
+                        var sql0 = "";
+                        MySqlCommand comando1;
+                        var rt = -1;
+
+
+                        sql0 = "SET FOREIGN_KEY_CHECKS=0";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //VENTAS
+                        sql0 = "load data infile \"" + pathOrigen + "ventas.txt\" into table ventas";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathOrigen + "ventas_detalle.txt\" into table ventas_detalle";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //CXC
+                        sql0 = "load data infile \"" + pathOrigen + "cxc.txt\" into table cxc";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathOrigen + "cxc_recibos.txt\" into table cxc_recibos";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathOrigen + "cxc_documentos.txt\" into table cxc_documentos";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathOrigen + "cxc_medio_pago.txt\" into table cxc_medio_pago";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //KARDEX
+                        sql0 = "load data infile \"" + pathOrigen + "productos_kardex.txt\" into table productos_kardex";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //ARQUEO
+                        sql0 = "load data infile \"" + pathOrigen + "pos_arqueo.txt\" into table pos_arqueo";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //COMPRAS
+                        sql0 = "load data infile \"" + pathOrigen + "compras.txt\" into table compras";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathOrigen + "compras_detalle.txt\" into table compras_detalle";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //PRODUCTOS MOVIMIENTOS
+                        sql0 = "load data infile \"" + pathOrigen + "productos_movimientos.txt\" into table productos_movimientos";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathOrigen + "productos_movimientos_detalle.txt\" into table productos_movimientos_detalle";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //ACTULIZAR DEPOSITO
+                        sql0 = "delete from productos_kardex_resumen";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathOrigen + "productos_kardex_resumen.txt\" into table productos_kardex_resumen";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "select auto_producto, auto_deposito, cnt from productos_kardex_resumen";
+                        comando1= new MySqlCommand(sql0, cn,tr);
+                        var reader = comando1.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            var nr=new DataKardexResumen()
+                            {
+                                autoProducto=reader.GetString("auto_producto"),
+                                autoDeposito=reader.GetString("auto_deposito"),
+                                cnt=reader.GetDecimal("cnt")
+                            };
+                            listMv.Add(nr);
+                        }
+                        reader.Close();
+
+                        sql0 = "update productos_deposito set fisica=fisica+?cnt, disponible=disponible+?cnt where auto_producto=?ap and auto_deposito=?ad";
+                        comando1= new MySqlCommand(sql0, cn,tr);
+                        foreach (var mv in listMv)
+                        {
+                            comando1.Parameters.Clear();
+                            comando1.Parameters.Add("?cnt", mv.cnt);
+                            comando1.Parameters.Add("?ap", mv.autoProducto);
+                            comando1.Parameters.Add("?ad", mv.autoDeposito);
+                            rt = comando1.ExecuteNonQuery();
+                        }
+
+
+                        sql0 = "SET FOREIGN_KEY_CHECKS=1";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        tr.Commit();
+                    }
+                    catch (Exception ex1)
+                    {
+                        tr.Rollback();
+                        result.Mensaje = ex1.Message;
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                    }
                 };
             }
             catch (MySqlException ex2)

@@ -16,7 +16,8 @@ namespace IPosOffLine
         DtoLib.ResultadoEntidad<int> Productos_TotalItems();
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Servidor.RecogerDataEnviar.Ficha> Servidor_RecogerDataEnviar();
         DtoLib.Resultado Servidor_EnviarData(DtoLibPosOffLine.Servidor.EnviarData.Ficha ficha);
-        DtoLib.Resultado Servidor_Principal_ExportarData();
+        DtoLib.Resultado Servidor_Principal_CrearBoletin(string pathDestino);
+        DtoLib.Resultado Servidor_Principal_InsertarCierre(string pathOrigen);
 
     }
 
