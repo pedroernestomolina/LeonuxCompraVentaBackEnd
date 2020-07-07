@@ -24,5 +24,6 @@ namespace LibEntitySqLitePosOffLine
         public decimal tasa { get; set; }
         public string lote { get; set; }
         public string referencia { get; set; }
+        public long tipoMedioCobro { get; set; }
     }
 }

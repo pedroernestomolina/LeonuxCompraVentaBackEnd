@@ -233,6 +233,7 @@ namespace ProvSqLitePosOffLine
             var _codigoSucursal = "";
             var _depositoAsignado = "";
             var _tarifaAsignada = "1";
+            var _fechaServidor = DateTime.Now.Date;
 
             try
             {
@@ -282,6 +283,7 @@ namespace ProvSqLitePosOffLine
                     comando1.Connection = cn;
                     cn.Open();
                     var fechaServ = comando1.ExecuteScalar().ToString();
+                    _fechaServidor = DateTime.Parse(fechaServ).Date;
 
                     MySqlCommand comando = new MySqlCommand(sql);
                     comando.Connection = cn;
@@ -631,6 +633,7 @@ namespace ProvSqLitePosOffLine
                             sistema.autoDeposito = _depositoAsignado;
                             sistema.tarifaAsignada = _tarifaAsignada;
                             sistema.EtiquetarPrecioPorTipoNegocio = _etiquetarPrecioPorTipoNegocio ? "S" : "N";
+                            sistema.fechaUltActualizacion = _fechaServidor.ToShortDateString();
                             cnn.SaveChanges();
                         }
 
@@ -1537,8 +1540,7 @@ namespace ProvSqLitePosOffLine
                                 var autoCxCRecibo = codSucursal + aCxCRecibo.ToString().Trim().PadLeft(6, '0');
 
                                 aCxCReciboNumero += 1;
-                                var ReciboCxCNumero = aCxCReciboNumero.ToString().Trim().PadLeft(10, '0');
-
+                                var ReciboCxCNumero = codSucursal + aCxCReciboNumero.ToString().Trim().PadLeft(6, '0');
 
                                 //ACTUALZA VENTA , CON RECIBO Y NUMERO
                                 comandoVtaUpdate.Parameters.Clear();

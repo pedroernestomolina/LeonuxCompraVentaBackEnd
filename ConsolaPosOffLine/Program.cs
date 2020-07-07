@@ -14,12 +14,13 @@ namespace ConsolaPosOffLine
         static void Main(string[] args)
         {
             IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"D:\Proyectos FoxSystem\CompraVenta\LeonuxPosOffLine.db");
-            _offLine.setServidorRemoto("192.168.0.185", "00000001");
+            _offLine.setServidorRemoto("localhost", "00000001");
             //var fechaActual = _offLine.FechaServidor();
             //var r01 = _offLine.Producto("0000000005");
-            var r01 = _offLine.Servidor_Test();
+            //var r01 = _offLine.Servidor_Test();
             //var r02 = _offLine.Servidor_Principal_CrearBoletin("/var/lib/mysql-files/");
-            var r03 = _offLine.Servidor_Principal_InsertarCierre("/var/lib/mysql-files/");
+            //var r03 = _offLine.Servidor_Principal_InsertarCierre("/var/lib/mysql-files/");
+            var r01 = _offLine.Operador_Movimientos(61);
         }
 
     }

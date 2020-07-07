@@ -179,6 +179,8 @@ namespace ProvSqLitePosOffLine
                     sistema.autoConceptoMovVenta = "";
                     sistema.autoConceptoMovDevVenta = "";
                     sistema.autoConceptoMovSalida = "";
+
+                    sistema.fechaUltActualizacion = "";
                     cnn.SaveChanges();
 
                     cnn.Configuration.AutoDetectChangesEnabled = false;
@@ -251,6 +253,37 @@ namespace ProvSqLitePosOffLine
                         Telefono = ent.telefono,
                     };
                     result.Entidad = nr;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DateTime?> FechaUltimaActualizaion()
+        {
+            var result = new DtoLib.ResultadoEntidad<DateTime?>();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var sistema = cnn.Sistema.Find("0000000001");
+                    if (sistema == null) 
+                    {
+                        result.Mensaje = "REGISTRO CONTROL SISTEMA NO ENCONTRADO, VERIFIQUE POR VADOR";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    result.Entidad = null;
+                    if (sistema.fechaUltActualizacion.Trim() != "") 
+                    {
+                       result.Entidad= DateTime.Parse(sistema.fechaUltActualizacion);
+                    }
                 }
             }
             catch (Exception e)

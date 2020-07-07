@@ -18,6 +18,7 @@ namespace IPosOffLine
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Sistema.InformacionBD.Ficha > InformacionBD();
         DtoLib.Resultado Inicializar_BdLocal();
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Empresa.Ficha> Empresa_Datos();
+        DtoLib.ResultadoEntidad<DateTime?> FechaUltimaActualizaion();
 
     }
 

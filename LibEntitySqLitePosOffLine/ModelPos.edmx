@@ -251,6 +251,7 @@
           <Property Name="autoConceptoMovVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="autoConceptoMovDevVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="autoConceptoMovSalida" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="fechaUltActualizacion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="Transporte">
           <Key>
@@ -421,6 +422,7 @@
           <Property Name="tasa" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="lote" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="referencia" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="tipoMedioCobro" Type="integer" Nullable="false" />
         </EntityType>
         <EntityContainer Name="LeonuxPosOffLineModelStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" store:Type="Tables" />
@@ -655,6 +657,7 @@
           <Property Name="tasa" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="lote" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="referencia" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="tipoMedioCobro" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="Permiso">
           <Key>
@@ -700,6 +703,7 @@
           <Property Name="autoConceptoMovVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="autoConceptoMovDevVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="autoConceptoMovSalida" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="fechaUltActualizacion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Serie">
           <Key>
@@ -1079,6 +1083,7 @@
           <EntitySetMapping Name="VentaPago">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.VentaPago">
               <MappingFragment StoreEntitySet="VentaPago">
+                <ScalarProperty Name="tipoMedioCobro" ColumnName="tipoMedioCobro" />
                 <ScalarProperty Name="referencia" ColumnName="referencia" />
                 <ScalarProperty Name="lote" ColumnName="lote" />
                 <ScalarProperty Name="tasa" ColumnName="tasa" />
@@ -1106,6 +1111,7 @@
           <EntitySetMapping Name="Sistema">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Sistema">
               <MappingFragment StoreEntitySet="Sistema">
+                <ScalarProperty Name="fechaUltActualizacion" ColumnName="fechaUltActualizacion" />
                 <ScalarProperty Name="autoConceptoMovSalida" ColumnName="autoConceptoMovSalida" />
                 <ScalarProperty Name="autoConceptoMovDevVenta" ColumnName="autoConceptoMovDevVenta" />
                 <ScalarProperty Name="autoConceptoMovVenta" ColumnName="autoConceptoMovVenta" />

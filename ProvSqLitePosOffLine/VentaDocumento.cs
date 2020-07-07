@@ -178,6 +178,7 @@ namespace ProvSqLitePosOffLine
                                 var entMetodo = new LibEntitySqLitePosOffLine.VentaPago()
                                 {
                                     idVenta = entVenta.id,
+                                    tipoMedioCobro=mt.tipoMedioPago,
                                     autoMedioCobro = mt.autoMedioPago,
                                     codioMedioCobro = mt.codigoMedioPago,
                                     descripMedioCobro = mt.descripcionMedioPago,

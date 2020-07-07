@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ad1f3511c37643949b6827222fa659e8" Name="Diagram1" ZoomLevel="28">
+        <EntityTypeShape EntityType="invModel.productos" Width="2.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="invModel.empresa_departamentos" Width="1.5" PointX="16.5" PointY="19" />
+        <EntityTypeShape EntityType="invModel.empresa_depositos" Width="1.5" PointX="9.25" PointY="1.375" />
+        <EntityTypeShape EntityType="invModel.empresa_tasas" Width="1.5" PointX="9.625" PointY="15.625" />
+        <EntityTypeShape EntityType="invModel.productos_grupo" Width="1.5" PointX="10.375" PointY="8.625" />
+        <AssociationConnector Association="invModel.productos_ibfk_1" />
+        <AssociationConnector Association="invModel.productos_ibfk_12" />
+        <AssociationConnector Association="invModel.productos_ibfk_2" />
+        <EntityTypeShape EntityType="invModel.productos_medida" Width="2.75" PointX="0.75" PointY="21.25" />
+        <AssociationConnector Association="invModel.productos_ibfk_10" />
+        <AssociationConnector Association="invModel.productos_ibfk_11" />
+        <AssociationConnector Association="invModel.productos_ibfk_5" />
+        <AssociationConnector Association="invModel.productos_ibfk_7" />
+        <AssociationConnector Association="invModel.productos_ibfk_8" />
+        <AssociationConnector Association="invModel.productos_ibfk_9" />
+        <EntityTypeShape EntityType="invModel.productos_deposito" Width="1.5" PointX="13.5" PointY="6.625" />
+        <AssociationConnector Association="invModel.productos_deposito_ibfk_2" />
+        <AssociationConnector Association="invModel.productos_deposito_ibfk_1" />
+        <EntityTypeShape EntityType="invModel.productos_alterno" Width="1.5" PointX="4" PointY="8.875" />
+        <EntityTypeShape EntityType="invModel.productos_marca" Width="1.5" PointX="0.75" PointY="25.125" />
+        <EntityTypeShape EntityType="invModel.productos_proveedor" Width="1.5" PointX="4" PointY="11.25" />
+        <EntityTypeShape EntityType="invModel.productos_subgrupo" Width="1.5" PointX="4.375" PointY="0.75" />
+        <AssociationConnector Association="invModel.productos_alterno_ibfk_1" />
+        <AssociationConnector Association="invModel.productos_ibfk_4" />
+        <AssociationConnector Association="invModel.productos_proveedor_ibfk_1" />
+        <EntityTypeShape EntityType="invModel.proveedores" Width="1.5" PointX="21.5" PointY="5.375" />
+        <AssociationConnector Association="invModel.productos_proveedor_ibfk_2" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

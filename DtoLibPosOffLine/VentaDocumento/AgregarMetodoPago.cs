@@ -11,6 +11,7 @@ namespace DtoLibPosOffLine.VentaDocumento
     public class AgregarMetodoPago
     {
 
+        public int tipoMedioPago { get; set; }
         public string autoMedioPago { get; set; }
         public string codigoMedioPago { get; set; }
         public string descripcionMedioPago { get; set; }

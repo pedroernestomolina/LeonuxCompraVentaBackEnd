@@ -16,6 +16,7 @@ namespace IPosOffLine
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Operador.Cargar.Ficha> Operador_Cargar(int idOperador);
         DtoLib.ResultadoEntidad<int> Operador_Activa();
         DtoLib.ResultadoEntidad<bool> Operador_Abrir_VerificaIsOk();
+        DtoLib.ResultadoEntidad<DtoLibPosOffLine.Operador.Movimiento.Ficha> Operador_Movimientos(int idOperador);
 
     }
 
