@@ -260,6 +260,7 @@ namespace ProvSqLitePosOffLine
                                 break;
                         }
                     }
+                    result.Entidad = ficha;
                 }
             }
             catch (Exception e)
