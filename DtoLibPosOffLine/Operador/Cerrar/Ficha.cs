@@ -15,6 +15,7 @@ namespace DtoLibPosOffLine.Operador.Cerrar
         public string Fecha { get; set; }
         public string Hora { get; set; }
         public string Estatus { get; set; }
+        public Movimiento Movimientos { get; set; }
 
     }
 

@@ -11,16 +11,17 @@ namespace DtoLibPosOffLine.Permiso.Pos
     public class Permiso
     {
 
+        public enum EnumAcceso { SinDefinir=-1, SinAcceso=0, PedirClave, Libre }
         public string Codigo { get; set; }
         public string Descripcion { get; set; }
-        public bool RequiereClave { get; set; }
+        public EnumAcceso RequiereClave { get; set; }
 
 
         public Permiso()
         {
             Codigo = "";
             Descripcion = "";
-            RequiereClave = false;
+            RequiereClave = EnumAcceso.SinDefinir;
         }
 
     }

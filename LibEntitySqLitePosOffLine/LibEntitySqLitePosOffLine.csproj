@@ -108,6 +108,9 @@
     <Compile Include="Operador.cs">
       <DependentUpon>ModelPos.tt</DependentUpon>
     </Compile>
+    <Compile Include="OperadorCierre.cs">
+      <DependentUpon>ModelPos.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pendiente.cs">
       <DependentUpon>ModelPos.tt</DependentUpon>
     </Compile>

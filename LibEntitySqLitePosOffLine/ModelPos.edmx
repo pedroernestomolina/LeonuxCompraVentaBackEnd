@@ -122,6 +122,30 @@
           <Property Name="estatus" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="fechaCierre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="horaCierre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="prefijo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OperadorCierre">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idOperador" Type="integer" Nullable="false" />
+          <Property Name="diferencia" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="efectivo" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="divisa" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="tarjeta" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="otros" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="devolucion" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="subTotal" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="mEfectivo" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="mDivisa" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="mTarjeta" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="mOtros" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="mSubTotal" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="mTotal" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="firma" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="mFirma" Type="decimal" Precision="53" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Pendiente">
           <Key>
@@ -271,6 +295,7 @@
           <Property Name="usuarioDescripcion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="usuarioClave" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="grupoDescripcion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="usuarioEstatus" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="Vendedor">
           <Key>
@@ -435,6 +460,7 @@
           <EntitySet Name="MedioCobro" EntityType="Self.MedioCobro" store:Type="Tables" />
           <EntitySet Name="MovConceptoInv" EntityType="Self.MovConceptoInv" store:Type="Tables" />
           <EntitySet Name="Operador" EntityType="Self.Operador" store:Type="Tables" />
+          <EntitySet Name="OperadorCierre" EntityType="Self.OperadorCierre" store:Type="Tables" />
           <EntitySet Name="Pendiente" EntityType="Self.Pendiente" store:Type="Tables" />
           <EntitySet Name="Permiso" EntityType="Self.Permiso" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" store:Type="Tables" />
@@ -475,6 +501,7 @@
           <EntitySet Name="MovConceptoInv" EntityType="LeonuxPosOffLineModel.MovConceptoInv" />
           <EntitySet Name="Empresa" EntityType="LeonuxPosOffLineModel.Empresa" />
           <EntitySet Name="Venta" EntityType="LeonuxPosOffLineModel.Venta" />
+          <EntitySet Name="OperadorCierre" EntityType="LeonuxPosOffLineModel.OperadorCierre" />
         </EntityContainer>
         <EntityType Name="ProductoBarra">
           <Key>
@@ -503,6 +530,7 @@
           <Property Name="usuarioDescripcion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="usuarioClave" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="grupoDescripcion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="usuarioEstatus" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -728,6 +756,7 @@
           <Property Name="estatus" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="fechaCierre" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="horaCierre" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="prefijo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Jornada">
           <Key>
@@ -895,6 +924,29 @@
           <Property Name="nombreConceptoMov" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="prefijo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="OperadorCierre">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idOperador" Type="Int64" Nullable="false" />
+          <Property Name="diferencia" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="efectivo" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="divisa" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="tarjeta" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="otros" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="devolucion" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="subTotal" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="total" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="mEfectivo" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="mDivisa" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="mTarjeta" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="mOtros" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="mSubTotal" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="mTotal" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="firma" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="mFirma" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -923,6 +975,7 @@
           <EntitySetMapping Name="UsuarioGrupo">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.UsuarioGrupo">
               <MappingFragment StoreEntitySet="UsuarioGrupo">
+                <ScalarProperty Name="usuarioEstatus" ColumnName="usuarioEstatus" />
                 <ScalarProperty Name="grupoDescripcion" ColumnName="grupoDescripcion" />
                 <ScalarProperty Name="usuarioClave" ColumnName="usuarioClave" />
                 <ScalarProperty Name="usuarioDescripcion" ColumnName="usuarioDescripcion" />
@@ -1158,6 +1211,7 @@
           <EntitySetMapping Name="Operador">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Operador">
               <MappingFragment StoreEntitySet="Operador">
+                <ScalarProperty Name="prefijo" ColumnName="prefijo" />
                 <ScalarProperty Name="horaCierre" ColumnName="horaCierre" />
                 <ScalarProperty Name="fechaCierre" ColumnName="fechaCierre" />
                 <ScalarProperty Name="estatus" ColumnName="estatus" />
@@ -1338,6 +1392,30 @@
                 <ScalarProperty Name="nombreRazonSocial" ColumnName="nombreRazonSocial" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="documento" ColumnName="documento" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OperadorCierre">
+            <EntityTypeMapping TypeName="LeonuxPosOffLineModel.OperadorCierre">
+              <MappingFragment StoreEntitySet="OperadorCierre">
+                <ScalarProperty Name="mFirma" ColumnName="mFirma" />
+                <ScalarProperty Name="firma" ColumnName="firma" />
+                <ScalarProperty Name="mTotal" ColumnName="mTotal" />
+                <ScalarProperty Name="mSubTotal" ColumnName="mSubTotal" />
+                <ScalarProperty Name="mOtros" ColumnName="mOtros" />
+                <ScalarProperty Name="mTarjeta" ColumnName="mTarjeta" />
+                <ScalarProperty Name="mDivisa" ColumnName="mDivisa" />
+                <ScalarProperty Name="mEfectivo" ColumnName="mEfectivo" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="subTotal" ColumnName="subTotal" />
+                <ScalarProperty Name="devolucion" ColumnName="devolucion" />
+                <ScalarProperty Name="otros" ColumnName="otros" />
+                <ScalarProperty Name="tarjeta" ColumnName="tarjeta" />
+                <ScalarProperty Name="divisa" ColumnName="divisa" />
+                <ScalarProperty Name="efectivo" ColumnName="efectivo" />
+                <ScalarProperty Name="diferencia" ColumnName="diferencia" />
+                <ScalarProperty Name="idOperador" ColumnName="idOperador" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

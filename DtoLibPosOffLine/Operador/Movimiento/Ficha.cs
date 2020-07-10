@@ -18,6 +18,12 @@ namespace DtoLibPosOffLine.Operador.Movimiento
         public decimal montoNDebito { get; set; }
         public decimal montoNCredito { get; set; }
 
+        public int cntDocContado { get; set; }
+        public decimal montoDocContado { get; set; }
+        public int cntDocCredito { get; set; }
+        public decimal montoDocCredito { get; set; }
+
+        public decimal cntEfectivo { get; set; }
         public decimal montoEfectivo { get; set; }
 
         public decimal cntDivisa { get; set; }

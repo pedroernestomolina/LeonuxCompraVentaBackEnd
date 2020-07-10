@@ -29,6 +29,14 @@ namespace ProvSqLitePosOffLine
                         return result;
                     }
 
+                    if (ent.usuarioEstatus.Trim().ToUpper() != "A")
+                    {
+                        result.Entidad = null;
+                        result.Mensaje = "USUARIO EN ESTADO INACTIVO, VERIFIQUE POR FAVOR";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
                     var nr = new DtoLibPosOffLine.Usuario.Ficha()
                     {
                         GrupoAuto = ent.autoGrupo,

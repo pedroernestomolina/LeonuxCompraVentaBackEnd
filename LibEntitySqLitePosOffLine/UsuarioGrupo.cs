@@ -20,5 +20,6 @@ namespace LibEntitySqLitePosOffLine
         public string usuarioDescripcion { get; set; }
         public string usuarioClave { get; set; }
         public string grupoDescripcion { get; set; }
+        public string usuarioEstatus { get; set; }
     }
 }

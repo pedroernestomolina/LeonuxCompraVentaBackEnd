@@ -125,6 +125,7 @@ namespace ProvSqLitePosOffLine
                     var pendienteList = cnn.Pendiente.ToList();
                     var itemList = cnn.Item.ToList();
                     var conceptoInvList = cnn.MovConceptoInv.ToList();
+                    var operadorCierreList = cnn.OperadorCierre.ToList();
 
 
                     var empresa = cnn.Empresa.Find("0000000001");
@@ -212,6 +213,7 @@ namespace ProvSqLitePosOffLine
                     cnn.Pendiente.RemoveRange(pendienteList);
                     cnn.Item.RemoveRange(itemList);
                     cnn.MovConceptoInv.RemoveRange(conceptoInvList);
+                    cnn.OperadorCierre.RemoveRange(operadorCierreList);
                     cnn.SaveChanges();
 
                     cnn.Configuration.AutoDetectChangesEnabled = true;

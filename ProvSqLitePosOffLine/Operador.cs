@@ -31,6 +31,7 @@ namespace ProvSqLitePosOffLine
                         estatus = ficha.Estatus,
                         fechaCierre = "",
                         horaCierre = "",
+                        prefijo=ficha.Prefijo,
                     };
                     cnn.Operador.Add(ent);
                     cnn.SaveChanges();
@@ -54,25 +55,55 @@ namespace ProvSqLitePosOffLine
             {
                 using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
                 {
-                    var ent = cnn.Operador.Find(ficha.IdOperador);
-                    if (ent == null)
+                    using (var ts = cnn.Database.BeginTransaction())
                     {
-                        result.Mensaje = "[ ID ] OPERADOR NO ENCONTRADA";
-                        result.Result = DtoLib.Enumerados.EnumResult.isError;
-                        return result;
-                    }
-                    if (ent.estatus == "C")
-                    {
-                        result.Mensaje = "ESTATUS OPERADOR CERRADA";
-                        result.Result = DtoLib.Enumerados.EnumResult.isError;
-                        return result;
+
+                        var ent = cnn.Operador.Find(ficha.IdOperador);
+                        if (ent == null)
+                        {
+                            result.Mensaje = "[ ID ] OPERADOR NO ENCONTRADA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        if (ent.estatus == "C")
+                        {
+                            result.Mensaje = "ESTATUS OPERADOR CERRADA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        //CIERRE ENCABEZADO
+                        ent.estatus = ficha.Estatus;
+                        ent.fechaCierre = ficha.Fecha;
+                        ent.horaCierre = ficha.Hora;
+                        ent.estatus = "C";
+                        cnn.SaveChanges();
+
+                        //CIERRE MOVIMIENTOS
+                        var entCierre = new LibEntitySqLitePosOffLine.OperadorCierre();
+                        entCierre.idOperador = ent.id;
+                        entCierre.diferencia = ficha.Movimientos.diferencia;
+                        entCierre.efectivo = ficha.Movimientos.efectivo;
+                        entCierre.divisa = ficha.Movimientos.divisa;
+                        entCierre.tarjeta = ficha.Movimientos.tarjeta;
+                        entCierre.otros = ficha.Movimientos.otros;
+                        entCierre.firma= ficha.Movimientos.firma;
+                        entCierre.devolucion = ficha.Movimientos.devolucion;
+                        entCierre.subTotal = ficha.Movimientos.subTotal;
+                        entCierre.total = ficha.Movimientos.total;
+                        entCierre.mEfectivo = ficha.Movimientos.mEfectivo;
+                        entCierre.mDivisa = ficha.Movimientos.mDivisa;
+                        entCierre.mTarjeta = ficha.Movimientos.mTarjeta;
+                        entCierre.mOtros= ficha.Movimientos.mOtro;
+                        entCierre.mFirma= ficha.Movimientos.mFirma;
+                        entCierre.mSubTotal = ficha.Movimientos.mSubTotal;
+                        entCierre.mTotal= ficha.Movimientos.mTotal;
+                        cnn.OperadorCierre.Add(entCierre);
+                        cnn.SaveChanges();
+
+                        ts.Commit();
                     }
 
-                    ent.estatus = ficha.Estatus;
-                    ent.fechaCierre = ficha.Fecha;
-                    ent.horaCierre = ficha.Hora;
-                    ent.estatus = "C";
-                    cnn.SaveChanges();
                 }
             }
             catch (Exception e)
@@ -233,6 +264,27 @@ namespace ProvSqLitePosOffLine
                                 break;
                         }
                     }
+
+                    var entGVta2 = cnn.Venta.
+                        Where(w => w.idOperador == idOperador && w.estatusActivo == 1 && (w.tipoDocumento==1 || w.tipoDocumento==2)).
+                        GroupBy(g => g.esCredito).
+                        Select(s => new { key = s.Key, cnt = s.Count(), monto = s.Sum(sm => sm.montoTotal) }).
+                        ToList();
+                    foreach (var tp in entGVta2)
+                    {
+                        switch (tp.key)
+                        {
+                            case "N":
+                                ficha.cntDocContado = tp.cnt;
+                                ficha.montoDocContado = tp.monto;
+                                break;
+                            case "S":
+                                ficha.cntDocCredito = tp.cnt;
+                                ficha.montoDocCredito= tp.monto;
+                                break;
+                        }
+                    }
+
                     var entGMP = cnn.VentaPago
                         .Join(cnn.Venta, p => p.idVenta, v => v.id, (p, v) => new { p, v }).
                         Where(w => w.v.idOperador == idOperador && w.v.estatusActivo == 1).
@@ -244,6 +296,7 @@ namespace ProvSqLitePosOffLine
                         switch (tmp.key) 
                         {
                             case 1:
+                                ficha.cntEfectivo = tmp.mp.Count();
                                 ficha.montoEfectivo = tmp.mp.Sum(s=>s.montoRecibido);
                                 break;
                             case 2:

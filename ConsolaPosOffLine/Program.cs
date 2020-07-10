@@ -20,7 +20,7 @@ namespace ConsolaPosOffLine
             //var r01 = _offLine.Servidor_Test();
             //var r02 = _offLine.Servidor_Principal_CrearBoletin("/var/lib/mysql-files/");
             //var r03 = _offLine.Servidor_Principal_InsertarCierre("/var/lib/mysql-files/");
-            var r01 = _offLine.Operador_Movimientos(61);
+            var r01 = _offLine.Operador_Movimientos(62);
         }
 
     }

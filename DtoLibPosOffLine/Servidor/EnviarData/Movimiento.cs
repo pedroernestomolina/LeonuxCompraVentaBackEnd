@@ -5,15 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibPosOffLine.Servidor.RecogerDataEnviar
+namespace DtoLibPosOffLine.Servidor.EnviarData
 {
     
-    public class Jornada
+    public class Movimiento
     {
 
-        public int Id { get; set; }
+        public string Prefijo { get; set; }
+        public MovCierre Cierre { get; set; }
         public List<Documento> Documentos { get; set; }
-        public MovimientoCierre Cierre { get; set; }
 
     }
 

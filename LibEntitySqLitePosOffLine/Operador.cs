@@ -24,5 +24,6 @@ namespace LibEntitySqLitePosOffLine
         public string estatus { get; set; }
         public string fechaCierre { get; set; }
         public string horaCierre { get; set; }
+        public string prefijo { get; set; }
     }
 }

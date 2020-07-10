@@ -35,7 +35,18 @@ namespace ProvSqLitePosOffLine
                     {
                         devolucion.Codigo = ent.codigo;
                         devolucion.Descripcion=ent.descripcion;
-                        devolucion.RequiereClave=ent.requiereClave.Trim().ToUpper()=="S"?true:false;
+                        switch(ent.requiereClave.Trim().ToUpper())
+                        {
+                            case "":
+                                devolucion.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.SinAcceso;
+                                break;
+                            case "S":
+                                devolucion.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.PedirClave;
+                                break;
+                            case "N":
+                                devolucion.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.Libre;
+                                break;
+                        }
                     }
                     nr.Devolucion = devolucion;
 
@@ -44,7 +55,18 @@ namespace ProvSqLitePosOffLine
                     {
                         anularVenta.Codigo = ent.codigo;
                         anularVenta.Descripcion = ent.descripcion;
-                        anularVenta.RequiereClave = ent.requiereClave.Trim().ToUpper() == "S" ? true : false;
+                        switch (ent.requiereClave.Trim().ToUpper())
+                        {
+                            case "":
+                                anularVenta.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.SinAcceso;
+                                break;
+                            case "S":
+                                anularVenta.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.PedirClave;
+                                break;
+                            case "N":
+                                anularVenta.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.Libre;
+                                break;
+                        }
                     }
                     nr.AnularVenta = anularVenta;
 
@@ -53,7 +75,18 @@ namespace ProvSqLitePosOffLine
                     {
                         sumar.Codigo = ent.codigo;
                         sumar.Descripcion = ent.descripcion;
-                        sumar.RequiereClave = ent.requiereClave.Trim().ToUpper() == "S" ? true : false;
+                        switch (ent.requiereClave.Trim().ToUpper())
+                        {
+                            case "":
+                                sumar.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.SinAcceso;
+                                break;
+                            case "S":
+                                sumar.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.PedirClave;
+                                break;
+                            case "N":
+                                sumar.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.Libre;
+                                break;
+                        }
                     }
                     nr.Sumar = sumar;
 
@@ -62,7 +95,18 @@ namespace ProvSqLitePosOffLine
                     {
                         multiplicar.Codigo = ent.codigo;
                         multiplicar.Descripcion = ent.descripcion;
-                        multiplicar.RequiereClave = ent.requiereClave.Trim().ToUpper() == "S" ? true : false;
+                        switch (ent.requiereClave.Trim().ToUpper())
+                        {
+                            case "":
+                                multiplicar.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.SinAcceso;
+                                break;
+                            case "S":
+                                multiplicar.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.PedirClave;
+                                break;
+                            case "N":
+                                multiplicar.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.Libre;
+                                break;
+                        }
                     }
                     nr.Multiplicar = multiplicar;
 
@@ -71,7 +115,18 @@ namespace ProvSqLitePosOffLine
                     {
                         restar.Codigo = ent.codigo;
                         restar.Descripcion = ent.descripcion;
-                        restar.RequiereClave = ent.requiereClave.Trim().ToUpper() == "S" ? true : false;
+                        switch (ent.requiereClave.Trim().ToUpper())
+                        {
+                            case "":
+                                restar.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.SinAcceso;
+                                break;
+                            case "S":
+                                restar.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.PedirClave;
+                                break;
+                            case "N":
+                                restar.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.Libre;
+                                break;
+                        }
                     }
                     nr.Restar= restar;
 
@@ -80,7 +135,18 @@ namespace ProvSqLitePosOffLine
                     {
                         dejarCtaPend.Codigo = ent.codigo;
                         dejarCtaPend.Descripcion = ent.descripcion;
-                        dejarCtaPend.RequiereClave = ent.requiereClave.Trim().ToUpper() == "S" ? true : false;
+                        switch (ent.requiereClave.Trim().ToUpper())
+                        {
+                            case "":
+                                dejarCtaPend.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.SinAcceso;
+                                break;
+                            case "S":
+                                dejarCtaPend.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.PedirClave;
+                                break;
+                            case "N":
+                                dejarCtaPend.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.Libre;
+                                break;
+                        }
                     }
                     nr.DejarCtaPendiente = dejarCtaPend;
 
@@ -89,7 +155,18 @@ namespace ProvSqLitePosOffLine
                     {
                         anularCtaPend.Codigo = ent.codigo;
                         anularCtaPend.Descripcion = ent.descripcion;
-                        anularCtaPend.RequiereClave = ent.requiereClave.Trim().ToUpper() == "S" ? true : false;
+                        switch (ent.requiereClave.Trim().ToUpper())
+                        {
+                            case "":
+                                anularCtaPend.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.SinAcceso;
+                                break;
+                            case "S":
+                                anularCtaPend.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.PedirClave;
+                                break;
+                            case "N":
+                                anularCtaPend.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.Libre;
+                                break;
+                        }
                     }
                     nr.AnularCtaPendiente= anularCtaPend;
 
@@ -98,7 +175,18 @@ namespace ProvSqLitePosOffLine
                     {
                         dsctoGlobal.Codigo = ent.codigo;
                         dsctoGlobal.Descripcion = ent.descripcion;
-                        dsctoGlobal.RequiereClave = ent.requiereClave.Trim().ToUpper() == "S" ? true : false;
+                        switch (ent.requiereClave.Trim().ToUpper())
+                        {
+                            case "":
+                                dsctoGlobal.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.SinAcceso;
+                                break;
+                            case "S":
+                                dsctoGlobal.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.PedirClave;
+                                break;
+                            case "N":
+                                dsctoGlobal.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.Libre;
+                                break;
+                        }
                     }
                     nr.DarDesctoGlobal = dsctoGlobal;
 
@@ -107,7 +195,18 @@ namespace ProvSqLitePosOffLine
                     {
                         ctaCredito.Codigo = ent.codigo;
                         ctaCredito.Descripcion = ent.descripcion;
-                        ctaCredito.RequiereClave = ent.requiereClave.Trim().ToUpper() == "S" ? true : false;
+                        switch (ent.requiereClave.Trim().ToUpper())
+                        {
+                            case "":
+                                ctaCredito.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.SinAcceso;
+                                break;
+                            case "S":
+                                ctaCredito.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.PedirClave;
+                                break;
+                            case "N":
+                                ctaCredito.RequiereClave = DtoLibPosOffLine.Permiso.Pos.Permiso.EnumAcceso.Libre;
+                                break;
+                        }
                     }
                     nr.CtaCredito= ctaCredito;
                     result.Entidad = nr;
@@ -140,7 +239,18 @@ namespace ProvSqLitePosOffLine
                     {
                         anular.Codigo = ent.codigo;
                         anular.Descripcion = ent.descripcion;
-                        anular.RequiereClave = ent.requiereClave.Trim().ToUpper() == "S" ? true : false;
+                        switch (ent.requiereClave.Trim().ToUpper())
+                        {
+                            case "":
+                                anular.RequiereClave = DtoLibPosOffLine.Permiso.permiso.EnumAcceso.SinAcceso;
+                                break;
+                            case "S":
+                                anular.RequiereClave = DtoLibPosOffLine.Permiso.permiso.EnumAcceso.PedirClave;
+                                break;
+                            case "N":
+                                anular.RequiereClave =  DtoLibPosOffLine.Permiso.permiso.EnumAcceso.Libre ;
+                                break;
+                        }
                     }
                     nr.Anular = anular;
 
@@ -149,7 +259,18 @@ namespace ProvSqLitePosOffLine
                     {
                         notacredito.Codigo = ent.codigo;
                         notacredito.Descripcion = ent.descripcion;
-                        notacredito.RequiereClave = ent.requiereClave.Trim().ToUpper() == "S" ? true : false;
+                        switch (ent.requiereClave.Trim().ToUpper())
+                        {
+                            case "":
+                                notacredito.RequiereClave = DtoLibPosOffLine.Permiso.permiso.EnumAcceso.SinAcceso;
+                                break;
+                            case "S":
+                                notacredito.RequiereClave = DtoLibPosOffLine.Permiso.permiso.EnumAcceso.PedirClave;
+                                break;
+                            case "N":
+                                notacredito.RequiereClave = DtoLibPosOffLine.Permiso.permiso.EnumAcceso.Libre;
+                                break;
+                        }
                     }
                     nr.NotaCredito = notacredito;
 
@@ -158,7 +279,18 @@ namespace ProvSqLitePosOffLine
                     {
                         reimprimir.Codigo = ent.codigo;
                         reimprimir.Descripcion = ent.descripcion;
-                        reimprimir.RequiereClave = ent.requiereClave.Trim().ToUpper() == "S" ? true : false;
+                        switch (ent.requiereClave.Trim().ToUpper())
+                        {
+                            case "":
+                                reimprimir.RequiereClave = DtoLibPosOffLine.Permiso.permiso.EnumAcceso.SinAcceso;
+                                break;
+                            case "S":
+                                reimprimir.RequiereClave = DtoLibPosOffLine.Permiso.permiso.EnumAcceso.PedirClave;
+                                break;
+                            case "N":
+                                reimprimir.RequiereClave = DtoLibPosOffLine.Permiso.permiso.EnumAcceso.Libre;
+                                break;
+                        }
                     }
                     nr.ReImprimir = reimprimir;
                     result.Entidad = nr;

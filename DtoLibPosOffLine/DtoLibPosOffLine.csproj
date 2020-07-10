@@ -74,6 +74,7 @@
     <Compile Include="Operador\Abrir\Ficha.cs" />
     <Compile Include="Operador\Cargar\Ficha.cs" />
     <Compile Include="Operador\Cerrar\Ficha.cs" />
+    <Compile Include="Operador\Cerrar\Movimiento.cs" />
     <Compile Include="Operador\Enumerado.cs" />
     <Compile Include="Operador\Movimiento\Ficha.cs" />
     <Compile Include="Pendiente\CtaAbrir\Ficha.cs" />
@@ -99,6 +100,8 @@
     <Compile Include="Servidor\EnviarData\CxCRecibo.cs" />
     <Compile Include="Servidor\EnviarData\DocumentoDetalle.cs" />
     <Compile Include="Servidor\EnviarData\Jornada.cs" />
+    <Compile Include="Servidor\EnviarData\MovCierre.cs" />
+    <Compile Include="Servidor\EnviarData\Movimiento.cs" />
     <Compile Include="Servidor\EnviarData\Pago.cs" />
     <Compile Include="Servidor\EnviarData\ProductoDeposito.cs" />
     <Compile Include="Servidor\EnviarData\ProductoKardex.cs" />
@@ -111,6 +114,7 @@
     <Compile Include="Servidor\EnviarData\Ficha.cs" />
     <Compile Include="Servidor\EnviarData\Documento.cs" />
     <Compile Include="Servidor\RecogerDataEnviar\Jornada.cs" />
+    <Compile Include="Servidor\RecogerDataEnviar\MovimientoCierre.cs" />
     <Compile Include="Servidor\RecogerDataEnviar\Serie.cs" />
     <Compile Include="Sistema\InformacionBD\Ficha.cs" />
     <Compile Include="Transporte\Ficha.cs" />

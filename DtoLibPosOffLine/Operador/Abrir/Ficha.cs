@@ -18,6 +18,7 @@ namespace DtoLibPosOffLine.Operador.Abrir
         public string Fecha { get; set; }
         public string Hora { get; set; }
         public string Estatus { get; set; }
+        public string Prefijo { get; set; }
 
     }
 
