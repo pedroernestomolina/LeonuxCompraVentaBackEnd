@@ -468,6 +468,98 @@ namespace ProvLibInventario
             return rt;
         }
 
+        public DtoLib.ResultadoLista<DtoLibInventario.Producto.Estatus.Resumen> Producto_Estatus_Lista()
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibInventario.Producto.Estatus.Resumen>();
+            var list = new List<DtoLibInventario.Producto.Estatus.Resumen>();
+
+            var nr = new DtoLibInventario.Producto.Estatus.Resumen() { Id = 1, Descripcion= "Activo" };
+            list.Add(nr);
+            nr = new DtoLibInventario.Producto.Estatus.Resumen() { Id = 2, Descripcion = "Suspendido" };
+            list.Add(nr);
+            nr = new DtoLibInventario.Producto.Estatus.Resumen() { Id = 3, Descripcion = "Inactivo" };
+            list.Add(nr);
+
+            result.Lista = list;
+            return result;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibInventario.Producto.Origen.Resumen> Producto_Origen_Lista()
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibInventario.Producto.Origen.Resumen>();
+            var list = new List<DtoLibInventario.Producto.Origen.Resumen>();
+
+            var nr = new DtoLibInventario.Producto.Origen.Resumen() { Id = 1, Descripcion = "Nacional" };
+            list.Add(nr);
+            nr = new DtoLibInventario.Producto.Origen.Resumen() { Id = 2, Descripcion = "Importado" };
+            list.Add(nr);
+
+            result.Lista = list;
+            return result;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibInventario.Producto.Categoria.Resumen> Producto_Categoria_Lista()
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibInventario.Producto.Categoria.Resumen>();
+            var list = new List<DtoLibInventario.Producto.Categoria.Resumen>();
+
+            var nr = new DtoLibInventario.Producto.Categoria.Resumen() { Id = 1, Descripcion = "Producto Terminado" };
+            list.Add(nr);
+            nr = new DtoLibInventario.Producto.Categoria.Resumen() { Id = 2, Descripcion = "Bien de Servicio" };
+            list.Add(nr);
+            nr = new DtoLibInventario.Producto.Categoria.Resumen() { Id = 3, Descripcion = "Materia Prima" };
+            list.Add(nr);
+            nr = new DtoLibInventario.Producto.Categoria.Resumen() { Id = 4, Descripcion = "Uso Interno" };
+            list.Add(nr);
+            nr = new DtoLibInventario.Producto.Categoria.Resumen() { Id = 5, Descripcion = "Sub Producto" };
+            list.Add(nr);
+
+            result.Lista = list;
+            return result;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibInventario.Producto.AdmDivisa.Resumen> Producto_AdmDivisa_Lista()
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibInventario.Producto.AdmDivisa.Resumen>();
+            var list = new List<DtoLibInventario.Producto.AdmDivisa.Resumen>();
+
+            var nr = new DtoLibInventario.Producto.AdmDivisa.Resumen() { Id = 1, Descripcion = "Si" };
+            list.Add(nr);
+            nr = new DtoLibInventario.Producto.AdmDivisa.Resumen() { Id = 2, Descripcion = "No" };
+            list.Add(nr);
+
+            result.Lista = list;
+            return result;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibInventario.Producto.Pesado.Resumen> Producto_Pesado_Lista()
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibInventario.Producto.Pesado.Resumen>();
+            var list = new List<DtoLibInventario.Producto.Pesado.Resumen>();
+
+            var nr = new DtoLibInventario.Producto.Pesado.Resumen() { Id = 1, Descripcion = "Si" };
+            list.Add(nr);
+            nr = new DtoLibInventario.Producto.Pesado.Resumen() { Id = 2, Descripcion = "No" };
+            list.Add(nr);
+
+            result.Lista = list;
+            return result;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibInventario.Producto.Oferta.Resumen> Producto_Oferta_Lista()
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibInventario.Producto.Oferta.Resumen>();
+            var list = new List<DtoLibInventario.Producto.Oferta.Resumen>();
+
+            var nr = new DtoLibInventario.Producto.Oferta.Resumen() { Id = 1, Descripcion = "Si" };
+            list.Add(nr);
+            nr = new DtoLibInventario.Producto.Oferta.Resumen() { Id = 2, Descripcion = "No" };
+            list.Add(nr);
+
+            result.Lista = list;
+            return result;
+        }
+
     }
 
 }

@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 namespace ILibInventario
 {
     
-    public interface IProvider: IProducto, IDeposito, IDepartamento, IGrupo, ITasaImpuesto
+    public interface IProvider: IProducto, IDeposito, IDepartamento, IGrupo, ITasaImpuesto, IProveedor,
+        ICosto, IPrecio, IKardex, IExistencia, IConcepto, ISucursal, IMovimiento
     {
+
+        DtoLib.ResultadoEntidad<DateTime> FechaServidor();
+        //DtoLib.ResultadoEntidad<DtoLibPosOffLine.Sistema.InformacionBD.Ficha> InformacionBD();
 
     }
 

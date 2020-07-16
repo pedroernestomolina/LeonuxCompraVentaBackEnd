@@ -20,6 +20,10 @@ namespace LibEntityInventario
             this.productos_deposito = new HashSet<productos_deposito>();
             this.productos_alterno = new HashSet<productos_alterno>();
             this.productos_proveedor = new HashSet<productos_proveedor>();
+            this.productos_costos = new HashSet<productos_costos>();
+            this.productos_precios = new HashSet<productos_precios>();
+            this.productos_kardex = new HashSet<productos_kardex>();
+            this.productos_movimientos_detalle = new HashSet<productos_movimientos_detalle>();
         }
     
         public string auto { get; set; }
@@ -130,5 +134,13 @@ namespace LibEntityInventario
         public virtual productos_marca productos_marca { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productos_proveedor> productos_proveedor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<productos_costos> productos_costos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<productos_precios> productos_precios { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<productos_kardex> productos_kardex { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<productos_movimientos_detalle> productos_movimientos_detalle { get; set; }
     }
 }

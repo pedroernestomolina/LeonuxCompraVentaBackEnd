@@ -64,6 +64,12 @@
     <Compile Include="empresa_depositos.cs">
       <DependentUpon>ModelLibInventario.tt</DependentUpon>
     </Compile>
+    <Compile Include="empresa_grupo.cs">
+      <DependentUpon>ModelLibInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="empresa_sucursal.cs">
+      <DependentUpon>ModelLibInventario.tt</DependentUpon>
+    </Compile>
     <Compile Include="empresa_tasas.cs">
       <DependentUpon>ModelLibInventario.tt</DependentUpon>
     </Compile>
@@ -89,16 +95,34 @@
     <Compile Include="productos_alterno.cs">
       <DependentUpon>ModelLibInventario.tt</DependentUpon>
     </Compile>
+    <Compile Include="productos_conceptos.cs">
+      <DependentUpon>ModelLibInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_costos.cs">
+      <DependentUpon>ModelLibInventario.tt</DependentUpon>
+    </Compile>
     <Compile Include="productos_deposito.cs">
       <DependentUpon>ModelLibInventario.tt</DependentUpon>
     </Compile>
     <Compile Include="productos_grupo.cs">
       <DependentUpon>ModelLibInventario.tt</DependentUpon>
     </Compile>
+    <Compile Include="productos_kardex.cs">
+      <DependentUpon>ModelLibInventario.tt</DependentUpon>
+    </Compile>
     <Compile Include="productos_marca.cs">
       <DependentUpon>ModelLibInventario.tt</DependentUpon>
     </Compile>
     <Compile Include="productos_medida.cs">
+      <DependentUpon>ModelLibInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_movimientos.cs">
+      <DependentUpon>ModelLibInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_movimientos_detalle.cs">
+      <DependentUpon>ModelLibInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_precios.cs">
       <DependentUpon>ModelLibInventario.tt</DependentUpon>
     </Compile>
     <Compile Include="productos_proveedor.cs">

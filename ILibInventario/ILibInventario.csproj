@@ -39,11 +39,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IConcepto.cs" />
+    <Compile Include="ICosto.cs" />
     <Compile Include="IDepartamento.cs" />
     <Compile Include="IDeposito.cs" />
+    <Compile Include="IExistencia.cs" />
     <Compile Include="IGrupo.cs" />
+    <Compile Include="IKardex.cs" />
+    <Compile Include="IMovimiento.cs" />
+    <Compile Include="IPrecio.cs" />
     <Compile Include="IProducto.cs" />
+    <Compile Include="IProveedor.cs" />
     <Compile Include="IProvider.cs" />
+    <Compile Include="ISucursal.cs" />
     <Compile Include="ITasaImpuesto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

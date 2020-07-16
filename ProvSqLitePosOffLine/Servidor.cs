@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -2507,6 +2508,547 @@ namespace ProvSqLitePosOffLine
                             rt = comando1.ExecuteNonQuery();
                         }
 
+                        sql0 = "SET FOREIGN_KEY_CHECKS=1";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        tr.Commit();
+                    }
+                    catch (Exception ex1)
+                    {
+                        tr.Rollback();
+                        result.Mensaje = ex1.Message;
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                    }
+                };
+            }
+            catch (MySqlException ex2)
+            {
+                result.Mensaje = ex2.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+        
+        public DtoLib.Resultado Servidor_Principal_PreprararCierre(string codigoEmpresa, string rutaLeonuxBandeja, string rutaLeonuxFtpBandejaData)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cn = new MySqlConnection(_cnn2.ConnectionString))
+                {
+                    cn.Open();
+
+                    MySqlTransaction tr = null;
+                    try
+                    {
+                        var sql0 = "";
+                        MySqlCommand comando1;
+                        var rt = -1;
+
+                        var pathBandeja = rutaLeonuxBandeja;
+                        var pathTemp = rutaLeonuxBandeja + @"/temp";
+                        var pathDestino = rutaLeonuxBandeja + @"/temp/";
+                        var pathFtpData = rutaLeonuxFtpBandejaData;
+
+                        tr = cn.BeginTransaction();
+
+                        //VENTAS
+                        sql0 = "select * into outfile \"" + pathDestino + "ventas.txt\" FROM ventas where (tipo='01' or tipo='02' or tipo='03' or tipo='04') and cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "select * into outfile \"" + pathDestino + "ventas_detalle.txt\" FROM ventas_detalle where (tipo='01' or tipo='02' or tipo='03' or tipo='04') and cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //CXC
+                        sql0 = "select * into outfile \"" + pathDestino + "cxc.txt\" FROM cxc where cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "select * into outfile \"" + pathDestino + "cxc_recibos.txt\" FROM cxc_recibos where cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "select * into outfile \"" + pathDestino + "cxc_documentos.txt\" FROM cxc_documentos where cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "select * into outfile \"" + pathDestino + "cxc_medio_pago.txt\" FROM cxc_medio_pago where cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //MOV KARDEX
+                        sql0 = "select * into outfile \"" + pathDestino + "productos_kardex.txt\" FROM productos_kardex where  modulo='Ventas' and cierre_ftp='' ";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //JORNADA
+                        sql0 = "SELECT NULL as id,fecha,estatus_cierre INTO OUTFILE \"" + pathDestino + "pos_jornadas.txt\" FROM pos_jornadas where cierre_ftp='' ";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //ARQUEO
+                        sql0 = "select * into OUTFILE \"" + pathDestino + "pos_arqueo.txt\" FROM pos_arqueo where cierre_ftp='' ";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //COMPRAS
+                        sql0 = "select * into OUTFILE \"" + pathDestino + "compras.txt\" FROM compras where tipo='05' and cierre_ftp='' ";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "select * into OUTFILE \"" + pathDestino + "compras_detalle.txt\" FROM compras_detalle where tipo='05' and cierre_ftp='' ";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //KARDEX RESUMEN
+                        sql0 = "select auto_producto, sum(cantidad*signo) as cnt, auto_deposito " +
+                               "into outfile \"" + pathDestino + "productos_kardex_resumen.txt\"" +
+                               "FROM productos_kardex where estatus_anulado='0' and modulo='Ventas' and cierre_ftp='' " +
+                               "group by auto_producto, auto_deposito";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //PRODUCTOS MOVIMIENTOS
+                        sql0 = "select * into OUTFILE \"" + pathDestino + "productos_movimientos.txt\" FROM productos_movimientos where tipo='05' and cierre_ftp='' ";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "select * into OUTFILE \"" + pathDestino + "productos_movimientos_detalle.txt\" FROM productos_movimientos_detalle where tipo='05' and cierre_ftp='' ";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //EMPAQUETAR CIERRE
+                        var fecha = DateTime.Now;
+                        var df= "data"+codigoEmpresa+"_";
+                        df += fecha.Year.ToString() + "_";
+                        df += fecha.Month.ToString().Trim().PadLeft(2, '0') + "_";
+                        df += fecha.Day.ToString().Trim().PadLeft(2, '0') + "_";
+                        df += "h_"+fecha.Hour.ToString().Trim().PadLeft(2, '0') + "_";
+                        df += fecha.Minute.ToString().Trim().PadLeft(2, '0');
+                        df += ".zip";
+
+                        var destino = "";
+                        destino += pathBandeja + @"/"+df;
+                        ZipFile.CreateFromDirectory(pathTemp, destino, CompressionLevel.Fastest, false);
+
+
+                        //TRASLADAR ARCHIVO A DESTINO
+                        string sourceFile = System.IO.Path.Combine(pathBandeja, df);
+                        string destFile = System.IO.Path.Combine(pathFtpData , df);
+                        System.IO.File.Copy(sourceFile, destFile, true);
+
+
+                        //ACTUALIZAR TABLAS 
+                        sql0 = "update sistema_contadores set a_cierre_ftp=a_cierre_ftp+1";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "select a_cierre_ftp from sistema_contadores";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        var v = comando1.ExecuteScalar();
+                        if (v == null)
+                        { 
+                        }
+
+                        var cierre = int.Parse(v.ToString());
+                        var aCierre = cierre.ToString().Trim().PadLeft(10, '0');
+
+
+                        //VENTAS
+                        sql0 = "update ventas set cierre_ftp=?cierre where (tipo='01' or tipo='02' or tipo='03' or tipo='04') and cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?cierre", aCierre);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "update ventas_detalle set cierre_ftp=?cierre where (tipo='01' or tipo='02' or tipo='03' or tipo='04') and cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?cierre", aCierre);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //CXC
+                        sql0 = "update cxc set cierre_ftp=?cierre  where cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?cierre", aCierre);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "update cxc_recibos set cierre_ftp=?cierre  where cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?cierre", aCierre);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "update cxc_documentos set cierre_ftp=?cierre  where cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?cierre", aCierre);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "update cxc_medio_pago set cierre_ftp=?cierre  where cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?cierre", aCierre);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //PRODUCTOS KARDEX
+                        sql0 = "update productos_kardex set cierre_ftp=?cierre  where modulo='Ventas' and cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?cierre", aCierre);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //POS JORNADAS 
+                        sql0 = "update pos_jornadas set cierre_ftp=?cierre where cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?cierre", aCierre);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //POS ARQUEO
+                        sql0 = "update pos_arqueo set cierre_ftp=?cierre where cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?cierre", aCierre);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //COMPRAS
+                        sql0 = "update compras set cierre_ftp=?cierre where tipo='05' and cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?cierre", aCierre);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "update compras_detalle set cierre_ftp=?cierre where tipo='05' and cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?cierre", aCierre);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //PRODUCTOS MOVIMIENTOS
+                        sql0 = "update productos_movimientos set cierre_ftp=?cierre where tipo='05' and cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?cierre", aCierre);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "update productos_movimientos_detalle set cierre_ftp=?cierre where tipo='05' and cierre_ftp=''";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?cierre", aCierre);
+                        rt = comando1.ExecuteNonQuery();
+
+
+
+
+
+                        tr.Commit();
+                    }
+                    catch (Exception ex1)
+                    {
+                        tr.Rollback();
+                        result.Mensaje = ex1.Message;
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                    }
+                };
+            }
+            catch (MySqlException ex2)
+            {
+                result.Mensaje = ex2.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Servidor_Principal_InsertarBoletin(string codigoSuc, string rutaArchivoTxt)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cn = new MySqlConnection(_cnn2.ConnectionString))
+                {
+                    cn.Open();
+
+                    MySqlTransaction tr = null;
+                    try
+                    {
+                        var sql0 = "";
+                        MySqlCommand comando1;
+                        var rt = -1;
+
+                        var pathData = rutaArchivoTxt;
+
+                        tr = cn.BeginTransaction();
+
+                        //DESACTIVAR RESTRICCIONES FORANEAS
+                        sql0 = "SET FOREIGN_KEY_CHECKS=0";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //LIMPIANDO TABLAS
+                        sql0 = "delete from sistema_configuracion";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from usuarios_grupo_permisos";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from usuarios";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from empresa";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from empresa_tasas";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from empresa_departamentos";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from productos_alterno";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from productos_deposito";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from productos";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from productos_grupo";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from productos_marca";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from productos_lista";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        //
+
+                        sql0 = "delete from proveedores_grupo";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from proveedores";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from compras_detalle WHERE TIPO='04'";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from compras WHERE TIPO='04'";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from productos_precios";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from clientes where auto > '0900000001'";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        //
+
+                        sql0 = "delete from productos_kardex where modulo <> 'Ventas'";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from empresa_grupo";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from empresa_sucursal";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from sistema_menu";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from sistema_funciones";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from empresa_depositos";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from productos_movimientos_detalle";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from productos_movimientos";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        // PROCESO DE INSERTAR
+                        sql0 = "load data infile \"" + pathData + "/sistema_configuracion.txt\" into table sistema_configuracion";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/usuarios_grupo_permisos.txt\" into table usuarios_grupo_permisos";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/usuarios.txt\" into table usuarios";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/empresa.txt\" into table empresa";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/empresa_tasas.txt\" into table empresa_tasas";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/empresa_departamentos.txt\" into table empresa_departamentos";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/productos_alterno.txt\" into table productos_alterno";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/productos_deposito.txt\" into table productos_deposito";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/productos.txt\" into table productos";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/productos_grupo.txt\" into table productos_grupo";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/productos_marca.txt\" into table productos_marca";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/productos_lista.txt\" into table productos_lista";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        //
+
+                        sql0 = "load data infile \"" + pathData + "/proveeodres_grupo.txt\" into table proveedores_grupo";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/proveeodres.txt\" into table proveedores";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/compras.txt\" into table compras";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/compras_detalle.txt\" into table compras_detalle";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/productos_precios.txt\" into table productos_precios";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+                       
+                        //
+
+                        sql0 = "load data infile \"" + pathData + "/clientes.txt\" into table clientes";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        //
+
+                        sql0 = "load data infile \"" + pathData + "/productos_kardex.txt\" into table productos_kardex";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from productos_kardex where codigo_sucursal<>?codigoSucursal";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?codigoSucursal", codigoSuc);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/empresa_grupo.txt\" into table empresa_grupo";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/empresa_sucursal.txt\" into table empresa_sucursal";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/sistema_menu.txt\" into table sistema_menu";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/sistema_funciones.txt\" into table sistema_funciones";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/empresa_depositos.txt\" into table empresa_depositos";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from empresa_depositos where codigo_sucursal<>?codigoSucursal";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?codigoSucursal", codigoSuc);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/productos_movimientos.txt\" into table productos_movimientos";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "delete from productos_movimientos where codigo_sucursal<>?codigoSucursal";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?codigoSucursal", codigoSuc);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/productos_movimientos_detalle.txt\" into table productos_movimientos_detalle";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+
+                        //ESTADO NORMAL RESTRICCIONES FORANEAS
                         sql0 = "SET FOREIGN_KEY_CHECKS=1";
                         comando1 = new MySqlCommand(sql0, cn, tr);
                         rt = comando1.ExecuteNonQuery();
