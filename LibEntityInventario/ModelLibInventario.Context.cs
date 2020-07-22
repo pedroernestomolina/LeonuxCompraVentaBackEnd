@@ -45,5 +45,8 @@ namespace LibEntityInventario
         public virtual DbSet<empresa_grupo> empresa_grupo { get; set; }
         public virtual DbSet<productos_movimientos> productos_movimientos { get; set; }
         public virtual DbSet<productos_movimientos_detalle> productos_movimientos_detalle { get; set; }
+        public virtual DbSet<usuarios> usuarios { get; set; }
+        public virtual DbSet<pos_arqueo> pos_arqueo { get; set; }
+        public virtual DbSet<cxc_medio_pago> cxc_medio_pago { get; set; }
     }
 }

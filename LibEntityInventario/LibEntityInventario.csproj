@@ -58,6 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cxc_medio_pago.cs">
+      <DependentUpon>ModelLibInventario.tt</DependentUpon>
+    </Compile>
     <Compile Include="empresa_departamentos.cs">
       <DependentUpon>ModelLibInventario.tt</DependentUpon>
     </Compile>
@@ -87,6 +90,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelLibInventario.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="pos_arqueo.cs">
+      <DependentUpon>ModelLibInventario.tt</DependentUpon>
     </Compile>
     <Compile Include="Principal.cs" />
     <Compile Include="productos.cs">
@@ -133,6 +139,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="proveedores.cs">
+      <DependentUpon>ModelLibInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usuarios.cs">
       <DependentUpon>ModelLibInventario.tt</DependentUpon>
     </Compile>
   </ItemGroup>

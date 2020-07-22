@@ -55,5 +55,6 @@ namespace LibEntityInventario
         public virtual productos_conceptos productos_conceptos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productos_movimientos_detalle> productos_movimientos_detalle { get; set; }
+        public virtual usuarios usuarios { get; set; }
     }
 }

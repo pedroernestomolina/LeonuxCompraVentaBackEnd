@@ -46,6 +46,7 @@
     <Compile Include="Costo\Historico\Filtro.cs" />
     <Compile Include="Costo\Historico\Resumen.cs" />
     <Compile Include="Departamento\Resumen.cs" />
+    <Compile Include="Deposito\Ficha.cs" />
     <Compile Include="Deposito\Resumen.cs" />
     <Compile Include="Existencia\Deposito\Ficha.cs" />
     <Compile Include="Existencia\Deposito\Filtro.cs" />
@@ -58,6 +59,8 @@
     <Compile Include="Movimiento\Traslado\Insertar\Ficha.cs" />
     <Compile Include="Movimiento\Traslado\Insertar\FichaDetalle.cs" />
     <Compile Include="Movimiento\Traslado\Insertar\FichaKardex.cs" />
+    <Compile Include="Movimiento\Ver\Detalle.cs" />
+    <Compile Include="Movimiento\Ver\Ficha.cs" />
     <Compile Include="Precio\Historico\Filtro.cs" />
     <Compile Include="Precio\Historico\Resumen.cs" />
     <Compile Include="Producto\AdmDivisa\Resumen.cs" />
@@ -80,9 +83,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proveedor\Filtro.cs" />
     <Compile Include="Proveedor\Resumen.cs" />
+    <Compile Include="Reportes\Documentos\MovimientoInventario\Ficha.cs" />
+    <Compile Include="Reportes\Movimientos\ArqueoCajaPos\Ficha.cs" />
+    <Compile Include="Reportes\Movimientos\Filtro.cs" />
     <Compile Include="Sucursal\Ficha.cs" />
     <Compile Include="Sucursal\Resumen.cs" />
     <Compile Include="TasaImpuesto\Resumen.cs" />
+    <Compile Include="Tool\AjusteNivelMinimoMaximo\Ajustar\Ficha.cs" />
+    <Compile Include="Tool\AjusteNivelMinimoMaximo\Capturar\Ficha.cs" />
+    <Compile Include="Tool\AjusteNivelMinimoMaximo\Capturar\Filtro.cs" />
+    <Compile Include="Usuario\Ficha.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -12,6 +12,7 @@ namespace ILibInventario
     {
 
         DtoLib.ResultadoLista<DtoLibInventario.Deposito.Resumen> Deposito_GetLista();
+        DtoLib.ResultadoEntidad<DtoLibInventario.Deposito.Ficha> Deposito_GetFicha(string autoDep);
 
     }
 

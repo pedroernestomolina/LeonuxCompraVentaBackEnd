@@ -51,8 +51,12 @@
     <Compile Include="IProducto.cs" />
     <Compile Include="IProveedor.cs" />
     <Compile Include="IProvider.cs" />
+    <Compile Include="IReporteDocumento.cs" />
+    <Compile Include="IReporteMovimientos.cs" />
     <Compile Include="ISucursal.cs" />
     <Compile Include="ITasaImpuesto.cs" />
+    <Compile Include="ITool.cs" />
+    <Compile Include="IUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

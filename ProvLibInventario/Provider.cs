@@ -20,14 +20,19 @@ namespace ProvLibInventario
         private string _Password;
 
 
-        public Provider()
+        public Provider(string instancia, string bd)
         {
             _Usuario = "root";
             _Password = "123";
-            _Instancia = "localhost";
-            _BaseDatos = "pita";
-            _cnInv = new EntityConnectionStringBuilder();
+            _Instancia = instancia;
+            _BaseDatos = bd;
+            setConexion();
+        }
 
+
+        private void setConexion()
+        {
+            _cnInv = new EntityConnectionStringBuilder();
             _cnInv.Metadata = "res://*/ModelLibInventario.csdl|res://*/ModelLibInventario.ssdl|res://*/ModelLibInventario.msl";
             _cnInv.Provider = "MySql.Data.MySqlClient";
             _cnInv.ProviderConnectionString = "data source=" + _Instancia + ";initial catalog=" + _BaseDatos + ";user id=" + _Usuario + ";Password=" + _Password + ";Convert Zero Datetime=True;";

@@ -25,7 +25,7 @@ namespace ProvLibVenta
                     {
                         if (q.Count() > 0)
                         {
-                            result.Lista = q.Select(s =>
+                            list = q.Select(s =>
                             {
                                 var r = new DtoLibVenta.Deposito.Resumen()
                                 {
@@ -36,15 +36,8 @@ namespace ProvLibVenta
                                 return r;
                             }).ToList();
                         }
-                        else
-                        {
-                            result.Lista = list;
-                        }
                     }
-                    else
-                    {
-                        result.Lista = list;
-                    }
+                    result.Lista = list;
                 }
             }
             catch (Exception e)

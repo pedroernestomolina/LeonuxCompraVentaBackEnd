@@ -14,6 +14,7 @@ namespace DtoLibInventario.Movimiento.Traslado.Insertar
         public string autoConcepto { get; set; }
         public string autoDepositoOrigen { get; set; }
         public string autoDepositoDestino { get; set; }
+        public string autoRemision { get; set; }
         public string autoUsuario { get; set; }
 
         public string nota { get; set; }
@@ -36,7 +37,6 @@ namespace DtoLibInventario.Movimiento.Traslado.Insertar
         public string codigoSucursal { get; set; }
         public string cierreFtp { get; set; }
         public string estatusCierreContable { get; set; }
-        public string remision { get; set; }
 
         public List<FichaDetalle> detalles { get; set; }
         public List<FichaKardex> movKardex { get; set; }

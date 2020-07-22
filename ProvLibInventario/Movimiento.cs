@@ -108,7 +108,7 @@ namespace ProvLibInventario
                             auto_concepto = ficha.autoConcepto,
                             auto_deposito = ficha.autoDepositoOrigen,
                             auto_destino = ficha.autoDepositoDestino,
-                            auto_remision = ficha.remision,
+                            auto_remision = ficha.autoRemision,
                             auto_usuario = ficha.autoUsuario,
                             autorizado = ficha.autorizado,
                             cierre_ftp = ficha.cierreFtp,
@@ -137,50 +137,51 @@ namespace ProvLibInventario
                         cnn.productos_movimientos.Add(entMov);
                         cnn.SaveChanges();
 
+
+                        var sql1 = @"INSERT INTO productos_movimientos_detalle (auto_documento, auto_producto, codigo, nombre, " +
+                            "cantidad, cantidad_bono, cantidad_und, categoria, fecha, tipo, estatus_anulado, contenido_empaque, " +
+                            "empaque, decimales, auto, costo_und, total, costo_compra, estatus_unidad, signo, existencia, " +
+                            "fisica, auto_departamento, auto_grupo, cierre_ftp) " +
+                            "VALUES ( {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}, {15}, "+
+                            "{16}, {17}, {18}, {19}, {20}, {21}, {22}, {23}, {24})";
+
                         var _auto=0;
                         foreach (var det in ficha.detalles) 
                         {
                             _auto+=1;
-                            var entMovDet = new productos_movimientos_detalle()
+                            var xauto = _auto.ToString().Trim().PadLeft(10, '0');
+
+                            var vk = cnn.Database.ExecuteSqlCommand(sql1, autoMov, det.autoProducto, det.codigoProducto, det.nombreProducto, 
+                                det.cantidad, det.cantidadBono, det.cantidadUnd, det.categoria, fechaSistema.Date, det.tipo,
+                                det.estatusAnulado,det.contEmpaque, det.empaque, det.decimales, xauto, det.costoUnd, det.total,
+                                det.costoCompra, det.estatusUnidad, det.signo, 0, 0, det.autoDepartamento, det.autoGrupo, ficha.cierreFtp);
+                            if (vk == 0)
                             {
-                                auto = _auto.ToString().Trim().PadLeft(10, '0'),
-                                auto_departamento = det.autoDepartamento,
-                                auto_documento = autoMov,
-                                auto_grupo = det.autoGrupo,
-                                auto_producto = det.autoProducto,
-                                cantidad = det.cantidad,
-                                cantidad_bono = det.cantidadBono,
-                                cantidad_und = det.cantidadUnd,
-                                categoria = det.categoria,
-                                cierre_ftp = ficha.cierreFtp ,
-                                codigo = det.codigoProducto,
-                                contenido_empaque = det.contEmpaque,
-                                costo_compra = det.costoCompra,
-                                costo_und = det.costoUnd,
-                                decimales = det.decimales,
-                                empaque = det.empaque,
-                                estatus_anulado = det.estatusAnulado,
-                                estatus_unidad = det.estatusUnidad,
-                                existencia = 0,
-                                fecha = fechaSistema.Date,
-                                fisica = 0,
-                                nombre = det.nombreProducto,
-                                signo = det.signo,
-                                tipo = det.tipo,
-                                total = det.total,
-                            };
-                            cnn.productos_movimientos_detalle.Add(entMovDet);
-                            cnn.SaveChanges();
+                                result.Mensaje = "PROBLEMA AL REGISTRAR MOVIMIENTO DETALLE [ " + Environment.NewLine + det.autoProducto + " ]";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result;
+                            }
                         };
 
 
                         var sql2=@"INSERT INTO productos_kardex (auto_producto,total,auto_deposito,auto_concepto,auto_documento,
                             fecha,hora,documento,modulo,entidad,signo,cantidad,cantidad_bono,cantidad_und,costo_und,estatus_anulado,
-                            nota,precio_und,codigo,siglas,codigo_sucursal, cierre_fpt) VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, 
+                            nota,precio_und,codigo,siglas,codigo_sucursal, cierre_ftp) VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, 
                             {12}, {13}, {14}, {15},{16}, {17}, {18}, {19}, {20}, {21})";
                         //KARDEX MOV=> ITEMS
                         foreach (var dt in ficha.movKardex)
                         {
+                            var entPrdDep = cnn.productos_deposito.FirstOrDefault(f => f.auto_producto == dt.autoProducto && f.auto_deposito == dt.autoDeposito);
+                            if (entPrdDep == null) 
+                            {
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                result.Mensaje = "DEPOSITO DEL PRODUCTO NO ENCONTRADO";
+                                return result;
+                            }
+                            entPrdDep.fisica += (dt.cantidadUnd * dt.signo);
+                            entPrdDep.disponible = entPrdDep.fisica;
+                            cnn.SaveChanges();
+
                             var vk = cnn.Database.ExecuteSqlCommand(sql2, dt.autoProducto, dt.total, dt.autoDeposito ,
                                 dt.autoConcepto, autoMov, fechaSistema.Date, fechaSistema.ToShortTimeString(), numDoc,
                                 dt.modulo ,dt.entidad, dt.signo ,dt.cantidad, dt.cantidadBono, dt.cantidadUnd, dt.costoUnd , dt.estatusAnulado,
@@ -194,7 +195,7 @@ namespace ProvLibInventario
                         };
                         
                         ts.Complete();
-                        result.Auto = autoMov;
+                        result.Auto = autoMov ;
                     }
                 }
             }
@@ -230,6 +231,69 @@ namespace ProvLibInventario
                 result.Mensaje = e.Message;
                 result.Result = DtoLib.Enumerados.EnumResult.isError;
             }
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.Ver.Ficha> Producto_Movimiento_GetFicha(string autoDoc)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.Ver.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var ent = cnn.productos_movimientos.Find(autoDoc);
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] DOCUMENTO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    var entDet = cnn.productos_movimientos_detalle.Where(f => f.auto_documento == autoDoc).ToList();
+                    var nr = new DtoLibInventario.Movimiento.Ver.Ficha()
+                    {
+                        autorizadoPor = ent.autorizado,
+                        codigoConcepto = ent.codigo_concepto,
+                        codigoDepositoDestino = ent.codigo_destino,
+                        codigoDepositoOrigen = ent.codigo_deposito,
+                        concepto = ent.concepto,
+                        depositoDestino = ent.destino,
+                        depositoOrigen = ent.deposito,
+                        documentoNro = ent.documento,
+                        estacion = ent.estacion,
+                        fecha = ent.fecha,
+                        hora = ent.hora,
+                        notas = ent.nota,
+                        tipoDocumento = ent.tipo,
+                        total = ent.total,
+                        usuario = ent.usuario,
+                        usuarioCodigo = ent.codigo_usuario,
+                    };
+
+                    var det = entDet.Select(s =>
+                    {
+                        var dt = new DtoLibInventario.Movimiento.Ver.Detalle()
+                        {
+                            cantidad = s.cantidad_und,
+                            codigo = s.codigo,
+                            costoUnd = s.costo_und,
+                            descripcion = s.nombre,
+                            importe = s.total,
+                            signo = s.signo,
+                        };
+                        return dt;
+                    }).ToList();
+                    nr.detalles = det;
+
+                    result.Entidad = nr;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
             return result;
         }
 

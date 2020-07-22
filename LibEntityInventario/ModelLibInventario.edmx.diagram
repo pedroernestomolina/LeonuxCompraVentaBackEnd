@@ -50,6 +50,10 @@
         <AssociationConnector Association="invModel.productos_movimientos_detalle_ibfk_2" />
         <AssociationConnector Association="invModel.productos_movimientos_ibfk_1" />
         <AssociationConnector Association="invModel.productos_movimientos_detalle_ibfk_1" />
+        <EntityTypeShape EntityType="invModel.usuarios" Width="1.5" PointX="6.375" PointY="5" />
+        <AssociationConnector Association="invModel.productos_movimientos_ibfk_2" />
+        <EntityTypeShape EntityType="invModel.pos_arqueo" Width="1.5" PointX="22.875" PointY="25.625" />
+        <EntityTypeShape EntityType="invModel.cxc_medio_pago" Width="1.5" PointX="36.125" PointY="4.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -7,14 +7,16 @@ using System.Threading.Tasks;
 
 namespace ConsoleInventario
 {
+
     class Program
     {
+
         static void Main(string[] args)
         {
-            ILibInventario.IProvider invPrv = new ProvLibInventario.Provider();
-            var filt = new DtoLibInventario.Producto.Filtro();
-            filt.autoProveedor = "0000000104";
-            filt.estatus= DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
+            ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("192.168.0.185","00000001");
+            //var filt = new DtoLibInventario.Producto.Filtro();
+            //filt.autoProveedor = "0000000104";
+            //filt.estatus= DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
             //filt.autoDeposito = "0000000002";
             //filt.autoGrupo = "0000000001";
             //filt.autoTasa = "0000000004";
@@ -37,13 +39,17 @@ namespace ConsoleInventario
             //var filtroExistencia = new DtoLibInventario.Existencia.Deposito.Filtro() { autoProducto = "0000000308", autoDeposito = "0000000001" };
             //var rt1 = invPrv.Producto_Existencia_Deposito(filtroExistencia);
             //var filtroExistencia = new DtoLibInventario.Existencia.Deposito.Filtro() { autoProducto = "0000000308", autoDeposito = "0000000001" };
-
-            var filtroMov = new DtoLibInventario.Movimiento.Traslado.Consultar.Filtro() {autoDeposito = "0000000002" };
-            var rt1 = invPrv.Producto_Movimiento_Traslado_Consultar_ProductosPorDebajoNivelMinimo(filtroMov);
-
-            var fichaIns = new DtoLibInventario.Movimiento.Traslado.Insertar.Ficha();
-            var rt2 = invPrv.Producto_Movimiento_Traslado_Insertar(fichaIns);
-
+            //var filtroMov = new DtoLibInventario.Movimiento.Traslado.Consultar.Filtro() { autoDeposito = "0000000002" };
+            //var rt1 = invPrv.Producto_Movimiento_Traslado_Consultar_ProductosPorDebajoNivelMinimo(filtroMov);
+            //var fichaIns = new DtoLibInventario.Movimiento.Traslado.Insertar.Ficha();
+            //var rt2 = invPrv.Producto_Movimiento_Traslado_Insertar(fichaIns);
+            //var filtro = new DtoLibInventario.Reportes.Movimientos.Filtro() {};
+            //var rt1 = invPrv.CajaBanco_ArqueoVentaPos(filtro);
+            //var filtro = new DtoLibInventario.Tool.AjusteNivelMinimoMaximo.Capturar.Filtro();
+            //filtro.autoDeposito = "0000000002";
+            //var rt1 = invPrv.Deposito_GetFicha("0000000002");
         }
+
     }
+
 }

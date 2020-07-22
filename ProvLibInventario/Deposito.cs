@@ -51,6 +51,55 @@ namespace ProvLibInventario
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Deposito.Ficha> Deposito_GetFicha(string autoDep)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Deposito.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var ent = cnn.empresa_depositos.Find(autoDep);
+
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] DEPOSITO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var _autoSuc="";
+                    var _codSuc="";
+                    var _nomSuc="";
+                    var entSuc= cnn.empresa_sucursal.FirstOrDefault(f=>f.codigo==ent.codigo_sucursal);
+                    if (entSuc!=null)
+                    {
+                        _autoSuc=entSuc.auto;
+                        _codSuc=entSuc.codigo;
+                        _nomSuc=entSuc.nombre;
+                    };
+
+                    var nr = new DtoLibInventario.Deposito.Ficha()
+                    {
+                        auto = ent.auto,
+                        codigo = ent.codigo,
+                        nombre = ent.nombre,
+                        autoSucursal = _autoSuc,
+                        codigoSucursal = _codSuc,
+                        nombreSucursal = _nomSuc,
+                    };
+                    result.Entidad = nr;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }
