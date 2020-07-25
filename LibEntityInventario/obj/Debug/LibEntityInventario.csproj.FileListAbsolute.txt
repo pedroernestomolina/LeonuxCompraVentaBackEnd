@@ -1,0 +1,10 @@
+D:\Proyectos FoxSystem\CompraVenta\LibEntityInventario\bin\Debug\LibEntityInventario.dll.config
+D:\Proyectos FoxSystem\CompraVenta\LibEntityInventario\bin\Debug\LibEntityInventario.dll
+D:\Proyectos FoxSystem\CompraVenta\LibEntityInventario\bin\Debug\LibEntityInventario.pdb
+D:\Proyectos FoxSystem\CompraVenta\LibEntityInventario\bin\Debug\EntityFramework.dll
+D:\Proyectos FoxSystem\CompraVenta\LibEntityInventario\bin\Debug\EntityFramework.SqlServer.dll
+D:\Proyectos FoxSystem\CompraVenta\LibEntityInventario\bin\Debug\MySql.Data.Entity.EF6.dll
+D:\Proyectos FoxSystem\CompraVenta\LibEntityInventario\bin\Debug\EntityFramework.xml
+D:\Proyectos FoxSystem\CompraVenta\LibEntityInventario\bin\Debug\EntityFramework.SqlServer.xml
+D:\Proyectos FoxSystem\CompraVenta\LibEntityInventario\obj\Debug\LibEntityInventario.dll
+D:\Proyectos FoxSystem\CompraVenta\LibEntityInventario\obj\Debug\LibEntityInventario.pdb

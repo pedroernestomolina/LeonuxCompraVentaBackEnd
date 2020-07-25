@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LeonuxPosOffLineModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=&quot;D:\Proyectos FoxSystem\CompraVenta\LeonuxPosOffLine.db&quot;" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreRazonSocial" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="cirif" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="dirFiscal" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="telefono" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cobrador">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Deposito">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Empresa">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="cirif" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="direccion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="telefono" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Fiscal">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="tasa" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idPendiente" Type="integer" Nullable="false" />
+    <Property Name="autoPrd" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="nombrePrd" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="cantidad" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="tasaIva" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="precioNeto" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="esPesado" Type="integer" Nullable="false" />
+    <Property Name="tipoIva" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="costoUnd" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="costoPromUnd" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="autoDepartamento" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoGrupo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoSubGrupo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoTasa" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="categoria" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigoProducto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="decimales" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="diasEmpaqueGarantia" Type="integer" Nullable="false" />
+    <Property Name="empaqueCodigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="empaqueDescripcion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="empaqueContenido" Type="integer" Nullable="false" />
+    <Property Name="tarifaPrecio" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="precioSugerido" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="costoCompra" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="costoPromedio" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Jornada">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fechaApertura" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="horaApertura" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="estatus" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="fechaCierre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="horaCierre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="estatusTransmitida" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MedioCobro">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="descripcion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MovConceptoInv">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Operador">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idJornada" Type="integer" Nullable="false" />
+    <Property Name="autoUsuario" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigoUsuario" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="usuario" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="fechaApertura" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="horaApertura" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="estatus" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="fechaCierre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="horaCierre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="prefijo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OperadorCierre">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idOperador" Type="integer" Nullable="false" />
+    <Property Name="diferencia" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="efectivo" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="divisa" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="tarjeta" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="otros" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="devolucion" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="subTotal" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="total" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="mEfectivo" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="mDivisa" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="mTarjeta" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="mOtros" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="mSubTotal" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="mTotal" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="firma" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="mFirma" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Pendiente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idCliente" Type="integer" Nullable="false" />
+    <Property Name="fecha" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="hora" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="monto" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="renglones" Type="integer" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Permiso">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="modulo" Type="integer" Nullable="false" />
+    <Property Name="descripcion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="requiereClave" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigoPrd" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="nombrePrd" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="isActivo" Type="integer" Nullable="false" />
+    <Property Name="plu" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="descripcionPrd" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="referencia" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="categoria" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codDepartamento" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="departamento" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codGrupo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="grupo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="marca" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="modelo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="pasilo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="isPesado" Type="integer" Nullable="false" />
+    <Property Name="isOferta" Type="integer" Nullable="false" />
+    <Property Name="isDivisa" Type="integer" Nullable="false" />
+    <Property Name="tasaImpuesto" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="ofertaDesde" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="ofertaHasta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="ofertaprecio" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="precio_1" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="precio_2" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="precio_3" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="precio_4" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="cont_1" Type="integer" Nullable="false" />
+    <Property Name="cont_2" Type="integer" Nullable="false" />
+    <Property Name="cont_3" Type="integer" Nullable="false" />
+    <Property Name="cont_4" Type="integer" Nullable="false" />
+    <Property Name="dec_1" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="dec_2" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="dec_3" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="dec_4" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="emp_1" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="emp_2" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="emp_3" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="emp_4" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="dias_Empaque_Garantia" Type="integer" Nullable="false" />
+    <Property Name="costo" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="costoPromedio" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="costoUnidad" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="costoPromedioUnidad" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="autoDepartamento" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoGrupo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoMarca" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoSubGrupo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoTasaIva" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="precio_5" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="cont_5" Type="integer" Nullable="false" />
+    <Property Name="dec_5" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="emp_5" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductoBarra">
+    <Key>
+      <PropertyRef Name="codigo" />
+    </Key>
+    <Property Name="autoProducto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Serie">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="serie" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="control" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="correlativo" Type="integer" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sistema">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="factorCambio" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="sucursalCodigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="serieFactura" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="serieNotaCredito" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="serieNotaDebito" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="activarRepesaje" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="limiteRepesajeInferior" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="limiteRepesajeSuperior" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="modoOperacion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="activarBusquedaPorDescripcion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoDeposito" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoVendedor" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoCobrador" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoTransporte" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoMedioPagoEfectivo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoMedioPagoDivisa" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoMedioPagoElectronico" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoMedioPagoOtro" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="clave1" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="clave2" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="clave3" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="clavePos" Type="integer" Nullable="false" />
+    <Property Name="tarifaAsignada" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="EtiquetarPrecioPorTipoNegocio" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="serieNotaEntrega" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="equipoNumero" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoConceptoMovVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoConceptoMovDevVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoConceptoMovSalida" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="fechaUltActualizacion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Transporte">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UsuarioGrupo">
+    <Key>
+      <PropertyRef Name="autoUsuario" />
+    </Key>
+    <Property Name="autoUsuario" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoGrupo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="usuarioCodigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="usuarioDescripcion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="usuarioClave" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="grupoDescripcion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="usuarioEstatus" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Vendedor">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Venta">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="documento" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="fecha" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="nombreRazonSocial" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="dirFiscal" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="ciRif" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="montoExento" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="montoBase" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="montoImpuesto" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="base1" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="base2" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="base3" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="impuesto1" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="impuesto2" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="impuesto3" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="montoTotal" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="tasaIva1" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="tasaIva2" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="tasaIva3" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="mesRelacion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="control" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="descuentoMonto1" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="descuentoMonto2" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="cargoMonto1" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="descuentoPorc1" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="descuentoPorc2" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="cargoPorc_1" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="estatusActivo" Type="integer" Nullable="false" />
+    <Property Name="tipoDocumento" Type="integer" Nullable="false" />
+    <Property Name="aplica" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="montoSubTotalNeto" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="telefono" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="factorCambio" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="usuario" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="usuarioCodigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="hora" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="montoDivisa" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="estacion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="renglones" Type="integer" Nullable="false" />
+    <Property Name="anoRelacion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoUsuario" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="signo" Type="integer" Nullable="false" />
+    <Property Name="serie" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="montoSubTotalImpuesto" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="montoSubTotal" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="montoVentaNeta" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="montoCostoVenta" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="montoUtilidad" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="montoUtilidadPorc" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="codigoSucursal" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoDeposito" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigoDeposito" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="deposito" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoVendedor" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigoVendedor" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="vendedor" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoTransporte" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigoTransporte" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="transporte" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoCobrador" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigoCobrador" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="cobrador" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="montoRecibido" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="cambioDar" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="esCredito" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="idCliente" Type="integer" Nullable="false" />
+    <Property Name="idJornada" Type="integer" Nullable="false" />
+    <Property Name="idOperador" Type="integer" Nullable="false" />
+    <Property Name="saldoPendiente" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="tarifa" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoConceptoMov" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigoConceptoMov" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="nombreConceptoMov" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="prefijo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VentaDetalle">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idVenta" Type="integer" Nullable="false" />
+    <Property Name="autoProducto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigoProducto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="NombreProducto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoDepartamento" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoGrupo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoSubGrupo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="autoTasa" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="cantidad" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="empaqueDescripcion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="precioNeto" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="porctDesc1" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="porctDesc2" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="porctDesc3" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="montoDesc1" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="montoDesc2" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="montoDesc3" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="costoVenta" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="totalNeto" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="tasaIva" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="montoIva" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="total" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="precioFinal" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="decimales" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="tarifa" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="categoria" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="costoCompraUnd" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="costoPromedioUnd" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="notas" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="precioSugerido" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="diaEmpaqueGarantia" Type="integer" Nullable="false" />
+    <Property Name="empaqueContenido" Type="integer" Nullable="false" />
+    <Property Name="cantidadUnd" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="precioUnd" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="utilidadMonto" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="utilidadPorct" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="precioItem" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="totalDescuento" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="tipoIva" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="esPesado" Type="integer" Nullable="false" />
+    <Property Name="empaqueCodigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="costoCompra" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="costoPromedio" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VentaPago">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idVenta" Type="integer" Nullable="false" />
+    <Property Name="autoMedioCobro" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codioMedioCobro" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="descripMedioCobro" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="importe" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="montoRecibido" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="tasa" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="lote" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="referencia" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="tipoMedioCobro" Type="integer" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="LeonuxPosOffLineModelStoreContainer">
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" store:Type="Tables" />
+    <EntitySet Name="Cobrador" EntityType="Self.Cobrador" store:Type="Tables" />
+    <EntitySet Name="Deposito" EntityType="Self.Deposito" store:Type="Tables" />
+    <EntitySet Name="Empresa" EntityType="Self.Empresa" store:Type="Tables" />
+    <EntitySet Name="Fiscal" EntityType="Self.Fiscal" store:Type="Tables" />
+    <EntitySet Name="Item" EntityType="Self.Item" store:Type="Tables" />
+    <EntitySet Name="Jornada" EntityType="Self.Jornada" store:Type="Tables" />
+    <EntitySet Name="MedioCobro" EntityType="Self.MedioCobro" store:Type="Tables" />
+    <EntitySet Name="MovConceptoInv" EntityType="Self.MovConceptoInv" store:Type="Tables" />
+    <EntitySet Name="Operador" EntityType="Self.Operador" store:Type="Tables" />
+    <EntitySet Name="OperadorCierre" EntityType="Self.OperadorCierre" store:Type="Tables" />
+    <EntitySet Name="Pendiente" EntityType="Self.Pendiente" store:Type="Tables" />
+    <EntitySet Name="Permiso" EntityType="Self.Permiso" store:Type="Tables" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" store:Type="Tables" />
+    <EntitySet Name="ProductoBarra" EntityType="Self.ProductoBarra" store:Type="Tables" />
+    <EntitySet Name="Serie" EntityType="Self.Serie" store:Type="Tables" />
+    <EntitySet Name="Sistema" EntityType="Self.Sistema" store:Type="Tables" />
+    <EntitySet Name="Transporte" EntityType="Self.Transporte" store:Type="Tables" />
+    <EntitySet Name="UsuarioGrupo" EntityType="Self.UsuarioGrupo" store:Type="Tables" />
+    <EntitySet Name="Vendedor" EntityType="Self.Vendedor" store:Type="Tables" />
+    <EntitySet Name="Venta" EntityType="Self.Venta" store:Type="Tables" />
+    <EntitySet Name="VentaDetalle" EntityType="Self.VentaDetalle" store:Type="Tables" />
+    <EntitySet Name="VentaPago" EntityType="Self.VentaPago" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,16 @@
+D:\Proyectos FoxSystem\CompraVenta\ProvLibVenta\bin\Debug\ProvLibVenta.dll.config
+D:\Proyectos FoxSystem\CompraVenta\ProvLibVenta\bin\Debug\ProvLibVenta.dll
+D:\Proyectos FoxSystem\CompraVenta\ProvLibVenta\bin\Debug\ProvLibVenta.pdb
+D:\Proyectos FoxSystem\CompraVenta\ProvLibVenta\bin\Debug\DtoLib.dll
+D:\Proyectos FoxSystem\CompraVenta\ProvLibVenta\bin\Debug\DtoLibVenta.dll
+D:\Proyectos FoxSystem\CompraVenta\ProvLibVenta\bin\Debug\EntityFramework.dll
+D:\Proyectos FoxSystem\CompraVenta\ProvLibVenta\bin\Debug\ILibVentas.dll
+D:\Proyectos FoxSystem\CompraVenta\ProvLibVenta\bin\Debug\LibEntityVentas.dll
+D:\Proyectos FoxSystem\CompraVenta\ProvLibVenta\bin\Debug\DtoLibVenta.pdb
+D:\Proyectos FoxSystem\CompraVenta\ProvLibVenta\bin\Debug\DtoLib.pdb
+D:\Proyectos FoxSystem\CompraVenta\ProvLibVenta\bin\Debug\ILibVentas.pdb
+D:\Proyectos FoxSystem\CompraVenta\ProvLibVenta\bin\Debug\LibEntityVentas.pdb
+D:\Proyectos FoxSystem\CompraVenta\ProvLibVenta\bin\Debug\EntityFramework.xml
+D:\Proyectos FoxSystem\CompraVenta\ProvLibVenta\obj\Debug\ProvLibVenta.csprojResolveAssemblyReference.cache
+D:\Proyectos FoxSystem\CompraVenta\ProvLibVenta\obj\Debug\ProvLibVenta.dll
+D:\Proyectos FoxSystem\CompraVenta\ProvLibVenta\obj\Debug\ProvLibVenta.pdb

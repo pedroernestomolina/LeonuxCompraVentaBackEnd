@@ -1,0 +1,5 @@
+D:\Proyectos FoxSystem\CompraVenta\DtoLinInventario\bin\Debug\DtoLinInventario.dll
+D:\Proyectos FoxSystem\CompraVenta\DtoLinInventario\bin\Debug\DtoLinInventario.pdb
+D:\Proyectos FoxSystem\CompraVenta\DtoLinInventario\obj\Debug\DtoLinInventario.csprojResolveAssemblyReference.cache
+D:\Proyectos FoxSystem\CompraVenta\DtoLinInventario\obj\Debug\DtoLinInventario.dll
+D:\Proyectos FoxSystem\CompraVenta\DtoLinInventario\obj\Debug\DtoLinInventario.pdb

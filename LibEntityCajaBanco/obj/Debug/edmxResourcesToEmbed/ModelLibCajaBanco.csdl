@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cajaBancoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="cxc_medio_pago">
+    <Key>
+      <PropertyRef Name="auto_recibo" />
+      <PropertyRef Name="auto_medio_pago" />
+      <PropertyRef Name="auto_agencia" />
+      <PropertyRef Name="medio" />
+      <PropertyRef Name="codigo" />
+      <PropertyRef Name="monto_recibido" />
+      <PropertyRef Name="fecha" />
+      <PropertyRef Name="estatus_anulado" />
+      <PropertyRef Name="numero" />
+      <PropertyRef Name="agencia" />
+      <PropertyRef Name="auto_usuario" />
+      <PropertyRef Name="lote" />
+      <PropertyRef Name="referencia" />
+      <PropertyRef Name="auto_cobrador" />
+      <PropertyRef Name="cierre" />
+      <PropertyRef Name="fecha_agencia" />
+      <PropertyRef Name="cierre_ftp" />
+    </Key>
+    <Property Name="auto_recibo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="auto_medio_pago" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="auto_agencia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="medio" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="codigo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="monto_recibido" Type="Decimal" Nullable="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="estatus_anulado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="numero" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="agencia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="auto_usuario" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lote" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="referencia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="auto_cobrador" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cierre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha_agencia" Type="DateTime" Nullable="false" />
+    <Property Name="cierre_ftp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="pos_arqueo">
+    <Key>
+      <PropertyRef Name="auto_cierre" />
+      <PropertyRef Name="auto_usuario" />
+      <PropertyRef Name="codigo" />
+      <PropertyRef Name="usuario" />
+      <PropertyRef Name="fecha" />
+      <PropertyRef Name="hora" />
+      <PropertyRef Name="diferencia" />
+      <PropertyRef Name="efectivo" />
+      <PropertyRef Name="cheque" />
+      <PropertyRef Name="debito" />
+      <PropertyRef Name="credito" />
+      <PropertyRef Name="ticket" />
+      <PropertyRef Name="firma" />
+      <PropertyRef Name="retiro" />
+      <PropertyRef Name="otros" />
+      <PropertyRef Name="devolucion" />
+      <PropertyRef Name="subtotal" />
+      <PropertyRef Name="cobranza" />
+      <PropertyRef Name="total" />
+      <PropertyRef Name="mefectivo" />
+      <PropertyRef Name="mcheque" />
+      <PropertyRef Name="mbanco1" />
+      <PropertyRef Name="mbanco2" />
+      <PropertyRef Name="mbanco3" />
+      <PropertyRef Name="mbanco4" />
+      <PropertyRef Name="mtarjeta" />
+      <PropertyRef Name="mticket" />
+      <PropertyRef Name="mtrans" />
+      <PropertyRef Name="mfirma" />
+      <PropertyRef Name="motros" />
+      <PropertyRef Name="mgastos" />
+      <PropertyRef Name="mretiro" />
+      <PropertyRef Name="mretenciones" />
+      <PropertyRef Name="msubtotal" />
+      <PropertyRef Name="mtotal" />
+      <PropertyRef Name="cierre_ftp" />
+    </Key>
+    <Property Name="auto_cierre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="auto_usuario" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="usuario" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="hora" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="diferencia" Type="Decimal" Nullable="false" />
+    <Property Name="efectivo" Type="Decimal" Nullable="false" />
+    <Property Name="cheque" Type="Decimal" Nullable="false" />
+    <Property Name="debito" Type="Decimal" Nullable="false" />
+    <Property Name="credito" Type="Decimal" Nullable="false" />
+    <Property Name="ticket" Type="Decimal" Nullable="false" />
+    <Property Name="firma" Type="Decimal" Nullable="false" />
+    <Property Name="retiro" Type="Decimal" Nullable="false" />
+    <Property Name="otros" Type="Decimal" Nullable="false" />
+    <Property Name="devolucion" Type="Decimal" Nullable="false" />
+    <Property Name="subtotal" Type="Decimal" Nullable="false" />
+    <Property Name="cobranza" Type="Decimal" Nullable="false" />
+    <Property Name="total" Type="Decimal" Nullable="false" />
+    <Property Name="mefectivo" Type="Decimal" Nullable="false" />
+    <Property Name="mcheque" Type="Decimal" Nullable="false" />
+    <Property Name="mbanco1" Type="Decimal" Nullable="false" />
+    <Property Name="mbanco2" Type="Decimal" Nullable="false" />
+    <Property Name="mbanco3" Type="Decimal" Nullable="false" />
+    <Property Name="mbanco4" Type="Decimal" Nullable="false" />
+    <Property Name="mtarjeta" Type="Decimal" Nullable="false" />
+    <Property Name="mticket" Type="Decimal" Nullable="false" />
+    <Property Name="mtrans" Type="Decimal" Nullable="false" />
+    <Property Name="mfirma" Type="Decimal" Nullable="false" />
+    <Property Name="motros" Type="Decimal" Nullable="false" />
+    <Property Name="mgastos" Type="Decimal" Nullable="false" />
+    <Property Name="mretiro" Type="Decimal" Nullable="false" />
+    <Property Name="mretenciones" Type="Decimal" Nullable="false" />
+    <Property Name="msubtotal" Type="Decimal" Nullable="false" />
+    <Property Name="mtotal" Type="Decimal" Nullable="false" />
+    <Property Name="cierre_ftp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="cajaBancoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="cxc_medio_pago" EntityType="Self.cxc_medio_pago" />
+    <EntitySet Name="pos_arqueo" EntityType="Self.pos_arqueo" />
+    <EntitySet Name="usuarios" EntityType="cajaBancoModel.usuarios" />
+    <EntitySet Name="empresa_sucursal" EntityType="cajaBancoModel.empresa_sucursal" />
+  </EntityContainer>
+  <EntityType Name="usuarios">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="clave" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_grupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_replica" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_alta" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_baja" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_sesion" Type="DateTime" Nullable="false" />
+    <Property Name="apellido" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="empresa_sucursal">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="autoDepositoPrincipal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="autoEmpresaGrupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

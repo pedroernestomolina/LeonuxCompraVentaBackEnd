@@ -1,0 +1,7 @@
+D:\Proyectos FoxSystem\CompraVenta\DtoLibPosOffLine\bin\Debug\DtoLibPosOffLine.dll
+D:\Proyectos FoxSystem\CompraVenta\DtoLibPosOffLine\bin\Debug\DtoLibPosOffLine.pdb
+D:\Proyectos FoxSystem\CompraVenta\DtoLibPosOffLine\bin\Debug\DtoLib.dll
+D:\Proyectos FoxSystem\CompraVenta\DtoLibPosOffLine\bin\Debug\DtoLib.pdb
+D:\Proyectos FoxSystem\CompraVenta\DtoLibPosOffLine\obj\Debug\DtoLibPosOffLine.csprojResolveAssemblyReference.cache
+D:\Proyectos FoxSystem\CompraVenta\DtoLibPosOffLine\obj\Debug\DtoLibPosOffLine.dll
+D:\Proyectos FoxSystem\CompraVenta\DtoLibPosOffLine\obj\Debug\DtoLibPosOffLine.pdb

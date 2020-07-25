@@ -1,0 +1,9 @@
+D:\Proyectos FoxSystem\CompraVenta\IPosOffLine\bin\Debug\IPosOffLine.dll
+D:\Proyectos FoxSystem\CompraVenta\IPosOffLine\bin\Debug\IPosOffLine.pdb
+D:\Proyectos FoxSystem\CompraVenta\IPosOffLine\bin\Debug\DtoLib.dll
+D:\Proyectos FoxSystem\CompraVenta\IPosOffLine\bin\Debug\DtoLibPosOffLine.dll
+D:\Proyectos FoxSystem\CompraVenta\IPosOffLine\bin\Debug\DtoLibPosOffLine.pdb
+D:\Proyectos FoxSystem\CompraVenta\IPosOffLine\bin\Debug\DtoLib.pdb
+D:\Proyectos FoxSystem\CompraVenta\IPosOffLine\obj\Debug\IPosOffLine.csprojResolveAssemblyReference.cache
+D:\Proyectos FoxSystem\CompraVenta\IPosOffLine\obj\Debug\IPosOffLine.dll
+D:\Proyectos FoxSystem\CompraVenta\IPosOffLine\obj\Debug\IPosOffLine.pdb

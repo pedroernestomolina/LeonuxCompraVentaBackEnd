@@ -1,0 +1,9 @@
+D:\Proyectos FoxSystem\CompraVenta\ILibCajaBanco\bin\Debug\ILibCajaBanco.dll
+D:\Proyectos FoxSystem\CompraVenta\ILibCajaBanco\bin\Debug\ILibCajaBanco.pdb
+D:\Proyectos FoxSystem\CompraVenta\ILibCajaBanco\bin\Debug\DtoLib.dll
+D:\Proyectos FoxSystem\CompraVenta\ILibCajaBanco\bin\Debug\DtoLibCajaBanco.dll
+D:\Proyectos FoxSystem\CompraVenta\ILibCajaBanco\bin\Debug\DtoLibCajaBanco.pdb
+D:\Proyectos FoxSystem\CompraVenta\ILibCajaBanco\bin\Debug\DtoLib.pdb
+D:\Proyectos FoxSystem\CompraVenta\ILibCajaBanco\obj\Debug\ILibCajaBanco.csprojResolveAssemblyReference.cache
+D:\Proyectos FoxSystem\CompraVenta\ILibCajaBanco\obj\Debug\ILibCajaBanco.dll
+D:\Proyectos FoxSystem\CompraVenta\ILibCajaBanco\obj\Debug\ILibCajaBanco.pdb

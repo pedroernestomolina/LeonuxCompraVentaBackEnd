@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="libComprasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="compras">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="documento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_vencimiento" Type="DateTime" Nullable="false" />
+    <Property Name="razon_social" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="dir_fiscal" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ci_rif" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tipo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="exento" Type="Decimal" Nullable="false" />
+    <Property Name="base1" Type="Decimal" Nullable="false" />
+    <Property Name="base2" Type="Decimal" Nullable="false" />
+    <Property Name="base3" Type="Decimal" Nullable="false" />
+    <Property Name="impuesto1" Type="Decimal" Nullable="false" />
+    <Property Name="impuesto2" Type="Decimal" Nullable="false" />
+    <Property Name="impuesto3" Type="Decimal" Nullable="false" />
+    <Property Name="base" Type="Decimal" Nullable="false" />
+    <Property Name="impuesto" Type="Decimal" Nullable="false" />
+    <Property Name="total" Type="Decimal" Nullable="false" />
+    <Property Name="tasa1" Type="Decimal" Nullable="false" />
+    <Property Name="tasa2" Type="Decimal" Nullable="false" />
+    <Property Name="tasa3" Type="Decimal" Nullable="false" />
+    <Property Name="nota" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tasa_retencion_iva" Type="Decimal" Nullable="false" />
+    <Property Name="tasa_retencion_islr" Type="Decimal" Nullable="false" />
+    <Property Name="retencion_iva" Type="Decimal" Nullable="false" />
+    <Property Name="retencion_islr" Type="Decimal" Nullable="false" />
+    <Property Name="auto_proveedor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="codigo_proveedor" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="mes_relacion" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="control" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha_registro" Type="DateTime" Nullable="false" />
+    <Property Name="orden_compra" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="dias" Type="Int32" Nullable="false" />
+    <Property Name="descuento1" Type="Decimal" Nullable="false" />
+    <Property Name="descuento2" Type="Decimal" Nullable="false" />
+    <Property Name="cargos" Type="Decimal" Nullable="false" />
+    <Property Name="descuento1p" Type="Decimal" Nullable="false" />
+    <Property Name="descuento2p" Type="Decimal" Nullable="false" />
+    <Property Name="cargosp" Type="Decimal" Nullable="false" />
+    <Property Name="columna" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="estatus_anulado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="aplica" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="comprobante_retencion" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="subtotal_neto" Type="Decimal" Nullable="false" />
+    <Property Name="telefono" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="factor_cambio" Type="Decimal" Nullable="false" />
+    <Property Name="condicion_pago" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="codigo_usuario" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="codigo_sucursal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="hora" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="monto_divisa" Type="Decimal" Nullable="false" />
+    <Property Name="estacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="renglones" Type="Int32" Nullable="false" />
+    <Property Name="saldo_pendiente" Type="Decimal" Nullable="false" />
+    <Property Name="ano_relacion" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="comprobante_retencion_islr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="dias_validez" Type="Int32" Nullable="false" />
+    <Property Name="auto_usuario" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="situacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="signo" Type="Int32" Nullable="false" />
+    <Property Name="serie" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tarifa" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tipo_remision" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="documento_remision" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="auto_remision" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="documento_nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="subtotal_impuesto" Type="Decimal" Nullable="false" />
+    <Property Name="subtotal" Type="Decimal" Nullable="false" />
+    <Property Name="auto_cxp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tipo_proveedor" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="planilla" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="expediente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="anticipo_iva" Type="Decimal" Nullable="false" />
+    <Property Name="terceros_iva" Type="Decimal" Nullable="false" />
+    <Property Name="neto" Type="Decimal" Nullable="false" />
+    <Property Name="costo" Type="Decimal" Nullable="false" />
+    <Property Name="utilidad" Type="Decimal" Nullable="false" />
+    <Property Name="utilidadp" Type="Decimal" Nullable="false" />
+    <Property Name="documento_tipo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="denominacion_fiscal" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="auto_concepto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha_retencion" Type="DateTime" Nullable="false" />
+    <Property Name="estatus_cierre_contable" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="compras_detalle" Relationship="libComprasModel.compras_detalle_ibfk_1" FromRole="compras" ToRole="compras_detalle" />
+  </EntityType>
+  <EntityContainer Name="libComprasEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="compras" EntityType="Self.compras" />
+    <EntitySet Name="compras_detalle" EntityType="libComprasModel.compras_detalle" />
+    <AssociationSet Name="compras_detalle_ibfk_1" Association="libComprasModel.compras_detalle_ibfk_1">
+      <End Role="compras" EntitySet="compras" />
+      <End Role="compras_detalle" EntitySet="compras_detalle" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="compras_detalle">
+    <Key>
+      <PropertyRef Name="auto_documento" />
+      <PropertyRef Name="auto_producto" />
+      <PropertyRef Name="codigo" />
+      <PropertyRef Name="nombre" />
+      <PropertyRef Name="auto_departamento" />
+      <PropertyRef Name="auto_grupo" />
+      <PropertyRef Name="auto_subgrupo" />
+      <PropertyRef Name="auto_deposito" />
+      <PropertyRef Name="cantidad" />
+      <PropertyRef Name="empaque" />
+      <PropertyRef Name="descuento1p" />
+      <PropertyRef Name="descuento2p" />
+      <PropertyRef Name="descuento3p" />
+      <PropertyRef Name="descuento1" />
+      <PropertyRef Name="descuento2" />
+      <PropertyRef Name="descuento3" />
+      <PropertyRef Name="total_neto" />
+      <PropertyRef Name="tasa" />
+      <PropertyRef Name="impuesto" />
+      <PropertyRef Name="total" />
+      <PropertyRef Name="auto" />
+      <PropertyRef Name="estatus_anulado" />
+      <PropertyRef Name="fecha" />
+      <PropertyRef Name="tipo" />
+      <PropertyRef Name="deposito" />
+      <PropertyRef Name="signo" />
+      <PropertyRef Name="auto_proveedor" />
+      <PropertyRef Name="decimales" />
+      <PropertyRef Name="contenido_empaque" />
+      <PropertyRef Name="cantidad_und" />
+      <PropertyRef Name="costo_und" />
+      <PropertyRef Name="codigo_deposito" />
+      <PropertyRef Name="detalle" />
+      <PropertyRef Name="auto_tasa" />
+      <PropertyRef Name="categoria" />
+      <PropertyRef Name="costo_promedio_und" />
+      <PropertyRef Name="costo_compra" />
+      <PropertyRef Name="codigo_proveedor" />
+      <PropertyRef Name="cantidad_bono" />
+      <PropertyRef Name="costo_bruto" />
+      <PropertyRef Name="estatus_unidad" />
+      <PropertyRef Name="fecha_lote" />
+    </Key>
+    <Property Name="auto_documento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="auto_departamento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_grupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_subgrupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_deposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cantidad" Type="Decimal" Nullable="false" />
+    <Property Name="empaque" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="descuento1p" Type="Decimal" Nullable="false" />
+    <Property Name="descuento2p" Type="Decimal" Nullable="false" />
+    <Property Name="descuento3p" Type="Decimal" Nullable="false" />
+    <Property Name="descuento1" Type="Decimal" Nullable="false" />
+    <Property Name="descuento2" Type="Decimal" Nullable="false" />
+    <Property Name="descuento3" Type="Decimal" Nullable="false" />
+    <Property Name="total_neto" Type="Decimal" Nullable="false" />
+    <Property Name="tasa" Type="Decimal" Nullable="false" />
+    <Property Name="impuesto" Type="Decimal" Nullable="false" />
+    <Property Name="total" Type="Decimal" Nullable="false" />
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_anulado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="tipo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="deposito" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="signo" Type="Int32" Nullable="false" />
+    <Property Name="auto_proveedor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="decimales" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="contenido_empaque" Type="Int32" Nullable="false" />
+    <Property Name="cantidad_und" Type="Decimal" Nullable="false" />
+    <Property Name="costo_und" Type="Decimal" Nullable="false" />
+    <Property Name="codigo_deposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="detalle" Type="String" Nullable="false" MaxLength="160" FixedLength="false" Unicode="false" />
+    <Property Name="auto_tasa" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="categoria" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="costo_promedio_und" Type="Decimal" Nullable="false" />
+    <Property Name="costo_compra" Type="Decimal" Nullable="false" />
+    <Property Name="codigo_proveedor" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="cantidad_bono" Type="Decimal" Nullable="false" />
+    <Property Name="costo_bruto" Type="Decimal" Nullable="false" />
+    <Property Name="estatus_unidad" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_lote" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="compras" Relationship="libComprasModel.compras_detalle_ibfk_1" FromRole="compras_detalle" ToRole="compras" />
+  </EntityType>
+  <Association Name="compras_detalle_ibfk_1">
+    <End Type="libComprasModel.compras" Role="compras" Multiplicity="1" />
+    <End Type="libComprasModel.compras_detalle" Role="compras_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="compras">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="compras_detalle">
+        <PropertyRef Name="auto_documento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LeonuxPosOffLineModelStoreContainer" CdmEntityContainer="LeonuxPosOffLineEntities">
+    <EntitySetMapping Name="ProductoBarra">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.ProductoBarra">
+        <MappingFragment StoreEntitySet="ProductoBarra">
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="autoProducto" ColumnName="autoProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cliente">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="dirFiscal" ColumnName="dirFiscal" />
+          <ScalarProperty Name="cirif" ColumnName="cirif" />
+          <ScalarProperty Name="nombreRazonSocial" ColumnName="nombreRazonSocial" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsuarioGrupo">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.UsuarioGrupo">
+        <MappingFragment StoreEntitySet="UsuarioGrupo">
+          <ScalarProperty Name="usuarioEstatus" ColumnName="usuarioEstatus" />
+          <ScalarProperty Name="grupoDescripcion" ColumnName="grupoDescripcion" />
+          <ScalarProperty Name="usuarioClave" ColumnName="usuarioClave" />
+          <ScalarProperty Name="usuarioDescripcion" ColumnName="usuarioDescripcion" />
+          <ScalarProperty Name="usuarioCodigo" ColumnName="usuarioCodigo" />
+          <ScalarProperty Name="autoGrupo" ColumnName="autoGrupo" />
+          <ScalarProperty Name="autoUsuario" ColumnName="autoUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Item">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Item">
+        <MappingFragment StoreEntitySet="Item">
+          <ScalarProperty Name="costoPromedio" ColumnName="costoPromedio" />
+          <ScalarProperty Name="costoCompra" ColumnName="costoCompra" />
+          <ScalarProperty Name="idPendiente" ColumnName="idPendiente" />
+          <ScalarProperty Name="precioSugerido" ColumnName="precioSugerido" />
+          <ScalarProperty Name="tarifaPrecio" ColumnName="tarifaPrecio" />
+          <ScalarProperty Name="empaqueContenido" ColumnName="empaqueContenido" />
+          <ScalarProperty Name="empaqueDescripcion" ColumnName="empaqueDescripcion" />
+          <ScalarProperty Name="empaqueCodigo" ColumnName="empaqueCodigo" />
+          <ScalarProperty Name="diasEmpaqueGarantia" ColumnName="diasEmpaqueGarantia" />
+          <ScalarProperty Name="decimales" ColumnName="decimales" />
+          <ScalarProperty Name="codigoProducto" ColumnName="codigoProducto" />
+          <ScalarProperty Name="categoria" ColumnName="categoria" />
+          <ScalarProperty Name="autoTasa" ColumnName="autoTasa" />
+          <ScalarProperty Name="autoSubGrupo" ColumnName="autoSubGrupo" />
+          <ScalarProperty Name="autoGrupo" ColumnName="autoGrupo" />
+          <ScalarProperty Name="autoDepartamento" ColumnName="autoDepartamento" />
+          <ScalarProperty Name="costoPromUnd" ColumnName="costoPromUnd" />
+          <ScalarProperty Name="costoUnd" ColumnName="costoUnd" />
+          <ScalarProperty Name="tipoIva" ColumnName="tipoIva" />
+          <ScalarProperty Name="esPesado" ColumnName="esPesado" />
+          <ScalarProperty Name="precioNeto" ColumnName="precioNeto" />
+          <ScalarProperty Name="tasaIva" ColumnName="tasaIva" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+          <ScalarProperty Name="nombrePrd" ColumnName="nombrePrd" />
+          <ScalarProperty Name="autoPrd" ColumnName="autoPrd" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fiscal">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Fiscal">
+        <MappingFragment StoreEntitySet="Fiscal">
+          <ScalarProperty Name="tasa" ColumnName="tasa" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VentaDetalle">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.VentaDetalle">
+        <MappingFragment StoreEntitySet="VentaDetalle">
+          <ScalarProperty Name="costoPromedio" ColumnName="costoPromedio" />
+          <ScalarProperty Name="costoCompra" ColumnName="costoCompra" />
+          <ScalarProperty Name="empaqueCodigo" ColumnName="empaqueCodigo" />
+          <ScalarProperty Name="esPesado" ColumnName="esPesado" />
+          <ScalarProperty Name="tipoIva" ColumnName="tipoIva" />
+          <ScalarProperty Name="totalDescuento" ColumnName="totalDescuento" />
+          <ScalarProperty Name="precioItem" ColumnName="precioItem" />
+          <ScalarProperty Name="utilidadPorct" ColumnName="utilidadPorct" />
+          <ScalarProperty Name="utilidadMonto" ColumnName="utilidadMonto" />
+          <ScalarProperty Name="precioUnd" ColumnName="precioUnd" />
+          <ScalarProperty Name="cantidadUnd" ColumnName="cantidadUnd" />
+          <ScalarProperty Name="empaqueContenido" ColumnName="empaqueContenido" />
+          <ScalarProperty Name="diaEmpaqueGarantia" ColumnName="diaEmpaqueGarantia" />
+          <ScalarProperty Name="precioSugerido" ColumnName="precioSugerido" />
+          <ScalarProperty Name="notas" ColumnName="notas" />
+          <ScalarProperty Name="costoPromedioUnd" ColumnName="costoPromedioUnd" />
+          <ScalarProperty Name="costoCompraUnd" ColumnName="costoCompraUnd" />
+          <ScalarProperty Name="categoria" ColumnName="categoria" />
+          <ScalarProperty Name="tarifa" ColumnName="tarifa" />
+          <ScalarProperty Name="decimales" ColumnName="decimales" />
+          <ScalarProperty Name="precioFinal" ColumnName="precioFinal" />
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="montoIva" ColumnName="montoIva" />
+          <ScalarProperty Name="tasaIva" ColumnName="tasaIva" />
+          <ScalarProperty Name="totalNeto" ColumnName="totalNeto" />
+          <ScalarProperty Name="costoVenta" ColumnName="costoVenta" />
+          <ScalarProperty Name="montoDesc3" ColumnName="montoDesc3" />
+          <ScalarProperty Name="montoDesc2" ColumnName="montoDesc2" />
+          <ScalarProperty Name="montoDesc1" ColumnName="montoDesc1" />
+          <ScalarProperty Name="porctDesc3" ColumnName="porctDesc3" />
+          <ScalarProperty Name="porctDesc2" ColumnName="porctDesc2" />
+          <ScalarProperty Name="porctDesc1" ColumnName="porctDesc1" />
+          <ScalarProperty Name="precioNeto" ColumnName="precioNeto" />
+          <ScalarProperty Name="empaqueDescripcion" ColumnName="empaqueDescripcion" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+          <ScalarProperty Name="autoTasa" ColumnName="autoTasa" />
+          <ScalarProperty Name="autoSubGrupo" ColumnName="autoSubGrupo" />
+          <ScalarProperty Name="autoGrupo" ColumnName="autoGrupo" />
+          <ScalarProperty Name="autoDepartamento" ColumnName="autoDepartamento" />
+          <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
+          <ScalarProperty Name="codigoProducto" ColumnName="codigoProducto" />
+          <ScalarProperty Name="autoProducto" ColumnName="autoProducto" />
+          <ScalarProperty Name="idVenta" ColumnName="idVenta" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Deposito">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Deposito">
+        <MappingFragment StoreEntitySet="Deposito">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vendedor">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Vendedor">
+        <MappingFragment StoreEntitySet="Vendedor">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pendiente">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Pendiente">
+        <MappingFragment StoreEntitySet="Pendiente">
+          <ScalarProperty Name="renglones" ColumnName="renglones" />
+          <ScalarProperty Name="monto" ColumnName="monto" />
+          <ScalarProperty Name="hora" ColumnName="hora" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MedioCobro">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.MedioCobro">
+        <MappingFragment StoreEntitySet="MedioCobro">
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cobrador">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Cobrador">
+        <MappingFragment StoreEntitySet="Cobrador">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transporte">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Transporte">
+        <MappingFragment StoreEntitySet="Transporte">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VentaPago">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.VentaPago">
+        <MappingFragment StoreEntitySet="VentaPago">
+          <ScalarProperty Name="tipoMedioCobro" ColumnName="tipoMedioCobro" />
+          <ScalarProperty Name="referencia" ColumnName="referencia" />
+          <ScalarProperty Name="lote" ColumnName="lote" />
+          <ScalarProperty Name="tasa" ColumnName="tasa" />
+          <ScalarProperty Name="montoRecibido" ColumnName="montoRecibido" />
+          <ScalarProperty Name="importe" ColumnName="importe" />
+          <ScalarProperty Name="descripMedioCobro" ColumnName="descripMedioCobro" />
+          <ScalarProperty Name="codioMedioCobro" ColumnName="codioMedioCobro" />
+          <ScalarProperty Name="autoMedioCobro" ColumnName="autoMedioCobro" />
+          <ScalarProperty Name="idVenta" ColumnName="idVenta" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Permiso">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Permiso">
+        <MappingFragment StoreEntitySet="Permiso">
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="requiereClave" ColumnName="requiereClave" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="modulo" ColumnName="modulo" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sistema">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Sistema">
+        <MappingFragment StoreEntitySet="Sistema">
+          <ScalarProperty Name="fechaUltActualizacion" ColumnName="fechaUltActualizacion" />
+          <ScalarProperty Name="autoConceptoMovSalida" ColumnName="autoConceptoMovSalida" />
+          <ScalarProperty Name="autoConceptoMovDevVenta" ColumnName="autoConceptoMovDevVenta" />
+          <ScalarProperty Name="autoConceptoMovVenta" ColumnName="autoConceptoMovVenta" />
+          <ScalarProperty Name="equipoNumero" ColumnName="equipoNumero" />
+          <ScalarProperty Name="serieNotaEntrega" ColumnName="serieNotaEntrega" />
+          <ScalarProperty Name="EtiquetarPrecioPorTipoNegocio" ColumnName="EtiquetarPrecioPorTipoNegocio" />
+          <ScalarProperty Name="tarifaAsignada" ColumnName="tarifaAsignada" />
+          <ScalarProperty Name="clavePos" ColumnName="clavePos" />
+          <ScalarProperty Name="clave3" ColumnName="clave3" />
+          <ScalarProperty Name="clave2" ColumnName="clave2" />
+          <ScalarProperty Name="clave1" ColumnName="clave1" />
+          <ScalarProperty Name="autoMedioPagoOtro" ColumnName="autoMedioPagoOtro" />
+          <ScalarProperty Name="autoMedioPagoElectronico" ColumnName="autoMedioPagoElectronico" />
+          <ScalarProperty Name="autoMedioPagoDivisa" ColumnName="autoMedioPagoDivisa" />
+          <ScalarProperty Name="autoMedioPagoEfectivo" ColumnName="autoMedioPagoEfectivo" />
+          <ScalarProperty Name="autoTransporte" ColumnName="autoTransporte" />
+          <ScalarProperty Name="autoCobrador" ColumnName="autoCobrador" />
+          <ScalarProperty Name="autoVendedor" ColumnName="autoVendedor" />
+          <ScalarProperty Name="autoDeposito" ColumnName="autoDeposito" />
+          <ScalarProperty Name="activarBusquedaPorDescripcion" ColumnName="activarBusquedaPorDescripcion" />
+          <ScalarProperty Name="modoOperacion" ColumnName="modoOperacion" />
+          <ScalarProperty Name="limiteRepesajeSuperior" ColumnName="limiteRepesajeSuperior" />
+          <ScalarProperty Name="limiteRepesajeInferior" ColumnName="limiteRepesajeInferior" />
+          <ScalarProperty Name="activarRepesaje" ColumnName="activarRepesaje" />
+          <ScalarProperty Name="serieNotaDebito" ColumnName="serieNotaDebito" />
+          <ScalarProperty Name="serieNotaCredito" ColumnName="serieNotaCredito" />
+          <ScalarProperty Name="serieFactura" ColumnName="serieFactura" />
+          <ScalarProperty Name="sucursalCodigo" ColumnName="sucursalCodigo" />
+          <ScalarProperty Name="factorCambio" ColumnName="factorCambio" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Serie">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Serie">
+        <MappingFragment StoreEntitySet="Serie">
+          <ScalarProperty Name="correlativo" ColumnName="correlativo" />
+          <ScalarProperty Name="control" ColumnName="control" />
+          <ScalarProperty Name="serie1" ColumnName="serie" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Operador">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Operador">
+        <MappingFragment StoreEntitySet="Operador">
+          <ScalarProperty Name="prefijo" ColumnName="prefijo" />
+          <ScalarProperty Name="horaCierre" ColumnName="horaCierre" />
+          <ScalarProperty Name="fechaCierre" ColumnName="fechaCierre" />
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+          <ScalarProperty Name="horaApertura" ColumnName="horaApertura" />
+          <ScalarProperty Name="fechaApertura" ColumnName="fechaApertura" />
+          <ScalarProperty Name="usuario" ColumnName="usuario" />
+          <ScalarProperty Name="codigoUsuario" ColumnName="codigoUsuario" />
+          <ScalarProperty Name="autoUsuario" ColumnName="autoUsuario" />
+          <ScalarProperty Name="idJornada" ColumnName="idJornada" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jornada">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Jornada">
+        <MappingFragment StoreEntitySet="Jornada">
+          <ScalarProperty Name="estatusTransmitida" ColumnName="estatusTransmitida" />
+          <ScalarProperty Name="horaCierre" ColumnName="horaCierre" />
+          <ScalarProperty Name="fechaCierre" ColumnName="fechaCierre" />
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+          <ScalarProperty Name="horaApertura" ColumnName="horaApertura" />
+          <ScalarProperty Name="fechaApertura" ColumnName="fechaApertura" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producto">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Producto">
+        <MappingFragment StoreEntitySet="Producto">
+          <ScalarProperty Name="emp_5" ColumnName="emp_5" />
+          <ScalarProperty Name="dec_5" ColumnName="dec_5" />
+          <ScalarProperty Name="cont_5" ColumnName="cont_5" />
+          <ScalarProperty Name="precio_5" ColumnName="precio_5" />
+          <ScalarProperty Name="autoTasaIva" ColumnName="autoTasaIva" />
+          <ScalarProperty Name="autoSubGrupo" ColumnName="autoSubGrupo" />
+          <ScalarProperty Name="autoMarca" ColumnName="autoMarca" />
+          <ScalarProperty Name="autoGrupo" ColumnName="autoGrupo" />
+          <ScalarProperty Name="autoDepartamento" ColumnName="autoDepartamento" />
+          <ScalarProperty Name="costoPromedioUnidad" ColumnName="costoPromedioUnidad" />
+          <ScalarProperty Name="costoUnidad" ColumnName="costoUnidad" />
+          <ScalarProperty Name="costoPromedio" ColumnName="costoPromedio" />
+          <ScalarProperty Name="costo" ColumnName="costo" />
+          <ScalarProperty Name="dias_Empaque_Garantia" ColumnName="dias_Empaque_Garantia" />
+          <ScalarProperty Name="emp_4" ColumnName="emp_4" />
+          <ScalarProperty Name="emp_3" ColumnName="emp_3" />
+          <ScalarProperty Name="emp_2" ColumnName="emp_2" />
+          <ScalarProperty Name="emp_1" ColumnName="emp_1" />
+          <ScalarProperty Name="dec_4" ColumnName="dec_4" />
+          <ScalarProperty Name="dec_3" ColumnName="dec_3" />
+          <ScalarProperty Name="dec_2" ColumnName="dec_2" />
+          <ScalarProperty Name="dec_1" ColumnName="dec_1" />
+          <ScalarProperty Name="cont_4" ColumnName="cont_4" />
+          <ScalarProperty Name="cont_3" ColumnName="cont_3" />
+          <ScalarProperty Name="cont_2" ColumnName="cont_2" />
+          <ScalarProperty Name="cont_1" ColumnName="cont_1" />
+          <ScalarProperty Name="precio_4" ColumnName="precio_4" />
+          <ScalarProperty Name="precio_3" ColumnName="precio_3" />
+          <ScalarProperty Name="precio_2" ColumnName="precio_2" />
+          <ScalarProperty Name="precio_1" ColumnName="precio_1" />
+          <ScalarProperty Name="ofertaprecio" ColumnName="ofertaprecio" />
+          <ScalarProperty Name="ofertaHasta" ColumnName="ofertaHasta" />
+          <ScalarProperty Name="ofertaDesde" ColumnName="ofertaDesde" />
+          <ScalarProperty Name="tasaImpuesto" ColumnName="tasaImpuesto" />
+          <ScalarProperty Name="isDivisa" ColumnName="isDivisa" />
+          <ScalarProperty Name="isOferta" ColumnName="isOferta" />
+          <ScalarProperty Name="isPesado" ColumnName="isPesado" />
+          <ScalarProperty Name="pasilo" ColumnName="pasilo" />
+          <ScalarProperty Name="modelo" ColumnName="modelo" />
+          <ScalarProperty Name="marca" ColumnName="marca" />
+          <ScalarProperty Name="grupo" ColumnName="grupo" />
+          <ScalarProperty Name="codGrupo" ColumnName="codGrupo" />
+          <ScalarProperty Name="departamento" ColumnName="departamento" />
+          <ScalarProperty Name="codDepartamento" ColumnName="codDepartamento" />
+          <ScalarProperty Name="categoria" ColumnName="categoria" />
+          <ScalarProperty Name="referencia" ColumnName="referencia" />
+          <ScalarProperty Name="descripcionPrd" ColumnName="descripcionPrd" />
+          <ScalarProperty Name="plu" ColumnName="plu" />
+          <ScalarProperty Name="isActivo" ColumnName="isActivo" />
+          <ScalarProperty Name="nombrePrd" ColumnName="nombrePrd" />
+          <ScalarProperty Name="codigoPrd" ColumnName="codigoPrd" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MovConceptoInv">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.MovConceptoInv">
+        <MappingFragment StoreEntitySet="MovConceptoInv">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empresa">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Empresa">
+        <MappingFragment StoreEntitySet="Empresa">
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="cirif" ColumnName="cirif" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Venta">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Venta">
+        <MappingFragment StoreEntitySet="Venta">
+          <ScalarProperty Name="prefijo" ColumnName="prefijo" />
+          <ScalarProperty Name="nombreConceptoMov" ColumnName="nombreConceptoMov" />
+          <ScalarProperty Name="codigoConceptoMov" ColumnName="codigoConceptoMov" />
+          <ScalarProperty Name="autoConceptoMov" ColumnName="autoConceptoMov" />
+          <ScalarProperty Name="tarifa" ColumnName="tarifa" />
+          <ScalarProperty Name="saldoPendiente" ColumnName="saldoPendiente" />
+          <ScalarProperty Name="idOperador" ColumnName="idOperador" />
+          <ScalarProperty Name="idJornada" ColumnName="idJornada" />
+          <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+          <ScalarProperty Name="esCredito" ColumnName="esCredito" />
+          <ScalarProperty Name="cambioDar" ColumnName="cambioDar" />
+          <ScalarProperty Name="montoRecibido" ColumnName="montoRecibido" />
+          <ScalarProperty Name="cobrador" ColumnName="cobrador" />
+          <ScalarProperty Name="codigoCobrador" ColumnName="codigoCobrador" />
+          <ScalarProperty Name="autoCobrador" ColumnName="autoCobrador" />
+          <ScalarProperty Name="transporte" ColumnName="transporte" />
+          <ScalarProperty Name="codigoTransporte" ColumnName="codigoTransporte" />
+          <ScalarProperty Name="autoTransporte" ColumnName="autoTransporte" />
+          <ScalarProperty Name="vendedor" ColumnName="vendedor" />
+          <ScalarProperty Name="codigoVendedor" ColumnName="codigoVendedor" />
+          <ScalarProperty Name="autoVendedor" ColumnName="autoVendedor" />
+          <ScalarProperty Name="deposito" ColumnName="deposito" />
+          <ScalarProperty Name="codigoDeposito" ColumnName="codigoDeposito" />
+          <ScalarProperty Name="autoDeposito" ColumnName="autoDeposito" />
+          <ScalarProperty Name="codigoSucursal" ColumnName="codigoSucursal" />
+          <ScalarProperty Name="montoUtilidadPorc" ColumnName="montoUtilidadPorc" />
+          <ScalarProperty Name="montoUtilidad" ColumnName="montoUtilidad" />
+          <ScalarProperty Name="montoCostoVenta" ColumnName="montoCostoVenta" />
+          <ScalarProperty Name="montoVentaNeta" ColumnName="montoVentaNeta" />
+          <ScalarProperty Name="montoSubTotal" ColumnName="montoSubTotal" />
+          <ScalarProperty Name="montoSubTotalImpuesto" ColumnName="montoSubTotalImpuesto" />
+          <ScalarProperty Name="serie" ColumnName="serie" />
+          <ScalarProperty Name="signo" ColumnName="signo" />
+          <ScalarProperty Name="autoUsuario" ColumnName="autoUsuario" />
+          <ScalarProperty Name="anoRelacion" ColumnName="anoRelacion" />
+          <ScalarProperty Name="renglones" ColumnName="renglones" />
+          <ScalarProperty Name="estacion" ColumnName="estacion" />
+          <ScalarProperty Name="montoDivisa" ColumnName="montoDivisa" />
+          <ScalarProperty Name="hora" ColumnName="hora" />
+          <ScalarProperty Name="usuarioCodigo" ColumnName="usuarioCodigo" />
+          <ScalarProperty Name="usuario" ColumnName="usuario" />
+          <ScalarProperty Name="factorCambio" ColumnName="factorCambio" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="montoSubTotalNeto" ColumnName="montoSubTotalNeto" />
+          <ScalarProperty Name="aplica" ColumnName="aplica" />
+          <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+          <ScalarProperty Name="estatusActivo" ColumnName="estatusActivo" />
+          <ScalarProperty Name="cargoPorc_1" ColumnName="cargoPorc_1" />
+          <ScalarProperty Name="descuentoPorc2" ColumnName="descuentoPorc2" />
+          <ScalarProperty Name="descuentoPorc1" ColumnName="descuentoPorc1" />
+          <ScalarProperty Name="cargoMonto1" ColumnName="cargoMonto1" />
+          <ScalarProperty Name="descuentoMonto2" ColumnName="descuentoMonto2" />
+          <ScalarProperty Name="descuentoMonto1" ColumnName="descuentoMonto1" />
+          <ScalarProperty Name="control" ColumnName="control" />
+          <ScalarProperty Name="mesRelacion" ColumnName="mesRelacion" />
+          <ScalarProperty Name="tasaIva3" ColumnName="tasaIva3" />
+          <ScalarProperty Name="tasaIva2" ColumnName="tasaIva2" />
+          <ScalarProperty Name="tasaIva1" ColumnName="tasaIva1" />
+          <ScalarProperty Name="montoTotal" ColumnName="montoTotal" />
+          <ScalarProperty Name="impuesto3" ColumnName="impuesto3" />
+          <ScalarProperty Name="impuesto2" ColumnName="impuesto2" />
+          <ScalarProperty Name="impuesto1" ColumnName="impuesto1" />
+          <ScalarProperty Name="base3" ColumnName="base3" />
+          <ScalarProperty Name="base2" ColumnName="base2" />
+          <ScalarProperty Name="base1" ColumnName="base1" />
+          <ScalarProperty Name="montoImpuesto" ColumnName="montoImpuesto" />
+          <ScalarProperty Name="montoBase" ColumnName="montoBase" />
+          <ScalarProperty Name="montoExento" ColumnName="montoExento" />
+          <ScalarProperty Name="ciRif" ColumnName="ciRif" />
+          <ScalarProperty Name="dirFiscal" ColumnName="dirFiscal" />
+          <ScalarProperty Name="nombreRazonSocial" ColumnName="nombreRazonSocial" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="documento" ColumnName="documento" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OperadorCierre">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.OperadorCierre">
+        <MappingFragment StoreEntitySet="OperadorCierre">
+          <ScalarProperty Name="mFirma" ColumnName="mFirma" />
+          <ScalarProperty Name="firma" ColumnName="firma" />
+          <ScalarProperty Name="mTotal" ColumnName="mTotal" />
+          <ScalarProperty Name="mSubTotal" ColumnName="mSubTotal" />
+          <ScalarProperty Name="mOtros" ColumnName="mOtros" />
+          <ScalarProperty Name="mTarjeta" ColumnName="mTarjeta" />
+          <ScalarProperty Name="mDivisa" ColumnName="mDivisa" />
+          <ScalarProperty Name="mEfectivo" ColumnName="mEfectivo" />
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="subTotal" ColumnName="subTotal" />
+          <ScalarProperty Name="devolucion" ColumnName="devolucion" />
+          <ScalarProperty Name="otros" ColumnName="otros" />
+          <ScalarProperty Name="tarjeta" ColumnName="tarjeta" />
+          <ScalarProperty Name="divisa" ColumnName="divisa" />
+          <ScalarProperty Name="efectivo" ColumnName="efectivo" />
+          <ScalarProperty Name="diferencia" ColumnName="diferencia" />
+          <ScalarProperty Name="idOperador" ColumnName="idOperador" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

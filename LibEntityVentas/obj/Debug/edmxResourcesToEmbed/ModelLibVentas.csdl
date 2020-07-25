@@ -1,0 +1,1793 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="libVentasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ventas">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="documento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_vencimiento" Type="DateTime" Nullable="false" />
+    <Property Name="razon_social" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="dir_fiscal" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ci_rif" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tipo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="exento" Type="Decimal" Nullable="false" />
+    <Property Name="base1" Type="Decimal" Nullable="false" />
+    <Property Name="base2" Type="Decimal" Nullable="false" />
+    <Property Name="base3" Type="Decimal" Nullable="false" />
+    <Property Name="impuesto1" Type="Decimal" Nullable="false" />
+    <Property Name="impuesto2" Type="Decimal" Nullable="false" />
+    <Property Name="impuesto3" Type="Decimal" Nullable="false" />
+    <Property Name="base" Type="Decimal" Nullable="false" />
+    <Property Name="impuesto" Type="Decimal" Nullable="false" />
+    <Property Name="total" Type="Decimal" Nullable="false" />
+    <Property Name="tasa1" Type="Decimal" Nullable="false" />
+    <Property Name="tasa2" Type="Decimal" Nullable="false" />
+    <Property Name="tasa3" Type="Decimal" Nullable="false" />
+    <Property Name="nota" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tasa_retencion_iva" Type="Decimal" Nullable="false" />
+    <Property Name="tasa_retencion_islr" Type="Decimal" Nullable="false" />
+    <Property Name="retencion_iva" Type="Decimal" Nullable="false" />
+    <Property Name="retencion_islr" Type="Decimal" Nullable="false" />
+    <Property Name="auto_cliente" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="codigo_cliente" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="mes_relacion" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="control" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha_registro" Type="DateTime" Nullable="false" />
+    <Property Name="orden_compra" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="dias" Type="Int32" Nullable="false" />
+    <Property Name="descuento1" Type="Decimal" Nullable="false" />
+    <Property Name="descuento2" Type="Decimal" Nullable="false" />
+    <Property Name="cargos" Type="Decimal" Nullable="false" />
+    <Property Name="descuento1p" Type="Decimal" Nullable="false" />
+    <Property Name="descuento2p" Type="Decimal" Nullable="false" />
+    <Property Name="cargosp" Type="Decimal" Nullable="false" />
+    <Property Name="columna" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="estatus_anulado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="aplica" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="comprobante_retencion" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="subtotal_neto" Type="Decimal" Nullable="false" />
+    <Property Name="telefono" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="factor_cambio" Type="Decimal" Nullable="false" />
+    <Property Name="codigo_vendedor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="vendedor" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="auto_vendedor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha_pedido" Type="DateTime" Nullable="false" />
+    <Property Name="pedido" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="condicion_pago" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="codigo_usuario" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="codigo_sucursal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="hora" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="transporte" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="codigo_transporte" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="monto_divisa" Type="Decimal" Nullable="false" />
+    <Property Name="despachado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="dir_despacho" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="estacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="auto_recibo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="recibo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="renglones" Type="Int32" Nullable="false" />
+    <Property Name="saldo_pendiente" Type="Decimal" Nullable="false" />
+    <Property Name="ano_relacion" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="comprobante_retencion_islr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="dias_validez" Type="Int32" Nullable="false" />
+    <Property Name="auto_usuario" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="auto_transporte" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="situacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="signo" Type="Int32" Nullable="false" />
+    <Property Name="serie" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tarifa" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tipo_remision" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="documento_remision" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="auto_remision" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="documento_nombre" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="subtotal_impuesto" Type="Decimal" Nullable="false" />
+    <Property Name="subtotal" Type="Decimal" Nullable="false" />
+    <Property Name="auto_cxc" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tipo_cliente" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="planilla" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="expediente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="anticipo_iva" Type="Decimal" Nullable="false" />
+    <Property Name="terceros_iva" Type="Decimal" Nullable="false" />
+    <Property Name="neto" Type="Decimal" Nullable="false" />
+    <Property Name="costo" Type="Decimal" Nullable="false" />
+    <Property Name="utilidad" Type="Decimal" Nullable="false" />
+    <Property Name="utilidadp" Type="Decimal" Nullable="false" />
+    <Property Name="documento_tipo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ci_titular" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nombre_titular" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ci_beneficiario" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nombre_beneficiario" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="clave" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="denominacion_fiscal" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cambio" Type="Decimal" Nullable="false" />
+    <Property Name="estatus_validado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cierre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha_retencion" Type="DateTime" Nullable="false" />
+    <Property Name="estatus_cierre_contable" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="vendedores" Relationship="libVentasModel.ventas_ibfk_6" FromRole="ventas" ToRole="vendedores" />
+    <NavigationProperty Name="clientes" Relationship="libVentasModel.ventas_ibfk_5" FromRole="ventas" ToRole="clientes" />
+    <NavigationProperty Name="usuarios" Relationship="libVentasModel.ventas_ibfk_3" FromRole="ventas" ToRole="usuarios" />
+    <NavigationProperty Name="ventas_detalle" Relationship="libVentasModel.ventas_detalle_ibfk_8" FromRole="ventas" ToRole="ventas_detalle" />
+  </EntityType>
+  <EntityContainer Name="libVentasEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ventas" EntityType="Self.ventas" />
+    <EntitySet Name="productos" EntityType="libVentasModel.productos" />
+    <EntitySet Name="productos_deposito" EntityType="libVentasModel.productos_deposito" />
+    <AssociationSet Name="productos_deposito_ibfk_1" Association="libVentasModel.productos_deposito_ibfk_1">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="productos_deposito" EntitySet="productos_deposito" />
+    </AssociationSet>
+    <EntitySet Name="empresa_depositos" EntityType="libVentasModel.empresa_depositos" />
+    <AssociationSet Name="productos_deposito_ibfk_2" Association="libVentasModel.productos_deposito_ibfk_2">
+      <End Role="empresa_depositos" EntitySet="empresa_depositos" />
+      <End Role="productos_deposito" EntitySet="productos_deposito" />
+    </AssociationSet>
+    <EntitySet Name="productos_medida" EntityType="libVentasModel.productos_medida" />
+    <AssociationSet Name="productos_ibfk_10" Association="libVentasModel.productos_ibfk_10">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_11" Association="libVentasModel.productos_ibfk_11">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_5" Association="libVentasModel.productos_ibfk_5">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_7" Association="libVentasModel.productos_ibfk_7">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_8" Association="libVentasModel.productos_ibfk_8">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_9" Association="libVentasModel.productos_ibfk_9">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <EntitySet Name="empresa_departamentos" EntityType="libVentasModel.empresa_departamentos" />
+    <EntitySet Name="productos_grupo" EntityType="libVentasModel.productos_grupo" />
+    <EntitySet Name="productos_marca" EntityType="libVentasModel.productos_marca" />
+    <AssociationSet Name="productos_ibfk_1" Association="libVentasModel.productos_ibfk_1">
+      <End Role="empresa_departamentos" EntitySet="empresa_departamentos" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_2" Association="libVentasModel.productos_ibfk_2">
+      <End Role="productos_grupo" EntitySet="productos_grupo" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_4" Association="libVentasModel.productos_ibfk_4">
+      <End Role="productos_marca" EntitySet="productos_marca" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <EntitySet Name="empresa_cobradores" EntityType="libVentasModel.empresa_cobradores" />
+    <EntitySet Name="empresa_transporte" EntityType="libVentasModel.empresa_transporte" />
+    <EntitySet Name="vendedores" EntityType="libVentasModel.vendedores" />
+    <AssociationSet Name="ventas_ibfk_6" Association="libVentasModel.ventas_ibfk_6">
+      <End Role="vendedores" EntitySet="vendedores" />
+      <End Role="ventas" EntitySet="ventas" />
+    </AssociationSet>
+    <EntitySet Name="clientes" EntityType="libVentasModel.clientes" />
+    <EntitySet Name="empresa_medios" EntityType="libVentasModel.empresa_medios" />
+    <AssociationSet Name="clientes_ibfk_11" Association="libVentasModel.clientes_ibfk_11">
+      <End Role="vendedores" EntitySet="vendedores" />
+      <End Role="clientes" EntitySet="clientes" />
+    </AssociationSet>
+    <AssociationSet Name="clientes_ibfk_5" Association="libVentasModel.clientes_ibfk_5">
+      <End Role="empresa_cobradores" EntitySet="empresa_cobradores" />
+      <End Role="clientes" EntitySet="clientes" />
+    </AssociationSet>
+    <AssociationSet Name="ventas_ibfk_5" Association="libVentasModel.ventas_ibfk_5">
+      <End Role="clientes" EntitySet="clientes" />
+      <End Role="ventas" EntitySet="ventas" />
+    </AssociationSet>
+    <EntitySet Name="empresa_agencias" EntityType="libVentasModel.empresa_agencias" />
+    <AssociationSet Name="clientes_ibfk_6" Association="libVentasModel.clientes_ibfk_6">
+      <End Role="empresa_agencias" EntitySet="empresa_agencias" />
+      <End Role="clientes" EntitySet="clientes" />
+    </AssociationSet>
+    <EntitySet Name="cxc" EntityType="libVentasModel.cxc" />
+    <AssociationSet Name="cxc_ibfk_1" Association="libVentasModel.cxc_ibfk_1">
+      <End Role="clientes" EntitySet="clientes" />
+      <End Role="cxc" EntitySet="cxc" />
+    </AssociationSet>
+    <AssociationSet Name="cxc_ibfk_2" Association="libVentasModel.cxc_ibfk_2">
+      <End Role="empresa_agencias" EntitySet="empresa_agencias" />
+      <End Role="cxc" EntitySet="cxc" />
+    </AssociationSet>
+    <AssociationSet Name="cxc_ibfk_3" Association="libVentasModel.cxc_ibfk_3">
+      <End Role="vendedores" EntitySet="vendedores" />
+      <End Role="cxc" EntitySet="cxc" />
+    </AssociationSet>
+    <EntitySet Name="clientes_grupo" EntityType="libVentasModel.clientes_grupo" />
+    <EntitySet Name="clientes_zonas" EntityType="libVentasModel.clientes_zonas" />
+    <EntitySet Name="sistema_estados" EntityType="libVentasModel.sistema_estados" />
+    <AssociationSet Name="clientes_ibfk_1" Association="libVentasModel.clientes_ibfk_1">
+      <End Role="clientes_grupo" EntitySet="clientes_grupo" />
+      <End Role="clientes" EntitySet="clientes" />
+    </AssociationSet>
+    <AssociationSet Name="clientes_ibfk_2" Association="libVentasModel.clientes_ibfk_2">
+      <End Role="sistema_estados" EntitySet="sistema_estados" />
+      <End Role="clientes" EntitySet="clientes" />
+    </AssociationSet>
+    <AssociationSet Name="clientes_ibfk_3" Association="libVentasModel.clientes_ibfk_3">
+      <End Role="clientes_zonas" EntitySet="clientes_zonas" />
+      <End Role="clientes" EntitySet="clientes" />
+    </AssociationSet>
+    <EntitySet Name="sistema_contadores" EntityType="libVentasModel.sistema_contadores" />
+    <EntitySet Name="cxc_recibos" EntityType="libVentasModel.cxc_recibos" />
+    <AssociationSet Name="cxc_recibos_ibfk_2" Association="libVentasModel.cxc_recibos_ibfk_2">
+      <End Role="clientes" EntitySet="clientes" />
+      <End Role="cxc_recibos" EntitySet="cxc_recibos" />
+    </AssociationSet>
+    <AssociationSet Name="cxc_recibos_ibfk_4" Association="libVentasModel.cxc_recibos_ibfk_4">
+      <End Role="cxc" EntitySet="cxc" />
+      <End Role="cxc_recibos" EntitySet="cxc_recibos" />
+    </AssociationSet>
+    <AssociationSet Name="cxc_recibos_ibfk_3" Association="libVentasModel.cxc_recibos_ibfk_3">
+      <End Role="empresa_cobradores" EntitySet="empresa_cobradores" />
+      <End Role="cxc_recibos" EntitySet="cxc_recibos" />
+    </AssociationSet>
+    <EntitySet Name="cxc_documentos" EntityType="libVentasModel.cxc_documentos" />
+    <EntitySet Name="cxc_medio_pago" EntityType="libVentasModel.cxc_medio_pago" />
+    <AssociationSet Name="cxc_documentos_ibfk_4" Association="libVentasModel.cxc_documentos_ibfk_4">
+      <End Role="cxc" EntitySet="cxc" />
+      <End Role="cxc_documentos" EntitySet="cxc_documentos" />
+    </AssociationSet>
+    <AssociationSet Name="cxc_documentos_ibfk_5" Association="libVentasModel.cxc_documentos_ibfk_5">
+      <End Role="cxc" EntitySet="cxc" />
+      <End Role="cxc_documentos" EntitySet="cxc_documentos" />
+    </AssociationSet>
+    <AssociationSet Name="cxc_documentos_ibfk_3" Association="libVentasModel.cxc_documentos_ibfk_3">
+      <End Role="cxc_recibos" EntitySet="cxc_recibos" />
+      <End Role="cxc_documentos" EntitySet="cxc_documentos" />
+    </AssociationSet>
+    <AssociationSet Name="cxc_medio_pago_ibfk_1" Association="libVentasModel.cxc_medio_pago_ibfk_1">
+      <End Role="cxc_recibos" EntitySet="cxc_recibos" />
+      <End Role="cxc_medio_pago" EntitySet="cxc_medio_pago" />
+    </AssociationSet>
+    <AssociationSet Name="cxc_medio_pago_ibfk_2" Association="libVentasModel.cxc_medio_pago_ibfk_2">
+      <End Role="empresa_medios" EntitySet="empresa_medios" />
+      <End Role="cxc_medio_pago" EntitySet="cxc_medio_pago" />
+    </AssociationSet>
+    <EntitySet Name="productos_kardex" EntityType="libVentasModel.productos_kardex" />
+    <AssociationSet Name="productos_kardex_ibfk_2" Association="libVentasModel.productos_kardex_ibfk_2">
+      <End Role="empresa_depositos" EntitySet="empresa_depositos" />
+      <End Role="productos_kardex" EntitySet="productos_kardex" />
+    </AssociationSet>
+    <AssociationSet Name="productos_kardex_ibfk_1" Association="libVentasModel.productos_kardex_ibfk_1">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="productos_kardex" EntitySet="productos_kardex" />
+    </AssociationSet>
+    <EntitySet Name="sistema_configuracion" EntityType="libVentasModel.sistema_configuracion" />
+    <EntitySet Name="usuarios" EntityType="libVentasModel.usuarios" />
+    <EntitySet Name="usuarios_grupo" EntityType="libVentasModel.usuarios_grupo" />
+    <AssociationSet Name="cxc_recibos_ibfk_1" Association="libVentasModel.cxc_recibos_ibfk_1">
+      <End Role="usuarios" EntitySet="usuarios" />
+      <End Role="cxc_recibos" EntitySet="cxc_recibos" />
+    </AssociationSet>
+    <AssociationSet Name="ventas_ibfk_3" Association="libVentasModel.ventas_ibfk_3">
+      <End Role="usuarios" EntitySet="usuarios" />
+      <End Role="ventas" EntitySet="ventas" />
+    </AssociationSet>
+    <EntitySet Name="productos_conceptos" EntityType="libVentasModel.productos_conceptos" />
+    <AssociationSet Name="productos_kardex_ibfk_3" Association="libVentasModel.productos_kardex_ibfk_3">
+      <End Role="productos_conceptos" EntitySet="productos_conceptos" />
+      <End Role="productos_kardex" EntitySet="productos_kardex" />
+    </AssociationSet>
+    <EntitySet Name="ventas_detalle" EntityType="libVentasModel.ventas_detalle" />
+    <AssociationSet Name="ventas_detalle_ibfk_6" Association="libVentasModel.ventas_detalle_ibfk_6">
+      <End Role="clientes" EntitySet="clientes" />
+      <End Role="ventas_detalle" EntitySet="ventas_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="ventas_detalle_ibfk_2" Association="libVentasModel.ventas_detalle_ibfk_2">
+      <End Role="empresa_departamentos" EntitySet="empresa_departamentos" />
+      <End Role="ventas_detalle" EntitySet="ventas_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="ventas_detalle_ibfk_5" Association="libVentasModel.ventas_detalle_ibfk_5">
+      <End Role="empresa_depositos" EntitySet="empresa_depositos" />
+      <End Role="ventas_detalle" EntitySet="ventas_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="ventas_detalle_ibfk_1" Association="libVentasModel.ventas_detalle_ibfk_1">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="ventas_detalle" EntitySet="ventas_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="ventas_detalle_ibfk_3" Association="libVentasModel.ventas_detalle_ibfk_3">
+      <End Role="productos_grupo" EntitySet="productos_grupo" />
+      <End Role="ventas_detalle" EntitySet="ventas_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="ventas_detalle_ibfk_9" Association="libVentasModel.ventas_detalle_ibfk_9">
+      <End Role="vendedores" EntitySet="vendedores" />
+      <End Role="ventas_detalle" EntitySet="ventas_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="ventas_detalle_ibfk_8" Association="libVentasModel.ventas_detalle_ibfk_8">
+      <End Role="ventas" EntitySet="ventas" />
+      <End Role="ventas_detalle" EntitySet="ventas_detalle" />
+    </AssociationSet>
+    <EntitySet Name="empresa_series_fiscales" EntityType="libVentasModel.empresa_series_fiscales" />
+    <EntitySet Name="empresa_tasas" EntityType="libVentasModel.empresa_tasas" />
+    <AssociationSet Name="productos_ibfk_12" Association="libVentasModel.productos_ibfk_12">
+      <End Role="empresa_tasas" EntitySet="empresa_tasas" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="ventas_detalle_ibfk_7" Association="libVentasModel.ventas_detalle_ibfk_7">
+      <End Role="empresa_tasas" EntitySet="empresa_tasas" />
+      <End Role="ventas_detalle" EntitySet="ventas_detalle" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="productos">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="nombre_corto" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="auto_departamento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_grupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_subgrupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_tasa" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_empaque_compra" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="costo_proveedor" Type="Decimal" Nullable="false" />
+    <Property Name="costo_proveedor_und" Type="Decimal" Nullable="false" />
+    <Property Name="costo_importacion" Type="Decimal" Nullable="false" />
+    <Property Name="costo_importacion_und" Type="Decimal" Nullable="false" />
+    <Property Name="costo_varios" Type="Decimal" Nullable="false" />
+    <Property Name="costo_varios_und" Type="Decimal" Nullable="false" />
+    <Property Name="costo" Type="Decimal" Nullable="false" />
+    <Property Name="costo_und" Type="Decimal" Nullable="false" />
+    <Property Name="costo_promedio" Type="Decimal" Nullable="false" />
+    <Property Name="costo_promedio_und" Type="Decimal" Nullable="false" />
+    <Property Name="utilidad_1" Type="Decimal" Nullable="false" />
+    <Property Name="utilidad_2" Type="Decimal" Nullable="false" />
+    <Property Name="utilidad_3" Type="Decimal" Nullable="false" />
+    <Property Name="utilidad_4" Type="Decimal" Nullable="false" />
+    <Property Name="utilidad_pto" Type="Decimal" Nullable="false" />
+    <Property Name="precio_1" Type="Decimal" Nullable="false" />
+    <Property Name="precio_2" Type="Decimal" Nullable="false" />
+    <Property Name="precio_3" Type="Decimal" Nullable="false" />
+    <Property Name="precio_4" Type="Decimal" Nullable="false" />
+    <Property Name="precio_pto" Type="Decimal" Nullable="false" />
+    <Property Name="estatus_garantia" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="dias_garantia" Type="Int32" Nullable="false" />
+    <Property Name="modelo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="precio_sugerido" Type="Decimal" Nullable="false" />
+    <Property Name="comentarios" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="referencia" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="contenido_compras" Type="Int32" Nullable="false" />
+    <Property Name="estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="advertencia" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_alta" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_baja" Type="DateTime" Nullable="false" />
+    <Property Name="auto_codigo_plan" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="categoria" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="origen" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="alto" Type="Decimal" Nullable="false" />
+    <Property Name="largo" Type="Decimal" Nullable="false" />
+    <Property Name="ancho" Type="Decimal" Nullable="false" />
+    <Property Name="peso" Type="Decimal" Nullable="false" />
+    <Property Name="codigo_arancel" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="tasa_arancel" Type="Decimal" Nullable="false" />
+    <Property Name="auto_marca" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_serial" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_oferta" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="inicio" Type="DateTime" Nullable="false" />
+    <Property Name="fin" Type="DateTime" Nullable="false" />
+    <Property Name="precio_oferta" Type="Decimal" Nullable="false" />
+    <Property Name="estatus_web" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_corte" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="tasa" Type="Decimal" Nullable="false" />
+    <Property Name="auto_precio_1" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_precio_2" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_precio_3" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_precio_4" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_precio_pto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="memo" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="contenido_1" Type="Int32" Nullable="false" />
+    <Property Name="contenido_2" Type="Int32" Nullable="false" />
+    <Property Name="contenido_3" Type="Int32" Nullable="false" />
+    <Property Name="contenido_4" Type="Int32" Nullable="false" />
+    <Property Name="contenido_pto" Type="Int32" Nullable="false" />
+    <Property Name="corte" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_pesado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="plu" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_compuesto" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_catalogo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_cambio" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_movimiento" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_cambio" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_ult_venta" Type="DateTime" Nullable="false" />
+    <Property Name="presentacion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lugar" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_ult_costo" Type="DateTime" Nullable="false" />
+    <Property Name="estatus_lote" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_lote" Type="DateTime" Nullable="false" />
+    <Property Name="abc" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="divisa" Type="Decimal" Nullable="false" />
+    <Property Name="estatus_divisa" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="productos_deposito" Relationship="libVentasModel.productos_deposito_ibfk_1" FromRole="productos" ToRole="productos_deposito" />
+    <NavigationProperty Name="productos_medida" Relationship="libVentasModel.productos_ibfk_10" FromRole="productos" ToRole="productos_medida" />
+    <NavigationProperty Name="productos_medida1" Relationship="libVentasModel.productos_ibfk_11" FromRole="productos" ToRole="productos_medida" />
+    <NavigationProperty Name="productos_medida2" Relationship="libVentasModel.productos_ibfk_5" FromRole="productos" ToRole="productos_medida" />
+    <NavigationProperty Name="productos_medida3" Relationship="libVentasModel.productos_ibfk_7" FromRole="productos" ToRole="productos_medida" />
+    <NavigationProperty Name="productos_medida4" Relationship="libVentasModel.productos_ibfk_8" FromRole="productos" ToRole="productos_medida" />
+    <NavigationProperty Name="productos_medida5" Relationship="libVentasModel.productos_ibfk_9" FromRole="productos" ToRole="productos_medida" />
+    <NavigationProperty Name="empresa_departamentos" Relationship="libVentasModel.productos_ibfk_1" FromRole="productos" ToRole="empresa_departamentos" />
+    <NavigationProperty Name="productos_grupo" Relationship="libVentasModel.productos_ibfk_2" FromRole="productos" ToRole="productos_grupo" />
+    <NavigationProperty Name="productos_marca" Relationship="libVentasModel.productos_ibfk_4" FromRole="productos" ToRole="productos_marca" />
+    <NavigationProperty Name="productos_kardex" Relationship="libVentasModel.productos_kardex_ibfk_1" FromRole="productos" ToRole="productos_kardex" />
+    <NavigationProperty Name="ventas_detalle" Relationship="libVentasModel.ventas_detalle_ibfk_1" FromRole="productos" ToRole="ventas_detalle" />
+    <NavigationProperty Name="empresa_tasas" Relationship="libVentasModel.productos_ibfk_12" FromRole="productos" ToRole="empresa_tasas" />
+  </EntityType>
+  <EntityType Name="productos_deposito">
+    <Key>
+      <PropertyRef Name="auto_producto" />
+      <PropertyRef Name="auto_deposito" />
+    </Key>
+    <Property Name="auto_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_deposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fisica" Type="Decimal" Nullable="false" />
+    <Property Name="reservada" Type="Decimal" Nullable="false" />
+    <Property Name="disponible" Type="Decimal" Nullable="false" />
+    <Property Name="ubicacion_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ubicacion_2" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ubicacion_3" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ubicacion_4" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="nivel_minimo" Type="Decimal" Nullable="false" />
+    <Property Name="pto_pedido" Type="Decimal" Nullable="false" />
+    <Property Name="nivel_optimo" Type="Decimal" Nullable="false" />
+    <Property Name="fecha_conteo" Type="DateTime" Nullable="false" />
+    <Property Name="resultado_conteo" Type="Decimal" Nullable="false" />
+    <NavigationProperty Name="productos" Relationship="libVentasModel.productos_deposito_ibfk_1" FromRole="productos_deposito" ToRole="productos" />
+    <NavigationProperty Name="empresa_depositos" Relationship="libVentasModel.productos_deposito_ibfk_2" FromRole="productos_deposito" ToRole="empresa_depositos" />
+  </EntityType>
+  <Association Name="productos_deposito_ibfk_1">
+    <End Type="libVentasModel.productos" Role="productos" Multiplicity="1" />
+    <End Type="libVentasModel.productos_deposito" Role="productos_deposito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_deposito">
+        <PropertyRef Name="auto_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="empresa_depositos">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="productos_deposito" Relationship="libVentasModel.productos_deposito_ibfk_2" FromRole="empresa_depositos" ToRole="productos_deposito" />
+    <NavigationProperty Name="productos_kardex" Relationship="libVentasModel.productos_kardex_ibfk_2" FromRole="empresa_depositos" ToRole="productos_kardex" />
+    <NavigationProperty Name="ventas_detalle" Relationship="libVentasModel.ventas_detalle_ibfk_5" FromRole="empresa_depositos" ToRole="ventas_detalle" />
+  </EntityType>
+  <Association Name="productos_deposito_ibfk_2">
+    <End Type="libVentasModel.empresa_depositos" Role="empresa_depositos" Multiplicity="1" />
+    <End Type="libVentasModel.productos_deposito" Role="productos_deposito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_depositos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_deposito">
+        <PropertyRef Name="auto_deposito" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="productos_medida">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="decimales" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="productos" Relationship="libVentasModel.productos_ibfk_10" FromRole="productos_medida" ToRole="productos" />
+    <NavigationProperty Name="productos1" Relationship="libVentasModel.productos_ibfk_11" FromRole="productos_medida" ToRole="productos" />
+    <NavigationProperty Name="productos2" Relationship="libVentasModel.productos_ibfk_5" FromRole="productos_medida" ToRole="productos" />
+    <NavigationProperty Name="productos3" Relationship="libVentasModel.productos_ibfk_7" FromRole="productos_medida" ToRole="productos" />
+    <NavigationProperty Name="productos4" Relationship="libVentasModel.productos_ibfk_8" FromRole="productos_medida" ToRole="productos" />
+    <NavigationProperty Name="productos5" Relationship="libVentasModel.productos_ibfk_9" FromRole="productos_medida" ToRole="productos" />
+  </EntityType>
+  <Association Name="productos_ibfk_10">
+    <End Type="libVentasModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+    <End Type="libVentasModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_4" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_11">
+    <End Type="libVentasModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+    <End Type="libVentasModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_pto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_5">
+    <End Type="libVentasModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+    <End Type="libVentasModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_empaque_compra" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_7">
+    <End Type="libVentasModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+    <End Type="libVentasModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_8">
+    <End Type="libVentasModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+    <End Type="libVentasModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_9">
+    <End Type="libVentasModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+    <End Type="libVentasModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_3" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="empresa_departamentos">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="comision_g" Type="Decimal" Nullable="false" />
+    <Property Name="comision_1" Type="Decimal" Nullable="false" />
+    <Property Name="comision_2" Type="Decimal" Nullable="false" />
+    <Property Name="comision_3" Type="Decimal" Nullable="false" />
+    <Property Name="comision_4" Type="Decimal" Nullable="false" />
+    <NavigationProperty Name="productos" Relationship="libVentasModel.productos_ibfk_1" FromRole="empresa_departamentos" ToRole="productos" />
+    <NavigationProperty Name="ventas_detalle" Relationship="libVentasModel.ventas_detalle_ibfk_2" FromRole="empresa_departamentos" ToRole="ventas_detalle" />
+  </EntityType>
+  <EntityType Name="productos_grupo">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_catalogo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="productos" Relationship="libVentasModel.productos_ibfk_2" FromRole="productos_grupo" ToRole="productos" />
+    <NavigationProperty Name="ventas_detalle" Relationship="libVentasModel.ventas_detalle_ibfk_3" FromRole="productos_grupo" ToRole="ventas_detalle" />
+  </EntityType>
+  <EntityType Name="productos_marca">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="productos" Relationship="libVentasModel.productos_ibfk_4" FromRole="productos_marca" ToRole="productos" />
+  </EntityType>
+  <Association Name="productos_ibfk_1">
+    <End Type="libVentasModel.empresa_departamentos" Role="empresa_departamentos" Multiplicity="1" />
+    <End Type="libVentasModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_departamentos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_departamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_2">
+    <End Type="libVentasModel.productos_grupo" Role="productos_grupo" Multiplicity="1" />
+    <End Type="libVentasModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_grupo">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_grupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_4">
+    <End Type="libVentasModel.productos_marca" Role="productos_marca" Multiplicity="1" />
+    <End Type="libVentasModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_marca">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_marca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="empresa_cobradores">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="comision" Type="Decimal" Nullable="false" />
+    <Property Name="contrato" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="clientes" Relationship="libVentasModel.clientes_ibfk_5" FromRole="empresa_cobradores" ToRole="clientes" />
+    <NavigationProperty Name="cxc_recibos" Relationship="libVentasModel.cxc_recibos_ibfk_3" FromRole="empresa_cobradores" ToRole="cxc_recibos" />
+  </EntityType>
+  <EntityType Name="empresa_transporte">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="contrato" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vendedores">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="ci" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="direccion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="contacto" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="website" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_alta" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_baja" Type="DateTime" Nullable="false" />
+    <Property Name="memo" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="advertencia" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ventas_g" Type="Decimal" Nullable="false" />
+    <Property Name="ventas_1" Type="Decimal" Nullable="false" />
+    <Property Name="ventas_2" Type="Decimal" Nullable="false" />
+    <Property Name="ventas_3" Type="Decimal" Nullable="false" />
+    <Property Name="ventas_4" Type="Decimal" Nullable="false" />
+    <Property Name="cobranza_g" Type="Decimal" Nullable="false" />
+    <Property Name="cobranza_1" Type="Decimal" Nullable="false" />
+    <Property Name="cobranza_2" Type="Decimal" Nullable="false" />
+    <Property Name="cobranza_3" Type="Decimal" Nullable="false" />
+    <Property Name="cobranza_4" Type="Decimal" Nullable="false" />
+    <Property Name="estatus_ventas" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_cobranza" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_departamento" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_f1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_f2" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_f3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_f4" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_f5" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_f6" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_f7" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_f8" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="castigop" Type="Decimal" Nullable="false" />
+    <Property Name="tolerancia" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ventas" Relationship="libVentasModel.ventas_ibfk_6" FromRole="vendedores" ToRole="ventas" />
+    <NavigationProperty Name="clientes" Relationship="libVentasModel.clientes_ibfk_11" FromRole="vendedores" ToRole="clientes" />
+    <NavigationProperty Name="cxc" Relationship="libVentasModel.cxc_ibfk_3" FromRole="vendedores" ToRole="cxc" />
+    <NavigationProperty Name="ventas_detalle" Relationship="libVentasModel.ventas_detalle_ibfk_9" FromRole="vendedores" ToRole="ventas_detalle" />
+  </EntityType>
+  <Association Name="ventas_ibfk_6">
+    <End Type="libVentasModel.vendedores" Role="vendedores" Multiplicity="1" />
+    <End Type="libVentasModel.ventas" Role="ventas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="vendedores">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="ventas">
+        <PropertyRef Name="auto_vendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="clientes">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ci_rif" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="razon_social" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="auto_grupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="dir_fiscal" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dir_despacho" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="contacto" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="website" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="pais" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="denominacion_fiscal" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="auto_estado" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_zona" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo_postal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="retencion_iva" Type="Decimal" Nullable="false" />
+    <Property Name="retencion_islr" Type="Decimal" Nullable="false" />
+    <Property Name="auto_vendedor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="tarifa" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="descuento" Type="Decimal" Nullable="false" />
+    <Property Name="recargo" Type="Decimal" Nullable="false" />
+    <Property Name="estatus_credito" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="dias_credito" Type="Int32" Nullable="false" />
+    <Property Name="limite_credito" Type="Decimal" Nullable="false" />
+    <Property Name="doc_pendientes" Type="Int32" Nullable="false" />
+    <Property Name="estatus_morosidad" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_lunes" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_martes" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_miercoles" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_jueves" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_viernes" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_sabado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_domingo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="auto_cobrador" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_alta" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_baja" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_ult_venta" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_ult_pago" Type="DateTime" Nullable="false" />
+    <Property Name="anticipos" Type="Decimal" Nullable="false" />
+    <Property Name="debitos" Type="Decimal" Nullable="false" />
+    <Property Name="creditos" Type="Decimal" Nullable="false" />
+    <Property Name="saldo" Type="Decimal" Nullable="false" />
+    <Property Name="disponible" Type="Decimal" Nullable="false" />
+    <Property Name="memo" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="aviso" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cuenta" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="iban" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="swit" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="auto_agencia" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="dir_banco" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="auto_codigo_cobrar" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_codigo_ingresos" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_codigo_anticipos" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="categoria" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="descuento_pronto_pago" Type="Decimal" Nullable="false" />
+    <Property Name="importe_ult_pago" Type="Decimal" Nullable="false" />
+    <Property Name="importe_ult_venta" Type="Decimal" Nullable="false" />
+    <Property Name="telefono2" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="fax" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="celular" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="abc" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="vendedores" Relationship="libVentasModel.clientes_ibfk_11" FromRole="clientes" ToRole="vendedores" />
+    <NavigationProperty Name="empresa_cobradores" Relationship="libVentasModel.clientes_ibfk_5" FromRole="clientes" ToRole="empresa_cobradores" />
+    <NavigationProperty Name="ventas" Relationship="libVentasModel.ventas_ibfk_5" FromRole="clientes" ToRole="ventas" />
+    <NavigationProperty Name="empresa_agencias" Relationship="libVentasModel.clientes_ibfk_6" FromRole="clientes" ToRole="empresa_agencias" />
+    <NavigationProperty Name="cxc" Relationship="libVentasModel.cxc_ibfk_1" FromRole="clientes" ToRole="cxc" />
+    <NavigationProperty Name="clientes_grupo" Relationship="libVentasModel.clientes_ibfk_1" FromRole="clientes" ToRole="clientes_grupo" />
+    <NavigationProperty Name="sistema_estados" Relationship="libVentasModel.clientes_ibfk_2" FromRole="clientes" ToRole="sistema_estados" />
+    <NavigationProperty Name="clientes_zonas" Relationship="libVentasModel.clientes_ibfk_3" FromRole="clientes" ToRole="clientes_zonas" />
+    <NavigationProperty Name="cxc_recibos" Relationship="libVentasModel.cxc_recibos_ibfk_2" FromRole="clientes" ToRole="cxc_recibos" />
+    <NavigationProperty Name="ventas_detalle" Relationship="libVentasModel.ventas_detalle_ibfk_6" FromRole="clientes" ToRole="ventas_detalle" />
+  </EntityType>
+  <EntityType Name="empresa_medios">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_cobro" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_pago" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="cxc_medio_pago" Relationship="libVentasModel.cxc_medio_pago_ibfk_2" FromRole="empresa_medios" ToRole="cxc_medio_pago" />
+  </EntityType>
+  <Association Name="clientes_ibfk_11">
+    <End Type="libVentasModel.vendedores" Role="vendedores" Multiplicity="1" />
+    <End Type="libVentasModel.clientes" Role="clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="vendedores">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="clientes">
+        <PropertyRef Name="auto_vendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="clientes_ibfk_5">
+    <End Type="libVentasModel.empresa_cobradores" Role="empresa_cobradores" Multiplicity="1" />
+    <End Type="libVentasModel.clientes" Role="clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_cobradores">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="clientes">
+        <PropertyRef Name="auto_cobrador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ventas_ibfk_5">
+    <End Type="libVentasModel.clientes" Role="clientes" Multiplicity="1" />
+    <End Type="libVentasModel.ventas" Role="ventas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clientes">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="ventas">
+        <PropertyRef Name="auto_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="empresa_agencias">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="clientes" Relationship="libVentasModel.clientes_ibfk_6" FromRole="empresa_agencias" ToRole="clientes" />
+    <NavigationProperty Name="cxc" Relationship="libVentasModel.cxc_ibfk_2" FromRole="empresa_agencias" ToRole="cxc" />
+  </EntityType>
+  <Association Name="clientes_ibfk_6">
+    <End Type="libVentasModel.empresa_agencias" Role="empresa_agencias" Multiplicity="1" />
+    <End Type="libVentasModel.clientes" Role="clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_agencias">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="clientes">
+        <PropertyRef Name="auto_agencia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="cxc">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="c_cobranza" Type="Decimal" Nullable="false" />
+    <Property Name="c_cobranzap" Type="Decimal" Nullable="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="tipo_documento" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="documento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_vencimiento" Type="DateTime" Nullable="false" />
+    <Property Name="nota" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="importe" Type="Decimal" Nullable="false" />
+    <Property Name="acumulado" Type="Decimal" Nullable="false" />
+    <Property Name="auto_cliente" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cliente" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ci_rif" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="codigo_cliente" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_cancelado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="resta" Type="Decimal" Nullable="false" />
+    <Property Name="estatus_anulado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="auto_documento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numero" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_agencia" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="agencia" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="signo" Type="Int32" Nullable="false" />
+    <Property Name="auto_vendedor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="c_departamento" Type="Decimal" Nullable="false" />
+    <Property Name="c_ventas" Type="Decimal" Nullable="false" />
+    <Property Name="c_ventasp" Type="Decimal" Nullable="false" />
+    <Property Name="serie" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="importe_neto" Type="Decimal" Nullable="false" />
+    <Property Name="dias" Type="Int32" Nullable="false" />
+    <Property Name="castigop" Type="Decimal" Nullable="false" />
+    <NavigationProperty Name="clientes" Relationship="libVentasModel.cxc_ibfk_1" FromRole="cxc" ToRole="clientes" />
+    <NavigationProperty Name="empresa_agencias" Relationship="libVentasModel.cxc_ibfk_2" FromRole="cxc" ToRole="empresa_agencias" />
+    <NavigationProperty Name="vendedores" Relationship="libVentasModel.cxc_ibfk_3" FromRole="cxc" ToRole="vendedores" />
+    <NavigationProperty Name="cxc_recibos" Relationship="libVentasModel.cxc_recibos_ibfk_4" FromRole="cxc" ToRole="cxc_recibos" />
+    <NavigationProperty Name="cxc_documentos" Relationship="libVentasModel.cxc_documentos_ibfk_4" FromRole="cxc" ToRole="cxc_documentos" />
+    <NavigationProperty Name="cxc_documentos1" Relationship="libVentasModel.cxc_documentos_ibfk_5" FromRole="cxc" ToRole="cxc_documentos" />
+  </EntityType>
+  <Association Name="cxc_ibfk_1">
+    <End Type="libVentasModel.clientes" Role="clientes" Multiplicity="1" />
+    <End Type="libVentasModel.cxc" Role="cxc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clientes">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxc">
+        <PropertyRef Name="auto_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cxc_ibfk_2">
+    <End Type="libVentasModel.empresa_agencias" Role="empresa_agencias" Multiplicity="1" />
+    <End Type="libVentasModel.cxc" Role="cxc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_agencias">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxc">
+        <PropertyRef Name="auto_agencia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cxc_ibfk_3">
+    <End Type="libVentasModel.vendedores" Role="vendedores" Multiplicity="1" />
+    <End Type="libVentasModel.cxc" Role="cxc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="vendedores">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxc">
+        <PropertyRef Name="auto_vendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="clientes_grupo">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="clientes" Relationship="libVentasModel.clientes_ibfk_1" FromRole="clientes_grupo" ToRole="clientes" />
+  </EntityType>
+  <EntityType Name="clientes_zonas">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="clientes" Relationship="libVentasModel.clientes_ibfk_3" FromRole="clientes_zonas" ToRole="clientes" />
+  </EntityType>
+  <EntityType Name="sistema_estados">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="clientes" Relationship="libVentasModel.clientes_ibfk_2" FromRole="sistema_estados" ToRole="clientes" />
+  </EntityType>
+  <Association Name="clientes_ibfk_1">
+    <End Type="libVentasModel.clientes_grupo" Role="clientes_grupo" Multiplicity="1" />
+    <End Type="libVentasModel.clientes" Role="clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clientes_grupo">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="clientes">
+        <PropertyRef Name="auto_grupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="clientes_ibfk_2">
+    <End Type="libVentasModel.sistema_estados" Role="sistema_estados" Multiplicity="1" />
+    <End Type="libVentasModel.clientes" Role="clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sistema_estados">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="clientes">
+        <PropertyRef Name="auto_estado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="clientes_ibfk_3">
+    <End Type="libVentasModel.clientes_zonas" Role="clientes_zonas" Multiplicity="1" />
+    <End Type="libVentasModel.clientes" Role="clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clientes_zonas">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="clientes">
+        <PropertyRef Name="auto_zona" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="sistema_contadores">
+    <Key>
+      <PropertyRef Name="a_clientes_grupo" />
+      <PropertyRef Name="a_usuarios" />
+      <PropertyRef Name="a_empresa_series_fiscales" />
+      <PropertyRef Name="a_empresa_depositos" />
+      <PropertyRef Name="a_empresa_medios" />
+      <PropertyRef Name="a_empresa_cobradores" />
+      <PropertyRef Name="a_empresa_transporte" />
+      <PropertyRef Name="a_clientes" />
+      <PropertyRef Name="a_sistema_estados" />
+      <PropertyRef Name="a_clientes_zonas" />
+      <PropertyRef Name="a_proveedores_grupo" />
+      <PropertyRef Name="a_proveedores" />
+      <PropertyRef Name="a_productos_grupo" />
+      <PropertyRef Name="a_productos_subgrupo" />
+      <PropertyRef Name="a_productos_marca" />
+      <PropertyRef Name="a_productos_medida" />
+      <PropertyRef Name="a_productos_conceptos" />
+      <PropertyRef Name="a_empresa_departamentos" />
+      <PropertyRef Name="a_productos" />
+      <PropertyRef Name="a_empresa_tasas" />
+      <PropertyRef Name="a_productos_movimientos" />
+      <PropertyRef Name="a_productos_movimientos_cargos" />
+      <PropertyRef Name="a_empresa_agencias" />
+      <PropertyRef Name="a_cxc" />
+      <PropertyRef Name="a_cxc_nd" />
+      <PropertyRef Name="a_cxc_nc" />
+      <PropertyRef Name="a_cxc_chq" />
+      <PropertyRef Name="a_cxc_recibo" />
+      <PropertyRef Name="a_cxc_recibo_numero" />
+      <PropertyRef Name="a_ventas" />
+      <PropertyRef Name="a_cxp" />
+      <PropertyRef Name="a_cxp_nd" />
+      <PropertyRef Name="a_cxp_nc" />
+      <PropertyRef Name="a_cxp_chq" />
+      <PropertyRef Name="a_cxp_recibo" />
+      <PropertyRef Name="a_cxp_recibo_numero" />
+      <PropertyRef Name="a_compras" />
+      <PropertyRef Name="a_ventas_presupuesto" />
+      <PropertyRef Name="a_ventas_pedido" />
+      <PropertyRef Name="a_sistema_transito" />
+      <PropertyRef Name="a_ventas_retenciones" />
+      <PropertyRef Name="a_ventas_despacho" />
+      <PropertyRef Name="a_cxc_anticipo" />
+      <PropertyRef Name="a_cxp_anticipo" />
+      <PropertyRef Name="a_productos_movimientos_descargos" />
+      <PropertyRef Name="a_productos_movimientos_traslados" />
+      <PropertyRef Name="a_productos_movimientos_ajustes" />
+      <PropertyRef Name="a_compras_orden" />
+      <PropertyRef Name="a_compras_retenciones" />
+      <PropertyRef Name="a_clientes_afiliados" />
+      <PropertyRef Name="a_compras_retencion_iva" />
+      <PropertyRef Name="a_compras_retencion_islr" />
+      <PropertyRef Name="a_pos_cuentas" />
+      <PropertyRef Name="a_pos_comandas" />
+      <PropertyRef Name="a_bancos" />
+      <PropertyRef Name="a_bancos_movimientos" />
+      <PropertyRef Name="a_bancos_movimientos_conceptos" />
+      <PropertyRef Name="a_bancos_egreso" />
+      <PropertyRef Name="a_contabilidad_plan_cuentas" />
+      <PropertyRef Name="a_sistema_transito_asiento" />
+      <PropertyRef Name="a_sistema_transito_asiento_numero" />
+      <PropertyRef Name="a_vendedores" />
+      <PropertyRef Name="a_bancos_beneficiarios" />
+      <PropertyRef Name="a_vendedores_comisiones" />
+      <PropertyRef Name="a_vendedores_comisiones_numero" />
+      <PropertyRef Name="a_comanda1" />
+      <PropertyRef Name="a_comanda2" />
+      <PropertyRef Name="a_comanda3" />
+      <PropertyRef Name="a_cierre" />
+      <PropertyRef Name="a_cxp_planifica" />
+      <PropertyRef Name="a_pos_eventos" />
+      <PropertyRef Name="a_compras_lista" />
+      <PropertyRef Name="a_compras_recepcion" />
+      <PropertyRef Name="a_productos_conteo" />
+    </Key>
+    <Property Name="a_clientes_grupo" Type="Int32" Nullable="false" />
+    <Property Name="a_usuarios" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_series_fiscales" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_depositos" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_medios" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_cobradores" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_transporte" Type="Int32" Nullable="false" />
+    <Property Name="a_clientes" Type="Int32" Nullable="false" />
+    <Property Name="a_sistema_estados" Type="Int32" Nullable="false" />
+    <Property Name="a_clientes_zonas" Type="Int32" Nullable="false" />
+    <Property Name="a_proveedores_grupo" Type="Int32" Nullable="false" />
+    <Property Name="a_proveedores" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_grupo" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_subgrupo" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_marca" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_medida" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_conceptos" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_departamentos" Type="Int32" Nullable="false" />
+    <Property Name="a_productos" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_tasas" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_movimientos" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_movimientos_cargos" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_agencias" Type="Int32" Nullable="false" />
+    <Property Name="a_cxc" Type="Int32" Nullable="false" />
+    <Property Name="a_cxc_nd" Type="Int32" Nullable="false" />
+    <Property Name="a_cxc_nc" Type="Int32" Nullable="false" />
+    <Property Name="a_cxc_chq" Type="Int32" Nullable="false" />
+    <Property Name="a_cxc_recibo" Type="Int32" Nullable="false" />
+    <Property Name="a_cxc_recibo_numero" Type="Int32" Nullable="false" />
+    <Property Name="a_ventas" Type="Int32" Nullable="false" />
+    <Property Name="a_cxp" Type="Int32" Nullable="false" />
+    <Property Name="a_cxp_nd" Type="Int32" Nullable="false" />
+    <Property Name="a_cxp_nc" Type="Int32" Nullable="false" />
+    <Property Name="a_cxp_chq" Type="Int32" Nullable="false" />
+    <Property Name="a_cxp_recibo" Type="Int32" Nullable="false" />
+    <Property Name="a_cxp_recibo_numero" Type="Int32" Nullable="false" />
+    <Property Name="a_compras" Type="Int32" Nullable="false" />
+    <Property Name="a_ventas_presupuesto" Type="Int32" Nullable="false" />
+    <Property Name="a_ventas_pedido" Type="Int32" Nullable="false" />
+    <Property Name="a_sistema_transito" Type="Int32" Nullable="false" />
+    <Property Name="a_ventas_retenciones" Type="Int32" Nullable="false" />
+    <Property Name="a_ventas_despacho" Type="Int32" Nullable="false" />
+    <Property Name="a_cxc_anticipo" Type="Int32" Nullable="false" />
+    <Property Name="a_cxp_anticipo" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_movimientos_descargos" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_movimientos_traslados" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_movimientos_ajustes" Type="Int32" Nullable="false" />
+    <Property Name="a_compras_orden" Type="Int32" Nullable="false" />
+    <Property Name="a_compras_retenciones" Type="Int32" Nullable="false" />
+    <Property Name="a_clientes_afiliados" Type="Int32" Nullable="false" />
+    <Property Name="a_compras_retencion_iva" Type="Int32" Nullable="false" />
+    <Property Name="a_compras_retencion_islr" Type="Int32" Nullable="false" />
+    <Property Name="a_pos_cuentas" Type="Int32" Nullable="false" />
+    <Property Name="a_pos_comandas" Type="Int32" Nullable="false" />
+    <Property Name="a_bancos" Type="Int32" Nullable="false" />
+    <Property Name="a_bancos_movimientos" Type="Int32" Nullable="false" />
+    <Property Name="a_bancos_movimientos_conceptos" Type="Int32" Nullable="false" />
+    <Property Name="a_bancos_egreso" Type="Int32" Nullable="false" />
+    <Property Name="a_contabilidad_plan_cuentas" Type="Int32" Nullable="false" />
+    <Property Name="a_sistema_transito_asiento" Type="Int32" Nullable="false" />
+    <Property Name="a_sistema_transito_asiento_numero" Type="Int32" Nullable="false" />
+    <Property Name="a_vendedores" Type="Int32" Nullable="false" />
+    <Property Name="a_bancos_beneficiarios" Type="Int32" Nullable="false" />
+    <Property Name="a_vendedores_comisiones" Type="Int32" Nullable="false" />
+    <Property Name="a_vendedores_comisiones_numero" Type="Int32" Nullable="false" />
+    <Property Name="a_comanda1" Type="Int32" Nullable="false" />
+    <Property Name="a_comanda2" Type="Int32" Nullable="false" />
+    <Property Name="a_comanda3" Type="Int32" Nullable="false" />
+    <Property Name="a_cierre" Type="Int32" Nullable="false" />
+    <Property Name="a_cxp_planifica" Type="Int32" Nullable="false" />
+    <Property Name="a_pos_eventos" Type="Int32" Nullable="false" />
+    <Property Name="a_compras_lista" Type="Int32" Nullable="false" />
+    <Property Name="a_compras_recepcion" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_conteo" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="cxc_recibos">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="documento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="auto_usuario" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="importe" Type="Decimal" Nullable="false" />
+    <Property Name="usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="monto_recibido" Type="Decimal" Nullable="false" />
+    <Property Name="cobrador" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="auto_cliente" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cliente" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ci_rif" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_anulado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="direccion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="auto_cobrador" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="anticipos" Type="Decimal" Nullable="false" />
+    <Property Name="cambio" Type="Decimal" Nullable="false" />
+    <Property Name="nota" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="codigo_cobrador" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_cxc" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="retenciones" Type="Decimal" Nullable="false" />
+    <Property Name="descuentos" Type="Decimal" Nullable="false" />
+    <Property Name="hora" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cierre" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="clientes" Relationship="libVentasModel.cxc_recibos_ibfk_2" FromRole="cxc_recibos" ToRole="clientes" />
+    <NavigationProperty Name="cxc" Relationship="libVentasModel.cxc_recibos_ibfk_4" FromRole="cxc_recibos" ToRole="cxc" />
+    <NavigationProperty Name="empresa_cobradores" Relationship="libVentasModel.cxc_recibos_ibfk_3" FromRole="cxc_recibos" ToRole="empresa_cobradores" />
+    <NavigationProperty Name="cxc_documentos" Relationship="libVentasModel.cxc_documentos_ibfk_3" FromRole="cxc_recibos" ToRole="cxc_documentos" />
+    <NavigationProperty Name="cxc_medio_pago" Relationship="libVentasModel.cxc_medio_pago_ibfk_1" FromRole="cxc_recibos" ToRole="cxc_medio_pago" />
+    <NavigationProperty Name="usuarios" Relationship="libVentasModel.cxc_recibos_ibfk_1" FromRole="cxc_recibos" ToRole="usuarios" />
+  </EntityType>
+  <Association Name="cxc_recibos_ibfk_2">
+    <End Type="libVentasModel.clientes" Role="clientes" Multiplicity="1" />
+    <End Type="libVentasModel.cxc_recibos" Role="cxc_recibos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clientes">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxc_recibos">
+        <PropertyRef Name="auto_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cxc_recibos_ibfk_4">
+    <End Type="libVentasModel.cxc" Role="cxc" Multiplicity="1" />
+    <End Type="libVentasModel.cxc_recibos" Role="cxc_recibos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cxc">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxc_recibos">
+        <PropertyRef Name="auto_cxc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cxc_recibos_ibfk_3">
+    <End Type="libVentasModel.empresa_cobradores" Role="empresa_cobradores" Multiplicity="1" />
+    <End Type="libVentasModel.cxc_recibos" Role="cxc_recibos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_cobradores">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxc_recibos">
+        <PropertyRef Name="auto_cobrador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="cxc_documentos">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="fecha" />
+      <PropertyRef Name="tipo_documento" />
+      <PropertyRef Name="documento" />
+      <PropertyRef Name="importe" />
+      <PropertyRef Name="operacion" />
+      <PropertyRef Name="auto_cxc" />
+      <PropertyRef Name="auto_cxc_pago" />
+      <PropertyRef Name="auto_cxc_recibo" />
+      <PropertyRef Name="numero_recibo" />
+      <PropertyRef Name="fecha_recepcion" />
+      <PropertyRef Name="dias" />
+      <PropertyRef Name="castigop" />
+      <PropertyRef Name="comisionp" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="tipo_documento" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="documento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="importe" Type="Decimal" Nullable="false" />
+    <Property Name="operacion" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="auto_cxc" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_cxc_pago" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_cxc_recibo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numero_recibo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_recepcion" Type="DateTime" Nullable="false" />
+    <Property Name="dias" Type="Int32" Nullable="false" />
+    <Property Name="castigop" Type="Decimal" Nullable="false" />
+    <Property Name="comisionp" Type="Decimal" Nullable="false" />
+    <NavigationProperty Name="cxc" Relationship="libVentasModel.cxc_documentos_ibfk_4" FromRole="cxc_documentos" ToRole="cxc" />
+    <NavigationProperty Name="cxc1" Relationship="libVentasModel.cxc_documentos_ibfk_5" FromRole="cxc_documentos" ToRole="cxc" />
+    <NavigationProperty Name="cxc_recibos" Relationship="libVentasModel.cxc_documentos_ibfk_3" FromRole="cxc_documentos" ToRole="cxc_recibos" />
+  </EntityType>
+  <EntityType Name="cxc_medio_pago">
+    <Key>
+      <PropertyRef Name="auto_recibo" />
+      <PropertyRef Name="auto_medio_pago" />
+      <PropertyRef Name="auto_agencia" />
+      <PropertyRef Name="medio" />
+      <PropertyRef Name="codigo" />
+      <PropertyRef Name="monto_recibido" />
+      <PropertyRef Name="fecha" />
+      <PropertyRef Name="estatus_anulado" />
+      <PropertyRef Name="numero" />
+      <PropertyRef Name="agencia" />
+      <PropertyRef Name="auto_usuario" />
+      <PropertyRef Name="lote" />
+      <PropertyRef Name="referencia" />
+      <PropertyRef Name="auto_cobrador" />
+      <PropertyRef Name="cierre" />
+      <PropertyRef Name="fecha_agencia" />
+    </Key>
+    <Property Name="auto_recibo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_medio_pago" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_agencia" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="medio" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="monto_recibido" Type="Decimal" Nullable="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="estatus_anulado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="numero" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="agencia" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="auto_usuario" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="lote" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="referencia" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="auto_cobrador" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cierre" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_agencia" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="cxc_recibos" Relationship="libVentasModel.cxc_medio_pago_ibfk_1" FromRole="cxc_medio_pago" ToRole="cxc_recibos" />
+    <NavigationProperty Name="empresa_medios" Relationship="libVentasModel.cxc_medio_pago_ibfk_2" FromRole="cxc_medio_pago" ToRole="empresa_medios" />
+  </EntityType>
+  <Association Name="cxc_documentos_ibfk_4">
+    <End Type="libVentasModel.cxc" Role="cxc" Multiplicity="1" />
+    <End Type="libVentasModel.cxc_documentos" Role="cxc_documentos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cxc">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxc_documentos">
+        <PropertyRef Name="auto_cxc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cxc_documentos_ibfk_5">
+    <End Type="libVentasModel.cxc" Role="cxc" Multiplicity="1" />
+    <End Type="libVentasModel.cxc_documentos" Role="cxc_documentos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cxc">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxc_documentos">
+        <PropertyRef Name="auto_cxc_pago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cxc_documentos_ibfk_3">
+    <End Type="libVentasModel.cxc_recibos" Role="cxc_recibos" Multiplicity="1" />
+    <End Type="libVentasModel.cxc_documentos" Role="cxc_documentos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cxc_recibos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxc_documentos">
+        <PropertyRef Name="auto_cxc_recibo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cxc_medio_pago_ibfk_1">
+    <End Type="libVentasModel.cxc_recibos" Role="cxc_recibos" Multiplicity="1" />
+    <End Type="libVentasModel.cxc_medio_pago" Role="cxc_medio_pago" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cxc_recibos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxc_medio_pago">
+        <PropertyRef Name="auto_recibo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cxc_medio_pago_ibfk_2">
+    <End Type="libVentasModel.empresa_medios" Role="empresa_medios" Multiplicity="1" />
+    <End Type="libVentasModel.cxc_medio_pago" Role="cxc_medio_pago" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_medios">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxc_medio_pago">
+        <PropertyRef Name="auto_medio_pago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="productos_kardex">
+    <Key>
+      <PropertyRef Name="auto_producto" />
+      <PropertyRef Name="total" />
+      <PropertyRef Name="auto_deposito" />
+      <PropertyRef Name="auto_concepto" />
+      <PropertyRef Name="auto_documento" />
+      <PropertyRef Name="fecha" />
+      <PropertyRef Name="hora" />
+      <PropertyRef Name="documento" />
+      <PropertyRef Name="modulo" />
+      <PropertyRef Name="entidad" />
+      <PropertyRef Name="signo" />
+      <PropertyRef Name="cantidad" />
+      <PropertyRef Name="cantidad_bono" />
+      <PropertyRef Name="cantidad_und" />
+      <PropertyRef Name="costo_und" />
+      <PropertyRef Name="estatus_anulado" />
+      <PropertyRef Name="nota" />
+      <PropertyRef Name="precio_und" />
+      <PropertyRef Name="codigo" />
+      <PropertyRef Name="siglas" />
+    </Key>
+    <Property Name="auto_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="total" Type="Decimal" Nullable="false" />
+    <Property Name="auto_deposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_concepto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_documento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="hora" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="documento" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="modulo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="entidad" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="signo" Type="Int32" Nullable="false" />
+    <Property Name="cantidad" Type="Decimal" Nullable="false" />
+    <Property Name="cantidad_bono" Type="Decimal" Nullable="false" />
+    <Property Name="cantidad_und" Type="Decimal" Nullable="false" />
+    <Property Name="costo_und" Type="Decimal" Nullable="false" />
+    <Property Name="estatus_anulado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="nota" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="precio_und" Type="Decimal" Nullable="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="siglas" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="empresa_depositos" Relationship="libVentasModel.productos_kardex_ibfk_2" FromRole="productos_kardex" ToRole="empresa_depositos" />
+    <NavigationProperty Name="productos" Relationship="libVentasModel.productos_kardex_ibfk_1" FromRole="productos_kardex" ToRole="productos" />
+    <NavigationProperty Name="productos_conceptos" Relationship="libVentasModel.productos_kardex_ibfk_3" FromRole="productos_kardex" ToRole="productos_conceptos" />
+  </EntityType>
+  <Association Name="productos_kardex_ibfk_2">
+    <End Type="libVentasModel.empresa_depositos" Role="empresa_depositos" Multiplicity="1" />
+    <End Type="libVentasModel.productos_kardex" Role="productos_kardex" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_depositos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_kardex">
+        <PropertyRef Name="auto_deposito" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_kardex_ibfk_1">
+    <End Type="libVentasModel.productos" Role="productos" Multiplicity="1" />
+    <End Type="libVentasModel.productos_kardex" Role="productos_kardex" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_kardex">
+        <PropertyRef Name="auto_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="sistema_configuracion">
+    <Key>
+      <PropertyRef Name="codigo" />
+    </Key>
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="operacion" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="valor" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="defecto" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="usuario" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="tipo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="modulo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="usuarios">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="clave" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_grupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_replica" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_alta" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_baja" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_sesion" Type="DateTime" Nullable="false" />
+    <Property Name="apellido" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="cxc_recibos" Relationship="libVentasModel.cxc_recibos_ibfk_1" FromRole="usuarios" ToRole="cxc_recibos" />
+    <NavigationProperty Name="ventas" Relationship="libVentasModel.ventas_ibfk_3" FromRole="usuarios" ToRole="ventas" />
+  </EntityType>
+  <EntityType Name="usuarios_grupo">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="cxc_recibos_ibfk_1">
+    <End Type="libVentasModel.usuarios" Role="usuarios" Multiplicity="1" />
+    <End Type="libVentasModel.cxc_recibos" Role="cxc_recibos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuarios">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxc_recibos">
+        <PropertyRef Name="auto_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ventas_ibfk_3">
+    <End Type="libVentasModel.usuarios" Role="usuarios" Multiplicity="1" />
+    <End Type="libVentasModel.ventas" Role="ventas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuarios">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="ventas">
+        <PropertyRef Name="auto_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="productos_conceptos">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="productos_kardex" Relationship="libVentasModel.productos_kardex_ibfk_3" FromRole="productos_conceptos" ToRole="productos_kardex" />
+  </EntityType>
+  <Association Name="productos_kardex_ibfk_3">
+    <End Type="libVentasModel.productos_conceptos" Role="productos_conceptos" Multiplicity="1" />
+    <End Type="libVentasModel.productos_kardex" Role="productos_kardex" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_conceptos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_kardex">
+        <PropertyRef Name="auto_concepto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ventas_detalle">
+    <Key>
+      <PropertyRef Name="auto_documento" />
+      <PropertyRef Name="auto_producto" />
+      <PropertyRef Name="codigo" />
+      <PropertyRef Name="nombre" />
+      <PropertyRef Name="auto_departamento" />
+      <PropertyRef Name="auto_grupo" />
+      <PropertyRef Name="auto_subgrupo" />
+      <PropertyRef Name="auto_deposito" />
+      <PropertyRef Name="cantidad" />
+      <PropertyRef Name="empaque" />
+      <PropertyRef Name="precio_neto" />
+      <PropertyRef Name="descuento1p" />
+      <PropertyRef Name="descuento2p" />
+      <PropertyRef Name="descuento3p" />
+      <PropertyRef Name="descuento1" />
+      <PropertyRef Name="descuento2" />
+      <PropertyRef Name="descuento3" />
+      <PropertyRef Name="costo_venta" />
+      <PropertyRef Name="total_neto" />
+      <PropertyRef Name="tasa" />
+      <PropertyRef Name="impuesto" />
+      <PropertyRef Name="total" />
+      <PropertyRef Name="auto" />
+      <PropertyRef Name="estatus_anulado" />
+      <PropertyRef Name="fecha" />
+      <PropertyRef Name="tipo" />
+      <PropertyRef Name="deposito" />
+      <PropertyRef Name="signo" />
+      <PropertyRef Name="precio_final" />
+      <PropertyRef Name="auto_cliente" />
+      <PropertyRef Name="decimales" />
+      <PropertyRef Name="contenido_empaque" />
+      <PropertyRef Name="cantidad_und" />
+      <PropertyRef Name="precio_und" />
+      <PropertyRef Name="costo_und" />
+      <PropertyRef Name="utilidad" />
+      <PropertyRef Name="utilidadp" />
+      <PropertyRef Name="precio_item" />
+      <PropertyRef Name="estatus_garantia" />
+      <PropertyRef Name="estatus_serial" />
+      <PropertyRef Name="codigo_deposito" />
+      <PropertyRef Name="dias_garantia" />
+      <PropertyRef Name="detalle" />
+      <PropertyRef Name="precio_sugerido" />
+      <PropertyRef Name="auto_tasa" />
+      <PropertyRef Name="estatus_corte" />
+      <PropertyRef Name="x" />
+      <PropertyRef Name="y" />
+      <PropertyRef Name="z" />
+      <PropertyRef Name="corte" />
+      <PropertyRef Name="categoria" />
+      <PropertyRef Name="cobranzap" />
+      <PropertyRef Name="ventasp" />
+      <PropertyRef Name="cobranzap_vendedor" />
+      <PropertyRef Name="ventasp_vendedor" />
+      <PropertyRef Name="cobranza" />
+      <PropertyRef Name="ventas" />
+      <PropertyRef Name="cobranza_vendedor" />
+      <PropertyRef Name="ventas_vendedor" />
+      <PropertyRef Name="costo_promedio_und" />
+      <PropertyRef Name="costo_compra" />
+      <PropertyRef Name="estatus_checked" />
+      <PropertyRef Name="tarifa" />
+      <PropertyRef Name="total_descuento" />
+      <PropertyRef Name="codigo_vendedor" />
+      <PropertyRef Name="auto_vendedor" />
+      <PropertyRef Name="hora" />
+    </Key>
+    <Property Name="auto_documento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="auto_departamento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_grupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_subgrupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_deposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cantidad" Type="Decimal" Nullable="false" />
+    <Property Name="empaque" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="precio_neto" Type="Decimal" Nullable="false" />
+    <Property Name="descuento1p" Type="Decimal" Nullable="false" />
+    <Property Name="descuento2p" Type="Decimal" Nullable="false" />
+    <Property Name="descuento3p" Type="Decimal" Nullable="false" />
+    <Property Name="descuento1" Type="Decimal" Nullable="false" />
+    <Property Name="descuento2" Type="Decimal" Nullable="false" />
+    <Property Name="descuento3" Type="Decimal" Nullable="false" />
+    <Property Name="costo_venta" Type="Decimal" Nullable="false" />
+    <Property Name="total_neto" Type="Decimal" Nullable="false" />
+    <Property Name="tasa" Type="Decimal" Nullable="false" />
+    <Property Name="impuesto" Type="Decimal" Nullable="false" />
+    <Property Name="total" Type="Decimal" Nullable="false" />
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_anulado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="tipo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="deposito" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="signo" Type="Int32" Nullable="false" />
+    <Property Name="precio_final" Type="Decimal" Nullable="false" />
+    <Property Name="auto_cliente" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="decimales" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="contenido_empaque" Type="Int32" Nullable="false" />
+    <Property Name="cantidad_und" Type="Decimal" Nullable="false" />
+    <Property Name="precio_und" Type="Decimal" Nullable="false" />
+    <Property Name="costo_und" Type="Decimal" Nullable="false" />
+    <Property Name="utilidad" Type="Decimal" Nullable="false" />
+    <Property Name="utilidadp" Type="Decimal" Nullable="false" />
+    <Property Name="precio_item" Type="Decimal" Nullable="false" />
+    <Property Name="estatus_garantia" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_serial" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="codigo_deposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="dias_garantia" Type="Int32" Nullable="false" />
+    <Property Name="detalle" Type="String" Nullable="false" MaxLength="160" FixedLength="false" Unicode="false" />
+    <Property Name="precio_sugerido" Type="Decimal" Nullable="false" />
+    <Property Name="auto_tasa" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_corte" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="x" Type="Decimal" Nullable="false" />
+    <Property Name="y" Type="Decimal" Nullable="false" />
+    <Property Name="z" Type="Decimal" Nullable="false" />
+    <Property Name="corte" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="categoria" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="cobranzap" Type="Decimal" Nullable="false" />
+    <Property Name="ventasp" Type="Decimal" Nullable="false" />
+    <Property Name="cobranzap_vendedor" Type="Decimal" Nullable="false" />
+    <Property Name="ventasp_vendedor" Type="Decimal" Nullable="false" />
+    <Property Name="cobranza" Type="Decimal" Nullable="false" />
+    <Property Name="ventas" Type="Decimal" Nullable="false" />
+    <Property Name="cobranza_vendedor" Type="Decimal" Nullable="false" />
+    <Property Name="ventas_vendedor" Type="Decimal" Nullable="false" />
+    <Property Name="costo_promedio_und" Type="Decimal" Nullable="false" />
+    <Property Name="costo_compra" Type="Decimal" Nullable="false" />
+    <Property Name="estatus_checked" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="tarifa" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="total_descuento" Type="Decimal" Nullable="false" />
+    <Property Name="codigo_vendedor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_vendedor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="hora" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="clientes" Relationship="libVentasModel.ventas_detalle_ibfk_6" FromRole="ventas_detalle" ToRole="clientes" />
+    <NavigationProperty Name="empresa_departamentos" Relationship="libVentasModel.ventas_detalle_ibfk_2" FromRole="ventas_detalle" ToRole="empresa_departamentos" />
+    <NavigationProperty Name="empresa_depositos" Relationship="libVentasModel.ventas_detalle_ibfk_5" FromRole="ventas_detalle" ToRole="empresa_depositos" />
+    <NavigationProperty Name="productos" Relationship="libVentasModel.ventas_detalle_ibfk_1" FromRole="ventas_detalle" ToRole="productos" />
+    <NavigationProperty Name="productos_grupo" Relationship="libVentasModel.ventas_detalle_ibfk_3" FromRole="ventas_detalle" ToRole="productos_grupo" />
+    <NavigationProperty Name="vendedores" Relationship="libVentasModel.ventas_detalle_ibfk_9" FromRole="ventas_detalle" ToRole="vendedores" />
+    <NavigationProperty Name="ventas1" Relationship="libVentasModel.ventas_detalle_ibfk_8" FromRole="ventas_detalle" ToRole="ventas" />
+    <NavigationProperty Name="empresa_tasas" Relationship="libVentasModel.ventas_detalle_ibfk_7" FromRole="ventas_detalle" ToRole="empresa_tasas" />
+  </EntityType>
+  <Association Name="ventas_detalle_ibfk_6">
+    <End Type="libVentasModel.clientes" Role="clientes" Multiplicity="1" />
+    <End Type="libVentasModel.ventas_detalle" Role="ventas_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clientes">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="ventas_detalle">
+        <PropertyRef Name="auto_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ventas_detalle_ibfk_2">
+    <End Type="libVentasModel.empresa_departamentos" Role="empresa_departamentos" Multiplicity="1" />
+    <End Type="libVentasModel.ventas_detalle" Role="ventas_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_departamentos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="ventas_detalle">
+        <PropertyRef Name="auto_departamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ventas_detalle_ibfk_5">
+    <End Type="libVentasModel.empresa_depositos" Role="empresa_depositos" Multiplicity="1" />
+    <End Type="libVentasModel.ventas_detalle" Role="ventas_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_depositos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="ventas_detalle">
+        <PropertyRef Name="auto_deposito" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ventas_detalle_ibfk_1">
+    <End Type="libVentasModel.productos" Role="productos" Multiplicity="1" />
+    <End Type="libVentasModel.ventas_detalle" Role="ventas_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="ventas_detalle">
+        <PropertyRef Name="auto_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ventas_detalle_ibfk_3">
+    <End Type="libVentasModel.productos_grupo" Role="productos_grupo" Multiplicity="1" />
+    <End Type="libVentasModel.ventas_detalle" Role="ventas_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_grupo">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="ventas_detalle">
+        <PropertyRef Name="auto_grupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ventas_detalle_ibfk_9">
+    <End Type="libVentasModel.vendedores" Role="vendedores" Multiplicity="1" />
+    <End Type="libVentasModel.ventas_detalle" Role="ventas_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="vendedores">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="ventas_detalle">
+        <PropertyRef Name="auto_vendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ventas_detalle_ibfk_8">
+    <End Type="libVentasModel.ventas" Role="ventas" Multiplicity="1" />
+    <End Type="libVentasModel.ventas_detalle" Role="ventas_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ventas">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="ventas_detalle">
+        <PropertyRef Name="auto_documento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="empresa_series_fiscales">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="serie" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="correlativo" Type="Int32" Nullable="false" />
+    <Property Name="estatus_factura" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_nd" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_nc" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_ne" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="control" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="empresa_tasas">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="tasa" Type="Decimal" Nullable="false" />
+    <NavigationProperty Name="productos" Relationship="libVentasModel.productos_ibfk_12" FromRole="empresa_tasas" ToRole="productos" />
+    <NavigationProperty Name="ventas_detalle" Relationship="libVentasModel.ventas_detalle_ibfk_7" FromRole="empresa_tasas" ToRole="ventas_detalle" />
+  </EntityType>
+  <Association Name="productos_ibfk_12">
+    <End Type="libVentasModel.empresa_tasas" Role="empresa_tasas" Multiplicity="1" />
+    <End Type="libVentasModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_tasas">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_tasa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ventas_detalle_ibfk_7">
+    <End Type="libVentasModel.empresa_tasas" Role="empresa_tasas" Multiplicity="1" />
+    <End Type="libVentasModel.ventas_detalle" Role="ventas_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_tasas">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="ventas_detalle">
+        <PropertyRef Name="auto_tasa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

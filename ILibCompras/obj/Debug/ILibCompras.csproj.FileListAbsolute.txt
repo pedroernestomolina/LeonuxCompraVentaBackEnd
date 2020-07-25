@@ -1,0 +1,9 @@
+D:\Proyectos FoxSystem\CompraVenta\ILibCompras\bin\Debug\ILibCompras.dll
+D:\Proyectos FoxSystem\CompraVenta\ILibCompras\bin\Debug\ILibCompras.pdb
+D:\Proyectos FoxSystem\CompraVenta\ILibCompras\bin\Debug\DtoLib.dll
+D:\Proyectos FoxSystem\CompraVenta\ILibCompras\bin\Debug\DtoLibCompra.dll
+D:\Proyectos FoxSystem\CompraVenta\ILibCompras\bin\Debug\DtoLibCompra.pdb
+D:\Proyectos FoxSystem\CompraVenta\ILibCompras\bin\Debug\DtoLib.pdb
+D:\Proyectos FoxSystem\CompraVenta\ILibCompras\obj\Debug\ILibCompras.csprojResolveAssemblyReference.cache
+D:\Proyectos FoxSystem\CompraVenta\ILibCompras\obj\Debug\ILibCompras.dll
+D:\Proyectos FoxSystem\CompraVenta\ILibCompras\obj\Debug\ILibCompras.pdb

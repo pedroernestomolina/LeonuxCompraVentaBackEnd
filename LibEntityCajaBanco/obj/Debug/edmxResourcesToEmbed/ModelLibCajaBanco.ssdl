@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cajaBancoModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'pita.cxc_medio_pago' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="cxc_medio_pago">
+    <Key>
+      <PropertyRef Name="auto_recibo" />
+      <PropertyRef Name="auto_medio_pago" />
+      <PropertyRef Name="auto_agencia" />
+      <PropertyRef Name="medio" />
+      <PropertyRef Name="codigo" />
+      <PropertyRef Name="monto_recibido" />
+      <PropertyRef Name="fecha" />
+      <PropertyRef Name="estatus_anulado" />
+      <PropertyRef Name="numero" />
+      <PropertyRef Name="agencia" />
+      <PropertyRef Name="auto_usuario" />
+      <PropertyRef Name="lote" />
+      <PropertyRef Name="referencia" />
+      <PropertyRef Name="auto_cobrador" />
+      <PropertyRef Name="cierre" />
+      <PropertyRef Name="fecha_agencia" />
+      <PropertyRef Name="cierre_ftp" />
+    </Key>
+    <Property Name="auto_recibo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_medio_pago" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_agencia" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="medio" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="monto_recibido" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="fecha" Type="date" Nullable="false" />
+    <Property Name="estatus_anulado" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="numero" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="agencia" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="auto_usuario" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="lote" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="referencia" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="auto_cobrador" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="cierre" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="fecha_agencia" Type="date" Nullable="false" />
+    <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="empresa_sucursal">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="autoDepositoPrincipal" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="autoEmpresaGrupo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="120" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="pos_arqueo">
+    <Key>
+      <PropertyRef Name="auto_cierre" />
+      <PropertyRef Name="auto_usuario" />
+      <PropertyRef Name="codigo" />
+      <PropertyRef Name="usuario" />
+      <PropertyRef Name="fecha" />
+      <PropertyRef Name="hora" />
+      <PropertyRef Name="diferencia" />
+      <PropertyRef Name="efectivo" />
+      <PropertyRef Name="cheque" />
+      <PropertyRef Name="debito" />
+      <PropertyRef Name="credito" />
+      <PropertyRef Name="ticket" />
+      <PropertyRef Name="firma" />
+      <PropertyRef Name="retiro" />
+      <PropertyRef Name="otros" />
+      <PropertyRef Name="devolucion" />
+      <PropertyRef Name="subtotal" />
+      <PropertyRef Name="cobranza" />
+      <PropertyRef Name="total" />
+      <PropertyRef Name="mefectivo" />
+      <PropertyRef Name="mcheque" />
+      <PropertyRef Name="mbanco1" />
+      <PropertyRef Name="mbanco2" />
+      <PropertyRef Name="mbanco3" />
+      <PropertyRef Name="mbanco4" />
+      <PropertyRef Name="mtarjeta" />
+      <PropertyRef Name="mticket" />
+      <PropertyRef Name="mtrans" />
+      <PropertyRef Name="mfirma" />
+      <PropertyRef Name="motros" />
+      <PropertyRef Name="mgastos" />
+      <PropertyRef Name="mretiro" />
+      <PropertyRef Name="mretenciones" />
+      <PropertyRef Name="msubtotal" />
+      <PropertyRef Name="mtotal" />
+      <PropertyRef Name="cierre_ftp" />
+    </Key>
+    <Property Name="auto_cierre" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_usuario" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="usuario" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="fecha" Type="date" Nullable="false" />
+    <Property Name="hora" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="diferencia" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="efectivo" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cheque" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="debito" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="credito" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="ticket" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="firma" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="retiro" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="otros" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="devolucion" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="subtotal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cobranza" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="total" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="mefectivo" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="mcheque" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="mbanco1" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="mbanco2" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="mbanco3" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="mbanco4" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="mtarjeta" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="mticket" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="mtrans" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="mfirma" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="motros" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="mgastos" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="mretiro" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="mretenciones" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="msubtotal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="mtotal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="usuarios">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="clave" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_grupo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="estatus" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="estatus_replica" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="fecha_alta" Type="date" Nullable="false" />
+    <Property Name="fecha_baja" Type="date" Nullable="false" />
+    <Property Name="fecha_sesion" Type="date" Nullable="false" />
+    <Property Name="apellido" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="cajaBancoModelStoreContainer">
+    <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="cxc_medio_pago" EntityType="Self.cxc_medio_pago" store:Type="Tables" store:Schema="pita">
+      <DefiningQuery>SELECT
+`cxc_medio_pago`.`auto_recibo`, 
+`cxc_medio_pago`.`auto_medio_pago`, 
+`cxc_medio_pago`.`auto_agencia`, 
+`cxc_medio_pago`.`medio`, 
+`cxc_medio_pago`.`codigo`, 
+`cxc_medio_pago`.`monto_recibido`, 
+`cxc_medio_pago`.`fecha`, 
+`cxc_medio_pago`.`estatus_anulado`, 
+`cxc_medio_pago`.`numero`, 
+`cxc_medio_pago`.`agencia`, 
+`cxc_medio_pago`.`auto_usuario`, 
+`cxc_medio_pago`.`lote`, 
+`cxc_medio_pago`.`referencia`, 
+`cxc_medio_pago`.`auto_cobrador`, 
+`cxc_medio_pago`.`cierre`, 
+`cxc_medio_pago`.`fecha_agencia`, 
+`cxc_medio_pago`.`cierre_ftp`
+FROM `cxc_medio_pago` AS `cxc_medio_pago`</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="pos_arqueo" EntityType="Self.pos_arqueo" store:Type="Tables" store:Schema="pita">
+      <DefiningQuery>SELECT
+`pos_arqueo`.`auto_cierre`, 
+`pos_arqueo`.`auto_usuario`, 
+`pos_arqueo`.`codigo`, 
+`pos_arqueo`.`usuario`, 
+`pos_arqueo`.`fecha`, 
+`pos_arqueo`.`hora`, 
+`pos_arqueo`.`diferencia`, 
+`pos_arqueo`.`efectivo`, 
+`pos_arqueo`.`cheque`, 
+`pos_arqueo`.`debito`, 
+`pos_arqueo`.`credito`, 
+`pos_arqueo`.`ticket`, 
+`pos_arqueo`.`firma`, 
+`pos_arqueo`.`retiro`, 
+`pos_arqueo`.`otros`, 
+`pos_arqueo`.`devolucion`, 
+`pos_arqueo`.`subtotal`, 
+`pos_arqueo`.`cobranza`, 
+`pos_arqueo`.`total`, 
+`pos_arqueo`.`mefectivo`, 
+`pos_arqueo`.`mcheque`, 
+`pos_arqueo`.`mbanco1`, 
+`pos_arqueo`.`mbanco2`, 
+`pos_arqueo`.`mbanco3`, 
+`pos_arqueo`.`mbanco4`, 
+`pos_arqueo`.`mtarjeta`, 
+`pos_arqueo`.`mticket`, 
+`pos_arqueo`.`mtrans`, 
+`pos_arqueo`.`mfirma`, 
+`pos_arqueo`.`motros`, 
+`pos_arqueo`.`mgastos`, 
+`pos_arqueo`.`mretiro`, 
+`pos_arqueo`.`mretenciones`, 
+`pos_arqueo`.`msubtotal`, 
+`pos_arqueo`.`mtotal`, 
+`pos_arqueo`.`cierre_ftp`
+FROM `pos_arqueo` AS `pos_arqueo`</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>
