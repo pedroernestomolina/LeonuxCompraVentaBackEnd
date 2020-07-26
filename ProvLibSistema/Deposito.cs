@@ -11,7 +11,7 @@ using System.Transactions;
 namespace ProvLibSistema
 {
 
-    public partial class Provider : ILibSistema.IProvider 
+    public partial class Provider : ILibSistema.IProvider
     {
 
         public DtoLib.ResultadoLista<DtoLibSistema.Deposito.Resumen> Deposito_GetLista()
@@ -31,11 +31,23 @@ namespace ProvLibSistema
                         {
                             list = q.Select(s =>
                             {
+                                var _autoSuc="";
+                                var _codSuc="";
+                                var _suc="";
+                                var entSuc = cnn.empresa_sucursal.FirstOrDefault(f=>f.codigo==s.codigo_sucursal);
+                                if (entSuc != null) 
+                                {
+                                    _autoSuc=entSuc.auto;
+                                    _codSuc=entSuc.codigo;
+                                    _suc = entSuc.nombre;
+                                }
                                 var r = new DtoLibSistema.Deposito.Resumen()
                                 {
                                     auto = s.auto,
                                     codigo = s.codigo,
                                     nombre = s.nombre,
+                                    codigoSucursal = _codSuc,
+                                    sucursal = _suc,
                                 };
                                 return r;
                             }).ToList();
@@ -61,25 +73,32 @@ namespace ProvLibSistema
             {
                 using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
                 {
-                    var ent= cnn.empresa_depositos.Find(auto);
-                    if (ent == null) 
+                    var ent = cnn.empresa_depositos.Find(auto);
+                    if (ent == null)
                     {
                         result.Mensaje = "[ ID ] ENTIDAD DEPOSITO NO ENCONTRADO";
                         result.Result = DtoLib.Enumerados.EnumResult.isError;
                         return result;
                     }
 
-                    var _autoSuc="";
-                    var _codSuc="";
-                    var _suc="";
+                    var _autoSuc = "";
+                    var _codSuc = "";
+                    var _suc = "";
+                    var entSuc = cnn.empresa_sucursal.FirstOrDefault(f => f.codigo == ent.codigo_sucursal);
+                    if (entSuc != null)
+                    {
+                        _autoSuc = entSuc.auto;
+                        _codSuc = entSuc.codigo;
+                        _suc = entSuc.nombre;
+                    }
                     var nr = new DtoLibSistema.Deposito.Ficha()
                     {
                         auto = ent.auto,
                         codigo = ent.codigo,
                         nombre = ent.nombre,
-                        autoSucursal=_autoSuc,
-                        codigoSucursal=_codSuc,
-                        sucursal=_suc,
+                        autoSucursal = _autoSuc,
+                        codigoSucursal = _codSuc,
+                        sucursal = _suc,
                     };
                     result.Entidad = nr;
                 }
@@ -176,7 +195,7 @@ namespace ProvLibSistema
                     using (var ts = new TransactionScope())
                     {
                         var ent = cnn.empresa_depositos.Find(ficha.auto);
-                        if (ent == null) 
+                        if (ent == null)
                         {
                             result.Mensaje = "[ ID ] ENTIDAD DEPOSITO NO ENCONTRADO";
                             result.Result = DtoLib.Enumerados.EnumResult.isError;

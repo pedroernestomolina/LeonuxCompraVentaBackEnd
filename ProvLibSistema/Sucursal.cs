@@ -143,7 +143,15 @@ namespace ProvLibSistema
                         var aEmpresaSucursal = cnn.Database.SqlQuery<int>("select a_empresa_sucursal from sistema_contadores").FirstOrDefault();
                         var autoEmpresaSucursal = aEmpresaSucursal.ToString().Trim().PadLeft(10, '0');
 
-                        var ent = new empresa_sucursal()
+                        var ent = cnn.empresa_sucursal.FirstOrDefault(f => f.codigo == ficha.codigo);
+                        if (ent != null) 
+                        {
+                            result.Mensaje = "CODIGO SUCURSAL YA REGISTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        ent = new empresa_sucursal()
                         {
                             auto = autoEmpresaSucursal,
                             autoEmpresaGrupo = ficha.autoGrupo,
@@ -217,6 +225,14 @@ namespace ProvLibSistema
                         ent.codigo=ficha.codigo;
                         ent.nombre = ficha.nombre;
                         cnn.SaveChanges();
+
+                        var cnt = cnn.empresa_sucursal.Where(f => f.codigo == ficha.codigo).Count();
+                        if (cnt > 1) 
+                        {
+                            result.Mensaje = "CODIGO SUCURSAL YA REGISTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
 
                         ts.Complete();
                     }
