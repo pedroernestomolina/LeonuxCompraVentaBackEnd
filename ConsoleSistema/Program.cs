@@ -47,7 +47,16 @@ namespace ConsoleSistema
             //    codigoSucursal = "MY-01",
             //};
             //var r01 = sistPrv.Deposito_Agregar(ficha);
-
+            //var ficha = new DtoLibSistema.Precio.Etiquetar.Actualizar()
+            //{
+            //    descripcion_1 = "Pv1",
+            //    descripcion_2 = "Pv2",
+            //    descripcion_3 = "Pv3",
+            //    descripcion_4 = "Pv4",
+            //    descripcion_5 = "Pv5",
+            //};
+            //var r01 = sistPrv.Precio_Etiquetar_Actualizar(ficha);
+            //var r01 = sistPrv.Precio_Etiquetar_GetFicha();
         }
 
     }

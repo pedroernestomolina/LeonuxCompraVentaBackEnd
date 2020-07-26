@@ -12,6 +12,8 @@ namespace ILibSistema
     {
 
         DtoLib.ResultadoLista<DtoLibSistema.Precio.Resumen> Precio_GetLista();
+        DtoLib.ResultadoEntidad<DtoLibSistema.Precio.Etiquetar.Ficha > Precio_Etiquetar_GetFicha();
+        DtoLib.Resultado Precio_Etiquetar_Actualizar(DtoLibSistema.Precio.Etiquetar.Actualizar ficha);
 
     }
 

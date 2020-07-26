@@ -47,6 +47,8 @@
     <Compile Include="GrupoSucursal\Editar.cs" />
     <Compile Include="GrupoSucursal\Ficha.cs" />
     <Compile Include="GrupoSucursal\Resumen.cs" />
+    <Compile Include="Precio\Etiquetar\Actualizar.cs" />
+    <Compile Include="Precio\Etiquetar\Ficha.cs" />
     <Compile Include="Precio\Ficha.cs" />
     <Compile Include="Precio\Resumen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
