@@ -37,12 +37,20 @@ namespace ProvLibSistema
                                 {
                                     _grupo = entGrupo.nombre;
                                 }
+                                var _deposito = "";
+                                var entDeposito = cnn.empresa_depositos.Find(s.autoDepositoPrincipal);
+                                if (entDeposito != null) 
+                                {
+                                    _deposito = entDeposito.nombre;
+                                }
+
                                 var r = new DtoLibSistema.Sucursal.Resumen()
                                 {
                                     auto = s.auto,
                                     codigo = s.codigo,
                                     nombre = s.nombre,
                                     grupo = _grupo,
+                                    deposito=_deposito,
                                 };
                                 return r;
                             }).ToList();
@@ -292,6 +300,66 @@ namespace ProvLibSistema
                             return result;
                         }
                         ent.autoDepositoPrincipal = ficha.autoDepositoPrincipal;
+                        cnn.SaveChanges();
+
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Sucursal_QuitarDepositoPrincipal(string autoSuc)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var ent = cnn.empresa_sucursal.Find(autoSuc);
+                        if (ent == null)
+                        {
+                            result.Mensaje = "[ ID ] ENTIDAD SUCURSAL NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        ent.autoDepositoPrincipal = "";
                         cnn.SaveChanges();
 
                         ts.Complete();

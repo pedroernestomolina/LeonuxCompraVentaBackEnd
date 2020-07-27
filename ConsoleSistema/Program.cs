@@ -57,6 +57,7 @@ namespace ConsoleSistema
             //};
             //var r01 = sistPrv.Precio_Etiquetar_Actualizar(ficha);
             //var r01 = sistPrv.Precio_Etiquetar_GetFicha();
+            //var r01 = sistPrv.Sucursal_GetLista();
         }
 
     }

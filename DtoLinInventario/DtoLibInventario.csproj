@@ -45,6 +45,9 @@
     <Compile Include="Costo\Enumerados.cs" />
     <Compile Include="Costo\Historico\Filtro.cs" />
     <Compile Include="Costo\Historico\Resumen.cs" />
+    <Compile Include="Departamento\Agregar.cs" />
+    <Compile Include="Departamento\Editar.cs" />
+    <Compile Include="Departamento\Ficha.cs" />
     <Compile Include="Departamento\Resumen.cs" />
     <Compile Include="Deposito\Ficha.cs" />
     <Compile Include="Deposito\Resumen.cs" />
