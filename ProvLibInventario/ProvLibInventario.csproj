@@ -61,9 +61,11 @@
     <Compile Include="Costo.cs" />
     <Compile Include="Departamento.cs" />
     <Compile Include="Deposito.cs" />
+    <Compile Include="EmpaqueMedida.cs" />
     <Compile Include="Existencia.cs" />
     <Compile Include="Grupo.cs" />
     <Compile Include="Kardex.cs" />
+    <Compile Include="Marca.cs" />
     <Compile Include="Movimiento.cs" />
     <Compile Include="Precio.cs" />
     <Compile Include="Producto.cs" />

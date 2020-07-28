@@ -43,9 +43,11 @@
     <Compile Include="ICosto.cs" />
     <Compile Include="IDepartamento.cs" />
     <Compile Include="IDeposito.cs" />
+    <Compile Include="IEmpaqueMedida.cs" />
     <Compile Include="IExistencia.cs" />
     <Compile Include="IGrupo.cs" />
     <Compile Include="IKardex.cs" />
+    <Compile Include="IMarca.cs" />
     <Compile Include="IMovimiento.cs" />
     <Compile Include="IPrecio.cs" />
     <Compile Include="IProducto.cs" />
