@@ -43,10 +43,16 @@
     <Compile Include="Deposito\Editar.cs" />
     <Compile Include="Deposito\Ficha.cs" />
     <Compile Include="Deposito\Resumen.cs" />
+    <Compile Include="Funciones\Resumen.cs" />
     <Compile Include="GrupoSucursal\Agregar.cs" />
     <Compile Include="GrupoSucursal\Editar.cs" />
     <Compile Include="GrupoSucursal\Ficha.cs" />
     <Compile Include="GrupoSucursal\Resumen.cs" />
+    <Compile Include="GrupoUsuario\Agregar.cs" />
+    <Compile Include="GrupoUsuario\Editar.cs" />
+    <Compile Include="GrupoUsuario\Ficha.cs" />
+    <Compile Include="GrupoUsuario\Permiso.cs" />
+    <Compile Include="GrupoUsuario\Resumen.cs" />
     <Compile Include="Precio\Etiquetar\Actualizar.cs" />
     <Compile Include="Precio\Etiquetar\Ficha.cs" />
     <Compile Include="Precio\Ficha.cs" />
@@ -57,7 +63,13 @@
     <Compile Include="Sucursal\Editar.cs" />
     <Compile Include="Sucursal\Ficha.cs" />
     <Compile Include="Sucursal\Resumen.cs" />
+    <Compile Include="Usuario\Activar.cs" />
+    <Compile Include="Usuario\Agregar.cs" />
+    <Compile Include="Usuario\Editar.cs" />
+    <Compile Include="Usuario\Enumerados.cs" />
     <Compile Include="Usuario\Ficha.cs" />
+    <Compile Include="Usuario\Inactivar.cs" />
+    <Compile Include="Usuario\Resumen.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

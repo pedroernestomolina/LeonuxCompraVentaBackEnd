@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IDeposito.cs" />
+    <Compile Include="IFuncion.cs" />
+    <Compile Include="IGrupoUsuario.cs" />
     <Compile Include="IPrecio.cs" />
     <Compile Include="IProvider.cs" />
     <Compile Include="ISucursal.cs" />

@@ -58,6 +58,24 @@ namespace ConsoleSistema
             //var r01 = sistPrv.Precio_Etiquetar_Actualizar(ficha);
             //var r01 = sistPrv.Precio_Etiquetar_GetFicha();
             //var r01 = sistPrv.Sucursal_GetLista();
+            //var r00= sistPrv.Funcion_GetLista();
+            //var list = new List<DtoLibSistema.GrupoUsuario.Permiso>();
+            //foreach(var it in r00.Lista.OrderBy(o=>o.codigo).ToList())
+            //{
+            //    var p= new DtoLibSistema.GrupoUsuario.Permiso()
+            //    {
+            //         codigoFuncion=it.codigo,
+            //         estatus="0",
+            //         seguridad="Ninguna",
+            //    };
+            //    list.Add(p);
+            //}
+            //var ficha = new DtoLibSistema.GrupoUsuario.Agregar()
+            //{
+            //    nombre = "INVENTARIO",
+            //    permisos = list,
+            //};
+            //var r01 = sistPrv.GrupoUsuario_Agregar(ficha);
         }
 
     }

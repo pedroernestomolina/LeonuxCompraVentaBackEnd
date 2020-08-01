@@ -87,7 +87,13 @@
     </Compile>
     <Compile Include="Principal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sistema_funciones.cs">
+      <DependentUpon>ModelLibSistema.tt</DependentUpon>
+    </Compile>
     <Compile Include="usuarios.cs">
+      <DependentUpon>ModelLibSistema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usuarios_grupo.cs">
       <DependentUpon>ModelLibSistema.tt</DependentUpon>
     </Compile>
   </ItemGroup>

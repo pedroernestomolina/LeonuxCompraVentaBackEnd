@@ -69,6 +69,13 @@
           <Property Name="codigo" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="120" Nullable="false" />
         </EntityType>
+        <EntityType Name="sistema_funciones">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="120" Nullable="false" />
+        </EntityType>
         <EntityType Name="usuarios">
           <Key>
             <PropertyRef Name="auto" />
@@ -85,12 +92,21 @@
           <Property Name="fecha_sesion" Type="date" Nullable="false" />
           <Property Name="apellido" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="usuarios_grupo">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="sistemaModelStoreContainer">
           <EntitySet Name="empresa" EntityType="Self.empresa" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_depositos" EntityType="Self.empresa_depositos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_grupo" EntityType="Self.empresa_grupo" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="sistema_funciones" EntityType="Self.sistema_funciones" Schema="pita" store:Type="Tables" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="usuarios_grupo" EntityType="Self.usuarios_grupo" Schema="pita" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -129,6 +145,8 @@
           <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" />
           <EntitySet Name="empresa" EntityType="sistemaModel.empresa" />
           <EntitySet Name="usuarios" EntityType="sistemaModel.usuarios" />
+          <EntitySet Name="sistema_funciones" EntityType="sistemaModel.sistema_funciones" />
+          <EntitySet Name="usuarios_grupo" EntityType="sistemaModel.usuarios_grupo" />
         </EntityContainer>
         <EntityType Name="empresa">
           <Key>
@@ -182,6 +200,20 @@
           <Property Name="fecha_baja" Type="DateTime" Nullable="false" />
           <Property Name="fecha_sesion" Type="DateTime" Nullable="false" />
           <Property Name="apellido" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sistema_funciones">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="usuarios_grupo">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -269,6 +301,22 @@
                 <ScalarProperty Name="auto_grupo" ColumnName="auto_grupo" />
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sistema_funciones">
+            <EntityTypeMapping TypeName="sistemaModel.sistema_funciones">
+              <MappingFragment StoreEntitySet="sistema_funciones">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios_grupo">
+            <EntityTypeMapping TypeName="sistemaModel.usuarios_grupo">
+              <MappingFragment StoreEntitySet="usuarios_grupo">
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>

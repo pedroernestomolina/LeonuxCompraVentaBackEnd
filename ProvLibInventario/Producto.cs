@@ -31,6 +31,10 @@ namespace ProvLibInventario
                     {
                         q = q.Where(w => w.auto_grupo == filtro.autoGrupo).ToList();
                     }
+                    if (filtro.autoMarca != "")
+                    {
+                        q = q.Where(w => w.auto_marca == filtro.autoMarca).ToList();
+                    }
                     if (filtro.autoTasa != "")
                     {
                         q = q.Where(w => w.auto_tasa == filtro.autoTasa).ToList();
@@ -216,6 +220,23 @@ namespace ProvLibInventario
                                 var _depart = s.empresa_departamentos.nombre;
                                 var _grupo = s.productos_grupo.nombre;
                                 var _empaque = s.productos_medida2.nombre;
+                                var _marca = s.productos_marca.nombre;
+                                var _tasaIvaDescripcion= s.empresa_tasas.nombre;
+                                var _esPesado = DtoLibInventario.Producto.Enumerados.EnumPesado.No;
+                                if (s.estatus_pesado == "1") 
+                                {
+                                    _esPesado = DtoLibInventario.Producto.Enumerados.EnumPesado.Si;
+                                }
+                                var _origen = DtoLibInventario.Producto.Enumerados.EnumOrigen.SnDefinir;
+                                switch (s.origen.Trim().ToUpper()) 
+                                {
+                                    case "NACIONAL":
+                                        _origen= DtoLibInventario.Producto.Enumerados.EnumOrigen.Nacional;
+                                        break;
+                                    case "IMPORTADO":
+                                        _origen= DtoLibInventario.Producto.Enumerados.EnumOrigen.Importado;
+                                        break;
+                                }
                                 var _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.SnDefinir;
                                 switch (s.categoria.Trim().ToUpper()) 
                                 {
@@ -245,13 +266,20 @@ namespace ProvLibInventario
                                     descripcion = s.nombre,
                                     modelo = s.modelo,
                                     referencia = s.referencia,
-                                    estatus=_estatus,
-                                    AdmPorDivisa=_admDivisa,
-                                    departamento=_depart,
-                                    grupo=_grupo,
-                                    tasaIva=s.tasa,
-                                    categoria=_categoria,
-                                    empaque=_empaque,
+                                    estatus = _estatus,
+                                    admPorDivisa = _admDivisa,
+                                    departamento = _depart,
+                                    grupo = _grupo,
+                                    tasaIva = s.tasa,
+                                    categoria = _categoria,
+                                    empaque = _empaque,
+                                    fechaAlta = s.fecha_alta,
+                                    fechaUltCambioCosto = s.fecha_ult_costo,
+                                    fechaUltCambioPrecio = s.fecha_cambio,
+                                    marca = _marca,
+                                    origen = _origen,
+                                    tasaIvaDescripcion = _tasaIvaDescripcion,
+                                    esPesado = _esPesado,
                                 };
                                 return r;
                             }).ToList();

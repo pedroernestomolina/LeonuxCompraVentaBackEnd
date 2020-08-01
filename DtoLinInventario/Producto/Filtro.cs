@@ -18,6 +18,7 @@ namespace DtoLibInventario.Producto
         public string autoDeposito { get; set; }
         public string autoTasa { get; set; }
         public string autoProveedor { get; set; }
+        public string autoMarca { get; set; }
 
         public Enumerados.EnumOrigen origen { get; set; }
         public Enumerados.EnumEstatus estatus { get; set; }
@@ -37,6 +38,7 @@ namespace DtoLibInventario.Producto
             autoGrupo = "";
             autoTasa = "";
             autoProveedor = "";
+            autoMarca = "";
             origen = Enumerados.EnumOrigen.SnDefinir;
             estatus = Enumerados.EnumEstatus.SnDefinir;
             categoria = Enumerados.EnumCategoria.SnDefinir;

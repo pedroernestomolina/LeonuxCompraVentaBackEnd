@@ -86,5 +86,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="sistema_funciones">
+      <EntityTypeMapping TypeName="sistemaModel.sistema_funciones">
+        <MappingFragment StoreEntitySet="sistema_funciones">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usuarios_grupo">
+      <EntityTypeMapping TypeName="sistemaModel.usuarios_grupo">
+        <MappingFragment StoreEntitySet="usuarios_grupo">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

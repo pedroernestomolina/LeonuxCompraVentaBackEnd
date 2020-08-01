@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ILibSistema
 {
     
-    public interface IProvider: IDeposito, ISucursal, ISucursalGrupo, IUsuario, IPrecio
+    public interface IProvider: IDeposito, ISucursal, ISucursalGrupo, IUsuario, IPrecio, IFuncion, IGrupoUsuario
     {
 
         DtoLib.ResultadoEntidad<DateTime> FechaServidor();
