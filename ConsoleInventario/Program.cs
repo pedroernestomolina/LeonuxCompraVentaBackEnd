@@ -13,7 +13,7 @@ namespace ConsoleInventario
 
         static void Main(string[] args)
         {
-            ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("192.168.0.185","00000001");
+            ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("localhost","enrique");
             //var filt = new DtoLibInventario.Producto.Filtro();
             //filt.autoProveedor = "0000000104";
             //filt.estatus= DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
@@ -48,6 +48,9 @@ namespace ConsoleInventario
             //var filtro = new DtoLibInventario.Tool.AjusteNivelMinimoMaximo.Capturar.Filtro();
             //filtro.autoDeposito = "0000000002";
             //var rt1 = invPrv.Deposito_GetFicha("0000000002");
+            // var rt1= invPrv.Producto_GetExistencia("0000001141"); 
+            //var rt1 = invPrv.Producto_GetPrecio("0000001141"); 
+
         }
 
     }

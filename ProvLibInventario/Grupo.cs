@@ -160,7 +160,7 @@ namespace ProvLibInventario
 
         public DtoLib.Resultado Grupo_Editar(DtoLibInventario.Grupo.Editar ficha)
         {
-            var result = new DtoLib.ResultadoAuto();
+            var result = new DtoLib.Resultado();
 
             try
             {

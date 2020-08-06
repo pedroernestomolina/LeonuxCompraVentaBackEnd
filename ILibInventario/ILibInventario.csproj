@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IConcepto.cs" />
+    <Compile Include="IConfiguracion.cs" />
     <Compile Include="ICosto.cs" />
     <Compile Include="IDepartamento.cs" />
     <Compile Include="IDeposito.cs" />

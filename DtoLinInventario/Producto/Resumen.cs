@@ -30,10 +30,11 @@ namespace DtoLibInventario.Producto
         public Enumerados.EnumEstatus estatus { get; set; }
         public Enumerados.EnumAdministradorPorDivisa admPorDivisa { get; set; }
         public Enumerados.EnumPesado esPesado { get; set; }
+        public Enumerados.EnumOferta enOferta { get; set; }
 
         public DateTime? fechaAlta { get; set; }
         public DateTime? fechaUltCambioCosto { get; set; }
-        public DateTime? fechaUltCambioPrecio { get; set; }
+        public DateTime? fechaUltActualizacion { get; set; }
 
     }
 

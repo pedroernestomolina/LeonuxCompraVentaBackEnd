@@ -40,8 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Categoria\Resumen.cs" />
+    <Compile Include="Concepto\Agregar.cs" />
+    <Compile Include="Concepto\Editar.cs" />
     <Compile Include="Concepto\Ficha.cs" />
     <Compile Include="Concepto\Resumen.cs" />
+    <Compile Include="Configuracion\Enumerados.cs" />
     <Compile Include="Costo\Enumerados.cs" />
     <Compile Include="Costo\Historico\Filtro.cs" />
     <Compile Include="Costo\Historico\Resumen.cs" />

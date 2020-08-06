@@ -28,6 +28,7 @@ namespace LibEntityInventario
         public decimal nivel_optimo { get; set; }
         public System.DateTime fecha_conteo { get; set; }
         public decimal resultado_conteo { get; set; }
+        public decimal averia { get; set; }
     
         public virtual empresa_depositos empresa_depositos { get; set; }
         public virtual productos productos { get; set; }

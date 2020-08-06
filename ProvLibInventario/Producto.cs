@@ -12,7 +12,6 @@ namespace ProvLibInventario
     public partial class Provider : ILibInventario.IProvider
     {
 
-
         public DtoLib.ResultadoLista<DtoLibInventario.Producto.Resumen> Producto_GetLista(DtoLibInventario.Producto.Filtro filtro)
         {
             var rt = new DtoLib.ResultadoLista<DtoLibInventario.Producto.Resumen>();
@@ -211,9 +210,16 @@ namespace ProvLibInventario
                         {
                             list = q.Select(s =>
                             {
-                                var _estatus = s.estatus.Trim().ToUpper() == "ACTIVO" ? 
-                                    DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo : 
-                                    DtoLibInventario.Producto.Enumerados.EnumEstatus.Inactivo;
+                                var _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
+                                if (s.estatus_cambio.Trim().ToUpper() == "1") 
+                                {
+                                    _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Suspendido;
+                                }
+                                else if (s.estatus.Trim().ToUpper() != "ACTIVO")
+                                {
+                                    _estatus= DtoLibInventario.Producto.Enumerados.EnumEstatus.Inactivo;
+                                }
+
                                 var _admDivisa = s.estatus_divisa.Trim().ToUpper() == "1" ?
                                     DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.Si :
                                     DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.No;
@@ -226,6 +232,11 @@ namespace ProvLibInventario
                                 if (s.estatus_pesado == "1") 
                                 {
                                     _esPesado = DtoLibInventario.Producto.Enumerados.EnumPesado.Si;
+                                }
+                                var _enOferta = DtoLibInventario.Producto.Enumerados.EnumOferta.No;
+                                if (s.estatus_oferta == "1")
+                                {
+                                    _enOferta = DtoLibInventario.Producto.Enumerados.EnumOferta.Si;
                                 }
                                 var _origen = DtoLibInventario.Producto.Enumerados.EnumOrigen.SnDefinir;
                                 switch (s.origen.Trim().ToUpper()) 
@@ -275,11 +286,12 @@ namespace ProvLibInventario
                                     empaque = _empaque,
                                     fechaAlta = s.fecha_alta,
                                     fechaUltCambioCosto = s.fecha_ult_costo,
-                                    fechaUltCambioPrecio = s.fecha_cambio,
+                                    fechaUltActualizacion = s.fecha_cambio,
                                     marca = _marca,
                                     origen = _origen,
                                     tasaIvaDescripcion = _tasaIvaDescripcion,
                                     esPesado = _esPesado,
+                                    enOferta= _enOferta,
                                 };
                                 return r;
                             }).ToList();
@@ -586,6 +598,161 @@ namespace ProvLibInventario
 
             result.Lista = list;
             return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Producto.VerData.Existencia> Producto_GetExistencia(string autoPrd)
+        {
+            var rt = new DtoLib.ResultadoEntidad<DtoLibInventario.Producto.VerData.Existencia>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var entPrd = cnn.productos.Find(autoPrd);
+                    if (entPrd == null) 
+                    {
+                        rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    var entEmp = cnn.productos_medida.Find(entPrd.auto_empaque_compra);
+                    var nr = new DtoLibInventario.Producto.VerData.Existencia();
+                    nr.decimales = entEmp.decimales;
+                    nr.empaqueCompra = entEmp.nombre;
+                    nr.empaqueCompraCont = entPrd.contenido_compras;
+
+                    var list = new List<DtoLibInventario.Producto.VerData.Deposito>();
+                    var dep = cnn.productos_deposito.Where(w => w.auto_producto == autoPrd).ToList();
+                    if (dep != null) 
+                    {
+                        if (dep.Count > 0) 
+                        {
+                            list = dep.Select(s =>
+                            {
+                                var dp = new DtoLibInventario.Producto.VerData.Deposito()
+                                {
+                                    codigo = s.empresa_depositos.codigo,
+                                    exDisponible = s.disponible,
+                                    exFisica = s.fisica,
+                                    exReserva = s.reservada,
+                                    nombre = s.empresa_depositos.nombre,
+                                };
+                                return dp;
+                            }).ToList();
+                        }
+                    }
+                    nr.depositos = list;
+
+                    rt.Entidad = nr;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Producto.VerData.Precio> Producto_GetPrecio(string autoPrd)
+        {
+            var rt = new DtoLib.ResultadoEntidad<DtoLibInventario.Producto.VerData.Precio>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var entPrd = cnn.productos.Find(autoPrd);
+                    if (entPrd == null)
+                    {
+                        rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    var entEmpresa = cnn.empresa.FirstOrDefault();
+                    if (entEmpresa == null)
+                    {
+                        rt.Mensaje = "ENTIDAD [ EMPRESA ] NO ENCONTRADA";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    var _enOferta = DtoLibInventario.Producto.Enumerados.EnumOferta.No;
+                    if (entPrd.estatus_oferta == "1")
+                    {
+                        _enOferta = DtoLibInventario.Producto.Enumerados.EnumOferta.Si;
+                    }
+
+                    var emp1= cnn.productos_medida.Find(entPrd.auto_precio_1);
+                    var emp2= cnn.productos_medida.Find(entPrd.auto_precio_2);
+                    var emp3= cnn.productos_medida.Find(entPrd.auto_precio_3);
+                    var emp4= cnn.productos_medida.Find(entPrd.auto_precio_4);
+                    var emp5= cnn.productos_medida.Find(entPrd.auto_precio_pto);
+
+                    var precio = new DtoLibInventario.Producto.VerData.Precio()
+                    {
+                        tasaIva = entPrd.tasa,
+                        etiqueta1 = entEmpresa.precio_1,
+                        etiqueta2 = entEmpresa.precio_2,
+                        etiqueta3 = entEmpresa.precio_3,
+                        etiqueta4 = entEmpresa.precio_4,
+                        etiqueta5 = entEmpresa.precio_5,
+
+                        contenido1 = entPrd.contenido_1,
+                        contenido2 = entPrd.contenido_2,
+                        contenido3 = entPrd.contenido_3,
+                        contenido4 = entPrd.contenido_4,
+                        contenido5 = entPrd.contenido_pto,
+
+                        finOferta = entPrd.fin,
+                        inicioOferta = entPrd.inicio,
+                        ofertaActiva = entPrd.estatus_oferta.Trim().ToUpper() == "1" ?
+                        DtoLibInventario.Producto.Enumerados.EnumOferta.Si :
+                        DtoLibInventario.Producto.Enumerados.EnumOferta.No,
+
+                        precioNeto1 = entPrd.precio_1,
+                        precioNeto2 = entPrd.precio_2,
+                        precioNeto3 = entPrd.precio_3,
+                        precioNeto4 = entPrd.precio_4,
+                        precioNeto5 = entPrd.precio_pto,
+
+                        precioFullDivisa1 = entPrd.pdf_1,
+                        precioFullDivisa2 = entPrd.pdf_2,
+                        precioFullDivisa3 = entPrd.pdf_3,
+                        precioFullDivisa4 = entPrd.pdf_4,
+                        precioFullDivisa5 = entPrd.pdf_pto,
+
+                        precioOferta = entPrd.precio_oferta,
+                        precioSugerido = entPrd.precio_sugerido,
+
+                        utilidad1 = entPrd.utilidad_1,
+                        utilidad2 = entPrd.utilidad_2,
+                        utilidad3 = entPrd.utilidad_3,
+                        utilidad4 = entPrd.utilidad_4,
+                        utilidad5 = entPrd.utilidad_pto,
+
+                        empaque1 = emp1.nombre,
+                        empaque2 = emp2.nombre,
+                        empaque3 = emp3.nombre,
+                        empaque4 = emp4.nombre,
+                        empaque5 = emp5.nombre,
+
+                        estatusOferta= _enOferta,
+                    };
+
+                    rt.Entidad = precio;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
         }
 
     }

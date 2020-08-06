@@ -11,11 +11,25 @@ namespace DtoLibInventario.Producto.VerData
     public class Precio
     {
 
+        public decimal tasaIva { get; set; }
+
+        public string etiqueta1 { get; set; }
+        public string etiqueta2 { get; set; }
+        public string etiqueta3 { get; set; }
+        public string etiqueta4 { get; set; }
+        public string etiqueta5 { get; set; }
+
         public decimal precioNeto1 { get; set; }
         public decimal precioNeto2 { get; set; }
         public decimal precioNeto3 { get; set; }
         public decimal precioNeto4 { get; set; }
         public decimal precioNeto5 { get; set; }
+
+        public string empaque1 { get; set; }
+        public string empaque2 { get; set; }
+        public string empaque3 { get; set; }
+        public string empaque4 { get; set; }
+        public string empaque5 { get; set; }
 
         public int contenido1 { get; set; }
         public int contenido2 { get; set; }
@@ -31,6 +45,7 @@ namespace DtoLibInventario.Producto.VerData
 
         public decimal precioSugerido { get; set; }
 
+        public Enumerados.EnumOferta estatusOferta { get; set; }
         public Enumerados.EnumOferta ofertaActiva { get; set; }
         public decimal precioOferta { get; set; }
         public DateTime inicioOferta { get; set; }

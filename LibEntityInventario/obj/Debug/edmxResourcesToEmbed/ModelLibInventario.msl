@@ -153,6 +153,7 @@
     <EntitySetMapping Name="productos_deposito">
       <EntityTypeMapping TypeName="invModel.productos_deposito">
         <MappingFragment StoreEntitySet="productos_deposito">
+          <ScalarProperty Name="averia" ColumnName="averia" />
           <ScalarProperty Name="resultado_conteo" ColumnName="resultado_conteo" />
           <ScalarProperty Name="fecha_conteo" ColumnName="fecha_conteo" />
           <ScalarProperty Name="nivel_optimo" ColumnName="nivel_optimo" />
@@ -480,6 +481,57 @@
           <ScalarProperty Name="auto_agencia" ColumnName="auto_agencia" />
           <ScalarProperty Name="auto_medio_pago" ColumnName="auto_medio_pago" />
           <ScalarProperty Name="auto_recibo" ColumnName="auto_recibo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sistema_configuracion">
+      <EntityTypeMapping TypeName="invModel.sistema_configuracion">
+        <MappingFragment StoreEntitySet="sistema_configuracion">
+          <ScalarProperty Name="modulo" ColumnName="modulo" />
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="usuario" ColumnName="usuario" />
+          <ScalarProperty Name="defecto" ColumnName="defecto" />
+          <ScalarProperty Name="valor" ColumnName="valor" />
+          <ScalarProperty Name="operacion" ColumnName="operacion" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="empresa">
+      <EntityTypeMapping TypeName="invModel.empresa">
+        <MappingFragment StoreEntitySet="empresa">
+          <ScalarProperty Name="precio_5" ColumnName="precio_5" />
+          <ScalarProperty Name="precio_4" ColumnName="precio_4" />
+          <ScalarProperty Name="precio_3" ColumnName="precio_3" />
+          <ScalarProperty Name="precio_2" ColumnName="precio_2" />
+          <ScalarProperty Name="precio_1" ColumnName="precio_1" />
+          <ScalarProperty Name="recibe" ColumnName="recibe" />
+          <ScalarProperty Name="solicita" ColumnName="solicita" />
+          <ScalarProperty Name="debito_bancario" ColumnName="debito_bancario" />
+          <ScalarProperty Name="factor_cambio" ColumnName="factor_cambio" />
+          <ScalarProperty Name="retencion_islr" ColumnName="retencion_islr" />
+          <ScalarProperty Name="retencion_iva" ColumnName="retencion_iva" />
+          <ScalarProperty Name="tasa3" ColumnName="tasa3" />
+          <ScalarProperty Name="tasa2" ColumnName="tasa2" />
+          <ScalarProperty Name="tasa1" ColumnName="tasa1" />
+          <ScalarProperty Name="codigo_postal" ColumnName="codigo_postal" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="pais" ColumnName="pais" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="registro" ColumnName="registro" />
+          <ScalarProperty Name="website" ColumnName="website" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="fax" ColumnName="fax" />
+          <ScalarProperty Name="contacto" ColumnName="contacto" />
+          <ScalarProperty Name="nit" ColumnName="nit" />
+          <ScalarProperty Name="codigo_sucursal" ColumnName="codigo_sucursal" />
+          <ScalarProperty Name="sucursal" ColumnName="sucursal" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="rif" ColumnName="rif" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

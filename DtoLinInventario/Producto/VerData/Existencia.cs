@@ -13,6 +13,8 @@ namespace DtoLibInventario.Producto.VerData
 
         public List<Deposito> depositos { get; set; }
         public string decimales { get; set; }
+        public string empaqueCompra { get; set; }
+        public int empaqueCompraCont { get; set; }
 
     }
 

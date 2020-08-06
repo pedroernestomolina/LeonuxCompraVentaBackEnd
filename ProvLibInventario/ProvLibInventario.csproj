@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Concepto.cs" />
+    <Compile Include="Configuracion.cs" />
     <Compile Include="Costo.cs" />
     <Compile Include="Departamento.cs" />
     <Compile Include="Deposito.cs" />

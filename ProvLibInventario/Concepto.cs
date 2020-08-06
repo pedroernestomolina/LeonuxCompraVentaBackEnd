@@ -1,9 +1,11 @@
 ﻿using LibEntityInventario;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 
 namespace ProvLibInventario
@@ -111,6 +113,139 @@ namespace ProvLibInventario
                     };
                     result.Entidad = nr;
                 }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoAuto Concepto_Agregar(DtoLibInventario.Concepto.Agregar ficha)
+        {
+            var result = new DtoLib.ResultadoAuto();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var sql = "update sistema_contadores set a_productos_conceptos=a_productos_conceptos+1";
+                        var r1 = cnn.Database.ExecuteSqlCommand(sql);
+                        if (r1 == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL ACTUALIZAR TABLA CONTADORES";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        var aConcepto = cnn.Database.SqlQuery<int>("select a_productos_conceptos from sistema_contadores").FirstOrDefault();
+                        var autoConcepto= aConcepto.ToString().Trim().PadLeft(10, '0');
+
+                        var ent = new productos_conceptos()
+                        {
+                            auto = autoConcepto,
+                            nombre = ficha.nombre,
+                            codigo = ficha.codigo,
+                        };
+                        cnn.productos_conceptos.Add(ent);
+                        cnn.SaveChanges();
+
+                        ts.Complete();
+                        result.Auto = autoConcepto;
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Concepto_Editar(DtoLibInventario.Concepto.Editar ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var ent = cnn.productos_conceptos.Find(ficha.auto);
+                        if (ent == null)
+                        {
+                            result.Mensaje = "[ ID ] ENTIDAD CONCEPTO NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        ent.codigo = ficha.codigo;
+                        ent.nombre = ficha.nombre;
+                        cnn.SaveChanges();
+
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
             }
             catch (Exception e)
             {

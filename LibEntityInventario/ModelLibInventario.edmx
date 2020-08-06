@@ -45,6 +45,43 @@ warning 6002: The table/view 'pita.cxc_medio_pago' does not have a primary key d
           <Property Name="fecha_agencia" Type="date" Nullable="false" />
           <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="empresa">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="rif" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="sucursal" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="codigo_sucursal" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="nit" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="contacto" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="fax" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="website" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="registro" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="pais" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ciudad" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="codigo_postal" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="tasa1" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="tasa2" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="tasa3" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="retencion_iva" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="retencion_islr" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="factor_cambio" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="debito_bancario" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="solicita" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="recibe" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="precio_1" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="precio_2" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="precio_3" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="precio_4" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="precio_5" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
         <EntityType Name="empresa_departamentos">
           <Key>
             <PropertyRef Name="auto" />
@@ -329,6 +366,7 @@ warning 6002: The table/view 'pita.productos_costos' does not have a primary key
           <Property Name="nivel_optimo" Type="decimal" Precision="14" Scale="3" Nullable="false" />
           <Property Name="fecha_conteo" Type="date" Nullable="false" />
           <Property Name="resultado_conteo" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+          <Property Name="averia" Type="decimal" Precision="14" Scale="3" Nullable="false" />
         </EntityType>
         <EntityType Name="productos_grupo">
           <Key>
@@ -575,6 +613,18 @@ warning 6002: The table/view 'pita.productos_precios' does not have a primary ke
           <Property Name="rif" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="ctabanco" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="nj" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sistema_configuracion">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="operacion" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="valor" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="defecto" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="modulo" Type="varchar" MaxLength="2" Nullable="false" />
         </EntityType>
         <EntityType Name="usuarios">
           <Key>
@@ -915,6 +965,7 @@ warning 6002: The table/view 'pita.productos_precios' does not have a primary ke
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="invModelStoreContainer">
+          <EntitySet Name="empresa" EntityType="Self.empresa" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_departamentos" EntityType="Self.empresa_departamentos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_depositos" EntityType="Self.empresa_depositos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_grupo" EntityType="Self.empresa_grupo" Schema="pita" store:Type="Tables" />
@@ -931,6 +982,7 @@ warning 6002: The table/view 'pita.productos_precios' does not have a primary ke
           <EntitySet Name="productos_proveedor" EntityType="Self.productos_proveedor" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_subgrupo" EntityType="Self.productos_subgrupo" Schema="pita" store:Type="Tables" />
           <EntitySet Name="proveedores" EntityType="Self.proveedores" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="sistema_configuracion" EntityType="Self.sistema_configuracion" Schema="pita" store:Type="Tables" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="pita" store:Type="Tables" />
           <EntitySet Name="cxc_medio_pago" EntityType="Self.cxc_medio_pago" store:Type="Tables" store:Schema="pita">
             <DefiningQuery>SELECT
@@ -1425,6 +1477,8 @@ FROM `productos_precios` AS `productos_precios`</DefiningQuery>
           </AssociationSet>
           <EntitySet Name="pos_arqueo" EntityType="invModel.pos_arqueo" />
           <EntitySet Name="cxc_medio_pago" EntityType="invModel.cxc_medio_pago" />
+          <EntitySet Name="sistema_configuracion" EntityType="invModel.sistema_configuracion" />
+          <EntitySet Name="empresa" EntityType="invModel.empresa" />
         </EntityContainer>
         <EntityType Name="empresa_departamentos">
           <Key>
@@ -1615,6 +1669,7 @@ FROM `productos_precios` AS `productos_precios`</DefiningQuery>
           <Property Name="resultado_conteo" Type="Decimal" Nullable="false" />
           <NavigationProperty Name="empresa_depositos" Relationship="invModel.productos_deposito_ibfk_2" FromRole="productos_deposito" ToRole="empresa_depositos" />
           <NavigationProperty Name="productos" Relationship="invModel.productos_deposito_ibfk_1" FromRole="productos_deposito" ToRole="productos" />
+          <Property Name="averia" Type="Decimal" Nullable="false" />
         </EntityType>
         <Association Name="productos_deposito_ibfk_2">
           <End Type="invModel.empresa_depositos" Role="empresa_depositos" Multiplicity="1" />
@@ -2262,6 +2317,55 @@ FROM `productos_precios` AS `productos_precios`</DefiningQuery>
           <Property Name="fecha_agencia" Type="DateTime" Nullable="false" />
           <Property Name="cierre_ftp" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="sistema_configuracion">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="operacion" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="valor" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="defecto" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="tipo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="modulo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="empresa">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="rif" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="sucursal" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_sucursal" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="nit" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="contacto" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="fax" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="website" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="registro" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="pais" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ciudad" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_postal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="tasa1" Type="Decimal" Nullable="false" />
+          <Property Name="tasa2" Type="Decimal" Nullable="false" />
+          <Property Name="tasa3" Type="Decimal" Nullable="false" />
+          <Property Name="retencion_iva" Type="Decimal" Nullable="false" />
+          <Property Name="retencion_islr" Type="Decimal" Nullable="false" />
+          <Property Name="factor_cambio" Type="Decimal" Nullable="false" />
+          <Property Name="debito_bancario" Type="Decimal" Nullable="false" />
+          <Property Name="solicita" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="recibe" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="precio_1" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="precio_2" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="precio_3" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="precio_4" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="precio_5" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2420,6 +2524,7 @@ FROM `productos_precios` AS `productos_precios`</DefiningQuery>
           <EntitySetMapping Name="productos_deposito">
             <EntityTypeMapping TypeName="invModel.productos_deposito">
               <MappingFragment StoreEntitySet="productos_deposito">
+                <ScalarProperty Name="averia" ColumnName="averia" />
                 <ScalarProperty Name="resultado_conteo" ColumnName="resultado_conteo" />
                 <ScalarProperty Name="fecha_conteo" ColumnName="fecha_conteo" />
                 <ScalarProperty Name="nivel_optimo" ColumnName="nivel_optimo" />
@@ -2747,6 +2852,57 @@ FROM `productos_precios` AS `productos_precios`</DefiningQuery>
                 <ScalarProperty Name="auto_agencia" ColumnName="auto_agencia" />
                 <ScalarProperty Name="auto_medio_pago" ColumnName="auto_medio_pago" />
                 <ScalarProperty Name="auto_recibo" ColumnName="auto_recibo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sistema_configuracion">
+            <EntityTypeMapping TypeName="invModel.sistema_configuracion">
+              <MappingFragment StoreEntitySet="sistema_configuracion">
+                <ScalarProperty Name="modulo" ColumnName="modulo" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="defecto" ColumnName="defecto" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="operacion" ColumnName="operacion" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empresa">
+            <EntityTypeMapping TypeName="invModel.empresa">
+              <MappingFragment StoreEntitySet="empresa">
+                <ScalarProperty Name="precio_5" ColumnName="precio_5" />
+                <ScalarProperty Name="precio_4" ColumnName="precio_4" />
+                <ScalarProperty Name="precio_3" ColumnName="precio_3" />
+                <ScalarProperty Name="precio_2" ColumnName="precio_2" />
+                <ScalarProperty Name="precio_1" ColumnName="precio_1" />
+                <ScalarProperty Name="recibe" ColumnName="recibe" />
+                <ScalarProperty Name="solicita" ColumnName="solicita" />
+                <ScalarProperty Name="debito_bancario" ColumnName="debito_bancario" />
+                <ScalarProperty Name="factor_cambio" ColumnName="factor_cambio" />
+                <ScalarProperty Name="retencion_islr" ColumnName="retencion_islr" />
+                <ScalarProperty Name="retencion_iva" ColumnName="retencion_iva" />
+                <ScalarProperty Name="tasa3" ColumnName="tasa3" />
+                <ScalarProperty Name="tasa2" ColumnName="tasa2" />
+                <ScalarProperty Name="tasa1" ColumnName="tasa1" />
+                <ScalarProperty Name="codigo_postal" ColumnName="codigo_postal" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="registro" ColumnName="registro" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="contacto" ColumnName="contacto" />
+                <ScalarProperty Name="nit" ColumnName="nit" />
+                <ScalarProperty Name="codigo_sucursal" ColumnName="codigo_sucursal" />
+                <ScalarProperty Name="sucursal" ColumnName="sucursal" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="rif" ColumnName="rif" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -241,6 +241,8 @@
     </AssociationSet>
     <EntitySet Name="pos_arqueo" EntityType="invModel.pos_arqueo" />
     <EntitySet Name="cxc_medio_pago" EntityType="invModel.cxc_medio_pago" />
+    <EntitySet Name="sistema_configuracion" EntityType="invModel.sistema_configuracion" />
+    <EntitySet Name="empresa" EntityType="invModel.empresa" />
   </EntityContainer>
   <EntityType Name="empresa_departamentos">
     <Key>
@@ -431,6 +433,7 @@
     <Property Name="resultado_conteo" Type="Decimal" Nullable="false" />
     <NavigationProperty Name="empresa_depositos" Relationship="invModel.productos_deposito_ibfk_2" FromRole="productos_deposito" ToRole="empresa_depositos" />
     <NavigationProperty Name="productos" Relationship="invModel.productos_deposito_ibfk_1" FromRole="productos_deposito" ToRole="productos" />
+    <Property Name="averia" Type="Decimal" Nullable="false" />
   </EntityType>
   <Association Name="productos_deposito_ibfk_2">
     <End Type="invModel.empresa_depositos" Role="empresa_depositos" Multiplicity="1" />
@@ -1077,5 +1080,54 @@
     <Property Name="cierre" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="fecha_agencia" Type="DateTime" Nullable="false" />
     <Property Name="cierre_ftp" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="sistema_configuracion">
+    <Key>
+      <PropertyRef Name="codigo" />
+    </Key>
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="operacion" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="valor" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="defecto" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="usuario" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="tipo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="modulo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="empresa">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="direccion" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="rif" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="sucursal" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="codigo_sucursal" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="nit" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="contacto" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="fax" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="website" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="registro" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="pais" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ciudad" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="codigo_postal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="tasa1" Type="Decimal" Nullable="false" />
+    <Property Name="tasa2" Type="Decimal" Nullable="false" />
+    <Property Name="tasa3" Type="Decimal" Nullable="false" />
+    <Property Name="retencion_iva" Type="Decimal" Nullable="false" />
+    <Property Name="retencion_islr" Type="Decimal" Nullable="false" />
+    <Property Name="factor_cambio" Type="Decimal" Nullable="false" />
+    <Property Name="debito_bancario" Type="Decimal" Nullable="false" />
+    <Property Name="solicita" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="recibe" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="precio_1" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="precio_2" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="precio_3" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="precio_4" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="precio_5" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

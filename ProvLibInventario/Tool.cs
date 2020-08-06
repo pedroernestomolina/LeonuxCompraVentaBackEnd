@@ -87,7 +87,6 @@ namespace ProvLibInventario
                 {
                     using (var ts = new TransactionScope())
                     {
-                        var sql = "";
                         foreach (var it in  listaAjuste)
                         {
                             var entPrdDep = cnn.productos_deposito.FirstOrDefault(f => f.auto_producto == it.autoProducto && 
