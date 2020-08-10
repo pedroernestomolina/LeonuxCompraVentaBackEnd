@@ -40,6 +40,37 @@ warning 6002: The table/view 'pita.cxc_medio_pago' does not have a primary key d
     <Property Name="fecha_agencia" Type="date" Nullable="false" />
     <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
+  <EntityType Name="cxc_recibos">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="documento" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="fecha" Type="date" Nullable="false" />
+    <Property Name="auto_usuario" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="importe" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="usuario" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="monto_recibido" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cobrador" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="auto_cliente" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="cliente" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="ci_rif" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="estatus_anulado" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="direccion" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="telefono" Type="varchar" MaxLength="120" Nullable="false" />
+    <Property Name="auto_cobrador" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="anticipos" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cambio" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="nota" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="codigo_cobrador" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_cxc" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="retenciones" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="descuentos" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="hora" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="cierre" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
   <EntityType Name="empresa_sucursal">
     <Key>
       <PropertyRef Name="auto" />
@@ -144,7 +175,32 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
     <Property Name="fecha_sesion" Type="date" Nullable="false" />
     <Property Name="apellido" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
+  <Association Name="cxc_medio_pago_ibfk_1">
+    <End Role="cxc_recibos" Type="Self.cxc_recibos" Multiplicity="1" />
+    <End Role="cxc_medio_pago" Type="Self.cxc_medio_pago" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cxc_recibos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxc_medio_pago">
+        <PropertyRef Name="auto_recibo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cxc_recibos_ibfk_1">
+    <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+    <End Role="cxc_recibos" Type="Self.cxc_recibos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuarios">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxc_recibos">
+        <PropertyRef Name="auto_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="cajaBancoModelStoreContainer">
+    <EntitySet Name="cxc_recibos" EntityType="Self.cxc_recibos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
     <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="pita" store:Type="Tables" />
     <EntitySet Name="cxc_medio_pago" EntityType="Self.cxc_medio_pago" store:Type="Tables" store:Schema="pita">
@@ -208,5 +264,13 @@ FROM `cxc_medio_pago` AS `cxc_medio_pago`</DefiningQuery>
 `pos_arqueo`.`cierre_ftp`
 FROM `pos_arqueo` AS `pos_arqueo`</DefiningQuery>
     </EntitySet>
+    <AssociationSet Name="cxc_medio_pago_ibfk_1" Association="Self.cxc_medio_pago_ibfk_1">
+      <End Role="cxc_recibos" EntitySet="cxc_recibos" />
+      <End Role="cxc_medio_pago" EntitySet="cxc_medio_pago" />
+    </AssociationSet>
+    <AssociationSet Name="cxc_recibos_ibfk_1" Association="Self.cxc_recibos_ibfk_1">
+      <End Role="usuarios" EntitySet="usuarios" />
+      <End Role="cxc_recibos" EntitySet="cxc_recibos" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

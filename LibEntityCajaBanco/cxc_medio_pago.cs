@@ -31,5 +31,7 @@ namespace LibEntityCajaBanco
         public string cierre { get; set; }
         public System.DateTime fecha_agencia { get; set; }
         public string cierre_ftp { get; set; }
+    
+        public virtual cxc_recibos cxc_recibos { get; set; }
     }
 }

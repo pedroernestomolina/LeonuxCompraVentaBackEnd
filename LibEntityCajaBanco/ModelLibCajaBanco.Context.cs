@@ -29,5 +29,6 @@ namespace LibEntityCajaBanco
         public virtual DbSet<pos_arqueo> pos_arqueo { get; set; }
         public virtual DbSet<usuarios> usuarios { get; set; }
         public virtual DbSet<empresa_sucursal> empresa_sucursal { get; set; }
+        public virtual DbSet<cxc_recibos> cxc_recibos { get; set; }
     }
 }

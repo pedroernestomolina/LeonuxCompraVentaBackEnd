@@ -9,6 +9,9 @@
         <EntityTypeShape EntityType="cajaBancoModel.pos_arqueo" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="cajaBancoModel.usuarios" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="cajaBancoModel.empresa_sucursal" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="cajaBancoModel.cxc_recibos" Width="2" PointX="7.625" PointY="9.375" />
+        <AssociationConnector Association="cajaBancoModel.cxc_medio_pago_ibfk_1" />
+        <AssociationConnector Association="cajaBancoModel.cxc_recibos_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

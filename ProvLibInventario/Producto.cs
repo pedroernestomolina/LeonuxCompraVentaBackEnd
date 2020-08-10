@@ -63,7 +63,7 @@ namespace ProvLibInventario
                             {
                                 _f = "INACTIVO";
                             }
-                            q = q.Where(w => w.estatus.Trim().ToUpper() == _f).ToList();
+                            q = q.Where(w => w.estatus.Trim().ToUpper() == _f && w.estatus_cambio=="0").ToList();
                         }
                     }
                     if (filtro.admPorDivisa != DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.SnDefinir)
@@ -685,7 +685,8 @@ namespace ProvLibInventario
                     {
                         _enOferta = DtoLibInventario.Producto.Enumerados.EnumOferta.Si;
                     }
-
+                    
+                    var entTasa= cnn.empresa_tasas.Find(entPrd.auto_tasa);
                     var emp1= cnn.productos_medida.Find(entPrd.auto_precio_1);
                     var emp2= cnn.productos_medida.Find(entPrd.auto_precio_2);
                     var emp3= cnn.productos_medida.Find(entPrd.auto_precio_3);
@@ -694,7 +695,12 @@ namespace ProvLibInventario
 
                     var precio = new DtoLibInventario.Producto.VerData.Precio()
                     {
+                        codigo=entPrd.codigo,
+                        nombre=entPrd.nombre_corto,
+                        descripcion=entPrd.nombre,
                         tasaIva = entPrd.tasa,
+                        nombreTasaIva=entTasa.nombre,
+
                         etiqueta1 = entEmpresa.precio_1,
                         etiqueta2 = entEmpresa.precio_2,
                         etiqueta3 = entEmpresa.precio_3,

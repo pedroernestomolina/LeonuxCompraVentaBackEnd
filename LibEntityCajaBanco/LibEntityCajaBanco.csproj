@@ -61,6 +61,9 @@
     <Compile Include="cxc_medio_pago.cs">
       <DependentUpon>ModelLibCajaBanco.tt</DependentUpon>
     </Compile>
+    <Compile Include="cxc_recibos.cs">
+      <DependentUpon>ModelLibCajaBanco.tt</DependentUpon>
+    </Compile>
     <Compile Include="empresa_sucursal.cs">
       <DependentUpon>ModelLibCajaBanco.tt</DependentUpon>
     </Compile>

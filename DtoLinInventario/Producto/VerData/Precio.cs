@@ -11,6 +11,10 @@ namespace DtoLibInventario.Producto.VerData
     public class Precio
     {
 
+        public string codigo { get; set; }
+        public string nombre { get; set; }
+        public string descripcion { get; set; }
+        public string nombreTasaIva { get; set; }
         public decimal tasaIva { get; set; }
 
         public string etiqueta1 { get; set; }

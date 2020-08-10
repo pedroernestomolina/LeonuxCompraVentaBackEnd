@@ -37,6 +37,7 @@
     <Property Name="cierre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="fecha_agencia" Type="DateTime" Nullable="false" />
     <Property Name="cierre_ftp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="cxc_recibos" Relationship="cajaBancoModel.cxc_medio_pago_ibfk_1" FromRole="cxc_medio_pago" ToRole="cxc_recibos" />
   </EntityType>
   <EntityType Name="pos_arqueo">
     <Key>
@@ -119,6 +120,15 @@
     <EntitySet Name="pos_arqueo" EntityType="Self.pos_arqueo" />
     <EntitySet Name="usuarios" EntityType="cajaBancoModel.usuarios" />
     <EntitySet Name="empresa_sucursal" EntityType="cajaBancoModel.empresa_sucursal" />
+    <EntitySet Name="cxc_recibos" EntityType="cajaBancoModel.cxc_recibos" />
+    <AssociationSet Name="cxc_medio_pago_ibfk_1" Association="cajaBancoModel.cxc_medio_pago_ibfk_1">
+      <End Role="cxc_recibos" EntitySet="cxc_recibos" />
+      <End Role="cxc_medio_pago" EntitySet="cxc_medio_pago" />
+    </AssociationSet>
+    <AssociationSet Name="cxc_recibos_ibfk_1" Association="cajaBancoModel.cxc_recibos_ibfk_1">
+      <End Role="usuarios" EntitySet="usuarios" />
+      <End Role="cxc_recibos" EntitySet="cxc_recibos" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="usuarios">
     <Key>
@@ -135,6 +145,7 @@
     <Property Name="fecha_baja" Type="DateTime" Nullable="false" />
     <Property Name="fecha_sesion" Type="DateTime" Nullable="false" />
     <Property Name="apellido" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="cxc_recibos" Relationship="cajaBancoModel.cxc_recibos_ibfk_1" FromRole="usuarios" ToRole="cxc_recibos" />
   </EntityType>
   <EntityType Name="empresa_sucursal">
     <Key>
@@ -146,4 +157,61 @@
     <Property Name="codigo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="cxc_recibos">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="documento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="auto_usuario" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="importe" Type="Decimal" Nullable="false" />
+    <Property Name="usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="monto_recibido" Type="Decimal" Nullable="false" />
+    <Property Name="cobrador" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="auto_cliente" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cliente" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ci_rif" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_anulado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="direccion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="auto_cobrador" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="anticipos" Type="Decimal" Nullable="false" />
+    <Property Name="cambio" Type="Decimal" Nullable="false" />
+    <Property Name="nota" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="codigo_cobrador" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_cxc" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="retenciones" Type="Decimal" Nullable="false" />
+    <Property Name="descuentos" Type="Decimal" Nullable="false" />
+    <Property Name="hora" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cierre" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cierre_ftp" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="cxc_medio_pago" Relationship="cajaBancoModel.cxc_medio_pago_ibfk_1" FromRole="cxc_recibos" ToRole="cxc_medio_pago" />
+    <NavigationProperty Name="usuarios" Relationship="cajaBancoModel.cxc_recibos_ibfk_1" FromRole="cxc_recibos" ToRole="usuarios" />
+  </EntityType>
+  <Association Name="cxc_medio_pago_ibfk_1">
+    <End Type="cajaBancoModel.cxc_recibos" Role="cxc_recibos" Multiplicity="1" />
+    <End Type="cajaBancoModel.cxc_medio_pago" Role="cxc_medio_pago" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cxc_recibos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxc_medio_pago">
+        <PropertyRef Name="auto_recibo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cxc_recibos_ibfk_1">
+    <End Type="cajaBancoModel.usuarios" Role="usuarios" Multiplicity="1" />
+    <End Type="cajaBancoModel.cxc_recibos" Role="cxc_recibos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuarios">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxc_recibos">
+        <PropertyRef Name="auto_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

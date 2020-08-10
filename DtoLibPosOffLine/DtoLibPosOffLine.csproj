@@ -93,6 +93,14 @@
     <Compile Include="Producto\Precio.cs" />
     <Compile Include="Producto\Resumen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reporte\NCredito\Enumerados.cs" />
+    <Compile Include="Reporte\NCredito\Ficha.cs" />
+    <Compile Include="Reporte\NCredito\Filtro.cs" />
+    <Compile Include="Reporte\Pago\Detalle\Ficha.cs" />
+    <Compile Include="Reporte\Pago\Detalle\Pago.cs" />
+    <Compile Include="Reporte\Pago\Enumerados.cs" />
+    <Compile Include="Reporte\Pago\Filtro.cs" />
+    <Compile Include="Reporte\Pago\Resumen\Ficha.cs" />
     <Compile Include="Serie\Ficha.cs" />
     <Compile Include="Servidor\EnviarData\CxC.cs" />
     <Compile Include="Servidor\EnviarData\CxCDocumento.cs" />

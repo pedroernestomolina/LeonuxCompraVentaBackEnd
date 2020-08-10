@@ -12,6 +12,22 @@ namespace ProvLibCajaBanco
     public partial class Provider : ILibCajaBanco.IProvider 
     {
 
+        public class pag 
+        {
+            public decimal monto { get; set; }
+        }
+        public class enc
+        {
+            public string auto { get; set; }
+            public string documento { get; set; }
+            public DateTime fecha { get; set; }
+            public string nombreRazonSocial { get; set; }
+            public string ciRif { get; set; }
+            public decimal montoRecibido { get; set; }
+            public string codigoMedio{ get; set; }
+            public string nombreMedio { get; set; }
+        }
+
         public DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.ArqueoCajaPos.Ficha> CajaBanco_ArqueoCajaPos(DtoLibCajaBanco.Reporte.Movimiento.Filtro filtro)
         {
             var result = new DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.ArqueoCajaPos.Ficha>();
@@ -93,6 +109,34 @@ namespace ProvLibCajaBanco
             }
 
             return result;
+        }
+
+
+        public void Reporte(DateTime fecha)
+        {
+            try
+            {
+                using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
+                {
+                    var mov = cnn.cxc_recibos.
+                        Join(cnn.cxc_medio_pago, v => v.auto, vp => vp.auto_recibo, (v,vp) => new enc 
+                        { 
+                            auto=v.auto, 
+                            documento=v.documento, 
+                            ciRif=v.ci_rif,
+                            nombreRazonSocial=v.cliente,
+                            fecha=v.fecha, 
+                            montoRecibido=vp.monto_recibido, 
+                            codigoMedio=vp.codigo, 
+                            nombreMedio=vp.medio,
+                        }).
+                        Where(w => w.fecha == fecha ).
+                        ToList();
+                }
+            }
+            catch (Exception e)
+            {
+            }
         }
 
     }
