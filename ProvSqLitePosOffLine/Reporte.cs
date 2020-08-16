@@ -160,28 +160,36 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
-        public DtoLib.ResultadoLista<DtoLibPosOffLine.Reporte.Pago.Resumen.Ficha> Reporte_Pago_Resumen(DtoLibPosOffLine.Reporte.Pago.Filtro filtro)
+        public DtoLib.ResultadoEntidad<DtoLibPosOffLine.Reporte.Pago.Resumen.Ficha> Reporte_Pago_Resumen(DtoLibPosOffLine.Reporte.Pago.Filtro filtro)
         {
-            var result = new DtoLib.ResultadoLista<DtoLibPosOffLine.Reporte.Pago.Resumen.Ficha>();
+            var result = new DtoLib.ResultadoEntidad<DtoLibPosOffLine.Reporte.Pago.Resumen.Ficha>();
 
             try
             {
                 using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
                 {
                     var idOp = filtro.IdOperador;
+
+                    var nCredito = cnn.Venta.
+                        Where(w => w.idOperador == idOp && w.estatusActivo == 1 && w.tipoDocumento == 3).
+                        Sum(s => s.montoTotal);
+
+                    var nCambioDar = cnn.Venta.
+                        Where(w => w.idOperador == idOp && w.estatusActivo == 1).Sum(s => s.cambioDar);
+
                     var mov = cnn.Venta.
                         Join(cnn.VentaPago, v => v.id, vp => vp.idVenta, (v, vp) => new { v, vp }).
                         Where(w => w.v.idOperador == idOp && w.v.estatusActivo==1 && w.v.tipoDocumento==1).
                         ToList();
 
-                    var list = new List<DtoLibPosOffLine.Reporte.Pago.Resumen.Ficha>();
+                    var list = new List<DtoLibPosOffLine.Reporte.Pago.Resumen.Detalle>();
                     if (mov != null)
                     {
                         if (mov.Count > 0)
                         {
                             list = mov.Select(s =>
                             {
-                                var nr = new DtoLibPosOffLine.Reporte.Pago.Resumen.Ficha()
+                                var nr = new DtoLibPosOffLine.Reporte.Pago.Resumen.Detalle()
                                 {
                                     codigo = s.vp.codioMedioCobro,
                                     descripcion = s.vp.descripMedioCobro,
@@ -197,7 +205,14 @@ namespace ProvSqLitePosOffLine
                             }).ToList();
                         }
                     }
-                    result.Lista = list;
+
+                    var reg = new DtoLibPosOffLine.Reporte.Pago.Resumen.Ficha()
+                    {
+                        montoNCredito = nCredito,
+                        montoCambioDar = nCambioDar,
+                        detalle = list,
+                    };
+                    result.Entidad = reg;
                 }
             }
             catch (Exception e)

@@ -2272,6 +2272,10 @@ namespace ProvSqLitePosOffLine
                     MySqlCommand comando1;
                     var rt = -1;
 
+                    sql0 = "select * into outfile \"" + pathDestino + "usuarios_grupo.txt\" from usuarios_grupo";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
+
                     sql0 = "select * into outfile \"" + pathDestino + "usuarios.txt\" from usuarios";
                     comando1 = new MySqlCommand(sql0, cn);
                     rt = comando1.ExecuteNonQuery();
@@ -2344,7 +2348,7 @@ namespace ProvSqLitePosOffLine
                     comando1 = new MySqlCommand(sql0, cn);
                     rt = comando1.ExecuteNonQuery();
 
-                    sql0 = "select * into outfile \"" + pathDestino + "productos_kardex.txt\" FROM productos_kardex where modulo<>'Ventas'";
+                    sql0 = "select * into outfile \"" + pathDestino + "productos_kardex.txt\" FROM productos_kardex where modulo<>'Ventas' and fecha>='2020/01/01'";
                     comando1 = new MySqlCommand(sql0, cn);
                     rt = comando1.ExecuteNonQuery();
 
@@ -2368,11 +2372,11 @@ namespace ProvSqLitePosOffLine
                     comando1 = new MySqlCommand(sql0, cn);
                     rt = comando1.ExecuteNonQuery();
 
-                    sql0 = "select * into outfile \"" + pathDestino + "productos_movimientos.txt\" FROM productos_movimientos";
+                    sql0 = "select * into outfile \"" + pathDestino + "productos_movimientos.txt\" FROM productos_movimientos where fecha>='2020/01/01' ";
                     comando1 = new MySqlCommand(sql0, cn);
                     rt = comando1.ExecuteNonQuery();
 
-                    sql0 = "select * into outfile \"" + pathDestino + "productos_movimientos_detalle.txt\" FROM productos_movimientos_detalle";
+                    sql0 = "select * into outfile \"" + pathDestino + "productos_movimientos_detalle.txt\" FROM productos_movimientos_detalle where fecha>='2020/01/01' ";
                     comando1 = new MySqlCommand(sql0, cn);
                     rt = comando1.ExecuteNonQuery();
                 };
@@ -2821,6 +2825,10 @@ namespace ProvSqLitePosOffLine
                         comando1 = new MySqlCommand(sql0, cn, tr);
                         rt = comando1.ExecuteNonQuery();
 
+                        sql0 = "delete from usuarios_grupo";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
                         sql0 = "delete from empresa";
                         comando1 = new MySqlCommand(sql0, cn, tr);
                         rt = comando1.ExecuteNonQuery();
@@ -2923,11 +2931,15 @@ namespace ProvSqLitePosOffLine
                         comando1 = new MySqlCommand(sql0, cn, tr);
                         rt = comando1.ExecuteNonQuery();
 
-                        sql0 = "load data infile \"" + pathData + "/usuarios_grupo_permisos.txt\" into table usuarios_grupo_permisos";
+                        sql0 = "load data infile \"" + pathData + "/usuarios_grupo.txt\" into table usuarios_grupo";
                         comando1 = new MySqlCommand(sql0, cn, tr);
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/usuarios.txt\" into table usuarios";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/usuarios_grupo_permisos.txt\" into table usuarios_grupo_permisos";
                         comando1 = new MySqlCommand(sql0, cn, tr);
                         rt = comando1.ExecuteNonQuery();
 

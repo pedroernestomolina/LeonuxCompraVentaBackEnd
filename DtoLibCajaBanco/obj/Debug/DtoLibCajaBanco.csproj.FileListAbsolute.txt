@@ -1,4 +1,5 @@
 D:\Proyectos FoxSystem\CompraVenta\DtoLibCajaBanco\bin\Debug\DtoLibCajaBanco.dll
 D:\Proyectos FoxSystem\CompraVenta\DtoLibCajaBanco\bin\Debug\DtoLibCajaBanco.pdb
+D:\Proyectos FoxSystem\CompraVenta\DtoLibCajaBanco\obj\Debug\DtoLibCajaBanco.csprojResolveAssemblyReference.cache
 D:\Proyectos FoxSystem\CompraVenta\DtoLibCajaBanco\obj\Debug\DtoLibCajaBanco.dll
 D:\Proyectos FoxSystem\CompraVenta\DtoLibCajaBanco\obj\Debug\DtoLibCajaBanco.pdb
