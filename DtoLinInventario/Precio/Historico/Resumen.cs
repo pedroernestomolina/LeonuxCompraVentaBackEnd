@@ -11,14 +11,10 @@ namespace DtoLibInventario.Precio.Historico
     public class Resumen
     {
 
-        public string nota { get; set; }
-        public string usuario { get; set; }
-        public string estacion { get; set; }
-        public DateTime fecha { get; set; }
-        public string hora { get; set; }
-        public decimal precio { get; set; }
-        public string idPrecio { get; set; }
-
+        public string codigo { get; set; }
+        public string descripcion { get; set; }
+        public List<Data> data { get; set; }
+      
     }
 
 }

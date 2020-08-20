@@ -78,8 +78,10 @@
     <Compile Include="Movimiento\Traslado\Insertar\FichaKardex.cs" />
     <Compile Include="Movimiento\Ver\Detalle.cs" />
     <Compile Include="Movimiento\Ver\Ficha.cs" />
+    <Compile Include="Precio\Historico\Data.cs" />
     <Compile Include="Precio\Historico\Filtro.cs" />
     <Compile Include="Precio\Historico\Resumen.cs" />
+    <Compile Include="Precio\PrecioCosto\Ficha.cs" />
     <Compile Include="Producto\AdmDivisa\Resumen.cs" />
     <Compile Include="Producto\Categoria\Resumen.cs" />
     <Compile Include="Producto\Enumerados.cs" />

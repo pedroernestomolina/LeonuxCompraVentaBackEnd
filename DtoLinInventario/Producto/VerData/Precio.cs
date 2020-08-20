@@ -16,6 +16,8 @@ namespace DtoLibInventario.Producto.VerData
         public string descripcion { get; set; }
         public string nombreTasaIva { get; set; }
         public decimal tasaIva { get; set; }
+        public Enumerados.EnumAdministradorPorDivisa admDivisa { get; set; }
+        public Enumerados.EnumEstatus estatus { get; set; }
 
         public string etiqueta1 { get; set; }
         public string etiqueta2 { get; set; }

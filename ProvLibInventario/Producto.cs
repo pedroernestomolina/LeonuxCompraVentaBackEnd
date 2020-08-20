@@ -20,7 +20,67 @@ namespace ProvLibInventario
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
-                    var q = cnn.productos.ToList();
+                    //var q = cnn.productos.ToList();
+
+                    var sql = "select * from productos as p " +
+                        " join empresa_departamentos as ed on p.auto_departamento=ed.auto " +
+                        " join productos_grupo as pg on p.auto_grupo=pg.auto " +
+                        " join productos_medida as pm on p.auto_empaque_compra=pm.auto " +
+                        " join productos_marca as pmarca on p.auto_marca=pmarca.auto " +
+                        " join empresa_tasas as etasa on p.auto_tasa=etasa.auto " +
+                        " where 1=1 ";
+
+                    var valor = "";
+                    if (filtro.cadena != "")
+                    {
+                        if (filtro.MetodoBusqueda == DtoLibInventario.Producto.Enumerados.EnumMetodoBusqueda.Codigo)
+                        {
+                            var cad = filtro.cadena.Trim().ToUpper();
+                            if (cad.Substring(0, 1) == "*")
+                            {
+                                cad = cad.Substring(1);
+                                sql += " and p.codigo like @p";
+                                valor = "%"+cad+"%";
+                            }
+                            else
+                            {
+                                sql += " and p.codigo like @p";
+                                valor = cad + "%";
+                            }
+                        }
+                        if (filtro.MetodoBusqueda == DtoLibInventario.Producto.Enumerados.EnumMetodoBusqueda.Nombre)
+                        {
+                            var cad = filtro.cadena.Trim().ToUpper();
+                            if (cad.Substring(0, 1) == "*")
+                            {
+                                cad = cad.Substring(1);
+                                sql += " and p.nombre like @p";
+                                valor = "%" + cad + "%";
+                            }
+                            else
+                            {
+                                sql += " and p.nombre like @p";
+                                valor = cad + "%";
+                            }
+                        }
+                        if (filtro.MetodoBusqueda == DtoLibInventario.Producto.Enumerados.EnumMetodoBusqueda.Referencia)
+                        {
+                            var cad = filtro.cadena.Trim().ToUpper();
+                            if (cad.Substring(0, 1) == "*")
+                            {
+                                cad = cad.Substring(1);
+                                sql += " and p.referencia like @p";
+                                valor = "%" + cad + "%";
+                            }
+                            else
+                            {
+                                sql += " and p.referencia like @p";
+                                valor = cad + "%";
+                            }
+                        }
+                    }
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter("@p",valor);
+                    var q = cnn.productos.SqlQuery(sql,p1).ToList();
 
                     if (filtro.autoDepartamento != "") 
                     {
@@ -127,81 +187,81 @@ namespace ProvLibInventario
                     }
 
 
-                    if (filtro.cadena != "")
-                    {
-                        if (filtro.MetodoBusqueda== DtoLibInventario.Producto.Enumerados.EnumMetodoBusqueda.Codigo)
-                        {
-                            var cad = filtro.cadena.Trim().ToUpper();
-                            if (cad.Substring(0, 1) == "*")
-                            {
-                                cad = cad.Substring(1);
-                                q = q.Where(w => w.codigo.Contains(cad)).ToList();
-                            }
-                            else
-                            {
-                                q = q.Where(w =>
-                                {
-                                    var r = w.codigo.Trim().ToUpper();
-                                    if (r.Length >= cad.Length && r.Substring(0, cad.Length) == cad)
-                                    {
-                                        return true;
-                                    }
-                                    else
-                                    {
-                                        return false;
-                                    }
-                                }).ToList();
-                            }
-                        }
-                        if (filtro.MetodoBusqueda == DtoLibInventario.Producto.Enumerados.EnumMetodoBusqueda.Nombre)
-                        {
-                            var cad = filtro.cadena.Trim().ToUpper();
-                            if (cad.Substring(0, 1) == "*")
-                            {
-                                cad = cad.Substring(1);
-                                q = q.Where(w => w.nombre.Contains(cad)).ToList();
-                            }
-                            else
-                            {
-                                q = q.Where(w =>
-                                {
-                                    var r = w.nombre.Trim().ToUpper();
-                                    if (r.Length >= cad.Length && r.Substring(0, cad.Length) == cad)
-                                    {
-                                        return true;
-                                    }
-                                    else
-                                    {
-                                        return false;
-                                    }
-                                }).ToList();
-                            }
-                        }
-                        if (filtro.MetodoBusqueda == DtoLibInventario.Producto.Enumerados.EnumMetodoBusqueda.Referencia)
-                        {
-                            var cad = filtro.cadena.Trim().ToUpper();
-                            if (cad.Substring(0, 1) == "*")
-                            {
-                                cad = cad.Substring(1);
-                                q = q.Where(w => w.referencia.Contains(cad)).ToList();
-                            }
-                            else
-                            {
-                                q = q.Where(w =>
-                                {
-                                    var r = w.referencia.Trim().ToUpper();
-                                    if (r.Length >= cad.Length && r.Substring(0, cad.Length) == cad)
-                                    {
-                                        return true;
-                                    }
-                                    else
-                                    {
-                                        return false;
-                                    }
-                                }).ToList();
-                            }
-                        }
-                    }
+                    //if (filtro.cadena != "")
+                    //{
+                    //    if (filtro.MetodoBusqueda == DtoLibInventario.Producto.Enumerados.EnumMetodoBusqueda.Codigo)
+                    //    {
+                    //        var cad = filtro.cadena.Trim().ToUpper();
+                    //        if (cad.Substring(0, 1) == "*")
+                    //        {
+                    //            cad = cad.Substring(1);
+                    //            q = q.Where(w => w.codigo.Contains(cad)).ToList();
+                    //        }
+                    //        else
+                    //        {
+                    //            q = q.Where(w =>
+                    //            {
+                    //                var r = w.codigo.Trim().ToUpper();
+                    //                if (r.Length >= cad.Length && r.Substring(0, cad.Length) == cad)
+                    //                {
+                    //                    return true;
+                    //                }
+                    //                else
+                    //                {
+                    //                    return false;
+                    //                }
+                    //            }).ToList();
+                    //        }
+                    //    }
+                    //    if (filtro.MetodoBusqueda == DtoLibInventario.Producto.Enumerados.EnumMetodoBusqueda.Nombre)
+                    //    {
+                    //        var cad = filtro.cadena.Trim().ToUpper();
+                    //        if (cad.Substring(0, 1) == "*")
+                    //        {
+                    //            cad = cad.Substring(1);
+                    //            q = q.Where(w => w.nombre.Contains(cad)).ToList();
+                    //        }
+                    //        else
+                    //        {
+                    //            q = q.Where(w =>
+                    //            {
+                    //                var r = w.nombre.Trim().ToUpper();
+                    //                if (r.Length >= cad.Length && r.Substring(0, cad.Length) == cad)
+                    //                {
+                    //                    return true;
+                    //                }
+                    //                else
+                    //                {
+                    //                    return false;
+                    //                }
+                    //            }).ToList();
+                    //        }
+                    //    }
+                    //    if (filtro.MetodoBusqueda == DtoLibInventario.Producto.Enumerados.EnumMetodoBusqueda.Referencia)
+                    //    {
+                    //        var cad = filtro.cadena.Trim().ToUpper();
+                    //        if (cad.Substring(0, 1) == "*")
+                    //        {
+                    //            cad = cad.Substring(1);
+                    //            q = q.Where(w => w.referencia.Contains(cad)).ToList();
+                    //        }
+                    //        else
+                    //        {
+                    //            q = q.Where(w =>
+                    //            {
+                    //                var r = w.referencia.Trim().ToUpper();
+                    //                if (r.Length >= cad.Length && r.Substring(0, cad.Length) == cad)
+                    //                {
+                    //                    return true;
+                    //                }
+                    //                else
+                    //                {
+                    //                    return false;
+                    //                }
+                    //            }).ToList();
+                    //        }
+                    //    }
+                    //}
 
                     var list = new List<DtoLibInventario.Producto.Resumen>();
                     if (q != null)
@@ -223,11 +283,13 @@ namespace ProvLibInventario
                                 var _admDivisa = s.estatus_divisa.Trim().ToUpper() == "1" ?
                                     DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.Si :
                                     DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.No;
+
                                 var _depart = s.empresa_departamentos.nombre;
                                 var _grupo = s.productos_grupo.nombre;
                                 var _empaque = s.productos_medida2.nombre;
                                 var _marca = s.productos_marca.nombre;
-                                var _tasaIvaDescripcion= s.empresa_tasas.nombre;
+                                var _tasaIvaDescripcion = s.empresa_tasas.nombre;
+
                                 var _esPesado = DtoLibInventario.Producto.Enumerados.EnumPesado.No;
                                 if (s.estatus_pesado == "1") 
                                 {
@@ -685,6 +747,19 @@ namespace ProvLibInventario
                     {
                         _enOferta = DtoLibInventario.Producto.Enumerados.EnumOferta.Si;
                     }
+
+                    var _admDivisa = entPrd.estatus_divisa.Trim().ToUpper() == "1" ?
+                        DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.Si:
+                        DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.No;
+
+                    var _estatus = entPrd.estatus.Trim().ToUpper() == "ACTIVO" ?
+                        DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo :
+                        DtoLibInventario.Producto.Enumerados.EnumEstatus.Inactivo;
+                    if (_estatus == DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo &&
+                        entPrd.estatus_cambio.Trim().ToUpper() == "1")
+                    {
+                        _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Suspendido;
+                    }
                     
                     var entTasa= cnn.empresa_tasas.Find(entPrd.auto_tasa);
                     var emp1= cnn.productos_medida.Find(entPrd.auto_precio_1);
@@ -700,6 +775,8 @@ namespace ProvLibInventario
                         descripcion=entPrd.nombre,
                         tasaIva = entPrd.tasa,
                         nombreTasaIva=entTasa.nombre,
+                        admDivisa=_admDivisa,
+                        estatus=_estatus,
 
                         etiqueta1 = entEmpresa.precio_1,
                         etiqueta2 = entEmpresa.precio_2,

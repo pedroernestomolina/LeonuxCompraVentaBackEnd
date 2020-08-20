@@ -43,8 +43,9 @@ namespace ProvLibInventario
                             {
                                 var _decimales="0";
                                 var _esPesado= s.p.estatus_pesado.Trim().ToUpper()=="1"?true:false;
-                                var entEmp= cnn.productos_medida.Find(s.p.auto_empaque_compra);
-                                if (entEmp!=null)
+                                //var entEmp= cnn.productos_medida.Find(s.p.auto_empaque_compra);
+                                var entEmp = s.p.productos_medida2;
+                                if (entEmp != null)
                                 {
                                     _decimales=entEmp.decimales;
                                 }

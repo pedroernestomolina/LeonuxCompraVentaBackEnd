@@ -11,7 +11,8 @@ namespace ILibInventario
     public interface IPrecio
     {
 
-        DtoLib.ResultadoLista<DtoLibInventario.Precio.Historico.Resumen> Producto_Precio_Historico_Lista(DtoLibInventario.Precio.Historico.Filtro filtro);
+        DtoLib.ResultadoEntidad<DtoLibInventario.Precio.Historico.Resumen> HistoricoPrecio_GetLista(DtoLibInventario.Precio.Historico.Filtro filtro);
+        DtoLib.ResultadoEntidad<DtoLibInventario.Precio.PrecioCosto.Ficha> PrecioCosto_GetFicha(string autoPrd);
 
     }
 

@@ -13,7 +13,7 @@ namespace ConsoleInventario
 
         static void Main(string[] args)
         {
-            ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("localhost","enrique");
+            ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("192.168.100.10","panda");
             //var filt = new DtoLibInventario.Producto.Filtro();
             //filt.autoProveedor = "0000000104";
             //filt.estatus= DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
@@ -50,6 +50,15 @@ namespace ConsoleInventario
             //var rt1 = invPrv.Deposito_GetFicha("0000000002");
             // var rt1= invPrv.Producto_GetExistencia("0000001141"); 
             //var rt1 = invPrv.Producto_GetPrecio("0000001141"); 
+
+            //var filtroMov = new DtoLibInventario.Movimiento.Traslado.Consultar.Filtro() { autoDeposito = "0000000001" };
+            //var rt1 = invPrv.Producto_Movimiento_Traslado_Consultar_ProductosPorDebajoNivelMinimo(filtroMov);
+
+            //var filtroPrecio = new DtoLibInventario.Precio.Historico.Filtro() { autoProducto = "0000000231" };
+            //var rt1 = invPrv.Producto_Precio_Historico_Lista(filtroPrecio);
+
+            //var filtro= new DtoLibInventario.Costo.Historico.Filtro () { autoProducto = "0000000231" };
+            //var rt1 = invPrv.Producto_Costo_Historico_Lista(filtro);
 
         }
 

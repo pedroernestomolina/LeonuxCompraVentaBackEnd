@@ -23,23 +23,24 @@ namespace ProvLibInventario
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
                     var q = cnn.productos_deposito.ToList();
-                    q = q.Where(f => f.fisica < f.nivel_minimo && f.productos.estatus.Trim().ToUpper()=="ACTIVO").ToList();
-                    if (filtro.autoDeposito != "") 
+                    q = q.Where(f => f.fisica < f.nivel_minimo && f.productos.estatus.Trim().ToUpper() == "ACTIVO").ToList();
+                    if (filtro.autoDeposito != "")
                     {
                         q = q.Where(f => f.auto_deposito == filtro.autoDeposito).ToList();
                     }
 
                     var list = new List<DtoLibInventario.Movimiento.Traslado.Consultar.ProductoPorDebajoNivelMinimo>();
-                    if (q != null) 
+                    if (q != null)
                     {
-                        if (q.Count() > 0) 
+                        if (q.Count() > 0)
                         {
                             list = q.Select(s =>
                             {
                                 var _decimales = "";
                                 var _empaque = "";
-                                var ent = cnn.productos_medida.Find(s.productos.auto_empaque_compra);
-                                if (ent != null) 
+                                //var ent = cnn.productos_medida.Find(s.productos.auto_empaque_compra);
+                                var ent = s.productos.productos_medida2;
+                                if (ent != null)
                                 {
                                     _decimales = ent.decimales;
                                     _empaque = ent.nombre;
