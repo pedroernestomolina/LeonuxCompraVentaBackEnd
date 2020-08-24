@@ -319,21 +319,9 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
           <Property Name="codigo" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="60" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'pita.productos_costos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="productos_costos">
           <Key>
-            <PropertyRef Name="auto_producto" />
-            <PropertyRef Name="nota" />
-            <PropertyRef Name="fecha" />
-            <PropertyRef Name="estacion" />
-            <PropertyRef Name="hora" />
-            <PropertyRef Name="usuario" />
-            <PropertyRef Name="costo" />
-            <PropertyRef Name="costo_divisa" />
-            <PropertyRef Name="divisa" />
-            <PropertyRef Name="serie" />
-            <PropertyRef Name="documento" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="auto_producto" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="nota" Type="varchar" MaxLength="40" Nullable="false" />
@@ -346,6 +334,7 @@ warning 6002: The table/view 'pita.productos_costos' does not have a primary key
           <Property Name="divisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="serie" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="documento" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="productos_deposito">
           <Key>
@@ -974,6 +963,7 @@ warning 6002: The table/view 'pita.productos_precios' does not have a primary ke
           <EntitySet Name="productos" EntityType="Self.productos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_alterno" EntityType="Self.productos_alterno" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_conceptos" EntityType="Self.productos_conceptos" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="productos_costos" EntityType="Self.productos_costos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_deposito" EntityType="Self.productos_deposito" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_grupo" EntityType="Self.productos_grupo" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_marca" EntityType="Self.productos_marca" Schema="pita" store:Type="Tables" />
@@ -1044,21 +1034,6 @@ FROM `cxc_medio_pago` AS `cxc_medio_pago`</DefiningQuery>
 `pos_arqueo`.`mtotal`, 
 `pos_arqueo`.`cierre_ftp`
 FROM `pos_arqueo` AS `pos_arqueo`</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="productos_costos" EntityType="Self.productos_costos" store:Type="Tables" store:Schema="pita">
-            <DefiningQuery>SELECT
-`productos_costos`.`auto_producto`, 
-`productos_costos`.`nota`, 
-`productos_costos`.`fecha`, 
-`productos_costos`.`estacion`, 
-`productos_costos`.`hora`, 
-`productos_costos`.`usuario`, 
-`productos_costos`.`costo`, 
-`productos_costos`.`costo_divisa`, 
-`productos_costos`.`divisa`, 
-`productos_costos`.`serie`, 
-`productos_costos`.`documento`
-FROM `productos_costos` AS `productos_costos`</DefiningQuery>
           </EntitySet>
           <EntitySet Name="productos_kardex" EntityType="Self.productos_kardex" store:Type="Tables" store:Schema="pita">
             <DefiningQuery>SELECT
@@ -1344,10 +1319,10 @@ FROM `productos_precios` AS `productos_precios`</DefiningQuery>
           <NavigationProperty Name="productos_alterno" Relationship="invModel.productos_alterno_ibfk_1" FromRole="productos" ToRole="productos_alterno" />
           <NavigationProperty Name="productos_marca" Relationship="invModel.productos_ibfk_4" FromRole="productos" ToRole="productos_marca" />
           <NavigationProperty Name="productos_proveedor" Relationship="invModel.productos_proveedor_ibfk_1" FromRole="productos" ToRole="productos_proveedor" />
-          <NavigationProperty Name="productos_costos" Relationship="invModel.productos_costos_ibfk_1" FromRole="productos" ToRole="productos_costos" />
           <NavigationProperty Name="productos_precios" Relationship="invModel.productos_precios_ibfk_1" FromRole="productos" ToRole="productos_precios" />
           <NavigationProperty Name="productos_kardex" Relationship="invModel.productos_kardex_ibfk_1" FromRole="productos" ToRole="productos_kardex" />
           <NavigationProperty Name="productos_movimientos_detalle" Relationship="invModel.productos_movimientos_detalle_ibfk_2" FromRole="productos" ToRole="productos_movimientos_detalle" />
+          <NavigationProperty Name="productos_costos" Relationship="invModel.productos_costos_ibfk_1" FromRole="productos" ToRole="productos_costos" />
         </EntityType>
         <EntityContainer Name="invEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="productos" EntityType="Self.productos" />
@@ -1422,11 +1397,6 @@ FROM `productos_precios` AS `productos_precios`</DefiningQuery>
             <End Role="proveedores" EntitySet="proveedores" />
             <End Role="productos_proveedor" EntitySet="productos_proveedor" />
           </AssociationSet>
-          <EntitySet Name="productos_costos" EntityType="invModel.productos_costos" />
-          <AssociationSet Name="productos_costos_ibfk_1" Association="invModel.productos_costos_ibfk_1">
-            <End Role="productos" EntitySet="productos" />
-            <End Role="productos_costos" EntitySet="productos_costos" />
-          </AssociationSet>
           <EntitySet Name="productos_precios" EntityType="invModel.productos_precios" />
           <AssociationSet Name="productos_precios_ibfk_1" Association="invModel.productos_precios_ibfk_1">
             <End Role="productos" EntitySet="productos" />
@@ -1479,6 +1449,11 @@ FROM `productos_precios` AS `productos_precios`</DefiningQuery>
           <EntitySet Name="cxc_medio_pago" EntityType="invModel.cxc_medio_pago" />
           <EntitySet Name="sistema_configuracion" EntityType="invModel.sistema_configuracion" />
           <EntitySet Name="empresa" EntityType="invModel.empresa" />
+          <EntitySet Name="productos_costos" EntityType="invModel.productos_costos" />
+          <AssociationSet Name="productos_costos_ibfk_1" Association="invModel.productos_costos_ibfk_1">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="productos_costos" EntitySet="productos_costos" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="empresa_departamentos">
           <Key>
@@ -1825,47 +1800,6 @@ FROM `productos_precios` AS `productos_precios`</DefiningQuery>
             </Principal>
             <Dependent Role="productos_proveedor">
               <PropertyRef Name="auto_proveedor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="productos_costos">
-          <Key>
-            <PropertyRef Name="auto_producto" />
-            <PropertyRef Name="nota" />
-            <PropertyRef Name="fecha" />
-            <PropertyRef Name="estacion" />
-            <PropertyRef Name="hora" />
-            <PropertyRef Name="usuario" />
-            <PropertyRef Name="costo" />
-            <PropertyRef Name="costo_divisa" />
-            <PropertyRef Name="divisa" />
-            <PropertyRef Name="serie" />
-            <PropertyRef Name="documento" />
-          </Key>
-          <Property Name="auto_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="nota" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" />
-          <Property Name="estacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="hora" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="costo" Type="Decimal" Nullable="false" />
-          <Property Name="costo_divisa" Type="Decimal" Nullable="false" />
-          <Property Name="divisa" Type="Decimal" Nullable="false" />
-          <Property Name="serie" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="documento" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="productos" Relationship="invModel.productos_costos_ibfk_1" FromRole="productos_costos" ToRole="productos" />
-        </EntityType>
-        <Association Name="productos_costos_ibfk_1">
-          <End Type="invModel.productos" Role="productos" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="invModel.productos_costos" Role="productos_costos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="productos">
-              <PropertyRef Name="auto" />
-            </Principal>
-            <Dependent Role="productos_costos">
-              <PropertyRef Name="auto_producto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2366,6 +2300,38 @@ FROM `productos_precios` AS `productos_precios`</DefiningQuery>
           <Property Name="precio_4" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="precio_5" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="productos_costos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="auto_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nota" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="estacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="hora" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="costo" Type="Decimal" Nullable="false" />
+          <Property Name="costo_divisa" Type="Decimal" Nullable="false" />
+          <Property Name="divisa" Type="Decimal" Nullable="false" />
+          <Property Name="serie" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="documento" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="productos" Relationship="invModel.productos_costos_ibfk_1" FromRole="productos_costos" ToRole="productos" />
+        </EntityType>
+        <Association Name="productos_costos_ibfk_1">
+          <End Type="invModel.productos" Role="productos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="invModel.productos_costos" Role="productos_costos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos_costos">
+              <PropertyRef Name="auto_producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2616,23 +2582,6 @@ FROM `productos_precios` AS `productos_precios`</DefiningQuery>
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="auto" ColumnName="auto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="productos_costos">
-            <EntityTypeMapping TypeName="invModel.productos_costos">
-              <MappingFragment StoreEntitySet="productos_costos">
-                <ScalarProperty Name="documento" ColumnName="documento" />
-                <ScalarProperty Name="serie" ColumnName="serie" />
-                <ScalarProperty Name="divisa" ColumnName="divisa" />
-                <ScalarProperty Name="costo_divisa" ColumnName="costo_divisa" />
-                <ScalarProperty Name="costo" ColumnName="costo" />
-                <ScalarProperty Name="usuario" ColumnName="usuario" />
-                <ScalarProperty Name="hora" ColumnName="hora" />
-                <ScalarProperty Name="estacion" ColumnName="estacion" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="nota" ColumnName="nota" />
-                <ScalarProperty Name="auto_producto" ColumnName="auto_producto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2903,6 +2852,24 @@ FROM `productos_precios` AS `productos_precios`</DefiningQuery>
                 <ScalarProperty Name="direccion" ColumnName="direccion" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos_costos">
+            <EntityTypeMapping TypeName="invModel.productos_costos">
+              <MappingFragment StoreEntitySet="productos_costos">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="documento" ColumnName="documento" />
+                <ScalarProperty Name="serie" ColumnName="serie" />
+                <ScalarProperty Name="divisa" ColumnName="divisa" />
+                <ScalarProperty Name="costo_divisa" ColumnName="costo_divisa" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
+                <ScalarProperty Name="estacion" ColumnName="estacion" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
+                <ScalarProperty Name="auto_producto" ColumnName="auto_producto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

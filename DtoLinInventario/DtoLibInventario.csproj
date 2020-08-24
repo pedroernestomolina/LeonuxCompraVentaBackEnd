@@ -45,7 +45,11 @@
     <Compile Include="Concepto\Ficha.cs" />
     <Compile Include="Concepto\Resumen.cs" />
     <Compile Include="Configuracion\Enumerados.cs" />
+    <Compile Include="Costo\Editar\Ficha.cs" />
+    <Compile Include="Costo\Editar\FichaHistorica.cs" />
+    <Compile Include="Costo\Editar\FichaPrecio.cs" />
     <Compile Include="Costo\Enumerados.cs" />
+    <Compile Include="Costo\Historico\Data.cs" />
     <Compile Include="Costo\Historico\Filtro.cs" />
     <Compile Include="Costo\Historico\Resumen.cs" />
     <Compile Include="Departamento\Agregar.cs" />
@@ -78,6 +82,9 @@
     <Compile Include="Movimiento\Traslado\Insertar\FichaKardex.cs" />
     <Compile Include="Movimiento\Ver\Detalle.cs" />
     <Compile Include="Movimiento\Ver\Ficha.cs" />
+    <Compile Include="Precio\Editar\Ficha.cs" />
+    <Compile Include="Precio\Editar\FichaPrecio.cs" />
+    <Compile Include="Precio\Editar\FichaHistorica.cs" />
     <Compile Include="Precio\Historico\Data.cs" />
     <Compile Include="Precio\Historico\Filtro.cs" />
     <Compile Include="Precio\Historico\Resumen.cs" />

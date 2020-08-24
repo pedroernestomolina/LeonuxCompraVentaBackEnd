@@ -1,9 +1,11 @@
 ﻿using LibEntityInventario;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 
 namespace ProvLibInventario
@@ -209,6 +211,113 @@ namespace ProvLibInventario
             }
 
             return rt;
+        }
+
+        public DtoLib.Resultado PrecioProducto_Actualizar(DtoLibInventario.Precio.Editar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                        var entPrd = cnn.productos.Find(ficha.autoProducto);
+                        if (entPrd == null)
+                        {
+                            result.Mensaje = "[ ID ] Producto, No Encontrado";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        entPrd.fecha_cambio = fechaSistema.Date;
+
+                        entPrd.auto_precio_1 = ficha.precio_1.autoEmp;
+                        entPrd.precio_1 = ficha.precio_1.precioNeto;
+                        entPrd.utilidad_1 = ficha.precio_1.utilidad ;
+                        entPrd.pdf_1 = ficha.precio_1.precio_divisa_Neto;
+                        entPrd.contenido_1 = ficha.precio_1.contenido;
+
+                        entPrd.auto_precio_2 = ficha.precio_2.autoEmp;
+                        entPrd.precio_2 = ficha.precio_2.precioNeto;
+                        entPrd.utilidad_2 = ficha.precio_2.utilidad;
+                        entPrd.pdf_2 = ficha.precio_2.precio_divisa_Neto;
+                        entPrd.contenido_2 = ficha.precio_2.contenido;
+
+                        entPrd.auto_precio_3 = ficha.precio_3.autoEmp;
+                        entPrd.precio_3 = ficha.precio_3.precioNeto;
+                        entPrd.utilidad_3 = ficha.precio_3.utilidad;
+                        entPrd.pdf_3 = ficha.precio_3.precio_divisa_Neto;
+                        entPrd.contenido_3 = ficha.precio_3.contenido;
+
+                        entPrd.auto_precio_4 = ficha.precio_4.autoEmp;
+                        entPrd.precio_4 = ficha.precio_4.precioNeto;
+                        entPrd.utilidad_4 = ficha.precio_4.utilidad;
+                        entPrd.pdf_4 = ficha.precio_4.precio_divisa_Neto;
+                        entPrd.contenido_4 = ficha.precio_4.contenido;
+
+                        entPrd.auto_precio_pto = ficha.precio_5.autoEmp;
+                        entPrd.precio_pto = ficha.precio_5.precioNeto;
+                        entPrd.utilidad_pto = ficha.precio_5.utilidad;
+                        entPrd.pdf_pto = ficha.precio_5.precio_divisa_Neto;
+                        entPrd.contenido_pto= ficha.precio_5.contenido;
+                        cnn.SaveChanges();
+
+                        foreach (var it in ficha.historia) 
+                        {
+                            var entHist = new productos_precios()
+                            {
+                                auto_producto = ficha.autoProducto,
+                                estacion = ficha.estacion,
+                                fecha = fechaSistema.Date,
+                                hora = fechaSistema.ToShortTimeString(),
+                                usuario = ficha.nombreUsuario,
+                                nota = it.nota,
+                                precio = it.precio,
+                                precio_id = it.precio_id,
+                            };
+                            cnn.productos_precios.Add(entHist);
+                            cnn.SaveChanges();
+                        }
+
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            return result;
         }
 
     }

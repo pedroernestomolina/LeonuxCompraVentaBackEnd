@@ -11,7 +11,8 @@ namespace ILibInventario
     public interface ICosto
     {
 
-        DtoLib.ResultadoLista<DtoLibInventario.Costo.Historico.Resumen> Producto_Costo_Historico_Lista(DtoLibInventario.Costo.Historico.Filtro filtro);
+        DtoLib.ResultadoEntidad<DtoLibInventario.Costo.Historico.Resumen> HistoricoCosto_GetLista(DtoLibInventario.Costo.Historico.Filtro filtro);
+        DtoLib.Resultado CostoProducto_Actualizar(DtoLibInventario.Costo.Editar.Ficha ficha );
 
     }
 

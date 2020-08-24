@@ -32,8 +32,6 @@
         <AssociationConnector Association="invModel.productos_proveedor_ibfk_1" />
         <EntityTypeShape EntityType="invModel.proveedores" Width="1.5" PointX="21.75" PointY="7.75" />
         <AssociationConnector Association="invModel.productos_proveedor_ibfk_2" />
-        <EntityTypeShape EntityType="invModel.productos_costos" Width="1.5" PointX="6.875" PointY="14.5" />
-        <AssociationConnector Association="invModel.productos_costos_ibfk_1" />
         <EntityTypeShape EntityType="invModel.productos_precios" Width="1.5" PointX="5.125" PointY="25.5" />
         <AssociationConnector Association="invModel.productos_precios_ibfk_1" />
         <EntityTypeShape EntityType="invModel.productos_kardex" Width="1.5" PointX="18.875" PointY="1.25" />
@@ -56,6 +54,8 @@
         <EntityTypeShape EntityType="invModel.cxc_medio_pago" Width="1.5" PointX="36.125" PointY="4.125" />
         <EntityTypeShape EntityType="invModel.sistema_configuracion" Width="1.5" PointX="6.375" PointY="0.75" />
         <EntityTypeShape EntityType="invModel.empresa" Width="1.5" PointX="15.375" PointY="11.75" />
+        <EntityTypeShape EntityType="invModel.productos_costos" Width="1.5" PointX="5.5" PointY="14.625" />
+        <AssociationConnector Association="invModel.productos_costos_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

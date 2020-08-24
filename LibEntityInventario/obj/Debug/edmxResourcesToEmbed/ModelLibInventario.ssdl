@@ -314,21 +314,9 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
     <Property Name="codigo" Type="varchar" MaxLength="15" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="60" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'pita.productos_costos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="productos_costos">
     <Key>
-      <PropertyRef Name="auto_producto" />
-      <PropertyRef Name="nota" />
-      <PropertyRef Name="fecha" />
-      <PropertyRef Name="estacion" />
-      <PropertyRef Name="hora" />
-      <PropertyRef Name="usuario" />
-      <PropertyRef Name="costo" />
-      <PropertyRef Name="costo_divisa" />
-      <PropertyRef Name="divisa" />
-      <PropertyRef Name="serie" />
-      <PropertyRef Name="documento" />
+      <PropertyRef Name="id" />
     </Key>
     <Property Name="auto_producto" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="nota" Type="varchar" MaxLength="40" Nullable="false" />
@@ -341,6 +329,7 @@ warning 6002: The table/view 'pita.productos_costos' does not have a primary key
     <Property Name="divisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="serie" Type="varchar" MaxLength="3" Nullable="false" />
     <Property Name="documento" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="productos_deposito">
     <Key>
@@ -969,6 +958,7 @@ warning 6002: The table/view 'pita.productos_precios' does not have a primary ke
     <EntitySet Name="productos" EntityType="Self.productos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_alterno" EntityType="Self.productos_alterno" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_conceptos" EntityType="Self.productos_conceptos" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_costos" EntityType="Self.productos_costos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_deposito" EntityType="Self.productos_deposito" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_grupo" EntityType="Self.productos_grupo" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_marca" EntityType="Self.productos_marca" Schema="pita" store:Type="Tables" />
@@ -1039,21 +1029,6 @@ FROM `cxc_medio_pago` AS `cxc_medio_pago`</DefiningQuery>
 `pos_arqueo`.`mtotal`, 
 `pos_arqueo`.`cierre_ftp`
 FROM `pos_arqueo` AS `pos_arqueo`</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="productos_costos" EntityType="Self.productos_costos" store:Type="Tables" store:Schema="pita">
-      <DefiningQuery>SELECT
-`productos_costos`.`auto_producto`, 
-`productos_costos`.`nota`, 
-`productos_costos`.`fecha`, 
-`productos_costos`.`estacion`, 
-`productos_costos`.`hora`, 
-`productos_costos`.`usuario`, 
-`productos_costos`.`costo`, 
-`productos_costos`.`costo_divisa`, 
-`productos_costos`.`divisa`, 
-`productos_costos`.`serie`, 
-`productos_costos`.`documento`
-FROM `productos_costos` AS `productos_costos`</DefiningQuery>
     </EntitySet>
     <EntitySet Name="productos_kardex" EntityType="Self.productos_kardex" store:Type="Tables" store:Schema="pita">
       <DefiningQuery>SELECT

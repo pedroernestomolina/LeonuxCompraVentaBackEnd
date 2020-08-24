@@ -25,6 +25,7 @@ namespace LibEntityInventario
         public decimal divisa { get; set; }
         public string serie { get; set; }
         public string documento { get; set; }
+        public int id { get; set; }
     
         public virtual productos productos { get; set; }
     }

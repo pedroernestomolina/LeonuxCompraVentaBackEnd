@@ -461,15 +461,16 @@ namespace ProvLibInventario
                     };
                     f.identidad = id;
 
+                    var fechaV = new DateTime(2000, 01, 01);
                     var costo = new DtoLibInventario.Producto.VerData.Costo()
                     {
-                        costo = entPrd.costo,
+                        costoUnd = entPrd.costo_und,
                         costoDivisa = entPrd.divisa,
-                        costoImportacion = entPrd.costo_importacion,
-                        costoPromedio = entPrd.costo_promedio,
-                        costoProveedor = entPrd.costo_proveedor,
-                        costoVario = entPrd.costo_varios,
-                        fechaUltCambio = entPrd.fecha_ult_costo,
+                        costoImportacionUnd = entPrd.costo_importacion_und,
+                        costoPromedioUnd = entPrd.costo_promedio_und,
+                        costoProveedorUnd = entPrd.costo_proveedor_und,
+                        costoVarioUnd = entPrd.costo_varios_und,
+                        fechaUltCambio = entPrd.fecha_ult_costo==fechaV ? (DateTime?)null:  entPrd.fecha_ult_costo,
                     };
                     f.costo = costo;
 
@@ -827,6 +828,67 @@ namespace ProvLibInventario
                     };
 
                     rt.Entidad = precio;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Producto.VerData.Costo> Producto_GetCosto(string autoPrd)
+        {
+            var rt = new DtoLib.ResultadoEntidad<DtoLibInventario.Producto.VerData.Costo>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var entPrd = cnn.productos.Find(autoPrd);
+                    if (entPrd == null)
+                    {
+                        rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    var _admDivisa = entPrd.estatus_divisa.Trim().ToUpper() == "1" ?
+                        DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.Si :
+                        DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.No;
+                    var _estatus = entPrd.estatus.Trim().ToUpper() == "ACTIVO" ?
+                        DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo :
+                        DtoLibInventario.Producto.Enumerados.EnumEstatus.Inactivo;
+                    if (_estatus == DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo &&
+                        entPrd.estatus_cambio.Trim().ToUpper() == "1")
+                    {
+                        _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Suspendido;
+                    }
+                    var entTasa = cnn.empresa_tasas.Find(entPrd.auto_tasa);
+                    var entMedidaCompra = cnn.productos_medida.Find(entPrd.auto_empaque_compra);
+                    var fechaV = new DateTime(2000, 01, 01);
+                    var costo = new DtoLibInventario.Producto.VerData.Costo()
+                    {
+                        admDivisa = _admDivisa,
+                        codigo = entPrd.codigo,
+                        contEmpaqueCompra = entPrd.contenido_compras,
+                        descripcion = entPrd.nombre,
+                        empaqueCompra = entMedidaCompra.nombre,
+                        estatus = _estatus,
+                        nombre = entPrd.nombre_corto,
+                        nombreTasaIva = entTasa.nombre,
+                        tasaIva = entTasa.tasa,
+                        costoUnd = entPrd.costo_und,
+                        costoDivisa = entPrd.divisa,
+                        costoImportacionUnd = entPrd.costo_importacion_und,
+                        costoPromedioUnd = entPrd.costo_promedio_und,
+                        costoProveedorUnd = entPrd.costo_proveedor_und,
+                        costoVarioUnd = entPrd.costo_varios_und,
+                        fechaUltCambio = entPrd.fecha_ult_costo == fechaV ? (DateTime?)null : entPrd.fecha_ult_costo,
+                    };
+                    rt.Entidad = costo;
                 }
             }
             catch (Exception e)
