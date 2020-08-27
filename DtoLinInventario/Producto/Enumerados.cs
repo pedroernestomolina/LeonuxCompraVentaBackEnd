@@ -16,6 +16,7 @@ namespace DtoLibInventario.Producto
         public enum EnumEstatus { SnDefinir = -1, Activo= 1, Suspendido, Inactivo };
         public enum EnumCategoria { SnDefinir = -1 , ProductoTerminado=1, BienServicio, MateriaPrima, UsoInterno, SubProducto};
         public enum EnumAdministradorPorDivisa { SnDefinir = -1, Si=1, No };
+        public enum EnumClasificacionABC { SnDefinir = -1, A = 1, B, C, D };
         public enum EnumOferta { SnDefinir = -1, Si = 1, No };
         public enum EnumPesado { SnDefinir = -1, Si = 1, No };
 

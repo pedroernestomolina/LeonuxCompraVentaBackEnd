@@ -14,8 +14,10 @@ namespace ConsoleInventario
         static void Main(string[] args)
         {
             ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("192.168.100.10","panda");
-            //var filt = new DtoLibInventario.Producto.Filtro();
-            //filt.autoProveedor = "0000000104";
+            var filt = new DtoLibInventario.Producto.Filtro();
+            filt.autoProducto = "0000000104";
+            var rt1 = invPrv.Producto_GetLista(filt);
+
             //filt.estatus= DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
             //filt.autoDeposito = "0000000002";
             //filt.autoGrupo = "0000000001";
@@ -59,7 +61,9 @@ namespace ConsoleInventario
 
             //var filtro= new DtoLibInventario.Costo.Historico.Filtro () { autoProducto = "0000000231" };
             //var rt1 = invPrv.Producto_Costo_Historico_Lista(filtro);
-
+            //var rt1 = invPrv.Producto_GetDepositos("0000000231");
+            //var rt1 = invPrv.Producto_Editar_GetFicha ("0000000231");
+            //var rt1 = invPrv.Producto_Clasificacion_Lista ();
         }
 
     }

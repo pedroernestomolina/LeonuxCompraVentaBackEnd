@@ -113,6 +113,9 @@
     <Compile Include="productos_deposito.cs">
       <DependentUpon>ModelLibInventario.tt</DependentUpon>
     </Compile>
+    <Compile Include="productos_extra.cs">
+      <DependentUpon>ModelLibInventario.tt</DependentUpon>
+    </Compile>
     <Compile Include="productos_grupo.cs">
       <DependentUpon>ModelLibInventario.tt</DependentUpon>
     </Compile>

@@ -352,6 +352,14 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
     <Property Name="resultado_conteo" Type="decimal" Precision="14" Scale="3" Nullable="false" />
     <Property Name="averia" Type="decimal" Precision="14" Scale="3" Nullable="false" />
   </EntityType>
+  <EntityType Name="productos_extra">
+    <Key>
+      <PropertyRef Name="auto_productos" />
+    </Key>
+    <Property Name="auto_productos" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="imagen" Type="blob" Nullable="false" />
+    <Property Name="firma" Type="blob" Nullable="false" />
+  </EntityType>
   <EntityType Name="productos_grupo">
     <Key>
       <PropertyRef Name="auto" />
@@ -516,18 +524,9 @@ warning 6002: The table/view 'pita.productos_movimientos_detalle' does not have 
     <Property Name="auto_grupo" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'pita.productos_precios' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="productos_precios">
     <Key>
-      <PropertyRef Name="auto_producto" />
-      <PropertyRef Name="nota" />
-      <PropertyRef Name="fecha" />
-      <PropertyRef Name="estacion" />
-      <PropertyRef Name="hora" />
-      <PropertyRef Name="usuario" />
-      <PropertyRef Name="precio_id" />
-      <PropertyRef Name="precio" />
+      <PropertyRef Name="id" />
     </Key>
     <Property Name="auto_producto" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="nota" Type="varchar" MaxLength="40" Nullable="false" />
@@ -537,6 +536,7 @@ warning 6002: The table/view 'pita.productos_precios' does not have a primary ke
     <Property Name="usuario" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="precio_id" Type="varchar" MaxLength="8" Nullable="false" />
     <Property Name="precio" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="productos_proveedor">
     <Key>
@@ -675,6 +675,18 @@ warning 6002: The table/view 'pita.productos_precios' does not have a primary ke
       </Principal>
       <Dependent Role="productos_deposito">
         <PropertyRef Name="auto_deposito" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_extra_ibfk_1">
+    <End Role="productos" Type="Self.productos" Multiplicity="1" />
+    <End Role="productos_extra" Type="Self.productos_extra" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_extra">
+        <PropertyRef Name="auto_productos" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -960,10 +972,12 @@ warning 6002: The table/view 'pita.productos_precios' does not have a primary ke
     <EntitySet Name="productos_conceptos" EntityType="Self.productos_conceptos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_costos" EntityType="Self.productos_costos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_deposito" EntityType="Self.productos_deposito" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_extra" EntityType="Self.productos_extra" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_grupo" EntityType="Self.productos_grupo" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_marca" EntityType="Self.productos_marca" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_medida" EntityType="Self.productos_medida" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_movimientos" EntityType="Self.productos_movimientos" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_precios" EntityType="Self.productos_precios" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_proveedor" EntityType="Self.productos_proveedor" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_subgrupo" EntityType="Self.productos_subgrupo" Schema="pita" store:Type="Tables" />
     <EntitySet Name="proveedores" EntityType="Self.proveedores" Schema="pita" store:Type="Tables" />
@@ -1085,18 +1099,6 @@ FROM `productos_kardex` AS `productos_kardex`</DefiningQuery>
 `productos_movimientos_detalle`.`cierre_ftp`
 FROM `productos_movimientos_detalle` AS `productos_movimientos_detalle`</DefiningQuery>
     </EntitySet>
-    <EntitySet Name="productos_precios" EntityType="Self.productos_precios" store:Type="Tables" store:Schema="pita">
-      <DefiningQuery>SELECT
-`productos_precios`.`auto_producto`, 
-`productos_precios`.`nota`, 
-`productos_precios`.`fecha`, 
-`productos_precios`.`estacion`, 
-`productos_precios`.`hora`, 
-`productos_precios`.`usuario`, 
-`productos_precios`.`precio_id`, 
-`productos_precios`.`precio`
-FROM `productos_precios` AS `productos_precios`</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="productos_alterno_ibfk_1" Association="Self.productos_alterno_ibfk_1">
       <End Role="productos" EntitySet="productos" />
       <End Role="productos_alterno" EntitySet="productos_alterno" />
@@ -1112,6 +1114,10 @@ FROM `productos_precios` AS `productos_precios`</DefiningQuery>
     <AssociationSet Name="productos_deposito_ibfk_2" Association="Self.productos_deposito_ibfk_2">
       <End Role="empresa_depositos" EntitySet="empresa_depositos" />
       <End Role="productos_deposito" EntitySet="productos_deposito" />
+    </AssociationSet>
+    <AssociationSet Name="productos_extra_ibfk_1" Association="Self.productos_extra_ibfk_1">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="productos_extra" EntitySet="productos_extra" />
     </AssociationSet>
     <AssociationSet Name="productos_ibfk_1" Association="Self.productos_ibfk_1">
       <End Role="empresa_departamentos" EntitySet="empresa_departamentos" />

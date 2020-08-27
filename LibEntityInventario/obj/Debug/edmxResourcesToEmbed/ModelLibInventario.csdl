@@ -108,10 +108,11 @@
     <NavigationProperty Name="productos_alterno" Relationship="invModel.productos_alterno_ibfk_1" FromRole="productos" ToRole="productos_alterno" />
     <NavigationProperty Name="productos_marca" Relationship="invModel.productos_ibfk_4" FromRole="productos" ToRole="productos_marca" />
     <NavigationProperty Name="productos_proveedor" Relationship="invModel.productos_proveedor_ibfk_1" FromRole="productos" ToRole="productos_proveedor" />
-    <NavigationProperty Name="productos_precios" Relationship="invModel.productos_precios_ibfk_1" FromRole="productos" ToRole="productos_precios" />
     <NavigationProperty Name="productos_kardex" Relationship="invModel.productos_kardex_ibfk_1" FromRole="productos" ToRole="productos_kardex" />
     <NavigationProperty Name="productos_movimientos_detalle" Relationship="invModel.productos_movimientos_detalle_ibfk_2" FromRole="productos" ToRole="productos_movimientos_detalle" />
     <NavigationProperty Name="productos_costos" Relationship="invModel.productos_costos_ibfk_1" FromRole="productos" ToRole="productos_costos" />
+    <NavigationProperty Name="productos_precios" Relationship="invModel.productos_precios_ibfk_1" FromRole="productos" ToRole="productos_precios" />
+    <NavigationProperty Name="productos_extra" Relationship="invModel.productos_extra_ibfk_1" FromRole="productos" ToRole="productos_extra" />
   </EntityType>
   <EntityContainer Name="invEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="productos" EntityType="Self.productos" />
@@ -186,11 +187,6 @@
       <End Role="proveedores" EntitySet="proveedores" />
       <End Role="productos_proveedor" EntitySet="productos_proveedor" />
     </AssociationSet>
-    <EntitySet Name="productos_precios" EntityType="invModel.productos_precios" />
-    <AssociationSet Name="productos_precios_ibfk_1" Association="invModel.productos_precios_ibfk_1">
-      <End Role="productos" EntitySet="productos" />
-      <End Role="productos_precios" EntitySet="productos_precios" />
-    </AssociationSet>
     <EntitySet Name="productos_kardex" EntityType="invModel.productos_kardex" />
     <AssociationSet Name="productos_kardex_ibfk_2" Association="invModel.productos_kardex_ibfk_2">
       <End Role="empresa_depositos" EntitySet="empresa_depositos" />
@@ -242,6 +238,16 @@
     <AssociationSet Name="productos_costos_ibfk_1" Association="invModel.productos_costos_ibfk_1">
       <End Role="productos" EntitySet="productos" />
       <End Role="productos_costos" EntitySet="productos_costos" />
+    </AssociationSet>
+    <EntitySet Name="productos_precios" EntityType="invModel.productos_precios" />
+    <AssociationSet Name="productos_precios_ibfk_1" Association="invModel.productos_precios_ibfk_1">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="productos_precios" EntitySet="productos_precios" />
+    </AssociationSet>
+    <EntitySet Name="productos_extra" EntityType="invModel.productos_extra" />
+    <AssociationSet Name="productos_extra_ibfk_1" Association="invModel.productos_extra_ibfk_1">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="productos_extra" EntitySet="productos_extra" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="empresa_departamentos">
@@ -589,41 +595,6 @@
       </Principal>
       <Dependent Role="productos_proveedor">
         <PropertyRef Name="auto_proveedor" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="productos_precios">
-    <Key>
-      <PropertyRef Name="auto_producto" />
-      <PropertyRef Name="nota" />
-      <PropertyRef Name="fecha" />
-      <PropertyRef Name="estacion" />
-      <PropertyRef Name="hora" />
-      <PropertyRef Name="usuario" />
-      <PropertyRef Name="precio_id" />
-      <PropertyRef Name="precio" />
-    </Key>
-    <Property Name="auto_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="nota" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
-    <Property Name="fecha" Type="DateTime" Nullable="false" />
-    <Property Name="estacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="hora" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-    <Property Name="usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="precio_id" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-    <Property Name="precio" Type="Decimal" Nullable="false" />
-    <NavigationProperty Name="productos" Relationship="invModel.productos_precios_ibfk_1" FromRole="productos_precios" ToRole="productos" />
-  </EntityType>
-  <Association Name="productos_precios_ibfk_1">
-    <End Type="invModel.productos" Role="productos" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Type="invModel.productos_precios" Role="productos_precios" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="productos">
-        <PropertyRef Name="auto" />
-      </Principal>
-      <Dependent Role="productos_precios">
-        <PropertyRef Name="auto_producto" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1118,6 +1089,56 @@
       </Principal>
       <Dependent Role="productos_costos">
         <PropertyRef Name="auto_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="productos_precios">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="auto_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nota" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="estacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="hora" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="precio_id" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="precio" Type="Decimal" Nullable="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="productos" Relationship="invModel.productos_precios_ibfk_1" FromRole="productos_precios" ToRole="productos" />
+  </EntityType>
+  <Association Name="productos_precios_ibfk_1">
+    <End Type="invModel.productos" Role="productos" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="invModel.productos_precios" Role="productos_precios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_precios">
+        <PropertyRef Name="auto_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="productos_extra">
+    <Key>
+      <PropertyRef Name="auto_productos" />
+    </Key>
+    <Property Name="auto_productos" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="imagen" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="firma" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="productos" Relationship="invModel.productos_extra_ibfk_1" FromRole="productos_extra" ToRole="productos" />
+  </EntityType>
+  <Association Name="productos_extra_ibfk_1">
+    <End Type="invModel.productos" Role="productos" Multiplicity="1" />
+    <End Type="invModel.productos_extra" Role="productos_extra" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_extra">
+        <PropertyRef Name="auto_productos" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

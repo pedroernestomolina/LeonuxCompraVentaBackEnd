@@ -1,9 +1,11 @@
 ﻿using LibEntityInventario;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 
 namespace ProvLibInventario
@@ -40,7 +42,7 @@ namespace ProvLibInventario
                             {
                                 cad = cad.Substring(1);
                                 sql += " and p.codigo like @p";
-                                valor = "%"+cad+"%";
+                                valor = "%" + cad + "%";
                             }
                             else
                             {
@@ -79,10 +81,17 @@ namespace ProvLibInventario
                             }
                         }
                     }
-                    var p1 = new MySql.Data.MySqlClient.MySqlParameter("@p",valor);
-                    var q = cnn.productos.SqlQuery(sql,p1).ToList();
 
-                    if (filtro.autoDepartamento != "") 
+                    if (filtro.autoProducto != "")
+                    {
+                        sql += " and p.auto=@p";
+                        valor = filtro.autoProducto;
+                    }
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter("@p", valor);
+                    var q = cnn.productos.SqlQuery(sql, p1).ToList();
+
+                    if (filtro.autoDepartamento != "")
                     {
                         q = q.Where(w => w.auto_departamento == filtro.autoDepartamento).ToList();
                     }
@@ -100,8 +109,8 @@ namespace ProvLibInventario
                     }
                     if (filtro.autoDeposito != "")
                     {
-                        q = q.Join(cnn.productos_deposito, p => p.auto , d => d.auto_producto, 
-                            ( p , d ) => new {p ,d }).Where(w => w.d.auto_deposito == filtro.autoDeposito).Select(s => s.p).ToList();
+                        q = q.Join(cnn.productos_deposito, p => p.auto, d => d.auto_producto,
+                            (p, d) => new { p, d }).Where(w => w.d.auto_deposito == filtro.autoDeposito).Select(s => s.p).ToList();
                     }
                     if (filtro.autoProveedor != "")
                     {
@@ -109,21 +118,20 @@ namespace ProvLibInventario
                             (p, prv) => new { p, prv }).Where(w => w.prv.auto_proveedor == filtro.autoProveedor).Select(s => s.p).ToList();
                     }
 
-
                     if (filtro.estatus != DtoLibInventario.Producto.Enumerados.EnumEstatus.SnDefinir)
                     {
                         if (filtro.estatus == DtoLibInventario.Producto.Enumerados.EnumEstatus.Suspendido)
                         {
                             q = q.Where(w => w.estatus_cambio.Trim().ToUpper() == "1").ToList();
                         }
-                        else 
+                        else
                         {
                             var _f = "ACTIVO";
                             if (filtro.estatus == DtoLibInventario.Producto.Enumerados.EnumEstatus.Inactivo)
                             {
                                 _f = "INACTIVO";
                             }
-                            q = q.Where(w => w.estatus.Trim().ToUpper() == _f && w.estatus_cambio=="0").ToList();
+                            q = q.Where(w => w.estatus.Trim().ToUpper() == _f && w.estatus_cambio == "0").ToList();
                         }
                     }
                     if (filtro.admPorDivisa != DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.SnDefinir)
@@ -133,12 +141,12 @@ namespace ProvLibInventario
                         {
                             _f = "0";
                         }
-                        q = q.Where(w => w.estatus_divisa == _f ).ToList();
+                        q = q.Where(w => w.estatus_divisa == _f).ToList();
                     }
                     if (filtro.categoria != DtoLibInventario.Producto.Enumerados.EnumCategoria.SnDefinir)
                     {
                         var _f = "";
-                        switch (filtro.categoria) 
+                        switch (filtro.categoria)
                         {
                             case DtoLibInventario.Producto.Enumerados.EnumCategoria.BienServicio:
                                 _f = "BIEN DE SERVICIO";
@@ -161,7 +169,7 @@ namespace ProvLibInventario
                     if (filtro.origen != DtoLibInventario.Producto.Enumerados.EnumOrigen.SnDefinir)
                     {
                         var _f = "NACIONAL";
-                        if (filtro.origen == DtoLibInventario.Producto.Enumerados.EnumOrigen.Importado) 
+                        if (filtro.origen == DtoLibInventario.Producto.Enumerados.EnumOrigen.Importado)
                         {
                             _f = "IMPORTADO";
                         }
@@ -170,7 +178,7 @@ namespace ProvLibInventario
                     if (filtro.pesado != DtoLibInventario.Producto.Enumerados.EnumPesado.SnDefinir)
                     {
                         var _f = "1";
-                        if (filtro.pesado== DtoLibInventario.Producto.Enumerados.EnumPesado.No)
+                        if (filtro.pesado == DtoLibInventario.Producto.Enumerados.EnumPesado.No)
                         {
                             _f = "0";
                         }
@@ -179,7 +187,7 @@ namespace ProvLibInventario
                     if (filtro.oferta != DtoLibInventario.Producto.Enumerados.EnumOferta.SnDefinir)
                     {
                         var _f = "1";
-                        if (filtro.oferta == DtoLibInventario.Producto.Enumerados.EnumOferta.No )
+                        if (filtro.oferta == DtoLibInventario.Producto.Enumerados.EnumOferta.No)
                         {
                             _f = "0";
                         }
@@ -271,13 +279,13 @@ namespace ProvLibInventario
                             list = q.Select(s =>
                             {
                                 var _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
-                                if (s.estatus_cambio.Trim().ToUpper() == "1") 
+                                if (s.estatus_cambio.Trim().ToUpper() == "1")
                                 {
                                     _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Suspendido;
                                 }
                                 else if (s.estatus.Trim().ToUpper() != "ACTIVO")
                                 {
-                                    _estatus= DtoLibInventario.Producto.Enumerados.EnumEstatus.Inactivo;
+                                    _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Inactivo;
                                 }
 
                                 var _admDivisa = s.estatus_divisa.Trim().ToUpper() == "1" ?
@@ -291,7 +299,7 @@ namespace ProvLibInventario
                                 var _tasaIvaDescripcion = s.empresa_tasas.nombre;
 
                                 var _esPesado = DtoLibInventario.Producto.Enumerados.EnumPesado.No;
-                                if (s.estatus_pesado == "1") 
+                                if (s.estatus_pesado == "1")
                                 {
                                     _esPesado = DtoLibInventario.Producto.Enumerados.EnumPesado.Si;
                                 }
@@ -301,17 +309,17 @@ namespace ProvLibInventario
                                     _enOferta = DtoLibInventario.Producto.Enumerados.EnumOferta.Si;
                                 }
                                 var _origen = DtoLibInventario.Producto.Enumerados.EnumOrigen.SnDefinir;
-                                switch (s.origen.Trim().ToUpper()) 
+                                switch (s.origen.Trim().ToUpper())
                                 {
                                     case "NACIONAL":
-                                        _origen= DtoLibInventario.Producto.Enumerados.EnumOrigen.Nacional;
+                                        _origen = DtoLibInventario.Producto.Enumerados.EnumOrigen.Nacional;
                                         break;
                                     case "IMPORTADO":
-                                        _origen= DtoLibInventario.Producto.Enumerados.EnumOrigen.Importado;
+                                        _origen = DtoLibInventario.Producto.Enumerados.EnumOrigen.Importado;
                                         break;
                                 }
                                 var _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.SnDefinir;
-                                switch (s.categoria.Trim().ToUpper()) 
+                                switch (s.categoria.Trim().ToUpper())
                                 {
                                     case "PRODUCTO TERMINADO":
                                         _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.ProductoTerminado;
@@ -353,7 +361,7 @@ namespace ProvLibInventario
                                     origen = _origen,
                                     tasaIvaDescripcion = _tasaIvaDescripcion,
                                     esPesado = _esPesado,
-                                    enOferta= _enOferta,
+                                    enOferta = _enOferta,
                                 };
                                 return r;
                             }).ToList();
@@ -388,22 +396,22 @@ namespace ProvLibInventario
                     };
 
                     var f = new DtoLibInventario.Producto.VerData.Ficha();
-                    var _depart= entPrd.empresa_departamentos.nombre;
-                    var _codDepart=entPrd.empresa_departamentos.codigo;
-                    var _grupo= entPrd.productos_grupo.nombre;
-                    var _codGrupo= entPrd.productos_grupo.codigo;
+                    var _depart = entPrd.empresa_departamentos.nombre;
+                    var _codDepart = entPrd.empresa_departamentos.codigo;
+                    var _grupo = entPrd.productos_grupo.nombre;
+                    var _codGrupo = entPrd.productos_grupo.codigo;
                     var _marca = entPrd.productos_marca.nombre;
-                    var _nombreTasaIva= entPrd.empresa_tasas.nombre;
+                    var _nombreTasaIva = entPrd.empresa_tasas.nombre;
                     var _empCompra = entPrd.productos_medida2.nombre;
                     var _decimales = entPrd.productos_medida2.decimales;
-                    var _origen = entPrd.origen.Trim().ToUpper() == "NACIONAL" ? 
-                        DtoLibInventario.Producto.Enumerados.EnumOrigen.Nacional : 
-                        DtoLibInventario.Producto.Enumerados.EnumOrigen.Importado;   
-                    var _estatus= entPrd.estatus.Trim().ToUpper() == "ACTIVO" ?  
-                        DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo: 
+                    var _origen = entPrd.origen.Trim().ToUpper() == "NACIONAL" ?
+                        DtoLibInventario.Producto.Enumerados.EnumOrigen.Nacional :
+                        DtoLibInventario.Producto.Enumerados.EnumOrigen.Importado;
+                    var _estatus = entPrd.estatus.Trim().ToUpper() == "ACTIVO" ?
+                        DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo :
                         DtoLibInventario.Producto.Enumerados.EnumEstatus.Inactivo;
-                    if (_estatus== DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo && 
-                        entPrd.estatus_cambio.Trim().ToUpper() == "1") 
+                    if (_estatus == DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo &&
+                        entPrd.estatus_cambio.Trim().ToUpper() == "1")
                     {
                         _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Suspendido;
                     }
@@ -470,17 +478,17 @@ namespace ProvLibInventario
                         costoPromedioUnd = entPrd.costo_promedio_und,
                         costoProveedorUnd = entPrd.costo_proveedor_und,
                         costoVarioUnd = entPrd.costo_varios_und,
-                        fechaUltCambio = entPrd.fecha_ult_costo==fechaV ? (DateTime?)null:  entPrd.fecha_ult_costo,
+                        fechaUltCambio = entPrd.fecha_ult_costo == fechaV ? (DateTime?)null : entPrd.fecha_ult_costo,
                     };
                     f.costo = costo;
 
                     var dep = cnn.productos_deposito.Where(w => w.auto_producto == autoPrd).ToList();
                     var ex = new DtoLibInventario.Producto.VerData.Existencia()
                     {
-                        depositos = dep.Select(s=>
+                        depositos = dep.Select(s =>
                         {
                             var dp = new DtoLibInventario.Producto.VerData.Deposito()
-                            { 
+                            {
                                 codigo = s.empresa_depositos.codigo,
                                 exDisponible = s.disponible,
                                 exFisica = s.fisica,
@@ -489,9 +497,9 @@ namespace ProvLibInventario
                             };
                             return dp;
                         }).ToList(),
-                        decimales=_decimales,
+                        decimales = _decimales,
                     };
-                    f.existencia=ex;
+                    f.existencia = ex;
 
                     var precio = new DtoLibInventario.Producto.VerData.Precio()
                     {
@@ -502,7 +510,7 @@ namespace ProvLibInventario
                         contenido5 = entPrd.contenido_pto,
                         finOferta = entPrd.fin,
                         inicioOferta = entPrd.inicio,
-                        ofertaActiva = entPrd.estatus_oferta.Trim().ToUpper()=="1"? 
+                        ofertaActiva = entPrd.estatus_oferta.Trim().ToUpper() == "1" ?
                         DtoLibInventario.Producto.Enumerados.EnumOferta.Si :
                         DtoLibInventario.Producto.Enumerados.EnumOferta.No,
                         precioNeto1 = entPrd.precio_1,
@@ -525,22 +533,22 @@ namespace ProvLibInventario
                     };
                     f.precio = precio;
 
-                    List<string>alternos= cnn.productos_alterno.
-                        Where(w=>w.auto_producto==autoPrd).
-                        Select(new Func<productos_alterno,String>(s=> 
+                    List<string> alternos = cnn.productos_alterno.
+                        Where(w => w.auto_producto == autoPrd).
+                        Select(new Func<productos_alterno, String>(s =>
                         {
                             return s.codigo_alterno;
                         })).ToList();
 
                     List<DtoLibInventario.Producto.VerData.Proveedor> prv = cnn.productos_proveedor.
-                        Where(w=>w.auto_producto==autoPrd).
-                        Select(new Func<productos_proveedor,DtoLibInventario.Producto.VerData.Proveedor>(st=> 
+                        Where(w => w.auto_producto == autoPrd).
+                        Select(new Func<productos_proveedor, DtoLibInventario.Producto.VerData.Proveedor>(st =>
                         {
-                            var p=new DtoLibInventario.Producto.VerData.Proveedor()
+                            var p = new DtoLibInventario.Producto.VerData.Proveedor()
                             {
-                                 codigoPrv=st.proveedores.codigo,
-                                 nombrePrv=st.proveedores.razon_social,
-                                 codigoRefPrd=st.codigo_producto,
+                                codigoPrv = st.proveedores.codigo,
+                                nombrePrv = st.proveedores.razon_social,
+                                codigoRefPrd = st.codigo_producto,
                             };
                             return p;
                         })).ToList<DtoLibInventario.Producto.VerData.Proveedor>();
@@ -549,8 +557,8 @@ namespace ProvLibInventario
                     {
                         codigosAlterno = alternos,
                         diasEmpaque = entPrd.dias_garantia,
-                        esPesado = entPrd.estatus_pesado.Trim().ToUpper()=="1"? 
-                        DtoLibInventario.Producto.Enumerados.EnumPesado.Si : 
+                        esPesado = entPrd.estatus_pesado.Trim().ToUpper() == "1" ?
+                        DtoLibInventario.Producto.Enumerados.EnumPesado.Si :
                         DtoLibInventario.Producto.Enumerados.EnumPesado.No,
                         imagen = null,
                         lugar = entPrd.lugar,
@@ -576,7 +584,7 @@ namespace ProvLibInventario
             var result = new DtoLib.ResultadoLista<DtoLibInventario.Producto.Estatus.Resumen>();
             var list = new List<DtoLibInventario.Producto.Estatus.Resumen>();
 
-            var nr = new DtoLibInventario.Producto.Estatus.Resumen() { Id = 1, Descripcion= "Activo" };
+            var nr = new DtoLibInventario.Producto.Estatus.Resumen() { Id = 1, Descripcion = "Activo" };
             list.Add(nr);
             nr = new DtoLibInventario.Producto.Estatus.Resumen() { Id = 2, Descripcion = "Suspendido" };
             list.Add(nr);
@@ -672,7 +680,7 @@ namespace ProvLibInventario
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
                     var entPrd = cnn.productos.Find(autoPrd);
-                    if (entPrd == null) 
+                    if (entPrd == null)
                     {
                         rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
                         rt.Result = DtoLib.Enumerados.EnumResult.isError;
@@ -687,9 +695,9 @@ namespace ProvLibInventario
 
                     var list = new List<DtoLibInventario.Producto.VerData.Deposito>();
                     var dep = cnn.productos_deposito.Where(w => w.auto_producto == autoPrd).ToList();
-                    if (dep != null) 
+                    if (dep != null)
                     {
-                        if (dep.Count > 0) 
+                        if (dep.Count > 0)
                         {
                             list = dep.Select(s =>
                             {
@@ -750,7 +758,7 @@ namespace ProvLibInventario
                     }
 
                     var _admDivisa = entPrd.estatus_divisa.Trim().ToUpper() == "1" ?
-                        DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.Si:
+                        DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.Si :
                         DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.No;
 
                     var _estatus = entPrd.estatus.Trim().ToUpper() == "ACTIVO" ?
@@ -761,23 +769,23 @@ namespace ProvLibInventario
                     {
                         _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Suspendido;
                     }
-                    
-                    var entTasa= cnn.empresa_tasas.Find(entPrd.auto_tasa);
-                    var emp1= cnn.productos_medida.Find(entPrd.auto_precio_1);
-                    var emp2= cnn.productos_medida.Find(entPrd.auto_precio_2);
-                    var emp3= cnn.productos_medida.Find(entPrd.auto_precio_3);
-                    var emp4= cnn.productos_medida.Find(entPrd.auto_precio_4);
-                    var emp5= cnn.productos_medida.Find(entPrd.auto_precio_pto);
+
+                    var entTasa = cnn.empresa_tasas.Find(entPrd.auto_tasa);
+                    var emp1 = cnn.productos_medida.Find(entPrd.auto_precio_1);
+                    var emp2 = cnn.productos_medida.Find(entPrd.auto_precio_2);
+                    var emp3 = cnn.productos_medida.Find(entPrd.auto_precio_3);
+                    var emp4 = cnn.productos_medida.Find(entPrd.auto_precio_4);
+                    var emp5 = cnn.productos_medida.Find(entPrd.auto_precio_pto);
 
                     var precio = new DtoLibInventario.Producto.VerData.Precio()
                     {
-                        codigo=entPrd.codigo,
-                        nombre=entPrd.nombre_corto,
-                        descripcion=entPrd.nombre,
+                        codigo = entPrd.codigo,
+                        nombre = entPrd.nombre_corto,
+                        descripcion = entPrd.nombre,
                         tasaIva = entPrd.tasa,
-                        nombreTasaIva=entTasa.nombre,
-                        admDivisa=_admDivisa,
-                        estatus=_estatus,
+                        nombreTasaIva = entTasa.nombre,
+                        admDivisa = _admDivisa,
+                        estatus = _estatus,
 
                         etiqueta1 = entEmpresa.precio_1,
                         etiqueta2 = entEmpresa.precio_2,
@@ -824,7 +832,7 @@ namespace ProvLibInventario
                         empaque4 = emp4.nombre,
                         empaque5 = emp5.nombre,
 
-                        estatusOferta= _enOferta,
+                        estatusOferta = _enOferta,
                     };
 
                     rt.Entidad = precio;
@@ -889,6 +897,574 @@ namespace ProvLibInventario
                         fechaUltCambio = entPrd.fecha_ult_costo == fechaV ? (DateTime?)null : entPrd.fecha_ult_costo,
                     };
                     rt.Entidad = costo;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Producto.Depositos.Ficha> Producto_GetDepositos(string autoPrd)
+        {
+            var rt = new DtoLib.ResultadoEntidad<DtoLibInventario.Producto.Depositos.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var entPrd = cnn.productos.Find(autoPrd);
+                    if (entPrd == null)
+                    {
+                        rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    var list = new List<DtoLibInventario.Producto.Depositos.Data>();
+                    var entDep = cnn.productos_deposito.Where(w => w.auto_producto == autoPrd).ToList();
+                    if (entDep != null)
+                    {
+                        if (entDep.Count > 0)
+                        {
+                            foreach (var it in entDep)
+                            {
+                                var nr = new DtoLibInventario.Producto.Depositos.Data()
+                                {
+                                    autoDeposito = it.auto_deposito,
+                                    codigoDeposito = it.empresa_depositos.codigo,
+                                    nombreDeposito = it.empresa_depositos.nombre,
+                                };
+                                list.Add(nr);
+                            }
+                        }
+                    };
+                    var ficha = new DtoLibInventario.Producto.Depositos.Ficha()
+                    {
+                        autoPrd = entPrd.auto,
+                        codigoPrd = entPrd.codigo,
+                        descripcionPrd = entPrd.nombre,
+                        nombrePrd = entPrd.nombre_corto,
+                        referenciaPrd = entPrd.referencia,
+                    };
+                    ficha.depositos = list;
+
+                    rt.Entidad = ficha;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.Resultado Producto_AsignarDepositos(DtoLibInventario.Producto.Depositos.Asignar.Ficha ficha)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        foreach (var it in ficha.depositos)
+                        {
+                            var entPrdDep = new productos_deposito()
+                            {
+                                auto_deposito = it.autoDeposito,
+                                auto_producto = ficha.autoProducto ,
+                                averia = it.averia,
+                                disponible = it.disponible,
+                                fecha_conteo = it.fechaUltConteo,
+                                fisica = it.fisica,
+                                nivel_minimo = it.nivel_minimo,
+                                nivel_optimo = it.nivel_optimo,
+                                pto_pedido = it.pto_pedido,
+                                reservada = it.reservada,
+                                resultado_conteo = it.resultadoUltConteo,
+                                ubicacion_1 = it.ubicacion_1,
+                                ubicacion_2 = it.ubicacion_2,
+                                ubicacion_3 = it.ubicacion_3,
+                                ubicacion_4 = it.ubicacion_4,
+                            };
+                            cnn.productos_deposito.Add(entPrdDep);
+                            cnn.SaveChanges();
+                        }
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibInventario.Producto.Clasificacion.Resumen> Producto_Clasificacion_Lista()
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibInventario.Producto.Clasificacion.Resumen>();
+            var list = new List<DtoLibInventario.Producto.Clasificacion.Resumen>();
+
+            var nr = new DtoLibInventario.Producto.Clasificacion.Resumen() { Id = 1, Descripcion = "A" };
+            list.Add(nr);
+            nr = new DtoLibInventario.Producto.Clasificacion.Resumen() { Id = 2, Descripcion = "B" };
+            list.Add(nr);
+            nr = new DtoLibInventario.Producto.Clasificacion.Resumen() { Id = 3, Descripcion = "C" };
+            list.Add(nr);
+            nr = new DtoLibInventario.Producto.Clasificacion.Resumen() { Id = 4, Descripcion = "D" };
+            list.Add(nr);
+
+            result.Lista = list;
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Producto.Editar.Obtener.Ficha> Producto_Editar_GetFicha(string autoPrd)
+        {
+            var rt = new DtoLib.ResultadoEntidad<DtoLibInventario.Producto.Editar.Obtener.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var entPrd = cnn.productos.Find(autoPrd);
+                    if (entPrd == null)
+                    {
+                        rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    };
+
+                    var _origen = entPrd.origen.Trim().ToUpper() == "NACIONAL" ?
+                        DtoLibInventario.Producto.Enumerados.EnumOrigen.Nacional :
+                        DtoLibInventario.Producto.Enumerados.EnumOrigen.Importado;
+                    var _estatus = entPrd.estatus.Trim().ToUpper() == "ACTIVO" ?
+                        DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo :
+                        DtoLibInventario.Producto.Enumerados.EnumEstatus.Inactivo;
+                    if (_estatus == DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo &&
+                        entPrd.estatus_cambio.Trim().ToUpper() == "1")
+                    {
+                        _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Suspendido;
+                    }
+                    var _admDivisa = entPrd.estatus_divisa.Trim().ToUpper() == "1" ?
+                        DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.Si :
+                        DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.No;
+                    var _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.SnDefinir;
+                    switch (entPrd.categoria.Trim().ToUpper())
+                    {
+                        case "PRODUCTO TERMINADO":
+                            _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.ProductoTerminado;
+                            break;
+                        case "BIEN DE SERVICIO":
+                            _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.BienServicio;
+                            break;
+                        case "MATERIA PRIMA":
+                            _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.MateriaPrima;
+                            break;
+                        case "USO INTERNO":
+                            _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.UsoInterno;
+                            break;
+                        case "SUB PRODUCTO":
+                            _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.SubProducto;
+                            break;
+                    }
+                    var _clasificacion = DtoLibInventario.Producto.Enumerados.EnumClasificacionABC.SnDefinir;
+                    switch (entPrd.abc.Trim().ToUpper())
+                    {
+                        case "A":
+                            _clasificacion = DtoLibInventario.Producto.Enumerados.EnumClasificacionABC.A;
+                            break;
+                        case "B":
+                            _clasificacion = DtoLibInventario.Producto.Enumerados.EnumClasificacionABC.B;
+                            break;
+                        case "C":
+                            _clasificacion = DtoLibInventario.Producto.Enumerados.EnumClasificacionABC.C;
+                            break;
+                        case "D":
+                            _clasificacion = DtoLibInventario.Producto.Enumerados.EnumClasificacionABC.D;
+                            break;
+                    }
+
+                    var f = new DtoLibInventario.Producto.Editar.Obtener.Ficha()
+                    {
+                        auto = entPrd.auto,
+                        autoDepartamento = entPrd.auto_departamento,
+                        autoGrupo = entPrd.auto_grupo,
+                        autoMarca = entPrd.auto_marca,
+                        autoEmpCompra = entPrd.auto_empaque_compra,
+                        autoTasaImpuesto = entPrd.auto_tasa,
+
+                        codigo = entPrd.codigo,
+                        nombre = entPrd.nombre_corto,
+                        descripcion = entPrd.nombre,
+                        modelo = entPrd.modelo,
+                        referencia = entPrd.referencia,
+                        contenidoCompra = entPrd.contenido_compras,
+
+                        origen = _origen,
+                        categoria = _categoria,
+                        AdmPorDivisa = _admDivisa,
+                        Clasificacion = _clasificacion,
+                    };
+
+                    rt.Entidad = f;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.Resultado Producto_Editar_Actualizar(DtoLibInventario.Producto.Editar.Actualizar.Ficha ficha)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+
+                        var entPrd = cnn.productos.Find(ficha.auto);
+                        if (entPrd == null)
+                        {
+                            rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        };
+
+                        entPrd.codigo = ficha.codigo;
+                        entPrd.nombre = ficha.descripcion;
+                        entPrd.nombre_corto = ficha.nombre;
+                        entPrd.contenido_compras = ficha.contenidoCompra;
+                        entPrd.modelo = ficha.modelo;
+                        entPrd.referencia = ficha.referencia;
+                        entPrd.auto_departamento = ficha.autoDepartamento;
+                        entPrd.auto_grupo = ficha.autoGrupo;
+                        entPrd.auto_marca = ficha.autoMarca;
+                        entPrd.auto_empaque_compra = ficha.autoEmpCompra;
+                        entPrd.auto_tasa = ficha.autoTasaImpuesto;
+                        entPrd.origen = ficha.origen;
+                        entPrd.abc = ficha.abc;
+                        entPrd.estatus_divisa = ficha.estatusDivisa;
+                        entPrd.categoria = ficha.categoria;
+                        entPrd.fecha_cambio = fechaSistema.Date;
+
+                        cnn.SaveChanges();
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                rt.Mensaje = msg;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                rt.Mensaje = msg;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoEntidad<bool> Producto_Verificar_EsBienServicio(string autoPrd)
+        {
+            var rt = new DtoLib.ResultadoEntidad<bool>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var entPrd = cnn.productos.Find(autoPrd);
+                    if (entPrd == null)
+                    {
+                        rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    };
+
+                    rt.Entidad = (entPrd.categoria.Trim().ToUpper() == "BIEN DE SERVICIO");
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoEntidad<bool> Producto_Verificar_HayDepositosAsignado(string autoPrd)
+        {
+            var rt = new DtoLib.ResultadoEntidad<bool>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var entPrd = cnn.productos.Find(autoPrd);
+                    if (entPrd == null)
+                    {
+                        rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    };
+
+                    var ent= cnn.productos_deposito.FirstOrDefault(f=>f.auto_producto==autoPrd);
+                    rt.Entidad = false;
+                    if (ent != null) 
+                    {
+                        rt.Entidad = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoAuto Producto_Nuevo_Agregar(DtoLibInventario.Producto.Agregar.Ficha ficha)
+        {
+            var rt = new DtoLib.ResultadoAuto();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                        var fechaNula = new DateTime(200, 1, 1);
+
+                        var sql = "update sistema_contadores set a_productos=a_productos+1";
+                        var r1 = cnn.Database.ExecuteSqlCommand(sql);
+                        if (r1 == 0)
+                        {
+                            rt.Mensaje = "PROBLEMA AL ACTUALIZAR TABLA CONTADORES";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        }
+                        var aPrd = cnn.Database.SqlQuery<int>("select a_productos from sistema_contadores").FirstOrDefault();
+                        var autoPrd = aPrd.ToString().Trim().PadLeft(10, '0');
+
+                        var entPrd = new productos();
+                        entPrd.auto = autoPrd;
+                        entPrd.codigo = ficha.codigo;
+                        entPrd.nombre = ficha.descripcion;
+                        entPrd.nombre_corto = ficha.nombre;
+                        entPrd.contenido_compras = ficha.contenidoCompra;
+                        entPrd.modelo = ficha.modelo;
+                        entPrd.referencia = ficha.referencia;
+                        entPrd.auto_departamento = ficha.autoDepartamento;
+                        entPrd.auto_grupo = ficha.autoGrupo;
+                        entPrd.auto_marca = ficha.autoMarca;
+                        entPrd.auto_empaque_compra = ficha.autoEmpCompra;
+                        entPrd.auto_tasa = ficha.autoTasaImpuesto;
+                        entPrd.origen = ficha.origen;
+                        entPrd.abc = ficha.abc;
+                        entPrd.estatus_divisa = ficha.estatusDivisa;
+                        entPrd.categoria = ficha.categoria;
+                        entPrd.fecha_cambio = fechaSistema.Date;
+                        entPrd.fecha_alta= fechaSistema.Date;
+                        entPrd.fecha_baja= fechaNula.Date;
+                        entPrd.estatus = ficha.estatus;
+                        entPrd.tasa = ficha.tasa;
+
+                        entPrd.costo_proveedor = 0.0m;
+                        entPrd.costo_proveedor_und = 0.0m;
+                        entPrd.costo_importacion = 0.0m;
+                        entPrd.costo_importacion_und = 0.0m;
+                        entPrd.costo_varios = 0.0m;
+                        entPrd.costo_varios_und=0.0m;
+                        entPrd.costo=0.0m;
+                        entPrd.costo_und=0.0m;
+                        entPrd.costo_promedio = 0.0m;
+                        entPrd.costo_promedio_und = 0.0m;
+                        entPrd.divisa = 0.0m;
+                        entPrd.utilidad_1 = 0.0m;
+                        entPrd.utilidad_2 = 0.0m;
+                        entPrd.utilidad_3 = 0.0m;
+                        entPrd.utilidad_4 = 0.0m;
+                        entPrd.utilidad_pto = 0.0m;
+                        entPrd.precio_1 = 0.0m;
+                        entPrd.precio_2 = 0.0m;
+                        entPrd.precio_3 = 0.0m;
+                        entPrd.precio_4 = 0.0m;
+                        entPrd.precio_pto = 0.0m;
+                        entPrd.precio_sugerido = 0.0m;
+                        entPrd.precio_oferta = 0.0m;
+                        entPrd.inicio = fechaNula;
+                        entPrd.fin = fechaNula;
+                        entPrd.estatus_garantia="0";
+                        entPrd.dias_garantia=0;
+                        entPrd.advertencia = "";
+                        entPrd.comentarios = "";
+                        entPrd.auto_subgrupo = "0000000001";
+                        entPrd.auto_codigo_plan = "0000000001";
+                        entPrd.alto=0.0m;
+                        entPrd.largo = 0.0m;
+                        entPrd.ancho = 0.0m;
+                        entPrd.peso = 0.0m;
+                        entPrd.codigo_arancel="";
+                        entPrd.tasa_arancel=0.0m;
+                        entPrd.estatus_serial = "0";
+                        entPrd.estatus_oferta = "0";
+                        entPrd.estatus_web = "0";
+                        entPrd.estatus_corte= "0";
+                        entPrd.auto_precio_1 = "0000000001";
+                        entPrd.auto_precio_2 = "0000000001";
+                        entPrd.auto_precio_3 = "0000000001";
+                        entPrd.auto_precio_4 = "0000000001";
+                        entPrd.auto_precio_pto = "0000000001";
+                        entPrd.memo="";
+                        entPrd.contenido_1 = 0;
+                        entPrd.contenido_2 = 0;
+                        entPrd.contenido_3 = 0;
+                        entPrd.contenido_4 = 0;
+                        entPrd.contenido_pto = 0;
+                        entPrd.corte="";
+                        entPrd.estatus_pesado="0";
+                        entPrd.plu="";
+                        entPrd.estatus_compuesto= "0";
+                        entPrd.estatus_catalogo= "0";
+                        entPrd.estatus_cambio= "0";
+                        entPrd.fecha_movimiento=fechaNula;
+                        entPrd.fecha_ult_venta= fechaNula;
+                        entPrd.presentacion = "";
+                        entPrd.lugar= "";
+                        entPrd.fecha_ult_costo = fechaNula;
+                        entPrd.fecha_lote = fechaNula;
+                        entPrd.estatus_lote= "0";
+                        entPrd.pdf_1= 0.0m;
+                        entPrd.pdf_2 = 0.0m;
+                        entPrd.pdf_3 = 0.0m;
+                        entPrd.pdf_4 = 0.0m;
+                        entPrd.pdf_pto = 0.0m;
+                        cnn.productos.Add(entPrd);
+                        cnn.SaveChanges();
+
+                        var entPrdExtra = new productos_extra()
+                        {
+                            auto_productos = autoPrd,
+                            firma = new byte[] { },
+                            imagen = new byte[] { },
+                        };
+                        cnn.productos_extra.Add(entPrdExtra);
+                        cnn.SaveChanges();
+
+                        ts.Complete();
+                        rt.Auto = autoPrd;
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                rt.Mensaje = msg;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                rt.Mensaje = msg;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoEntidad<bool> Producto_Verificar_CodigoProductoYaRegistrado(string codigo, string autoPrd)
+        {
+            var rt = new DtoLib.ResultadoEntidad<bool>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    if (autoPrd == "")
+                    {
+                        var entPrd = cnn.productos.FirstOrDefault(f => f.codigo.Trim().ToUpper() == codigo);
+                        rt.Entidad = true;
+                        if (entPrd == null)
+                        {
+                            rt.Entidad = false;
+                            return rt;
+                        };
+                    }
+                    else 
+                    {
+                        var entPrd = cnn.productos.FirstOrDefault(f => f.codigo.Trim().ToUpper() == codigo && f.auto!=autoPrd);
+                        rt.Entidad = true;
+                        if (entPrd == null)
+                        {
+                            rt.Entidad = false;
+                            return rt;
+                        };
+                    }
                 }
             }
             catch (Exception e)

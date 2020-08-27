@@ -22,6 +22,7 @@ namespace LibEntityInventario
         public string usuario { get; set; }
         public string precio_id { get; set; }
         public decimal precio { get; set; }
+        public int id { get; set; }
     
         public virtual productos productos { get; set; }
     }

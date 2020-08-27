@@ -90,7 +90,15 @@
     <Compile Include="Precio\Historico\Resumen.cs" />
     <Compile Include="Precio\PrecioCosto\Ficha.cs" />
     <Compile Include="Producto\AdmDivisa\Resumen.cs" />
+    <Compile Include="Producto\Agregar\Ficha.cs" />
     <Compile Include="Producto\Categoria\Resumen.cs" />
+    <Compile Include="Producto\Clasificacion\Resumen.cs" />
+    <Compile Include="Producto\Depositos\Asignar\Deposito.cs" />
+    <Compile Include="Producto\Depositos\Asignar\Ficha.cs" />
+    <Compile Include="Producto\Depositos\Data.cs" />
+    <Compile Include="Producto\Depositos\Ficha.cs" />
+    <Compile Include="Producto\Editar\Actualizar\Ficha.cs" />
+    <Compile Include="Producto\Editar\Obtener\Ficha.cs" />
     <Compile Include="Producto\Enumerados.cs" />
     <Compile Include="Producto\Estatus\Resumen.cs" />
     <Compile Include="Producto\Filtro.cs" />
