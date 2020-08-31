@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuracion\InicializarBD\Ficha.cs" />
     <Compile Include="Deposito\Agregar.cs" />
     <Compile Include="Deposito\Editar.cs" />
     <Compile Include="Deposito\Ficha.cs" />

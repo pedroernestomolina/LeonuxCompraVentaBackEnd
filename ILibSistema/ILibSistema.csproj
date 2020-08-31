@@ -44,6 +44,7 @@
     <Compile Include="IGrupoUsuario.cs" />
     <Compile Include="IPrecio.cs" />
     <Compile Include="IProvider.cs" />
+    <Compile Include="IServConf.cs" />
     <Compile Include="ISucursal.cs" />
     <Compile Include="ISucursalGrupo.cs" />
     <Compile Include="IUsuario.cs" />

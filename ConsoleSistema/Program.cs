@@ -13,7 +13,7 @@ namespace ConsoleSistema
 
         static void Main(string[] args)
         {
-            ILibSistema.IProvider sistPrv = new ProvLibSistema.Provider("localhost","pita");
+            ILibSistema.IProvider sistPrv = new ProvLibSistema.Provider("localhost","panda2");
             //var r01 = sistPrv.SucursalGrupo_GetLista();
             //var ficha = new DtoLibSistema.GrupoSucursal.Editar()
             //{
@@ -76,6 +76,12 @@ namespace ConsoleSistema
             //    permisos = list,
             //};
             //var r01 = sistPrv.GrupoUsuario_Agregar(ficha);
+            //var ficha = new DtoLibSistema.Configuracion.InicializarBD.Ficha()
+            //{
+            //    CodSucursal = "01",
+            //    IdEquipo = "01",
+            //};
+            //var r01 = sistPrv.Inicializar_BD(ficha);
         }
 
     }

@@ -3059,6 +3059,11 @@ namespace ProvSqLitePosOffLine
                         comando1 = new MySqlCommand(sql0, cn, tr);
                         rt = comando1.ExecuteNonQuery();
 
+                        sql0 = "update sistema set deposito_principal=(select autodepositoprincipal from empresa_sucursal where codigo=?codigoSucursal)";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.AddWithValue("?codigoSucursal", codigoSuc);
+                        rt = comando1.ExecuteNonQuery();
 
                         //ESTADO NORMAL RESTRICCIONES FORANEAS
                         sql0 = "SET FOREIGN_KEY_CHECKS=1";
