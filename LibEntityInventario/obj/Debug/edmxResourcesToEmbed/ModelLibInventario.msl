@@ -179,14 +179,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="productos_marca">
-      <EntityTypeMapping TypeName="invModel.productos_marca">
-        <MappingFragment StoreEntitySet="productos_marca">
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
-          <ScalarProperty Name="auto" ColumnName="auto" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="productos_proveedor">
       <EntityTypeMapping TypeName="invModel.productos_proveedor">
         <MappingFragment StoreEntitySet="productos_proveedor">
@@ -543,6 +535,15 @@
           <ScalarProperty Name="firma" ColumnName="firma" />
           <ScalarProperty Name="imagen" ColumnName="imagen" />
           <ScalarProperty Name="auto_productos" ColumnName="auto_productos" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productos_marca">
+      <EntityTypeMapping TypeName="invModel.productos_marca">
+        <MappingFragment StoreEntitySet="productos_marca">
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

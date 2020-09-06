@@ -32,5 +32,7 @@ namespace LibEntitySqLitePosOffLine
         public decimal mTotal { get; set; }
         public decimal firma { get; set; }
         public decimal mFirma { get; set; }
+        public decimal cntDivisa { get; set; }
+        public decimal mCntDivisa { get; set; }
     }
 }

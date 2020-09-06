@@ -63,7 +63,6 @@
     <Compile Include="Departamento.cs" />
     <Compile Include="Deposito.cs" />
     <Compile Include="EmpaqueMedida.cs" />
-    <Compile Include="Existencia.cs" />
     <Compile Include="Grupo.cs" />
     <Compile Include="Kardex.cs" />
     <Compile Include="Marca.cs" />

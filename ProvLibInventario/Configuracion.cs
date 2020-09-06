@@ -131,6 +131,87 @@ namespace ProvLibInventario
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta> Configuracion_ForzarRedondeoPrecioVenta()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL46");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var modo = DtoLibInventario.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta.SinDefinir;
+                    switch (ent.usuario.Trim().ToUpper())
+                    {
+                        case "SIN REDONDEO":
+                            modo = DtoLibInventario.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta.SinRedeondeo;
+                            break;
+                        case "UNIDAD":
+                            modo = DtoLibInventario.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta.Unidad;
+                            break;
+                        case "DECENA":
+                            modo = DtoLibInventario.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta.Decena;
+                            break;
+                    }
+
+                    result.Entidad = modo;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio> Configuracion_PreferenciaRegistroPrecio()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL41");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var modo = DtoLibInventario.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio.SinDefinir;
+                    switch (ent.usuario.Trim().ToUpper())
+                    {
+                        case "PRECIO NETO":
+                            modo = DtoLibInventario.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio.Neto;
+                            break;
+                        case "PRECIO+IVA":
+                            modo = DtoLibInventario.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio.Full;
+                            break;
+                    }
+
+                    result.Entidad = modo;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

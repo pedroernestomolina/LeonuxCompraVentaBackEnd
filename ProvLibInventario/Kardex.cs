@@ -12,59 +12,182 @@ namespace ProvLibInventario
     public partial class Provider : ILibInventario.IProvider
     {
 
-        public DtoLib.ResultadoLista<DtoLibInventario.Kardex.Movimiento.Resumen> Producto_Kardex_Movimiento_Lista(DtoLibInventario.Kardex.Movimiento.Filtro filtro)
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Kardex.Movimiento.Resumen.Ficha> Producto_Kardex_Movimiento_Lista_Resumen(DtoLibInventario.Kardex.Movimiento.Resumen.Filtro filtro)
         {
-            var result = new DtoLib.ResultadoLista<DtoLibInventario.Kardex.Movimiento.Resumen>();
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Kardex.Movimiento.Resumen.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var cmd = "SELECT count(*) as cntMovimiento, modulo, auto_deposito as autoDeposito, auto_concepto as autoConcepto, "+
+                        "SUM(cantidad_und*signo) as cntInventario, dep.nombre as nombreDeposito, dep.codigo as codigoDeposito, "+
+                        "concepto.codigo codigoConcepto, concepto.nombre nombreConcepto " +
+                        "FROM `productos_kardex` as kardex " +
+                        "JOIN empresa_depositos as dep on kardex.auto_deposito=dep.auto " +
+                        "JOIN productos_conceptos as concepto on kardex.auto_concepto=concepto.auto " +
+                        "WHERE auto_producto=@autoPrd and estatus_anulado='0' and fecha>@desde " +
+                        "group by modulo,auto_deposito,auto_concepto";
+
+                    var fechaServidor = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                    DateTime? desde = fechaServidor.Date;
+                    if (filtro.ultDias != DtoLibInventario.Kardex.Enumerados.EnumMovUltDias.SinDefinir)
+                    {
+                        switch (filtro.ultDias) 
+                        {
+                            case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias.Hoy:
+                                desde= desde.Value.AddDays(0);
+                                break;
+                            case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias.Ayer:
+                                desde = desde.Value.AddDays(-1);
+                                break;
+                            case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._7Dias:
+                                desde = desde.Value.AddDays(-7);
+                                break;
+                            case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._15Dias:
+                                desde = desde.Value.AddDays(-15);
+                                break;
+                            case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._30Dias:
+                                desde = desde.Value.AddDays(-30);
+                                break;
+                            case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._45Dias:
+                                desde = desde.Value.AddDays(-45);
+                                break;
+                            case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._60Dias:
+                                desde = desde.Value.AddDays(-60);
+                                break;
+                            case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._90Dias:
+                                desde = desde.Value.AddDays(-90);
+                                break;
+                            case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._120Dias:
+                                desde = desde.Value.AddDays(-120);
+                                break;
+                            case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias.Todo:
+                                desde = desde.Value.AddDays(-365);
+                                break;
+                        }
+                    }
+
+                    var entPrd= cnn.productos.Find(filtro.autoProducto);
+                    if (entPrd==null)
+                    {
+                        result.Mensaje="[ ID ] PRODUCTO NO ENCOTRADO";
+                        result.Result= DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    
+                    var _empaqueCompra="";
+                    var _existencia=0.0m;
+                    var entPrdEx= cnn.productos_deposito.Where(w=>w.auto_producto==filtro.autoProducto).ToList();
+                    var entPrdEmp=cnn.productos_medida.Find(entPrd.auto_empaque_compra);
+                    if (entPrdEx.Count>0){_existencia=entPrdEx.Sum(s=>s.fisica);}
+                    if (entPrdEmp!=null){_empaqueCompra=entPrdEmp.nombre;}
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter("@autoPrd", filtro.autoProducto);
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter("@desde", desde);
+                    var lst= cnn.Database.SqlQuery<DtoLibInventario.Kardex.Movimiento.Resumen.Data>(cmd, p1, p2).ToList();
+                    
+                    cmd="select sum(cantidad_und*signo) as cnt from productos_kardex where auto_producto=@autoPrd "+
+                        "and estatus_anulado='0' and fecha<=@desde";
+                    var ex = cnn.Database.SqlQuery<decimal>(cmd, p1, p2);  
+
+                    var rt = new DtoLibInventario.Kardex.Movimiento.Resumen.Ficha()
+                    {
+                        codigoProducto = entPrd.codigo,
+                        contenidoEmp = entPrd.contenido_compras,
+                        empaqueCompra = _empaqueCompra,
+                        decimales= entPrdEmp.decimales,
+                        existenciaActual = _existencia,
+                        existencaFecha=ex.First(),
+                        fecha=desde.Value.ToShortDateString(),
+                        nombreProducto = entPrd.nombre,
+                        referenciaProducto = entPrd.referencia,
+
+                        Data = lst,
+                    };
+                    result.Entidad = rt;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Kardex.Movimiento.Detalle.Ficha> Producto_Kardex_Movimiento_Lista_Detalle(DtoLibInventario.Kardex.Movimiento.Detalle.Filtro filtro)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Kardex.Movimiento.Detalle.Ficha>();
 
             try
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
                     var fechaServidor = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
-                    var q = cnn.productos_kardex.Where(f => f.auto_producto == filtro.autoProducto).ToList();
-
+                    DateTime? desde = fechaServidor.Date;
                     if (filtro.ultDias != DtoLibInventario.Kardex.Enumerados.EnumMovUltDias.SinDefinir)
                     {
-                        DateTime? desde=fechaServidor.Date;
-                        var hasta=fechaServidor.Date;
-                        switch (filtro.ultDias) 
+                        switch (filtro.ultDias)
                         {
                             case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias.Hoy:
-                                desde= desde.Value.AddDays(0);
-                                q = q.Where(f => f.fecha >= desde ).ToList();
+                                desde = desde.Value.AddDays(0);
                                 break;
                             case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias.Ayer:
                                 desde = desde.Value.AddDays(-1);
-                                q = q.Where(f => f.fecha >= desde ).ToList();
                                 break;
                             case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._7Dias:
                                 desde = desde.Value.AddDays(-7);
-                                q = q.Where(f => f.fecha >= desde ).ToList();
                                 break;
                             case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._15Dias:
                                 desde = desde.Value.AddDays(-15);
-                                q = q.Where(f => f.fecha >= desde ).ToList();
                                 break;
                             case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._30Dias:
                                 desde = desde.Value.AddDays(-30);
-                                q = q.Where(f => f.fecha >= desde ).ToList();
                                 break;
                             case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._45Dias:
                                 desde = desde.Value.AddDays(-45);
-                                q = q.Where(f => f.fecha >= desde ).ToList();
                                 break;
                             case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._60Dias:
                                 desde = desde.Value.AddDays(-60);
-                                q = q.Where(f => f.fecha >= desde ).ToList();
                                 break;
                             case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._90Dias:
                                 desde = desde.Value.AddDays(-90);
-                                q = q.Where(f => f.fecha >= desde).ToList();
+                                break;
+                            case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._120Dias:
+                                desde = desde.Value.AddDays(-120);
+                                break;
+                            case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias.Todo:
+                                desde = desde.Value.AddDays(-365);
                                 break;
                         }
                     }
 
-                    var list = new List<DtoLibInventario.Kardex.Movimiento.Resumen>();
+                    var entPrd = cnn.productos.Find(filtro.autoProducto);
+                    if (entPrd == null)
+                    {
+                        result.Mensaje = "[ ID ] PRODUCTO NO ENCOTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var _empaqueCompra = "";
+                    var _existencia = 0.0m;
+                    var entPrdEx = cnn.productos_deposito.Where(w => w.auto_producto == filtro.autoProducto && w.auto_deposito== filtro.autoDeposito).ToList();
+                    var entPrdEmp = cnn.productos_medida.Find(entPrd.auto_empaque_compra);
+                    if (entPrdEx.Count > 0) { _existencia = entPrdEx.Sum(s => s.fisica); }
+                    if (entPrdEmp != null) { _empaqueCompra = entPrdEmp.nombre; }
+
+                    var q = cnn.productos_kardex.Where(f => 
+                        f.auto_producto == filtro.autoProducto && 
+                        f.auto_deposito==filtro.autoDeposito &&
+                        f.auto_concepto==filtro.autoConcepto &&
+                        f.modulo==filtro.modulo &&
+                        f.fecha > desde
+                        ).ToList();
+
+                    var list = new List<DtoLibInventario.Kardex.Movimiento.Detalle.Data>();
                     if (q != null)
                     {
                         if (q.Count() > 0)
@@ -73,7 +196,7 @@ namespace ProvLibInventario
                             {
                                 var _isAnulado = s.estatus_anulado.Trim().ToUpper() == "1" ? true : false;
                                 var _modulo = DtoLibInventario.Kardex.Enumerados.EnumModulo.SinDefinir;
-                                switch (s.modulo.Trim().ToUpper()) 
+                                switch (s.modulo.Trim().ToUpper())
                                 {
                                     case "INVENTARIO":
                                         _modulo = DtoLibInventario.Kardex.Enumerados.EnumModulo.Inventario;
@@ -85,7 +208,7 @@ namespace ProvLibInventario
                                         _modulo = DtoLibInventario.Kardex.Enumerados.EnumModulo.Venta;
                                         break;
                                 }
-                                var _siglas = DtoLibInventario.Kardex.Enumerados.EnumSiglas .SinDefinir;
+                                var _siglas = DtoLibInventario.Kardex.Enumerados.EnumSiglas.SinDefinir;
                                 switch (s.siglas.Trim().ToUpper())
                                 {
                                     case "FAC":
@@ -114,8 +237,7 @@ namespace ProvLibInventario
                                         break;
                                 }
 
-
-                                var r = new DtoLibInventario.Kardex.Movimiento.Resumen()
+                                var r = new DtoLibInventario.Kardex.Movimiento.Detalle.Data()
                                 {
                                     autoConcepto = s.auto_concepto,
                                     autoDeposito = s.auto_deposito,
@@ -142,9 +264,20 @@ namespace ProvLibInventario
                                 };
                                 return r;
                             }).ToList();
+
+                            var rt = new DtoLibInventario.Kardex.Movimiento.Detalle.Ficha()
+                            {
+                                codigoProducto = entPrd.codigo,
+                                contenidoEmp = entPrd.contenido_compras,
+                                EmpaqueCompra = _empaqueCompra,
+                                existencia = _existencia,
+                                nombreProducto = entPrd.nombre,
+                                referenciaProducto = entPrd.referencia,
+                                Data = list,
+                            };
+                            result.Entidad = rt;
                         }
                     }
-                    result.Lista = list;
                 }
             }
             catch (Exception e)

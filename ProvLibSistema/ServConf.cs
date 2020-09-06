@@ -94,6 +94,12 @@ namespace ProvLibSistema
                         "('0000000001', '0811000000', '1', 'Ninguna'),('0000000001', '0812000000', '1', 'Ninguna'),('0000000001', '0812010000', '1', 'Ninguna')," +
                         "('0000000001', '0813000000', '1', 'Ninguna'),('0000000001', '0814000000', '1', 'Ninguna'),('0000000001', '0814010000', '1', 'Ninguna')," +
                         "('0000000001', '0815000000', '1', 'Ninguna'),('0000000001', '0899000000', '1', 'Ninguna'),('0000000001', '0901000000', '1', 'Ninguna')," +
+                        
+                        "('0000000001', '0816000000', '1', 'Ninguna'),('0000000001', '0816010000', '1', 'Ninguna'),('0000000001', '0816020000', '1', 'Ninguna')," +
+                        "('0000000001', '0816030000', '1', 'Ninguna'),('0000000001', '0816040000', '1', 'Ninguna'),('0000000001', '0816050000', '1', 'Ninguna')," +
+                        "('0000000001', '0816070000', '1', 'Ninguna'),('0000000001', '0816080000', '1', 'Ninguna'),('0000000001', '0816090000', '1', 'Ninguna')," +
+                        "('0000000001', '0816100000', '1', 'Ninguna'),('0000000001', '0816110000', '1', 'Ninguna'),('0000000001', '0816120000', '1', 'Ninguna')," +
+
                         "('0000000001', '0902000000', '1', 'Ninguna'),('0000000001', '0999000000', '1', 'Ninguna'),('0000000001', '1101000000', '1', 'Ninguna')," +
                         "('0000000001', '1102000000', '1', 'Ninguna'),('0000000001', '1103000000', '1', 'Ninguna'),('0000000001', '1104000000', '1', 'Ninguna')," +
                         "('0000000001', '1105000000', '1', 'Ninguna'),('0000000001', '1106000000', '1', 'Ninguna'),('0000000001', '1107000000', '1', 'Ninguna')," +
@@ -111,6 +117,19 @@ namespace ProvLibSistema
                     cnn.Database.ExecuteSqlCommand(cmd);
 
                     //EMPRESA
+
+                    cmd = "truncate table empresa";
+                    cnn.Database.ExecuteSqlCommand(cmd);
+
+                    cmd = "INSERT INTO `empresa` (`auto` ,`nombre` ,`direccion` ,`rif` ,`telefono` ,`sucursal` ,`codigo_sucursal` ," +
+                        "`nit` ,`contacto` ,`fax` ,`email` ,`website` ,`registro` ,`codigo` ,`pais` ,`estado` ,`ciudad` ,`codigo_postal` ," +
+                        "`tasa1` ,`tasa2` ,`tasa3` ,`retencion_iva` ,`retencion_islr` ,`factor_cambio` ,`debito_bancario` ,`solicita` ," +
+                        "`recibe` ,`precio_1` ,`precio_2` ,`precio_3` ,`precio_4` ,`precio_5`) " +
+                        "VALUES ('0000000001', '', '', '', '', 'PRINCIPAL', '01', '', '', '', '', '', " +
+                        "'ABC', '01', 'VZLA', '', '', '', '16', '8', '21', '75', '2', '0.00', '0.00', '', " +
+                        "'', 'Precio 1', 'Precio 2', 'Precio 3', 'Precio 4', 'Precio 5')";
+                    cnn.Database.ExecuteSqlCommand(cmd);
+
                     cmd = "truncate table empresa_agencias";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
@@ -132,7 +151,9 @@ namespace ProvLibSistema
                     cmd = "truncate table empresa_depositos";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
-                    cmd = "INSERT INTO `empresa_depositos` (`auto`, `nombre`, `codigo`, `codigo_sucursal`) VALUES ('0000000001', 'PISO DE VENTA', '01', '01'), ('0000000002', 'ALMACEN', '02', '01')";
+                    cmd = "INSERT INTO `empresa_depositos` (`auto`, `nombre`, `codigo`, `codigo_sucursal`) "+ 
+                        "VALUES ('0000000001', 'PISO DE VENTA', '01', '01'), "+
+                        "('0000000002', 'ALMACEN', '02', '01')";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
                     cmd = "truncate table empresa_grupo";
@@ -571,7 +592,7 @@ namespace ProvLibSistema
                     cnn.Database.ExecuteSqlCommand(cmd);
 
                     cmd="update sistema_contadores set a_clientes_grupo='1',"+
-                        "a_usuarios='1',a_empresa_series_fiscales='0',a_empresa_depositos='1',"+
+                        "a_usuarios='1',a_empresa_series_fiscales='0',a_empresa_depositos='2',"+
                         "a_empresa_medios='15',a_empresa_cobradores='1',a_empresa_transporte='1',"+
                         "a_clientes='1',a_productos_conceptos='15',"+
                         "a_sistema_estados='1',a_clientes_zonas='1',a_proveedores_grupo='1',a_proveedores='1',"+

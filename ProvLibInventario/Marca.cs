@@ -109,6 +109,7 @@ namespace ProvLibInventario
                         {
                             auto = autoMarca,
                             nombre = ficha.nombre,
+                            tipo="",
                         };
                         cnn.productos_marca.Add(ent);
                         cnn.SaveChanges();

@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibInventario.Kardex.Movimiento
+namespace DtoLibInventario.Kardex.Movimiento.Detalle
 {
     
-    public class Resumen
+    public class Data
     {
 
         public string autoDeposito { get; set; }

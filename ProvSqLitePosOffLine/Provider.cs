@@ -109,6 +109,7 @@ namespace ProvSqLitePosOffLine
                     var prdList = cnn.Producto.ToList();
                     var prdBarra = cnn.ProductoBarra.ToList();
                     var usuList = cnn.UsuarioGrupo.ToList();
+                    var usuPermisoList = cnn.UsuarioPermiso.ToList();
                     var fiscalList = cnn.Fiscal.ToList();
                     var vendedorList = cnn.Vendedor.ToList();
                     var medioList = cnn.MedioCobro.ToList();
@@ -190,6 +191,8 @@ namespace ProvSqLitePosOffLine
                     cnn.ProductoBarra.RemoveRange(prdBarra);
                     cnn.SaveChanges();
                     cnn.UsuarioGrupo.RemoveRange(usuList);
+                    cnn.SaveChanges();
+                    cnn.UsuarioPermiso.RemoveRange(usuPermisoList);
                     cnn.SaveChanges();
                     cnn.Fiscal.RemoveRange(fiscalList);
                     cnn.SaveChanges();

@@ -247,6 +247,33 @@ namespace ProvLibSistema
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<int> Deposito_GeneraCodigoAutomatico()
+        {
+            var result = new DtoLib.ResultadoEntidad<int>();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    var aEmpresaDeposito = cnn.Database.SqlQuery<int>("select a_empresa_depositos from sistema_contadores").FirstOrDefault();
+                    if (aEmpresaDeposito == null)
+                    {
+                        result.Mensaje = "[ AUTOMATICO EMPRESA DEPOSITO ] PROBLEMA AL CONSULTAR CAMPO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    result.Entidad = ((int)aEmpresaDeposito)+1;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

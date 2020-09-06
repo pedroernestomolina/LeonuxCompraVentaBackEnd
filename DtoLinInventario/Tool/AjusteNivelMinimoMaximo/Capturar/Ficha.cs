@@ -19,7 +19,7 @@ namespace DtoLibInventario.Tool.AjusteNivelMinimoMaximo.Capturar
         public decimal fisica { get; set; }
         public decimal nivelMinimo { get; set; }
         public decimal nivelOptimo { get; set; }
-        public bool esPesado { get; set; }
+        public string esPesado { get; set; }
 
     }
 

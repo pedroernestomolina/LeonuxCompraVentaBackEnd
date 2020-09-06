@@ -131,7 +131,6 @@ namespace LibEntityInventario
         public virtual ICollection<productos_deposito> productos_deposito { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productos_alterno> productos_alterno { get; set; }
-        public virtual productos_marca productos_marca { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productos_proveedor> productos_proveedor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -143,5 +142,6 @@ namespace LibEntityInventario
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productos_precios> productos_precios { get; set; }
         public virtual productos_extra productos_extra { get; set; }
+        public virtual productos_marca productos_marca { get; set; }
     }
 }

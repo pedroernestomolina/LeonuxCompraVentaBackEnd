@@ -170,12 +170,21 @@ namespace ProvSqLitePosOffLine
                 {
                     var idOp = filtro.IdOperador;
 
-                    var nCredito = cnn.Venta.
-                        Where(w => w.idOperador == idOp && w.estatusActivo == 1 && w.tipoDocumento == 3).
-                        Sum(s => s.montoTotal);
+                    var lCredito = cnn.Venta.
+                        Where(w => w.idOperador == idOp && w.estatusActivo == 1 && w.tipoDocumento == 3).ToList();
+                    var nCredito = 0.0m;
+                    if (lCredito.Count > 0) 
+                    {
+                        nCredito = lCredito.Sum(s => s.montoTotal);
+                    }
 
-                    var nCambioDar = cnn.Venta.
-                        Where(w => w.idOperador == idOp && w.estatusActivo == 1).Sum(s => s.cambioDar);
+                    var lCambioDar = cnn.Venta.
+                        Where(w => w.idOperador == idOp && w.estatusActivo == 1).ToList();
+                    var nCambioDar =0.0m;
+                    if (lCambioDar.Count>0) 
+                    {
+                        nCambioDar=lCambioDar.Sum(s => s.cambioDar);
+                    }
 
                     var mov = cnn.Venta.
                         Join(cnn.VentaPago, v => v.id, vp => vp.idVenta, (v, vp) => new { v, vp }).

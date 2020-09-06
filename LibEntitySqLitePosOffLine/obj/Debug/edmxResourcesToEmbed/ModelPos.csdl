@@ -24,6 +24,7 @@
     <EntitySet Name="Empresa" EntityType="LeonuxPosOffLineModel.Empresa" />
     <EntitySet Name="Venta" EntityType="LeonuxPosOffLineModel.Venta" />
     <EntitySet Name="OperadorCierre" EntityType="LeonuxPosOffLineModel.OperadorCierre" />
+    <EntitySet Name="UsuarioPermiso" EntityType="LeonuxPosOffLineModel.UsuarioPermiso" />
   </EntityContainer>
   <EntityType Name="ProductoBarra">
     <Key>
@@ -468,5 +469,17 @@
     <Property Name="mTotal" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
     <Property Name="firma" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
     <Property Name="mFirma" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+    <Property Name="cntDivisa" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+    <Property Name="mCntDivisa" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+  </EntityType>
+  <EntityType Name="UsuarioPermiso">
+    <Key>
+      <PropertyRef Name="codigoGrupo" />
+      <PropertyRef Name="codigoFuncion" />
+    </Key>
+    <Property Name="codigoGrupo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="codigoFuncion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="esActivo" Type="Int64" Nullable="false" />
+    <Property Name="requiereClave" Type="Int64" Nullable="false" />
   </EntityType>
 </Schema>

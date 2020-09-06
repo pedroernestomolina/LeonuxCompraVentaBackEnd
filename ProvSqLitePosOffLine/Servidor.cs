@@ -86,6 +86,7 @@ namespace ProvSqLitePosOffLine
         public string CodigoFuncion { get; set; }
         public string Estatus { get; set; }
         public string Seguridad { get; set; }
+        public string CodigoGrupo { get; set; }
     }
 
     public class DataPrdBarra
@@ -264,12 +265,20 @@ namespace ProvSqLitePosOffLine
                         " join productos_medida as pm2 on p.auto_precio_2=pm2.auto " +
                         " join productos_medida as pm3 on p.auto_precio_3=pm3.auto " +
                         " join productos_medida as pm4 on p.auto_precio_4=pm4.auto " +
-                        " join productos_medida as pm5 on p.auto_precio_pto=pm5.auto ";
+                        " join productos_medida as pm5 on p.auto_precio_pto=pm5.auto " +
+                        " join productos_deposito as dep on p.auto=dep.auto_producto and  dep.auto_deposito=@deposito ";
                     var sql2 = "select * from productos_alterno";
+
+                    //var sql3 = "select u.*,g.nombre as nombreGrupo from usuarios as u " +
+                    //    " join usuarios_grupo as g on u.auto_grupo=g.auto where g.auto='0000000004'";
+                    //var sql3_1 = "select codigo_funcion, estatus, seguridad from usuarios_grupo_permisos as ugp " +
+                    //    " where ugp.codigo_grupo='0000000004' and ugp.codigo_funcion like '0816%' ";
+
                     var sql3 = "select u.*,g.nombre as nombreGrupo from usuarios as u " +
-                        " join usuarios_grupo as g on u.auto_grupo=g.auto where g.auto='0000000004'";
-                    var sql3_1 = "select codigo_funcion, estatus, seguridad from usuarios_grupo_permisos as ugp " +
-                        " where ugp.codigo_grupo='0000000004' and ugp.codigo_funcion like '0816%' ";
+                        " join usuarios_grupo as g on u.auto_grupo=g.auto";
+                    var sql3_1 = "select codigo_funcion, estatus, seguridad, codigo_grupo from usuarios_grupo_permisos as ugp " +
+                        " where ugp.codigo_funcion like '0816%' ";
+
                     var sql4 = "select * from empresa_tasas";
                     var sql5 = "select usuario from sistema_configuracion where codigo='GLOBAL48'";
                     var sql6 = "select auto,nombre,codigo from empresa_depositos";
@@ -297,7 +306,15 @@ namespace ProvSqLitePosOffLine
                     var fechaServ = comando1.ExecuteScalar().ToString();
                     _fechaServidor = DateTime.Parse(fechaServ).Date;
 
+
+                    var xsql = "select deposito_principal from sistema";
+                    MySqlCommand xcomando = new MySqlCommand(xsql);
+                    xcomando.Connection = cn;
+                    var xdeposito= xcomando.ExecuteScalar().ToString();
+
+
                     MySqlCommand comando = new MySqlCommand(sql);
+                    comando.Parameters.AddWithValue("@deposito", xdeposito);
                     comando.Connection = cn;
                     reader = comando.ExecuteReader();
                     while (reader.Read())
@@ -326,11 +343,19 @@ namespace ProvSqLitePosOffLine
                         nr.Pasillo = reader.GetString("lugar");
 
                         var isActivo = reader.GetString("estatus").Trim().ToUpper();
+                        var isSuspendido = reader.GetString("estatus_cambio").Trim().ToUpper();
                         var isDivisa = reader.GetString("estatus_divisa").Trim().ToUpper();
                         var isOferta = reader.GetString("estatus_oferta").Trim().ToUpper();
                         var isPesado = reader.GetString("estatus_pesado").Trim().ToUpper();
 
-                        nr.IsActivo = isActivo == "ACTIVO" ? true : false;
+                        if (isSuspendido == "1")
+                        {
+                            nr.IsActivo = false;
+                        }
+                        else 
+                        {
+                            nr.IsActivo = isActivo == "ACTIVO" ? true : false;
+                        }
                         nr.IsDivisa = isDivisa == "1" ? true : false;
                         nr.IsOferta = isOferta == "1" ? true : false;
                         nr.IsPesado = isPesado == "1" ? true : false;
@@ -432,6 +457,7 @@ namespace ProvSqLitePosOffLine
                         nr.CodigoFuncion = reader.GetString("codigo_funcion");
                         nr.Estatus = reader.GetString("estatus");
                         nr.Seguridad = reader.GetString("seguridad");
+                        nr.CodigoGrupo= reader.GetString("codigo_grupo");
                         list3_1.Add(nr);
                     }
                     reader.Close();
@@ -639,6 +665,7 @@ namespace ProvSqLitePosOffLine
                             var prdList = cnn.Producto.ToList();
                             var prdBarra = cnn.ProductoBarra.ToList();
                             var usuList = cnn.UsuarioGrupo.ToList();
+                            var usuPermisoList = cnn.UsuarioPermiso.ToList();
                             var fiscalList = cnn.Fiscal.ToList();
                             var vendedorList = cnn.Vendedor.ToList();
                             var medioList = cnn.MedioCobro.ToList();
@@ -665,7 +692,7 @@ namespace ProvSqLitePosOffLine
                                 cnn.SaveChanges();
                             }
 
-
+                            /*
                             foreach (var r in list3_1)
                             {
                                 switch (r.CodigoFuncion)
@@ -839,7 +866,7 @@ namespace ProvSqLitePosOffLine
                                         break;
                                 }
                             }
-
+                            */
 
                             cnn.Configuration.AutoDetectChangesEnabled = false;
                             cnn.Producto.RemoveRange(prdList);
@@ -847,6 +874,8 @@ namespace ProvSqLitePosOffLine
                             cnn.ProductoBarra.RemoveRange(prdBarra);
                             cnn.SaveChanges();
                             cnn.UsuarioGrupo.RemoveRange(usuList);
+                            cnn.SaveChanges();
+                            cnn.UsuarioPermiso.RemoveRange(usuPermisoList);
                             cnn.SaveChanges();
                             cnn.Fiscal.RemoveRange(fiscalList);
                             cnn.SaveChanges();
@@ -860,8 +889,12 @@ namespace ProvSqLitePosOffLine
                             cnn.SaveChanges();
                             cnn.Transporte.RemoveRange(transporteList);
                             cnn.SaveChanges();
-                            cnn.Serie.RemoveRange(serieList);
-                            cnn.SaveChanges();
+
+                            //NO BORRAR LAS SERIES FISCALES, 
+                            //MOTIVO: REINICIA LOS CONTADORES 
+                            //cnn.Serie.RemoveRange(serieList);
+                            //cnn.SaveChanges();
+
                             cnn.MovConceptoInv.RemoveRange(movConceptoInvList);
                             cnn.SaveChanges();
                             cnn.Empresa.RemoveRange(empresaList);
@@ -980,6 +1013,27 @@ namespace ProvSqLitePosOffLine
                             cnn.SaveChanges();
 
 
+                            var listUsuarioPermiso = new List<LibEntitySqLitePosOffLine.UsuarioPermiso>();
+                            foreach (var r in list3_1)
+                            {
+                                var _esActivo = 1;
+                                var _requiereClave = 0;
+                                if (r.Estatus.Trim().ToUpper() == "0") { _esActivo = 0; }
+                                if (r.Seguridad.Trim().ToUpper() != "NINGUNA") { _requiereClave = 1; }
+
+                                var nr = new LibEntitySqLitePosOffLine.UsuarioPermiso()
+                                {
+                                    codigoFuncion = r.CodigoFuncion,
+                                    codigoGrupo = r.CodigoGrupo,
+                                    esActivo = _esActivo,
+                                    requiereClave = _requiereClave,
+                                };
+                                listUsuarioPermiso.Add(nr);
+                            }
+                            cnn.UsuarioPermiso.AddRange(listUsuarioPermiso);
+                            cnn.SaveChanges();
+
+
                             var listFiscal = new List<LibEntitySqLitePosOffLine.Fiscal>();
                             foreach (var r in list4)
                             {
@@ -1070,6 +1124,7 @@ namespace ProvSqLitePosOffLine
                             cnn.SaveChanges();
 
 
+                            //NOTA:VERIFICA SI EXISTE UNA NUEVA SERIE, DE LAS YA EXISTENTE
                             var listSerie = new List<LibEntitySqLitePosOffLine.Serie>();
                             foreach (var r in listA)
                             {
@@ -1080,7 +1135,11 @@ namespace ProvSqLitePosOffLine
                                     control = r.Control,
                                     correlativo = r.Correlativo,
                                 };
-                                listSerie.Add(nr);
+                                var xverifica = serieList.FirstOrDefault(f => f.auto == r.Auto);
+                                if (xverifica == null) 
+                                {
+                                    listSerie.Add(nr);
+                                }
                             }
                             cnn.Serie.AddRange(listSerie);
                             cnn.SaveChanges();

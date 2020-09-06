@@ -11,7 +11,8 @@ namespace ILibInventario
     public interface IKardex
     {
 
-        DtoLib.ResultadoLista<DtoLibInventario.Kardex.Movimiento.Resumen> Producto_Kardex_Movimiento_Lista(DtoLibInventario.Kardex.Movimiento.Filtro filtro);
+        DtoLib.ResultadoEntidad<DtoLibInventario.Kardex.Movimiento.Resumen.Ficha > Producto_Kardex_Movimiento_Lista_Resumen(DtoLibInventario.Kardex.Movimiento.Resumen.Filtro filtro);
+        DtoLib.ResultadoEntidad<DtoLibInventario.Kardex.Movimiento.Detalle.Ficha> Producto_Kardex_Movimiento_Lista_Detalle(DtoLibInventario.Kardex.Movimiento.Detalle.Filtro filtro);
 
     }
 

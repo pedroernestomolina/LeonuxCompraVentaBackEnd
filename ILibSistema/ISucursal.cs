@@ -17,6 +17,7 @@ namespace ILibSistema
         DtoLib.Resultado Sucursal_Editar(DtoLibSistema.Sucursal.Editar ficha);
         DtoLib.Resultado Sucursal_AsignarDepositoPrincipal(DtoLibSistema.Sucursal.AsignarDepositoPrincipal ficha);
         DtoLib.Resultado Sucursal_QuitarDepositoPrincipal(string autoSuc);
+        DtoLib.ResultadoEntidad<int> Sucursal_GeneraCodigoAutomatico();
 
     }
 

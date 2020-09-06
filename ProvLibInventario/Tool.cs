@@ -23,49 +23,20 @@ namespace ProvLibInventario
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
-                    var q = cnn.productos_deposito.
-                        Join(cnn.productos,
-                        pd => pd.auto_producto, p => p.auto,
-                        (pd, p) => new { pd, p }).
-                        Where(w => w.p.estatus.Trim().ToUpper() == "ACTIVO").ToList();
+                    var cmd = "SELECT p.auto as autoProducto, p.codigo as codigoProducto, p.nombre as nombreProducto, "+
+                        "p.referencia as referenciaProducto, "+
+                        "case p.estatus_pesado "+
+                        "WHEN '0' THEN 'N' "+
+                        "WHEN '1' THEN 'S' "+
+                        "END as esPesado, "+
+                        "dep.fisica as fisica, dep.nivel_minimo as nivelMinimo, dep.nivel_optimo as nivelOptimo, med.decimales " +
+                        "FROM `productos_deposito` as dep " +
+                        "JOIN productos as p on dep.auto_producto=p.auto " +
+                        "JOIN productos_medida as med on p.auto_empaque_compra=med.auto " +
+                        "where dep.auto_deposito=@dep and p.estatus='Activo' ";
 
-                    if (filtro.autoDeposito!="")
-                    {
-                        q = q.Where(w => w.pd.auto_deposito == filtro.autoDeposito).ToList();
-                    }
-
-                    var list = new List<DtoLibInventario.Tool.AjusteNivelMinimoMaximo.Capturar.Ficha>();
-                    if (q != null)
-                    {
-                        if (q.Count() > 0)
-                        {
-                            list = q.Select(s =>
-                            {
-                                var _decimales="0";
-                                var _esPesado= s.p.estatus_pesado.Trim().ToUpper()=="1"?true:false;
-                                //var entEmp= cnn.productos_medida.Find(s.p.auto_empaque_compra);
-                                var entEmp = s.p.productos_medida2;
-                                if (entEmp != null)
-                                {
-                                    _decimales=entEmp.decimales;
-                                }
-
-                                var r = new DtoLibInventario.Tool.AjusteNivelMinimoMaximo.Capturar.Ficha()
-                                {
-                                    autoProducto = s.p.auto,
-                                    codigoProducto = s.p.codigo,
-                                    decimales = _decimales,
-                                    fisica = s.pd.fisica,
-                                    nivelMinimo = s.pd.nivel_minimo,
-                                    nivelOptimo = s.pd.nivel_optimo,
-                                    nombreProducto = s.p.nombre,
-                                    referenciaProducto = s.p.referencia,
-                                    esPesado = _esPesado,
-                                };
-                                return r;
-                            }).ToList();
-                        }
-                    }
+                    var dep = new MySql.Data.MySqlClient.MySqlParameter("@dep", filtro.autoDeposito);
+                    var list = cnn.Database.SqlQuery<DtoLibInventario.Tool.AjusteNivelMinimoMaximo.Capturar.Ficha>(cmd,dep).ToList();
                     result.Lista = list;
                 }
             }

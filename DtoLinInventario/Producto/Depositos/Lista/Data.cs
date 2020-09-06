@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibInventario.Existencia.Deposito
+namespace DtoLibInventario.Producto.Depositos.Lista
 {
-    
-    public class Filtro
+
+    public class Data
     {
 
-        public string autoProducto { get; set; }
         public string autoDeposito { get; set; }
+        public string codigoDeposito { get; set; }
+        public string nombreDeposito { get; set; }
 
     }
 

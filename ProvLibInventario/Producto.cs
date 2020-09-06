@@ -579,16 +579,16 @@ namespace ProvLibInventario
             return rt;
         }
 
-        public DtoLib.ResultadoLista<DtoLibInventario.Producto.Estatus.Resumen> Producto_Estatus_Lista()
+        DtoLib.ResultadoLista<DtoLibInventario.Producto.Estatus.Lista.Resumen> ILibInventario.IProducto.Producto_Estatus_Lista()
         {
-            var result = new DtoLib.ResultadoLista<DtoLibInventario.Producto.Estatus.Resumen>();
-            var list = new List<DtoLibInventario.Producto.Estatus.Resumen>();
+            var result = new DtoLib.ResultadoLista<DtoLibInventario.Producto.Estatus.Lista.Resumen>();
+            var list = new List<DtoLibInventario.Producto.Estatus.Lista.Resumen>();
 
-            var nr = new DtoLibInventario.Producto.Estatus.Resumen() { Id = 1, Descripcion = "Activo" };
+            var nr = new DtoLibInventario.Producto.Estatus.Lista.Resumen() { Id = 1, Descripcion = "Activo" };
             list.Add(nr);
-            nr = new DtoLibInventario.Producto.Estatus.Resumen() { Id = 2, Descripcion = "Suspendido" };
+            nr = new DtoLibInventario.Producto.Estatus.Lista.Resumen() { Id = 2, Descripcion = "Suspendido" };
             list.Add(nr);
-            nr = new DtoLibInventario.Producto.Estatus.Resumen() { Id = 3, Descripcion = "Inactivo" };
+            nr = new DtoLibInventario.Producto.Estatus.Lista.Resumen() { Id = 3, Descripcion = "Inactivo" };
             list.Add(nr);
 
             result.Lista = list;
@@ -703,6 +703,7 @@ namespace ProvLibInventario
                             {
                                 var dp = new DtoLibInventario.Producto.VerData.Deposito()
                                 {
+                                    autoId=s.auto_deposito,
                                     codigo = s.empresa_depositos.codigo,
                                     exDisponible = s.disponible,
                                     exFisica = s.fisica,
@@ -897,62 +898,6 @@ namespace ProvLibInventario
                         fechaUltCambio = entPrd.fecha_ult_costo == fechaV ? (DateTime?)null : entPrd.fecha_ult_costo,
                     };
                     rt.Entidad = costo;
-                }
-            }
-            catch (Exception e)
-            {
-                rt.Mensaje = e.Message;
-                rt.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return rt;
-        }
-
-        public DtoLib.ResultadoEntidad<DtoLibInventario.Producto.Depositos.Ficha> Producto_GetDepositos(string autoPrd)
-        {
-            var rt = new DtoLib.ResultadoEntidad<DtoLibInventario.Producto.Depositos.Ficha>();
-
-            try
-            {
-                using (var cnn = new invEntities(_cnInv.ConnectionString))
-                {
-                    var entPrd = cnn.productos.Find(autoPrd);
-                    if (entPrd == null)
-                    {
-                        rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
-                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
-                        return rt;
-                    }
-
-                    var list = new List<DtoLibInventario.Producto.Depositos.Data>();
-                    var entDep = cnn.productos_deposito.Where(w => w.auto_producto == autoPrd).ToList();
-                    if (entDep != null)
-                    {
-                        if (entDep.Count > 0)
-                        {
-                            foreach (var it in entDep)
-                            {
-                                var nr = new DtoLibInventario.Producto.Depositos.Data()
-                                {
-                                    autoDeposito = it.auto_deposito,
-                                    codigoDeposito = it.empresa_depositos.codigo,
-                                    nombreDeposito = it.empresa_depositos.nombre,
-                                };
-                                list.Add(nr);
-                            }
-                        }
-                    };
-                    var ficha = new DtoLibInventario.Producto.Depositos.Ficha()
-                    {
-                        autoPrd = entPrd.auto,
-                        codigoPrd = entPrd.codigo,
-                        descripcionPrd = entPrd.nombre,
-                        nombrePrd = entPrd.nombre_corto,
-                        referenciaPrd = entPrd.referencia,
-                    };
-                    ficha.depositos = list;
-
-                    rt.Entidad = ficha;
                 }
             }
             catch (Exception e)
@@ -1465,6 +1410,540 @@ namespace ProvLibInventario
                             return rt;
                         };
                     }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.Resultado Producto_CambiarEstatusA_Activo(string auto)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+
+                        var entPrd = cnn.productos.Find(auto);
+                        if (entPrd == null)
+                        {
+                            rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        };
+
+                        entPrd.estatus="Activo";
+                        entPrd.estatus_cambio = "0";
+                        entPrd.fecha_cambio = fechaSistema.Date;
+                        entPrd.fecha_baja = new DateTime(2000,01,01);
+
+                        cnn.SaveChanges();
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                rt.Mensaje = msg;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                rt.Mensaje = msg;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.Resultado Producto_CambiarEstatusA_Inactivo(string auto)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+
+                        var entPrd = cnn.productos.Find(auto);
+                        if (entPrd == null)
+                        {
+                            rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        };
+
+                        entPrd.estatus = "Inactivo";
+                        entPrd.fecha_cambio = fechaSistema.Date;
+                        entPrd.estatus_cambio = "0";
+                        entPrd.fecha_baja = fechaSistema.Date;
+
+                        cnn.SaveChanges();
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                rt.Mensaje = msg;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                rt.Mensaje = msg;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.Resultado Producto_CambiarEstatusA_Suspendido(string auto)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+
+                        var entPrd = cnn.productos.Find(auto);
+                        if (entPrd == null)
+                        {
+                            rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        };
+
+                        entPrd.estatus = "Activo";
+                        entPrd.fecha_cambio = fechaSistema.Date;
+                        entPrd.estatus_cambio = "1";
+                        entPrd.fecha_baja = new DateTime(2000, 01, 01);
+
+                        cnn.SaveChanges();
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                rt.Mensaje = msg;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                rt.Mensaje = msg;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoEntidad<bool> Producto_Verificar_ExistenciaEnCero(string autoPrd)
+        {
+            var rt = new DtoLib.ResultadoEntidad<bool>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    rt.Entidad = true;
+                    var ent = cnn.productos.Find(autoPrd);
+                    if (ent == null) 
+                    {
+                        rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        rt.Entidad = false;
+                        return rt;
+                    }
+
+                    var lst = cnn.productos_deposito.Where(w => w.auto_producto == autoPrd).ToList();
+                    if (lst != null) 
+                    {
+                        if (lst.Count() > 0)
+                        {
+                            if (lst.Sum(s => Math.Abs(s.fisica)) != 0) { rt.Result= DtoLib.Enumerados.EnumResult.isError; rt.Entidad = false; rt.Mensaje = "EXISTENCIA [ FISICA ] NO ES IGUAL A CERO (0)"; return rt; }
+                            if (lst.Sum(s => Math.Abs(s.disponible)) != 0) { rt.Result = DtoLib.Enumerados.EnumResult.isError; rt.Entidad = false; rt.Mensaje = "EXISTENCIA [ DISPONIBLE ] NO ES IGUAL A CERO (0)"; return rt; }
+                            if (lst.Sum(s => Math.Abs(s.reservada)) != 0) { rt.Result = DtoLib.Enumerados.EnumResult.isError; rt.Entidad = false; rt.Mensaje = "EXISTENCIA [ RESERVADA ] NO ES IGUAL A CERO (0)"; return rt; }
+                            if (lst.Sum(s => Math.Abs(s.averia)) != 0) { rt.Result = DtoLib.Enumerados.EnumResult.isError; rt.Entidad = false; rt.Mensaje = "EXISTENCIA [ AVERIA ] NO ES IGUAL A CERO (0)"; return rt; }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoEntidad<bool> Producto_Verificar_QueExista_EstatusActivo_NoSeaBienServicio(string autoPrd)
+        {
+            var rt = new DtoLib.ResultadoEntidad<bool>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var entPrd = cnn.productos.Find(autoPrd);
+                    if (entPrd == null)
+                    {
+                        rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    };
+
+                    if (entPrd.estatus.Trim().ToUpper()!="ACTIVO")
+                    {
+                        rt.Mensaje = "PRODUCTO EN ESTADO INACTIVO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    if (entPrd.categoria.Trim().ToUpper() == "BIEN DE SERVICIO") 
+                    {
+                        rt.Mensaje = "CATEGORIA DEL PRODUCTO NO PERMITE ASIGNAR/CAMBIAR DATOS A DEPOSITO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    rt.Entidad = true;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Producto.Depositos.Ver.Ficha> Producto_GetDeposito(DtoLibInventario.Producto.Depositos.Ver.Filtro filtro)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Producto.Depositos.Ver.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var entPrd = cnn.productos.Find(filtro.autoProducto);
+                    if (entPrd == null)
+                    {
+                        result.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var entDep = cnn.empresa_depositos.Find(filtro.autoDeposito);
+                    if (entDep == null)
+                    {
+                        result.Mensaje = "[ ID ] DEPOSITO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var ent = cnn.productos_deposito.FirstOrDefault(f => f.auto_producto == filtro.autoProducto && f.auto_deposito == filtro.autoDeposito);
+                    if (ent == null)
+                    {
+                        result.Mensaje = "PROBLEMA AL ENCONTRAR PRODUCTO / DEPOSITO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var _empaque = "";
+                    var entMed = cnn.productos_medida.Find(entPrd.auto_empaque_compra);
+                    if (entMed != null) { _empaque = entMed.nombre; }
+
+                    var fnula = new DateTime(2000, 01, 01);
+                    var fconteo = ent.fecha_conteo;
+                    var nr = new DtoLibInventario.Producto.Depositos.Ver.Ficha()
+                    {
+                        disponible = ent.disponible,
+                        fechaUltConteo = ent.fecha_conteo == fnula ? (DateTime?)null : fconteo,
+                        fisica = ent.fisica,
+                        nivelMinimo = ent.nivel_minimo,
+                        nivelOptimo = ent.nivel_optimo,
+                        ptoPedido = ent.pto_pedido,
+                        reservada = ent.reservada,
+                        resultadoUltConteo = ent.resultado_conteo,
+                        ubicacion_1 = ent.ubicacion_1,
+                        ubicacion_2 = ent.ubicacion_2,
+                        ubicacion_3 = ent.ubicacion_3,
+                        ubicacion_4 = ent.ubicacion_4,
+                        autoDeposito = ent.auto_deposito,
+                        autoProducto = ent.auto_producto,
+                        averia = ent.averia,
+                        codigoDeposito = entDep.codigo,
+                        codigoProducto = entPrd.codigo,
+                        contenidoCompra = entPrd.contenido_compras,
+                        empaqueCompra = _empaque,
+                        nombreDeposito = entDep.nombre,
+                        nombreProducto = entPrd.nombre,
+                        referenciaProducto = entPrd.referencia,
+                    };
+                    result.Entidad = nr;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Producto_EditarDeposito(DtoLibInventario.Producto.Depositos.Editar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                        var entPrd = cnn.productos.Find(ficha.autoProducto);
+                        if (entPrd == null)
+                        {
+                            result.Mensaje = "[ ID ] Producto, No Encontrado";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        entPrd.fecha_cambio = fechaSistema.Date;
+                        cnn.SaveChanges();
+
+                        var entPrdDep = cnn.productos_deposito.FirstOrDefault(f => f.auto_producto == ficha.autoProducto && f.auto_deposito == ficha.autoDeposito);
+                        if (entPrdDep == null)
+                        {
+                            result.Mensaje = "DEPOSITO NO DEFINIDO ";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        entPrdDep.nivel_minimo = ficha.nivelMinimo;
+                        entPrdDep.nivel_optimo = ficha.nivelOptimo;
+                        entPrdDep.pto_pedido = ficha.ptoPedido;
+                        entPrdDep.ubicacion_1 = ficha.ubicacion_1;
+                        entPrdDep.ubicacion_2 = ficha.ubicacion_2;
+                        entPrdDep.ubicacion_3 = ficha.ubicacion_3;
+                        entPrdDep.ubicacion_4 = ficha.ubicacion_4;
+                        cnn.SaveChanges();
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        DtoLib.ResultadoEntidad<DtoLibInventario.Producto.Depositos.Lista.Ficha> ILibInventario.IProducto.Producto_GetDepositos(string autoPrd)
+        {
+            var rt = new DtoLib.ResultadoEntidad<DtoLibInventario.Producto.Depositos.Lista.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var entPrd = cnn.productos.Find(autoPrd);
+                    if (entPrd == null)
+                    {
+                        rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    var list = new List<DtoLibInventario.Producto.Depositos.Lista.Data>();
+                    var entDep = cnn.productos_deposito.Where(w => w.auto_producto == autoPrd).ToList();
+                    if (entDep != null)
+                    {
+                        if (entDep.Count > 0)
+                        {
+                            foreach (var it in entDep)
+                            {
+                                var nr = new DtoLibInventario.Producto.Depositos.Lista.Data()
+                                {
+                                    autoDeposito = it.auto_deposito,
+                                    codigoDeposito = it.empresa_depositos.codigo,
+                                    nombreDeposito = it.empresa_depositos.nombre,
+                                };
+                                list.Add(nr);
+                            }
+                        }
+                    };
+                    var ficha = new DtoLibInventario.Producto.Depositos.Lista.Ficha()
+                    {
+                        autoPrd = entPrd.auto,
+                        codigoPrd = entPrd.codigo,
+                        descripcionPrd = entPrd.nombre,
+                        nombrePrd = entPrd.nombre_corto,
+                        referenciaPrd = entPrd.referencia,
+                    };
+                    ficha.depositos = list;
+
+                    rt.Entidad = ficha;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Producto.Estatus.Actual.Ficha> Producto_Estatus_GetFicha(string autoPrd)
+        {
+            var rt = new DtoLib.ResultadoEntidad<DtoLibInventario.Producto.Estatus.Actual.Ficha>();
+            
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var entPrd = cnn.productos.Find(autoPrd);
+                    if (entPrd == null)
+                    {
+                        rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    };
+                    
+                    var _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
+                    if (entPrd.estatus_cambio.Trim().ToUpper() == "1")
+                    {
+                        _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Suspendido;
+                    }
+                    else if (entPrd.estatus.Trim().ToUpper() != "ACTIVO")
+                    {
+                        _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Inactivo;
+                    }
+
+                    var nr = new DtoLibInventario.Producto.Estatus.Actual.Ficha()
+                    {
+                        autoProducto = entPrd.auto,
+                        codigoProducto = entPrd.codigo,
+                        nombreProducto = entPrd.nombre,
+                        referenciaProducto = entPrd.referencia,
+                        estatus = _estatus,
+                    };
+                    rt.Entidad = nr;
                 }
             }
             catch (Exception e)

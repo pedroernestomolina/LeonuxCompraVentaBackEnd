@@ -146,6 +146,8 @@
           <Property Name="mTotal" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="firma" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="mFirma" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="cntDivisa" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="mCntDivisa" Type="decimal" Precision="53" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Pendiente">
           <Key>
@@ -296,6 +298,16 @@
           <Property Name="usuarioClave" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="grupoDescripcion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="usuarioEstatus" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuarioPermiso">
+          <Key>
+            <PropertyRef Name="codigoGrupo" />
+            <PropertyRef Name="codigoFuncion" />
+          </Key>
+          <Property Name="codigoGrupo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="codigoFuncion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="esActivo" Type="integer" Nullable="false" />
+          <Property Name="requiereClave" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Vendedor">
           <Key>
@@ -469,6 +481,7 @@
           <EntitySet Name="Sistema" EntityType="Self.Sistema" store:Type="Tables" />
           <EntitySet Name="Transporte" EntityType="Self.Transporte" store:Type="Tables" />
           <EntitySet Name="UsuarioGrupo" EntityType="Self.UsuarioGrupo" store:Type="Tables" />
+          <EntitySet Name="UsuarioPermiso" EntityType="Self.UsuarioPermiso" store:Type="Tables" />
           <EntitySet Name="Vendedor" EntityType="Self.Vendedor" store:Type="Tables" />
           <EntitySet Name="Venta" EntityType="Self.Venta" store:Type="Tables" />
           <EntitySet Name="VentaDetalle" EntityType="Self.VentaDetalle" store:Type="Tables" />
@@ -502,6 +515,7 @@
           <EntitySet Name="Empresa" EntityType="LeonuxPosOffLineModel.Empresa" />
           <EntitySet Name="Venta" EntityType="LeonuxPosOffLineModel.Venta" />
           <EntitySet Name="OperadorCierre" EntityType="LeonuxPosOffLineModel.OperadorCierre" />
+          <EntitySet Name="UsuarioPermiso" EntityType="LeonuxPosOffLineModel.UsuarioPermiso" />
         </EntityContainer>
         <EntityType Name="ProductoBarra">
           <Key>
@@ -946,6 +960,18 @@
           <Property Name="mTotal" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="firma" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="mFirma" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="cntDivisa" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="mCntDivisa" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+        </EntityType>
+        <EntityType Name="UsuarioPermiso">
+          <Key>
+            <PropertyRef Name="codigoGrupo" />
+            <PropertyRef Name="codigoFuncion" />
+          </Key>
+          <Property Name="codigoGrupo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="codigoFuncion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="esActivo" Type="Int64" Nullable="false" />
+          <Property Name="requiereClave" Type="Int64" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1399,6 +1425,8 @@
           <EntitySetMapping Name="OperadorCierre">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.OperadorCierre">
               <MappingFragment StoreEntitySet="OperadorCierre">
+                <ScalarProperty Name="mCntDivisa" ColumnName="mCntDivisa" />
+                <ScalarProperty Name="cntDivisa" ColumnName="cntDivisa" />
                 <ScalarProperty Name="mFirma" ColumnName="mFirma" />
                 <ScalarProperty Name="firma" ColumnName="firma" />
                 <ScalarProperty Name="mTotal" ColumnName="mTotal" />
@@ -1417,6 +1445,16 @@
                 <ScalarProperty Name="diferencia" ColumnName="diferencia" />
                 <ScalarProperty Name="idOperador" ColumnName="idOperador" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuarioPermiso">
+            <EntityTypeMapping TypeName="LeonuxPosOffLineModel.UsuarioPermiso">
+              <MappingFragment StoreEntitySet="UsuarioPermiso">
+                <ScalarProperty Name="requiereClave" ColumnName="requiereClave" />
+                <ScalarProperty Name="esActivo" ColumnName="esActivo" />
+                <ScalarProperty Name="codigoFuncion" ColumnName="codigoFuncion" />
+                <ScalarProperty Name="codigoGrupo" ColumnName="codigoGrupo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

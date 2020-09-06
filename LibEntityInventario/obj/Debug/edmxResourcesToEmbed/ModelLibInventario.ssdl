@@ -425,6 +425,7 @@ warning 6002: The table/view 'pita.productos_kardex' does not have a primary key
     </Key>
     <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="tipo" Type="varchar" MaxLength="1" Nullable="false" />
   </EntityType>
   <EntityType Name="productos_medida">
     <Key>

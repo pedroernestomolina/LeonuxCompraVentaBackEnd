@@ -141,6 +141,8 @@
     <Property Name="mTotal" Type="decimal" Precision="53" Scale="0" Nullable="false" />
     <Property Name="firma" Type="decimal" Precision="53" Scale="0" Nullable="false" />
     <Property Name="mFirma" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="cntDivisa" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="mCntDivisa" Type="decimal" Precision="53" Scale="0" Nullable="false" />
   </EntityType>
   <EntityType Name="Pendiente">
     <Key>
@@ -291,6 +293,16 @@
     <Property Name="usuarioClave" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
     <Property Name="grupoDescripcion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
     <Property Name="usuarioEstatus" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UsuarioPermiso">
+    <Key>
+      <PropertyRef Name="codigoGrupo" />
+      <PropertyRef Name="codigoFuncion" />
+    </Key>
+    <Property Name="codigoGrupo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="codigoFuncion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="esActivo" Type="integer" Nullable="false" />
+    <Property Name="requiereClave" Type="integer" Nullable="false" />
   </EntityType>
   <EntityType Name="Vendedor">
     <Key>
@@ -464,6 +476,7 @@
     <EntitySet Name="Sistema" EntityType="Self.Sistema" store:Type="Tables" />
     <EntitySet Name="Transporte" EntityType="Self.Transporte" store:Type="Tables" />
     <EntitySet Name="UsuarioGrupo" EntityType="Self.UsuarioGrupo" store:Type="Tables" />
+    <EntitySet Name="UsuarioPermiso" EntityType="Self.UsuarioPermiso" store:Type="Tables" />
     <EntitySet Name="Vendedor" EntityType="Self.Vendedor" store:Type="Tables" />
     <EntitySet Name="Venta" EntityType="Self.Venta" store:Type="Tables" />
     <EntitySet Name="VentaDetalle" EntityType="Self.VentaDetalle" store:Type="Tables" />

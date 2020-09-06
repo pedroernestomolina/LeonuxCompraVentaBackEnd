@@ -9,7 +9,7 @@ namespace ILibInventario
 {
     
     public interface IProvider: IProducto, IDeposito, IDepartamento, IGrupo, ITasaImpuesto, IProveedor, IMarca,
-        ICosto, IPrecio, IKardex, IExistencia, IConcepto, ISucursal, IMovimiento, IUsuario, IReporteMovimientos, 
+        ICosto, IPrecio, IKardex, IConcepto, ISucursal, IMovimiento, IUsuario, IReporteMovimientos, 
         ITool, IEmpaqueMedida, IConfiguracion
     {
 

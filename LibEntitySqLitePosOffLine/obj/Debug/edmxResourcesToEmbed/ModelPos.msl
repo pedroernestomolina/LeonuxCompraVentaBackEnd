@@ -447,6 +447,8 @@
     <EntitySetMapping Name="OperadorCierre">
       <EntityTypeMapping TypeName="LeonuxPosOffLineModel.OperadorCierre">
         <MappingFragment StoreEntitySet="OperadorCierre">
+          <ScalarProperty Name="mCntDivisa" ColumnName="mCntDivisa" />
+          <ScalarProperty Name="cntDivisa" ColumnName="cntDivisa" />
           <ScalarProperty Name="mFirma" ColumnName="mFirma" />
           <ScalarProperty Name="firma" ColumnName="firma" />
           <ScalarProperty Name="mTotal" ColumnName="mTotal" />
@@ -465,6 +467,16 @@
           <ScalarProperty Name="diferencia" ColumnName="diferencia" />
           <ScalarProperty Name="idOperador" ColumnName="idOperador" />
           <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsuarioPermiso">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.UsuarioPermiso">
+        <MappingFragment StoreEntitySet="UsuarioPermiso">
+          <ScalarProperty Name="requiereClave" ColumnName="requiereClave" />
+          <ScalarProperty Name="esActivo" ColumnName="esActivo" />
+          <ScalarProperty Name="codigoFuncion" ColumnName="codigoFuncion" />
+          <ScalarProperty Name="codigoGrupo" ColumnName="codigoGrupo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -27,7 +27,8 @@
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.MovConceptoInv" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Empresa" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Venta" Width="1.5" PointX="7.375" PointY="13.75" />
-        <EntityTypeShape EntityType="LeonuxPosOffLineModel.OperadorCierre" Width="1.5" PointX="0.875" PointY="6.875" />
+        <EntityTypeShape EntityType="LeonuxPosOffLineModel.OperadorCierre" Width="1.5" PointX="15.625" PointY="4.75" />
+        <EntityTypeShape EntityType="LeonuxPosOffLineModel.UsuarioPermiso" Width="1.5" PointX="0.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

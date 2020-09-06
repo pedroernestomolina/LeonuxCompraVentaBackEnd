@@ -15,6 +15,7 @@ namespace ILibSistema
         DtoLib.ResultadoEntidad<DtoLibSistema.Deposito.Ficha> Deposito_GetFicha(string auto);
         DtoLib.ResultadoAuto Deposito_Agregar(DtoLibSistema.Deposito.Agregar ficha);
         DtoLib.Resultado Deposito_Editar (DtoLibSistema.Deposito.Editar ficha);
+        DtoLib.ResultadoEntidad<int> Deposito_GeneraCodigoAutomatico();
 
     }
 

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibInventario.Producto.Depositos
+namespace DtoLibInventario.Producto.Depositos.Lista
 {
     
     public class Ficha

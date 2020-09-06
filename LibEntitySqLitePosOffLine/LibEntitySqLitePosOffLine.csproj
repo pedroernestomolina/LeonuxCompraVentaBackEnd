@@ -137,6 +137,9 @@
     <Compile Include="UsuarioGrupo.cs">
       <DependentUpon>ModelPos.tt</DependentUpon>
     </Compile>
+    <Compile Include="UsuarioPermiso.cs">
+      <DependentUpon>ModelPos.tt</DependentUpon>
+    </Compile>
     <Compile Include="Vendedor.cs">
       <DependentUpon>ModelPos.tt</DependentUpon>
     </Compile>
