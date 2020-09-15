@@ -444,10 +444,25 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="UsuarioPermiso">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.UsuarioPermiso">
+        <MappingFragment StoreEntitySet="UsuarioPermiso">
+          <ScalarProperty Name="requiereClave" ColumnName="requiereClave" />
+          <ScalarProperty Name="esActivo" ColumnName="esActivo" />
+          <ScalarProperty Name="codigoFuncion" ColumnName="codigoFuncion" />
+          <ScalarProperty Name="codigoGrupo" ColumnName="codigoGrupo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="OperadorCierre">
       <EntityTypeMapping TypeName="LeonuxPosOffLineModel.OperadorCierre">
         <MappingFragment StoreEntitySet="OperadorCierre">
-          <ScalarProperty Name="mCntDivisa" ColumnName="mCntDivisa" />
+          <ScalarProperty Name="montoNcr" ColumnName="montoNcr" />
+          <ScalarProperty Name="montoFac" ColumnName="montoFac" />
+          <ScalarProperty Name="cntDocNcr" ColumnName="cntDocNcr" />
+          <ScalarProperty Name="cntDocFac" ColumnName="cntDocFac" />
+          <ScalarProperty Name="cntDoc" ColumnName="cntDoc" />
+          <ScalarProperty Name="cntDivisaUsu" ColumnName="cntDivisaUsu" />
           <ScalarProperty Name="cntDivisa" ColumnName="cntDivisa" />
           <ScalarProperty Name="mFirma" ColumnName="mFirma" />
           <ScalarProperty Name="firma" ColumnName="firma" />
@@ -467,16 +482,6 @@
           <ScalarProperty Name="diferencia" ColumnName="diferencia" />
           <ScalarProperty Name="idOperador" ColumnName="idOperador" />
           <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UsuarioPermiso">
-      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.UsuarioPermiso">
-        <MappingFragment StoreEntitySet="UsuarioPermiso">
-          <ScalarProperty Name="requiereClave" ColumnName="requiereClave" />
-          <ScalarProperty Name="esActivo" ColumnName="esActivo" />
-          <ScalarProperty Name="codigoFuncion" ColumnName="codigoFuncion" />
-          <ScalarProperty Name="codigoGrupo" ColumnName="codigoGrupo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

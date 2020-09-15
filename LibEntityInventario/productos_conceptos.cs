@@ -17,8 +17,8 @@ namespace LibEntityInventario
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public productos_conceptos()
         {
-            this.productos_kardex = new HashSet<productos_kardex>();
             this.productos_movimientos = new HashSet<productos_movimientos>();
+            this.productos_kardex = new HashSet<productos_kardex>();
         }
     
         public string auto { get; set; }
@@ -26,8 +26,8 @@ namespace LibEntityInventario
         public string nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<productos_kardex> productos_kardex { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productos_movimientos> productos_movimientos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<productos_kardex> productos_kardex { get; set; }
     }
 }

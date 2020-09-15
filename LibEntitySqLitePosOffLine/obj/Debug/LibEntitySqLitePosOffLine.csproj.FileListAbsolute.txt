@@ -9,6 +9,6 @@ D:\Proyectos FoxSystem\CompraVenta\LibEntitySqLitePosOffLine\bin\Debug\System.Da
 D:\Proyectos FoxSystem\CompraVenta\LibEntitySqLitePosOffLine\bin\Debug\EntityFramework.xml
 D:\Proyectos FoxSystem\CompraVenta\LibEntitySqLitePosOffLine\bin\Debug\EntityFramework.SqlServer.xml
 D:\Proyectos FoxSystem\CompraVenta\LibEntitySqLitePosOffLine\bin\Debug\System.Data.SQLite.xml
+D:\Proyectos FoxSystem\CompraVenta\LibEntitySqLitePosOffLine\obj\Debug\LibEntitySqLitePosOffLine.csprojResolveAssemblyReference.cache
 D:\Proyectos FoxSystem\CompraVenta\LibEntitySqLitePosOffLine\obj\Debug\LibEntitySqLitePosOffLine.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntitySqLitePosOffLine\obj\Debug\LibEntitySqLitePosOffLine.pdb
-D:\Proyectos FoxSystem\CompraVenta\LibEntitySqLitePosOffLine\obj\Debug\LibEntitySqLitePosOffLine.csprojResolveAssemblyReference.cache

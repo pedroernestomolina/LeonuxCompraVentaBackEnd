@@ -23,8 +23,8 @@
     <EntitySet Name="MovConceptoInv" EntityType="LeonuxPosOffLineModel.MovConceptoInv" />
     <EntitySet Name="Empresa" EntityType="LeonuxPosOffLineModel.Empresa" />
     <EntitySet Name="Venta" EntityType="LeonuxPosOffLineModel.Venta" />
-    <EntitySet Name="OperadorCierre" EntityType="LeonuxPosOffLineModel.OperadorCierre" />
     <EntitySet Name="UsuarioPermiso" EntityType="LeonuxPosOffLineModel.UsuarioPermiso" />
+    <EntitySet Name="OperadorCierre" EntityType="LeonuxPosOffLineModel.OperadorCierre" />
   </EntityContainer>
   <EntityType Name="ProductoBarra">
     <Key>
@@ -447,6 +447,16 @@
     <Property Name="nombreConceptoMov" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
     <Property Name="prefijo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
   </EntityType>
+  <EntityType Name="UsuarioPermiso">
+    <Key>
+      <PropertyRef Name="codigoGrupo" />
+      <PropertyRef Name="codigoFuncion" />
+    </Key>
+    <Property Name="codigoGrupo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="codigoFuncion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="esActivo" Type="Int64" Nullable="false" />
+    <Property Name="requiereClave" Type="Int64" Nullable="false" />
+  </EntityType>
   <EntityType Name="OperadorCierre">
     <Key>
       <PropertyRef Name="id" />
@@ -470,16 +480,11 @@
     <Property Name="firma" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
     <Property Name="mFirma" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
     <Property Name="cntDivisa" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-    <Property Name="mCntDivisa" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-  </EntityType>
-  <EntityType Name="UsuarioPermiso">
-    <Key>
-      <PropertyRef Name="codigoGrupo" />
-      <PropertyRef Name="codigoFuncion" />
-    </Key>
-    <Property Name="codigoGrupo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="codigoFuncion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="esActivo" Type="Int64" Nullable="false" />
-    <Property Name="requiereClave" Type="Int64" Nullable="false" />
+    <Property Name="cntDivisaUsu" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+    <Property Name="cntDoc" Type="Int64" Nullable="false" />
+    <Property Name="cntDocFac" Type="Int64" Nullable="false" />
+    <Property Name="cntDocNcr" Type="Int64" Nullable="false" />
+    <Property Name="montoFac" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+    <Property Name="montoNcr" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
   </EntityType>
 </Schema>

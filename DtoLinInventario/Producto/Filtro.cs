@@ -11,6 +11,8 @@ namespace DtoLibInventario.Producto
     public class Filtro
     {
 
+        public enum Existencia { SinDefinir = -1, MayorQueCero = 1, IgualCero, MenorQueCero };
+
         public string cadena { get; set; }
 
         public string autoProducto { get; set; }
@@ -29,11 +31,13 @@ namespace DtoLibInventario.Producto
         public Enumerados.EnumOferta oferta { get; set; }
 
         public Enumerados.EnumMetodoBusqueda MetodoBusqueda { get; set; }
+        public Existencia existencia { get; set; } 
 
 
         public Filtro()
         {
             cadena = "";
+            autoProducto = "";
             autoDepartamento = "";
             autoDeposito = "";
             autoGrupo = "";
@@ -46,6 +50,7 @@ namespace DtoLibInventario.Producto
             admPorDivisa = Enumerados.EnumAdministradorPorDivisa.SnDefinir;
             pesado = Enumerados.EnumPesado.SnDefinir;
             oferta = Enumerados.EnumOferta.SnDefinir;
+            existencia = Existencia.SinDefinir ;
         }
 
     }

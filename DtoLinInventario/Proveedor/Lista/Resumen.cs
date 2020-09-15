@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibInventario.Proveedor
+namespace DtoLibInventario.Proveedor.Lista
 {
     
     public class Resumen

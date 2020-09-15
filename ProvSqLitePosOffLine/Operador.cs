@@ -98,8 +98,15 @@ namespace ProvSqLitePosOffLine
                         entCierre.mFirma= ficha.Movimientos.mFirma;
                         entCierre.mSubTotal = ficha.Movimientos.mSubTotal;
                         entCierre.mTotal= ficha.Movimientos.mTotal;
-                        entCierre.cntDivisa = ficha.Movimientos.cntdivisa;
-                        entCierre.mCntDivisa = ficha.Movimientos.mCntDivisa;
+                        //
+                        entCierre.cntDivisa = ficha.Movimientos.cntDivisa;
+                        entCierre.cntDivisaUsu = ficha.Movimientos.cntDivisaUsu;
+                        entCierre.cntDoc = ficha.Movimientos.cntDoc;
+                        entCierre.cntDocFac = ficha.Movimientos.cntDocFac;
+                        entCierre.cntDocNcr = ficha.Movimientos.cntDocNcr;
+                        entCierre.montoFac = ficha.Movimientos.montoFac;
+                        entCierre.montoNcr = ficha.Movimientos.montoNcr;
+
                         cnn.OperadorCierre.Add(entCierre);
                         cnn.SaveChanges();
 

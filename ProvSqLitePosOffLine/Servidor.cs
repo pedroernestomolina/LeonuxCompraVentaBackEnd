@@ -1264,6 +1264,14 @@ namespace ProvSqLitePosOffLine
                                 MovCierre.mTotal = operadorCierre.mTotal;
                                 MovCierre.firma = operadorCierre.firma;
                                 MovCierre.mFirma = operadorCierre.mFirma;
+                                //
+                                MovCierre.cntDivisa = operadorCierre.cntDivisa;
+                                MovCierre.cntDivisaUsu = operadorCierre.cntDivisaUsu;
+                                MovCierre.cntDoc = (int)operadorCierre.cntDoc;
+                                MovCierre.cntDocFac = (int)operadorCierre.cntDocFac;
+                                MovCierre.cntDocNcr = (int)operadorCierre.cntDocNcr;
+                                MovCierre.montoFac = operadorCierre.montoFac;
+                                MovCierre.montoNcr = operadorCierre.montoNcr;
 
                                 List<DtoLibPosOffLine.Servidor.RecogerDataEnviar.Documento> ListDocumentos = new List<DtoLibPosOffLine.Servidor.RecogerDataEnviar.Documento>();
                                 var qVenta = cnn.Venta.Where(w => w.idJornada == rg.id).ToList();
@@ -1498,7 +1506,7 @@ namespace ProvSqLitePosOffLine
                       "recibo, renglones, saldo_pendiente, ano_relacion, comprobante_retencion_islr, dias_validez, auto_usuario, auto_transporte, situacion," +
                       "signo, serie, tarifa, tipo_remision, documento_remision, auto_remision, documento_nombre, subtotal_impuesto, subtotal, auto_cxc, tipo_cliente," +
                       "planilla, expediente, anticipo_iva, terceros_iva, neto, costo, utilidad, utilidadp, documento_tipo, ci_titular, nombre_titular, ci_beneficiario," +
-                      "nombre_beneficiario, clave, denominacion_fiscal, cambio, estatus_validado, cierre, fecha_retencion, estatus_cierre_contable) " +
+                      "nombre_beneficiario, clave, denominacion_fiscal, cambio, estatus_validado, cierre, fecha_retencion, estatus_cierre_contable, cierre_ftp) " +
                       "VALUES (?auto, ?documento, ?fecha, ?fecha_vencimiento, ?razon_social, ?dir_fiscal, ?ci_rif, ?tipo, ?exento," +
                       "?base1, ?base2, ?base3, ?impuesto1, ?impuesto2, ?impuesto3, ?base, ?impuesto, ?total, ?tasa1, ?tasa2, ?tasa3, ?nota, ?tasa_retencion_iva, " +
                       "?tasa_retencion_islr, ?retencion_iva, ?retencion_islr, ?auto_cliente, ?codigo_cliente, ?mes_relacion, ?control, ?fecha_registro, ?orden_compra," +
@@ -1508,8 +1516,7 @@ namespace ProvSqLitePosOffLine
                       "?recibo, ?renglones, ?saldo_pendiente, ?ano_relacion, ?comprobante_retencion_islr, ?dias_validez, ?auto_usuario, ?auto_transporte, ?situacion," +
                       "?signo, ?serie, ?tarifa, ?tipo_remision, ?documento_remision, ?auto_remision, ?documento_nombre, ?subtotal_impuesto, ?subtotal, ?auto_cxc, ?tipo_cliente," +
                       "?planilla, ?expediente, ?anticipo_iva, ?terceros_iva, ?neto, ?costo, ?utilidad, ?utilidadp, ?documento_tipo, ?ci_titular, ?nombre_titular, ?ci_beneficiario," +
-                      "?nombre_beneficiario, ?clave, ?denominacion_fiscal, ?cambio, ?estatus_validado, ?cierre, ?fecha_retencion, ?estatus_cierre_contable)";
-
+                      "?nombre_beneficiario, ?clave, ?denominacion_fiscal, ?cambio, ?estatus_validado, ?cierre, ?fecha_retencion, ?estatus_cierre_contable, '')";
 
             const string InsertarVentaDetalle = @"INSERT INTO ventas_detalle (auto_documento, auto_producto, codigo, nombre, auto_departamento," +
                       "auto_grupo, auto_subgrupo, auto_deposito, cantidad, empaque, precio_neto, descuento1p, descuento2p, descuento3p, descuento1," +
@@ -1517,69 +1524,70 @@ namespace ProvSqLitePosOffLine
                       "signo, precio_final, auto_cliente, decimales, contenido_empaque, cantidad_und, precio_und, costo_und, utilidad, utilidadp," +
                       "precio_item, estatus_garantia, estatus_serial, codigo_deposito, dias_garantia, detalle, precio_sugerido, auto_tasa, estatus_corte," +
                       "x, y, z, corte, categoria, cobranzap, ventasp, cobranzap_vendedor, ventasp_vendedor, cobranza, ventas, cobranza_vendedor," +
-                      "ventas_vendedor, costo_promedio_und, costo_compra, estatus_checked, tarifa, total_descuento, codigo_vendedor, auto_vendedor, hora) " +
+                      "ventas_vendedor, costo_promedio_und, costo_compra, estatus_checked, tarifa, total_descuento, codigo_vendedor, auto_vendedor, hora, cierre_ftp) " +
                       "VALUES (?auto_documento, ?auto_producto, ?codigo, ?nombre, ?auto_departamento," +
                       "?auto_grupo, ?auto_subgrupo, ?auto_deposito, ?cantidad, ?empaque, ?precio_neto, ?descuento1p, ?descuento2p, ?descuento3p, ?descuento1," +
                       "?descuento2, ?descuento3, ?costo_venta, ?total_neto, ?tasa, ?impuesto, ?total, ?auto, ?estatus_anulado, ?fecha, ?tipo, ?deposito," +
                       "?signo, ?precio_final, ?auto_cliente, ?decimales, ?contenido_empaque, ?cantidad_und, ?precio_und, ?costo_und, ?utilidad, ?utilidadp," +
                       "?precio_item, ?estatus_garantia, ?estatus_serial, ?codigo_deposito, ?dias_garantia, ?detalle, ?precio_sugerido, ?auto_tasa, ?estatus_corte," +
                       "?x, ?y, ?z, ?corte, ?categoria, ?cobranzap, ?ventasp, ?cobranzap_vendedor, ?ventasp_vendedor, ?cobranza, ?ventas, ?cobranza_vendedor," +
-                      "?ventas_vendedor, ?costo_promedio_und, ?costo_compra, ?estatus_checked, ?tarifa, ?total_descuento, ?codigo_vendedor, ?auto_vendedor, ?hora)";
+                      "?ventas_vendedor, ?costo_promedio_und, ?costo_compra, ?estatus_checked, ?tarifa, ?total_descuento, ?codigo_vendedor, ?auto_vendedor, ?hora, '')";
 
             const string InsertarProductoKardex = @"INSERT INTO productos_kardex (auto_producto, total , auto_deposito , auto_concepto , " +
                       "auto_documento, fecha , hora , documento , modulo , entidad , signo , cantidad , cantidad_bono , cantidad_und , costo_und ," +
-                      "estatus_anulado , nota , precio_und , codigo , siglas , codigo_sucursal) " +
+                      "estatus_anulado , nota , precio_und , codigo , siglas , codigo_sucursal, cierre_ftp, codigo_deposito, nombre_deposito, "+
+                      "codigo_concepto, nombre_concepto) " +
                       "VALUES (?auto_producto, ?total , ?auto_deposito , ?auto_concepto , " +
                       "?auto_documento, ?fecha , ?hora , ?documento , ?modulo , ?entidad , ?signo , ?cantidad , ?cantidad_bono , ?cantidad_und , ?costo_und ," +
-                      "?estatus_anulado , ?nota , ?precio_und , ?codigo , ?siglas , ?codigo_sucursal)";
+                      "?estatus_anulado , ?nota , ?precio_und , ?codigo , ?siglas , ?codigo_sucursal, ?cierre_ftp, ?codigo_deposito, ?nombre_deposito, "+
+                      "?codigo_concepto, ?nombre_concepto)";
 
             const string UpdateProductoDeposito = @"UPDATE productos_deposito set fisica=fisica-?cantidadUnd, disponible=disponible-?cantidadUnd " +
                       "where auto_producto=?autoProducto and auto_deposito=?autoDeposito";
 
-
             const string InsertarCxC = @"INSERT INTO cxc (auto , c_cobranza , c_cobranzap , fecha , tipo_documento , documento ," +
                         "fecha_vencimiento , nota , importe , acumulado , auto_cliente , cliente , ci_rif , codigo_cliente , " +
                         "estatus_cancelado , resta , estatus_anulado , auto_documento , numero , auto_agencia , agencia , signo , " +
-                        "auto_vendedor , c_departamento , c_ventas , c_ventasp , serie , importe_neto , dias , castigop) " +
+                        "auto_vendedor , c_departamento , c_ventas , c_ventasp , serie , importe_neto , dias , castigop, cierre_ftp) " +
                         "VALUES (?auto , ?c_cobranza , ?c_cobranzap , ?fecha , ?tipo_documento , ?documento ," +
                         "?fecha_vencimiento , ?nota , ?importe , ?acumulado , ?auto_cliente , ?cliente , ?ci_rif , ?codigo_cliente , " +
                         "?estatus_cancelado , ?resta , ?estatus_anulado , ?auto_documento , ?numero , ?auto_agencia , ?agencia , ?signo , " +
-                        "?auto_vendedor , ?c_departamento , ?c_ventas , ?c_ventasp , ?serie , ?importe_neto , ?dias , ?castigop)";
-
+                        "?auto_vendedor , ?c_departamento , ?c_ventas , ?c_ventasp , ?serie , ?importe_neto , ?dias , ?castigop, '')";
 
             const string InsertarCxCRecibo = @"INSERT INTO cxc_recibos (auto , documento , fecha , auto_usuario , importe , usuario , " +
                         "monto_recibido , cobrador , auto_cliente , cliente , ci_rif , codigo , estatus_anulado , direccion , telefono , " +
-                        "auto_cobrador , anticipos , cambio , nota , codigo_cobrador , auto_cxc , retenciones , descuentos , hora , cierre ) " +
+                        "auto_cobrador , anticipos , cambio , nota , codigo_cobrador , auto_cxc , retenciones , descuentos , hora , cierre, cierre_ftp) " +
                         "VALUES (?auto , ?documento , ?fecha , ?auto_usuario , ?importe , ?usuario , " +
                         "?monto_recibido , ?cobrador , ?auto_cliente , ?cliente , ?ci_rif , ?codigo , ?estatus_anulado , ?direccion , ?telefono , " +
-                        "?auto_cobrador , ?anticipos , ?cambio , ?nota , ?codigo_cobrador , ?auto_cxc , ?retenciones , ?descuentos , ?hora , ?cierre)";
+                        "?auto_cobrador , ?anticipos , ?cambio , ?nota , ?codigo_cobrador , ?auto_cxc , ?retenciones , ?descuentos , ?hora , ?cierre, '')";
 
             const string InsertarCxCDocumento = @"INSERT INTO cxc_documentos (id  , fecha , tipo_documento , documento , importe , " +
                         "operacion , auto_cxc , auto_cxc_pago , auto_cxc_recibo , numero_recibo , fecha_recepcion , dias , " +
-                        "castigop , comisionp) " +
+                        "castigop , comisionp, cierre_ftp) " +
                         "VALUES ( ?id  , ?fecha , ?tipo_documento , ?documento , ?importe , " +
                         "?operacion , ?auto_cxc , ?auto_cxc_pago , ?auto_cxc_recibo , ?numero_recibo , ?fecha_recepcion , ?dias , " +
-                        "?castigop , ?comisionp)";
+                        "?castigop , ?comisionp, '')";
 
             const string InsertarCxCMedioPago = @"INSERT INTO cxc_medio_pago (auto_recibo , auto_medio_pago , auto_agencia , " +
                         "medio , codigo , monto_recibido , fecha , estatus_anulado , numero , agencia , auto_usuario , lote , " +
-                        "referencia , auto_cobrador , cierre , fecha_agencia) " +
+                        "referencia , auto_cobrador , cierre , fecha_agencia, cierre_ftp) " +
                         "VALUES (?auto_recibo , ?auto_medio_pago , ?auto_agencia , " +
                         "?medio , ?codigo , ?monto_recibido , ?fecha , ?estatus_anulado , ?numero , ?agencia , ?auto_usuario , ?lote , " +
-                        "?referencia , ?auto_cobrador , ?cierre , ?fecha_agencia)";
+                        "?referencia , ?auto_cobrador , ?cierre , ?fecha_agencia, '')";
 
             const string InsertarPosJornadas = @"INSERT INTO pos_jornadas (id, fecha, estatus_cierre, cierre_ftp) " +
-                        "VALUES (NULL, ?fecha, '0', '0')";
+                        "VALUES (NULL, ?fecha, '0', '')";
 
             const string InsertarPosArqueo = @"INSERT INTO pos_arqueo (auto_cierre, auto_usuario, codigo, usuario, fecha, hora, " +
                         "diferencia, efectivo, cheque, debito, credito, ticket, firma, retiro, otros, devolucion, subtotal, cobranza, " +
                         "total, mefectivo, mcheque, mbanco1, mbanco2, mbanco3, mbanco4, mtarjeta, mticket, mtrans, mfirma, motros, " +
-                        "mgastos, mretiro, mretenciones, msubtotal, mtotal, cierre_ftp) " +
+                        "mgastos, mretiro, mretenciones, msubtotal, mtotal, cierre_ftp, cnt_divisa, cnt_divisa_usuario, "+
+                        "cntDoc, cntDocFac, cntDocNcr, montoFac, montoNcr) " +
                         "VALUES (?auto_cierre, ?auto_usuario, ?codigo, ?usuario, ?fecha, ?hora, " +
                         "?diferencia, ?efectivo, ?cheque, ?debito, ?credito, ?ticket, ?firma, ?retiro, ?otros, ?devolucion, ?subtotal, ?cobranza, " +
                         "?total, ?mefectivo, ?mcheque, ?mbanco1, ?mbanco2, ?mbanco3, ?mbanco4, ?mtarjeta, ?mticket, ?mtrans, ?mfirma, ?motros, " +
-                        "?mgastos, ?mretiro, ?mretenciones, ?msubtotal, ?mtotal, ?cierre_ftp)";
-
+                        "?mgastos, ?mretiro, ?mretenciones, ?msubtotal, ?mtotal, ?cierre_ftp, ?cnt_divisa, ?cnt_divisa_usuario, "+
+                        "?cntDoc, ?cntDocFac, ?cntDocNcr, ?montoFac, ?montoNcr)";
 
             try
             {
@@ -1746,6 +1754,13 @@ namespace ProvSqLitePosOffLine
                             comandoPosArqueo.Parameters.AddWithValue("?msubtotal", mv.Cierre.msubtotal);
                             comandoPosArqueo.Parameters.AddWithValue("?mtotal", mv.Cierre.mtotal);
                             comandoPosArqueo.Parameters.AddWithValue("?cierre_ftp", "");
+                            comandoPosArqueo.Parameters.AddWithValue("?cnt_divisa", mv.Cierre.cntDivisa);
+                            comandoPosArqueo.Parameters.AddWithValue("?cnt_divisa_usuario", mv.Cierre.cntDivisaUsuario);
+                            comandoPosArqueo.Parameters.AddWithValue("?cntDoc", mv.Cierre.cntDoc);
+                            comandoPosArqueo.Parameters.AddWithValue("?cntDocFac", mv.Cierre.cntDocFac);
+                            comandoPosArqueo.Parameters.AddWithValue("?cntDocNcr", mv.Cierre.cntDocNcr);
+                            comandoPosArqueo.Parameters.AddWithValue("?montoFac", mv.Cierre.montoFac);
+                            comandoPosArqueo.Parameters.AddWithValue("?montoNcr", mv.Cierre.montoNcr);
                             var rtPosArqueo = comandoPosArqueo.ExecuteNonQuery();
                             if (rtPosArqueo == 0)
                             {
@@ -2183,6 +2198,11 @@ namespace ProvSqLitePosOffLine
                                     comando3.Parameters.AddWithValue("?codigo", mk.Codigo);
                                     comando3.Parameters.AddWithValue("?siglas", mk.Siglas);
                                     comando3.Parameters.AddWithValue("?codigo_sucursal", mk.CodigoSucursal);
+                                    comando3.Parameters.AddWithValue("?cierre_ftp", "");
+                                    comando3.Parameters.AddWithValue("?codigo_deposito", mk.CodigoDeposito);
+                                    comando3.Parameters.AddWithValue("?nombre_deposito", mk.NombreDeposito);
+                                    comando3.Parameters.AddWithValue("?codigo_concepto", mk.CodigoConcepto);
+                                    comando3.Parameters.AddWithValue("?nombre_concepto", mk.NombreConcepto);
                                     var rt3 = comando3.ExecuteNonQuery();
                                     if (rt3 == 0)
                                     {

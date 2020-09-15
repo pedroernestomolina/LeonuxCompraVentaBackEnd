@@ -11,7 +11,7 @@ namespace ILibInventario
     public interface IProveedor
     {
 
-        DtoLib.ResultadoLista<DtoLibInventario.Proveedor.Resumen> Proveedor_GetLista(DtoLibInventario.Proveedor.Filtro filtro);
+        DtoLib.ResultadoLista<DtoLibInventario.Proveedor.Lista.Resumen> Proveedor_GetLista(DtoLibInventario.Proveedor.Lista.Filtro filtro);
 
     }
 

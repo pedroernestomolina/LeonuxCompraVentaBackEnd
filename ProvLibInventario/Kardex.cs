@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 
 namespace ProvLibInventario
@@ -20,14 +21,12 @@ namespace ProvLibInventario
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
-                    var cmd = "SELECT count(*) as cntMovimiento, modulo, auto_deposito as autoDeposito, auto_concepto as autoConcepto, "+
-                        "SUM(cantidad_und*signo) as cntInventario, dep.nombre as nombreDeposito, dep.codigo as codigoDeposito, "+
-                        "concepto.codigo codigoConcepto, concepto.nombre nombreConcepto " +
+                    var cmd = "SELECT count(*) as cntMovimiento, modulo, auto_deposito as autoDeposito, auto_concepto as autoConcepto, " +
+                        "SUM(cantidad_und*signo) as cntInventario, nombre_deposito as nombreDeposito, codigo_deposito as codigoDeposito, " +
+                        "codigo_concepto as codigoConcepto, nombre_concepto as nombreConcepto, siglas " +
                         "FROM `productos_kardex` as kardex " +
-                        "JOIN empresa_depositos as dep on kardex.auto_deposito=dep.auto " +
-                        "JOIN productos_conceptos as concepto on kardex.auto_concepto=concepto.auto " +
                         "WHERE auto_producto=@autoPrd and estatus_anulado='0' and fecha>@desde " +
-                        "group by modulo,auto_deposito,auto_concepto";
+                        "group by modulo,auto_deposito,auto_concepto,codigo_deposito,nombre_deposito,codigo_concepto,nombre_concepto,siglas";
 
                     var fechaServidor = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
                     DateTime? desde = fechaServidor.Date;
@@ -36,10 +35,10 @@ namespace ProvLibInventario
                         switch (filtro.ultDias) 
                         {
                             case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias.Hoy:
-                                desde= desde.Value.AddDays(0);
+                                desde= desde.Value.AddDays(-1);
                                 break;
                             case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias.Ayer:
-                                desde = desde.Value.AddDays(-1);
+                                desde = desde.Value.AddDays(-2);
                                 break;
                             case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._7Dias:
                                 desde = desde.Value.AddDays(-7);
@@ -86,10 +85,12 @@ namespace ProvLibInventario
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter("@autoPrd", filtro.autoProducto);
                     var p2 = new MySql.Data.MySqlClient.MySqlParameter("@desde", desde);
                     var lst= cnn.Database.SqlQuery<DtoLibInventario.Kardex.Movimiento.Resumen.Data>(cmd, p1, p2).ToList();
-                    
-                    cmd="select sum(cantidad_und*signo) as cnt from productos_kardex where auto_producto=@autoPrd "+
+
+                    var ex = 0.0m;
+                    cmd = "select sum(cantidad_und*signo) as cnt from productos_kardex where auto_producto=@autoPrd " +
                         "and estatus_anulado='0' and fecha<=@desde";
-                    var ex = cnn.Database.SqlQuery<decimal>(cmd, p1, p2);  
+                    var objEx = cnn.Database.SqlQuery<decimal?>(cmd, p1, p2).FirstOrDefault();
+                    if (objEx != null) { ex = objEx.Value; }
 
                     var rt = new DtoLibInventario.Kardex.Movimiento.Resumen.Ficha()
                     {
@@ -98,7 +99,7 @@ namespace ProvLibInventario
                         empaqueCompra = _empaqueCompra,
                         decimales= entPrdEmp.decimales,
                         existenciaActual = _existencia,
-                        existencaFecha=ex.First(),
+                        existencaFecha=ex,
                         fecha=desde.Value.ToShortDateString(),
                         nombreProducto = entPrd.nombre,
                         referenciaProducto = entPrd.referencia,
@@ -132,10 +133,10 @@ namespace ProvLibInventario
                         switch (filtro.ultDias)
                         {
                             case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias.Hoy:
-                                desde = desde.Value.AddDays(0);
+                                desde = desde.Value.AddDays(-1);
                                 break;
                             case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias.Ayer:
-                                desde = desde.Value.AddDays(-1);
+                                desde = desde.Value.AddDays(-2);
                                 break;
                             case DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._7Dias:
                                 desde = desde.Value.AddDays(-7);

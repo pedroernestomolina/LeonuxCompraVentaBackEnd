@@ -34,6 +34,15 @@ namespace DtoLibPosOffLine.Servidor.RecogerDataEnviar
         public decimal mFirma { get; set; }
         public decimal mSubTotal { get; set; }
         public decimal mTotal { get; set; }
+        
+        //
+        public decimal cntDivisa { get; set; }
+        public decimal cntDivisaUsu { get; set; }
+        public int cntDoc { get; set; }
+        public int cntDocFac { get; set; }
+        public int cntDocNcr { get; set; }
+        public decimal montoFac { get; set; }
+        public decimal montoNcr { get; set; }
 
     }
 

@@ -31,6 +31,11 @@ namespace DtoLibInventario.Producto.Agregar
         public decimal tasa { get; set; }
         public string estatus { get; set; }
 
+        public byte[] imagen { get; set; }
+        public string esPesado { get; set; }
+        public string plu { get; set; }
+        public int diasEmpaque { get; set; }
+
     }
 
 }

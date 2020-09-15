@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibInventario.Proveedor
+namespace DtoLibInventario.Proveedor.Lista
 {
     
     public class Filtro
     {
 
         public string cadena { get; set; }
+        public Enumerados.EnumMetodoBusqueda MetodoBusqueda { get; set; }
 
     }
 

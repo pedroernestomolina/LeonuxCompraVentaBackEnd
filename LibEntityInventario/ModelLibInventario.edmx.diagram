@@ -30,11 +30,7 @@
         <AssociationConnector Association="invModel.productos_proveedor_ibfk_1" />
         <EntityTypeShape EntityType="invModel.proveedores" Width="1.5" PointX="21.75" PointY="7.75" />
         <AssociationConnector Association="invModel.productos_proveedor_ibfk_2" />
-        <EntityTypeShape EntityType="invModel.productos_kardex" Width="1.5" PointX="18.875" PointY="1.25" />
-        <AssociationConnector Association="invModel.productos_kardex_ibfk_2" />
-        <AssociationConnector Association="invModel.productos_kardex_ibfk_1" />
         <EntityTypeShape EntityType="invModel.productos_conceptos" Width="1.5" PointX="24.75" PointY="3.375" />
-        <AssociationConnector Association="invModel.productos_kardex_ibfk_3" />
         <EntityTypeShape EntityType="invModel.empresa_sucursal" Width="1.5" PointX="29.75" PointY="7" />
         <EntityTypeShape EntityType="invModel.empresa_grupo" Width="1.5" PointX="4.375" PointY="3.75" />
         <EntityTypeShape EntityType="invModel.productos_movimientos" Width="1.5" PointX="36" PointY="10.625" />
@@ -58,6 +54,10 @@
         <AssociationConnector Association="invModel.productos_extra_ibfk_1" />
         <EntityTypeShape EntityType="invModel.productos_marca" Width="1.5" PointX="8.375" PointY="4.875" />
         <AssociationConnector Association="invModel.productos_ibfk_4" />
+        <EntityTypeShape EntityType="invModel.productos_kardex" Width="1.5" PointX="27" PointY="8.125" />
+        <AssociationConnector Association="invModel.productos_kardex_ibfk_2" />
+        <AssociationConnector Association="invModel.productos_kardex_ibfk_1" />
+        <AssociationConnector Association="invModel.productos_kardex_ibfk_3" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

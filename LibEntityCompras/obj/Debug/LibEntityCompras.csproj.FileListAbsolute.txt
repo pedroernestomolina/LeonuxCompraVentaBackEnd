@@ -3,6 +3,6 @@ D:\Proyectos FoxSystem\CompraVenta\LibEntityCompras\bin\Debug\LibEntityCompras.d
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCompras\bin\Debug\LibEntityCompras.pdb
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCompras\bin\Debug\EntityFramework.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCompras\bin\Debug\EntityFramework.xml
+D:\Proyectos FoxSystem\CompraVenta\LibEntityCompras\obj\Debug\LibEntityCompras.csprojResolveAssemblyReference.cache
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCompras\obj\Debug\LibEntityCompras.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCompras\obj\Debug\LibEntityCompras.pdb
-D:\Proyectos FoxSystem\CompraVenta\LibEntityCompras\obj\Debug\LibEntityCompras.csprojResolveAssemblyReference.cache

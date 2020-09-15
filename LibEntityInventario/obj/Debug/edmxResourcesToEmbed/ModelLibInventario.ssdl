@@ -165,6 +165,13 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
       <PropertyRef Name="msubtotal" />
       <PropertyRef Name="mtotal" />
       <PropertyRef Name="cierre_ftp" />
+      <PropertyRef Name="cnt_divisa" />
+      <PropertyRef Name="cnt_divisa_usuario" />
+      <PropertyRef Name="cntDoc" />
+      <PropertyRef Name="cntDocFac" />
+      <PropertyRef Name="cntDocNcr" />
+      <PropertyRef Name="montoFac" />
+      <PropertyRef Name="montoNcr" />
     </Key>
     <Property Name="auto_cierre" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="auto_usuario" Type="varchar" MaxLength="10" Nullable="false" />
@@ -202,6 +209,13 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
     <Property Name="msubtotal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="mtotal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="cnt_divisa" Type="int" Nullable="false" />
+    <Property Name="cnt_divisa_usuario" Type="int" Nullable="false" />
+    <Property Name="cntDoc" Type="int" Nullable="false" />
+    <Property Name="cntDocFac" Type="int" Nullable="false" />
+    <Property Name="cntDocNcr" Type="int" Nullable="false" />
+    <Property Name="montoFac" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="montoNcr" Type="decimal" Precision="14" Scale="2" Nullable="false" />
   </EntityType>
   <EntityType Name="productos">
     <Key>
@@ -395,6 +409,10 @@ warning 6002: The table/view 'pita.productos_kardex' does not have a primary key
       <PropertyRef Name="siglas" />
       <PropertyRef Name="codigo_sucursal" />
       <PropertyRef Name="cierre_ftp" />
+      <PropertyRef Name="codigo_deposito" />
+      <PropertyRef Name="nombre_deposito" />
+      <PropertyRef Name="codigo_concepto" />
+      <PropertyRef Name="nombre_concepto" />
     </Key>
     <Property Name="auto_producto" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="total" Type="decimal" Precision="14" Scale="2" Nullable="false" />
@@ -418,6 +436,10 @@ warning 6002: The table/view 'pita.productos_kardex' does not have a primary key
     <Property Name="siglas" Type="varchar" MaxLength="3" Nullable="false" />
     <Property Name="codigo_sucursal" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="codigo_deposito" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="nombre_deposito" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="codigo_concepto" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="nombre_concepto" Type="varchar" MaxLength="60" Nullable="false" />
   </EntityType>
   <EntityType Name="productos_marca">
     <Key>
@@ -1042,7 +1064,14 @@ FROM `cxc_medio_pago` AS `cxc_medio_pago`</DefiningQuery>
 `pos_arqueo`.`mretenciones`, 
 `pos_arqueo`.`msubtotal`, 
 `pos_arqueo`.`mtotal`, 
-`pos_arqueo`.`cierre_ftp`
+`pos_arqueo`.`cierre_ftp`, 
+`pos_arqueo`.`cnt_divisa`, 
+`pos_arqueo`.`cnt_divisa_usuario`, 
+`pos_arqueo`.`cntDoc`, 
+`pos_arqueo`.`cntDocFac`, 
+`pos_arqueo`.`cntDocNcr`, 
+`pos_arqueo`.`montoFac`, 
+`pos_arqueo`.`montoNcr`
 FROM `pos_arqueo` AS `pos_arqueo`</DefiningQuery>
     </EntitySet>
     <EntitySet Name="productos_kardex" EntityType="Self.productos_kardex" store:Type="Tables" store:Schema="pita">
@@ -1068,7 +1097,11 @@ FROM `pos_arqueo` AS `pos_arqueo`</DefiningQuery>
 `productos_kardex`.`codigo`, 
 `productos_kardex`.`siglas`, 
 `productos_kardex`.`codigo_sucursal`, 
-`productos_kardex`.`cierre_ftp`
+`productos_kardex`.`cierre_ftp`, 
+`productos_kardex`.`codigo_deposito`, 
+`productos_kardex`.`nombre_deposito`, 
+`productos_kardex`.`codigo_concepto`, 
+`productos_kardex`.`nombre_concepto`
 FROM `productos_kardex` AS `productos_kardex`</DefiningQuery>
     </EntitySet>
     <EntitySet Name="productos_movimientos_detalle" EntityType="Self.productos_movimientos_detalle" store:Type="Tables" store:Schema="pita">

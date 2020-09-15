@@ -167,8 +167,9 @@ namespace ProvLibInventario
 
                         var sql2=@"INSERT INTO productos_kardex (auto_producto,total,auto_deposito,auto_concepto,auto_documento,
                             fecha,hora,documento,modulo,entidad,signo,cantidad,cantidad_bono,cantidad_und,costo_und,estatus_anulado,
-                            nota,precio_und,codigo,siglas,codigo_sucursal, cierre_ftp) VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, 
-                            {12}, {13}, {14}, {15},{16}, {17}, {18}, {19}, {20}, {21})";
+                            nota,precio_und,codigo,siglas,codigo_sucursal, cierre_ftp, codigo_deposito, nombre_deposito, 
+                            codigo_concepto, nombre_concepto) VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, 
+                            {12}, {13}, {14}, {15},{16}, {17}, {18}, {19}, {20}, {21}, {22}, {23}, {24}, {25})";
                         //KARDEX MOV=> ITEMS
                         foreach (var dt in ficha.movKardex)
                         {
@@ -186,7 +187,8 @@ namespace ProvLibInventario
                             var vk = cnn.Database.ExecuteSqlCommand(sql2, dt.autoProducto, dt.total, dt.autoDeposito ,
                                 dt.autoConcepto, autoMov, fechaSistema.Date, fechaSistema.ToShortTimeString(), numDoc,
                                 dt.modulo ,dt.entidad, dt.signo ,dt.cantidad, dt.cantidadBono, dt.cantidadUnd, dt.costoUnd , dt.estatusAnulado,
-                                dt.nota, dt.precioUnd, dt.codigo ,dt.siglas, dt.codigoSucursal, ficha.cierreFtp);
+                                dt.nota, dt.precioUnd, dt.codigo ,dt.siglas, dt.codigoSucursal, ficha.cierreFtp, dt.codigoDeposito,
+                                dt.nombreDeposito, dt.codigoConcepto, dt.nombreConcepto);
                             if (vk == 0)
                             {
                                 result.Mensaje = "PROBLEMA AL REGISTRAR MOVIMIENTO KARDEX [ " + Environment.NewLine + dt.autoProducto + " ]";

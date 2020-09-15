@@ -142,7 +142,12 @@
     <Property Name="firma" Type="decimal" Precision="53" Scale="0" Nullable="false" />
     <Property Name="mFirma" Type="decimal" Precision="53" Scale="0" Nullable="false" />
     <Property Name="cntDivisa" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-    <Property Name="mCntDivisa" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="cntDivisaUsu" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="cntDoc" Type="integer" Nullable="false" />
+    <Property Name="cntDocFac" Type="integer" Nullable="false" />
+    <Property Name="cntDocNcr" Type="integer" Nullable="false" />
+    <Property Name="montoFac" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+    <Property Name="montoNcr" Type="decimal" Precision="53" Scale="0" Nullable="false" />
   </EntityType>
   <EntityType Name="Pendiente">
     <Key>

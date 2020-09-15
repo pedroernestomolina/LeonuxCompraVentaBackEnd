@@ -12,60 +12,70 @@ namespace ProvLibInventario
     public partial class Provider : ILibInventario.IProvider
     {
 
-        public DtoLib.ResultadoLista<DtoLibInventario.Proveedor.Resumen> Proveedor_GetLista(DtoLibInventario.Proveedor.Filtro filtro)
+        public DtoLib.ResultadoLista<DtoLibInventario.Proveedor.Lista.Resumen> Proveedor_GetLista(DtoLibInventario.Proveedor.Lista.Filtro filtro)
         {
-            var rt = new DtoLib.ResultadoLista<DtoLibInventario.Proveedor.Resumen>();
+            var rt = new DtoLib.ResultadoLista<DtoLibInventario.Proveedor.Lista.Resumen>();
 
             try
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
-                    var q = cnn.proveedores.ToList();
+                    var sql = "select auto, codigo, ci_rif as ciRif, razon_social as nombreRazonSocial "+
+                        "from proveedores as prv " +
+                        " where 1=1 ";
 
+                    var valor = "";
                     if (filtro.cadena != "")
                     {
-                        var cad = filtro.cadena.Trim().ToUpper();
-                        if (cad.Substring(0, 1) == "*")
+                        if (filtro.MetodoBusqueda == DtoLibInventario.Proveedor.Enumerados.EnumMetodoBusqueda.Codigo)
                         {
-                            cad = cad.Substring(1);
-                            q = q.Where(w => w.razon_social.Contains(cad)).ToList();
-                        }
-                        else
-                        {
-                            q = q.Where(w =>
+                            var cad = filtro.cadena.Trim().ToUpper();
+                            if (cad.Substring(0, 1) == "*")
                             {
-                                var r = w.razon_social.Trim().ToUpper();
-                                if (r.Length >= cad.Length && r.Substring(0, cad.Length) == cad)
-                                {
-                                    return true;
-                                }
-                                else
-                                {
-                                    return false;
-                                }
-                            }).ToList();
+                                cad = cad.Substring(1);
+                                sql += " and prv.codigo like @p";
+                                valor = "%" + cad + "%";
+                            }
+                            else
+                            {
+                                sql += " and prv.codigo like @p";
+                                valor = cad + "%";
+                            }
+                        }
+                        if (filtro.MetodoBusqueda == DtoLibInventario.Proveedor.Enumerados.EnumMetodoBusqueda.Nombre )
+                        {
+                            var cad = filtro.cadena.Trim().ToUpper();
+                            if (cad.Substring(0, 1) == "*")
+                            {
+                                cad = cad.Substring(1);
+                                sql += " and prv.razon_social like @p";
+                                valor = "%" + cad + "%";
+                            }
+                            else
+                            {
+                                sql += " and prv.razon_social like @p";
+                                valor = cad + "%";
+                            }
+                        }
+                        if (filtro.MetodoBusqueda ==  DtoLibInventario.Proveedor.Enumerados.EnumMetodoBusqueda.Rif )
+                        {
+                            var cad = filtro.cadena.Trim().ToUpper();
+                            if (cad.Substring(0, 1) == "*")
+                            {
+                                cad = cad.Substring(1);
+                                sql += " and prv.ci_rif like @p";
+                                valor = "%" + cad + "%";
+                            }
+                            else
+                            {
+                                sql += " and prv.ci_rif like @p";
+                                valor = cad + "%";
+                            }
                         }
                     }
-
-                    var list = new List<DtoLibInventario.Proveedor.Resumen>();
-                    if (q != null)
-                    {
-                        if (q.Count() > 0)
-                        {
-                            list = q.Select(s =>
-                            {
-                                var r = new DtoLibInventario.Proveedor.Resumen()
-                                {
-                                    auto = s.auto,
-                                    codigo = s.codigo,
-                                    nombreRazonSocial=s.razon_social,
-                                    ciRif=s.ci_rif,
-                                };
-                                return r;
-                            }).ToList();
-                        }
-                    }
-                    rt.Lista = list;
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter("@p", valor);
+                    var lst = cnn.Database.SqlQuery<DtoLibInventario.Proveedor.Lista.Resumen>(sql, p1).ToList();
+                    rt.Lista = lst;
                 }
             }
             catch (Exception e)

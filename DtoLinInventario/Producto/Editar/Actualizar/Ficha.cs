@@ -30,6 +30,11 @@ namespace DtoLibInventario.Producto.Editar.Actualizar
         public string estatusDivisa { get; set; }
         public string abc { get; set; }
 
+        public byte[] imagen { get; set; }
+        public string esPesado { get; set; }
+        public string plu { get; set; }
+        public int diasEmpaque { get; set; }
+
     }
 
 }

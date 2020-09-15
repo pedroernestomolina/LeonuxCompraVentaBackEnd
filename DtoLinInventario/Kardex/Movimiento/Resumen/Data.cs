@@ -20,6 +20,7 @@ namespace DtoLibInventario.Kardex.Movimiento.Resumen
         public int cntMovimiento { get; set; }
         public string modulo { get; set; }
         public decimal cntInventario { get; set; }
+        public string siglas { get; set; }
 
     }
 

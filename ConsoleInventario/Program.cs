@@ -15,9 +15,10 @@ namespace ConsoleInventario
         {
             ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("192.168.100.10","panda");
 
-            //var filt = new DtoLibInventario.Producto.Filtro();
-            //filt.autoProducto = "0000000104";
-            //var rt1 = invPrv.Producto_GetLista(filt);
+            var filt = new DtoLibInventario.Producto.Filtro();
+            filt.categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.MateriaPrima;
+            filt.estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
+            var rt1 = invPrv.Producto_GetLista(filt);
 
             //filt.estatus= DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
             //filt.autoDeposito = "0000000002";
@@ -73,19 +74,25 @@ namespace ConsoleInventario
             //var filtro = new DtoLibInventario.Tool.AjusteNivelMinimoMaximo.Capturar.Filtro() { autoDeposito="0000000001" };
             //var rt1 = invPrv.Tools_AjusteNivelMinimoMaximo_GetLista(filtro);
 
-            //var filtroKardex = new DtoLibInventario.Kardex.Movimiento.Filtro() { autoProducto = "0000001968", ultDias = DtoLibInventario.Kardex.Enumerados.EnumMovUltDias.Todo };
+            //var filtroKardex = new DtoLibInventario.Kardex.Movimiento.Resumen.Filtro() 
+            //{ 
+            //    autoProducto = "0000001968",
+            //    //autoConcepto = "0000000001",
+            //    //autoDeposito = "0000000001",
+            //    //modulo = "Ventas",
+            //    ultDias = DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._45Dias,
+            //};
             //var rt1 = invPrv.Producto_Kardex_Movimiento_Lista_Resumen(filtroKardex);
 
-            var filtroKardex = new DtoLibInventario.Kardex.Movimiento.Resumen.Filtro() 
-            { 
-                autoProducto = "0000001968",
-                //autoConcepto = "0000000001",
-                //autoDeposito = "0000000001",
-                //modulo = "Ventas",
-                ultDias = DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._45Dias,
-            };
-            var rt1 = invPrv.Producto_Kardex_Movimiento_Lista_Resumen(filtroKardex);
+            //var filtro = new DtoLibInventario.Proveedor.Lista.Filtro()
+            //{
+            //    cadena = "*ALIMENTO",
+            //    MetodoBusqueda = DtoLibInventario.Proveedor.Enumerados.EnumMetodoBusqueda.Nombre
+            //};
+            //var r01 = invPrv.Proveedor_GetLista(filtro);
 
+            //var filtroKardex = new DtoLibInventario.Kardex.Movimiento.Resumen.Filtro() { autoProducto = "0000000017", ultDias = DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._60Dias };
+            //var rt1 = invPrv.Producto_Kardex_Movimiento_Lista_Resumen(filtroKardex);
         }
 
     }

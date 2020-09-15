@@ -36,6 +36,10 @@ namespace LibEntityInventario
         public string siglas { get; set; }
         public string codigo_sucursal { get; set; }
         public string cierre_ftp { get; set; }
+        public string codigo_deposito { get; set; }
+        public string nombre_deposito { get; set; }
+        public string codigo_concepto { get; set; }
+        public string nombre_concepto { get; set; }
     
         public virtual empresa_depositos empresa_depositos { get; set; }
         public virtual productos productos { get; set; }

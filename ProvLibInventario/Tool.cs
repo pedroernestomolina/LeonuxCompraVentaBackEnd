@@ -24,7 +24,7 @@ namespace ProvLibInventario
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
                     var cmd = "SELECT p.auto as autoProducto, p.codigo as codigoProducto, p.nombre as nombreProducto, "+
-                        "p.referencia as referenciaProducto, "+
+                        "p.referencia as referenciaProducto, p.estatus_cambio as esSuspendido, "+
                         "case p.estatus_pesado "+
                         "WHEN '0' THEN 'N' "+
                         "WHEN '1' THEN 'S' "+
