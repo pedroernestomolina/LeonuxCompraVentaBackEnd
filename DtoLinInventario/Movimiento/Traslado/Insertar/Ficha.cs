@@ -39,6 +39,7 @@ namespace DtoLibInventario.Movimiento.Traslado.Insertar
         public string estatusCierreContable { get; set; }
 
         public List<FichaDetalle> detalles { get; set; }
+        public List<FichaPrdDeposito> prdDeposito { get; set; }
         public List<FichaKardex> movKardex { get; set; }
 
     }

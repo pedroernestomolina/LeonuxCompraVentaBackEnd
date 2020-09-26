@@ -59,6 +59,7 @@
     <Compile Include="ITasaImpuesto.cs" />
     <Compile Include="ITool.cs" />
     <Compile Include="IUsuario.cs" />
+    <Compile Include="IVisor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

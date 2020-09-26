@@ -15,10 +15,10 @@ namespace ConsoleInventario
         {
             ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("192.168.100.10","panda");
 
-            var filt = new DtoLibInventario.Producto.Filtro();
-            filt.categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.MateriaPrima;
-            filt.estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
-            var rt1 = invPrv.Producto_GetLista(filt);
+            //var filt = new DtoLibInventario.Producto.Filtro();
+            //filt.categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.MateriaPrima;
+            //filt.estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
+            //var rt1 = invPrv.Producto_GetLista(filt);
 
             //filt.estatus= DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
             //filt.autoDeposito = "0000000002";
@@ -93,6 +93,26 @@ namespace ConsoleInventario
 
             //var filtroKardex = new DtoLibInventario.Kardex.Movimiento.Resumen.Filtro() { autoProducto = "0000000017", ultDias = DtoLibInventario.Kardex.Enumerados.EnumMovUltDias._60Dias };
             //var rt1 = invPrv.Producto_Kardex_Movimiento_Lista_Resumen(filtroKardex);
+
+            //var rt1 = invPrv.Producto_GetPrecio ("0000000317");
+
+            //var filt = new DtoLibInventario.Visor.Existencia.Filtro();
+            //filt.filtrarPor = DtoLibInventario.Visor.Existencia.Enumerados.enumFiltrarPor.ExistenciaPorDebajoNivelMinimo;
+            //var rt1 = invPrv.Visor_Existencia(filt);
+
+            //var filt = new DtoLibInventario.Visor.CostoEddad.Filtro();
+            //var rt1 = invPrv.Visor_CostoEdad(filt);
+
+            //var filt = new DtoLibInventario.Visor.Traslado.Filtro();
+            //filt.ano = 2020;
+            //filt.mes = 8;
+            //var rt1 = invPrv.Visor_Traslado(filt);
+
+            //var filt = new DtoLibInventario.Visor.Ajuste.Filtro();
+            //filt.ano = 2020;
+            //filt.mes = 10;
+            //var rt1 = invPrv.Visor_Ajuste(filt);
+
         }
 
     }

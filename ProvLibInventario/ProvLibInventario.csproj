@@ -78,6 +78,7 @@
     <Compile Include="TasaImpuesto.cs" />
     <Compile Include="Tool.cs" />
     <Compile Include="Usuario.cs" />
+    <Compile Include="Visor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

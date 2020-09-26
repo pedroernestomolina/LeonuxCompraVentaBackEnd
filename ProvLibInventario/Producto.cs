@@ -920,6 +920,8 @@ namespace ProvLibInventario
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
+                    var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+
                     var entPrd = cnn.productos.Find(autoPrd);
                     if (entPrd == null)
                     {
@@ -942,6 +944,8 @@ namespace ProvLibInventario
                     var entTasa = cnn.empresa_tasas.Find(entPrd.auto_tasa);
                     var entMedidaCompra = cnn.productos_medida.Find(entPrd.auto_empaque_compra);
                     var fechaV = new DateTime(2000, 01, 01);
+                    var edad = fechaSistema.Subtract(entPrd.fecha_ult_costo).Days;
+
                     var costo = new DtoLibInventario.Producto.VerData.Costo()
                     {
                         admDivisa = _admDivisa,
@@ -960,6 +964,7 @@ namespace ProvLibInventario
                         costoProveedorUnd = entPrd.costo_proveedor_und,
                         costoVarioUnd = entPrd.costo_varios_und,
                         fechaUltCambio = entPrd.fecha_ult_costo == fechaV ? (DateTime?)null : entPrd.fecha_ult_costo,
+                        Edad=edad,
                     };
                     rt.Entidad = costo;
                 }
@@ -2169,6 +2174,111 @@ namespace ProvLibInventario
                         }
                     }
                     rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+        
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Producto.VerData.Identificacion> Producto_GetIdentificacion(string autoPrd)
+        {
+            var rt = new DtoLib.ResultadoEntidad<DtoLibInventario.Producto.VerData.Identificacion>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var entPrd = cnn.productos.Find(autoPrd);
+                    if (entPrd == null)
+                    {
+                        rt.Mensaje = "PRODUCTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    };
+
+                    var entPrdMed= cnn.productos_medida.Find(entPrd.auto_empaque_compra);
+                    var _depart = entPrd.empresa_departamentos.nombre;
+                    var _codDepart = entPrd.empresa_departamentos.codigo;
+                    var _grupo = entPrd.productos_grupo.nombre;
+                    var _codGrupo = entPrd.productos_grupo.codigo;
+                    var _marca = entPrd.productos_marca.nombre;
+                    var _nombreTasaIva = entPrd.empresa_tasas.nombre;
+                    var _empCompra = entPrdMed.nombre;
+                    var _decimales = entPrdMed.decimales;
+                    var _origen = entPrd.origen.Trim().ToUpper() == "NACIONAL" ?
+                        DtoLibInventario.Producto.Enumerados.EnumOrigen.Nacional :
+                        DtoLibInventario.Producto.Enumerados.EnumOrigen.Importado;
+                    var _estatus = entPrd.estatus.Trim().ToUpper() == "ACTIVO" ?
+                        DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo :
+                        DtoLibInventario.Producto.Enumerados.EnumEstatus.Inactivo;
+                    if (_estatus == DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo &&
+                        entPrd.estatus_cambio.Trim().ToUpper() == "1")
+                    {
+                        _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Suspendido;
+                    }
+                    var _admDivisa = entPrd.estatus_divisa.Trim().ToUpper() == "1" ?
+                        DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.Si :
+                        DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.No;
+                    var _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.SnDefinir;
+                    switch (entPrd.categoria.Trim().ToUpper())
+                    {
+                        case "PRODUCTO TERMINADO":
+                            _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.ProductoTerminado;
+                            break;
+                        case "BIEN DE SERVICIO":
+                            _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.BienServicio;
+                            break;
+                        case "MATERIA PRIMA":
+                            _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.MateriaPrima;
+                            break;
+                        case "USO INTERNO":
+                            _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.UsoInterno;
+                            break;
+                        case "SUB PRODUCTO":
+                            _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.SubProducto;
+                            break;
+                    }
+
+                    var id = new DtoLibInventario.Producto.VerData.Identificacion()
+                    {
+                        AdmPorDivisa = _admDivisa,
+                        advertencia = entPrd.advertencia,
+                        auto = entPrd.auto,
+                        categoria = _categoria,
+                        codigo = entPrd.codigo,
+                        codigoDepartamento = _codDepart,
+                        codigoGrupo = _codGrupo,
+                        comentarios = entPrd.comentarios,
+                        contenidoCompra = entPrd.contenido_compras,
+                        departamento = _depart,
+                        descripcion = entPrd.nombre,
+                        empaqueCompra = _empCompra,
+                        estatus = _estatus,
+                        fechaAlta = entPrd.fecha_alta,
+                        fechaBaja = entPrd.fecha_baja,
+                        fechaUltActualizacion = entPrd.fecha_cambio,
+                        grupo = _grupo,
+                        marca = _marca,
+                        modelo = entPrd.modelo,
+                        nombre = entPrd.nombre_corto,
+                        nombreTasaIva = _nombreTasaIva,
+                        origen = _origen,
+                        presentacion = entPrd.presentacion,
+                        referencia = entPrd.referencia,
+                        tasaIva = entPrd.tasa,
+                        tipoABC = entPrd.abc,
+                        autoDepartamento = entPrd.auto_departamento,
+                        autoGrupo = entPrd.auto_grupo,
+                        autoMarca = entPrd.auto_marca,
+                        decimales = _decimales,
+                    };
+
+                    rt.Entidad = id;
                 }
             }
             catch (Exception e)

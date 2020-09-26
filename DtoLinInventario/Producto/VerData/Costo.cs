@@ -10,6 +10,7 @@ namespace DtoLibInventario.Producto.VerData
     
     public class Costo
     {
+
         public string codigo { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
@@ -27,6 +28,7 @@ namespace DtoLibInventario.Producto.VerData
         public decimal costoUnd { get; set; }
         public decimal costoPromedioUnd { get; set; }
         public DateTime? fechaUltCambio { get; set; }
+        public int Edad { get; set; }
 
     }
 
