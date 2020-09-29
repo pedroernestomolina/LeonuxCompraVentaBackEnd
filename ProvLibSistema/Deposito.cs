@@ -255,14 +255,14 @@ namespace ProvLibSistema
             {
                 using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
                 {
-                    var aEmpresaDeposito = cnn.Database.SqlQuery<int>("select a_empresa_depositos from sistema_contadores").FirstOrDefault();
-                    if (aEmpresaDeposito == null)
+                    int? aEmpresaDeposito = cnn.Database.SqlQuery<int?>("select a_empresa_depositos from sistema_contadores").FirstOrDefault();
+                    if (!aEmpresaDeposito.HasValue)
                     {
                         result.Mensaje = "[ AUTOMATICO EMPRESA DEPOSITO ] PROBLEMA AL CONSULTAR CAMPO";
                         result.Result = DtoLib.Enumerados.EnumResult.isError;
                         return result;
                     }
-                    result.Entidad = ((int)aEmpresaDeposito)+1;
+                    result.Entidad = ((int)aEmpresaDeposito.Value)+1;
                 }
             }
             catch (Exception e)

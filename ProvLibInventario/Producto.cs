@@ -604,19 +604,6 @@ namespace ProvLibInventario
                             return s.codigo_alterno;
                         })).ToList();
 
-                    List<DtoLibInventario.Producto.VerData.Proveedor> prv = cnn.productos_proveedor.
-                        Where(w => w.auto_producto == autoPrd).
-                        Select(new Func<productos_proveedor, DtoLibInventario.Producto.VerData.Proveedor>(st =>
-                        {
-                            var p = new DtoLibInventario.Producto.VerData.Proveedor()
-                            {
-                                codigoPrv = st.proveedores.codigo,
-                                nombrePrv = st.proveedores.razon_social,
-                                codigoRefPrd = st.codigo_producto,
-                            };
-                            return p;
-                        })).ToList<DtoLibInventario.Producto.VerData.Proveedor>();
-
                     var extra = new DtoLibInventario.Producto.VerData.Extra()
                     {
                         codigosAlterno = alternos,
@@ -627,7 +614,6 @@ namespace ProvLibInventario
                         imagen = null,
                         lugar = entPrd.lugar,
                         plu = entPrd.plu,
-                        proveedores = prv,
                     };
                     f.extra = extra;
 
@@ -2143,7 +2129,6 @@ namespace ProvLibInventario
             return rt;
         }
 
-
         public DtoLib.ResultadoLista<DtoLibInventario.Producto.Plu.Lista.Resumen> Producto_Plu_Lista()
         {
             var rt = new DtoLib.ResultadoLista<DtoLibInventario.Producto.Plu.Lista.Resumen>();
@@ -2279,6 +2264,64 @@ namespace ProvLibInventario
                     };
 
                     rt.Entidad = id;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        DtoLib.ResultadoEntidad<DtoLibInventario.Producto.VerData.Proveedor.Ficha> ILibInventario.IProducto.Producto_GetProveedores(string autoPrd)
+        {
+            var rt = new DtoLib.ResultadoEntidad<DtoLibInventario.Producto.VerData.Proveedor.Ficha >();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var entPrd = cnn.productos.Find(autoPrd);
+                    if (entPrd == null)
+                    {
+                        rt.Mensaje = "PRODUCTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    var list = new List<DtoLibInventario.Producto.VerData.Proveedor.Detalle>();
+                    var ng = new DtoLibInventario.Producto.VerData.Proveedor.Ficha()
+                    {
+                        autoProducto = entPrd.auto,
+                        codigoProducto = entPrd.codigo,
+                        nombreProducto = entPrd.nombre,
+                        referenciaProducto = entPrd.referencia,
+                    };
+                    var q = cnn.productos_proveedor.Where(f => f.auto_producto == autoPrd).ToList();
+                    if (q != null)
+                    {
+                        if (q.Count() > 0)
+                        {
+                            list = q.Select(s =>
+                            {
+                                var r = new DtoLibInventario.Producto.VerData.Proveedor.Detalle()
+                                {
+                                    ciRif = s.proveedores.ci_rif,
+                                    codigo = s.proveedores.codigo,
+                                    codigoRefPrd = s.codigo_producto,
+                                    direccionFiscal = s.proveedores.dir_fiscal,
+                                    idAuto = s.auto_proveedor,
+                                    razonSocial = s.proveedores.razon_social,
+                                    telefonos = s.proveedores.telefono + s.proveedores.telefono,
+                                };
+                                return r;
+                            }).ToList();
+                        }
+                    }
+                    ng.proveedores = list;
+                    rt.Entidad = ng ;
                 }
             }
             catch (Exception e)

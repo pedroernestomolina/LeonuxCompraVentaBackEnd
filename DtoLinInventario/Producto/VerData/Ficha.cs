@@ -16,6 +16,7 @@ namespace DtoLibInventario.Producto.VerData
         public Costo costo { get; set; }
         public Existencia existencia { get; set; }
         public Extra extra { get; set; }
+        public Proveedor.Ficha proveedores { get; set; }
 
     }
 

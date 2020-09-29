@@ -1006,6 +1006,50 @@ namespace ProvLibInventario
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<bool> Producto_Movimiento_Verificar_CostoEdad(DtoLibInventario.Movimiento.Verificar.CostoEdad.Ficha ficha)
+        {
+            var rt = new DtoLib.ResultadoEntidad<bool>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                    if (ficha.detalles != null)
+                    {
+                        foreach (var rg in ficha.detalles)
+                        {
+                            rt.Entidad = true;
+                            var ent = cnn.productos.Find(rg.autoProducto);
+                            if (ent == null)
+                            {
+                                rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO "+rg.autoProducto;
+                                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                rt.Entidad = false;
+                                return rt;
+                            }
+
+                            if ((fechaSistema.Subtract(ent.fecha_ult_costo).Days)>ficha.dias)
+                            {
+                                rt.Mensaje = "COSTO EDAD PRODUCTO INCORRECTO" +
+                                    Environment.NewLine + "Producto: " + ent.nombre;
+                                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                rt.Entidad = false;
+                                return rt;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
     }
 
 }

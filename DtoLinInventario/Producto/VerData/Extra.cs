@@ -16,7 +16,6 @@ namespace DtoLibInventario.Producto.VerData
         public string plu { get;set; }
         public int diasEmpaque { get; set; }
         public List<string> codigosAlterno { get; set; }
-        public List<Proveedor> proveedores { get; set; }
         public byte[] imagen { get; set; }
 
     }

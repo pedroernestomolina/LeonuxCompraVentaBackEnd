@@ -103,6 +103,8 @@
     <Compile Include="Movimiento\Traslado\Insertar\FichaDetalle.cs" />
     <Compile Include="Movimiento\Traslado\Insertar\FichaKardex.cs" />
     <Compile Include="Movimiento\Traslado\Insertar\FichaPrdDeposito.cs" />
+    <Compile Include="Movimiento\Verificar\CostoEdad\Ficha.cs" />
+    <Compile Include="Movimiento\Verificar\CostoEdad\FichaDetalle.cs" />
     <Compile Include="Movimiento\Verificar\ExistenciaDisponible\Ficha.cs" />
     <Compile Include="Movimiento\Ver\Detalle.cs" />
     <Compile Include="Movimiento\Ver\Ficha.cs" />
@@ -143,7 +145,8 @@
     <Compile Include="Producto\VerData\Identificacion.cs" />
     <Compile Include="Producto\VerData\Imagen.cs" />
     <Compile Include="Producto\VerData\Precio.cs" />
-    <Compile Include="Producto\VerData\Proveedor.cs" />
+    <Compile Include="Producto\VerData\Proveedor\Detalle.cs" />
+    <Compile Include="Producto\VerData\Proveedor\Ficha.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proveedor\Enumerados.cs" />
     <Compile Include="Proveedor\Lista\Filtro.cs" />
