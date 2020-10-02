@@ -113,6 +113,10 @@ namespace ConsoleInventario
             //filt.mes = 10;
             //var rt1 = invPrv.Visor_Ajuste(filt);
 
+            //var rt1 = invPrv.Configuracion_CostoEdadProducto ();
+
+            //var filtro = new DtoLibInventario.Visor.Existencia.Filtro();
+            //var rt1 = invPrv.Visor_Existencia (filtro);
         }
 
     }

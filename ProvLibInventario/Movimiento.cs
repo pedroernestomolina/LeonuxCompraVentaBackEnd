@@ -806,9 +806,9 @@ namespace ProvLibInventario
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
+                    rt.Entidad = true;
                     foreach (var rg in lista) 
                     {
-                        rt.Entidad = true;
                         var ent = cnn.productos_deposito.FirstOrDefault(f=>f.auto_producto==rg.autoProducto && f.auto_deposito==rg.autoDeposito);
                         if (ent == null)
                         {
@@ -1048,6 +1048,108 @@ namespace ProvLibInventario
             }
 
             return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibInventario.Movimiento.Lista.Resumen> Producto_Movimiento_GetLista(DtoLibInventario.Movimiento.Lista.Filtro filtro)
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibInventario.Movimiento.Lista.Resumen>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var q = cnn.productos_movimientos.ToList();
+                    if (filtro.Desde.HasValue) 
+                    {
+                        q = q.Where(w => w.fecha >= filtro.Desde.Value).ToList();
+                    }
+                    if (filtro.Hasta.HasValue)
+                    {
+                        q = q.Where(w => w.fecha <= filtro.Hasta.Value).ToList();
+                    }
+                    if (filtro.IdSucursal!="")
+                    {
+                        q = q.Where(w => w.codigo_sucursal==filtro.IdSucursal).ToList();
+                    }
+
+                    if (filtro.TipoDocumento!= DtoLibInventario.Movimiento.enumerados.EnumTipoDocumento.SinDefinir)
+                    {
+                        var tipo = "";
+                        switch (filtro.TipoDocumento) 
+                        {
+                            case DtoLibInventario.Movimiento.enumerados.EnumTipoDocumento.Cargo:
+                                tipo = "01";
+                                break;
+                            case DtoLibInventario.Movimiento.enumerados.EnumTipoDocumento.Descargo:
+                                tipo="02";
+                                break;
+                            case DtoLibInventario.Movimiento.enumerados.EnumTipoDocumento.Traslado:
+                                tipo="03";
+                                break;
+                            case DtoLibInventario.Movimiento.enumerados.EnumTipoDocumento.Ajuste:
+                                tipo = "04";
+                                break;
+                        }
+                        q = q.Where(w => w.tipo==tipo).ToList();
+                    }
+
+                    var list = new List<DtoLibInventario.Movimiento.Lista.Resumen >();
+                    if (q != null)
+                    {
+                        if (q.Count() > 0)
+                        {
+                            list = q.Select(s =>
+                            {
+                                var tipo = DtoLibInventario.Movimiento.enumerados.EnumTipoDocumento.SinDefinir;
+                                switch (s.tipo) 
+                                {
+                                    case "01":
+                                        tipo = DtoLibInventario.Movimiento.enumerados.EnumTipoDocumento.Cargo;
+                                        break;
+                                    case "02":
+                                        tipo= DtoLibInventario.Movimiento.enumerados.EnumTipoDocumento.Descargo;
+                                        break;
+                                    case "03":
+                                        tipo= DtoLibInventario.Movimiento.enumerados.EnumTipoDocumento.Traslado;
+                                        break;
+                                    case "04":
+                                        tipo= DtoLibInventario.Movimiento.enumerados.EnumTipoDocumento.Ajuste;
+                                        break;
+                                }
+                                var isAnulado = false;
+                                if (s.estatus_anulado == "1") { isAnulado = true; }
+
+                                var nr = new DtoLibInventario.Movimiento.Lista.Resumen()
+                                {
+                                    autoId = s.auto,
+                                    fecha = s.fecha,
+                                    hora = s.hora,
+                                    docConcepto = s.concepto,
+                                    docMonto = s.total,
+                                    docMotivo = s.nota,
+                                    docNro = s.documento,
+                                    docRenglones = s.renglones,
+                                    docSituacion = s.situacion,
+                                    docSucursal = s.codigo_sucursal,
+                                    docTipo = tipo,
+                                    estacion = s.estacion,
+                                    isDocAnulado = isAnulado,
+                                    usuario = s.usuario,
+                                };
+                                return nr;
+                            }).ToList();
+                        }
+                    }
+                    result.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
         }
 
     }

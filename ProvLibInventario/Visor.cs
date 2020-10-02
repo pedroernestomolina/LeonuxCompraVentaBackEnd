@@ -21,6 +21,8 @@ namespace ProvLibInventario
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
                     var sql = "SELECT p.nombre as nombrePrd, p.codigo as codigoPrd, p.auto as autoPrd, " +
+                        "case when p.estatus='Activo' then '0' else '1' end as estatusActivo, " +
+                        "p.estatus_cambio as estatusSuspendido, " +
                         "pdep.fisica as cntFisica, pdep.nivel_minimo as nivelMinimo, pdep.nivel_optimo as nivelOptimo, " +
                         "case when p.estatus_pesado='0' then 'N' when p.estatus_pesado='1' then 'S' end as esPesado, " +
                         "edep.auto as autoDeposito, edep.nombre as nombreDeposito, edep.codigo as codigoDeposito, " +
@@ -93,6 +95,8 @@ namespace ProvLibInventario
                     var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
 
                     var sql = "SELECT p.nombre as nombrePrd, p.codigo as codigoPrd, p.auto as autoPrd, p.divisa as costoDivisaUnd, " +
+                        "case when p.estatus='Activo' then '0' else '1' end as estatusActivo, " +
+                        "p.estatus_cambio as estatusSuspendido, " +
                         "case when p.estatus_pesado='0' then 'N' when p.estatus_pesado='1' then 'S' end as esPesado, " +
                         "case when p.estatus_divisa='0' then 'N' when p.estatus_divisa='1' then 'S' end as esAdmDivisa, " +
                         "pdep.fisica as cntFisica, pdep.nivel_minimo as nivelMinimo, pdep.nivel_optimo as nivelOptimo, " +
@@ -258,6 +262,59 @@ namespace ProvLibInventario
                 rt.Entidad = new DtoLibInventario.Visor.Ajuste.Ficha();
                 rt.Entidad.detalles = list;
                 rt.Entidad.montoVentaNeto = totalVentasNeta;
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibInventario.Visor.CostoExistencia.Ficha> Visor_CostoExistencia(DtoLibInventario.Visor.CostoExistencia.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibInventario.Visor.CostoExistencia.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var sql = "SELECT p.nombre as nombrePrd, p.codigo as codigoPrd, p.auto as autoPrd, p.divisa as costoDivisaUnd, " +
+                        "case when p.estatus='Activo' then '0' else '1' end as estatusActivo, "+
+                        "p.estatus_cambio as estatusSuspendido, "+
+                        "case when p.estatus_pesado='0' then 'N' when p.estatus_pesado='1' then 'S' end as esPesado, " +
+                        "case when p.estatus_divisa='0' then 'N' when p.estatus_divisa='1' then 'S' end as esAdmDivisa, " +
+                        "pdep.fisica as cntFisica, pdep.nivel_minimo as nivelMinimo, pdep.nivel_optimo as nivelOptimo, " +
+                        "edep.auto as autoDeposito, edep.nombre as nombreDeposito, edep.codigo as codigoDeposito, " +
+                        "edepart.auto as autoDepart, edepart.codigo as codigoDepart, edepart.nombre as nombreDepart, " +
+                        "pmed.decimales, p.costo_und as costoUnd, p.fecha_ult_costo as fechaUltActCosto, p.fecha_ult_venta as fechaUltVenta  " +
+                        "FROM `productos_deposito` as pdep " +
+                        "join empresa_depositos as edep on pdep.auto_deposito=edep.auto " +
+                        "join productos as p on pdep.auto_producto=p.auto " +
+                        "join empresa_departamentos as edepart on p.auto_departamento=edepart.auto " +
+                        "join productos_medida as pmed on p.auto_empaque_compra=pmed.auto " +
+                        "WHERE 1 = 1 and (pdep.fisica<>0) ";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    if (filtro.autoDepartamento != "")
+                    {
+                        sql += " and p.auto_departamento=@autoDepartamento ";
+                        p1.ParameterName = "@autoDepartamento";
+                        p1.Value = filtro.autoDepartamento;
+                    }
+
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    if (filtro.autoDeposito != "")
+                    {
+                        sql += " and pdep.auto_deposito=@autoDeposito ";
+                        p2.ParameterName = "@autoDeposito";
+                        p2.Value = filtro.autoDeposito;
+                    }
+
+                    var lst = cnn.Database.SqlQuery<DtoLibInventario.Visor.CostoExistencia.Ficha>(sql, p1,p2).ToList();
+                    rt.Lista = lst;
+                }
             }
             catch (Exception e)
             {

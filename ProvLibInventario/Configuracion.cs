@@ -212,6 +212,43 @@ namespace ProvLibInventario
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<int> Configuracion_CostoEdadProducto()
+        {
+            var result = new DtoLib.ResultadoEntidad<int>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL50");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var m1 = 0;
+                    var cnf = ent.usuario;
+                    if (cnf.Trim() != "")
+                    {
+                        var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
+                        //var culture = CultureInfo.CreateSpecificCulture("es-ES");
+                        var culture = CultureInfo.CreateSpecificCulture("en-EN");
+                        int.TryParse(cnf, style, culture, out m1);
+                    }
+                    result.Entidad = m1;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

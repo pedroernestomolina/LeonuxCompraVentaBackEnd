@@ -97,6 +97,9 @@
     <Compile Include="Movimiento\Descargo\Insertar\FichaDetalle.cs" />
     <Compile Include="Movimiento\Descargo\Insertar\FichaKardex.cs" />
     <Compile Include="Movimiento\Descargo\Insertar\FichaPrdDeposito.cs" />
+    <Compile Include="Movimiento\enumerados.cs" />
+    <Compile Include="Movimiento\Lista\Filtro.cs" />
+    <Compile Include="Movimiento\Lista\Resumen.cs" />
     <Compile Include="Movimiento\Traslado\Consultar\Filtro.cs" />
     <Compile Include="Movimiento\Traslado\Consultar\ProductoPorDebajoNivelMinimo.cs" />
     <Compile Include="Movimiento\Traslado\Insertar\Ficha.cs" />
@@ -117,6 +120,7 @@
     <Compile Include="Precio\PrecioCosto\Ficha.cs" />
     <Compile Include="Producto\AdmDivisa\Resumen.cs" />
     <Compile Include="Producto\Agregar\Ficha.cs" />
+    <Compile Include="Producto\Agregar\FichaCodAlterno.cs" />
     <Compile Include="Producto\Categoria\Resumen.cs" />
     <Compile Include="Producto\Clasificacion\Resumen.cs" />
     <Compile Include="Producto\Depositos\Asignar\Deposito.cs" />
@@ -127,7 +131,9 @@
     <Compile Include="Producto\Depositos\Ver\Ficha.cs" />
     <Compile Include="Producto\Depositos\Ver\Filtro.cs" />
     <Compile Include="Producto\Editar\Actualizar\Ficha.cs" />
+    <Compile Include="Producto\Editar\Actualizar\FichaCodAlterno.cs" />
     <Compile Include="Producto\Editar\Obtener\Ficha.cs" />
+    <Compile Include="Producto\Editar\Obtener\FichaAlterno.cs" />
     <Compile Include="Producto\Enumerados.cs" />
     <Compile Include="Producto\Estatus\Actual\Ficha.cs" />
     <Compile Include="Producto\Estatus\Lista\Resumen.cs" />
@@ -167,6 +173,8 @@
     <Compile Include="Visor\CostoEddad\Ficha.cs" />
     <Compile Include="Visor\CostoEddad\FichaDetalle.cs" />
     <Compile Include="Visor\CostoEddad\Filtro.cs" />
+    <Compile Include="Visor\CostoExistencia\Ficha.cs" />
+    <Compile Include="Visor\CostoExistencia\Filtro.cs" />
     <Compile Include="Visor\Existencia\Enumerados.cs" />
     <Compile Include="Visor\Existencia\Ficha.cs" />
     <Compile Include="Visor\Existencia\Filtro.cs" />

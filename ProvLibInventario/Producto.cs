@@ -1046,6 +1046,8 @@ namespace ProvLibInventario
 
                     var entPrdExtra = cnn.productos_extra.Find(autoPrd);
 
+                    var entPrdAlterno = cnn.productos_alterno.Where(w => w.auto_producto == autoPrd).ToList();
+
                     var _origen = entPrd.origen.Trim().ToUpper() == "NACIONAL" ?
                         DtoLibInventario.Producto.Enumerados.EnumOrigen.Nacional :
                         DtoLibInventario.Producto.Enumerados.EnumOrigen.Importado;
@@ -1131,6 +1133,12 @@ namespace ProvLibInventario
                         plu=entPrd.plu,
                         diasEmpaque=entPrd.dias_garantia,
                     };
+                    var listPrdAlt = new List<DtoLibInventario.Producto.Editar.Obtener.FichaAlterno>();
+                    foreach (var rg in entPrdAlterno) 
+                    {
+                        listPrdAlt.Add(new DtoLibInventario.Producto.Editar.Obtener.FichaAlterno() { Codigo = rg.codigo_alterno });
+                    }
+                    f.CodigosAlterno = listPrdAlt;
 
                     rt.Entidad = f;
                 }
@@ -1164,6 +1172,8 @@ namespace ProvLibInventario
                             return rt;
                         };
 
+                        var entPrdAlterno = cnn.productos_alterno.Where(w => w.auto_producto == ficha.auto).ToList();
+
                         var entPrdExtra = cnn.productos_extra.Find(ficha.auto);
 
                         entPrd.codigo = ficha.codigo;
@@ -1193,6 +1203,20 @@ namespace ProvLibInventario
                         }
                         cnn.SaveChanges();
 
+                        cnn.productos_alterno.RemoveRange(entPrdAlterno);
+                        cnn.SaveChanges();
+
+                        foreach (var rg in ficha.codigosAlterno) 
+                        {
+                            var codAlterno = new productos_alterno()
+                            {
+                                auto_producto = ficha.auto,
+                                codigo_alterno = rg.codigo,
+                            };
+                            cnn.productos_alterno.Add(codAlterno);
+                            cnn.SaveChanges();
+                        }
+
                         ts.Complete();
                     }
                 }
@@ -1213,12 +1237,20 @@ namespace ProvLibInventario
             catch (System.Data.Entity.Infrastructure.DbUpdateException e)
             {
                 var msg = "";
-                foreach (var eve in e.Entries)
+                if (e.InnerException !=null)
                 {
-                    //msg += eve.m;
-                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    var x = e.InnerException.InnerException;
+                    msg = x.Message;
+                }
+                else
+                {
+                    foreach (var eve in e.Entries)
                     {
-                        msg += ve.ToString();
+                        //msg += eve.m;
+                        foreach (var ve in eve.CurrentValues.PropertyNames)
+                        {
+                            msg += ve.ToString();
+                        }
                     }
                 }
                 rt.Mensaje = msg;
@@ -1423,6 +1455,17 @@ namespace ProvLibInventario
                         cnn.productos_extra.Add(entPrdExtra);
                         cnn.SaveChanges();
 
+                        foreach (var rg in ficha.codigosAlterno)
+                        {
+                            var codAlterno = new productos_alterno()
+                            {
+                                auto_producto = autoPrd,
+                                codigo_alterno = rg.codigo,
+                            };
+                            cnn.productos_alterno.Add(codAlterno);
+                            cnn.SaveChanges();
+                        }
+
                         ts.Complete();
                         rt.Auto = autoPrd;
                     }
@@ -1444,12 +1487,20 @@ namespace ProvLibInventario
             catch (System.Data.Entity.Infrastructure.DbUpdateException e)
             {
                 var msg = "";
-                foreach (var eve in e.Entries)
+                if (e.InnerException != null)
                 {
-                    //msg += eve.m;
-                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    var x = e.InnerException.InnerException;
+                    msg = x.Message;
+                }
+                else
+                {
+                    foreach (var eve in e.Entries)
                     {
-                        msg += ve.ToString();
+                        //msg += eve.m;
+                        foreach (var ve in eve.CurrentValues.PropertyNames)
+                        {
+                            msg += ve.ToString();
+                        }
                     }
                 }
                 rt.Mensaje = msg;

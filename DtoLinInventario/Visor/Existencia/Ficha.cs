@@ -25,6 +25,8 @@ namespace DtoLibInventario.Visor.Existencia
         public decimal nivelOptimo { get; set; }
         public string decimales { get; set; }
         public string esPesado { get; set; }
+        public string estatusActivo { get; set; }
+        public string estatusSuspendido { get; set; }
 
     }
 

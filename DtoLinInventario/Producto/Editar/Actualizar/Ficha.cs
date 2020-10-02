@@ -35,6 +35,8 @@ namespace DtoLibInventario.Producto.Editar.Actualizar
         public string plu { get; set; }
         public int diasEmpaque { get; set; }
 
+        public List<FichaCodAlterno> codigosAlterno { get; set; }
+
     }
 
 }
