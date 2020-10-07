@@ -16,8 +16,7 @@ namespace ConsoleInventario
             ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("192.168.100.10","panda");
 
             //var filt = new DtoLibInventario.Producto.Filtro();
-            //filt.categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.MateriaPrima;
-            //filt.estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
+            //filt.catalogo= DtoLibInventario.Producto.Enumerados.EnumCatalogo.Si ;
             //var rt1 = invPrv.Producto_GetLista(filt);
 
             //filt.estatus= DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
@@ -117,6 +116,29 @@ namespace ConsoleInventario
 
             //var filtro = new DtoLibInventario.Visor.Existencia.Filtro();
             //var rt1 = invPrv.Visor_Existencia (filtro);
+
+            //var ficha = new DtoLibInventario.Movimiento.Anular.Cargo.Ficha()
+            //{
+            //    autoDocumento = "0000012344",
+            //    autoSistemaDocumento = "0000000024",
+            //    autoUsuario = "0000000008",
+            //    codigo = "02",
+            //    estacion = "DESARROLLOMOVIL",
+            //    motivo = "PRUEBA",
+            //    usuario = "FFF",
+            //};
+            //var rt1 = invPrv.Producto_Movimiento_Cargo_Anular(ficha);
+
+            //var filt = new DtoLibInventario.Reportes.MaestroInventario.Filtro();
+            //filt.estatus = DtoLibInventario.Reportes.enumerados.EnumEstatus.Activo;
+            //var rt1 = invPrv.Reportes_MaestroInventario(filt);
+
+            //var filt = new DtoLibInventario.Reportes.Top20.Filtro();
+            //filt.Desde = new DateTime(2020, 08, 01).Date;
+            //filt.Hasta = new DateTime(2020, 09, 30).Date;
+            //filt.Modulo = DtoLibInventario.Reportes.enumerados.EnumModulo.Ventas ;
+            //filt.autoDeposito = "0000000005";
+            //var rt1 = invPrv.Reportes_Top20(filt);
         }
 
     }

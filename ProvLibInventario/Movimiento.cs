@@ -286,18 +286,24 @@ namespace ProvLibInventario
                         total = ent.total,
                         usuario = ent.usuario,
                         usuarioCodigo = ent.codigo_usuario,
+                        nombreDocumento = ent.documento_nombre,
                     };
 
                     var det = entDet.Select(s =>
                     {
                         var dt = new DtoLibInventario.Movimiento.Ver.Detalle()
                         {
-                            cantidad = s.cantidad_und,
+                            cantidadUnd = s.cantidad_und,
                             codigo = s.codigo,
                             costoUnd = s.costo_und,
                             descripcion = s.nombre,
                             importe = s.total,
                             signo = s.signo,
+                            cantidad = s.cantidad,
+                            contenido = s.contenido_empaque,
+                            empaque = s.empaque,
+                            esUnidad = s.estatus_unidad == "1" ? true : false,
+                            decimales=s.decimales,
                         };
                         return dt;
                     }).ToList();
@@ -1150,6 +1156,563 @@ namespace ProvLibInventario
             }
 
             return result;
+        }
+
+        public DtoLib.Resultado Producto_Movimiento_Cargo_Anular(DtoLibInventario.Movimiento.Anular.Cargo.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+
+                        var sql = "INSERT INTO `auditoria_documentos` (`auto_documento`, `auto_sistema_documentos`, " +
+                            "`auto_usuario`, `usuario`, `codigo`, `fecha`, `hora`, `memo`, `estacion`, `ip`) " +
+                            "VALUES (@p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, '')";
+
+                        var p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.autoDocumento);
+                        var p2 = new MySql.Data.MySqlClient.MySqlParameter("@p2", ficha.autoSistemaDocumento);
+                        var p3 = new MySql.Data.MySqlClient.MySqlParameter("@p3", ficha.autoUsuario);
+                        var p4 = new MySql.Data.MySqlClient.MySqlParameter("@p4", ficha.usuario);
+                        var p5 = new MySql.Data.MySqlClient.MySqlParameter("@p5", ficha.codigo);
+                        var p6 = new MySql.Data.MySqlClient.MySqlParameter("@p6", fechaSistema.Date);
+                        var p7 = new MySql.Data.MySqlClient.MySqlParameter("@p7", fechaSistema.ToShortTimeString());
+                        var p8 = new MySql.Data.MySqlClient.MySqlParameter("@p8", ficha.motivo);
+                        var p9 = new MySql.Data.MySqlClient.MySqlParameter("@p9", ficha.estacion);
+                        var vk = cnn.Database.ExecuteSqlCommand(sql, p1,p2,p3,p4,p5,p6,p7,p8,p9);
+                        if (vk == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL REGISTRAR MOVIMIENTO AUDITORIA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        var entMov = cnn.productos_movimientos.Find(ficha.autoDocumento);
+                        if (entMov == null) 
+                        {
+                            result.Mensaje = "DOCUMENTO NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        entMov.estatus_anulado = "1";
+                        cnn.SaveChanges();
+
+                        sql = "update productos_movimientos_detalle set estatus_anulado='1' where auto_documento=@p1";
+                        p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.autoDocumento);
+                        vk = cnn.Database.ExecuteSqlCommand(sql, p1) ;
+                        if (vk == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL ACTUALIZAR DETALLES DEL MOVIMIENTO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        cnn.SaveChanges();
+
+                        sql = "update productos_kardex set estatus_anulado='1' where auto_documento=@p1 and modulo='Inventario'";
+                        p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.autoDocumento);
+                        vk = cnn.Database.ExecuteSqlCommand(sql, p1);
+                        if (vk == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL ACTUALIZAR MOVIMIENTOS KARDEX";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        cnn.SaveChanges();
+
+                        var entKardex = cnn.productos_kardex.Where(w => w.auto_documento == ficha.autoDocumento && w.modulo=="Inventario").ToList();
+                        foreach (var rg in entKardex)
+                        {
+                            var autoDeposito = rg.auto_deposito;
+                            var autoProducto = rg.auto_producto;
+                            var cnt = rg.cantidad_und;
+
+                            var entPrdDep = cnn.productos_deposito.FirstOrDefault(f => f.auto_deposito == autoDeposito && f.auto_producto == autoProducto);
+                            if (entPrdDep == null) 
+                            {
+                                result.Mensaje = "PRODUCTO / DEPOSITO NO ENCONTRADO";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result;
+                            }
+
+                            entPrdDep.fisica -= cnt;
+                            entPrdDep.disponible = entPrdDep.fisica;
+                            cnn.SaveChanges();
+                        }
+                        cnn.SaveChanges();
+
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            return result;
+        }
+
+        public DtoLib.Resultado Producto_Movimiento_Descargo_Anular(DtoLibInventario.Movimiento.Anular.Descargo.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+
+                        var sql = "INSERT INTO `auditoria_documentos` (`auto_documento`, `auto_sistema_documentos`, " +
+                            "`auto_usuario`, `usuario`, `codigo`, `fecha`, `hora`, `memo`, `estacion`, `ip`) " +
+                            "VALUES (@p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, '')";
+
+                        var p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.autoDocumento);
+                        var p2 = new MySql.Data.MySqlClient.MySqlParameter("@p2", ficha.autoSistemaDocumento);
+                        var p3 = new MySql.Data.MySqlClient.MySqlParameter("@p3", ficha.autoUsuario);
+                        var p4 = new MySql.Data.MySqlClient.MySqlParameter("@p4", ficha.usuario);
+                        var p5 = new MySql.Data.MySqlClient.MySqlParameter("@p5", ficha.codigo);
+                        var p6 = new MySql.Data.MySqlClient.MySqlParameter("@p6", fechaSistema.Date);
+                        var p7 = new MySql.Data.MySqlClient.MySqlParameter("@p7", fechaSistema.ToShortTimeString());
+                        var p8 = new MySql.Data.MySqlClient.MySqlParameter("@p8", ficha.motivo);
+                        var p9 = new MySql.Data.MySqlClient.MySqlParameter("@p9", ficha.estacion);
+                        var vk = cnn.Database.ExecuteSqlCommand(sql, p1, p2, p3, p4, p5, p6, p7, p8, p9);
+                        if (vk == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL REGISTRAR MOVIMIENTO AUDITORIA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        var entMov = cnn.productos_movimientos.Find(ficha.autoDocumento);
+                        if (entMov == null)
+                        {
+                            result.Mensaje = "DOCUMENTO NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        entMov.estatus_anulado = "1";
+                        cnn.SaveChanges();
+
+                        sql = "update productos_movimientos_detalle set estatus_anulado='1' where auto_documento=@p1";
+                        p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.autoDocumento);
+                        vk = cnn.Database.ExecuteSqlCommand(sql, p1);
+                        if (vk == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL ACTUALIZAR DETALLES DEL MOVIMIENTO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        cnn.SaveChanges();
+
+                        sql = "update productos_kardex set estatus_anulado='1' where auto_documento=@p1 and modulo='Inventario'";
+                        p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.autoDocumento);
+                        vk = cnn.Database.ExecuteSqlCommand(sql, p1);
+                        if (vk == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL ACTUALIZAR MOVIMIENTOS KARDEX";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        cnn.SaveChanges();
+
+                        var entKardex = cnn.productos_kardex.Where(w => w.auto_documento == ficha.autoDocumento && w.modulo == "Inventario").ToList();
+                        foreach (var rg in entKardex)
+                        {
+                            var autoDeposito = rg.auto_deposito;
+                            var autoProducto = rg.auto_producto;
+                            var cnt = rg.cantidad_und;
+
+                            var entPrdDep = cnn.productos_deposito.FirstOrDefault(f => f.auto_deposito == autoDeposito && f.auto_producto == autoProducto);
+                            if (entPrdDep == null)
+                            {
+                                result.Mensaje = "PRODUCTO / DEPOSITO NO ENCONTRADO";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result;
+                            }
+
+                            entPrdDep.fisica += cnt;
+                            entPrdDep.disponible = entPrdDep.fisica;
+                            cnn.SaveChanges();
+                        }
+                        cnn.SaveChanges();
+
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            return result;
+        }
+
+        public DtoLib.Resultado Producto_Movimiento_Traslado_Anular(DtoLibInventario.Movimiento.Anular.Traslado.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+
+                        var sql = "INSERT INTO `auditoria_documentos` (`auto_documento`, `auto_sistema_documentos`, " +
+                            "`auto_usuario`, `usuario`, `codigo`, `fecha`, `hora`, `memo`, `estacion`, `ip`) " +
+                            "VALUES (@p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, '')";
+
+                        var p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.autoDocumento);
+                        var p2 = new MySql.Data.MySqlClient.MySqlParameter("@p2", ficha.autoSistemaDocumento);
+                        var p3 = new MySql.Data.MySqlClient.MySqlParameter("@p3", ficha.autoUsuario);
+                        var p4 = new MySql.Data.MySqlClient.MySqlParameter("@p4", ficha.usuario);
+                        var p5 = new MySql.Data.MySqlClient.MySqlParameter("@p5", ficha.codigo);
+                        var p6 = new MySql.Data.MySqlClient.MySqlParameter("@p6", fechaSistema.Date);
+                        var p7 = new MySql.Data.MySqlClient.MySqlParameter("@p7", fechaSistema.ToShortTimeString());
+                        var p8 = new MySql.Data.MySqlClient.MySqlParameter("@p8", ficha.motivo);
+                        var p9 = new MySql.Data.MySqlClient.MySqlParameter("@p9", ficha.estacion);
+                        var vk = cnn.Database.ExecuteSqlCommand(sql, p1, p2, p3, p4, p5, p6, p7, p8, p9);
+                        if (vk == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL REGISTRAR MOVIMIENTO AUDITORIA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        var entMov = cnn.productos_movimientos.Find(ficha.autoDocumento);
+                        if (entMov == null)
+                        {
+                            result.Mensaje = "DOCUMENTO NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        entMov.estatus_anulado = "1";
+                        cnn.SaveChanges();
+
+                        sql = "update productos_movimientos_detalle set estatus_anulado='1' where auto_documento=@p1";
+                        p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.autoDocumento);
+                        vk = cnn.Database.ExecuteSqlCommand(sql, p1);
+                        if (vk == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL ACTUALIZAR DETALLES DEL MOVIMIENTO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        cnn.SaveChanges();
+
+                        sql = "update productos_kardex set estatus_anulado='1' where auto_documento=@p1 and modulo='Inventario'";
+                        p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.autoDocumento);
+                        vk = cnn.Database.ExecuteSqlCommand(sql, p1);
+                        if (vk == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL ACTUALIZAR MOVIMIENTOS KARDEX";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        cnn.SaveChanges();
+
+                        var entKardex = cnn.productos_kardex.Where(w => w.auto_documento == ficha.autoDocumento && w.modulo == "Inventario").ToList();
+                        foreach (var rg in entKardex)
+                        {
+                            var autoDeposito = rg.auto_deposito;
+                            var autoProducto = rg.auto_producto;
+                            var cnt = (rg.cantidad_und*rg.signo)*-1;
+
+                            var entPrdDep = cnn.productos_deposito.FirstOrDefault(f => f.auto_deposito == autoDeposito && f.auto_producto == autoProducto);
+                            if (entPrdDep == null)
+                            {
+                                result.Mensaje = "PRODUCTO / DEPOSITO NO ENCONTRADO";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result;
+                            }
+
+                            entPrdDep.fisica += cnt;
+                            entPrdDep.disponible = entPrdDep.fisica;
+                            cnn.SaveChanges();
+                        }
+                        cnn.SaveChanges();
+
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Producto_Movimiento_Ajuste_Anular(DtoLibInventario.Movimiento.Anular.Ajuste.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+
+                        var sql = "INSERT INTO `auditoria_documentos` (`auto_documento`, `auto_sistema_documentos`, " +
+                            "`auto_usuario`, `usuario`, `codigo`, `fecha`, `hora`, `memo`, `estacion`, `ip`) " +
+                            "VALUES (@p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, '')";
+
+                        var p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.autoDocumento);
+                        var p2 = new MySql.Data.MySqlClient.MySqlParameter("@p2", ficha.autoSistemaDocumento);
+                        var p3 = new MySql.Data.MySqlClient.MySqlParameter("@p3", ficha.autoUsuario);
+                        var p4 = new MySql.Data.MySqlClient.MySqlParameter("@p4", ficha.usuario);
+                        var p5 = new MySql.Data.MySqlClient.MySqlParameter("@p5", ficha.codigo);
+                        var p6 = new MySql.Data.MySqlClient.MySqlParameter("@p6", fechaSistema.Date);
+                        var p7 = new MySql.Data.MySqlClient.MySqlParameter("@p7", fechaSistema.ToShortTimeString());
+                        var p8 = new MySql.Data.MySqlClient.MySqlParameter("@p8", ficha.motivo);
+                        var p9 = new MySql.Data.MySqlClient.MySqlParameter("@p9", ficha.estacion);
+                        var vk = cnn.Database.ExecuteSqlCommand(sql, p1, p2, p3, p4, p5, p6, p7, p8, p9);
+                        if (vk == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL REGISTRAR MOVIMIENTO AUDITORIA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        var entMov = cnn.productos_movimientos.Find(ficha.autoDocumento);
+                        if (entMov == null)
+                        {
+                            result.Mensaje = "DOCUMENTO NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        entMov.estatus_anulado = "1";
+                        cnn.SaveChanges();
+
+                        sql = "update productos_movimientos_detalle set estatus_anulado='1' where auto_documento=@p1";
+                        p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.autoDocumento);
+                        vk = cnn.Database.ExecuteSqlCommand(sql, p1);
+                        if (vk == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL ACTUALIZAR DETALLES DEL MOVIMIENTO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        cnn.SaveChanges();
+
+                        sql = "update productos_kardex set estatus_anulado='1' where auto_documento=@p1 and modulo='Inventario'";
+                        p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.autoDocumento);
+                        vk = cnn.Database.ExecuteSqlCommand(sql, p1);
+                        if (vk == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL ACTUALIZAR MOVIMIENTOS KARDEX";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        cnn.SaveChanges();
+
+                        var entKardex = cnn.productos_kardex.Where(w => w.auto_documento == ficha.autoDocumento && w.modulo == "Inventario").ToList();
+                        foreach (var rg in entKardex)
+                        {
+                            var autoDeposito = rg.auto_deposito;
+                            var autoProducto = rg.auto_producto;
+                            var cnt = (rg.cantidad_und * rg.signo) * -1;
+
+                            var entPrdDep = cnn.productos_deposito.FirstOrDefault(f => f.auto_deposito == autoDeposito && f.auto_producto == autoProducto);
+                            if (entPrdDep == null)
+                            {
+                                result.Mensaje = "PRODUCTO / DEPOSITO NO ENCONTRADO";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result;
+                            }
+
+                            entPrdDep.fisica += cnt;
+                            entPrdDep.disponible = entPrdDep.fisica;
+                            cnn.SaveChanges();
+                        }
+                        cnn.SaveChanges();
+
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<bool> Producto_Movimiento_Verificar_AnularDocumento(string autoDocumento)
+        {
+            var rt = new DtoLib.ResultadoEntidad<bool>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+
+                    rt.Entidad = true;
+                    var entMov = cnn.productos_movimientos.Find(autoDocumento);
+                    if (entMov == null)
+                    {
+                        rt.Mensaje = "[ ID ] MOVIMIENTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        rt.Entidad = false;
+                        return rt;
+                    }
+                    if (entMov.estatus_anulado == "1") 
+                    {
+                        rt.Mensaje = "DOCUMENTO YA ANULADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        rt.Entidad = false;
+                        return rt;
+                    }
+                    if (entMov.fecha.Year != fechaSistema.Year || entMov.fecha.Month != fechaSistema.Month)
+                    {
+                        rt.Mensaje = "DOCUMENTO SE ENCUENTRA EN OTRO PERIODO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        rt.Entidad = false;
+                        return rt;
+                    }
+                    if (entMov.estatus_cierre_contable=="1")
+                    {
+                        rt.Mensaje = "DOCUMENTO SE ENCUENTRA BLOQUEADO CONTABLEMENTE";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        rt.Entidad = false;
+                        return rt;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
         }
 
     }

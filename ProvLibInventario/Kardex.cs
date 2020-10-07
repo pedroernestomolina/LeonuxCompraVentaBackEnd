@@ -174,11 +174,12 @@ namespace ProvLibInventario
                     }
 
                     var _empaqueCompra = "";
+                    var _decimales = "0";
                     var _existencia = 0.0m;
                     var entPrdEx = cnn.productos_deposito.Where(w => w.auto_producto == filtro.autoProducto && w.auto_deposito== filtro.autoDeposito).ToList();
                     var entPrdEmp = cnn.productos_medida.Find(entPrd.auto_empaque_compra);
                     if (entPrdEx.Count > 0) { _existencia = entPrdEx.Sum(s => s.fisica); }
-                    if (entPrdEmp != null) { _empaqueCompra = entPrdEmp.nombre; }
+                    if (entPrdEmp != null) { _empaqueCompra = entPrdEmp.nombre; _decimales = entPrdEmp.decimales; }
 
                     var q = cnn.productos_kardex.Where(f => 
                         f.auto_producto == filtro.autoProducto && 
@@ -274,6 +275,7 @@ namespace ProvLibInventario
                                 existencia = _existencia,
                                 nombreProducto = entPrd.nombre,
                                 referenciaProducto = entPrd.referencia,
+                                decimales=_decimales,
                                 Data = list,
                             };
                             result.Entidad = rt;

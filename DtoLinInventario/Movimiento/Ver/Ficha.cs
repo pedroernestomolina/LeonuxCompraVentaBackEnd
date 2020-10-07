@@ -14,6 +14,7 @@ namespace DtoLibInventario.Movimiento.Ver
         public string documentoNro { get; set; }
         public DateTime fecha { get; set; }
         public string tipoDocumento { get; set; }
+        public string nombreDocumento { get; set; }
         public string concepto { get; set; }
         public string codigoConcepto { get; set; }
         public string depositoOrigen { get; set; }

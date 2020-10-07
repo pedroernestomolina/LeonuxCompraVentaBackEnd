@@ -28,6 +28,7 @@ namespace DtoLibInventario.Producto.VerData
         public Enumerados.EnumCategoria categoria { get; set; }
         public Enumerados.EnumEstatus estatus { get; set; }
         public Enumerados.EnumAdministradorPorDivisa AdmPorDivisa { get; set; }
+        public Enumerados.EnumCatalogo activarCatalogo { get; set; }
         public string departamento { get; set; }
         public string codigoDepartamento { get; set; }
         public string grupo { get; set; }

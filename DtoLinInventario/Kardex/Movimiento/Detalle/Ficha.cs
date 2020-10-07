@@ -17,6 +17,7 @@ namespace DtoLibInventario.Kardex.Movimiento.Detalle
         public decimal existencia { get; set; }
         public int contenidoEmp { get; set; }
         public string EmpaqueCompra { get; set; }
+        public string decimales { get; set; }
         public List<Data> Data { get; set; }
 
     }

@@ -72,8 +72,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proveedor.cs" />
     <Compile Include="Provider.cs" />
-    <Compile Include="ReporteDocumentos.cs" />
-    <Compile Include="ReporteMovimientos.cs" />
+    <Compile Include="Reportes.cs" />
     <Compile Include="Sucursal.cs" />
     <Compile Include="TasaImpuesto.cs" />
     <Compile Include="Tool.cs" />

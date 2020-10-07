@@ -36,7 +36,14 @@ namespace ProvLibInventario
                         "where dep.auto_deposito=@dep and p.estatus='Activo' ";
 
                     var dep = new MySql.Data.MySqlClient.MySqlParameter("@dep", filtro.autoDeposito);
-                    var list = cnn.Database.SqlQuery<DtoLibInventario.Tool.AjusteNivelMinimoMaximo.Capturar.Ficha>(cmd,dep).ToList();
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    if (filtro.autoDepartamento != "") 
+                    {
+                        cmd+= "and p.auto_departamento=@p1 ";
+                        p1.ParameterName="@p1";
+                        p1.Value = filtro.autoDepartamento;
+                    }
+                    var list = cnn.Database.SqlQuery<DtoLibInventario.Tool.AjusteNivelMinimoMaximo.Capturar.Ficha>(cmd,dep,p1).ToList();
                     result.Lista = list;
                 }
             }

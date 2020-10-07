@@ -19,6 +19,7 @@ namespace DtoLibInventario.Producto
         public enum EnumClasificacionABC { SnDefinir = -1, A = 1, B, C, D };
         public enum EnumOferta { SnDefinir = -1, Si = 1, No };
         public enum EnumPesado { SnDefinir = -1, Si = 1, No };
+        public enum EnumCatalogo { SnDefinir = -1, Si = 1, No };
 
     }
 

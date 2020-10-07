@@ -29,6 +29,8 @@ namespace DtoLibInventario.Producto.Editar.Obtener
         public string plu { get; set; }
         public int diasEmpaque { get; set; }
 
+        public Enumerados.EnumCatalogo  activarCatalogo { get; set; }
+
         public Enumerados.EnumOrigen origen { get; set; }
         public Enumerados.EnumCategoria categoria { get; set; }
         public Enumerados.EnumAdministradorPorDivisa AdmPorDivisa { get; set; }

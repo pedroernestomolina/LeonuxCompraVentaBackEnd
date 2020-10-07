@@ -28,6 +28,7 @@ namespace DtoLibInventario.Producto
         public Enumerados.EnumCategoria categoria { get; set; }
         public Enumerados.EnumAdministradorPorDivisa admPorDivisa { get; set; }
         public Enumerados.EnumPesado pesado { get; set; }
+        public Enumerados.EnumCatalogo catalogo { get; set; }
         public Enumerados.EnumOferta oferta { get; set; }
 
         public Enumerados.EnumMetodoBusqueda MetodoBusqueda { get; set; }
@@ -51,6 +52,7 @@ namespace DtoLibInventario.Producto
             pesado = Enumerados.EnumPesado.SnDefinir;
             oferta = Enumerados.EnumOferta.SnDefinir;
             existencia = Existencia.SinDefinir ;
+            catalogo = Enumerados.EnumCatalogo.SnDefinir;
         }
 
     }

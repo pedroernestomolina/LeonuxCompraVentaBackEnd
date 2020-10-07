@@ -9,8 +9,8 @@ namespace ILibInventario
 {
     
     public interface IProvider: IProducto, IDeposito, IDepartamento, IGrupo, ITasaImpuesto, IProveedor, IMarca,
-        ICosto, IPrecio, IKardex, IConcepto, ISucursal, IMovimiento, IUsuario, IReporteMovimientos, 
-        ITool, IEmpaqueMedida, IConfiguracion, IVisor
+        ICosto, IPrecio, IKardex, IConcepto, ISucursal, IMovimiento, IUsuario, 
+        ITool, IEmpaqueMedida, IConfiguracion, IVisor, IReportes
     {
 
         DtoLib.ResultadoEntidad<DateTime> FechaServidor();

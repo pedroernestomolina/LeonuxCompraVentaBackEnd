@@ -42,6 +42,7 @@ namespace ProvLibInventario
                     var pA = new MySql.Data.MySqlClient.MySqlParameter();
                     var pB = new MySql.Data.MySqlClient.MySqlParameter();
                     var pC = new MySql.Data.MySqlClient.MySqlParameter();
+                    var pD = new MySql.Data.MySqlClient.MySqlParameter();
 
                     var valor = "";
                     if (filtro.cadena != "")
@@ -229,8 +230,19 @@ namespace ProvLibInventario
                         pC.ParameterName = "@estatusOferta";
                         pC.Value = _f;
                     }
+                    if (filtro.catalogo != DtoLibInventario.Producto.Enumerados.EnumCatalogo.SnDefinir)
+                    {
+                        var _f = "1";
+                        if (filtro.catalogo == DtoLibInventario.Producto.Enumerados.EnumCatalogo.No)
+                        {
+                            _f = "0";
+                        }
+                        sql += " and p.estatus_catalogo=@estatusCatalogo ";
+                        pD.ParameterName = "@estatusCatalogo";
+                        pD.Value = _f;
+                    }
 
-                    var q = cnn.productos.SqlQuery(sql, p1,p2,p3,p4,p5,p6,p7,p8,p9,pA,pB,pC).ToList();
+                    var q = cnn.productos.SqlQuery(sql, p1,p2,p3,p4,p5,p6,p7,p8,p9,pA,pB,pC,pD).ToList();
                     //if (filtro.autoDepartamento != "")
                     //{
                     //    q = q.Where(w => w.auto_departamento == filtro.autoDepartamento).ToList();
@@ -361,7 +373,9 @@ namespace ProvLibInventario
                                 var _empaque = s.productos_medida2.nombre;
                                 var _marca = s.productos_marca.nombre;
                                 var _tasaIvaDescripcion = s.empresa_tasas.nombre;
-
+                                var _catalogo = DtoLibInventario.Producto.Enumerados.EnumCatalogo.No;
+                                if (s.estatus_catalogo == "1")
+                                    _catalogo = DtoLibInventario.Producto.Enumerados.EnumCatalogo.Si;
                                 var _esPesado = DtoLibInventario.Producto.Enumerados.EnumPesado.No;
                                 if (s.estatus_pesado == "1")
                                 {
@@ -426,6 +440,7 @@ namespace ProvLibInventario
                                     tasaIvaDescripcion = _tasaIvaDescripcion,
                                     esPesado = _esPesado,
                                     enOferta = _enOferta,
+                                    activarCatalogo=_catalogo,
                                 };
                                 return r;
                             }).ToList();
@@ -629,7 +644,7 @@ namespace ProvLibInventario
             return rt;
         }
 
-        DtoLib.ResultadoLista<DtoLibInventario.Producto.Estatus.Lista.Resumen> ILibInventario.IProducto.Producto_Estatus_Lista()
+        public DtoLib.ResultadoLista<DtoLibInventario.Producto.Estatus.Lista.Resumen> Producto_Estatus_Lista()
         {
             var result = new DtoLib.ResultadoLista<DtoLibInventario.Producto.Estatus.Lista.Resumen>();
             var list = new List<DtoLibInventario.Producto.Estatus.Lista.Resumen>();
@@ -1107,6 +1122,12 @@ namespace ProvLibInventario
                     {
                         _imagen = entPrdExtra.imagen;
                     }
+                    var _catalogo= DtoLibInventario.Producto.Enumerados.EnumCatalogo.No;
+                    if (entPrd.estatus_catalogo.Trim().ToUpper()=="1")
+                    {
+                        _catalogo= DtoLibInventario.Producto.Enumerados.EnumCatalogo.Si;
+                    }
+
                     var f = new DtoLibInventario.Producto.Editar.Obtener.Ficha()
                     {
                         auto = entPrd.auto,
@@ -1132,6 +1153,8 @@ namespace ProvLibInventario
                         esPesado= _pesado,
                         plu=entPrd.plu,
                         diasEmpaque=entPrd.dias_garantia,
+
+                        activarCatalogo=_catalogo,
                     };
                     var listPrdAlt = new List<DtoLibInventario.Producto.Editar.Obtener.FichaAlterno>();
                     foreach (var rg in entPrdAlterno) 
@@ -1195,6 +1218,7 @@ namespace ProvLibInventario
                         entPrd.estatus_pesado = ficha.esPesado;
                         entPrd.plu = ficha.plu;
                         entPrd.dias_garantia = ficha.diasEmpaque;
+                        entPrd.estatus_catalogo = ficha.estatusCatalogo;
                         cnn.SaveChanges();
 
                         if (entPrdExtra != null) 
@@ -1372,6 +1396,7 @@ namespace ProvLibInventario
                         entPrd.fecha_baja= fechaNula.Date;
                         entPrd.estatus = ficha.estatus;
                         entPrd.tasa = ficha.tasa;
+                        entPrd.estatus_catalogo = ficha.estatusCatalogo;
 
                         entPrd.costo_proveedor = 0.0m;
                         entPrd.costo_proveedor_und = 0.0m;
@@ -1429,7 +1454,6 @@ namespace ProvLibInventario
                         entPrd.estatus_pesado=ficha.esPesado;
                         entPrd.plu=ficha.plu;
                         entPrd.estatus_compuesto= "0";
-                        entPrd.estatus_catalogo= "0";
                         entPrd.estatus_cambio= "0";
                         entPrd.fecha_movimiento=fechaNula;
                         entPrd.fecha_ult_venta= fechaNula;
@@ -2257,6 +2281,11 @@ namespace ProvLibInventario
                     {
                         _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Suspendido;
                     }
+                    var _catalogo = DtoLibInventario.Producto.Enumerados.EnumCatalogo.No;
+                    if (entPrd.estatus_catalogo.Trim().ToUpper() == "1")
+                    {
+                        _catalogo = DtoLibInventario.Producto.Enumerados.EnumCatalogo.Si;
+                    }
                     var _admDivisa = entPrd.estatus_divisa.Trim().ToUpper() == "1" ?
                         DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.Si :
                         DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.No;
@@ -2312,6 +2341,7 @@ namespace ProvLibInventario
                         autoGrupo = entPrd.auto_grupo,
                         autoMarca = entPrd.auto_marca,
                         decimales = _decimales,
+                        activarCatalogo=_catalogo,
                     };
 
                     rt.Entidad = id;

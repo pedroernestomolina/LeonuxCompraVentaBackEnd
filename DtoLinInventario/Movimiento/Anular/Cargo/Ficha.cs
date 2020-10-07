@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace ProvLibInventario
+namespace DtoLibInventario.Movimiento.Anular.Cargo
 {
-
-    public class ReporteDocumentos
+    
+    public class Ficha : FichaBase
     {
     }
 
