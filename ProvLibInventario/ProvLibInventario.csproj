@@ -67,6 +67,7 @@
     <Compile Include="Kardex.cs" />
     <Compile Include="Marca.cs" />
     <Compile Include="Movimiento.cs" />
+    <Compile Include="Permisos.cs" />
     <Compile Include="Precio.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

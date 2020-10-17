@@ -13,7 +13,7 @@ namespace ConsoleInventario
 
         static void Main(string[] args)
         {
-            ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("192.168.100.10","panda");
+            ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("localhost","pita");
 
             //var filt = new DtoLibInventario.Producto.Filtro();
             //filt.catalogo= DtoLibInventario.Producto.Enumerados.EnumCatalogo.Si ;
@@ -139,6 +139,15 @@ namespace ConsoleInventario
             //filt.Modulo = DtoLibInventario.Reportes.enumerados.EnumModulo.Ventas ;
             //filt.autoDeposito = "0000000005";
             //var rt1 = invPrv.Reportes_Top20(filt);
+
+            //var rt1 = invPrv.Permiso_AsignarDepositos("0000000001");
+            //var rt1 = invPrv.Permiso_PedirClaveAcceso_NivelMaximo();
+            //var rt2 = invPrv.Permiso_PedirClaveAcceso_NivelMedio();
+            //var rt3 = invPrv.Permiso_PedirClaveAcceso_NivelMinimo();
+
+            //var ficha = new DtoLibInventario.Usuario.Buscar.Ficha() { clave = "123", codigo = "c1" };
+            //var rt1 = invPrv.Usuario_Buscar(ficha);
+
         }
 
     }

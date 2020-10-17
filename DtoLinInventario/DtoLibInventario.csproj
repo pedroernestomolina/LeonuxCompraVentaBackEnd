@@ -116,6 +116,8 @@
     <Compile Include="Movimiento\Verificar\ExistenciaDisponible\Ficha.cs" />
     <Compile Include="Movimiento\Ver\Detalle.cs" />
     <Compile Include="Movimiento\Ver\Ficha.cs" />
+    <Compile Include="Permiso\Enumerados.cs" />
+    <Compile Include="Permiso\Ficha.cs" />
     <Compile Include="Precio\Editar\Ficha.cs" />
     <Compile Include="Precio\Editar\FichaPrecio.cs" />
     <Compile Include="Precio\Editar\FichaHistorica.cs" />
@@ -177,6 +179,7 @@
     <Compile Include="Tool\AjusteNivelMinimoMaximo\Ajustar\Ficha.cs" />
     <Compile Include="Tool\AjusteNivelMinimoMaximo\Capturar\Ficha.cs" />
     <Compile Include="Tool\AjusteNivelMinimoMaximo\Capturar\Filtro.cs" />
+    <Compile Include="Usuario\Buscar\Ficha.cs" />
     <Compile Include="Usuario\Ficha.cs" />
     <Compile Include="Visor\Ajuste\Ficha.cs" />
     <Compile Include="Visor\Ajuste\FichaDetalle.cs" />
