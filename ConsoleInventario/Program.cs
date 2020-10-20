@@ -148,6 +148,11 @@ namespace ConsoleInventario
             //var ficha = new DtoLibInventario.Usuario.Buscar.Ficha() { clave = "123", codigo = "c1" };
             //var rt1 = invPrv.Usuario_Buscar(ficha);
 
+            //var filt = new DtoLibInventario.Reportes.MaestroExistencia.Filtro();
+            //filt.autoDeposito = "0000000004";
+            //filt.autoDepartamento = "0000000003";
+            //var ficha = invPrv.Reportes_MaestroExistencia(filt);
+
         }
 
     }

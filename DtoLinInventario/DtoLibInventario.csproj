@@ -165,6 +165,8 @@
     <Compile Include="Proveedor\Lista\Filtro.cs" />
     <Compile Include="Proveedor\Lista\Resumen.cs" />
     <Compile Include="Reportes\enumerados.cs" />
+    <Compile Include="Reportes\MaestroExistencia\Ficha.cs" />
+    <Compile Include="Reportes\MaestroExistencia\Filtro.cs" />
     <Compile Include="Reportes\MaestroInventario\Ficha.cs" />
     <Compile Include="Reportes\MaestroInventario\Filtro.cs" />
     <Compile Include="Reportes\MaestroProducto\Ficha.cs" />

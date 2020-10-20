@@ -307,6 +307,52 @@ namespace ProvLibInventario
             return rt;
         }
 
+        public DtoLib.ResultadoLista<DtoLibInventario.Reportes.MaestroExistencia.Ficha> Reportes_MaestroExistencia(DtoLibInventario.Reportes.MaestroExistencia.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibInventario.Reportes.MaestroExistencia.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var sql = "SELECT p.auto as autoprd, p.codigo as codigoPrd, p.nombre as nombrePrd, p.estatus as estatusPrd, " +
+                        "pdep.fisica as exFisica, edep.auto as autoDep, edep.codigo as codigoDep, edep.nombre as nombreDep, " +
+                        "pmed.decimales as decimales "+
+                        "FROM productos as p " +
+                        "join productos_medida as pmed on p.auto_empaque_compra=pmed.auto "+
+                        "left join productos_deposito as pdep on pdep.auto_producto=p.auto " +
+                        "left join empresa_depositos as edep on edep.auto=pdep.auto_deposito " +
+                        "where p.estatus='Activo' and p.categoria<>'Bien de Servicio' ";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    if (filtro.autoDepartamento != "")
+                    {
+                        sql += " and p.auto_departamento=@autoDepartamento ";
+                        p1.ParameterName = "@autoDepartamento";
+                        p1.Value = filtro.autoDepartamento;
+                    }
+                    if (filtro.autoDeposito != "")
+                    {
+                        sql += " and pdep.auto_deposito=@autoDeposito ";
+                        p2.ParameterName = "@autoDeposito";
+                        p2.Value = filtro.autoDeposito;
+                    }
+
+                    var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.MaestroExistencia.Ficha>(sql,p1,p2).ToList();
+                    rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
     }
 
 }
