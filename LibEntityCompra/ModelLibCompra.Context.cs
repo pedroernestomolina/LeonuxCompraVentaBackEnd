@@ -27,5 +27,8 @@ namespace LibEntityCompra
     
         public virtual DbSet<compras> compras { get; set; }
         public virtual DbSet<proveedores> proveedores { get; set; }
+        public virtual DbSet<empresa_sucursal> empresa_sucursal { get; set; }
+        public virtual DbSet<empresa_depositos> empresa_depositos { get; set; }
+        public virtual DbSet<empresa_grupo> empresa_grupo { get; set; }
     }
 }

@@ -14,6 +14,7 @@ D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\ProvLibVenta.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\ProvSqLitePosOffLine.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\DtoLibPosOffLine.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\EntityFramework.dll
+D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\LibEntityCompra.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\MySql.Data.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\LibEntitySqLitePosOffLine.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\DtoLibCompra.pdb
@@ -29,6 +30,7 @@ D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\ProvLibVenta.pdb
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\ProvSqLitePosOffLine.pdb
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\DtoLibPosOffLine.pdb
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\EntityFramework.xml
+D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\LibEntityCompra.pdb
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\LibEntitySqLitePosOffLine.pdb
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\obj\Debug\ConsolePrueba.csprojResolveAssemblyReference.cache
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\obj\Debug\ConsolePrueba.exe

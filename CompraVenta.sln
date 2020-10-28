@@ -89,6 +89,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleCajaBanco", "Console
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibEntityCompra", "LibEntityCompra\LibEntityCompra.csproj", "{0DD33501-ED43-4CFA-835D-50E3C28DA628}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleCompra", "ConsoleCompra\ConsoleCompra.csproj", "{C973A5A0-0017-449D-BBBD-4B46BEBCD5DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -223,6 +225,10 @@ Global
 		{0DD33501-ED43-4CFA-835D-50E3C28DA628}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DD33501-ED43-4CFA-835D-50E3C28DA628}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DD33501-ED43-4CFA-835D-50E3C28DA628}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C973A5A0-0017-449D-BBBD-4B46BEBCD5DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C973A5A0-0017-449D-BBBD-4B46BEBCD5DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C973A5A0-0017-449D-BBBD-4B46BEBCD5DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C973A5A0-0017-449D-BBBD-4B46BEBCD5DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -270,5 +276,6 @@ Global
 		{FB541174-1C55-4180-ACC0-F710FD03FECD} = {D28C6A37-ED89-4D76-894E-1AD4BE79BB0D}
 		{E8C207F0-2AB3-44F7-A98F-3DC1B30B84BD} = {E01C215A-C585-442F-B9E4-7CBB0FA2AEDF}
 		{0DD33501-ED43-4CFA-835D-50E3C28DA628} = {C72FBFDA-E436-4729-838C-70576381FF6D}
+		{C973A5A0-0017-449D-BBBD-4B46BEBCD5DE} = {E01C215A-C585-442F-B9E4-7CBB0FA2AEDF}
 	EndGlobalSection
 EndGlobal

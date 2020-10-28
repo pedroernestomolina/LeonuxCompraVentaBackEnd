@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="compraModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="compraModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="compras">
           <Key>
             <PropertyRef Name="auto" />
@@ -95,6 +95,33 @@
           <Property Name="estatus_cierre_contable" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="empresa_depositos">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="codigo_sucursal" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="empresa_grupo">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="idPrecio" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="empresa_sucursal">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="autoDepositoPrincipal" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="autoEmpresaGrupo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="120" Nullable="false" />
+        </EntityType>
         <EntityType Name="proveedores">
           <Key>
             <PropertyRef Name="auto" />
@@ -150,14 +177,16 @@
         </Association>
         <EntityContainer Name="compraModelStoreContainer">
           <EntitySet Name="compras" EntityType="Self.compras" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="empresa_depositos" EntityType="Self.empresa_depositos" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="empresa_grupo" EntityType="Self.empresa_grupo" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
           <EntitySet Name="proveedores" EntityType="Self.proveedores" Schema="pita" store:Type="Tables" />
           <AssociationSet Name="compras_ibfk_1" Association="Self.compras_ibfk_1">
             <End Role="proveedores" EntitySet="proveedores" />
             <End Role="compras" EntitySet="compras" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="compraModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -313,7 +342,37 @@
             <End Role="proveedores" EntitySet="proveedores" />
             <End Role="compras" EntitySet="compras" />
           </AssociationSet>
+          <EntitySet Name="empresa_sucursal" EntityType="compraModel.empresa_sucursal" />
+          <EntitySet Name="empresa_depositos" EntityType="compraModel.empresa_depositos" />
+          <EntitySet Name="empresa_grupo" EntityType="compraModel.empresa_grupo" />
         </EntityContainer>
+        <EntityType Name="empresa_sucursal">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="autoDepositoPrincipal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="autoEmpresaGrupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="empresa_depositos">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_sucursal" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="empresa_grupo">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="idPrecio" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -450,6 +509,36 @@
                 <ScalarProperty Name="rif" ColumnName="rif" />
                 <ScalarProperty Name="ctabanco" ColumnName="ctabanco" />
                 <ScalarProperty Name="nj" ColumnName="nj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empresa_sucursal">
+            <EntityTypeMapping TypeName="compraModel.empresa_sucursal">
+              <MappingFragment StoreEntitySet="empresa_sucursal">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="autoEmpresaGrupo" ColumnName="autoEmpresaGrupo" />
+                <ScalarProperty Name="autoDepositoPrincipal" ColumnName="autoDepositoPrincipal" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empresa_depositos">
+            <EntityTypeMapping TypeName="compraModel.empresa_depositos">
+              <MappingFragment StoreEntitySet="empresa_depositos">
+                <ScalarProperty Name="codigo_sucursal" ColumnName="codigo_sucursal" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empresa_grupo">
+            <EntityTypeMapping TypeName="compraModel.empresa_grupo">
+              <MappingFragment StoreEntitySet="empresa_grupo">
+                <ScalarProperty Name="idPrecio" ColumnName="idPrecio" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

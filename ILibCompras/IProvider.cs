@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ILibCompras
 {
 
-    public interface IProvider: ICompra
+    public interface IProvider: ICompra, IDeposito, ISucursal, IProveedor
     {
     }
 
