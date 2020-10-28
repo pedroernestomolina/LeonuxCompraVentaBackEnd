@@ -75,10 +75,6 @@
       <Project>{aa9b9896-e936-4ad5-8be1-646b1e2ffd0b}</Project>
       <Name>IPosOffLine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibEntityCompras\LibEntityCompras.csproj">
-      <Project>{75d3e2b3-c5bc-4960-810d-710f279abcd3}</Project>
-      <Name>LibEntityCompras</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LibEntityVentas\LibEntityVentas.csproj">
       <Project>{a55414bb-7da6-4b38-918b-c258963ab701}</Project>
       <Name>LibEntityVentas</Name>
