@@ -185,6 +185,7 @@ namespace ProvLibInventario
                 result.Mensaje = e.Message;
                 result.Result = DtoLib.Enumerados.EnumResult.isError;
             }
+
             return result;
         }
 

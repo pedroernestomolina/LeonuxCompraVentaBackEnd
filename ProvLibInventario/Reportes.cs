@@ -203,7 +203,7 @@ namespace ProvLibInventario
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
-                    var sql = "SELECT abs(sum(pk.cantidad_und*pk.signo)) as cntUnd, p.nombre, pm.decimales as decimales, " +
+                    var sql = "SELECT abs(sum(pk.cantidad_und*pk.signo)) as cntUnd, p.nombre, p.codigo, pm.decimales as decimales, " +
                         "p.estatus_pesado as estatusPesado, count(*) as cntDoc "+
                         "FROM productos_kardex as pk " +
                         "join productos as p on pk.auto_producto=p.auto " +
@@ -235,6 +235,7 @@ namespace ProvLibInventario
                             break;
                         case DtoLibInventario.Reportes.enumerados.EnumModulo.Inventario:
                             modulo="Inventario";
+                            sql += " and pk.siglas='AJU' ";
                             break;
                     }
                     p3.ParameterName = "@p3";

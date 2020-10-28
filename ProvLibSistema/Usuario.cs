@@ -438,6 +438,44 @@ namespace ProvLibSistema
             return result;
         }
 
+        DtoLib.ResultadoEntidad<DtoLibSistema.Usuario.Cargar.Ficha> ILibSistema.IUsuario.Usuario_Buscar(DtoLibSistema.Usuario.Buscar.Ficha ficha)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibSistema.Usuario.Cargar.Ficha>();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    var sql = "SELECT usu.auto as autoUsu, usu.nombre as nombreUsu , usu.apellido as apellidoUsu, " +
+                        "usu.codigo as codigoUsu, usu.estatus as estatusUsu, usu.auto_grupo as autoGru, gru.nombre as nombreGru " +
+                        "FROM usuarios as usu " +
+                        "join usuarios_grupo as gru " +
+                        "on usu.auto_grupo=gru.auto " +
+                        "where usu.codigo=@p1 and usu.clave=@p2";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.codigo);
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter("@p2", ficha.clave);
+                    var ent = cnn.Database.SqlQuery<DtoLibSistema.Usuario.Cargar.Ficha>(sql, p1, p2).FirstOrDefault();
+
+                    if (ent == null)
+                    {
+                        result.Mensaje = "USUARIO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    result.Entidad = ent;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

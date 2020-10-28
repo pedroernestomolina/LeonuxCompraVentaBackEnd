@@ -13,7 +13,7 @@ namespace ConsoleSistema
 
         static void Main(string[] args)
         {
-            ILibSistema.IProvider sistPrv = new ProvLibSistema.Provider("192.168.100.10","pita");
+            ILibSistema.IProvider sistPrv = new ProvLibSistema.Provider("localhost","pita");
             //var r01 = sistPrv.SucursalGrupo_GetLista();
             //var ficha = new DtoLibSistema.GrupoSucursal.Editar()
             //{
@@ -84,6 +84,15 @@ namespace ConsoleSistema
             //var r01 = sistPrv.Inicializar_BD(ficha);
             //var r01 = sistPrv.Sucursal_GeneraCodigoAutomatico();
             //var r01 = sistPrv.Deposito_GeneraCodigoAutomatico ();
+
+            //var r01 = sistPrv.Empresa_Datos();
+            //var ficha = new DtoLibSistema.Usuario.Buscar.Ficha() { codigo = "01", clave = "" };
+            //var r01 = sistPrv.Usuario_Buscar(ficha);
+            //var r01 = sistPrv.Permiso_ToolSistema("0000000004");
+            //var r01 = sistPrv.Configuracion_TasaRecepcionPos();
+            //var ficha = new DtoLibSistema.Configuracion.ActualizarTasaRecepcionPos.Ficha() { ValorNuevo = 520000 };
+            //var r01 = sistPrv.Configuracion_Actualizar_TasaRecepcionPos (ficha);
+            var r01 = sistPrv.Configuracion_Actualizar_TasaDivisa_CapturarData();
         }
 
     }

@@ -39,11 +39,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuracion\ActualizarTasaDivisa\ActualizarData\Ficha.cs" />
+    <Compile Include="Configuracion\ActualizarTasaDivisa\ActualizarData\FichaProductoCostoPrecioDivisa.cs" />
+    <Compile Include="Configuracion\ActualizarTasaDivisa\ActualizarData\FichaProductoCostoSinDivisa.cs" />
+    <Compile Include="Configuracion\ActualizarTasaDivisa\ActualizarData\FichaProductoPrecioHistorico.cs" />
+    <Compile Include="Configuracion\ActualizarTasaDivisa\CapturarData\Ficha.cs" />
+    <Compile Include="Configuracion\ActualizarTasaRecepcionPos\Ficha.cs" />
+    <Compile Include="Configuracion\Enumerados.cs" />
     <Compile Include="Configuracion\InicializarBD\Ficha.cs" />
     <Compile Include="Deposito\Agregar.cs" />
     <Compile Include="Deposito\Editar.cs" />
     <Compile Include="Deposito\Ficha.cs" />
     <Compile Include="Deposito\Resumen.cs" />
+    <Compile Include="Empresa\Data\Ficha.cs" />
     <Compile Include="Funciones\Resumen.cs" />
     <Compile Include="GrupoSucursal\Agregar.cs" />
     <Compile Include="GrupoSucursal\Editar.cs" />
@@ -54,6 +62,8 @@
     <Compile Include="GrupoUsuario\Ficha.cs" />
     <Compile Include="GrupoUsuario\Permiso.cs" />
     <Compile Include="GrupoUsuario\Resumen.cs" />
+    <Compile Include="Permiso\Enumerados.cs" />
+    <Compile Include="Permiso\Ficha.cs" />
     <Compile Include="Precio\Etiquetar\Actualizar.cs" />
     <Compile Include="Precio\Etiquetar\Ficha.cs" />
     <Compile Include="Precio\Ficha.cs" />
@@ -66,6 +76,8 @@
     <Compile Include="Sucursal\Resumen.cs" />
     <Compile Include="Usuario\Activar.cs" />
     <Compile Include="Usuario\Agregar.cs" />
+    <Compile Include="Usuario\Buscar\Ficha.cs" />
+    <Compile Include="Usuario\Cargar\Ficha.cs" />
     <Compile Include="Usuario\Editar.cs" />
     <Compile Include="Usuario\Enumerados.cs" />
     <Compile Include="Usuario\Ficha.cs" />

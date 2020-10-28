@@ -12,6 +12,12 @@
         <EntityTypeShape EntityType="sistemaModel.usuarios" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="sistemaModel.sistema_funciones" Width="1.5" PointX="5.375" PointY="4.75" />
         <EntityTypeShape EntityType="sistemaModel.usuarios_grupo" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="sistemaModel.sistema_configuracion" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="sistemaModel.productos" Width="1.5" PointX="7.375" PointY="5.75" />
+        <EntityTypeShape EntityType="sistemaModel.productos_costos" Width="1.5" PointX="9.625" PointY="15" />
+        <EntityTypeShape EntityType="sistemaModel.productos_precios" Width="1.5" PointX="9.625" PointY="11.375" />
+        <AssociationConnector Association="sistemaModel.productos_costos_ibfk_1" />
+        <AssociationConnector Association="sistemaModel.productos_precios_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

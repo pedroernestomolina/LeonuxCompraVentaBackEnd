@@ -57,9 +57,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuracion.cs" />
     <Compile Include="Deposito.cs" />
     <Compile Include="Funcion.cs" />
     <Compile Include="GrupoUsuario.cs" />
+    <Compile Include="Permisos.cs" />
     <Compile Include="Precio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider.cs" />

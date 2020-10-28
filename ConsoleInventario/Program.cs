@@ -153,6 +153,7 @@ namespace ConsoleInventario
             //filt.autoDepartamento = "0000000003";
             //var ficha = invPrv.Reportes_MaestroExistencia(filt);
 
+            //var ficha = invPrv.Empresa_Datos ();
         }
 
     }

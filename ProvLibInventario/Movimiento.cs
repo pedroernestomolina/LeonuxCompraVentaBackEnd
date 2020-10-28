@@ -431,40 +431,40 @@ namespace ProvLibInventario
                         };
 
 
-                        //ACTUALIZAR COSTO
-                        foreach (var dt in ficha.prdCosto) 
-                        {
-                            var entPrd = cnn.productos.Find(dt.autoProducto);
-                            if (entPrd == null)
-                            {
-                                result.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO "+Environment.NewLine+dt.autoProducto;
-                                result.Result = DtoLib.Enumerados.EnumResult.isError;
-                                return result;
-                            }
+                        ////ACTUALIZAR COSTO
+                        //foreach (var dt in ficha.prdCosto) 
+                        //{
+                        //    var entPrd = cnn.productos.Find(dt.autoProducto);
+                        //    if (entPrd == null)
+                        //    {
+                        //        result.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO "+Environment.NewLine+dt.autoProducto;
+                        //        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        //        return result;
+                        //    }
 
-                            var montoActualInvPromedioUnd = 0.0m;
-                            var cp=dt.costoFinal;
-                            var cpu=dt.costoFinalUnd;
-                            var existenciaActualUnd = cnn.productos_deposito.Where(s=>s.auto_producto==dt.autoProducto).Sum(s=>s.fisica);
-                            if (existenciaActualUnd  > 0) 
-                            {
-                                montoActualInvPromedioUnd = existenciaActualUnd * entPrd.costo_promedio_und;
-                                var x1 = montoActualInvPromedioUnd + dt.importeEntradaUnd;
-                                var x2 = existenciaActualUnd + dt.cantidadEntranteUnd;
+                        //    var montoActualInvPromedioUnd = 0.0m;
+                        //    var cp=dt.costoFinal;
+                        //    var cpu=dt.costoFinalUnd;
+                        //    var existenciaActualUnd = cnn.productos_deposito.Where(s=>s.auto_producto==dt.autoProducto).Sum(s=>s.fisica);
+                        //    if (existenciaActualUnd  > 0) 
+                        //    {
+                        //        montoActualInvPromedioUnd = existenciaActualUnd * entPrd.costo_promedio_und;
+                        //        var x1 = montoActualInvPromedioUnd + dt.importeEntradaUnd;
+                        //        var x2 = existenciaActualUnd + dt.cantidadEntranteUnd;
 
-                                cpu = x1 / x2 ;
-                                cp = cpu / entPrd.contenido_compras;
-                            }
+                        //        cpu = x1 / x2 ;
+                        //        cp = cpu / entPrd.contenido_compras;
+                        //    }
 
-                            entPrd.costo = dt.costoFinal;
-                            entPrd.costo_und = dt.costoFinalUnd;
-                            entPrd.costo_promedio = cp ;
-                            entPrd.costo_promedio_und = cpu ;
-                            entPrd.divisa = dt.costoDivisa;
-                            entPrd.fecha_ult_costo = fechaSistema.Date;
-                            entPrd.fecha_cambio = fechaSistema.Date;
-                            cnn.SaveChanges();
-                        }
+                        //    entPrd.costo = dt.costoFinal;
+                        //    entPrd.costo_und = dt.costoFinalUnd;
+                        //    entPrd.costo_promedio = cp ;
+                        //    entPrd.costo_promedio_und = cpu ;
+                        //    entPrd.divisa = dt.costoDivisa;
+                        //    entPrd.fecha_ult_costo = fechaSistema.Date;
+                        //    entPrd.fecha_cambio = fechaSistema.Date;
+                        //    cnn.SaveChanges();
+                        //}
 
                         //ACTUALIZAR DEPOSITO-ENTRADA MERCANCIA
                         foreach (var dt in ficha.prdDeposito)
@@ -481,122 +481,122 @@ namespace ProvLibInventario
                             cnn.SaveChanges();
                         };
 
-                        // REGISTRAR HISTORICO COSTO
-                        foreach (var dt in ficha.prdCostoHistorico)
-                        {
-                            var entPrdCostoHistorico = new productos_costos()
-                            {
-                                auto_producto = dt.autoProducto,
-                                nota = dt.nota,
-                                fecha = fechaSistema.Date,
-                                estacion = ficha.estacion,
-                                hora = fechaSistema.ToShortTimeString(),
-                                usuario = ficha.usuario,
-                                costo = dt.costo,
-                                costo_divisa = dt.divisa,
-                                divisa = dt.tasaCambio,
-                                serie = dt.serie,
-                                documento = numDoc,
-                            };
-                            cnn.productos_costos.Add(entPrdCostoHistorico);
-                            cnn.SaveChanges();
-                        }
+                        //// REGISTRAR HISTORICO COSTO
+                        //foreach (var dt in ficha.prdCostoHistorico)
+                        //{
+                        //    var entPrdCostoHistorico = new productos_costos()
+                        //    {
+                        //        auto_producto = dt.autoProducto,
+                        //        nota = dt.nota,
+                        //        fecha = fechaSistema.Date,
+                        //        estacion = ficha.estacion,
+                        //        hora = fechaSistema.ToShortTimeString(),
+                        //        usuario = ficha.usuario,
+                        //        costo = dt.costo,
+                        //        costo_divisa = dt.divisa,
+                        //        divisa = dt.tasaCambio,
+                        //        serie = dt.serie,
+                        //        documento = numDoc,
+                        //    };
+                        //    cnn.productos_costos.Add(entPrdCostoHistorico);
+                        //    cnn.SaveChanges();
+                        //}
 
 
-                        // ACTUALIZAR PRECIOS 
-                        foreach (var dt in ficha.prdPrecio)
-                        {
-                            var entPrd = cnn.productos.Find(dt.autoProducto);
-                            if (entPrd == null)
-                            {
-                                result.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO " + Environment.NewLine + dt.autoProducto;
-                                result.Result = DtoLib.Enumerados.EnumResult.isError;
-                                return result;
-                            }
+                        //// ACTUALIZAR PRECIOS 
+                        //foreach (var dt in ficha.prdPrecio)
+                        //{
+                        //    var entPrd = cnn.productos.Find(dt.autoProducto);
+                        //    if (entPrd == null)
+                        //    {
+                        //        result.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO " + Environment.NewLine + dt.autoProducto;
+                        //        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        //        return result;
+                        //    }
 
-                            if (dt.precio_1 != null) 
-                            {
-                                entPrd.precio_1 = dt.precio_1.precioNeto;
-                                entPrd.pdf_1 = dt.precio_1.precio_divisa_full;
-                            }
-                            if (dt.precio_2 != null)
-                            {
-                                entPrd.precio_2 = dt.precio_2.precioNeto;
-                                entPrd.pdf_2 = dt.precio_2.precio_divisa_full;
-                            }
-                            if (dt.precio_3 != null)
-                            {
-                                entPrd.precio_3 = dt.precio_3.precioNeto;
-                                entPrd.pdf_3 = dt.precio_3.precio_divisa_full;
-                            }
-                            if (dt.precio_4 != null)
-                            {
-                                entPrd.precio_4 = dt.precio_4.precioNeto;
-                                entPrd.pdf_4 = dt.precio_4.precio_divisa_full;
-                            }
-                            if (dt.precio_5 != null)
-                            {
-                                entPrd.precio_pto = dt.precio_5 .precioNeto;
-                                entPrd.pdf_pto = dt.precio_5 .precio_divisa_full;
-                            }
+                        //    if (dt.precio_1 != null) 
+                        //    {
+                        //        entPrd.precio_1 = dt.precio_1.precioNeto;
+                        //        entPrd.pdf_1 = dt.precio_1.precio_divisa_full;
+                        //    }
+                        //    if (dt.precio_2 != null)
+                        //    {
+                        //        entPrd.precio_2 = dt.precio_2.precioNeto;
+                        //        entPrd.pdf_2 = dt.precio_2.precio_divisa_full;
+                        //    }
+                        //    if (dt.precio_3 != null)
+                        //    {
+                        //        entPrd.precio_3 = dt.precio_3.precioNeto;
+                        //        entPrd.pdf_3 = dt.precio_3.precio_divisa_full;
+                        //    }
+                        //    if (dt.precio_4 != null)
+                        //    {
+                        //        entPrd.precio_4 = dt.precio_4.precioNeto;
+                        //        entPrd.pdf_4 = dt.precio_4.precio_divisa_full;
+                        //    }
+                        //    if (dt.precio_5 != null)
+                        //    {
+                        //        entPrd.precio_pto = dt.precio_5 .precioNeto;
+                        //        entPrd.pdf_pto = dt.precio_5 .precio_divisa_full;
+                        //    }
 
-                            cnn.SaveChanges();
-                        }
-
-
-                        // ACTUALIZAR MARGEN UTILIDAD
-                        foreach (var dt in ficha.prdPrecioMargen)
-                        {
-                            var entPrd = cnn.productos.Find(dt.autoProducto);
-                            if (entPrd == null)
-                            {
-                                result.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO " + Environment.NewLine + dt.autoProducto;
-                                result.Result = DtoLib.Enumerados.EnumResult.isError;
-                                return result;
-                            }
-
-                            if (dt.precio_1 != null)
-                            {
-                                entPrd.utilidad_1 = dt.precio_1.utilidad;
-                            }
-                            if (dt.precio_2 != null)
-                            {
-                                entPrd.utilidad_2 = dt.precio_2.utilidad;
-                            }
-                            if (dt.precio_3 != null)
-                            {
-                                entPrd.utilidad_3 = dt.precio_3.utilidad;
-                            }
-                            if (dt.precio_4 != null)
-                            {
-                                entPrd.utilidad_4 = dt.precio_4.utilidad;
-                            }
-                            if (dt.precio_5 != null)
-                            {
-                                entPrd.utilidad_pto = dt.precio_5.utilidad;
-                            }
-
-                            cnn.SaveChanges();
-                        }
+                        //    cnn.SaveChanges();
+                        //}
 
 
-                        // REGISTRAR HISTORICO PRECIO
-                        foreach (var dt in ficha.prdPrecioHistorico)
-                        {
-                            var entPrdPrecioHistorico = new productos_precios()
-                            {
-                                auto_producto = dt.autoProducto,
-                                nota = dt.nota,
-                                fecha = fechaSistema.Date,
-                                estacion = ficha.estacion,
-                                hora = fechaSistema.ToShortTimeString(),
-                                usuario = ficha.usuario,
-                                precio_id=dt.precio_id,
-                                precio=dt.precio,
-                            };
-                            cnn.productos_precios.Add(entPrdPrecioHistorico);
-                            cnn.SaveChanges();
-                        }
+                        //// ACTUALIZAR MARGEN UTILIDAD
+                        //foreach (var dt in ficha.prdPrecioMargen)
+                        //{
+                        //    var entPrd = cnn.productos.Find(dt.autoProducto);
+                        //    if (entPrd == null)
+                        //    {
+                        //        result.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO " + Environment.NewLine + dt.autoProducto;
+                        //        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        //        return result;
+                        //    }
+
+                        //    if (dt.precio_1 != null)
+                        //    {
+                        //        entPrd.utilidad_1 = dt.precio_1.utilidad;
+                        //    }
+                        //    if (dt.precio_2 != null)
+                        //    {
+                        //        entPrd.utilidad_2 = dt.precio_2.utilidad;
+                        //    }
+                        //    if (dt.precio_3 != null)
+                        //    {
+                        //        entPrd.utilidad_3 = dt.precio_3.utilidad;
+                        //    }
+                        //    if (dt.precio_4 != null)
+                        //    {
+                        //        entPrd.utilidad_4 = dt.precio_4.utilidad;
+                        //    }
+                        //    if (dt.precio_5 != null)
+                        //    {
+                        //        entPrd.utilidad_pto = dt.precio_5.utilidad;
+                        //    }
+
+                        //    cnn.SaveChanges();
+                        //}
+
+
+                        //// REGISTRAR HISTORICO PRECIO
+                        //foreach (var dt in ficha.prdPrecioHistorico)
+                        //{
+                        //    var entPrdPrecioHistorico = new productos_precios()
+                        //    {
+                        //        auto_producto = dt.autoProducto,
+                        //        nota = dt.nota,
+                        //        fecha = fechaSistema.Date,
+                        //        estacion = ficha.estacion,
+                        //        hora = fechaSistema.ToShortTimeString(),
+                        //        usuario = ficha.usuario,
+                        //        precio_id=dt.precio_id,
+                        //        precio=dt.precio,
+                        //    };
+                        //    cnn.productos_precios.Add(entPrdPrecioHistorico);
+                        //    cnn.SaveChanges();
+                        //}
 
                         ts.Complete();
                         result.Auto = autoMov;

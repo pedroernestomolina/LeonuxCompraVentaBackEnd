@@ -86,7 +86,19 @@
       <DependentUpon>ModelLibSistema.edmx</DependentUpon>
     </Compile>
     <Compile Include="Principal.cs" />
+    <Compile Include="productos.cs">
+      <DependentUpon>ModelLibSistema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_costos.cs">
+      <DependentUpon>ModelLibSistema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_precios.cs">
+      <DependentUpon>ModelLibSistema.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sistema_configuracion.cs">
+      <DependentUpon>ModelLibSistema.tt</DependentUpon>
+    </Compile>
     <Compile Include="sistema_funciones.cs">
       <DependentUpon>ModelLibSistema.tt</DependentUpon>
     </Compile>

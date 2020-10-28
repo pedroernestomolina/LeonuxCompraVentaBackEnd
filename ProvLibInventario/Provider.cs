@@ -59,6 +59,41 @@ namespace ProvLibInventario
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Empresa.Data.Ficha> Empresa_Datos()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Empresa.Data.Ficha>();
+
+            try
+            {
+                using (var ctx = new invEntities(_cnInv.ConnectionString))
+                {
+                    var ent = ctx.empresa.FirstOrDefault();
+                    if (ent == null) 
+                    {
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Mensaje = "REGISTRO ENTIDAD [ EMPRESA ] NO DEFINIDO";
+                        return result;
+                    }
+
+                    var nr = new DtoLibInventario.Empresa.Data.Ficha()
+                    {
+                        CiRif = ent.rif,
+                        DireccionFiscal = ent.direccion,
+                        Nombre = ent.nombre,
+                        Telefono = ent.telefono,
+                    };
+                    result.Entidad = nr;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

@@ -62,6 +62,7 @@
     <Compile Include="EmpaqueMedida\Editar.cs" />
     <Compile Include="EmpaqueMedida\Ficha.cs" />
     <Compile Include="EmpaqueMedida\Resumen.cs" />
+    <Compile Include="Empresa\Data\Ficha.cs" />
     <Compile Include="Grupo\Agregar.cs" />
     <Compile Include="Grupo\Editar.cs" />
     <Compile Include="Grupo\Ficha.cs" />
@@ -165,6 +166,8 @@
     <Compile Include="Proveedor\Lista\Filtro.cs" />
     <Compile Include="Proveedor\Lista\Resumen.cs" />
     <Compile Include="Reportes\enumerados.cs" />
+    <Compile Include="Reportes\Kardex\Ficha.cs" />
+    <Compile Include="Reportes\Kardex\Filtro.cs" />
     <Compile Include="Reportes\MaestroExistencia\Ficha.cs" />
     <Compile Include="Reportes\MaestroExistencia\Filtro.cs" />
     <Compile Include="Reportes\MaestroInventario\Ficha.cs" />

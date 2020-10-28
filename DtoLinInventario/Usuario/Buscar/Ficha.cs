@@ -14,6 +14,13 @@ namespace DtoLibInventario.Usuario.Buscar
         public string codigo { get; set; }
         public string clave { get; set; }
 
+
+        public Ficha()
+        {
+            codigo = "";
+            clave = "";
+        }
+
     }
 
 }

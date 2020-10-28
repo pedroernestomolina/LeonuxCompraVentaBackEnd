@@ -32,5 +32,9 @@ namespace LibEntitySistema
         public virtual DbSet<usuarios> usuarios { get; set; }
         public virtual DbSet<sistema_funciones> sistema_funciones { get; set; }
         public virtual DbSet<usuarios_grupo> usuarios_grupo { get; set; }
+        public virtual DbSet<sistema_configuracion> sistema_configuracion { get; set; }
+        public virtual DbSet<productos> productos { get; set; }
+        public virtual DbSet<productos_costos> productos_costos { get; set; }
+        public virtual DbSet<productos_precios> productos_precios { get; set; }
     }
 }

@@ -87,6 +87,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProvLibCajaBanco", "ProvLib
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleCajaBanco", "ConsoleCajaBanco\ConsoleCajaBanco.csproj", "{E8C207F0-2AB3-44F7-A98F-3DC1B30B84BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibEntityCompra", "LibEntityCompra\LibEntityCompra.csproj", "{0DD33501-ED43-4CFA-835D-50E3C28DA628}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -217,6 +219,10 @@ Global
 		{E8C207F0-2AB3-44F7-A98F-3DC1B30B84BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8C207F0-2AB3-44F7-A98F-3DC1B30B84BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8C207F0-2AB3-44F7-A98F-3DC1B30B84BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DD33501-ED43-4CFA-835D-50E3C28DA628}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DD33501-ED43-4CFA-835D-50E3C28DA628}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DD33501-ED43-4CFA-835D-50E3C28DA628}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DD33501-ED43-4CFA-835D-50E3C28DA628}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -263,5 +269,6 @@ Global
 		{459863D4-309B-4D60-85B3-F69D2DFC9F65} = {349476D4-790C-43FF-BD3D-318497CC7297}
 		{FB541174-1C55-4180-ACC0-F710FD03FECD} = {D28C6A37-ED89-4D76-894E-1AD4BE79BB0D}
 		{E8C207F0-2AB3-44F7-A98F-3DC1B30B84BD} = {E01C215A-C585-442F-B9E4-7CBB0FA2AEDF}
+		{0DD33501-ED43-4CFA-835D-50E3C28DA628} = {C72FBFDA-E436-4729-838C-70576381FF6D}
 	EndGlobalSection
 EndGlobal
