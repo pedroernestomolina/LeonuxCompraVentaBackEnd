@@ -13,7 +13,7 @@ namespace ConsoleCompra
 
         static void Main(string[] args)
         {
-            ILibCompras.IProvider compraPrv = new ProvLibCompra.Provider("localhost", "pita");
+            ILibCompras.IProvider compraPrv = new ProvLibCompra.Provider("localhost", "panda2");
             //var r01 = compraPrv.Sucursal_GetLista();
             //var r01 = compraPrv.Sucursal_GetFicha("0000000001");
             //var r01 = compraPrv.Deposito_GetLista();
@@ -23,6 +23,12 @@ namespace ConsoleCompra
             //    autoEstado= "0000000001",
             //};
             //var r01 = compraPrv.Proveedor_GetLista(filtro);
+            //var filtro = new DtoLibCompra.Producto.Lista.Filtro()
+            //{
+            //    cadena = "*maiz",
+            //    MetodoBusqueda = DtoLibCompra.Producto.Enumerados.EnumMetodoBusqueda.Nombre,
+            //};
+            //var r01 = compraPrv.Producto_GetLista(filtro);
         }
 
     }

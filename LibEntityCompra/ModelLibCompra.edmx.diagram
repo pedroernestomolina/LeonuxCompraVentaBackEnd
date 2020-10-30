@@ -11,6 +11,7 @@
         <EntityTypeShape EntityType="compraModel.empresa_sucursal" Width="1.5" PointX="8.5" PointY="5" />
         <EntityTypeShape EntityType="compraModel.empresa_depositos" Width="1.5" PointX="7.875" PointY="2.25" />
         <EntityTypeShape EntityType="compraModel.empresa_grupo" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="compraModel.productos" Width="1.5" PointX="20.125" PointY="5.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

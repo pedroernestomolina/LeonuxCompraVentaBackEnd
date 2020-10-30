@@ -8,4 +8,3 @@ D:\Proyectos FoxSystem\CompraVenta\LibEntitySistema\bin\Debug\EntityFramework.xm
 D:\Proyectos FoxSystem\CompraVenta\LibEntitySistema\bin\Debug\EntityFramework.SqlServer.xml
 D:\Proyectos FoxSystem\CompraVenta\LibEntitySistema\obj\Debug\LibEntitySistema.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntitySistema\obj\Debug\LibEntitySistema.pdb
-D:\Proyectos FoxSystem\CompraVenta\LibEntitySistema\obj\Debug\LibEntitySistema.csprojResolveAssemblyReference.cache

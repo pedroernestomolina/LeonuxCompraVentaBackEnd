@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="ICompra.cs" />
     <Compile Include="IDeposito.cs" />
+    <Compile Include="IProducto.cs" />
     <Compile Include="IProveedor.cs" />
     <Compile Include="IProvider.cs" />
     <Compile Include="ISucursal.cs" />

@@ -122,6 +122,102 @@
           <Property Name="codigo" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="120" Nullable="false" />
         </EntityType>
+        <EntityType Name="productos">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="nombre_corto" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="auto_departamento" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="auto_grupo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="auto_subgrupo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="auto_tasa" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="auto_empaque_compra" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="costo_proveedor" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="costo_proveedor_und" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="costo_importacion" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="costo_importacion_und" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="costo_varios" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="costo_varios_und" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="costo" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="costo_und" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="costo_promedio" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="costo_promedio_und" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="utilidad_1" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="utilidad_2" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="utilidad_3" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="utilidad_4" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="utilidad_pto" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="precio_1" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="precio_2" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="precio_3" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="precio_4" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="precio_pto" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="estatus_garantia" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="dias_garantia" Type="int" Nullable="false" />
+          <Property Name="modelo" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="precio_sugerido" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="comentarios" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="referencia" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="contenido_compras" Type="int" Nullable="false" />
+          <Property Name="estatus" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="advertencia" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="fecha_alta" Type="date" Nullable="false" />
+          <Property Name="fecha_baja" Type="date" Nullable="false" />
+          <Property Name="auto_codigo_plan" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="categoria" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="origen" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="alto" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="largo" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="ancho" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="peso" Type="decimal" Precision="7" Scale="3" Nullable="false" />
+          <Property Name="codigo_arancel" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="tasa_arancel" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="auto_marca" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="estatus_serial" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="estatus_oferta" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="inicio" Type="date" Nullable="false" />
+          <Property Name="fin" Type="date" Nullable="false" />
+          <Property Name="precio_oferta" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="estatus_web" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="estatus_corte" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="tasa" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="auto_precio_1" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="auto_precio_2" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="auto_precio_3" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="auto_precio_4" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="auto_precio_pto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="memo" Type="text" Nullable="false" />
+          <Property Name="contenido_1" Type="int" Nullable="false" />
+          <Property Name="contenido_2" Type="int" Nullable="false" />
+          <Property Name="contenido_3" Type="int" Nullable="false" />
+          <Property Name="contenido_4" Type="int" Nullable="false" />
+          <Property Name="contenido_pto" Type="int" Nullable="false" />
+          <Property Name="corte" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="estatus_pesado" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="plu" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="estatus_compuesto" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="estatus_catalogo" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="estatus_cambio" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="fecha_movimiento" Type="date" Nullable="false" />
+          <Property Name="fecha_cambio" Type="date" Nullable="false" />
+          <Property Name="fecha_ult_venta" Type="date" Nullable="false" />
+          <Property Name="presentacion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lugar" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="fecha_ult_costo" Type="date" Nullable="false" />
+          <Property Name="estatus_lote" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="fecha_lote" Type="date" Nullable="false" />
+          <Property Name="abc" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="divisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="estatus_divisa" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="pdf_1" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="pdf_2" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="pdf_3" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="pdf_4" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="pdf_pto" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="proveedores">
           <Key>
             <PropertyRef Name="auto" />
@@ -180,6 +276,7 @@
           <EntitySet Name="empresa_depositos" EntityType="Self.empresa_depositos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_grupo" EntityType="Self.empresa_grupo" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="productos" EntityType="Self.productos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="proveedores" EntityType="Self.proveedores" Schema="pita" store:Type="Tables" />
           <AssociationSet Name="compras_ibfk_1" Association="Self.compras_ibfk_1">
             <End Role="proveedores" EntitySet="proveedores" />
@@ -345,6 +442,7 @@
           <EntitySet Name="empresa_sucursal" EntityType="compraModel.empresa_sucursal" />
           <EntitySet Name="empresa_depositos" EntityType="compraModel.empresa_depositos" />
           <EntitySet Name="empresa_grupo" EntityType="compraModel.empresa_grupo" />
+          <EntitySet Name="productos" EntityType="compraModel.productos" />
         </EntityContainer>
         <EntityType Name="empresa_sucursal">
           <Key>
@@ -372,6 +470,102 @@
           <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
           <Property Name="idPrecio" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="productos">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_corto" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="auto_departamento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_grupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_subgrupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_tasa" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_empaque_compra" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="costo_proveedor" Type="Decimal" Nullable="false" />
+          <Property Name="costo_proveedor_und" Type="Decimal" Nullable="false" />
+          <Property Name="costo_importacion" Type="Decimal" Nullable="false" />
+          <Property Name="costo_importacion_und" Type="Decimal" Nullable="false" />
+          <Property Name="costo_varios" Type="Decimal" Nullable="false" />
+          <Property Name="costo_varios_und" Type="Decimal" Nullable="false" />
+          <Property Name="costo" Type="Decimal" Nullable="false" />
+          <Property Name="costo_und" Type="Decimal" Nullable="false" />
+          <Property Name="costo_promedio" Type="Decimal" Nullable="false" />
+          <Property Name="costo_promedio_und" Type="Decimal" Nullable="false" />
+          <Property Name="utilidad_1" Type="Decimal" Nullable="false" />
+          <Property Name="utilidad_2" Type="Decimal" Nullable="false" />
+          <Property Name="utilidad_3" Type="Decimal" Nullable="false" />
+          <Property Name="utilidad_4" Type="Decimal" Nullable="false" />
+          <Property Name="utilidad_pto" Type="Decimal" Nullable="false" />
+          <Property Name="precio_1" Type="Decimal" Nullable="false" />
+          <Property Name="precio_2" Type="Decimal" Nullable="false" />
+          <Property Name="precio_3" Type="Decimal" Nullable="false" />
+          <Property Name="precio_4" Type="Decimal" Nullable="false" />
+          <Property Name="precio_pto" Type="Decimal" Nullable="false" />
+          <Property Name="estatus_garantia" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="dias_garantia" Type="Int32" Nullable="false" />
+          <Property Name="modelo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="precio_sugerido" Type="Decimal" Nullable="false" />
+          <Property Name="comentarios" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="referencia" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="contenido_compras" Type="Int32" Nullable="false" />
+          <Property Name="estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="advertencia" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_alta" Type="DateTime" Nullable="false" />
+          <Property Name="fecha_baja" Type="DateTime" Nullable="false" />
+          <Property Name="auto_codigo_plan" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="categoria" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="origen" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="alto" Type="Decimal" Nullable="false" />
+          <Property Name="largo" Type="Decimal" Nullable="false" />
+          <Property Name="ancho" Type="Decimal" Nullable="false" />
+          <Property Name="peso" Type="Decimal" Nullable="false" />
+          <Property Name="codigo_arancel" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="tasa_arancel" Type="Decimal" Nullable="false" />
+          <Property Name="auto_marca" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="estatus_serial" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="estatus_oferta" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="inicio" Type="DateTime" Nullable="false" />
+          <Property Name="fin" Type="DateTime" Nullable="false" />
+          <Property Name="precio_oferta" Type="Decimal" Nullable="false" />
+          <Property Name="estatus_web" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="estatus_corte" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="tasa" Type="Decimal" Nullable="false" />
+          <Property Name="auto_precio_1" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_precio_2" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_precio_3" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_precio_4" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_precio_pto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="memo" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="contenido_1" Type="Int32" Nullable="false" />
+          <Property Name="contenido_2" Type="Int32" Nullable="false" />
+          <Property Name="contenido_3" Type="Int32" Nullable="false" />
+          <Property Name="contenido_4" Type="Int32" Nullable="false" />
+          <Property Name="contenido_pto" Type="Int32" Nullable="false" />
+          <Property Name="corte" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="estatus_pesado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="plu" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="estatus_compuesto" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="estatus_catalogo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="estatus_cambio" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_movimiento" Type="DateTime" Nullable="false" />
+          <Property Name="fecha_cambio" Type="DateTime" Nullable="false" />
+          <Property Name="fecha_ult_venta" Type="DateTime" Nullable="false" />
+          <Property Name="presentacion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lugar" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_ult_costo" Type="DateTime" Nullable="false" />
+          <Property Name="estatus_lote" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_lote" Type="DateTime" Nullable="false" />
+          <Property Name="abc" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="divisa" Type="Decimal" Nullable="false" />
+          <Property Name="estatus_divisa" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="pdf_1" Type="Decimal" Nullable="false" />
+          <Property Name="pdf_2" Type="Decimal" Nullable="false" />
+          <Property Name="pdf_3" Type="Decimal" Nullable="false" />
+          <Property Name="pdf_4" Type="Decimal" Nullable="false" />
+          <Property Name="pdf_pto" Type="Decimal" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -538,6 +732,103 @@
               <MappingFragment StoreEntitySet="empresa_grupo">
                 <ScalarProperty Name="idPrecio" ColumnName="idPrecio" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos">
+            <EntityTypeMapping TypeName="compraModel.productos">
+              <MappingFragment StoreEntitySet="productos">
+                <ScalarProperty Name="pdf_pto" ColumnName="pdf_pto" />
+                <ScalarProperty Name="pdf_4" ColumnName="pdf_4" />
+                <ScalarProperty Name="pdf_3" ColumnName="pdf_3" />
+                <ScalarProperty Name="pdf_2" ColumnName="pdf_2" />
+                <ScalarProperty Name="pdf_1" ColumnName="pdf_1" />
+                <ScalarProperty Name="estatus_divisa" ColumnName="estatus_divisa" />
+                <ScalarProperty Name="divisa" ColumnName="divisa" />
+                <ScalarProperty Name="abc" ColumnName="abc" />
+                <ScalarProperty Name="fecha_lote" ColumnName="fecha_lote" />
+                <ScalarProperty Name="estatus_lote" ColumnName="estatus_lote" />
+                <ScalarProperty Name="fecha_ult_costo" ColumnName="fecha_ult_costo" />
+                <ScalarProperty Name="lugar" ColumnName="lugar" />
+                <ScalarProperty Name="presentacion" ColumnName="presentacion" />
+                <ScalarProperty Name="fecha_ult_venta" ColumnName="fecha_ult_venta" />
+                <ScalarProperty Name="fecha_cambio" ColumnName="fecha_cambio" />
+                <ScalarProperty Name="fecha_movimiento" ColumnName="fecha_movimiento" />
+                <ScalarProperty Name="estatus_cambio" ColumnName="estatus_cambio" />
+                <ScalarProperty Name="estatus_catalogo" ColumnName="estatus_catalogo" />
+                <ScalarProperty Name="estatus_compuesto" ColumnName="estatus_compuesto" />
+                <ScalarProperty Name="plu" ColumnName="plu" />
+                <ScalarProperty Name="estatus_pesado" ColumnName="estatus_pesado" />
+                <ScalarProperty Name="corte" ColumnName="corte" />
+                <ScalarProperty Name="contenido_pto" ColumnName="contenido_pto" />
+                <ScalarProperty Name="contenido_4" ColumnName="contenido_4" />
+                <ScalarProperty Name="contenido_3" ColumnName="contenido_3" />
+                <ScalarProperty Name="contenido_2" ColumnName="contenido_2" />
+                <ScalarProperty Name="contenido_1" ColumnName="contenido_1" />
+                <ScalarProperty Name="memo" ColumnName="memo" />
+                <ScalarProperty Name="auto_precio_pto" ColumnName="auto_precio_pto" />
+                <ScalarProperty Name="auto_precio_4" ColumnName="auto_precio_4" />
+                <ScalarProperty Name="auto_precio_3" ColumnName="auto_precio_3" />
+                <ScalarProperty Name="auto_precio_2" ColumnName="auto_precio_2" />
+                <ScalarProperty Name="auto_precio_1" ColumnName="auto_precio_1" />
+                <ScalarProperty Name="tasa" ColumnName="tasa" />
+                <ScalarProperty Name="estatus_corte" ColumnName="estatus_corte" />
+                <ScalarProperty Name="estatus_web" ColumnName="estatus_web" />
+                <ScalarProperty Name="precio_oferta" ColumnName="precio_oferta" />
+                <ScalarProperty Name="fin" ColumnName="fin" />
+                <ScalarProperty Name="inicio" ColumnName="inicio" />
+                <ScalarProperty Name="estatus_oferta" ColumnName="estatus_oferta" />
+                <ScalarProperty Name="estatus_serial" ColumnName="estatus_serial" />
+                <ScalarProperty Name="auto_marca" ColumnName="auto_marca" />
+                <ScalarProperty Name="tasa_arancel" ColumnName="tasa_arancel" />
+                <ScalarProperty Name="codigo_arancel" ColumnName="codigo_arancel" />
+                <ScalarProperty Name="peso" ColumnName="peso" />
+                <ScalarProperty Name="ancho" ColumnName="ancho" />
+                <ScalarProperty Name="largo" ColumnName="largo" />
+                <ScalarProperty Name="alto" ColumnName="alto" />
+                <ScalarProperty Name="origen" ColumnName="origen" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="auto_codigo_plan" ColumnName="auto_codigo_plan" />
+                <ScalarProperty Name="fecha_baja" ColumnName="fecha_baja" />
+                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+                <ScalarProperty Name="advertencia" ColumnName="advertencia" />
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="contenido_compras" ColumnName="contenido_compras" />
+                <ScalarProperty Name="referencia" ColumnName="referencia" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="precio_sugerido" ColumnName="precio_sugerido" />
+                <ScalarProperty Name="modelo" ColumnName="modelo" />
+                <ScalarProperty Name="dias_garantia" ColumnName="dias_garantia" />
+                <ScalarProperty Name="estatus_garantia" ColumnName="estatus_garantia" />
+                <ScalarProperty Name="precio_pto" ColumnName="precio_pto" />
+                <ScalarProperty Name="precio_4" ColumnName="precio_4" />
+                <ScalarProperty Name="precio_3" ColumnName="precio_3" />
+                <ScalarProperty Name="precio_2" ColumnName="precio_2" />
+                <ScalarProperty Name="precio_1" ColumnName="precio_1" />
+                <ScalarProperty Name="utilidad_pto" ColumnName="utilidad_pto" />
+                <ScalarProperty Name="utilidad_4" ColumnName="utilidad_4" />
+                <ScalarProperty Name="utilidad_3" ColumnName="utilidad_3" />
+                <ScalarProperty Name="utilidad_2" ColumnName="utilidad_2" />
+                <ScalarProperty Name="utilidad_1" ColumnName="utilidad_1" />
+                <ScalarProperty Name="costo_promedio_und" ColumnName="costo_promedio_und" />
+                <ScalarProperty Name="costo_promedio" ColumnName="costo_promedio" />
+                <ScalarProperty Name="costo_und" ColumnName="costo_und" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="costo_varios_und" ColumnName="costo_varios_und" />
+                <ScalarProperty Name="costo_varios" ColumnName="costo_varios" />
+                <ScalarProperty Name="costo_importacion_und" ColumnName="costo_importacion_und" />
+                <ScalarProperty Name="costo_importacion" ColumnName="costo_importacion" />
+                <ScalarProperty Name="costo_proveedor_und" ColumnName="costo_proveedor_und" />
+                <ScalarProperty Name="costo_proveedor" ColumnName="costo_proveedor" />
+                <ScalarProperty Name="auto_empaque_compra" ColumnName="auto_empaque_compra" />
+                <ScalarProperty Name="auto_tasa" ColumnName="auto_tasa" />
+                <ScalarProperty Name="auto_subgrupo" ColumnName="auto_subgrupo" />
+                <ScalarProperty Name="auto_grupo" ColumnName="auto_grupo" />
+                <ScalarProperty Name="auto_departamento" ColumnName="auto_departamento" />
+                <ScalarProperty Name="nombre_corto" ColumnName="nombre_corto" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>
