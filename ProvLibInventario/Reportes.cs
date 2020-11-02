@@ -139,7 +139,7 @@ namespace ProvLibInventario
                 {
                     var sql = "select p.codigo as codigoPrd , p.nombre as nombrePrd , p.referencia as referenciaPrd, p.modelo as modeloPrd, " +
                         " p.estatus as estatusPrd, p.estatus_divisa as estatusDivisaPrd, p.estatus_cambio as estatusCambioPrd, " +
-                        " p.costo_und as costoUnd, p.divisa as costoDivisaUnd, " +
+                        " p.costo_und as costoUnd, p.divisa as costoDivisa, p.contenido_compras as contenidoCompras, " +
                         " ed.nombre as departamento, " +
                         " pm.decimales as decimales, " +
                         " (SELECT sum(fisica) from productos_deposito where auto_producto=p.auto) as existencia " +

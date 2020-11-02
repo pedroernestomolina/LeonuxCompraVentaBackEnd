@@ -11,6 +11,10 @@ namespace DtoLibInventario.Reportes.MaestroInventario
     public class Ficha
     {
 
+        private int contenidoCompras { get; set; }
+        private decimal costoDivisa { get; set; }
+
+
         public string codigoPrd { get; set; }
         public string nombrePrd { get; set; }
         public string referenciaPrd { get; set; }
@@ -21,9 +25,18 @@ namespace DtoLibInventario.Reportes.MaestroInventario
         public string departamento { get; set; }
         public decimal? existencia { get; set; }
         public decimal costoUnd { get; set; }
-        public decimal costoDivisaUnd { get; set; }
         public string decimales { get; set; }
 
+
+        public decimal costoDivisaUnd 
+        {
+            get 
+            {
+                var rt = 0.0m;
+                rt = costoDivisa / contenidoCompras;
+                return rt;
+            } 
+        }
 
         public enumerados.EnumAdministradorPorDivisa admDivisa
         {

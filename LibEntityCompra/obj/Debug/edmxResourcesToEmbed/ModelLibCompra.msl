@@ -261,5 +261,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="sistema_configuracion">
+      <EntityTypeMapping TypeName="compraModel.sistema_configuracion">
+        <MappingFragment StoreEntitySet="sistema_configuracion">
+          <ScalarProperty Name="modulo" ColumnName="modulo" />
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="usuario" ColumnName="usuario" />
+          <ScalarProperty Name="defecto" ColumnName="defecto" />
+          <ScalarProperty Name="valor" ColumnName="valor" />
+          <ScalarProperty Name="operacion" ColumnName="operacion" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

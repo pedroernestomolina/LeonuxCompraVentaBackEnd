@@ -11,6 +11,9 @@ namespace DtoLibInventario.Visor.CostoEddad
     public class FichaDetalle
     {
 
+        private int contenidoCompras { get; set; }
+        private decimal costoDivisa { get; set; }
+
         public string autoPrd { get; set; }
         public string codigoPrd { get; set; }
         public string nombrePrd { get; set; }
@@ -27,11 +30,20 @@ namespace DtoLibInventario.Visor.CostoEddad
         public decimal costoUnd { get; set; }
         public DateTime fechaUltActCosto { get; set; }
         public DateTime fechaUltVenta { get; set; }
-        public decimal costoDivisaUnd { get; set; }
         public string esPesado { get; set; }
         public string esAdmDivisa { get; set; }
         public string estatusActivo { get; set; }
         public string estatusSuspendido { get; set; }
+
+        public decimal costoDivisaUnd 
+        {
+            get 
+            {
+                var rt = 0.0m;
+                rt = costoDivisa / contenidoCompras;
+                return rt;
+            }
+        }
 
     }
 

@@ -94,7 +94,8 @@ namespace ProvLibInventario
                 {
                     var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
 
-                    var sql = "SELECT p.nombre as nombrePrd, p.codigo as codigoPrd, p.auto as autoPrd, p.divisa as costoDivisaUnd, " +
+                    var sql = "SELECT p.nombre as nombrePrd, p.codigo as codigoPrd, p.auto as autoPrd, p.divisa as costoDivisa, " +
+                        "p.contenido_compras as contenidoCompras, "+
                         "case when p.estatus='Activo' then '0' else '1' end as estatusActivo, " +
                         "p.estatus_cambio as estatusSuspendido, " +
                         "case when p.estatus_pesado='0' then 'N' when p.estatus_pesado='1' then 'S' end as esPesado, " +
@@ -280,7 +281,8 @@ namespace ProvLibInventario
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
-                    var sql = "SELECT p.nombre as nombrePrd, p.codigo as codigoPrd, p.auto as autoPrd, p.divisa as costoDivisaUnd, " +
+                    var sql = "SELECT p.nombre as nombrePrd, p.codigo as codigoPrd, p.auto as autoPrd, p.divisa as costoDivisa, " +
+                        "p.contenido_compras as contenidoCompras, "+
                         "case when p.estatus='Activo' then '0' else '1' end as estatusActivo, "+
                         "p.estatus_cambio as estatusSuspendido, "+
                         "case when p.estatus_pesado='0' then 'N' when p.estatus_pesado='1' then 'S' end as esPesado, " +

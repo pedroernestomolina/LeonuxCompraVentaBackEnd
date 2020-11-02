@@ -93,6 +93,9 @@
     <Compile Include="proveedores.cs">
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>
+    <Compile Include="sistema_configuracion.cs">
+      <DependentUpon>ModelLibCompra.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

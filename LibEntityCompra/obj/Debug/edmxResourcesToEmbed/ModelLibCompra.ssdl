@@ -254,6 +254,18 @@
     <Property Name="ctabanco" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="nj" Type="varchar" MaxLength="1" Nullable="false" />
   </EntityType>
+  <EntityType Name="sistema_configuracion">
+    <Key>
+      <PropertyRef Name="codigo" />
+    </Key>
+    <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="operacion" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="valor" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="defecto" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="usuario" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="tipo" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="modulo" Type="varchar" MaxLength="2" Nullable="false" />
+  </EntityType>
   <Association Name="compras_ibfk_1">
     <End Role="proveedores" Type="Self.proveedores" Multiplicity="1" />
     <End Role="compras" Type="Self.compras" Multiplicity="*" />
@@ -273,6 +285,7 @@
     <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos" EntityType="Self.productos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="proveedores" EntityType="Self.proveedores" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="sistema_configuracion" EntityType="Self.sistema_configuracion" Schema="pita" store:Type="Tables" />
     <AssociationSet Name="compras_ibfk_1" Association="Self.compras_ibfk_1">
       <End Role="proveedores" EntitySet="proveedores" />
       <End Role="compras" EntitySet="compras" />

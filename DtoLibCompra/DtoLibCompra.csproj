@@ -55,7 +55,10 @@
     <Compile Include="Documento\Cargar\Factura\FichaPrdPrecioHistorico.cs" />
     <Compile Include="Documento\Cargar\Factura\FichaPrdPrecio.cs" />
     <Compile Include="Documento\Cargar\Factura\FichaPrdProveedor.cs" />
+    <Compile Include="Empresa\Data\Ficha.cs" />
     <Compile Include="Enumerados.cs" />
+    <Compile Include="Permiso\Enumerados.cs" />
+    <Compile Include="Permiso\Ficha.cs" />
     <Compile Include="Producto\Enumerados.cs" />
     <Compile Include="Producto\Lista\Filtro.cs" />
     <Compile Include="Producto\Lista\Resumen.cs" />
@@ -66,6 +69,8 @@
     <Compile Include="Proveedor\Lista\Resumen.cs" />
     <Compile Include="Sucursal\Data\Ficha.cs" />
     <Compile Include="Sucursal\Lista\Resumen.cs" />
+    <Compile Include="Usuario\Buscar\Ficha.cs" />
+    <Compile Include="Usuario\Data\Ficha.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Producto\Data\" />

@@ -259,6 +259,18 @@
           <Property Name="ctabanco" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="nj" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
+        <EntityType Name="sistema_configuracion">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="operacion" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="valor" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="defecto" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="modulo" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
         <Association Name="compras_ibfk_1">
           <End Role="proveedores" Type="Self.proveedores" Multiplicity="1" />
           <End Role="compras" Type="Self.compras" Multiplicity="*" />
@@ -278,6 +290,7 @@
           <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos" EntityType="Self.productos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="proveedores" EntityType="Self.proveedores" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="sistema_configuracion" EntityType="Self.sistema_configuracion" Schema="pita" store:Type="Tables" />
           <AssociationSet Name="compras_ibfk_1" Association="Self.compras_ibfk_1">
             <End Role="proveedores" EntitySet="proveedores" />
             <End Role="compras" EntitySet="compras" />
@@ -443,6 +456,7 @@
           <EntitySet Name="empresa_depositos" EntityType="compraModel.empresa_depositos" />
           <EntitySet Name="empresa_grupo" EntityType="compraModel.empresa_grupo" />
           <EntitySet Name="productos" EntityType="compraModel.productos" />
+          <EntitySet Name="sistema_configuracion" EntityType="compraModel.sistema_configuracion" />
         </EntityContainer>
         <EntityType Name="empresa_sucursal">
           <Key>
@@ -566,6 +580,18 @@
           <Property Name="pdf_3" Type="Decimal" Nullable="false" />
           <Property Name="pdf_4" Type="Decimal" Nullable="false" />
           <Property Name="pdf_pto" Type="Decimal" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sistema_configuracion">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="operacion" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="valor" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="defecto" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="tipo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="modulo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -830,6 +856,19 @@
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sistema_configuracion">
+            <EntityTypeMapping TypeName="compraModel.sistema_configuracion">
+              <MappingFragment StoreEntitySet="sistema_configuracion">
+                <ScalarProperty Name="modulo" ColumnName="modulo" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="defecto" ColumnName="defecto" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="operacion" ColumnName="operacion" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

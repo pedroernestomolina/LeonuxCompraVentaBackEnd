@@ -29,6 +29,12 @@ namespace ConsoleCompra
             //    MetodoBusqueda = DtoLibCompra.Producto.Enumerados.EnumMetodoBusqueda.Nombre,
             //};
             //var r01 = compraPrv.Producto_GetLista(filtro);
+            //var r01 = compraPrv.Empresa_Datos();
+            //var r01 = compraPrv.Usuario_Principal();
+            //var filtro = new DtoLibCompra.Usuario.Buscar.Ficha() { clave = "1188", codigo = "01" };
+            //var r01 = compraPrv.Usuario_Buscar(filtro);
+            //var r01 = compraPrv.Permiso_PedirClaveAcceso_NivelMinimo();
+            //var r01 = compraPrv.Permiso_ToolCompra("0000000001");
         }
 
     }

@@ -41,10 +41,13 @@
   <ItemGroup>
     <Compile Include="ICompra.cs" />
     <Compile Include="IDeposito.cs" />
+    <Compile Include="IEmpresa.cs" />
+    <Compile Include="IPermiso.cs" />
     <Compile Include="IProducto.cs" />
     <Compile Include="IProveedor.cs" />
     <Compile Include="IProvider.cs" />
     <Compile Include="ISucursal.cs" />
+    <Compile Include="IUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
