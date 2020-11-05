@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibEntityCompra;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.EntityClient;
 using System.Linq;
@@ -35,6 +36,28 @@ namespace ProvLibCompra
             _cnCompra.Metadata = "res://*/ModelLibCompra.csdl|res://*/ModelLibCompra.ssdl|res://*/ModelLibCompra.msl";
             _cnCompra.Provider = "MySql.Data.MySqlClient";
             _cnCompra.ProviderConnectionString = "data source=" + _Instancia + ";initial catalog=" + _BaseDatos + ";user id=" + _Usuario + ";Password=" + _Password + ";Convert Zero Datetime=True;";
+        }
+
+
+        public DtoLib.ResultadoEntidad<DateTime> FechaServidor()
+        {
+            var result = new DtoLib.ResultadoEntidad<DateTime>();
+
+            try
+            {
+                using (var ctx = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var fechaSistema = ctx.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                    result.Entidad = fechaSistema.Date;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
         }
 
     }

@@ -137,13 +137,12 @@ namespace ProvLibInventario
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
-                    var sql = "select p.codigo as codigoPrd , p.nombre as nombrePrd , p.referencia as referenciaPrd, p.modelo as modeloPrd, " +
+                    var sql_1 = "select p.codigo as codigoPrd , p.nombre as nombrePrd , p.referencia as referenciaPrd, p.modelo as modeloPrd, " +
                         " p.estatus as estatusPrd, p.estatus_divisa as estatusDivisaPrd, p.estatus_cambio as estatusCambioPrd, " +
                         " p.costo_und as costoUnd, p.divisa as costoDivisa, p.contenido_compras as contenidoCompras, " +
                         " ed.nombre as departamento, " +
-                        " pm.decimales as decimales, " +
-                        " (SELECT sum(fisica) from productos_deposito where auto_producto=p.auto) as existencia " +
-                        " from productos as p " +
+                        " pm.decimales as decimales, ";
+                    var sql_2 =" from productos as p " +
                         " join empresa_departamentos as ed on p.auto_departamento=ed.auto " +
                         " join productos_medida as pm on p.auto_empaque_compra=pm.auto " +
                         " where 1=1 ";
@@ -155,9 +154,20 @@ namespace ProvLibInventario
                     var p5 = new MySql.Data.MySqlClient.MySqlParameter();
 
 
+                    if (filtro.autoDeposito == "")
+                    {
+                        sql_1 += " (SELECT sum(fisica) from productos_deposito where auto_producto=p.auto) as existencia ";
+                    }
+                    else 
+                    {
+                        sql_1 += " (SELECT sum(fisica) from productos_deposito where auto_producto=p.auto and auto_deposito=@autoDeposito) as existencia ";
+                        p4.ParameterName = "@autoDeposito";
+                        p4.Value = filtro.autoDeposito;
+                    }
+
                     if (filtro.autoDepartamento != "")
                     {
-                        sql += " and p.auto_departamento=@autoDepartamento ";
+                        sql_2 += " and p.auto_departamento=@autoDepartamento ";
                         p1.ParameterName = "@autoDepartamento";
                         p1.Value = filtro.autoDepartamento;
                     }
@@ -166,7 +176,7 @@ namespace ProvLibInventario
                         var _f = "1";
                         if (filtro.admDivisa == DtoLibInventario.Reportes.enumerados.EnumAdministradorPorDivisa.No)
                             _f = "0";
-                        sql += " and p.estatus_divisa=@estatusDivisa ";
+                        sql_2 += " and p.estatus_divisa=@estatusDivisa ";
                         p2.ParameterName = "@estatusDivisa";
                         p2.Value = _f;
                     }
@@ -177,11 +187,12 @@ namespace ProvLibInventario
                         {
                             _f = "Inactivo";
                         }
-                        sql += " and p.estatus=@estatus ";
+                        sql_2 += " and p.estatus=@estatus ";
                         p3.ParameterName = "@estatus";
                         p3.Value = _f;
                     }
 
+                    var sql = sql_1 + sql_2;
                     var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.MaestroInventario.Ficha>(sql, p1, p2, p3, p4, p5).ToList();
                     rt.Lista = list;
                 }
@@ -342,6 +353,204 @@ namespace ProvLibInventario
                     }
 
                     var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.MaestroExistencia.Ficha>(sql,p1,p2).ToList();
+                    rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibInventario.Reportes.MaestroPrecio.Ficha> Reportes_MaestroPrecio(DtoLibInventario.Reportes.MaestroPrecio.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibInventario.Reportes.MaestroPrecio.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var sql_1 = "SELECT p.codigo, p.nombre, p.tasa, p.referencia, p.modelo, p.estatus, p.estatus_divisa, p.fecha_cambio, " +
+                        "edep.nombre as nombreDepartamento, ";
+                    var sql_2="FROM productos as p "+
+                        "join empresa_departamentos edep on p.auto_departamento=edep.auto "+
+                        "where 1=1 and estatus='Activo' ";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p5 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p6 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p7 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p8 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    if (filtro.autoDepartamento != "")
+                    {
+                        sql_2 += " and p.auto_departamento=@autoDepartamento ";
+                        p1.ParameterName = "@autoDepartamento";
+                        p1.Value = filtro.autoDepartamento;
+                    }
+                    if (filtro.autoGrupo != "")
+                    {
+                        sql_2 += " and p.auto_grupo=@autoGrupo ";
+                        p2.ParameterName = "@autoGrupo";
+                        p2.Value = filtro.autoGrupo;
+                    }
+                    if (filtro.autoMarca != "")
+                    {
+                        sql_2 += " and p.auto_marca=@autoMarca ";
+                        p3.ParameterName = "@autoMarca";
+                        p3.Value = filtro.autoMarca;
+                    }
+                    if (filtro.autoTasa != "")
+                    {
+                        sql_2 += " and p.auto_tasa=@autoTasa ";
+                        p4.ParameterName = "@autoTasa";
+                        p4.Value = filtro.autoTasa;
+                    }
+                    if (filtro.origen != DtoLibInventario.Reportes.enumerados.EnumOrigen.SnDefinir )
+                    {
+                        var f = "Nacional";
+                        if (filtro.origen == DtoLibInventario.Reportes.enumerados.EnumOrigen.Importado)
+                            f = "Importado";
+                        sql_2 += " and p.origen=@origen ";
+                        p5.ParameterName = "@origen";
+                        p5.Value = f ;
+                    }
+                    if (filtro.categoria !=  DtoLibInventario.Reportes.enumerados.EnumCategoria.SnDefinir)
+                    {
+                        var f = "";
+                        switch (filtro.categoria) 
+                        {
+                            case DtoLibInventario.Reportes.enumerados.EnumCategoria.BienServicio:
+                                f = "Bien De Servicio";
+                                break;
+                            case DtoLibInventario.Reportes.enumerados.EnumCategoria.ProductoTerminado:
+                                f = "Producto Terminado";
+                                break;
+                            case DtoLibInventario.Reportes.enumerados.EnumCategoria.MateriaPrima:
+                                f = "Materia Prima";
+                                break;
+                            case DtoLibInventario.Reportes.enumerados.EnumCategoria.SubProducto:
+                                f = "Sub Producto";
+                                break;
+                            case DtoLibInventario.Reportes.enumerados.EnumCategoria.UsoInterno:
+                                f = "Uso Interno";
+                                break;
+                        }
+                        sql_2 += " and p.categoria=@categoria ";
+                        p6.ParameterName = "@categoria";
+                        p6.Value = f;
+                    }
+                    if (filtro.admDivisa != DtoLibInventario.Reportes.enumerados.EnumAdministradorPorDivisa.SnDefinir)
+                    {
+                        var f = "1";
+                        if (filtro.admDivisa == DtoLibInventario.Reportes.enumerados.EnumAdministradorPorDivisa.No)
+                            f = "0";
+                        sql_2 += " and p.estatus_divisa=@estatusDivisa ";
+                        p7.ParameterName = "@estatusDivisa";
+                        p7.Value = f;
+                    }
+                    if (filtro.precio == DtoLibInventario.Reportes.enumerados.EnumPrecio.SnDefinir)
+                    {
+                        sql_1 += "p.precio_1, p.precio_2, p.precio_3, p.precio_4, p.precio_pto, " +
+                            "p.pdf_1, p.pdf_2, p.pdf_3, p.pdf_4, p.pdf_pto ";
+                    }
+                    else
+                    {
+                        switch (filtro.precio) 
+                        {
+                            case DtoLibInventario.Reportes.enumerados.EnumPrecio.P1:
+                                sql_1 += "p.precio_1, p.pdf_1 ";
+                                break;
+                            case DtoLibInventario.Reportes.enumerados.EnumPrecio.P2:
+                                sql_1 += "p.precio_2, p.pdf_2 ";
+                                break;
+                            case DtoLibInventario.Reportes.enumerados.EnumPrecio.P3:
+                                sql_1 += "p.precio_3, p.pdf_3 ";
+                                break;
+                            case DtoLibInventario.Reportes.enumerados.EnumPrecio.P4:
+                                sql_1 += "p.precio_4, p.pdf_4 ";
+                                break;
+                            case DtoLibInventario.Reportes.enumerados.EnumPrecio.P5:
+                                sql_1 += "p.precio_pto, p.pdf_pto ";
+                                break;
+                        }
+                    }
+                    var sql = sql_1 + sql_2;
+                    var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.MaestroPrecio.Ficha>(sql, p1, p2, p3, p4).ToList();
+                    rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibInventario.Reportes.Kardex.Ficha> Reportes_Kardex(DtoLibInventario.Reportes.Kardex.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibInventario.Reportes.Kardex.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var sql_1 = "SELECT p.nombre, p.codigo, p.referencia, p.modelo, pmed.decimales, " +
+                        "kard.fecha, kard.hora, kard.modulo, kard.siglas, kard.documento, kard.nombre_deposito, " +
+                        "kard.cantidad_und, kard.nombre_concepto, kard.signo, kard.codigo_sucursal, kard.entidad, ";
+
+                    var sql_2="FROM `productos_kardex` as kard "+
+                        "join productos p on p.auto=kard.auto_producto "+
+                        "join productos_medida pmed on  pmed.auto=p.auto_empaque_compra "+
+                        "where estatus_anulado='0' ";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p5 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p6 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p7 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p8 = new MySql.Data.MySqlClient.MySqlParameter();
+                    
+                    sql_2 += " and fecha>=@desde ";
+                    p1.ParameterName = "@desde";
+                    p1.Value = filtro.desde;
+                    
+                    sql_2 += " and fecha<=@hasta ";
+                    p2.ParameterName = "@hasta";
+                    p2.Value = filtro.hasta;
+
+                    if (filtro.autoProducto != "")
+                    {
+                        sql_2 += " and auto_producto=@autoProducto ";
+                        p4.ParameterName = "@autoProducto";
+                        p4.Value = filtro.autoProducto;
+                    }
+                    if (filtro.autoDeposito != "")
+                    {
+                        sql_1 += "(select sum(cantidad_und*signo) from productos_kardex where auto_producto=p.auto and fecha<@desde " +
+                            "and estatus_anulado='0' and auto_deposito=@autoDeposito) as exInicial ";
+                        sql_2 += " and auto_deposito=@autoDeposito ";
+                        p3.ParameterName = "@autoDeposito";
+                        p3.Value = filtro.autoDeposito;
+                    }
+                    else 
+                    {
+                        sql_1 += "(select sum(cantidad_und*signo) from productos_kardex where auto_producto=p.auto and fecha<@desde " +
+                            "and estatus_anulado='0') as exInicial ";
+                    }
+
+                    var sql = sql_1 + sql_2;
+                    var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.Kardex.Ficha>(sql, p1, p2, p3, p4).ToList();
                     rt.Lista = list;
                 }
             }

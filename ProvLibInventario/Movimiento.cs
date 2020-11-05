@@ -267,6 +267,24 @@ namespace ProvLibInventario
                         result.Result = DtoLib.Enumerados.EnumResult.isError;
                         return result;
                     }
+
+                    var tipo = DtoLibInventario.Movimiento.enumerados.EnumTipoDocumento.SinDefinir;
+                    switch (ent.tipo)
+                    {
+                        case "01":
+                            tipo = DtoLibInventario.Movimiento.enumerados.EnumTipoDocumento.Cargo;
+                            break;
+                        case "02":
+                            tipo = DtoLibInventario.Movimiento.enumerados.EnumTipoDocumento.Descargo;
+                            break;
+                        case "03":
+                            tipo = DtoLibInventario.Movimiento.enumerados.EnumTipoDocumento.Traslado;
+                            break;
+                        case "04":
+                            tipo = DtoLibInventario.Movimiento.enumerados.EnumTipoDocumento.Ajuste;
+                            break;
+                    }
+
                     var entDet = cnn.productos_movimientos_detalle.Where(f => f.auto_documento == autoDoc).ToList();
                     var nr = new DtoLibInventario.Movimiento.Ver.Ficha()
                     {
@@ -287,6 +305,7 @@ namespace ProvLibInventario
                         usuario = ent.usuario,
                         usuarioCodigo = ent.codigo_usuario,
                         nombreDocumento = ent.documento_nombre,
+                        docTipo=tipo,
                     };
 
                     var det = entDet.Select(s =>

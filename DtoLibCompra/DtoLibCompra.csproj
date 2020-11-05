@@ -42,6 +42,7 @@
     <Compile Include="BaseFiltro.cs" />
     <Compile Include="Compra\Filtro.cs" />
     <Compile Include="Compra\Resumen.cs" />
+    <Compile Include="Configuracion\Enumerados.cs" />
     <Compile Include="Deposito\Data\Ficha.cs" />
     <Compile Include="Deposito\Lista\Resumen.cs" />
     <Compile Include="Documento\Cargar\Factura\Ficha.cs" />

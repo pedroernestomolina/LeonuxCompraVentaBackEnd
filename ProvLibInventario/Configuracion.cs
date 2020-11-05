@@ -32,7 +32,7 @@ namespace ProvLibInventario
                     var modo=DtoLibInventario.Configuracion.Enumerados.EnumPreferenciaBusqueda.SinDefinir;
                     switch (ent.usuario.Trim().ToUpper()) 
                     {
-                        case "CODIGO":
+                        case "CóDIGO":
                             modo = DtoLibInventario.Configuracion.Enumerados.EnumPreferenciaBusqueda.PorCodigo;
                             break;
                         case "NOMBRE":

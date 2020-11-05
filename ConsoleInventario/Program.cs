@@ -154,6 +154,19 @@ namespace ConsoleInventario
             //var ficha = invPrv.Reportes_MaestroExistencia(filt);
 
             //var ficha = invPrv.Empresa_Datos ();
+
+            //var filt = new DtoLibInventario.Reportes.MaestroInventario.Filtro();
+            //filt.autoDeposito = "0000000004";
+            //var ficha = invPrv.Reportes_MaestroInventario (filt);
+
+            //var filt = new DtoLibInventario.Reportes.MaestroPrecio.Filtro();
+            //var ficha = invPrv.Reportes_MaestroPrecio(filt);
+
+            //var filt = new DtoLibInventario.Reportes.Kardex.Filtro();
+            //filt.desde = new DateTime(2020, 11, 01);
+            //filt.hasta = new DateTime(2020, 11, 05);
+            //filt.autoProducto = "0000000027";
+            //var ficha = invPrv.Reportes_Kardex (filt);
         }
 
     }

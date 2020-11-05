@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 namespace ILibCompras
 {
 
-    public interface IProvider: ICompra, IDeposito, ISucursal, IProveedor, IProducto, IUsuario, IEmpresa, IPermiso
+    public interface IProvider: ICompra, IDeposito, ISucursal, IProveedor, IProducto, IUsuario, IEmpresa, 
+        IPermiso, IConfiguracion
     {
+
+        DtoLib.ResultadoEntidad<DateTime> FechaServidor();
+
     }
 
 }

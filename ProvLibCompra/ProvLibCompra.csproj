@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compra.cs" />
+    <Compile Include="Configuracion.cs" />
     <Compile Include="Deposito.cs" />
     <Compile Include="Empresa.cs" />
     <Compile Include="Permiso.cs" />

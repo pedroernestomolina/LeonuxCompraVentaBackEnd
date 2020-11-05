@@ -373,6 +373,7 @@ namespace ProvLibInventario
                                 var _empaque = s.productos_medida2.nombre;
                                 var _marca = s.productos_marca.nombre;
                                 var _tasaIvaDescripcion = s.empresa_tasas.nombre;
+                                var _tasaIva = s.empresa_tasas.tasa;
                                 var _catalogo = DtoLibInventario.Producto.Enumerados.EnumCatalogo.No;
                                 if (s.estatus_catalogo == "1")
                                     _catalogo = DtoLibInventario.Producto.Enumerados.EnumCatalogo.Si;
@@ -429,7 +430,7 @@ namespace ProvLibInventario
                                     admPorDivisa = _admDivisa,
                                     departamento = _depart,
                                     grupo = _grupo,
-                                    tasaIva = s.tasa,
+                                    tasaIva = _tasaIva,
                                     categoria = _categoria,
                                     empaque = _empaque,
                                     fechaAlta = s.fecha_alta,
@@ -481,6 +482,7 @@ namespace ProvLibInventario
                     var _codGrupo = entPrd.productos_grupo.codigo;
                     var _marca = entPrd.productos_marca.nombre;
                     var _nombreTasaIva = entPrd.empresa_tasas.nombre;
+                    var _tasaIva = entPrd.empresa_tasas.tasa;
                     var _empCompra = entPrd.productos_medida2.nombre;
                     var _decimales = entPrd.productos_medida2.decimales;
                     var _origen = entPrd.origen.Trim().ToUpper() == "NACIONAL" ?
@@ -543,7 +545,7 @@ namespace ProvLibInventario
                         origen = _origen,
                         presentacion = entPrd.presentacion,
                         referencia = entPrd.referencia,
-                        tasaIva = entPrd.tasa,
+                        tasaIva = _tasaIva,
                         tipoABC = entPrd.abc,
                     };
                     f.identidad = id;
@@ -1210,6 +1212,7 @@ namespace ProvLibInventario
                         entPrd.auto_marca = ficha.autoMarca;
                         entPrd.auto_empaque_compra = ficha.autoEmpCompra;
                         entPrd.auto_tasa = ficha.autoTasaImpuesto;
+                        entPrd.tasa = ficha.tasaImpuesto;
                         entPrd.origen = ficha.origen;
                         entPrd.abc = ficha.abc;
                         entPrd.estatus_divisa = ficha.estatusDivisa;

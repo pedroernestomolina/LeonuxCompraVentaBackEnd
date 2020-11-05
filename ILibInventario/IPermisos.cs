@@ -45,8 +45,11 @@ namespace ILibInventario
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_MovimientoDescargoInventario(string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_MovimientoTrasladoInventario(string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_MovimientoAjusteInventario(string autoGrupoUsuario);
+
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_AdministradorMovimientoInventario(string autoGrupoUsuario);
-        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_AnularMovimientoInventario(string autoGrupoUsuario);
+        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_AdmAnularMovimientoInventario(string autoGrupoUsuario);
+        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_AdmVisualizarMovimientoInventario(string autoGrupoUsuario);
+        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_AdmReporteMovimientoInventario(string autoGrupoUsuario);
 
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_DefinirNivelMinimoMaximoInventario(string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_MovimientoTrasladoEntreSucursales_PorExistenciaDebajoDelMinimo(string autoGrupoUsuario);

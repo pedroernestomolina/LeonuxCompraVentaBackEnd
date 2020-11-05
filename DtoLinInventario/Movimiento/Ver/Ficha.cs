@@ -28,6 +28,7 @@ namespace DtoLibInventario.Movimiento.Ver
         public decimal total { get; set; }
         public string usuario { get; set; }
         public string usuarioCodigo { get; set; }
+        public enumerados.EnumTipoDocumento docTipo { get; set; }
 
         public List<Detalle> detalles { get; set; }
 

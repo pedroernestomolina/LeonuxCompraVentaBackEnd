@@ -13,7 +13,7 @@ namespace ConsoleCompra
 
         static void Main(string[] args)
         {
-            ILibCompras.IProvider compraPrv = new ProvLibCompra.Provider("localhost", "panda2");
+            ILibCompras.IProvider compraPrv = new ProvLibCompra.Provider("localhost", "pita");
             //var r01 = compraPrv.Sucursal_GetLista();
             //var r01 = compraPrv.Sucursal_GetFicha("0000000001");
             //var r01 = compraPrv.Deposito_GetLista();
@@ -35,6 +35,8 @@ namespace ConsoleCompra
             //var r01 = compraPrv.Usuario_Buscar(filtro);
             //var r01 = compraPrv.Permiso_PedirClaveAcceso_NivelMinimo();
             //var r01 = compraPrv.Permiso_ToolCompra("0000000001");
+            //var r01 = compraPrv.Configuracion_TasaCambioActual();
+            //var r01 = compraPrv.Configuracion_PreferenciaBusquedaProveedor();
         }
 
     }

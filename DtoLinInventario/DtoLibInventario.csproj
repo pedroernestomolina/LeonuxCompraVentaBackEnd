@@ -172,6 +172,8 @@
     <Compile Include="Reportes\MaestroExistencia\Filtro.cs" />
     <Compile Include="Reportes\MaestroInventario\Ficha.cs" />
     <Compile Include="Reportes\MaestroInventario\Filtro.cs" />
+    <Compile Include="Reportes\MaestroPrecio\Ficha.cs" />
+    <Compile Include="Reportes\MaestroPrecio\Filtro.cs" />
     <Compile Include="Reportes\MaestroProducto\Ficha.cs" />
     <Compile Include="Reportes\MaestroProducto\Filtro.cs" />
     <Compile Include="Reportes\Top20\Ficha.cs" />
