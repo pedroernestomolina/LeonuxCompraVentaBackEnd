@@ -77,6 +77,13 @@
       <PropertyRef Name="msubtotal" />
       <PropertyRef Name="mtotal" />
       <PropertyRef Name="cierre_ftp" />
+      <PropertyRef Name="cnt_divisa" />
+      <PropertyRef Name="cnt_divisa_usuario" />
+      <PropertyRef Name="cntDoc" />
+      <PropertyRef Name="cntDocFac" />
+      <PropertyRef Name="cntDocNcr" />
+      <PropertyRef Name="montoFac" />
+      <PropertyRef Name="montoNcr" />
     </Key>
     <Property Name="auto_cierre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="auto_usuario" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
@@ -114,6 +121,13 @@
     <Property Name="msubtotal" Type="Decimal" Nullable="false" />
     <Property Name="mtotal" Type="Decimal" Nullable="false" />
     <Property Name="cierre_ftp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cnt_divisa" Type="Int32" Nullable="false" />
+    <Property Name="cnt_divisa_usuario" Type="Int32" Nullable="false" />
+    <Property Name="cntDoc" Type="Int32" Nullable="false" />
+    <Property Name="cntDocFac" Type="Int32" Nullable="false" />
+    <Property Name="cntDocNcr" Type="Int32" Nullable="false" />
+    <Property Name="montoFac" Type="Decimal" Nullable="false" />
+    <Property Name="montoNcr" Type="Decimal" Nullable="false" />
   </EntityType>
   <EntityContainer Name="cajaBancoEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="cxc_medio_pago" EntityType="Self.cxc_medio_pago" />
@@ -129,6 +143,9 @@
       <End Role="usuarios" EntitySet="usuarios" />
       <End Role="cxc_recibos" EntitySet="cxc_recibos" />
     </AssociationSet>
+    <EntitySet Name="empresa_depositos" EntityType="cajaBancoModel.empresa_depositos" />
+    <EntitySet Name="sistema" EntityType="cajaBancoModel.sistema" />
+    <EntitySet Name="empresa_grupo" EntityType="cajaBancoModel.empresa_grupo" />
   </EntityContainer>
   <EntityType Name="usuarios">
     <Key>
@@ -214,4 +231,32 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="empresa_depositos">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo_sucursal" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="sistema">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="estatus_bienvenido" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="bienvenido" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="deposito_principal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo_empresa" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="prefijo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="empresa_grupo">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="idPrecio" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

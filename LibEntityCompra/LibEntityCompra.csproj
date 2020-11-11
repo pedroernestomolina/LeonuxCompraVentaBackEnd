@@ -93,7 +93,16 @@
     <Compile Include="proveedores.cs">
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>
+    <Compile Include="proveedores_agencias.cs">
+      <DependentUpon>ModelLibCompra.tt</DependentUpon>
+    </Compile>
+    <Compile Include="proveedores_grupo.cs">
+      <DependentUpon>ModelLibCompra.tt</DependentUpon>
+    </Compile>
     <Compile Include="sistema_configuracion.cs">
+      <DependentUpon>ModelLibCompra.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sistema_estados.cs">
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>
   </ItemGroup>

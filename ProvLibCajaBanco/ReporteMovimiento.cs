@@ -1,5 +1,6 @@
 ﻿using LibEntityCajaBanco;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -118,7 +119,6 @@ namespace ProvLibCajaBanco
             return result;
         }
 
-
         public void Reporte(DateTime fecha)
         {
             try
@@ -144,6 +144,118 @@ namespace ProvLibCajaBanco
             catch (Exception e)
             {
             }
+        }
+
+        public DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.Inventario.Ficha> Reporte_InventarioResumen(DtoLibCajaBanco.Reporte.Movimiento.Inventario.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.Inventario.Ficha>();
+
+            try
+            {
+                using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
+                {
+                    var sql = "select p.codigo as codigoPrd, p.nombre as nombrePrd, pmed.decimales as decimales, " +
+                        "(select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and signo=1 and estatus_anulado='0' and fecha<=@hasta) as tEntradas, " +
+                        "(select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and signo=-1 and estatus_anulado='0' and fecha<=@hasta) as tSalidas, " +
+                        "(select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and fecha>=@desde and fecha<=@hasta and signo=-1 and estatus_anulado='0') as salidas, " +
+                        "(select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and fecha>=@desde and fecha<=@hasta and signo=1 and estatus_anulado='0' and modulo='Inventario') as entradas, " +
+                        "(select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and fecha>=@desde and fecha<=@hasta and signo=1 and estatus_anulado='0' and modulo<>'Inventario') as entradasOt " +
+                        "from productos as p " +
+                        "join productos_medida as pmed on pmed.auto=p.auto_empaque_compra";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@desde";
+                    p1.Value = filtro.desdeFecha;
+                    p2.ParameterName = "@hasta";
+                    p2.Value = filtro.hastaFecha;
+                    p3.ParameterName = "@autoDeposito";
+                    p3.Value = filtro.autoDeposito;
+
+                    var list = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.Inventario.Ficha>(sql, p1, p2, p3).ToList();
+                    rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.ResumenVenta.Ficha> Reporte_VentaResumen(DtoLibCajaBanco.Reporte.Movimiento.ResumenVenta.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.ResumenVenta.Ficha>();
+
+            try
+            {
+                using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
+                {
+                    var sql = "SELECT codigo_usuario as usuarioCodigo, usuario as usuarioNombre, fecha, " +
+                        "hora, documento, razon_social as clienteNombre,ci_rif as clienteRif, total, " +
+                        "signo, tipo, serie, renglones, documento_nombre documentoNombre, " +
+                        "condicion_pago as condicionPago, (descuento1+descuento2) as descuento, auto " +
+                        "FROM ventas where fecha>=@desde and fecha<=@hasta and codigo_sucursal=@codigoSucursal";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@desde";
+                    p1.Value = filtro.desdeFecha;
+                    p2.ParameterName = "@hasta";
+                    p2.Value = filtro.hastaFecha;
+                    p3.ParameterName = "@codigoSucursal";
+                    p3.Value = filtro.codigoSucursal;
+
+                    var list = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.ResumenVenta.Ficha>(sql, p1, p2, p3).ToList();
+                    rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Habladores.Ficha> Reporte_Habladores(DtoLibCajaBanco.Reporte.Habladores.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Habladores.Ficha>();
+
+            try
+            {
+                using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
+                {
+                    var sql = "select distinct p.auto as autoPrd, p.codigo as codigoPrd, p.nombre as nombrePrd, p.precio_1 as pneto_1, " +
+                        "precio_2 as pneto_2, precio_3 as pneto_3, precio_4 as pneto_4, precio_pto as pneto_5, " +
+                        "p.pdf_1 as pdivisaFull_1, p.pdf_2 as pdivisaFull_2, p.pdf_3 as pdivisaFull_3, " +
+                        "p.pdf_4 as pdivisaFull_4, p.pdf_pto as pdivisaFull_5, tasa as tasaIva  " +
+                        "from productos_precios as pprc " +
+                        "join productos as p on pprc.auto_producto=p.auto " +
+                        "where 1=1";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    var list = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Habladores.Ficha>(sql, p1, p2, p3).ToList();
+                    rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
         }
 
     }

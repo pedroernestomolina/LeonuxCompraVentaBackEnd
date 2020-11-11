@@ -37,6 +37,7 @@ namespace ConsoleCompra
             //var r01 = compraPrv.Permiso_ToolCompra("0000000001");
             //var r01 = compraPrv.Configuracion_TasaCambioActual();
             //var r01 = compraPrv.Configuracion_PreferenciaBusquedaProveedor();
+            //var r01 = compraPrv.Proveedor_GetFicha("0000000002");
         }
 
     }

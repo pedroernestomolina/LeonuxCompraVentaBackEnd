@@ -259,6 +259,26 @@
           <Property Name="ctabanco" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="nj" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="proveedores_agencias">
+          <Key>
+            <PropertyRef Name="auto_proveedor" />
+            <PropertyRef Name="auto_agencia" />
+            <PropertyRef Name="cuenta" />
+          </Key>
+          <Property Name="auto_proveedor" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="auto_agencia" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="cuenta" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="proveedores_grupo">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
         <EntityType Name="sistema_configuracion">
           <Key>
             <PropertyRef Name="codigo" />
@@ -270,6 +290,13 @@
           <Property Name="usuario" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="tipo" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="modulo" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sistema_estados">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <Association Name="compras_ibfk_1">
           <End Role="proveedores" Type="Self.proveedores" Multiplicity="1" />
@@ -283,6 +310,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="proveedores_agencias_ibfk_3">
+          <End Role="proveedores" Type="Self.proveedores" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="proveedores_agencias" Type="Self.proveedores_agencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proveedores">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="proveedores_agencias">
+              <PropertyRef Name="auto_proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="proveedores_ibfk_1">
+          <End Role="proveedores_grupo" Type="Self.proveedores_grupo" Multiplicity="1" />
+          <End Role="proveedores" Type="Self.proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proveedores_grupo">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="proveedores">
+              <PropertyRef Name="auto_grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="proveedores_ibfk_2">
+          <End Role="sistema_estados" Type="Self.sistema_estados" Multiplicity="1" />
+          <End Role="proveedores" Type="Self.proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sistema_estados">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="proveedores">
+              <PropertyRef Name="auto_estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="compraModelStoreContainer">
           <EntitySet Name="compras" EntityType="Self.compras" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_depositos" EntityType="Self.empresa_depositos" Schema="pita" store:Type="Tables" />
@@ -290,10 +355,31 @@
           <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos" EntityType="Self.productos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="proveedores" EntityType="Self.proveedores" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="proveedores_grupo" EntityType="Self.proveedores_grupo" Schema="pita" store:Type="Tables" />
           <EntitySet Name="sistema_configuracion" EntityType="Self.sistema_configuracion" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="sistema_estados" EntityType="Self.sistema_estados" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="proveedores_agencias" EntityType="Self.proveedores_agencias" store:Type="Tables" store:Schema="pita">
+            <DefiningQuery>SELECT
+`proveedores_agencias`.`auto_proveedor`, 
+`proveedores_agencias`.`auto_agencia`, 
+`proveedores_agencias`.`cuenta`
+FROM `proveedores_agencias` AS `proveedores_agencias`</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="compras_ibfk_1" Association="Self.compras_ibfk_1">
             <End Role="proveedores" EntitySet="proveedores" />
             <End Role="compras" EntitySet="compras" />
+          </AssociationSet>
+          <AssociationSet Name="proveedores_agencias_ibfk_3" Association="Self.proveedores_agencias_ibfk_3">
+            <End Role="proveedores" EntitySet="proveedores" />
+            <End Role="proveedores_agencias" EntitySet="proveedores_agencias" />
+          </AssociationSet>
+          <AssociationSet Name="proveedores_ibfk_1" Association="Self.proveedores_ibfk_1">
+            <End Role="proveedores_grupo" EntitySet="proveedores_grupo" />
+            <End Role="proveedores" EntitySet="proveedores" />
+          </AssociationSet>
+          <AssociationSet Name="proveedores_ibfk_2" Association="Self.proveedores_ibfk_2">
+            <End Role="sistema_estados" EntitySet="sistema_estados" />
+            <End Role="proveedores" EntitySet="proveedores" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -432,6 +518,9 @@
           <Property Name="ctabanco" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="nj" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="compras" Relationship="Self.compras_ibfk_1" FromRole="proveedores" ToRole="compras" />
+          <NavigationProperty Name="proveedores_agencias" Relationship="compraModel.proveedores_agencias_ibfk_3" FromRole="proveedores" ToRole="proveedores_agencias" />
+          <NavigationProperty Name="proveedores_grupo" Relationship="compraModel.proveedores_ibfk_1" FromRole="proveedores" ToRole="proveedores_grupo" />
+          <NavigationProperty Name="sistema_estados" Relationship="compraModel.proveedores_ibfk_2" FromRole="proveedores" ToRole="sistema_estados" />
         </EntityType>
         <Association Name="compras_ibfk_1">
           <End Role="proveedores" Type="Self.proveedores" Multiplicity="1" />
@@ -457,6 +546,21 @@
           <EntitySet Name="empresa_grupo" EntityType="compraModel.empresa_grupo" />
           <EntitySet Name="productos" EntityType="compraModel.productos" />
           <EntitySet Name="sistema_configuracion" EntityType="compraModel.sistema_configuracion" />
+          <EntitySet Name="proveedores_grupo" EntityType="compraModel.proveedores_grupo" />
+          <EntitySet Name="proveedores_agencias" EntityType="compraModel.proveedores_agencias" />
+          <AssociationSet Name="proveedores_agencias_ibfk_3" Association="compraModel.proveedores_agencias_ibfk_3">
+            <End Role="proveedores" EntitySet="proveedores" />
+            <End Role="proveedores_agencias" EntitySet="proveedores_agencias" />
+          </AssociationSet>
+          <AssociationSet Name="proveedores_ibfk_1" Association="compraModel.proveedores_ibfk_1">
+            <End Role="proveedores_grupo" EntitySet="proveedores_grupo" />
+            <End Role="proveedores" EntitySet="proveedores" />
+          </AssociationSet>
+          <EntitySet Name="sistema_estados" EntityType="compraModel.sistema_estados" />
+          <AssociationSet Name="proveedores_ibfk_2" Association="compraModel.proveedores_ibfk_2">
+            <End Role="sistema_estados" EntitySet="sistema_estados" />
+            <End Role="proveedores" EntitySet="proveedores" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="empresa_sucursal">
           <Key>
@@ -593,6 +697,72 @@
           <Property Name="tipo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="modulo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="proveedores_grupo">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="proveedores" Relationship="compraModel.proveedores_ibfk_1" FromRole="proveedores_grupo" ToRole="proveedores" />
+        </EntityType>
+        <EntityType Name="proveedores_agencias">
+          <Key>
+            <PropertyRef Name="auto_proveedor" />
+            <PropertyRef Name="auto_agencia" />
+            <PropertyRef Name="cuenta" />
+          </Key>
+          <Property Name="auto_proveedor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_agencia" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cuenta" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="proveedores" Relationship="compraModel.proveedores_agencias_ibfk_3" FromRole="proveedores_agencias" ToRole="proveedores" />
+        </EntityType>
+        <Association Name="proveedores_agencias_ibfk_3">
+          <End Type="compraModel.proveedores" Role="proveedores" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="compraModel.proveedores_agencias" Role="proveedores_agencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proveedores">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="proveedores_agencias">
+              <PropertyRef Name="auto_proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="proveedores_ibfk_1">
+          <End Type="compraModel.proveedores_grupo" Role="proveedores_grupo" Multiplicity="1" />
+          <End Type="compraModel.proveedores" Role="proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proveedores_grupo">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="proveedores">
+              <PropertyRef Name="auto_grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="sistema_estados">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="proveedores" Relationship="compraModel.proveedores_ibfk_2" FromRole="sistema_estados" ToRole="proveedores" />
+        </EntityType>
+        <Association Name="proveedores_ibfk_2">
+          <End Type="compraModel.sistema_estados" Role="sistema_estados" Multiplicity="1" />
+          <End Type="compraModel.proveedores" Role="proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sistema_estados">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="proveedores">
+              <PropertyRef Name="auto_estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -869,6 +1039,32 @@
                 <ScalarProperty Name="valor" ColumnName="valor" />
                 <ScalarProperty Name="operacion" ColumnName="operacion" />
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="proveedores_grupo">
+            <EntityTypeMapping TypeName="compraModel.proveedores_grupo">
+              <MappingFragment StoreEntitySet="proveedores_grupo">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="proveedores_agencias">
+            <EntityTypeMapping TypeName="compraModel.proveedores_agencias">
+              <MappingFragment StoreEntitySet="proveedores_agencias">
+                <ScalarProperty Name="cuenta" ColumnName="cuenta" />
+                <ScalarProperty Name="auto_agencia" ColumnName="auto_agencia" />
+                <ScalarProperty Name="auto_proveedor" ColumnName="auto_proveedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sistema_estados">
+            <EntityTypeMapping TypeName="compraModel.sistema_estados">
+              <MappingFragment StoreEntitySet="sistema_estados">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

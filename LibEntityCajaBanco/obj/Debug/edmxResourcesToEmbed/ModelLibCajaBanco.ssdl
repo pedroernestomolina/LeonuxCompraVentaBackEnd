@@ -71,6 +71,23 @@ warning 6002: The table/view 'pita.cxc_medio_pago' does not have a primary key d
     <Property Name="cierre" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
+  <EntityType Name="empresa_depositos">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="codigo_sucursal" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="empresa_grupo">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="120" Nullable="false" />
+    <Property Name="idPrecio" Type="varchar" MaxLength="1" Nullable="false" />
+  </EntityType>
   <EntityType Name="empresa_sucursal">
     <Key>
       <PropertyRef Name="auto" />
@@ -121,6 +138,13 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
       <PropertyRef Name="msubtotal" />
       <PropertyRef Name="mtotal" />
       <PropertyRef Name="cierre_ftp" />
+      <PropertyRef Name="cnt_divisa" />
+      <PropertyRef Name="cnt_divisa_usuario" />
+      <PropertyRef Name="cntDoc" />
+      <PropertyRef Name="cntDocFac" />
+      <PropertyRef Name="cntDocNcr" />
+      <PropertyRef Name="montoFac" />
+      <PropertyRef Name="montoNcr" />
     </Key>
     <Property Name="auto_cierre" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="auto_usuario" Type="varchar" MaxLength="10" Nullable="false" />
@@ -158,6 +182,24 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
     <Property Name="msubtotal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="mtotal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="cnt_divisa" Type="int" Nullable="false" />
+    <Property Name="cnt_divisa_usuario" Type="int" Nullable="false" />
+    <Property Name="cntDoc" Type="int" Nullable="false" />
+    <Property Name="cntDocFac" Type="int" Nullable="false" />
+    <Property Name="cntDocNcr" Type="int" Nullable="false" />
+    <Property Name="montoFac" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="montoNcr" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sistema">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="estatus_bienvenido" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="bienvenido" Type="text" Nullable="false" />
+    <Property Name="deposito_principal" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="codigo_empresa" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="prefijo" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityType Name="usuarios">
     <Key>
@@ -201,7 +243,10 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
   </Association>
   <EntityContainer Name="cajaBancoModelStoreContainer">
     <EntitySet Name="cxc_recibos" EntityType="Self.cxc_recibos" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="empresa_depositos" EntityType="Self.empresa_depositos" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="empresa_grupo" EntityType="Self.empresa_grupo" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="sistema" EntityType="Self.sistema" Schema="pita" store:Type="Tables" />
     <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="pita" store:Type="Tables" />
     <EntitySet Name="cxc_medio_pago" EntityType="Self.cxc_medio_pago" store:Type="Tables" store:Schema="pita">
       <DefiningQuery>SELECT
@@ -261,7 +306,14 @@ FROM `cxc_medio_pago` AS `cxc_medio_pago`</DefiningQuery>
 `pos_arqueo`.`mretenciones`, 
 `pos_arqueo`.`msubtotal`, 
 `pos_arqueo`.`mtotal`, 
-`pos_arqueo`.`cierre_ftp`
+`pos_arqueo`.`cierre_ftp`, 
+`pos_arqueo`.`cnt_divisa`, 
+`pos_arqueo`.`cnt_divisa_usuario`, 
+`pos_arqueo`.`cntDoc`, 
+`pos_arqueo`.`cntDocFac`, 
+`pos_arqueo`.`cntDocNcr`, 
+`pos_arqueo`.`montoFac`, 
+`pos_arqueo`.`montoNcr`
 FROM `pos_arqueo` AS `pos_arqueo`</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="cxc_medio_pago_ibfk_1" Association="Self.cxc_medio_pago_ibfk_1">

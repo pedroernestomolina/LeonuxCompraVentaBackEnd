@@ -274,5 +274,31 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="proveedores_grupo">
+      <EntityTypeMapping TypeName="compraModel.proveedores_grupo">
+        <MappingFragment StoreEntitySet="proveedores_grupo">
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="proveedores_agencias">
+      <EntityTypeMapping TypeName="compraModel.proveedores_agencias">
+        <MappingFragment StoreEntitySet="proveedores_agencias">
+          <ScalarProperty Name="cuenta" ColumnName="cuenta" />
+          <ScalarProperty Name="auto_agencia" ColumnName="auto_agencia" />
+          <ScalarProperty Name="auto_proveedor" ColumnName="auto_proveedor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sistema_estados">
+      <EntityTypeMapping TypeName="compraModel.sistema_estados">
+        <MappingFragment StoreEntitySet="sistema_estados">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

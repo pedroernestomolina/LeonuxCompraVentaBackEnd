@@ -6,13 +6,19 @@
     <edmx:Diagrams>
       <Diagram DiagramId="2db625cab3cd432daa71bdfe61d98f09" Name="Diagram1" ZoomLevel="34">
         <EntityTypeShape EntityType="compraModel.compras" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="compraModel.proveedores" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="compraModel.proveedores" Width="1.5" PointX="6.75" PointY="11.25" IsExpanded="true" />
         <AssociationConnector Association="compraModel.compras_ibfk_1" ManuallyRouted="false" />
         <EntityTypeShape EntityType="compraModel.empresa_sucursal" Width="1.5" PointX="8.5" PointY="5" />
         <EntityTypeShape EntityType="compraModel.empresa_depositos" Width="1.5" PointX="7.875" PointY="2.25" />
         <EntityTypeShape EntityType="compraModel.empresa_grupo" Width="1.5" PointX="5.375" PointY="4.75" />
         <EntityTypeShape EntityType="compraModel.productos" Width="1.5" PointX="20.125" PointY="5.375" />
         <EntityTypeShape EntityType="compraModel.sistema_configuracion" Width="1.5" PointX="26.875" PointY="9.625" />
+        <EntityTypeShape EntityType="compraModel.proveedores_grupo" Width="1.5" PointX="11.75" PointY="12.625" />
+        <EntityTypeShape EntityType="compraModel.proveedores_agencias" Width="1.5" PointX="10.875" PointY="19.75" />
+        <AssociationConnector Association="compraModel.proveedores_agencias_ibfk_3" />
+        <AssociationConnector Association="compraModel.proveedores_ibfk_1" />
+        <EntityTypeShape EntityType="compraModel.sistema_estados" Width="1.5" PointX="5.375" PointY="7.875" />
+        <AssociationConnector Association="compraModel.proveedores_ibfk_2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -119,9 +119,48 @@ namespace ProvLibCompra
             return rt;
         }
 
-        public DtoLib.ResultadoLista<DtoLibCompra.Proveedor.Data.Ficha> Proveedor_GetFicha(string autoPrv)
+        public DtoLib.ResultadoEntidad <DtoLibCompra.Proveedor.Data.Ficha> Proveedor_GetFicha(string autoPrv)
         {
-            throw new NotImplementedException();
+            var result = new DtoLib.ResultadoEntidad<DtoLibCompra.Proveedor.Data.Ficha>();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var ent = cnn.proveedores.Find(autoPrv);
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ AUTO ] PROVEEDOR NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var nr = new DtoLibCompra.Proveedor.Data.Ficha()
+                    {
+                        autoId = ent.auto,
+                        autoEstado = ent.auto_estado,
+                        autoGrupo = ent.auto_grupo,
+                        ciRif = ent.ci_rif,
+                        codigo = ent.codigo,
+                        direccionFiscal = ent.dir_fiscal,
+                        nombreRazonSocial = ent.razon_social,
+                        nombreContacto = ent.contacto,
+                        nombreEstado = ent.sistema_estados.nombre,
+                        nombreGrupo = ent.proveedores_grupo.nombre,
+                        telefono = ent.telefono,
+                        isActivo = ent.estatus.Trim().ToUpper() == "ACTIVO" ? true : false,
+                    };
+
+                    result.Entidad = nr;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
         }
 
     }

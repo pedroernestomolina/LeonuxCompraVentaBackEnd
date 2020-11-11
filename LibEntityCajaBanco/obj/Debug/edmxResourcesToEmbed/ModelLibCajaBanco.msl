@@ -27,6 +27,13 @@
     <EntitySetMapping Name="pos_arqueo">
       <EntityTypeMapping TypeName="cajaBancoModel.pos_arqueo">
         <MappingFragment StoreEntitySet="pos_arqueo">
+          <ScalarProperty Name="montoNcr" ColumnName="montoNcr" />
+          <ScalarProperty Name="montoFac" ColumnName="montoFac" />
+          <ScalarProperty Name="cntDocNcr" ColumnName="cntDocNcr" />
+          <ScalarProperty Name="cntDocFac" ColumnName="cntDocFac" />
+          <ScalarProperty Name="cntDoc" ColumnName="cntDoc" />
+          <ScalarProperty Name="cnt_divisa_usuario" ColumnName="cnt_divisa_usuario" />
+          <ScalarProperty Name="cnt_divisa" ColumnName="cnt_divisa" />
           <ScalarProperty Name="auto_cierre" ColumnName="auto_cierre" />
           <ScalarProperty Name="auto_usuario" ColumnName="auto_usuario" />
           <ScalarProperty Name="codigo" ColumnName="codigo" />
@@ -122,6 +129,37 @@
           <ScalarProperty Name="auto_usuario" ColumnName="auto_usuario" />
           <ScalarProperty Name="fecha" ColumnName="fecha" />
           <ScalarProperty Name="documento" ColumnName="documento" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="empresa_depositos">
+      <EntityTypeMapping TypeName="cajaBancoModel.empresa_depositos">
+        <MappingFragment StoreEntitySet="empresa_depositos">
+          <ScalarProperty Name="codigo_sucursal" ColumnName="codigo_sucursal" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sistema">
+      <EntityTypeMapping TypeName="cajaBancoModel.sistema">
+        <MappingFragment StoreEntitySet="sistema">
+          <ScalarProperty Name="prefijo" ColumnName="prefijo" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="codigo_empresa" ColumnName="codigo_empresa" />
+          <ScalarProperty Name="deposito_principal" ColumnName="deposito_principal" />
+          <ScalarProperty Name="bienvenido" ColumnName="bienvenido" />
+          <ScalarProperty Name="estatus_bienvenido" ColumnName="estatus_bienvenido" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="empresa_grupo">
+      <EntityTypeMapping TypeName="cajaBancoModel.empresa_grupo">
+        <MappingFragment StoreEntitySet="empresa_grupo">
+          <ScalarProperty Name="idPrecio" ColumnName="idPrecio" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="auto" ColumnName="auto" />
         </MappingFragment>
       </EntityTypeMapping>

@@ -3096,7 +3096,7 @@ namespace ProvSqLitePosOffLine
                         comando1 = new MySqlCommand(sql0, cn, tr);
                         comando1.Parameters.Clear();
                         comando1.Parameters.AddWithValue("?codigoSucursal", codigoSuc);
-                        rt = comando1.ExecuteNonQuery();
+                        //rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/empresa_grupo.txt\" into table empresa_grupo";
                         comando1 = new MySqlCommand(sql0, cn, tr);
@@ -3132,7 +3132,7 @@ namespace ProvSqLitePosOffLine
                         comando1 = new MySqlCommand(sql0, cn, tr);
                         comando1.Parameters.Clear();
                         comando1.Parameters.AddWithValue("?codigoSucursal", codigoSuc);
-                        rt = comando1.ExecuteNonQuery();
+                        //rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/productos_movimientos_detalle.txt\" into table productos_movimientos_detalle";
                         comando1 = new MySqlCommand(sql0, cn, tr);

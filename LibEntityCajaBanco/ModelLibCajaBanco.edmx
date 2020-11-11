@@ -76,6 +76,23 @@ warning 6002: The table/view 'pita.cxc_medio_pago' does not have a primary key d
           <Property Name="cierre" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="empresa_depositos">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="codigo_sucursal" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="empresa_grupo">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="idPrecio" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
         <EntityType Name="empresa_sucursal">
           <Key>
             <PropertyRef Name="auto" />
@@ -126,6 +143,13 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
             <PropertyRef Name="msubtotal" />
             <PropertyRef Name="mtotal" />
             <PropertyRef Name="cierre_ftp" />
+            <PropertyRef Name="cnt_divisa" />
+            <PropertyRef Name="cnt_divisa_usuario" />
+            <PropertyRef Name="cntDoc" />
+            <PropertyRef Name="cntDocFac" />
+            <PropertyRef Name="cntDocNcr" />
+            <PropertyRef Name="montoFac" />
+            <PropertyRef Name="montoNcr" />
           </Key>
           <Property Name="auto_cierre" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="auto_usuario" Type="varchar" MaxLength="10" Nullable="false" />
@@ -163,6 +187,24 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
           <Property Name="msubtotal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="mtotal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="cnt_divisa" Type="int" Nullable="false" />
+          <Property Name="cnt_divisa_usuario" Type="int" Nullable="false" />
+          <Property Name="cntDoc" Type="int" Nullable="false" />
+          <Property Name="cntDocFac" Type="int" Nullable="false" />
+          <Property Name="cntDocNcr" Type="int" Nullable="false" />
+          <Property Name="montoFac" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="montoNcr" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sistema">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="estatus_bienvenido" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="bienvenido" Type="text" Nullable="false" />
+          <Property Name="deposito_principal" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="codigo_empresa" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="prefijo" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="usuarios">
           <Key>
@@ -206,7 +248,10 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
         </Association>
         <EntityContainer Name="cajaBancoModelStoreContainer">
           <EntitySet Name="cxc_recibos" EntityType="Self.cxc_recibos" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="empresa_depositos" EntityType="Self.empresa_depositos" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="empresa_grupo" EntityType="Self.empresa_grupo" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="sistema" EntityType="Self.sistema" Schema="pita" store:Type="Tables" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="pita" store:Type="Tables" />
           <EntitySet Name="cxc_medio_pago" EntityType="Self.cxc_medio_pago" store:Type="Tables" store:Schema="pita">
             <DefiningQuery>SELECT
@@ -266,7 +311,14 @@ FROM `cxc_medio_pago` AS `cxc_medio_pago`</DefiningQuery>
 `pos_arqueo`.`mretenciones`, 
 `pos_arqueo`.`msubtotal`, 
 `pos_arqueo`.`mtotal`, 
-`pos_arqueo`.`cierre_ftp`
+`pos_arqueo`.`cierre_ftp`, 
+`pos_arqueo`.`cnt_divisa`, 
+`pos_arqueo`.`cnt_divisa_usuario`, 
+`pos_arqueo`.`cntDoc`, 
+`pos_arqueo`.`cntDocFac`, 
+`pos_arqueo`.`cntDocNcr`, 
+`pos_arqueo`.`montoFac`, 
+`pos_arqueo`.`montoNcr`
 FROM `pos_arqueo` AS `pos_arqueo`</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="cxc_medio_pago_ibfk_1" Association="Self.cxc_medio_pago_ibfk_1">
@@ -359,6 +411,13 @@ FROM `pos_arqueo` AS `pos_arqueo`</DefiningQuery>
             <PropertyRef Name="msubtotal" />
             <PropertyRef Name="mtotal" />
             <PropertyRef Name="cierre_ftp" />
+            <PropertyRef Name="cnt_divisa" />
+            <PropertyRef Name="cnt_divisa_usuario" />
+            <PropertyRef Name="cntDoc" />
+            <PropertyRef Name="cntDocFac" />
+            <PropertyRef Name="cntDocNcr" />
+            <PropertyRef Name="montoFac" />
+            <PropertyRef Name="montoNcr" />
           </Key>
           <Property Name="auto_cierre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="auto_usuario" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
@@ -396,6 +455,13 @@ FROM `pos_arqueo` AS `pos_arqueo`</DefiningQuery>
           <Property Name="msubtotal" Type="Decimal" Nullable="false" />
           <Property Name="mtotal" Type="Decimal" Nullable="false" />
           <Property Name="cierre_ftp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cnt_divisa" Type="Int32" Nullable="false" />
+          <Property Name="cnt_divisa_usuario" Type="Int32" Nullable="false" />
+          <Property Name="cntDoc" Type="Int32" Nullable="false" />
+          <Property Name="cntDocFac" Type="Int32" Nullable="false" />
+          <Property Name="cntDocNcr" Type="Int32" Nullable="false" />
+          <Property Name="montoFac" Type="Decimal" Nullable="false" />
+          <Property Name="montoNcr" Type="Decimal" Nullable="false" />
         </EntityType>
         <EntityContainer Name="cajaBancoEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="cxc_medio_pago" EntityType="Self.cxc_medio_pago" />
@@ -411,6 +477,9 @@ FROM `pos_arqueo` AS `pos_arqueo`</DefiningQuery>
             <End Role="usuarios" EntitySet="usuarios" />
             <End Role="cxc_recibos" EntitySet="cxc_recibos" />
           </AssociationSet>
+          <EntitySet Name="empresa_depositos" EntityType="cajaBancoModel.empresa_depositos" />
+          <EntitySet Name="sistema" EntityType="cajaBancoModel.sistema" />
+          <EntitySet Name="empresa_grupo" EntityType="cajaBancoModel.empresa_grupo" />
         </EntityContainer>
         <EntityType Name="usuarios">
           <Key>
@@ -496,6 +565,34 @@ FROM `pos_arqueo` AS `pos_arqueo`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="empresa_depositos">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_sucursal" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sistema">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="estatus_bienvenido" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="bienvenido" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="deposito_principal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_empresa" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="prefijo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="empresa_grupo">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="idPrecio" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -528,6 +625,13 @@ FROM `pos_arqueo` AS `pos_arqueo`</DefiningQuery>
           <EntitySetMapping Name="pos_arqueo">
             <EntityTypeMapping TypeName="cajaBancoModel.pos_arqueo">
               <MappingFragment StoreEntitySet="pos_arqueo">
+                <ScalarProperty Name="montoNcr" ColumnName="montoNcr" />
+                <ScalarProperty Name="montoFac" ColumnName="montoFac" />
+                <ScalarProperty Name="cntDocNcr" ColumnName="cntDocNcr" />
+                <ScalarProperty Name="cntDocFac" ColumnName="cntDocFac" />
+                <ScalarProperty Name="cntDoc" ColumnName="cntDoc" />
+                <ScalarProperty Name="cnt_divisa_usuario" ColumnName="cnt_divisa_usuario" />
+                <ScalarProperty Name="cnt_divisa" ColumnName="cnt_divisa" />
                 <ScalarProperty Name="auto_cierre" ColumnName="auto_cierre" />
                 <ScalarProperty Name="auto_usuario" ColumnName="auto_usuario" />
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
@@ -623,6 +727,37 @@ FROM `pos_arqueo` AS `pos_arqueo`</DefiningQuery>
                 <ScalarProperty Name="auto_usuario" ColumnName="auto_usuario" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="documento" ColumnName="documento" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empresa_depositos">
+            <EntityTypeMapping TypeName="cajaBancoModel.empresa_depositos">
+              <MappingFragment StoreEntitySet="empresa_depositos">
+                <ScalarProperty Name="codigo_sucursal" ColumnName="codigo_sucursal" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sistema">
+            <EntityTypeMapping TypeName="cajaBancoModel.sistema">
+              <MappingFragment StoreEntitySet="sistema">
+                <ScalarProperty Name="prefijo" ColumnName="prefijo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codigo_empresa" ColumnName="codigo_empresa" />
+                <ScalarProperty Name="deposito_principal" ColumnName="deposito_principal" />
+                <ScalarProperty Name="bienvenido" ColumnName="bienvenido" />
+                <ScalarProperty Name="estatus_bienvenido" ColumnName="estatus_bienvenido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empresa_grupo">
+            <EntityTypeMapping TypeName="cajaBancoModel.empresa_grupo">
+              <MappingFragment StoreEntitySet="empresa_grupo">
+                <ScalarProperty Name="idPrecio" ColumnName="idPrecio" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>

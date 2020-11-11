@@ -50,5 +50,12 @@ namespace LibEntityCajaBanco
         public decimal msubtotal { get; set; }
         public decimal mtotal { get; set; }
         public string cierre_ftp { get; set; }
+        public int cnt_divisa { get; set; }
+        public int cnt_divisa_usuario { get; set; }
+        public int cntDoc { get; set; }
+        public int cntDocFac { get; set; }
+        public int cntDocNcr { get; set; }
+        public decimal montoFac { get; set; }
+        public decimal montoNcr { get; set; }
     }
 }

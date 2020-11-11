@@ -39,9 +39,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Deposito\Ficha.cs" />
+    <Compile Include="Deposito\Resumen.cs" />
+    <Compile Include="EmpresaGrupo\Ficha.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reporte\Habladores\Ficha.cs" />
+    <Compile Include="Reporte\Habladores\Filtro.cs" />
     <Compile Include="Reporte\Movimiento\ArqueoCajaPos\Ficha.cs" />
     <Compile Include="Reporte\Movimiento\Filtro.cs" />
+    <Compile Include="Reporte\Movimiento\Inventario\Ficha.cs" />
+    <Compile Include="Reporte\Movimiento\Inventario\Filtro.cs" />
+    <Compile Include="Reporte\Movimiento\ResumenVenta\Ficha.cs" />
+    <Compile Include="Reporte\Movimiento\ResumenVenta\Filtro.cs" />
+    <Compile Include="Sucursal\Ficha.cs" />
     <Compile Include="Sucursal\Resumen.cs" />
     <Compile Include="Usuario\Ficha.cs" />
   </ItemGroup>

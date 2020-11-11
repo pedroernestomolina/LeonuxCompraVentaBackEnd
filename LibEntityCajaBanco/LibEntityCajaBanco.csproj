@@ -64,6 +64,12 @@
     <Compile Include="cxc_recibos.cs">
       <DependentUpon>ModelLibCajaBanco.tt</DependentUpon>
     </Compile>
+    <Compile Include="empresa_depositos.cs">
+      <DependentUpon>ModelLibCajaBanco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="empresa_grupo.cs">
+      <DependentUpon>ModelLibCajaBanco.tt</DependentUpon>
+    </Compile>
     <Compile Include="empresa_sucursal.cs">
       <DependentUpon>ModelLibCajaBanco.tt</DependentUpon>
     </Compile>
@@ -87,6 +93,9 @@
     </Compile>
     <Compile Include="Principal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sistema.cs">
+      <DependentUpon>ModelLibCajaBanco.tt</DependentUpon>
+    </Compile>
     <Compile Include="usuarios.cs">
       <DependentUpon>ModelLibCajaBanco.tt</DependentUpon>
     </Compile>
