@@ -38,6 +38,7 @@ namespace ConsoleCompra
             //var r01 = compraPrv.Configuracion_TasaCambioActual();
             //var r01 = compraPrv.Configuracion_PreferenciaBusquedaProveedor();
             //var r01 = compraPrv.Proveedor_GetFicha("0000000002");
+            //var r01 = compraPrv.Configuracion_PreferenciaBusquedaProducto();
         }
 
     }

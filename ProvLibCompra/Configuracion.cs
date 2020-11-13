@@ -92,6 +92,48 @@ namespace ProvLibCompra
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibCompra.Configuracion.Enumerados.EnumPreferenciaBusquedaProducto> Configuracion_PreferenciaBusquedaProducto()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibCompra.Configuracion.Enumerados.EnumPreferenciaBusquedaProducto>();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL03");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var modo = DtoLibCompra.Configuracion.Enumerados.EnumPreferenciaBusquedaProducto.SinDefinir;
+                    switch (ent.usuario.Trim().ToUpper())
+                    {
+                        case "CODIGO":
+                            modo = DtoLibCompra.Configuracion.Enumerados.EnumPreferenciaBusquedaProducto.PorCodigo;
+                            break;
+                        case "NOMBRE":
+                            modo = DtoLibCompra.Configuracion.Enumerados.EnumPreferenciaBusquedaProducto.PorNombre;
+                            break;
+                        case "REFERENCIA":
+                            modo = DtoLibCompra.Configuracion.Enumerados.EnumPreferenciaBusquedaProducto.Referencia;
+                            break;
+                    }
+
+                    result.Entidad = modo;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

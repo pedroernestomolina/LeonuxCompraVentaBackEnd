@@ -1,10 +1,11 @@
+D:\Proyectos FoxSystem\CompraVenta\LibEntityCajaBanco\bin\Debug\EntityFramework.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCajaBanco\bin\Debug\LibEntityCajaBanco.dll.config
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCajaBanco\bin\Debug\LibEntityCajaBanco.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCajaBanco\bin\Debug\LibEntityCajaBanco.pdb
-D:\Proyectos FoxSystem\CompraVenta\LibEntityCajaBanco\bin\Debug\EntityFramework.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCajaBanco\bin\Debug\EntityFramework.SqlServer.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCajaBanco\bin\Debug\MySql.Data.Entity.EF6.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCajaBanco\bin\Debug\EntityFramework.xml
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCajaBanco\bin\Debug\EntityFramework.SqlServer.xml
+D:\Proyectos FoxSystem\CompraVenta\LibEntityCajaBanco\obj\Debug\LibEntityCajaBanco.csprojResolveAssemblyReference.cache
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCajaBanco\obj\Debug\LibEntityCajaBanco.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCajaBanco\obj\Debug\LibEntityCajaBanco.pdb
