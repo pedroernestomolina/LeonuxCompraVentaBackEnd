@@ -106,6 +106,52 @@ namespace ProvLibCajaBanco
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibCajaBanco.Sucursal.Ficha> Sucursal_GetFicha(string auto)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibCajaBanco.Sucursal.Ficha>();
+
+            try
+            {
+                using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
+                {
+                    var ent = cnn.empresa_sucursal.Find(auto);
+                    if (ent == null)
+                    {
+                        result.Mensaje = "SUCURSAL NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var autoEmpresaGrupo = "";
+                    var nombreEmpresaGrupo = "";
+                    var entEmpresaGrupo = cnn.empresa_grupo.Find(ent.autoEmpresaGrupo);
+                    if (entEmpresaGrupo != null)
+                    {
+                        autoEmpresaGrupo = entEmpresaGrupo.auto;
+                        nombreEmpresaGrupo = entEmpresaGrupo.nombre;
+                    }
+
+                    var r = new DtoLibCajaBanco.Sucursal.Ficha()
+                    {
+                        auto = ent.auto,
+                        autoEmpresaGrupo = ent.autoEmpresaGrupo,
+                        codigo = ent.codigo,
+                        nombre = ent.nombre,
+                        nombreEmpresaGrupo = nombreEmpresaGrupo,
+                    };
+
+                    result.Entidad = r;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

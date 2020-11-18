@@ -90,6 +90,19 @@
     <Property Name="estatus_cierre_contable" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
+  <EntityType Name="empresa_departamentos">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="comision_g" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="comision_1" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="comision_2" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="comision_3" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="comision_4" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+  </EntityType>
   <EntityType Name="empresa_depositos">
     <Key>
       <PropertyRef Name="auto" />
@@ -116,6 +129,14 @@
     <Property Name="autoEmpresaGrupo" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="codigo" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="120" Nullable="false" />
+  </EntityType>
+  <EntityType Name="empresa_tasas">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="tasa" Type="decimal" Precision="6" Scale="2" Nullable="false" />
   </EntityType>
   <EntityType Name="productos">
     <Key>
@@ -213,6 +234,41 @@
     <Property Name="pdf_4" Type="decimal" Precision="16" Scale="2" Nullable="false" />
     <Property Name="pdf_pto" Type="decimal" Precision="16" Scale="2" Nullable="false" />
   </EntityType>
+  <EntityType Name="productos_grupo">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="estatus_catalogo" Type="varchar" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="productos_marca">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="tipo" Type="varchar" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="productos_medida">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="decimales" Type="varchar" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="productos_proveedor">
+    <Key>
+      <PropertyRef Name="auto_producto" />
+      <PropertyRef Name="auto_proveedor" />
+      <PropertyRef Name="codigo_producto" />
+    </Key>
+    <Property Name="auto_producto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_proveedor" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="codigo_producto" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
   <EntityType Name="proveedores">
     <Key>
       <PropertyRef Name="auto" />
@@ -305,6 +361,154 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="productos_ibfk_1">
+    <End Role="empresa_departamentos" Type="Self.empresa_departamentos" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_departamentos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_departamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_10">
+    <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_4" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_11">
+    <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_pto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_12">
+    <End Role="empresa_tasas" Type="Self.empresa_tasas" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_tasas">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_tasa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_2">
+    <End Role="productos_grupo" Type="Self.productos_grupo" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_grupo">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_grupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_4">
+    <End Role="productos_marca" Type="Self.productos_marca" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_marca">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_marca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_5">
+    <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_empaque_compra" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_7">
+    <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_8">
+    <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_9">
+    <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_3" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_proveedor_ibfk_1">
+    <End Role="productos" Type="Self.productos" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="productos_proveedor" Type="Self.productos_proveedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_proveedor">
+        <PropertyRef Name="auto_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_proveedor_ibfk_2">
+    <End Role="proveedores" Type="Self.proveedores" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="productos_proveedor" Type="Self.productos_proveedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="proveedores">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_proveedor">
+        <PropertyRef Name="auto_proveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="proveedores_agencias_ibfk_3">
     <End Role="proveedores" Type="Self.proveedores" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -345,10 +549,16 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
   </Association>
   <EntityContainer Name="compraModelStoreContainer">
     <EntitySet Name="compras" EntityType="Self.compras" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="empresa_departamentos" EntityType="Self.empresa_departamentos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_depositos" EntityType="Self.empresa_depositos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_grupo" EntityType="Self.empresa_grupo" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="empresa_tasas" EntityType="Self.empresa_tasas" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos" EntityType="Self.productos" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_grupo" EntityType="Self.productos_grupo" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_marca" EntityType="Self.productos_marca" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_medida" EntityType="Self.productos_medida" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_proveedor" EntityType="Self.productos_proveedor" Schema="pita" store:Type="Tables" />
     <EntitySet Name="proveedores" EntityType="Self.proveedores" Schema="pita" store:Type="Tables" />
     <EntitySet Name="proveedores_grupo" EntityType="Self.proveedores_grupo" Schema="pita" store:Type="Tables" />
     <EntitySet Name="sistema_configuracion" EntityType="Self.sistema_configuracion" Schema="pita" store:Type="Tables" />
@@ -363,6 +573,54 @@ FROM `proveedores_agencias` AS `proveedores_agencias`</DefiningQuery>
     <AssociationSet Name="compras_ibfk_1" Association="Self.compras_ibfk_1">
       <End Role="proveedores" EntitySet="proveedores" />
       <End Role="compras" EntitySet="compras" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_1" Association="Self.productos_ibfk_1">
+      <End Role="empresa_departamentos" EntitySet="empresa_departamentos" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_10" Association="Self.productos_ibfk_10">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_11" Association="Self.productos_ibfk_11">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_12" Association="Self.productos_ibfk_12">
+      <End Role="empresa_tasas" EntitySet="empresa_tasas" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_2" Association="Self.productos_ibfk_2">
+      <End Role="productos_grupo" EntitySet="productos_grupo" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_4" Association="Self.productos_ibfk_4">
+      <End Role="productos_marca" EntitySet="productos_marca" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_5" Association="Self.productos_ibfk_5">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_7" Association="Self.productos_ibfk_7">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_8" Association="Self.productos_ibfk_8">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_9" Association="Self.productos_ibfk_9">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_proveedor_ibfk_1" Association="Self.productos_proveedor_ibfk_1">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="productos_proveedor" EntitySet="productos_proveedor" />
+    </AssociationSet>
+    <AssociationSet Name="productos_proveedor_ibfk_2" Association="Self.productos_proveedor_ibfk_2">
+      <End Role="proveedores" EntitySet="proveedores" />
+      <End Role="productos_proveedor" EntitySet="productos_proveedor" />
     </AssociationSet>
     <AssociationSet Name="proveedores_agencias_ibfk_3" Association="Self.proveedores_agencias_ibfk_3">
       <End Role="proveedores" EntitySet="proveedores" />

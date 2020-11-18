@@ -95,6 +95,41 @@ namespace ProvLibCajaBanco
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibCajaBanco.Deposito.Ficha> Deposito_GetFicha(string auto)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibCajaBanco.Deposito.Ficha>();
+
+            try
+            {
+                using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
+                {
+                    var ent = cnn.empresa_depositos.Find(auto);
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ AUTO ] DEPOSITO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var r = new DtoLibCajaBanco.Deposito.Ficha()
+                    {
+                        auto = ent.auto,
+                        codigo = ent.codigo,
+                        nombre = ent.nombre,
+                    };
+
+                    result.Entidad = r;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

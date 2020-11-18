@@ -300,5 +300,65 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="empresa_departamentos">
+      <EntityTypeMapping TypeName="compraModel.empresa_departamentos">
+        <MappingFragment StoreEntitySet="empresa_departamentos">
+          <ScalarProperty Name="comision_4" ColumnName="comision_4" />
+          <ScalarProperty Name="comision_3" ColumnName="comision_3" />
+          <ScalarProperty Name="comision_2" ColumnName="comision_2" />
+          <ScalarProperty Name="comision_1" ColumnName="comision_1" />
+          <ScalarProperty Name="comision_g" ColumnName="comision_g" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="empresa_tasas">
+      <EntityTypeMapping TypeName="compraModel.empresa_tasas">
+        <MappingFragment StoreEntitySet="empresa_tasas">
+          <ScalarProperty Name="tasa" ColumnName="tasa" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productos_grupo">
+      <EntityTypeMapping TypeName="compraModel.productos_grupo">
+        <MappingFragment StoreEntitySet="productos_grupo">
+          <ScalarProperty Name="estatus_catalogo" ColumnName="estatus_catalogo" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productos_marca">
+      <EntityTypeMapping TypeName="compraModel.productos_marca">
+        <MappingFragment StoreEntitySet="productos_marca">
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productos_medida">
+      <EntityTypeMapping TypeName="compraModel.productos_medida">
+        <MappingFragment StoreEntitySet="productos_medida">
+          <ScalarProperty Name="decimales" ColumnName="decimales" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productos_proveedor">
+      <EntityTypeMapping TypeName="compraModel.productos_proveedor">
+        <MappingFragment StoreEntitySet="productos_proveedor">
+          <ScalarProperty Name="codigo_producto" ColumnName="codigo_producto" />
+          <ScalarProperty Name="auto_proveedor" ColumnName="auto_proveedor" />
+          <ScalarProperty Name="auto_producto" ColumnName="auto_producto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

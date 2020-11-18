@@ -38,6 +38,21 @@ namespace ConsoleCajaBanco
             //var r01 = cajaBancoPrv.EmpresaGrupo_GetFicha("0000000002");
             //var filtro = new DtoLibCajaBanco.Reporte.Habladores.Filtro();
             //var r01 = cajaBancoPrv.Reporte_Habladores(filtro);
+
+            //var filtro = new DtoLibCajaBanco.Reporte.Movimiento.FacturaDetalle.Filtro();
+            //filtro.desdeFecha = new DateTime(2020, 11, 15);
+            //filtro.hastaFecha = new DateTime(2020, 11, 15);
+            //filtro.codigoSucursal = "04";
+            //var r01 = cajaBancoPrv.Reporte_VentaDetalle(filtro);
+
+            //var filtro = new DtoLibCajaBanco.Reporte.Movimiento.VentasPorProducto.Filtro();
+            //filtro.desdeFecha = new DateTime(2020, 11, 7);
+            //filtro.hastaFecha = new DateTime(2020, 11, 7);
+            //filtro.codigoSucursal = "04";
+            //var r01 = cajaBancoPrv.Reporte_VentaPorProducto(filtro);
+
+            //var r01 = cajaBancoPrv.Deposito_GetFicha("0000000004");
+            //var r01 = cajaBancoPrv.Sucursal_GetFicha("0000000004");
         }
     }
 

@@ -19,6 +19,7 @@ namespace LibEntityCompra
         {
             this.compras = new HashSet<compras>();
             this.proveedores_agencias = new HashSet<proveedores_agencias>();
+            this.productos_proveedor = new HashSet<productos_proveedor>();
         }
     
         public string auto { get; set; }
@@ -64,5 +65,7 @@ namespace LibEntityCompra
         public virtual ICollection<proveedores_agencias> proveedores_agencias { get; set; }
         public virtual proveedores_grupo proveedores_grupo { get; set; }
         public virtual sistema_estados sistema_estados { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<productos_proveedor> productos_proveedor { get; set; }
     }
 }

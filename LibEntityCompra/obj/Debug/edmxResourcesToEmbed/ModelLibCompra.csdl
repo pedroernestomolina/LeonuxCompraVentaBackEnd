@@ -135,6 +135,7 @@
     <NavigationProperty Name="proveedores_agencias" Relationship="compraModel.proveedores_agencias_ibfk_3" FromRole="proveedores" ToRole="proveedores_agencias" />
     <NavigationProperty Name="proveedores_grupo" Relationship="compraModel.proveedores_ibfk_1" FromRole="proveedores" ToRole="proveedores_grupo" />
     <NavigationProperty Name="sistema_estados" Relationship="compraModel.proveedores_ibfk_2" FromRole="proveedores" ToRole="sistema_estados" />
+    <NavigationProperty Name="productos_proveedor" Relationship="compraModel.productos_proveedor_ibfk_2" FromRole="proveedores" ToRole="productos_proveedor" />
   </EntityType>
   <Association Name="compras_ibfk_1">
     <End Role="proveedores" Type="Self.proveedores" Multiplicity="1" />
@@ -174,6 +175,60 @@
     <AssociationSet Name="proveedores_ibfk_2" Association="compraModel.proveedores_ibfk_2">
       <End Role="sistema_estados" EntitySet="sistema_estados" />
       <End Role="proveedores" EntitySet="proveedores" />
+    </AssociationSet>
+    <EntitySet Name="empresa_departamentos" EntityType="compraModel.empresa_departamentos" />
+    <EntitySet Name="empresa_tasas" EntityType="compraModel.empresa_tasas" />
+    <EntitySet Name="productos_grupo" EntityType="compraModel.productos_grupo" />
+    <EntitySet Name="productos_marca" EntityType="compraModel.productos_marca" />
+    <EntitySet Name="productos_medida" EntityType="compraModel.productos_medida" />
+    <AssociationSet Name="productos_ibfk_1" Association="compraModel.productos_ibfk_1">
+      <End Role="empresa_departamentos" EntitySet="empresa_departamentos" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_12" Association="compraModel.productos_ibfk_12">
+      <End Role="empresa_tasas" EntitySet="empresa_tasas" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_10" Association="compraModel.productos_ibfk_10">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_11" Association="compraModel.productos_ibfk_11">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_2" Association="compraModel.productos_ibfk_2">
+      <End Role="productos_grupo" EntitySet="productos_grupo" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_4" Association="compraModel.productos_ibfk_4">
+      <End Role="productos_marca" EntitySet="productos_marca" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_5" Association="compraModel.productos_ibfk_5">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_7" Association="compraModel.productos_ibfk_7">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_8" Association="compraModel.productos_ibfk_8">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_9" Association="compraModel.productos_ibfk_9">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <EntitySet Name="productos_proveedor" EntityType="compraModel.productos_proveedor" />
+    <AssociationSet Name="productos_proveedor_ibfk_1" Association="compraModel.productos_proveedor_ibfk_1">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="productos_proveedor" EntitySet="productos_proveedor" />
+    </AssociationSet>
+    <AssociationSet Name="productos_proveedor_ibfk_2" Association="compraModel.productos_proveedor_ibfk_2">
+      <End Role="proveedores" EntitySet="proveedores" />
+      <End Role="productos_proveedor" EntitySet="productos_proveedor" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="empresa_sucursal">
@@ -298,6 +353,17 @@
     <Property Name="pdf_3" Type="Decimal" Nullable="false" />
     <Property Name="pdf_4" Type="Decimal" Nullable="false" />
     <Property Name="pdf_pto" Type="Decimal" Nullable="false" />
+    <NavigationProperty Name="empresa_departamentos" Relationship="compraModel.productos_ibfk_1" FromRole="productos" ToRole="empresa_departamentos" />
+    <NavigationProperty Name="empresa_tasas" Relationship="compraModel.productos_ibfk_12" FromRole="productos" ToRole="empresa_tasas" />
+    <NavigationProperty Name="productos_medida" Relationship="compraModel.productos_ibfk_10" FromRole="productos" ToRole="productos_medida" />
+    <NavigationProperty Name="productos_medida1" Relationship="compraModel.productos_ibfk_11" FromRole="productos" ToRole="productos_medida" />
+    <NavigationProperty Name="productos_grupo" Relationship="compraModel.productos_ibfk_2" FromRole="productos" ToRole="productos_grupo" />
+    <NavigationProperty Name="productos_marca" Relationship="compraModel.productos_ibfk_4" FromRole="productos" ToRole="productos_marca" />
+    <NavigationProperty Name="productos_medida2" Relationship="compraModel.productos_ibfk_5" FromRole="productos" ToRole="productos_medida" />
+    <NavigationProperty Name="productos_medida3" Relationship="compraModel.productos_ibfk_7" FromRole="productos" ToRole="productos_medida" />
+    <NavigationProperty Name="productos_medida4" Relationship="compraModel.productos_ibfk_8" FromRole="productos" ToRole="productos_medida" />
+    <NavigationProperty Name="productos_medida5" Relationship="compraModel.productos_ibfk_9" FromRole="productos" ToRole="productos_medida" />
+    <NavigationProperty Name="productos_proveedor" Relationship="compraModel.productos_proveedor_ibfk_1" FromRole="productos" ToRole="productos_proveedor" />
   </EntityType>
   <EntityType Name="sistema_configuracion">
     <Key>
@@ -374,6 +440,222 @@
       </Principal>
       <Dependent Role="proveedores">
         <PropertyRef Name="auto_estado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="empresa_departamentos">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="comision_g" Type="Decimal" Nullable="false" />
+    <Property Name="comision_1" Type="Decimal" Nullable="false" />
+    <Property Name="comision_2" Type="Decimal" Nullable="false" />
+    <Property Name="comision_3" Type="Decimal" Nullable="false" />
+    <Property Name="comision_4" Type="Decimal" Nullable="false" />
+    <NavigationProperty Name="productos" Relationship="compraModel.productos_ibfk_1" FromRole="empresa_departamentos" ToRole="productos" />
+  </EntityType>
+  <EntityType Name="empresa_tasas">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="tasa" Type="Decimal" Nullable="false" />
+    <NavigationProperty Name="productos" Relationship="compraModel.productos_ibfk_12" FromRole="empresa_tasas" ToRole="productos" />
+  </EntityType>
+  <EntityType Name="productos_grupo">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_catalogo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="productos" Relationship="compraModel.productos_ibfk_2" FromRole="productos_grupo" ToRole="productos" />
+  </EntityType>
+  <EntityType Name="productos_marca">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="tipo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="productos" Relationship="compraModel.productos_ibfk_4" FromRole="productos_marca" ToRole="productos" />
+  </EntityType>
+  <EntityType Name="productos_medida">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="decimales" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="productos" Relationship="compraModel.productos_ibfk_10" FromRole="productos_medida" ToRole="productos" />
+    <NavigationProperty Name="productos1" Relationship="compraModel.productos_ibfk_11" FromRole="productos_medida" ToRole="productos" />
+    <NavigationProperty Name="productos2" Relationship="compraModel.productos_ibfk_5" FromRole="productos_medida" ToRole="productos" />
+    <NavigationProperty Name="productos3" Relationship="compraModel.productos_ibfk_7" FromRole="productos_medida" ToRole="productos" />
+    <NavigationProperty Name="productos4" Relationship="compraModel.productos_ibfk_8" FromRole="productos_medida" ToRole="productos" />
+    <NavigationProperty Name="productos5" Relationship="compraModel.productos_ibfk_9" FromRole="productos_medida" ToRole="productos" />
+  </EntityType>
+  <Association Name="productos_ibfk_1">
+    <End Type="compraModel.empresa_departamentos" Role="empresa_departamentos" Multiplicity="1" />
+    <End Type="compraModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_departamentos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_departamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_12">
+    <End Type="compraModel.empresa_tasas" Role="empresa_tasas" Multiplicity="1" />
+    <End Type="compraModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_tasas">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_tasa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_10">
+    <End Type="compraModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+    <End Type="compraModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_4" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_11">
+    <End Type="compraModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+    <End Type="compraModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_pto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_2">
+    <End Type="compraModel.productos_grupo" Role="productos_grupo" Multiplicity="1" />
+    <End Type="compraModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_grupo">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_grupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_4">
+    <End Type="compraModel.productos_marca" Role="productos_marca" Multiplicity="1" />
+    <End Type="compraModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_marca">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_marca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_5">
+    <End Type="compraModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+    <End Type="compraModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_empaque_compra" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_7">
+    <End Type="compraModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+    <End Type="compraModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_8">
+    <End Type="compraModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+    <End Type="compraModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_9">
+    <End Type="compraModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+    <End Type="compraModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_3" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="productos_proveedor">
+    <Key>
+      <PropertyRef Name="auto_producto" />
+      <PropertyRef Name="auto_proveedor" />
+      <PropertyRef Name="codigo_producto" />
+    </Key>
+    <Property Name="auto_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_proveedor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo_producto" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="productos" Relationship="compraModel.productos_proveedor_ibfk_1" FromRole="productos_proveedor" ToRole="productos" />
+    <NavigationProperty Name="proveedores" Relationship="compraModel.productos_proveedor_ibfk_2" FromRole="productos_proveedor" ToRole="proveedores" />
+  </EntityType>
+  <Association Name="productos_proveedor_ibfk_1">
+    <End Type="compraModel.productos" Role="productos" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="compraModel.productos_proveedor" Role="productos_proveedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_proveedor">
+        <PropertyRef Name="auto_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_proveedor_ibfk_2">
+    <End Type="compraModel.proveedores" Role="proveedores" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="compraModel.productos_proveedor" Role="productos_proveedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="proveedores">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_proveedor">
+        <PropertyRef Name="auto_proveedor" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

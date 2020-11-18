@@ -19,6 +19,24 @@
         <AssociationConnector Association="compraModel.proveedores_ibfk_1" />
         <EntityTypeShape EntityType="compraModel.sistema_estados" Width="1.5" PointX="5.375" PointY="7.875" />
         <AssociationConnector Association="compraModel.proveedores_ibfk_2" />
+        <EntityTypeShape EntityType="compraModel.empresa_departamentos" Width="1.5" PointX="24" PointY="14.125" />
+        <EntityTypeShape EntityType="compraModel.empresa_tasas" Width="1.5" PointX="24" PointY="9" />
+        <EntityTypeShape EntityType="compraModel.productos_grupo" Width="1.5" PointX="24" PointY="11.5" />
+        <EntityTypeShape EntityType="compraModel.productos_marca" Width="1.5" PointX="24" PointY="21" />
+        <EntityTypeShape EntityType="compraModel.productos_medida" Width="1.5" PointX="24" PointY="17.625" />
+        <AssociationConnector Association="compraModel.productos_ibfk_1" />
+        <AssociationConnector Association="compraModel.productos_ibfk_12" />
+        <AssociationConnector Association="compraModel.productos_ibfk_10" />
+        <AssociationConnector Association="compraModel.productos_ibfk_11" />
+        <AssociationConnector Association="compraModel.productos_ibfk_2" />
+        <AssociationConnector Association="compraModel.productos_ibfk_4" />
+        <AssociationConnector Association="compraModel.productos_ibfk_5" />
+        <AssociationConnector Association="compraModel.productos_ibfk_7" />
+        <AssociationConnector Association="compraModel.productos_ibfk_8" />
+        <AssociationConnector Association="compraModel.productos_ibfk_9" />
+        <EntityTypeShape EntityType="compraModel.productos_proveedor" Width="1.5" PointX="16.125" PointY="14.375" />
+        <AssociationConnector Association="compraModel.productos_proveedor_ibfk_1" />
+        <AssociationConnector Association="compraModel.productos_proveedor_ibfk_2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

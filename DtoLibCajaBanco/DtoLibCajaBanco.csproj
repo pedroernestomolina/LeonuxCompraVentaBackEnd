@@ -46,11 +46,15 @@
     <Compile Include="Reporte\Habladores\Ficha.cs" />
     <Compile Include="Reporte\Habladores\Filtro.cs" />
     <Compile Include="Reporte\Movimiento\ArqueoCajaPos\Ficha.cs" />
+    <Compile Include="Reporte\Movimiento\FacturaDetalle\Ficha.cs" />
+    <Compile Include="Reporte\Movimiento\FacturaDetalle\Filtro.cs" />
     <Compile Include="Reporte\Movimiento\Filtro.cs" />
     <Compile Include="Reporte\Movimiento\Inventario\Ficha.cs" />
     <Compile Include="Reporte\Movimiento\Inventario\Filtro.cs" />
     <Compile Include="Reporte\Movimiento\ResumenVenta\Ficha.cs" />
     <Compile Include="Reporte\Movimiento\ResumenVenta\Filtro.cs" />
+    <Compile Include="Reporte\Movimiento\VentasPorProducto\Ficha.cs" />
+    <Compile Include="Reporte\Movimiento\VentasPorProducto\Filtro.cs" />
     <Compile Include="Sucursal\Ficha.cs" />
     <Compile Include="Sucursal\Resumen.cs" />
     <Compile Include="Usuario\Ficha.cs" />

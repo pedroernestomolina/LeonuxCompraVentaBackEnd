@@ -60,6 +60,8 @@
     <Compile Include="Enumerados.cs" />
     <Compile Include="Permiso\Enumerados.cs" />
     <Compile Include="Permiso\Ficha.cs" />
+    <Compile Include="Producto\CodigoRefProveedor\Filtro.cs" />
+    <Compile Include="Producto\Data\Ficha.cs" />
     <Compile Include="Producto\Enumerados.cs" />
     <Compile Include="Producto\Lista\Filtro.cs" />
     <Compile Include="Producto\Lista\Resumen.cs" />
@@ -73,9 +75,7 @@
     <Compile Include="Usuario\Buscar\Ficha.cs" />
     <Compile Include="Usuario\Data\Ficha.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Producto\Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

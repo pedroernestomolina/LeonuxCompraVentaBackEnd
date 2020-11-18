@@ -131,6 +131,115 @@ namespace ProvLibCompra
             return rt;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibCompra.Producto.Data.Ficha> Producto_GetFicha(string autoPrd)
+        {
+            var rt = new DtoLib.ResultadoEntidad<DtoLibCompra.Producto.Data.Ficha>();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var entPrd = cnn.productos.Find(autoPrd);
+                    if (entPrd == null) 
+                    {
+                        rt.Mensaje = "PRODUCTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    var _empCompra = "";
+                    var _decimales = "";
+                    var entPrdMedCompra = cnn.productos_medida.Find(entPrd.auto_empaque_compra);
+                    if (entPrdMedCompra != null) 
+                    {
+                        _empCompra=entPrdMedCompra.nombre;
+                        _decimales=entPrdMedCompra.decimales;
+                    }
+
+                    var _depart = entPrd.empresa_departamentos.nombre;
+                    var _codDepart = entPrd.empresa_departamentos.codigo;
+                    var _grupo = entPrd.productos_grupo.nombre;
+                    var _codGrupo = entPrd.productos_grupo.codigo;
+                    var _marca = entPrd.productos_marca.nombre;
+                    var _nombreTasaIva = entPrd.empresa_tasas.nombre;
+                    var _tasaIva = entPrd.empresa_tasas.tasa;
+                    var _origen = entPrd.origen;
+                    var _categoria = entPrd.categoria;
+                    var _estatus = DtoLibCompra.Producto.Enumerados.EnumEstatus.Activo;
+                    if  (entPrd.estatus.Trim().ToUpper()=="INACTIVO") 
+                         _estatus = DtoLibCompra.Producto.Enumerados.EnumEstatus.Inactivo;
+                    var _admDivisa = DtoLibCompra.Producto.Enumerados.EnumAdministradorPorDivisa.Si;
+                    if (entPrd.estatus_divisa.Trim().ToUpper() != "1" )
+                        _admDivisa = DtoLibCompra.Producto.Enumerados.EnumAdministradorPorDivisa.No;
+
+                    var id = new DtoLibCompra.Producto.Data.Ficha()
+                    {
+                        AdmPorDivisa = _admDivisa,
+                        auto = entPrd.auto,
+                        autoDepartamento = entPrd.auto_departamento,
+                        autoGrupo = entPrd.auto_grupo,
+                        autoMarca = entPrd.auto_marca,
+                        autoTasa = entPrd.auto_tasa,
+                        categoria = _categoria,
+                        codigo = entPrd.codigo,
+                        codigoDepartamento = _codDepart,
+                        codigoGrupo = _codGrupo,
+                        contenidoCompra = entPrd.contenido_compras,
+                        departamento = _depart,
+                        descripcion = entPrd.nombre,
+                        empaqueCompra = _empCompra,
+                        estatus = _estatus,
+                        grupo = _grupo,
+                        marca = _marca,
+                        modelo = entPrd.modelo,
+                        nombre = entPrd.nombre_corto,
+                        nombreTasaIva = _nombreTasaIva,
+                        origen = _origen,
+                        referencia = entPrd.referencia,
+                        tasaIva = _tasaIva,
+                        fechaUltCambio = entPrd.fecha_cambio,
+                        decimales = _decimales,
+                        costo = entPrd.costo,
+                        costoDivisa = entPrd.divisa,
+                    };
+                    rt.Entidad = id;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoEntidad<string> Producto_GetCodigoRefProveedor(DtoLibCompra.Producto.CodigoRefProveedor.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoEntidad<string>();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var entPrdPrv = cnn.productos_proveedor.FirstOrDefault(f=>f.auto_producto==filtro.autoPrd && f.auto_proveedor==filtro.autoPrv);
+                    if (entPrdPrv == null)
+                    {
+                        rt.Entidad = "";
+                        return rt;
+                    }
+                    rt.Entidad = entPrdPrv.codigo_producto;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
     }
 
 }

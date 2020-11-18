@@ -61,6 +61,9 @@
     <Compile Include="compras.cs">
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>
+    <Compile Include="empresa_departamentos.cs">
+      <DependentUpon>ModelLibCompra.tt</DependentUpon>
+    </Compile>
     <Compile Include="empresa_depositos.cs">
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>
@@ -68,6 +71,9 @@
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>
     <Compile Include="empresa_sucursal.cs">
+      <DependentUpon>ModelLibCompra.tt</DependentUpon>
+    </Compile>
+    <Compile Include="empresa_tasas.cs">
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>
     <Compile Include="ModelLibCompra.Context.cs">
@@ -87,6 +93,18 @@
     </Compile>
     <Compile Include="Principal.cs" />
     <Compile Include="productos.cs">
+      <DependentUpon>ModelLibCompra.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_grupo.cs">
+      <DependentUpon>ModelLibCompra.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_marca.cs">
+      <DependentUpon>ModelLibCompra.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_medida.cs">
+      <DependentUpon>ModelLibCompra.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_proveedor.cs">
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

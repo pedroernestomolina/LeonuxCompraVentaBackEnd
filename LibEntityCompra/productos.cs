@@ -14,6 +14,12 @@ namespace LibEntityCompra
     
     public partial class productos
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public productos()
+        {
+            this.productos_proveedor = new HashSet<productos_proveedor>();
+        }
+    
         public string auto { get; set; }
         public string codigo { get; set; }
         public string nombre { get; set; }
@@ -105,5 +111,18 @@ namespace LibEntityCompra
         public decimal pdf_3 { get; set; }
         public decimal pdf_4 { get; set; }
         public decimal pdf_pto { get; set; }
+    
+        public virtual empresa_departamentos empresa_departamentos { get; set; }
+        public virtual empresa_tasas empresa_tasas { get; set; }
+        public virtual productos_medida productos_medida { get; set; }
+        public virtual productos_medida productos_medida1 { get; set; }
+        public virtual productos_grupo productos_grupo { get; set; }
+        public virtual productos_marca productos_marca { get; set; }
+        public virtual productos_medida productos_medida2 { get; set; }
+        public virtual productos_medida productos_medida3 { get; set; }
+        public virtual productos_medida productos_medida4 { get; set; }
+        public virtual productos_medida productos_medida5 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<productos_proveedor> productos_proveedor { get; set; }
     }
 }
