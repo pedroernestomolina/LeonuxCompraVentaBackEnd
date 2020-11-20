@@ -310,7 +310,7 @@ namespace ProvLibCajaBanco
                         "FROM ventas_detalle as vd " +
                         "join ventas as v on vd.auto_documento=v.auto " +
                         "where v.fecha>=@desde and v.fecha<=@hasta and v.codigo_sucursal=@codigoSucursal and v.estatus_anulado='0' " +
-                        "group by vd.auto_producto, vd.nombre, v.documento_nombre, vd.signo";
+                        "group by vd.auto_producto, vd.codigo, vd.nombre, v.documento_nombre, vd.signo";
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p2 = new MySql.Data.MySqlClient.MySqlParameter();
