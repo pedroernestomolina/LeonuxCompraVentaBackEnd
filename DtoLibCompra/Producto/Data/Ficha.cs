@@ -16,6 +16,7 @@ namespace DtoLibCompra.Producto.Data
         public string autoMarca { get; set; }
         public string autoGrupo { get; set; }
         public string autoTasa { get; set; }
+        public string autoSubGrupo { get; set; }
 
         public string codigo { get; set; }
         public string nombre { get; set; }

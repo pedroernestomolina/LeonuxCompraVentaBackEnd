@@ -50,6 +50,7 @@ namespace DtoLibCompra.Documento.Cargar.Factura
         public string estatusUnidad { get; set; }
         public DateTime fechaLote { get; set; }
         public string cierreFtp { get; set; }
+        public int signo { get; set; }
 
     }
 

@@ -22,13 +22,31 @@ namespace ProvLibInventario
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
-                    var sql = "select * from productos as p " +
-                        " join empresa_departamentos as ed on p.auto_departamento=ed.auto " +
-                        " join productos_grupo as pg on p.auto_grupo=pg.auto " +
-                        " join productos_medida as pm on p.auto_empaque_compra=pm.auto " +
-                        " join productos_marca as pmarca on p.auto_marca=pmarca.auto " +
-                        " join empresa_tasas as etasa on p.auto_tasa=etasa.auto " +
-                        " where 1=1 ";
+                    
+                    var xsql1="select p.auto, p.codigo, p.nombre_corto as nombre, p.nombre as descripcion, ed.nombre as departamento, pg.nombre as grupo, "+
+                        "pmarca.nombre as marca, p.modelo, p.referencia, p.categoria as xcategoria, p.origen as xorigen, "+
+                        "p.contenido_compras as contenido, p.estatus_cambio, "+
+                        "pm.nombre as empaque, etasa.tasa as tasaIva, etasa.nombre as tasaIvaDescripcion, "+
+                        "p.estatus as xestatus, p.estatus_divisa, p.estatus_pesado, p.estatus_catalogo, p.estatus_oferta, "+
+                        "p.fecha_alta as fechaAlta, p.fecha_cambio as fechaUltActualizacion, p.fecha_ult_costo as fechaUltCambioCosto, " +
+                        "p.divisa as costoDivisa, (select sum(fisica) from productos_deposito where auto_producto=p.auto) as existencia from productos as p ";
+
+                    var xsql2="join empresa_departamentos as ed on p.auto_departamento=ed.auto "+
+                        "join productos_grupo as pg on p.auto_grupo=pg.auto "+
+                        "join productos_medida as pm on p.auto_empaque_compra=pm.auto "+
+                        "join productos_marca as pmarca on p.auto_marca=pmarca.auto "+
+                        "join empresa_tasas as etasa on p.auto_tasa=etasa.auto ";
+
+                    var xsql3="where 1=1 ";
+
+
+                    //var sql = "select *, (select sum(fisica) from productos_deposito where auto_producto=p.auto) as existencia from productos as p " +
+                    //    " join empresa_departamentos as ed on p.auto_departamento=ed.auto " +
+                    //    " join productos_grupo as pg on p.auto_grupo=pg.auto " +
+                    //    " join productos_medida as pm on p.auto_empaque_compra=pm.auto " +
+                    //    " join productos_marca as pmarca on p.auto_marca=pmarca.auto " +
+                    //    " join empresa_tasas as etasa on p.auto_tasa=etasa.auto " +
+                    //    " where 1=1 ";
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p2 = new MySql.Data.MySqlClient.MySqlParameter();
@@ -43,6 +61,8 @@ namespace ProvLibInventario
                     var pB = new MySql.Data.MySqlClient.MySqlParameter();
                     var pC = new MySql.Data.MySqlClient.MySqlParameter();
                     var pD = new MySql.Data.MySqlClient.MySqlParameter();
+                    var pE = new MySql.Data.MySqlClient.MySqlParameter();
+                    var pF = new MySql.Data.MySqlClient.MySqlParameter();
 
                     var valor = "";
                     if (filtro.cadena != "")
@@ -53,12 +73,12 @@ namespace ProvLibInventario
                             if (cad.Substring(0, 1) == "*")
                             {
                                 cad = cad.Substring(1);
-                                sql += " and p.codigo like @p";
+                                xsql3 += " and p.codigo like @p";
                                 valor = "%" + cad + "%";
                             }
                             else
                             {
-                                sql += " and p.codigo like @p";
+                                xsql3 += " and p.codigo like @p";
                                 valor = cad + "%";
                             }
                         }
@@ -68,12 +88,12 @@ namespace ProvLibInventario
                             if (cad.Substring(0, 1) == "*")
                             {
                                 cad = cad.Substring(1);
-                                sql += " and p.nombre like @p";
+                                xsql3 += " and p.nombre like @p";
                                 valor = "%" + cad + "%";
                             }
                             else
                             {
-                                sql += " and p.nombre like @p";
+                                xsql3 += " and p.nombre like @p";
                                 valor = cad + "%";
                             }
                         }
@@ -83,12 +103,12 @@ namespace ProvLibInventario
                             if (cad.Substring(0, 1) == "*")
                             {
                                 cad = cad.Substring(1);
-                                sql += " and p.referencia like @p";
+                                xsql3 += " and p.referencia like @p";
                                 valor = "%" + cad + "%";
                             }
                             else
                             {
-                                sql += " and p.referencia like @p";
+                                xsql3  += " and p.referencia like @p";
                                 valor = cad + "%";
                             }
                         }
@@ -98,7 +118,7 @@ namespace ProvLibInventario
 
                     if (filtro.autoProducto != "")
                     {
-                        sql += " and p.auto=@autoProducto";
+                        xsql3  += " and p.auto=@autoProducto";
                         p2.ParameterName = "@autoProducto";
                         p2.Value = filtro.autoProducto;
                     }
@@ -108,38 +128,38 @@ namespace ProvLibInventario
                         switch (filtro.existencia) 
                         {
                             case DtoLibInventario.Producto.Filtro.Existencia.MayorQueCero:
-                                sql += " and (select sum(fisica) from productos_deposito where auto_producto=p.auto)>0 ";
+                                xsql3 += " and (select sum(fisica) from productos_deposito where auto_producto=p.auto)>0 ";
                                 break;
                             case DtoLibInventario.Producto.Filtro.Existencia.IgualCero:
-                                sql += " and (select sum(fisica) from productos_deposito where auto_producto=p.auto)=0 ";
+                                xsql3 += " and (select sum(fisica) from productos_deposito where auto_producto=p.auto)=0 ";
                                 break;
                             case DtoLibInventario.Producto.Filtro.Existencia.MenorQueCero:
-                                sql += " and (select sum(fisica) from productos_deposito where auto_producto=p.auto)<0 ";
+                                xsql3 += " and (select sum(fisica) from productos_deposito where auto_producto=p.auto)<0 ";
                                 break;
                         }
                     }
 
                     if (filtro.autoDepartamento != "")
                     {
-                        sql += " and p.auto_departamento=@autoDepartamento ";
+                        xsql3 += " and p.auto_departamento=@autoDepartamento ";
                         p3.ParameterName="@autoDepartamento";
                         p3.Value=filtro.autoDepartamento;
                     }
                     if (filtro.autoGrupo != "")
                     {
-                        sql += " and p.auto_grupo=@autoGrupo ";
+                        xsql3 += " and p.auto_grupo=@autoGrupo ";
                         p4.ParameterName = "@autoGrupo";
                         p4.Value = filtro.autoGrupo;
                     }
                     if (filtro.autoMarca != "")
                     {
-                        sql += " and p.auto_marca=@autoMarca ";
+                        xsql3 += " and p.auto_marca=@autoMarca ";
                         p5.ParameterName = "@autoMarca";
                         p5.Value = filtro.autoMarca;
                     }
                     if (filtro.autoTasa != "")
                     {
-                        sql += " and p.auto_tasa=@autoTasa ";
+                        xsql3 += " and p.auto_tasa=@autoTasa ";
                         p6.ParameterName = "@autoTasa";
                         p6.Value = filtro.autoTasa;
                     }
@@ -147,7 +167,7 @@ namespace ProvLibInventario
                     {
                         if (filtro.estatus == DtoLibInventario.Producto.Enumerados.EnumEstatus.Suspendido)
                         {
-                            sql += " and p.estatus_cambio='1' ";
+                            xsql3 += " and p.estatus_cambio='1' ";
                         }
                         else
                         {
@@ -156,7 +176,7 @@ namespace ProvLibInventario
                             {
                                 _f = "Inactivo";
                             }
-                            sql += " and p.estatus=@estatus and p.estatus_cambio='0' ";
+                            xsql3 += " and p.estatus=@estatus and p.estatus_cambio='0' ";
                             p7.ParameterName = "@estatus";
                             p7.Value = _f ;
                         }
@@ -168,7 +188,7 @@ namespace ProvLibInventario
                         {
                             _f = "0";
                         }
-                        sql += " and p.estatus_divisa=@estatusDivisa ";
+                        xsql3 += " and p.estatus_divisa=@estatusDivisa ";
                         p8.ParameterName = "@estatusDivisa";
                         p8.Value = _f;
                     }
@@ -193,7 +213,7 @@ namespace ProvLibInventario
                                 _f = "Uso Interno";
                                 break;
                         }
-                        sql += " and p.categoria=@categoria ";
+                        xsql3 += " and p.categoria=@categoria ";
                         p9.ParameterName = "@categoria";
                         p9.Value = _f;
                     }
@@ -204,7 +224,7 @@ namespace ProvLibInventario
                         {
                             _f = "Importado";
                         }
-                        sql += " and p.origen=@origen ";
+                        xsql3 += " and p.origen=@origen ";
                         pA.ParameterName = "@origen";
                         pA.Value = _f;
                     }
@@ -215,7 +235,7 @@ namespace ProvLibInventario
                         {
                             _f = "0";
                         }
-                        sql += " and p.estatus_pesado=@estatusPesado ";
+                        xsql3 += " and p.estatus_pesado=@estatusPesado ";
                         pB.ParameterName = "@estatusPesado";
                         pB.Value = _f;
                     }
@@ -226,7 +246,7 @@ namespace ProvLibInventario
                         {
                             _f = "0";
                         }
-                        sql += " and p.estatus_oferta=@estatusOferta ";
+                        xsql3 += " and p.estatus_oferta=@estatusOferta ";
                         pC.ParameterName = "@estatusOferta";
                         pC.Value = _f;
                     }
@@ -237,12 +257,30 @@ namespace ProvLibInventario
                         {
                             _f = "0";
                         }
-                        sql += " and p.estatus_catalogo=@estatusCatalogo ";
+                        xsql3 += " and p.estatus_catalogo=@estatusCatalogo ";
                         pD.ParameterName = "@estatusCatalogo";
                         pD.Value = _f;
                     }
+                    if (filtro.autoDeposito != "")
+                    {
+                        xsql2 += " join productos_deposito as pdeposito on pdeposito.auto_producto=p.auto ";
+                        xsql3 += " and pdeposito.auto_deposito=@autoDeposito ";
+                        pE.ParameterName = "@autoDeposito";
+                        pE.Value = filtro.autoDeposito;
+                    }
+                    if (filtro.autoProveedor != "")
+                    {
+                        xsql2 += " join productos_proveedor as pproveedor on pproveedor.auto_producto=p.auto ";
+                        xsql3 += " and pproveedor.auto_proveedor=@autoProveedor ";
+                        pF.ParameterName = "@autoProveedor";
+                        pF.Value = filtro.autoProveedor;
+                    }
 
-                    var q = cnn.productos.SqlQuery(sql, p1,p2,p3,p4,p5,p6,p7,p8,p9,pA,pB,pC,pD).ToList();
+                    var xsql = xsql1 + xsql2 + xsql3;
+                    var q = cnn.Database.SqlQuery<DtoLibInventario.Producto.Resumen>(xsql, p1,p2,p3,p4,p5,p6,p7,p8,p9,pA,pB,pC,pD,pE,pF).ToList();
+                    rt.Lista = q;
+
+                    //var q = cnn.productos.SqlQuery(sql, p1,p2,p3,p4,p5,p6,p7,p8,p9,pA,pB,pC,pD).ToList();
                     //if (filtro.autoDepartamento != "")
                     //{
                     //    q = q.Where(w => w.auto_departamento == filtro.autoDepartamento).ToList();
@@ -334,120 +372,119 @@ namespace ProvLibInventario
                     //    }
                     //    q = q.Where(w => w.estatus_oferta.Trim().ToUpper() == _f).ToList();
                     //}
+                    //if (filtro.autoDeposito != "")
+                    //{
+                    //    q = q.Join(cnn.productos_deposito, p => p.auto, d => d.auto_producto,
+                    //        (p, d) => new { p, d }).Where(w => w.d.auto_deposito == filtro.autoDeposito).Select(s => s.p).ToList();
+                    //}
+                    //if (filtro.autoProveedor != "")
+                    //{
+                    //    q = q.Join(cnn.productos_proveedor, p => p.auto, prv => prv.auto_producto,
+                    //        (p, prv) => new { p, prv }).Where(w => w.prv.auto_proveedor == filtro.autoProveedor).Select(s => s.p).ToList();
+                    //}
 
+                    //var list = new List<DtoLibInventario.Producto.Resumen>();
+                    //if (q != null)
+                    //{
+                    //    if (q.Count() > 0)
+                    //    {
+                    //        list = q.Select(s =>
+                    //        {
+                    //            var _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
+                    //            if (s.estatus_cambio.Trim().ToUpper() == "1")
+                    //            {
+                    //                _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Suspendido;
+                    //            }
+                    //            else if (s.estatus.Trim().ToUpper() != "ACTIVO")
+                    //            {
+                    //                _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Inactivo;
+                    //            }
 
-                    if (filtro.autoDeposito != "")
-                    {
-                        q = q.Join(cnn.productos_deposito, p => p.auto, d => d.auto_producto,
-                            (p, d) => new { p, d }).Where(w => w.d.auto_deposito == filtro.autoDeposito).Select(s => s.p).ToList();
-                    }
-                    if (filtro.autoProveedor != "")
-                    {
-                        q = q.Join(cnn.productos_proveedor, p => p.auto, prv => prv.auto_producto,
-                            (p, prv) => new { p, prv }).Where(w => w.prv.auto_proveedor == filtro.autoProveedor).Select(s => s.p).ToList();
-                    }
+                    //            var _admDivisa = s.estatus_divisa.Trim().ToUpper() == "1" ?
+                    //                DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.Si :
+                    //                DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.No;
 
-                    var list = new List<DtoLibInventario.Producto.Resumen>();
-                    if (q != null)
-                    {
-                        if (q.Count() > 0)
-                        {
-                            list = q.Select(s =>
-                            {
-                                var _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
-                                if (s.estatus_cambio.Trim().ToUpper() == "1")
-                                {
-                                    _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Suspendido;
-                                }
-                                else if (s.estatus.Trim().ToUpper() != "ACTIVO")
-                                {
-                                    _estatus = DtoLibInventario.Producto.Enumerados.EnumEstatus.Inactivo;
-                                }
+                    //            var _depart = s.empresa_departamentos.nombre;
+                    //            var _grupo = s.productos_grupo.nombre;
+                    //            var _empaque = s.productos_medida2.nombre;
+                    //            var _marca = s.productos_marca.nombre;
+                    //            var _tasaIvaDescripcion = s.empresa_tasas.nombre;
+                    //            var _tasaIva = s.empresa_tasas.tasa;
+                    //            var _catalogo = DtoLibInventario.Producto.Enumerados.EnumCatalogo.No;
+                    //            if (s.estatus_catalogo == "1")
+                    //                _catalogo = DtoLibInventario.Producto.Enumerados.EnumCatalogo.Si;
+                    //            var _esPesado = DtoLibInventario.Producto.Enumerados.EnumPesado.No;
+                    //            if (s.estatus_pesado == "1")
+                    //            {
+                    //                _esPesado = DtoLibInventario.Producto.Enumerados.EnumPesado.Si;
+                    //            }
+                    //            var _enOferta = DtoLibInventario.Producto.Enumerados.EnumOferta.No;
+                    //            if (s.estatus_oferta == "1")
+                    //            {
+                    //                _enOferta = DtoLibInventario.Producto.Enumerados.EnumOferta.Si;
+                    //            }
+                    //            var _origen = DtoLibInventario.Producto.Enumerados.EnumOrigen.SnDefinir;
+                    //            switch (s.origen.Trim().ToUpper())
+                    //            {
+                    //                case "NACIONAL":
+                    //                    _origen = DtoLibInventario.Producto.Enumerados.EnumOrigen.Nacional;
+                    //                    break;
+                    //                case "IMPORTADO":
+                    //                    _origen = DtoLibInventario.Producto.Enumerados.EnumOrigen.Importado;
+                    //                    break;
+                    //            }
+                    //            var _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.SnDefinir;
+                    //            switch (s.categoria.Trim().ToUpper())
+                    //            {
+                    //                case "PRODUCTO TERMINADO":
+                    //                    _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.ProductoTerminado;
+                    //                    break;
+                    //                case "BIEN DE SERVICIO":
+                    //                    _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.BienServicio;
+                    //                    break;
+                    //                case "MATERIA PRIMA":
+                    //                    _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.MateriaPrima;
+                    //                    break;
+                    //                case "USO INTERNO":
+                    //                    _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.UsoInterno;
+                    //                    break;
+                    //                case "SUB PRODUCTO":
+                    //                    _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.SubProducto;
+                    //                    break;
+                    //            }
 
-                                var _admDivisa = s.estatus_divisa.Trim().ToUpper() == "1" ?
-                                    DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.Si :
-                                    DtoLibInventario.Producto.Enumerados.EnumAdministradorPorDivisa.No;
-
-                                var _depart = s.empresa_departamentos.nombre;
-                                var _grupo = s.productos_grupo.nombre;
-                                var _empaque = s.productos_medida2.nombre;
-                                var _marca = s.productos_marca.nombre;
-                                var _tasaIvaDescripcion = s.empresa_tasas.nombre;
-                                var _tasaIva = s.empresa_tasas.tasa;
-                                var _catalogo = DtoLibInventario.Producto.Enumerados.EnumCatalogo.No;
-                                if (s.estatus_catalogo == "1")
-                                    _catalogo = DtoLibInventario.Producto.Enumerados.EnumCatalogo.Si;
-                                var _esPesado = DtoLibInventario.Producto.Enumerados.EnumPesado.No;
-                                if (s.estatus_pesado == "1")
-                                {
-                                    _esPesado = DtoLibInventario.Producto.Enumerados.EnumPesado.Si;
-                                }
-                                var _enOferta = DtoLibInventario.Producto.Enumerados.EnumOferta.No;
-                                if (s.estatus_oferta == "1")
-                                {
-                                    _enOferta = DtoLibInventario.Producto.Enumerados.EnumOferta.Si;
-                                }
-                                var _origen = DtoLibInventario.Producto.Enumerados.EnumOrigen.SnDefinir;
-                                switch (s.origen.Trim().ToUpper())
-                                {
-                                    case "NACIONAL":
-                                        _origen = DtoLibInventario.Producto.Enumerados.EnumOrigen.Nacional;
-                                        break;
-                                    case "IMPORTADO":
-                                        _origen = DtoLibInventario.Producto.Enumerados.EnumOrigen.Importado;
-                                        break;
-                                }
-                                var _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.SnDefinir;
-                                switch (s.categoria.Trim().ToUpper())
-                                {
-                                    case "PRODUCTO TERMINADO":
-                                        _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.ProductoTerminado;
-                                        break;
-                                    case "BIEN DE SERVICIO":
-                                        _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.BienServicio;
-                                        break;
-                                    case "MATERIA PRIMA":
-                                        _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.MateriaPrima;
-                                        break;
-                                    case "USO INTERNO":
-                                        _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.UsoInterno;
-                                        break;
-                                    case "SUB PRODUCTO":
-                                        _categoria = DtoLibInventario.Producto.Enumerados.EnumCategoria.SubProducto;
-                                        break;
-                                }
-
-                                var r = new DtoLibInventario.Producto.Resumen()
-                                {
-                                    auto = s.auto,
-                                    codigo = s.codigo,
-                                    contenido = s.contenido_compras,
-                                    nombre = s.nombre_corto,
-                                    descripcion = s.nombre,
-                                    modelo = s.modelo,
-                                    referencia = s.referencia,
-                                    estatus = _estatus,
-                                    admPorDivisa = _admDivisa,
-                                    departamento = _depart,
-                                    grupo = _grupo,
-                                    tasaIva = _tasaIva,
-                                    categoria = _categoria,
-                                    empaque = _empaque,
-                                    fechaAlta = s.fecha_alta,
-                                    fechaUltCambioCosto = s.fecha_ult_costo,
-                                    fechaUltActualizacion = s.fecha_cambio,
-                                    marca = _marca,
-                                    origen = _origen,
-                                    tasaIvaDescripcion = _tasaIvaDescripcion,
-                                    esPesado = _esPesado,
-                                    enOferta = _enOferta,
-                                    activarCatalogo=_catalogo,
-                                };
-                                return r;
-                            }).ToList();
-                        }
-                    }
-                    rt.Lista = list;
+                    //            var r = new DtoLibInventario.Producto.Resumen()
+                    //            {
+                    //                auto = s.auto,
+                    //                codigo = s.codigo,
+                    //                contenido = s.contenido_compras,
+                    //                nombre = s.nombre_corto,
+                    //                descripcion = s.nombre,
+                    //                modelo = s.modelo,
+                    //                referencia = s.referencia,
+                    //                estatus = _estatus,
+                    //                admPorDivisa = _admDivisa,
+                    //                departamento = _depart,
+                    //                grupo = _grupo,
+                    //                tasaIva = _tasaIva,
+                    //                categoria = _categoria,
+                    //                empaque = _empaque,
+                    //                fechaAlta = s.fecha_alta,
+                    //                fechaUltCambioCosto = s.fecha_ult_costo,
+                    //                fechaUltActualizacion = s.fecha_cambio,
+                    //                marca = _marca,
+                    //                origen = _origen,
+                    //                tasaIvaDescripcion = _tasaIvaDescripcion,
+                    //                esPesado = _esPesado,
+                    //                enOferta = _enOferta,
+                    //                activarCatalogo=_catalogo,
+                    //                costoDivisa=s.divisa,
+                    //                existencia=s.
+                    //            };
+                    //            return r;
+                    //        }).ToList();
+                    //    }
+                    //}
                 }
             }
             catch (Exception e)

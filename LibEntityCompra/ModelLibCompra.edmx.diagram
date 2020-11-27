@@ -37,6 +37,11 @@
         <EntityTypeShape EntityType="compraModel.productos_proveedor" Width="1.5" PointX="16.125" PointY="14.375" />
         <AssociationConnector Association="compraModel.productos_proveedor_ibfk_1" />
         <AssociationConnector Association="compraModel.productos_proveedor_ibfk_2" />
+        <EntityTypeShape EntityType="compraModel.cxp" Width="1.5" PointX="9" PointY="12.75" />
+        <AssociationConnector Association="compraModel.cxp_ibfk_1" />
+        <EntityTypeShape EntityType="compraModel.productos_deposito" Width="1.5" PointX="26.375" PointY="12.75" />
+        <AssociationConnector Association="compraModel.productos_deposito_ibfk_2" />
+        <AssociationConnector Association="compraModel.productos_deposito_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

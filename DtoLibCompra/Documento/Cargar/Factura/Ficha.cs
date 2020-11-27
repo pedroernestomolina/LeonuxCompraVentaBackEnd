@@ -20,7 +20,7 @@ namespace DtoLibCompra.Documento.Cargar.Factura
         public List<FichaPrdCostoHistorico> prdCostosHistorico { get; set; }
         public List<FichaPrdPrecio> prdPrecios { get; set; }
         public List<FichaPrdPrecioHistorico> prdPreciosHistorico { get; set; }
-        public List<FichaCxP> cxp { get; set; }
+        public FichaCxP cxp { get; set; }
 
     }
 

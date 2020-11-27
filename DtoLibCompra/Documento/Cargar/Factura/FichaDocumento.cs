@@ -77,7 +77,6 @@ namespace DtoLibCompra.Documento.Cargar.Factura
         public string documentoNombre { get; set; }
         public decimal subTotalImpuesto { get; set; }
         public decimal subTotal { get; set; }
-        public string autoCxP { get; set; }
         public string tipoProveedor { get; set; }
         public string planilla { get; set; }
         public string expediente { get; set; }

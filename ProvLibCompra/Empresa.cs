@@ -41,6 +41,42 @@ namespace ProvLibCompra
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibCompra.Empresa.Fiscal.Ficha> Empresa_GetTasas()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibCompra.Empresa.Fiscal.Ficha>();
+
+            try
+            {
+                var nr = new DtoLibCompra.Empresa.Fiscal.Ficha();
+                using (var ctx = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var q = ctx.empresa_tasas.Find("0000000001");
+                    if (q != null)
+                    {
+                        nr.Tasa1 = q.tasa;
+                    }
+                    q = ctx.empresa_tasas.Find("0000000002");
+                    if (q != null)
+                    {
+                        nr.Tasa2 = q.tasa;
+                    }
+                    q = ctx.empresa_tasas.Find("0000000003");
+                    if (q != null)
+                    {
+                        nr.Tasa3 = q.tasa;
+                    }
+                }
+                result.Entidad = nr;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

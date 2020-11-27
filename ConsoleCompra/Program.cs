@@ -42,6 +42,8 @@ namespace ConsoleCompra
             //var r01 = compraPrv.Producto_GetFicha("0000000025");
             //var filtro = new DtoLibCompra.Producto.CodigoRefProveedor.Filtro() { autoPrd = "0000000042", autoPrv= "0000000002" };
             //var r01 = compraPrv.Producto_GetCodigoRefProveedor(filtro);
+
+            //var r01 = compraPrv.Empresa_GetTasas();
         }
 
     }

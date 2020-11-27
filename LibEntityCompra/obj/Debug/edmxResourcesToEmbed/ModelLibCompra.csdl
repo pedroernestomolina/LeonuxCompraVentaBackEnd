@@ -136,6 +136,7 @@
     <NavigationProperty Name="proveedores_grupo" Relationship="compraModel.proveedores_ibfk_1" FromRole="proveedores" ToRole="proveedores_grupo" />
     <NavigationProperty Name="sistema_estados" Relationship="compraModel.proveedores_ibfk_2" FromRole="proveedores" ToRole="sistema_estados" />
     <NavigationProperty Name="productos_proveedor" Relationship="compraModel.productos_proveedor_ibfk_2" FromRole="proveedores" ToRole="productos_proveedor" />
+    <NavigationProperty Name="cxp" Relationship="compraModel.cxp_ibfk_1" FromRole="proveedores" ToRole="cxp" />
   </EntityType>
   <Association Name="compras_ibfk_1">
     <End Role="proveedores" Type="Self.proveedores" Multiplicity="1" />
@@ -230,6 +231,20 @@
       <End Role="proveedores" EntitySet="proveedores" />
       <End Role="productos_proveedor" EntitySet="productos_proveedor" />
     </AssociationSet>
+    <EntitySet Name="cxp" EntityType="compraModel.cxp" />
+    <AssociationSet Name="cxp_ibfk_1" Association="compraModel.cxp_ibfk_1">
+      <End Role="proveedores" EntitySet="proveedores" />
+      <End Role="cxp" EntitySet="cxp" />
+    </AssociationSet>
+    <EntitySet Name="productos_deposito" EntityType="compraModel.productos_deposito" />
+    <AssociationSet Name="productos_deposito_ibfk_2" Association="compraModel.productos_deposito_ibfk_2">
+      <End Role="empresa_depositos" EntitySet="empresa_depositos" />
+      <End Role="productos_deposito" EntitySet="productos_deposito" />
+    </AssociationSet>
+    <AssociationSet Name="productos_deposito_ibfk_1" Association="compraModel.productos_deposito_ibfk_1">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="productos_deposito" EntitySet="productos_deposito" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="empresa_sucursal">
     <Key>
@@ -249,6 +264,7 @@
     <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="codigo_sucursal" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="productos_deposito" Relationship="compraModel.productos_deposito_ibfk_2" FromRole="empresa_depositos" ToRole="productos_deposito" />
   </EntityType>
   <EntityType Name="empresa_grupo">
     <Key>
@@ -364,6 +380,7 @@
     <NavigationProperty Name="productos_medida4" Relationship="compraModel.productos_ibfk_8" FromRole="productos" ToRole="productos_medida" />
     <NavigationProperty Name="productos_medida5" Relationship="compraModel.productos_ibfk_9" FromRole="productos" ToRole="productos_medida" />
     <NavigationProperty Name="productos_proveedor" Relationship="compraModel.productos_proveedor_ibfk_1" FromRole="productos" ToRole="productos_proveedor" />
+    <NavigationProperty Name="productos_deposito" Relationship="compraModel.productos_deposito_ibfk_1" FromRole="productos" ToRole="productos_deposito" />
   </EntityType>
   <EntityType Name="sistema_configuracion">
     <Key>
@@ -656,6 +673,96 @@
       </Principal>
       <Dependent Role="productos_proveedor">
         <PropertyRef Name="auto_proveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="cxp">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="tipo_documento" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="documento" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_vencimiento" Type="DateTime" Nullable="false" />
+    <Property Name="nota" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="importe" Type="Decimal" Nullable="false" />
+    <Property Name="acumulado" Type="Decimal" Nullable="false" />
+    <Property Name="auto_proveedor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="proveedor" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ci_rif" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="codigo_proveedor" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_cancelado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="resta" Type="Decimal" Nullable="false" />
+    <Property Name="estatus_anulado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="auto_documento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numero" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_agencia" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="agencia" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="signo" Type="Int32" Nullable="false" />
+    <Property Name="dias" Type="Int32" Nullable="false" />
+    <Property Name="auto_asiento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="anexo" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_cierre_contable" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="importeDivisa" Type="Decimal" Nullable="false" />
+    <NavigationProperty Name="proveedores" Relationship="compraModel.cxp_ibfk_1" FromRole="cxp" ToRole="proveedores" />
+  </EntityType>
+  <Association Name="cxp_ibfk_1">
+    <End Type="compraModel.proveedores" Role="proveedores" Multiplicity="1" />
+    <End Type="compraModel.cxp" Role="cxp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="proveedores">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxp">
+        <PropertyRef Name="auto_proveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="productos_deposito">
+    <Key>
+      <PropertyRef Name="auto_producto" />
+      <PropertyRef Name="auto_deposito" />
+    </Key>
+    <Property Name="auto_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_deposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fisica" Type="Decimal" Nullable="false" />
+    <Property Name="reservada" Type="Decimal" Nullable="false" />
+    <Property Name="disponible" Type="Decimal" Nullable="false" />
+    <Property Name="ubicacion_1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ubicacion_2" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ubicacion_3" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ubicacion_4" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="nivel_minimo" Type="Decimal" Nullable="false" />
+    <Property Name="pto_pedido" Type="Decimal" Nullable="false" />
+    <Property Name="nivel_optimo" Type="Decimal" Nullable="false" />
+    <Property Name="fecha_conteo" Type="DateTime" Nullable="false" />
+    <Property Name="resultado_conteo" Type="Decimal" Nullable="false" />
+    <Property Name="averia" Type="Decimal" Nullable="false" />
+    <NavigationProperty Name="empresa_depositos" Relationship="compraModel.productos_deposito_ibfk_2" FromRole="productos_deposito" ToRole="empresa_depositos" />
+    <NavigationProperty Name="productos" Relationship="compraModel.productos_deposito_ibfk_1" FromRole="productos_deposito" ToRole="productos" />
+  </EntityType>
+  <Association Name="productos_deposito_ibfk_2">
+    <End Type="compraModel.empresa_depositos" Role="empresa_depositos" Multiplicity="1" />
+    <End Type="compraModel.productos_deposito" Role="productos_deposito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_depositos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_deposito">
+        <PropertyRef Name="auto_deposito" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_deposito_ibfk_1">
+    <End Type="compraModel.productos" Role="productos" Multiplicity="1" />
+    <End Type="compraModel.productos_deposito" Role="productos_deposito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_deposito">
+        <PropertyRef Name="auto_producto" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

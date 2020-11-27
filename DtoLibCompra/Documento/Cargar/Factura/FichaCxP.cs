@@ -20,6 +20,7 @@ namespace DtoLibCompra.Documento.Cargar.Factura
         public string autoProveedor { get; set; }
         public string nombreRazonSocialProveedor { get; set; }
         public string ciRifProveedor { get; set; }
+        public string codigoProveedor { get; set; }
         public string esCancelado { get; set; }
         public decimal resta { get; set; }
         public string esAnulado { get; set; }
@@ -28,9 +29,9 @@ namespace DtoLibCompra.Documento.Cargar.Factura
         public string nombreAgencia { get; set; }
         public int signoDocumento { get; set; }
         public int diasCredito { get; set; }
-        public string autoAsiento { get; set; }
         public string Anexo { get; set; }
         public string estatusCierreContable { get; set; }
+        public decimal importeDivisa { get; set; }
 
     }
 

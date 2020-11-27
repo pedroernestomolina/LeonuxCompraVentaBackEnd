@@ -10,7 +10,9 @@ namespace ILibCompras
     
     public interface ICompra
     {
+
         DtoLib.ResultadoLista<DtoLibCompra.Compra.Resumen> CompraLista(DtoLibCompra.Compra.Filtro filtro);
+
     }
 
 }

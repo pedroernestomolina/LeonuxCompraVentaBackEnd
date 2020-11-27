@@ -180,6 +180,7 @@ namespace ProvLibCompra
                         autoGrupo = entPrd.auto_grupo,
                         autoMarca = entPrd.auto_marca,
                         autoTasa = entPrd.auto_tasa,
+                        autoSubGrupo=entPrd.auto_subgrupo,
                         categoria = _categoria,
                         codigo = entPrd.codigo,
                         codigoDepartamento = _codDepart,

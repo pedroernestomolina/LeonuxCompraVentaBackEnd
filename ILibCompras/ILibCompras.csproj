@@ -42,6 +42,7 @@
     <Compile Include="ICompra.cs" />
     <Compile Include="IConfiguracion.cs" />
     <Compile Include="IDeposito.cs" />
+    <Compile Include="IDocumento.cs" />
     <Compile Include="IEmpresa.cs" />
     <Compile Include="IPermiso.cs" />
     <Compile Include="IProducto.cs" />

@@ -90,6 +90,36 @@
     <Property Name="estatus_cierre_contable" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
+  <EntityType Name="cxp">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="fecha" Type="date" Nullable="false" />
+    <Property Name="tipo_documento" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="documento" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="fecha_vencimiento" Type="date" Nullable="false" />
+    <Property Name="nota" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="importe" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="acumulado" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="auto_proveedor" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="proveedor" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="ci_rif" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="codigo_proveedor" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="estatus_cancelado" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="resta" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="estatus_anulado" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="auto_documento" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="numero" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_agencia" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="agencia" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="signo" Type="int" Nullable="false" />
+    <Property Name="dias" Type="int" Nullable="false" />
+    <Property Name="auto_asiento" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="anexo" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="estatus_cierre_contable" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="importeDivisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+  </EntityType>
   <EntityType Name="empresa_departamentos">
     <Key>
       <PropertyRef Name="auto" />
@@ -234,6 +264,27 @@
     <Property Name="pdf_4" Type="decimal" Precision="16" Scale="2" Nullable="false" />
     <Property Name="pdf_pto" Type="decimal" Precision="16" Scale="2" Nullable="false" />
   </EntityType>
+  <EntityType Name="productos_deposito">
+    <Key>
+      <PropertyRef Name="auto_producto" />
+      <PropertyRef Name="auto_deposito" />
+    </Key>
+    <Property Name="auto_producto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_deposito" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="fisica" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+    <Property Name="reservada" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+    <Property Name="disponible" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+    <Property Name="ubicacion_1" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ubicacion_2" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ubicacion_3" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ubicacion_4" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="nivel_minimo" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+    <Property Name="pto_pedido" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+    <Property Name="nivel_optimo" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+    <Property Name="fecha_conteo" Type="date" Nullable="false" />
+    <Property Name="resultado_conteo" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+    <Property Name="averia" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+  </EntityType>
   <EntityType Name="productos_grupo">
     <Key>
       <PropertyRef Name="auto" />
@@ -358,6 +409,42 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
       </Principal>
       <Dependent Role="compras">
         <PropertyRef Name="auto_proveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cxp_ibfk_1">
+    <End Role="proveedores" Type="Self.proveedores" Multiplicity="1" />
+    <End Role="cxp" Type="Self.cxp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="proveedores">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxp">
+        <PropertyRef Name="auto_proveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_deposito_ibfk_1">
+    <End Role="productos" Type="Self.productos" Multiplicity="1" />
+    <End Role="productos_deposito" Type="Self.productos_deposito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_deposito">
+        <PropertyRef Name="auto_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_deposito_ibfk_2">
+    <End Role="empresa_depositos" Type="Self.empresa_depositos" Multiplicity="1" />
+    <End Role="productos_deposito" Type="Self.productos_deposito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_depositos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_deposito">
+        <PropertyRef Name="auto_deposito" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -549,12 +636,14 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
   </Association>
   <EntityContainer Name="compraModelStoreContainer">
     <EntitySet Name="compras" EntityType="Self.compras" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="cxp" EntityType="Self.cxp" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_departamentos" EntityType="Self.empresa_departamentos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_depositos" EntityType="Self.empresa_depositos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_grupo" EntityType="Self.empresa_grupo" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_tasas" EntityType="Self.empresa_tasas" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos" EntityType="Self.productos" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_deposito" EntityType="Self.productos_deposito" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_grupo" EntityType="Self.productos_grupo" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_marca" EntityType="Self.productos_marca" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_medida" EntityType="Self.productos_medida" Schema="pita" store:Type="Tables" />
@@ -573,6 +662,18 @@ FROM `proveedores_agencias` AS `proveedores_agencias`</DefiningQuery>
     <AssociationSet Name="compras_ibfk_1" Association="Self.compras_ibfk_1">
       <End Role="proveedores" EntitySet="proveedores" />
       <End Role="compras" EntitySet="compras" />
+    </AssociationSet>
+    <AssociationSet Name="cxp_ibfk_1" Association="Self.cxp_ibfk_1">
+      <End Role="proveedores" EntitySet="proveedores" />
+      <End Role="cxp" EntitySet="cxp" />
+    </AssociationSet>
+    <AssociationSet Name="productos_deposito_ibfk_1" Association="Self.productos_deposito_ibfk_1">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="productos_deposito" EntitySet="productos_deposito" />
+    </AssociationSet>
+    <AssociationSet Name="productos_deposito_ibfk_2" Association="Self.productos_deposito_ibfk_2">
+      <End Role="empresa_depositos" EntitySet="empresa_depositos" />
+      <End Role="productos_deposito" EntitySet="productos_deposito" />
     </AssociationSet>
     <AssociationSet Name="productos_ibfk_1" Association="Self.productos_ibfk_1">
       <End Role="empresa_departamentos" EntitySet="empresa_departamentos" />

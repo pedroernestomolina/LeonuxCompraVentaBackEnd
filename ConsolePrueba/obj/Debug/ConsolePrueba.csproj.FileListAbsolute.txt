@@ -1,3 +1,4 @@
+D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\obj\Debug\ConsolePrueba.csprojResolveAssemblyReference.cache
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\ConsolePrueba.exe.config
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\ConsolePrueba.exe
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\ConsolePrueba.pdb
@@ -29,6 +30,5 @@ D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\DtoLibPosOffLine.pdb
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\EntityFramework.xml
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\LibEntityCompra.pdb
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\LibEntitySqLitePosOffLine.pdb
-D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\obj\Debug\ConsolePrueba.csprojResolveAssemblyReference.cache
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\obj\Debug\ConsolePrueba.exe
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\obj\Debug\ConsolePrueba.pdb

@@ -14,9 +14,18 @@ namespace LibEntityCompra
     
     public partial class empresa_depositos
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public empresa_depositos()
+        {
+            this.productos_deposito = new HashSet<productos_deposito>();
+        }
+    
         public string auto { get; set; }
         public string nombre { get; set; }
         public string codigo { get; set; }
         public string codigo_sucursal { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<productos_deposito> productos_deposito { get; set; }
     }
 }

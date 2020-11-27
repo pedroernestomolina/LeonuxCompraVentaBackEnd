@@ -57,6 +57,7 @@
     <Compile Include="Documento\Cargar\Factura\FichaPrdPrecio.cs" />
     <Compile Include="Documento\Cargar\Factura\FichaPrdProveedor.cs" />
     <Compile Include="Empresa\Data\Ficha.cs" />
+    <Compile Include="Empresa\Fiscal\Ficha.cs" />
     <Compile Include="Enumerados.cs" />
     <Compile Include="Permiso\Enumerados.cs" />
     <Compile Include="Permiso\Ficha.cs" />

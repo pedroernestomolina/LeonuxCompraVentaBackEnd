@@ -1,5 +1,4 @@
 D:\Proyectos FoxSystem\CompraVenta\DtoLibCompra\bin\Debug\DtoLibCompra.dll
 D:\Proyectos FoxSystem\CompraVenta\DtoLibCompra\bin\Debug\DtoLibCompra.pdb
-D:\Proyectos FoxSystem\CompraVenta\DtoLibCompra\obj\Debug\DtoLibCompra.csprojResolveAssemblyReference.cache
 D:\Proyectos FoxSystem\CompraVenta\DtoLibCompra\obj\Debug\DtoLibCompra.dll
 D:\Proyectos FoxSystem\CompraVenta\DtoLibCompra\obj\Debug\DtoLibCompra.pdb
