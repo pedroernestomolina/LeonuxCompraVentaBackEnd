@@ -439,5 +439,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="productos_precios">
+      <EntityTypeMapping TypeName="compraModel.productos_precios">
+        <MappingFragment StoreEntitySet="productos_precios">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="precio" ColumnName="precio" />
+          <ScalarProperty Name="precio_id" ColumnName="precio_id" />
+          <ScalarProperty Name="usuario" ColumnName="usuario" />
+          <ScalarProperty Name="hora" ColumnName="hora" />
+          <ScalarProperty Name="estacion" ColumnName="estacion" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="nota" ColumnName="nota" />
+          <ScalarProperty Name="auto_producto" ColumnName="auto_producto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

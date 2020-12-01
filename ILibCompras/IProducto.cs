@@ -15,6 +15,7 @@ namespace ILibCompras
         DtoLib.ResultadoEntidad<DtoLibCompra.Producto.Data.Ficha> Producto_GetFicha(string autoPrd);
         DtoLib.ResultadoEntidad<string> Producto_GetCodigoRefProveedor(DtoLibCompra.Producto.CodigoRefProveedor.Filtro filtro);
         DtoLib.ResultadoEntidad<DtoLibCompra.Producto.Utilidad.Ficha> Producto_GetUtilidadPrecio(string auto);
+        DtoLib.Resultado Producto_VerificaDepositoAsignado(DtoLibCompra.Producto.VerificarDepositoAsignado.Ficha ficha);
 
     }
 

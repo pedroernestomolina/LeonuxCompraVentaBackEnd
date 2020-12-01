@@ -116,6 +116,9 @@
     <Compile Include="productos_medida.cs">
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>
+    <Compile Include="productos_precios.cs">
+      <DependentUpon>ModelLibCompra.tt</DependentUpon>
+    </Compile>
     <Compile Include="productos_proveedor.cs">
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>

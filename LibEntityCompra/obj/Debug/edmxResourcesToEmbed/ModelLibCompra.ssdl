@@ -335,6 +335,20 @@
     <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="decimales" Type="varchar" MaxLength="1" Nullable="false" />
   </EntityType>
+  <EntityType Name="productos_precios">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="auto_producto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="nota" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="fecha" Type="date" Nullable="false" />
+    <Property Name="estacion" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="hora" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="usuario" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="precio_id" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="precio" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
   <EntityType Name="productos_proveedor">
     <Key>
       <PropertyRef Name="auto_producto" />
@@ -607,6 +621,20 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="productos_precios_ibfk_1">
+    <End Role="productos" Type="Self.productos" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="productos_precios" Type="Self.productos_precios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_precios">
+        <PropertyRef Name="auto_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="productos_proveedor_ibfk_1">
     <End Role="productos" Type="Self.productos" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -688,6 +716,7 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
     <EntitySet Name="productos_grupo" EntityType="Self.productos_grupo" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_marca" EntityType="Self.productos_marca" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_medida" EntityType="Self.productos_medida" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_precios" EntityType="Self.productos_precios" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_proveedor" EntityType="Self.productos_proveedor" Schema="pita" store:Type="Tables" />
     <EntitySet Name="proveedores" EntityType="Self.proveedores" Schema="pita" store:Type="Tables" />
     <EntitySet Name="proveedores_grupo" EntityType="Self.proveedores_grupo" Schema="pita" store:Type="Tables" />
@@ -759,6 +788,10 @@ FROM `proveedores_agencias` AS `proveedores_agencias`</DefiningQuery>
     <AssociationSet Name="productos_ibfk_9" Association="Self.productos_ibfk_9">
       <End Role="productos_medida" EntitySet="productos_medida" />
       <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_precios_ibfk_1" Association="Self.productos_precios_ibfk_1">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="productos_precios" EntitySet="productos_precios" />
     </AssociationSet>
     <AssociationSet Name="productos_proveedor_ibfk_1" Association="Self.productos_proveedor_ibfk_1">
       <End Role="productos" EntitySet="productos" />

@@ -68,6 +68,7 @@
     <Compile Include="Producto\Lista\Filtro.cs" />
     <Compile Include="Producto\Lista\Resumen.cs" />
     <Compile Include="Producto\Utilidad\Ficha.cs" />
+    <Compile Include="Producto\VerificarDepositoAsignado\Ficha.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proveedor\Data\Ficha.cs" />
     <Compile Include="Proveedor\Enumerados.cs" />

@@ -215,6 +215,45 @@ namespace ProvLibCompra
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibCompra.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio> Configuracion_PreferenciaRegistroPrecio()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibCompra.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio>();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL41");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var modo = DtoLibCompra.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio.SinDefinir;
+                    switch (ent.usuario.Trim().ToUpper())
+                    {
+                        case "PRECIO NETO":
+                            modo = DtoLibCompra.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio.Neto;
+                            break;
+                        case "PRECIO+IVA":
+                            modo = DtoLibCompra.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio.Full;
+                            break;
+                    }
+
+                    result.Entidad = modo;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

@@ -45,6 +45,8 @@
         <EntityTypeShape EntityType="compraModel.productos_conceptos" Width="1.5" PointX="7.375" PointY="7.75" />
         <EntityTypeShape EntityType="compraModel.productos_costos" Width="1.5" PointX="22.375" PointY="4.875" />
         <AssociationConnector Association="compraModel.productos_costos_ibfk_1" />
+        <EntityTypeShape EntityType="compraModel.productos_precios" Width="1.5" PointX="22.375" PointY="24.25" />
+        <AssociationConnector Association="compraModel.productos_precios_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

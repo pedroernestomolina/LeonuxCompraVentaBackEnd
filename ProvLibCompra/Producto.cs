@@ -285,6 +285,32 @@ namespace ProvLibCompra
             return rt;
         }
 
+        public DtoLib.Resultado Producto_VerificaDepositoAsignado(DtoLibCompra.Producto.VerificarDepositoAsignado.Ficha ficha)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var entPrdDeposito = cnn.productos_deposito.FirstOrDefault(f=>f.auto_producto==ficha.autoPrd && f.auto_deposito==ficha.autoDeposito);
+                    if (entPrdDeposito == null)
+                    {
+                        rt.Mensaje = "DEPOSITO NO ASIGNADO AL PRODUCTO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
     }
 
 }

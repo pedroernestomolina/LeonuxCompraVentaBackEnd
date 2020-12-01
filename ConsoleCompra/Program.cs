@@ -13,7 +13,7 @@ namespace ConsoleCompra
 
         static void Main(string[] args)
         {
-            ILibCompras.IProvider compraPrv = new ProvLibCompra.Provider("localhost", "pita");
+            ILibCompras.IProvider compraPrv = new ProvLibCompra.Provider("localhost", "pitap");
             //var r01 = compraPrv.Sucursal_GetLista();
             //var r01 = compraPrv.Sucursal_GetFicha("0000000001");
             //var r01 = compraPrv.Deposito_GetLista();
@@ -48,6 +48,9 @@ namespace ConsoleCompra
             //var r01 = compraPrv.Producto_GetUtilidadPrecio("0000000027");
             //var r01 = compraPrv.Configuracion_MetodoCalculoUtilidad();
             //var r02 = compraPrv.Configuracion_ForzarRedondeoPrecioVenta();
+            //var r01 = compraPrv.Configuracion_PreferenciaRegistroPrecio();
+            //var ficha= new DtoLibCompra.Producto.VerificarDepositoAsignado.Ficha(){ autoPrd="0000000432", autoDeposito="0000000001"};
+            //var r01 = compraPrv.Producto_VerificaDepositoAsignado (ficha);
         }
 
     }

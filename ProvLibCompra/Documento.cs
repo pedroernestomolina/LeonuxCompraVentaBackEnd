@@ -247,12 +247,15 @@ namespace ProvLibCompra
                             var cPromedio = 0.0m;
                             var cActual = 0.0m;
                             var cCompra= 0.0m;
-                            var ex = (decimal?) cnn.productos_deposito.Where(w => w.auto_producto == it.autoPrd).Sum(s => s.fisica);
-                            if (ex.HasValue)
+                            var ex=0.0m;
+                            var exLista = cnn.productos_deposito.Where(w => w.auto_producto == it.autoPrd).ToList();
+                            if (exLista.Count>0)
+                                ex=exLista.Sum(s => s.fisica);
+                            if (ex!=0)
                             {
-                                cActual = entPrd.costo_promedio_und * ex.Value;
+                                cActual = entPrd.costo_promedio_und * ex;
                                 cCompra = it.costoUnd * it.cntUnd;
-                                cPromedio = (cActual + cCompra) / (ex.Value + it.cntUnd);
+                                cPromedio = (cActual + cCompra) / (ex+ it.cntUnd);
                             }
                             else 
                             {
@@ -344,6 +347,23 @@ namespace ProvLibCompra
                             entPrd.precio_3 = it.precioNeto_3;
                             entPrd.precio_4 = it.precioNeto_4;
                             entPrd.precio_pto = it.precioNeto_5;
+                            cnn.SaveChanges();
+                        }
+
+                        foreach (var it in docFac.prdPreciosHistorico)
+                        {
+                            var entHist = new productos_precios()
+                            {
+                                auto_producto = it.autoPrd,
+                                estacion = docFac.documento.estacionEquipo,
+                                fecha = fechaSistema.Date,
+                                hora = fechaSistema.ToShortTimeString(),
+                                usuario = docFac.documento.usuarioNombre,
+                                nota = it.nota,
+                                precio = it.precio,
+                                precio_id = it.precioId,
+                            };
+                            cnn.productos_precios.Add(entHist);
                             cnn.SaveChanges();
                         }
 
