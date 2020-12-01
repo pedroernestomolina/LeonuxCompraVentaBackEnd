@@ -43,5 +43,7 @@ namespace LibEntityCompra
         public virtual DbSet<productos_proveedor> productos_proveedor { get; set; }
         public virtual DbSet<cxp> cxp { get; set; }
         public virtual DbSet<productos_deposito> productos_deposito { get; set; }
+        public virtual DbSet<productos_conceptos> productos_conceptos { get; set; }
+        public virtual DbSet<productos_costos> productos_costos { get; set; }
     }
 }

@@ -98,6 +98,12 @@
     <Compile Include="productos.cs">
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>
+    <Compile Include="productos_conceptos.cs">
+      <DependentUpon>ModelLibCompra.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_costos.cs">
+      <DependentUpon>ModelLibCompra.tt</DependentUpon>
+    </Compile>
     <Compile Include="productos_deposito.cs">
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>

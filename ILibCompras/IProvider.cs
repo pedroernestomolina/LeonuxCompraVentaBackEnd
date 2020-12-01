@@ -9,7 +9,7 @@ namespace ILibCompras
 {
 
     public interface IProvider: ICompra, IDeposito, ISucursal, IProveedor, IProducto, IUsuario, IEmpresa, 
-        IPermiso, IConfiguracion, IDocumento
+        IPermiso, IConfiguracion, IDocumento, IConcepto
     {
 
         DtoLib.ResultadoEntidad<DateTime> FechaServidor();

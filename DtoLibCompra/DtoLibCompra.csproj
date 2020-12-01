@@ -42,6 +42,7 @@
     <Compile Include="BaseFiltro.cs" />
     <Compile Include="Compra\Filtro.cs" />
     <Compile Include="Compra\Resumen.cs" />
+    <Compile Include="Concepto\Ficha.cs" />
     <Compile Include="Configuracion\Enumerados.cs" />
     <Compile Include="Deposito\Data\Ficha.cs" />
     <Compile Include="Deposito\Lista\Resumen.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Producto\Enumerados.cs" />
     <Compile Include="Producto\Lista\Filtro.cs" />
     <Compile Include="Producto\Lista\Resumen.cs" />
+    <Compile Include="Producto\Utilidad\Ficha.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proveedor\Data\Ficha.cs" />
     <Compile Include="Proveedor\Enumerados.cs" />

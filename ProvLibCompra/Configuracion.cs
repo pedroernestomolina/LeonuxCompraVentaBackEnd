@@ -134,6 +134,87 @@ namespace ProvLibCompra
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibCompra.Configuracion.Enumerados.EnumMetodoCalculoUtilidad> Configuracion_MetodoCalculoUtilidad()
+        {
+            var result = new DtoLib.ResultadoEntidad< DtoLibCompra.Configuracion.Enumerados.EnumMetodoCalculoUtilidad>();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL13");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var modo = DtoLibCompra.Configuracion.Enumerados.EnumMetodoCalculoUtilidad.SinDefinir;
+                    switch (ent.usuario.Trim().ToUpper())
+                    {
+                        case "LINEAL":
+                            modo = DtoLibCompra.Configuracion.Enumerados.EnumMetodoCalculoUtilidad.Lineal;
+                            break;
+                        case "FINANCIERO":
+                            modo = DtoLibCompra.Configuracion.Enumerados.EnumMetodoCalculoUtilidad.Financiero;
+                            break;
+                    }
+
+                    result.Entidad = modo;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibCompra.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta> Configuracion_ForzarRedondeoPrecioVenta()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibCompra.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta>();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL46");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var modo = DtoLibCompra.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta.SinDefinir;
+                    switch (ent.usuario.Trim().ToUpper())
+                    {
+                        case "SIN REDONDEO":
+                            modo = DtoLibCompra.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta.SinRedeondeo;
+                            break;
+                        case "UNIDAD":
+                            modo = DtoLibCompra.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta.Unidad;
+                            break;
+                        case "DECENA":
+                            modo = DtoLibCompra.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta.Decena;
+                            break;
+                    }
+
+                    result.Entidad = modo;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

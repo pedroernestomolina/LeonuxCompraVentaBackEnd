@@ -245,6 +245,12 @@
       <End Role="productos" EntitySet="productos" />
       <End Role="productos_deposito" EntitySet="productos_deposito" />
     </AssociationSet>
+    <EntitySet Name="productos_conceptos" EntityType="compraModel.productos_conceptos" />
+    <EntitySet Name="productos_costos" EntityType="compraModel.productos_costos" />
+    <AssociationSet Name="productos_costos_ibfk_1" Association="compraModel.productos_costos_ibfk_1">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="productos_costos" EntitySet="productos_costos" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="empresa_sucursal">
     <Key>
@@ -381,6 +387,7 @@
     <NavigationProperty Name="productos_medida5" Relationship="compraModel.productos_ibfk_9" FromRole="productos" ToRole="productos_medida" />
     <NavigationProperty Name="productos_proveedor" Relationship="compraModel.productos_proveedor_ibfk_1" FromRole="productos" ToRole="productos_proveedor" />
     <NavigationProperty Name="productos_deposito" Relationship="compraModel.productos_deposito_ibfk_1" FromRole="productos" ToRole="productos_deposito" />
+    <NavigationProperty Name="productos_costos" Relationship="compraModel.productos_costos_ibfk_1" FromRole="productos" ToRole="productos_costos" />
   </EntityType>
   <EntityType Name="sistema_configuracion">
     <Key>
@@ -762,6 +769,46 @@
         <PropertyRef Name="auto" />
       </Principal>
       <Dependent Role="productos_deposito">
+        <PropertyRef Name="auto_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="productos_conceptos">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="productos_costos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="auto_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nota" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="estacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="hora" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="costo" Type="Decimal" Nullable="false" />
+    <Property Name="costo_divisa" Type="Decimal" Nullable="false" />
+    <Property Name="divisa" Type="Decimal" Nullable="false" />
+    <Property Name="serie" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="documento" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="productos" Relationship="compraModel.productos_costos_ibfk_1" FromRole="productos_costos" ToRole="productos" />
+  </EntityType>
+  <Association Name="productos_costos_ibfk_1">
+    <End Type="compraModel.productos" Role="productos" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="compraModel.productos_costos" Role="productos_costos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos_costos">
         <PropertyRef Name="auto_producto" />
       </Dependent>
     </ReferentialConstraint>

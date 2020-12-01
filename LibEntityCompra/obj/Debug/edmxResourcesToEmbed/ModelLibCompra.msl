@@ -412,5 +412,32 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="productos_conceptos">
+      <EntityTypeMapping TypeName="compraModel.productos_conceptos">
+        <MappingFragment StoreEntitySet="productos_conceptos">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productos_costos">
+      <EntityTypeMapping TypeName="compraModel.productos_costos">
+        <MappingFragment StoreEntitySet="productos_costos">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="documento" ColumnName="documento" />
+          <ScalarProperty Name="serie" ColumnName="serie" />
+          <ScalarProperty Name="divisa" ColumnName="divisa" />
+          <ScalarProperty Name="costo_divisa" ColumnName="costo_divisa" />
+          <ScalarProperty Name="costo" ColumnName="costo" />
+          <ScalarProperty Name="usuario" ColumnName="usuario" />
+          <ScalarProperty Name="hora" ColumnName="hora" />
+          <ScalarProperty Name="estacion" ColumnName="estacion" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="nota" ColumnName="nota" />
+          <ScalarProperty Name="auto_producto" ColumnName="auto_producto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -241,6 +241,50 @@ namespace ProvLibCompra
             return rt;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibCompra.Producto.Utilidad.Ficha> Producto_GetUtilidadPrecio(string auto)
+        {
+            var rt = new DtoLib.ResultadoEntidad<DtoLibCompra.Producto.Utilidad.Ficha>();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var entPrd = cnn.productos.Find(auto);
+                    if (entPrd == null)
+                    {
+                        rt.Mensaje = "PRODUCTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    var nr = new DtoLibCompra.Producto.Utilidad.Ficha()
+                    {
+                        auto = entPrd.auto,
+                        admDivisa = entPrd.estatus_divisa.Trim().ToUpper() == "1" ? true : false,
+                        contenido_1 = entPrd.contenido_1,
+                        contenido_2 = entPrd.contenido_2,
+                        contenido_3 = entPrd.contenido_3,
+                        contenido_4 = entPrd.contenido_4,
+                        contenido_5 = entPrd.contenido_pto,
+                        tasaIva = entPrd.empresa_tasas.tasa,
+                        utilidad_1 = entPrd.utilidad_1,
+                        utilidad_2 = entPrd.utilidad_2,
+                        utilidad_3 = entPrd.utilidad_3,
+                        utilidad_4 = entPrd.utilidad_4,
+                        utilidad_5 = entPrd.utilidad_pto,
+                    };
+                    rt.Entidad = nr;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
     }
 
 }

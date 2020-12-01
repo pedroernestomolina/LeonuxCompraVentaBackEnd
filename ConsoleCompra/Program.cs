@@ -44,6 +44,10 @@ namespace ConsoleCompra
             //var r01 = compraPrv.Producto_GetCodigoRefProveedor(filtro);
 
             //var r01 = compraPrv.Empresa_GetTasas();
+            //var r01 = compraPrv.Concepto_GetFicha("0000000002");
+            //var r01 = compraPrv.Producto_GetUtilidadPrecio("0000000027");
+            //var r01 = compraPrv.Configuracion_MetodoCalculoUtilidad();
+            //var r02 = compraPrv.Configuracion_ForzarRedondeoPrecioVenta();
         }
 
     }

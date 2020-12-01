@@ -166,6 +166,19 @@ namespace ProvLibCompra
                         cnn.cxp.Add(entMovCxP);
                         cnn.SaveChanges();
 
+
+                        var entProveedor = cnn.proveedores.Find(docFac.documento.autoProveedor);
+                        if (entProveedor == null) 
+                        {
+                            result.Mensaje = "[ ID ] PROVEEDOR NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        entProveedor.saldo += docFac.documento.montoTotal;
+                        entProveedor.fecha_ult_compra = docFac.documento.fechaDocumento;
+                        cnn.SaveChanges();
+
+
                         var sqlDetalle = "INSERT INTO compras_detalle (" +
                             "auto_documento, auto_producto, codigo, nombre, auto_departamento, auto_grupo, auto_subgrupo, " +
                             "auto_deposito, cantidad, empaque, descuento1p, descuento2p, descuento3p, descuento1, descuento2, " +
@@ -200,17 +213,6 @@ namespace ProvLibCompra
                             cnn.SaveChanges();
                         }
 
-                        foreach (var it in docFac.prdDeposito)
-                        {
-                            var entPrdDeposito = cnn.productos_deposito.FirstOrDefault(f => f.auto_deposito == it.autoDep && f.auto_producto == it.autoPrd);
-                            if (entPrdDeposito != null) 
-                            {
-                                entPrdDeposito.fisica += it.cantidadUnd;
-                                entPrdDeposito.disponible += it.cantidadUnd;
-                                cnn.SaveChanges();
-                            }
-                        }
-
                         var sqlKardex = @"INSERT INTO productos_kardex (auto_producto,total,auto_deposito,auto_concepto,auto_documento,
                             fecha,hora,documento,modulo,entidad,signo,cantidad,cantidad_bono,cantidad_und,costo_und,estatus_anulado,
                             nota,precio_und,codigo,siglas,codigo_sucursal, cierre_ftp, codigo_deposito, nombre_deposito, 
@@ -231,6 +233,119 @@ namespace ProvLibCompra
                             }
                             cnn.SaveChanges();
                         };
+
+                        foreach (var it in docFac.prdCosto)
+                        {
+                            var entPrd = cnn.productos.Find(it.autoPrd);
+                            if (entPrd == null)
+                            {
+                                result.Mensaje= "[ ID ] PRODUCTO NO ENCONTRADO";
+                                result.Result= DtoLib.Enumerados.EnumResult.isError;
+                                return result;;
+                            }
+
+                            var cPromedio = 0.0m;
+                            var cActual = 0.0m;
+                            var cCompra= 0.0m;
+                            var ex = (decimal?) cnn.productos_deposito.Where(w => w.auto_producto == it.autoPrd).Sum(s => s.fisica);
+                            if (ex.HasValue)
+                            {
+                                cActual = entPrd.costo_promedio_und * ex.Value;
+                                cCompra = it.costoUnd * it.cntUnd;
+                                cPromedio = (cActual + cCompra) / (ex.Value + it.cntUnd);
+                            }
+                            else 
+                            {
+                                cActual = 0.0m;
+                                cCompra = it.costoUnd * it.cntUnd;
+                                cPromedio = (cActual + cCompra) / (it.cntUnd);
+                            }
+
+                            entPrd.costo = it.costo;
+                            entPrd.costo_und = it.costoUnd;
+                            entPrd.costo_proveedor = it.costo;
+                            entPrd.costo_proveedor_und = it.costoUnd;
+                            entPrd.costo_promedio = cPromedio*it.contenido;
+                            entPrd.costo_promedio_und = cPromedio;
+                            entPrd.divisa = it.costoDivisa;
+                            entPrd.fecha_movimiento = fechaSistema.Date;
+                            entPrd.fecha_cambio = fechaSistema.Date;
+                            entPrd.fecha_ult_costo = fechaSistema.Date;
+                            cnn.SaveChanges();
+                        }
+
+                        foreach (var it in docFac.prdCostosHistorico)
+                        {
+                            var entHist = new productos_costos()
+                            {
+                                auto_producto = it.autoPrd,
+                                costo = it.costo,
+                                costo_divisa = it.costoDivisa ,
+                                divisa = it.tasaDivisa,
+                                documento = it.documento ,
+                                estacion = docFac.documento.estacionEquipo,
+                                fecha = fechaSistema.Date,
+                                hora = fechaSistema.ToShortTimeString(),
+                                nota = it.nota ,
+                                serie = it.serie ,
+                                usuario = docFac.documento.usuarioNombre,
+                            };
+                            cnn.productos_costos.Add(entHist);
+                            cnn.SaveChanges();
+                        }
+
+                        foreach (var it in docFac.prdDeposito)
+                        {
+                            var entPrdDeposito = cnn.productos_deposito.FirstOrDefault(f => f.auto_deposito == it.autoDep && f.auto_producto == it.autoPrd);
+                            if (entPrdDeposito == null) 
+                            {
+                                result.Mensaje = "[ ID ] PRODUCTO - DEPOSITO NO ENCONTRADO";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result; ;
+                            }
+
+                            if (entPrdDeposito != null)
+                            {
+                                entPrdDeposito.fisica += it.cantidadUnd;
+                                entPrdDeposito.disponible += it.cantidadUnd;
+                                cnn.SaveChanges();
+                            }
+                        }
+
+                        foreach (var it in docFac.prdProveedor)
+                        {
+                            var entPrdPrv = new productos_proveedor()
+                            {
+                                auto_producto = it.autoPrd,
+                                auto_proveedor = it.autoProveedor,
+                                codigo_producto = it.codigoRefProveedor,
+                            };
+                            cnn.productos_proveedor.Add(entPrdPrv);
+                            cnn.SaveChanges();
+                        }
+
+                        foreach (var it in docFac.prdPrecios)
+                        {
+                            var entPrd = cnn.productos.Find(it.autoPrd);
+                            if (entPrd == null) 
+                            {
+                                result.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result; ;
+                            }
+
+                            entPrd.pdf_1 = it.pDivisaFull_1;
+                            entPrd.pdf_2 = it.pDivisaFull_2;
+                            entPrd.pdf_3 = it.pDivisaFull_3;
+                            entPrd.pdf_4 = it.pDivisaFull_4;
+                            entPrd.pdf_pto = it.pDivisaFull_5;
+                            entPrd.precio_1 = it.precioNeto_1;
+                            entPrd.precio_2 = it.precioNeto_2;
+                            entPrd.precio_3 = it.precioNeto_3;
+                            entPrd.precio_4 = it.precioNeto_4;
+                            entPrd.precio_pto = it.precioNeto_5;
+                            cnn.SaveChanges();
+                        }
 
                         ts.Complete();
                         result.Auto = autoMovCompra;
