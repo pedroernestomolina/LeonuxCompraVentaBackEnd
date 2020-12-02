@@ -18,6 +18,7 @@ namespace LibEntityCompra
         public empresa_departamentos()
         {
             this.productos = new HashSet<productos>();
+            this.compras_detalle = new HashSet<compras_detalle>();
         }
     
         public string auto { get; set; }
@@ -31,5 +32,7 @@ namespace LibEntityCompra
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productos> productos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<compras_detalle> compras_detalle { get; set; }
     }
 }

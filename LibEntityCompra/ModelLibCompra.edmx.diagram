@@ -47,6 +47,14 @@
         <AssociationConnector Association="compraModel.productos_costos_ibfk_1" />
         <EntityTypeShape EntityType="compraModel.productos_precios" Width="1.5" PointX="22.375" PointY="24.25" />
         <AssociationConnector Association="compraModel.productos_precios_ibfk_1" />
+        <EntityTypeShape EntityType="compraModel.compras_detalle" Width="1.5" PointX="29.25" PointY="7.75" />
+        <AssociationConnector Association="compraModel.compras_detalle_ibfk_1" />
+        <AssociationConnector Association="compraModel.compras_detalle_ibfk_3" />
+        <AssociationConnector Association="compraModel.compras_detalle_ibfk_6" />
+        <AssociationConnector Association="compraModel.compras_detalle_ibfk_8" />
+        <AssociationConnector Association="compraModel.compras_detalle_ibfk_2" />
+        <AssociationConnector Association="compraModel.compras_detalle_ibfk_4" />
+        <AssociationConnector Association="compraModel.compras_detalle_ibfk_7" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

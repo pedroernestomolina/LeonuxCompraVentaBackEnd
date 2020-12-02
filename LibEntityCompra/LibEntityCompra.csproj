@@ -61,6 +61,9 @@
     <Compile Include="compras.cs">
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>
+    <Compile Include="compras_detalle.cs">
+      <DependentUpon>ModelLibCompra.tt</DependentUpon>
+    </Compile>
     <Compile Include="cxp.cs">
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>

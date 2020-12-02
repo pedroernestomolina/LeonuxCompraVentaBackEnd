@@ -90,6 +90,98 @@
     <Property Name="estatus_cierre_contable" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'pita.compras_detalle' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="compras_detalle">
+    <Key>
+      <PropertyRef Name="auto_documento" />
+      <PropertyRef Name="auto_producto" />
+      <PropertyRef Name="codigo" />
+      <PropertyRef Name="nombre" />
+      <PropertyRef Name="auto_departamento" />
+      <PropertyRef Name="auto_grupo" />
+      <PropertyRef Name="auto_subgrupo" />
+      <PropertyRef Name="auto_deposito" />
+      <PropertyRef Name="cantidad" />
+      <PropertyRef Name="empaque" />
+      <PropertyRef Name="descuento1p" />
+      <PropertyRef Name="descuento2p" />
+      <PropertyRef Name="descuento3p" />
+      <PropertyRef Name="descuento1" />
+      <PropertyRef Name="descuento2" />
+      <PropertyRef Name="descuento3" />
+      <PropertyRef Name="total_neto" />
+      <PropertyRef Name="tasa" />
+      <PropertyRef Name="impuesto" />
+      <PropertyRef Name="total" />
+      <PropertyRef Name="auto" />
+      <PropertyRef Name="estatus_anulado" />
+      <PropertyRef Name="fecha" />
+      <PropertyRef Name="tipo" />
+      <PropertyRef Name="deposito" />
+      <PropertyRef Name="signo" />
+      <PropertyRef Name="auto_proveedor" />
+      <PropertyRef Name="decimales" />
+      <PropertyRef Name="contenido_empaque" />
+      <PropertyRef Name="cantidad_und" />
+      <PropertyRef Name="costo_und" />
+      <PropertyRef Name="codigo_deposito" />
+      <PropertyRef Name="detalle" />
+      <PropertyRef Name="auto_tasa" />
+      <PropertyRef Name="categoria" />
+      <PropertyRef Name="costo_promedio_und" />
+      <PropertyRef Name="costo_compra" />
+      <PropertyRef Name="codigo_proveedor" />
+      <PropertyRef Name="cantidad_bono" />
+      <PropertyRef Name="costo_bruto" />
+      <PropertyRef Name="estatus_unidad" />
+      <PropertyRef Name="fecha_lote" />
+      <PropertyRef Name="cierre_ftp" />
+    </Key>
+    <Property Name="auto_documento" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_producto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="120" Nullable="false" />
+    <Property Name="auto_departamento" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_grupo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_subgrupo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_deposito" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="cantidad" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+    <Property Name="empaque" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="descuento1p" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="descuento2p" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="descuento3p" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="descuento1" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="descuento2" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="descuento3" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="total_neto" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="tasa" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="impuesto" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="total" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="estatus_anulado" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="fecha" Type="date" Nullable="false" />
+    <Property Name="tipo" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="deposito" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="signo" Type="int" Nullable="false" />
+    <Property Name="auto_proveedor" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="decimales" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="contenido_empaque" Type="int" Nullable="false" />
+    <Property Name="cantidad_und" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+    <Property Name="costo_und" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="codigo_deposito" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="detalle" Type="varchar" MaxLength="160" Nullable="false" />
+    <Property Name="auto_tasa" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="categoria" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="costo_promedio_und" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="costo_compra" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="codigo_proveedor" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="cantidad_bono" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+    <Property Name="costo_bruto" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="estatus_unidad" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="fecha_lote" Type="date" Nullable="false" />
+    <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
   <EntityType Name="cxp">
     <Key>
       <PropertyRef Name="auto" />
@@ -439,6 +531,90 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
     <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
+  <Association Name="compras_detalle_ibfk_1">
+    <End Role="compras" Type="Self.compras" Multiplicity="1" />
+    <End Role="compras_detalle" Type="Self.compras_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="compras">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="compras_detalle">
+        <PropertyRef Name="auto_documento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="compras_detalle_ibfk_2">
+    <End Role="productos" Type="Self.productos" Multiplicity="1" />
+    <End Role="compras_detalle" Type="Self.compras_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="compras_detalle">
+        <PropertyRef Name="auto_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="compras_detalle_ibfk_3">
+    <End Role="empresa_departamentos" Type="Self.empresa_departamentos" Multiplicity="1" />
+    <End Role="compras_detalle" Type="Self.compras_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_departamentos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="compras_detalle">
+        <PropertyRef Name="auto_departamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="compras_detalle_ibfk_4">
+    <End Role="productos_grupo" Type="Self.productos_grupo" Multiplicity="1" />
+    <End Role="compras_detalle" Type="Self.compras_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_grupo">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="compras_detalle">
+        <PropertyRef Name="auto_grupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="compras_detalle_ibfk_6">
+    <End Role="empresa_depositos" Type="Self.empresa_depositos" Multiplicity="1" />
+    <End Role="compras_detalle" Type="Self.compras_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_depositos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="compras_detalle">
+        <PropertyRef Name="auto_deposito" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="compras_detalle_ibfk_7">
+    <End Role="proveedores" Type="Self.proveedores" Multiplicity="1" />
+    <End Role="compras_detalle" Type="Self.compras_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="proveedores">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="compras_detalle">
+        <PropertyRef Name="auto_proveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="compras_detalle_ibfk_8">
+    <End Role="empresa_tasas" Type="Self.empresa_tasas" Multiplicity="1" />
+    <End Role="compras_detalle" Type="Self.compras_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_tasas">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="compras_detalle">
+        <PropertyRef Name="auto_tasa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="compras_ibfk_1">
     <End Role="proveedores" Type="Self.proveedores" Multiplicity="1" />
     <End Role="compras" Type="Self.compras" Multiplicity="*" />
@@ -722,6 +898,53 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
     <EntitySet Name="proveedores_grupo" EntityType="Self.proveedores_grupo" Schema="pita" store:Type="Tables" />
     <EntitySet Name="sistema_configuracion" EntityType="Self.sistema_configuracion" Schema="pita" store:Type="Tables" />
     <EntitySet Name="sistema_estados" EntityType="Self.sistema_estados" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="compras_detalle" EntityType="Self.compras_detalle" store:Type="Tables" store:Schema="pita">
+      <DefiningQuery>SELECT
+`compras_detalle`.`auto_documento`, 
+`compras_detalle`.`auto_producto`, 
+`compras_detalle`.`codigo`, 
+`compras_detalle`.`nombre`, 
+`compras_detalle`.`auto_departamento`, 
+`compras_detalle`.`auto_grupo`, 
+`compras_detalle`.`auto_subgrupo`, 
+`compras_detalle`.`auto_deposito`, 
+`compras_detalle`.`cantidad`, 
+`compras_detalle`.`empaque`, 
+`compras_detalle`.`descuento1p`, 
+`compras_detalle`.`descuento2p`, 
+`compras_detalle`.`descuento3p`, 
+`compras_detalle`.`descuento1`, 
+`compras_detalle`.`descuento2`, 
+`compras_detalle`.`descuento3`, 
+`compras_detalle`.`total_neto`, 
+`compras_detalle`.`tasa`, 
+`compras_detalle`.`impuesto`, 
+`compras_detalle`.`total`, 
+`compras_detalle`.`auto`, 
+`compras_detalle`.`estatus_anulado`, 
+`compras_detalle`.`fecha`, 
+`compras_detalle`.`tipo`, 
+`compras_detalle`.`deposito`, 
+`compras_detalle`.`signo`, 
+`compras_detalle`.`auto_proveedor`, 
+`compras_detalle`.`decimales`, 
+`compras_detalle`.`contenido_empaque`, 
+`compras_detalle`.`cantidad_und`, 
+`compras_detalle`.`costo_und`, 
+`compras_detalle`.`codigo_deposito`, 
+`compras_detalle`.`detalle`, 
+`compras_detalle`.`auto_tasa`, 
+`compras_detalle`.`categoria`, 
+`compras_detalle`.`costo_promedio_und`, 
+`compras_detalle`.`costo_compra`, 
+`compras_detalle`.`codigo_proveedor`, 
+`compras_detalle`.`cantidad_bono`, 
+`compras_detalle`.`costo_bruto`, 
+`compras_detalle`.`estatus_unidad`, 
+`compras_detalle`.`fecha_lote`, 
+`compras_detalle`.`cierre_ftp`
+FROM `compras_detalle` AS `compras_detalle`</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="proveedores_agencias" EntityType="Self.proveedores_agencias" store:Type="Tables" store:Schema="pita">
       <DefiningQuery>SELECT
 `proveedores_agencias`.`auto_proveedor`, 
@@ -729,6 +952,34 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
 `proveedores_agencias`.`cuenta`
 FROM `proveedores_agencias` AS `proveedores_agencias`</DefiningQuery>
     </EntitySet>
+    <AssociationSet Name="compras_detalle_ibfk_1" Association="Self.compras_detalle_ibfk_1">
+      <End Role="compras" EntitySet="compras" />
+      <End Role="compras_detalle" EntitySet="compras_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="compras_detalle_ibfk_2" Association="Self.compras_detalle_ibfk_2">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="compras_detalle" EntitySet="compras_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="compras_detalle_ibfk_3" Association="Self.compras_detalle_ibfk_3">
+      <End Role="empresa_departamentos" EntitySet="empresa_departamentos" />
+      <End Role="compras_detalle" EntitySet="compras_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="compras_detalle_ibfk_4" Association="Self.compras_detalle_ibfk_4">
+      <End Role="productos_grupo" EntitySet="productos_grupo" />
+      <End Role="compras_detalle" EntitySet="compras_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="compras_detalle_ibfk_6" Association="Self.compras_detalle_ibfk_6">
+      <End Role="empresa_depositos" EntitySet="empresa_depositos" />
+      <End Role="compras_detalle" EntitySet="compras_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="compras_detalle_ibfk_7" Association="Self.compras_detalle_ibfk_7">
+      <End Role="proveedores" EntitySet="proveedores" />
+      <End Role="compras_detalle" EntitySet="compras_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="compras_detalle_ibfk_8" Association="Self.compras_detalle_ibfk_8">
+      <End Role="empresa_tasas" EntitySet="empresa_tasas" />
+      <End Role="compras_detalle" EntitySet="compras_detalle" />
+    </AssociationSet>
     <AssociationSet Name="compras_ibfk_1" Association="Self.compras_ibfk_1">
       <End Role="proveedores" EntitySet="proveedores" />
       <End Role="compras" EntitySet="compras" />

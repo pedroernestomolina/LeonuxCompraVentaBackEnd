@@ -454,5 +454,54 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="compras_detalle">
+      <EntityTypeMapping TypeName="compraModel.compras_detalle">
+        <MappingFragment StoreEntitySet="compras_detalle">
+          <ScalarProperty Name="cierre_ftp" ColumnName="cierre_ftp" />
+          <ScalarProperty Name="fecha_lote" ColumnName="fecha_lote" />
+          <ScalarProperty Name="estatus_unidad" ColumnName="estatus_unidad" />
+          <ScalarProperty Name="costo_bruto" ColumnName="costo_bruto" />
+          <ScalarProperty Name="cantidad_bono" ColumnName="cantidad_bono" />
+          <ScalarProperty Name="codigo_proveedor" ColumnName="codigo_proveedor" />
+          <ScalarProperty Name="costo_compra" ColumnName="costo_compra" />
+          <ScalarProperty Name="costo_promedio_und" ColumnName="costo_promedio_und" />
+          <ScalarProperty Name="categoria" ColumnName="categoria" />
+          <ScalarProperty Name="auto_tasa" ColumnName="auto_tasa" />
+          <ScalarProperty Name="detalle" ColumnName="detalle" />
+          <ScalarProperty Name="codigo_deposito" ColumnName="codigo_deposito" />
+          <ScalarProperty Name="costo_und" ColumnName="costo_und" />
+          <ScalarProperty Name="cantidad_und" ColumnName="cantidad_und" />
+          <ScalarProperty Name="contenido_empaque" ColumnName="contenido_empaque" />
+          <ScalarProperty Name="decimales" ColumnName="decimales" />
+          <ScalarProperty Name="auto_proveedor" ColumnName="auto_proveedor" />
+          <ScalarProperty Name="signo" ColumnName="signo" />
+          <ScalarProperty Name="deposito" ColumnName="deposito" />
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="estatus_anulado" ColumnName="estatus_anulado" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="impuesto" ColumnName="impuesto" />
+          <ScalarProperty Name="tasa" ColumnName="tasa" />
+          <ScalarProperty Name="total_neto" ColumnName="total_neto" />
+          <ScalarProperty Name="descuento3" ColumnName="descuento3" />
+          <ScalarProperty Name="descuento2" ColumnName="descuento2" />
+          <ScalarProperty Name="descuento1" ColumnName="descuento1" />
+          <ScalarProperty Name="descuento3p" ColumnName="descuento3p" />
+          <ScalarProperty Name="descuento2p" ColumnName="descuento2p" />
+          <ScalarProperty Name="descuento1p" ColumnName="descuento1p" />
+          <ScalarProperty Name="empaque" ColumnName="empaque" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+          <ScalarProperty Name="auto_deposito" ColumnName="auto_deposito" />
+          <ScalarProperty Name="auto_subgrupo" ColumnName="auto_subgrupo" />
+          <ScalarProperty Name="auto_grupo" ColumnName="auto_grupo" />
+          <ScalarProperty Name="auto_departamento" ColumnName="auto_departamento" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="auto_producto" ColumnName="auto_producto" />
+          <ScalarProperty Name="auto_documento" ColumnName="auto_documento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

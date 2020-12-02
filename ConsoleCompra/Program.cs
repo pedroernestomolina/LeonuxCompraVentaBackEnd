@@ -51,6 +51,7 @@ namespace ConsoleCompra
             //var r01 = compraPrv.Configuracion_PreferenciaRegistroPrecio();
             //var ficha= new DtoLibCompra.Producto.VerificarDepositoAsignado.Ficha(){ autoPrd="0000000432", autoDeposito="0000000001"};
             //var r01 = compraPrv.Producto_VerificaDepositoAsignado (ficha);
+            //var r01 = compraPrv.Compra_DocumentoVisualizar("0000000009");
         }
 
     }

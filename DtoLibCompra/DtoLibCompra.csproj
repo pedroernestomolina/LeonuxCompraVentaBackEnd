@@ -57,6 +57,8 @@
     <Compile Include="Documento\Cargar\Factura\FichaPrdPrecioHistorico.cs" />
     <Compile Include="Documento\Cargar\Factura\FichaPrdPrecio.cs" />
     <Compile Include="Documento\Cargar\Factura\FichaPrdProveedor.cs" />
+    <Compile Include="Documento\Visualizar\Ficha.cs" />
+    <Compile Include="Documento\Visualizar\FichaDetalle.cs" />
     <Compile Include="Empresa\Data\Ficha.cs" />
     <Compile Include="Empresa\Fiscal\Ficha.cs" />
     <Compile Include="Enumerados.cs" />

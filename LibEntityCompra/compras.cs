@@ -14,6 +14,12 @@ namespace LibEntityCompra
     
     public partial class compras
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public compras()
+        {
+            this.compras_detalle = new HashSet<compras_detalle>();
+        }
+    
         public string auto { get; set; }
         public string documento { get; set; }
         public System.DateTime fecha { get; set; }
@@ -101,5 +107,7 @@ namespace LibEntityCompra
         public string cierre_ftp { get; set; }
     
         public virtual proveedores proveedores { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<compras_detalle> compras_detalle { get; set; }
     }
 }
