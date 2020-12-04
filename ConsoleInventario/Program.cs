@@ -15,9 +15,9 @@ namespace ConsoleInventario
         {
             ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("localhost","pita");
 
-            var filt = new DtoLibInventario.Producto.Filtro();
-            filt.autoProveedor = "0000000002";
-            var rt1 = invPrv.Producto_GetLista(filt);
+            //var filt = new DtoLibInventario.Producto.Filtro();
+            //filt.autoProveedor = "0000000002";
+            //var rt1 = invPrv.Producto_GetLista(filt);
 
             //filt.estatus= DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
             //filt.autoDeposito = "0000000002";
@@ -167,6 +167,10 @@ namespace ConsoleInventario
             //filt.hasta = new DateTime(2020, 11, 05);
             //filt.autoProducto = "0000000027";
             //var ficha = invPrv.Reportes_Kardex (filt);
+
+            //var filt = new DtoLibInventario.Reportes.CompraVentaAlmacen.Filtro();
+            //filt.autoProducto = "0000000216";
+            //var ficha = invPrv.Reportes_CompraVentaAlmacen(filt);
         }
 
     }

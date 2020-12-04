@@ -563,6 +563,63 @@ namespace ProvLibInventario
             return rt;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Reportes.CompraVentaAlmacen.Ficha> Reportes_CompraVentaAlmacen(DtoLibInventario.Reportes.CompraVentaAlmacen.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoEntidad<DtoLibInventario.Reportes.CompraVentaAlmacen.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@autoPrd";
+                    p1.Value = filtro.autoProducto;
+
+                    var sql_1 = "SELECT p.nombre as prdNombre, p.codigo as prdCodigo, p.contenido_compras as contenido, "+
+                        "p.divisa as costoDivisa, " +
+                        "pm.nombre as empaque, (select sum(fisica) from productos_deposito where auto_producto=p.auto) as exUnd " +
+                        "FROM productos as p " +
+                        "join productos_medida as pm on p.auto_empaque_compra=pm.auto " +
+                        "WHERE p.auto=@autoPrd";
+                    var prd = cnn.Database.SqlQuery<DtoLibInventario.Reportes.CompraVentaAlmacen.Ficha>(sql_1, p1).FirstOrDefault();
+
+                    var sql_2 = "SELECT c.documento as documento, cd.fecha as fecha, cd.cantidad as cnt, cd.empaque as empaque, "+
+                        "cd.contenido_empaque as contenido, cd.cantidad_und as cntUnd, cd.costo_und as xcostoUnd, cd.total_neto as tneto, "+
+                        "c.factor_cambio as factor, cd.signo as signoDoc, c.serie as tipoDoc "+
+                        "FROM compras_detalle as cd "+
+                        "join compras as c on c.auto=cd.auto_documento "+
+                        "join productos as p on cd.auto_producto=p.auto "+
+                        "where cd.auto_producto=@autoPrd and  cd.estatus_anulado='0'";
+                    var lCompras= cnn.Database.SqlQuery<DtoLibInventario.Reportes.CompraVentaAlmacen.FichaCompra>(sql_2, p1).ToList();
+
+                    var sql_3 = "SELECT sum(vd.cantidad_und*vd.signo) as cnt, "+
+                        "sum(vd.cantidad*vd.precio_final*vd.signo) as montoVenta, " +
+                        "sum(vd.cantidad*vd.costo_und*vd.signo) as montoCosto, v.factor_cambio as factor, "+
+                        "v.documento_nombre as tipoDoc " +
+                        "from ventas_detalle as vd " +
+                        "join productos as p on vd.auto_producto=p.auto " +
+                        "join ventas as v on vd.auto_documento=v.auto " +
+                        "where vd.estatus_anulado='0' and vd.auto_producto=@autoPrd " +
+                        "group by vd.auto_producto,p.nombre, vd.signo, v.factor_cambio, v.documento_nombre ";
+                    var lVentas = cnn.Database.SqlQuery<DtoLibInventario.Reportes.CompraVentaAlmacen.FichaVenta>(sql_3, p1).ToList();
+
+                    prd.compras = lCompras;
+                    prd.ventas = lVentas;
+                    rt.Entidad = prd;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
     }
 
 }
