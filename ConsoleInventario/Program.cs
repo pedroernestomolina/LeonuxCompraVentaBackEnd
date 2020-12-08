@@ -13,10 +13,11 @@ namespace ConsoleInventario
 
         static void Main(string[] args)
         {
-            ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("localhost","pita");
+            ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("192.168.30.30","pita");
 
             //var filt = new DtoLibInventario.Producto.Filtro();
-            //filt.autoProveedor = "0000000002";
+            //filt.cadena = "HARINA";
+            //filt.MetodoBusqueda = DtoLibInventario.Producto.Enumerados.EnumMetodoBusqueda.Nombre;
             //var rt1 = invPrv.Producto_GetLista(filt);
 
             //filt.estatus= DtoLibInventario.Producto.Enumerados.EnumEstatus.Activo;
@@ -171,6 +172,16 @@ namespace ConsoleInventario
             //var filt = new DtoLibInventario.Reportes.CompraVentaAlmacen.Filtro();
             //filt.autoProducto = "0000000216";
             //var ficha = invPrv.Reportes_CompraVentaAlmacen(filt);
+            //var ficha = invPrv.Reportes_DepositoResumen();
+
+            //var filt = new DtoLibInventario.Reportes.MaestroExistencia.Filtro();
+            //var ficha = invPrv.Reportes_MaestroExistencia(filt);
+
+            //var filt = new DtoLibInventario.Reportes.MaestroInventario.Filtro();
+            //filt.autoDeposito = "0000000004";
+            //var ficha = invPrv.Reportes_MaestroInventario(filt);
+
+            //var ficha = invPrv.Reportes_DepositoResumen();
         }
 
     }

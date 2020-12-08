@@ -22,8 +22,10 @@ namespace DtoLibInventario.Reportes.CompraVentaAlmacen
         public string tipoDoc { get; set; }
         public decimal tneto { get; set; }
         public decimal xcostoUnd { get; set; }
+        public string estatusAnulado { get; set; }
         public decimal costoUnd { get { return tneto / cntUnd; } }
         public decimal costoDivisaUnd { get { return (costoUnd / factor); } }
+        public bool isAnulado { get { return estatusAnulado == "1"; } }
 
     }
 

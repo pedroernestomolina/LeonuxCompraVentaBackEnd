@@ -12,7 +12,7 @@ namespace ConsoleCajaBanco
     {
         static void Main(string[] args)
         {
-            ILibCajaBanco.IProvider cajaBancoPrv = new ProvLibCajaBanco.Provider("localhost","pita04");
+            ILibCajaBanco.IProvider cajaBancoPrv = new ProvLibCajaBanco.Provider("localhost","pita");
             //var filtro = new DtoLibCajaBanco.Reporte.Movimiento.Filtro();
             //filtro.desdeFecha = new DateTime(2020, 07, 01);
             //filtro.hastaFecha = new DateTime(2020, 07, 20);
@@ -50,9 +50,26 @@ namespace ConsoleCajaBanco
             //filtro.hastaFecha = new DateTime(2020, 11, 7);
             //filtro.codigoSucursal = "04";
             //var r01 = cajaBancoPrv.Reporte_VentaPorProducto(filtro);
-
             //var r01 = cajaBancoPrv.Deposito_GetFicha("0000000004");
-            //var r01 = cajaBancoPrv.Sucursal_GetFicha("0000000004");
+
+            //var filtro = new DtoLibCajaBanco.Reporte.Movimiento.VentasPorProducto.Filtro();
+            //filtro.desdeFecha = new DateTime(2020, 12, 1);
+            //filtro.hastaFecha = new DateTime(2020, 12, 7);
+            //filtro.codigoSucursal = "";
+            //var r01 = cajaBancoPrv.Reporte_VentaPorProducto(filtro);
+
+            //var filtro = new DtoLibCajaBanco.Reporte.Movimiento.ResumenVentaSucursal.Filtro();
+            //filtro.desdeFecha = new DateTime(2020, 12, 1);
+            //filtro.hastaFecha = new DateTime(2020, 12, 7);
+            //filtro.codigoSucursal = "";
+            //var r01 = cajaBancoPrv.Reporte_ResumenVentaSucursal(filtro);
+
+            //var filtro = new DtoLibCajaBanco.Reporte.Movimiento.VentasPorProductoSucursal.Filtro();
+            //filtro.desdeFecha = new DateTime(2020, 12, 1);
+            //filtro.hastaFecha = new DateTime(2020, 12, 7);
+            //filtro.codigoSucursal = "";
+            //var r01 = cajaBancoPrv.Reporte_VentaPorProductoSucursal(filtro);
+
         }
     }
 

@@ -21,6 +21,7 @@ namespace ILibInventario
         DtoLib.ResultadoLista<DtoLibInventario.Reportes.TopDepartUtilidad.Ficha> Reportes_TopDepartUtilidad(DtoLibInventario.Reportes.TopDepartUtilidad.Filtro filtro);
 
         DtoLib.ResultadoEntidad<DtoLibInventario.Reportes.CompraVentaAlmacen.Ficha> Reportes_CompraVentaAlmacen(DtoLibInventario.Reportes.CompraVentaAlmacen.Filtro filtro);
+        DtoLib.ResultadoLista<DtoLibInventario.Reportes.DepositoResumen.Ficha> Reportes_DepositoResumen();
 
     }
 

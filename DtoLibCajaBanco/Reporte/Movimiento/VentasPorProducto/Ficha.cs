@@ -15,6 +15,7 @@ namespace DtoLibCajaBanco.Reporte.Movimiento.VentasPorProducto
         public string nombrePrd { get; set; }
         public decimal cantidad { get; set; }
         public decimal totalMonto { get; set; }
+        public decimal totalMontoDivisa { get; set; }
         public string nombreDocumento { get; set; }
         public int signo { get; set; }
 

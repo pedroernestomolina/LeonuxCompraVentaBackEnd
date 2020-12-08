@@ -137,15 +137,37 @@ namespace ProvLibInventario
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
-                    var sql_1 = "select p.codigo as codigoPrd , p.nombre as nombrePrd , p.referencia as referenciaPrd, p.modelo as modeloPrd, " +
-                        " p.estatus as estatusPrd, p.estatus_divisa as estatusDivisaPrd, p.estatus_cambio as estatusCambioPrd, " +
-                        " p.costo_und as costoUnd, p.divisa as costoDivisa, p.contenido_compras as contenidoCompras, " +
-                        " ed.nombre as departamento, " +
-                        " pm.decimales as decimales, ";
-                    var sql_2 =" from productos as p " +
-                        " join empresa_departamentos as ed on p.auto_departamento=ed.auto " +
-                        " join productos_medida as pm on p.auto_empaque_compra=pm.auto " +
-                        " where 1=1 ";
+                    //var sql_1 = "select p.codigo as codigoPrd , p.nombre as nombrePrd , p.referencia as referenciaPrd, p.modelo as modeloPrd, " +
+                    //    " p.estatus as estatusPrd, p.estatus_divisa as estatusDivisaPrd, p.estatus_cambio as estatusCambioPrd, " +
+                    //    " p.costo_und as costoUnd, p.divisa as costoDivisa, p.contenido_compras as contenidoCompras, " +
+                    //    " ed.nombre as departamento, " +
+                    //    " pm.decimales as decimales, ";
+                    //var sql_2 =" from productos as p " +
+                    //    " join empresa_departamentos as ed on p.auto_departamento=ed.auto " +
+                    //    " join productos_medida as pm on p.auto_empaque_compra=pm.auto " +
+                    //    " where 1=1 ";
+
+
+                    var sql_1 = "select " +
+                        "p.codigo as codigoPrd, " +
+                        "p.nombre as nombrePrd, " +
+                        "p.referencia as referenciaPrd, " +
+                        "p.modelo as modeloPrd, " +
+                        "p.estatus as estatusPrd, " +
+                        "p.estatus_divisa as estatusDivisaPrd, " +
+                        "p.estatus_cambio as estatusCambioPrd, " +
+                        "p.costo_und as costoUnd, " +
+                        "p.divisa as costoDivisa, " +
+                        "p.contenido_compras as contenidoCompras, " +
+                        "ed.nombre as departamento, " +
+                        "pm.decimales as decimales, ";
+
+                    var sql_2 = "from productos as p " +
+                        "join empresa_tasas as et on et.auto=p.auto_tasa " +
+                        "join empresa_departamentos as ed on p.auto_departamento=ed.auto " +
+                        "join productos_medida as pm on p.auto_empaque_compra=pm.auto ";
+
+                    var sql_3 = "where p.estatus='Activo' and p.categoria<>'Bien de Servicio' ";
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p2 = new MySql.Data.MySqlClient.MySqlParameter();
@@ -156,43 +178,44 @@ namespace ProvLibInventario
 
                     if (filtro.autoDeposito == "")
                     {
-                        sql_1 += " (SELECT sum(fisica) from productos_deposito where auto_producto=p.auto) as existencia ";
+                        sql_1 += "(SELECT sum(fisica) from productos_deposito where auto_producto=p.auto) as existencia, " +
+                            "0 as pn1, " +
+                            "0 as pn2, " +
+                            "0 as pn3, " +
+                            "0 as pn4, " +
+                            "0 as pn5, " +
+                            "'' as codigoSuc, " +
+                            "'' as nombreGrupo, " +
+                            "'' as precioId ";
                     }
                     else 
                     {
-                        sql_1 += " (SELECT sum(fisica) from productos_deposito where auto_producto=p.auto and auto_deposito=@autoDeposito) as existencia ";
+                        sql_1 += "(SELECT sum(fisica) from productos_deposito where auto_producto=p.auto and auto_deposito=@autoDeposito) as existencia, " +
+                            "(SELECT (p.pdf_1/ ((et.tasa/100)+1))  from productos_deposito where auto_producto=p.auto and auto_deposito=@autoDeposito) as pn1, " +
+                            "(SELECT (p.pdf_2/ ((et.tasa/100)+1))  from productos_deposito where auto_producto=p.auto and auto_deposito=@autoDeposito) as pn2, " +
+                            "(SELECT (p.pdf_3/ ((et.tasa/100)+1))  from productos_deposito where auto_producto=p.auto and auto_deposito=@autoDeposito) as pn3, " +
+                            "(SELECT (p.pdf_4/ ((et.tasa/100)+1))  from productos_deposito where auto_producto=p.auto and auto_deposito=@autoDeposito) as pn4, " +
+                            "(SELECT (p.pdf_4/ ((et.tasa/100)+1))  from productos_deposito where auto_producto=p.auto and auto_deposito=@autoDeposito) as pn5, " +
+                            "es.codigo as codigoSuc, " +
+                            "eg.nombre as nombreGrupo, " +
+                            "eg.idprecio as precioId ";
+
+                        sql_2 += "join empresa_depositos as edep on edep.auto=@autoDeposito " +
+                            "join empresa_sucursal as es on edep.codigo_sucursal=es.codigo " +
+                            "join empresa_grupo as eg on eg.auto=es.autoempresagrupo ";
+
                         p4.ParameterName = "@autoDeposito";
                         p4.Value = filtro.autoDeposito;
                     }
 
                     if (filtro.autoDepartamento != "")
                     {
-                        sql_2 += " and p.auto_departamento=@autoDepartamento ";
+                        sql_3 += " and p.auto_departamento=@autoDepartamento ";
                         p1.ParameterName = "@autoDepartamento";
                         p1.Value = filtro.autoDepartamento;
                     }
-                    if (filtro.admDivisa != DtoLibInventario.Reportes.enumerados.EnumAdministradorPorDivisa.SnDefinir)
-                    {
-                        var _f = "1";
-                        if (filtro.admDivisa == DtoLibInventario.Reportes.enumerados.EnumAdministradorPorDivisa.No)
-                            _f = "0";
-                        sql_2 += " and p.estatus_divisa=@estatusDivisa ";
-                        p2.ParameterName = "@estatusDivisa";
-                        p2.Value = _f;
-                    }
-                    if (filtro.estatus != DtoLibInventario.Reportes.enumerados.EnumEstatus.SnDefinir)
-                    {
-                        var _f = "Activo";
-                        if (filtro.estatus == DtoLibInventario.Reportes.enumerados.EnumEstatus.Inactivo)
-                        {
-                            _f = "Inactivo";
-                        }
-                        sql_2 += " and p.estatus=@estatus ";
-                        p3.ParameterName = "@estatus";
-                        p3.Value = _f;
-                    }
 
-                    var sql = sql_1 + sql_2;
+                    var sql = sql_1 + sql_2+ sql_3;
                     var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.MaestroInventario.Ficha>(sql, p1, p2, p3, p4, p5).ToList();
                     rt.Lista = list;
                 }
@@ -327,13 +350,40 @@ namespace ProvLibInventario
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
-                    var sql = "SELECT p.auto as autoprd, p.codigo as codigoPrd, p.nombre as nombrePrd, p.estatus as estatusPrd, " +
-                        "pdep.fisica as exFisica, edep.auto as autoDep, edep.codigo as codigoDep, edep.nombre as nombreDep, " +
-                        "pmed.decimales as decimales "+
+                    //var sql = "SELECT p.auto as autoprd, p.codigo as codigoPrd, p.nombre as nombrePrd, p.estatus as estatusPrd, " +
+                    //    "pdep.fisica as exFisica, edep.auto as autoDep, edep.codigo as codigoDep, edep.nombre as nombreDep, " +
+                    //    "pmed.decimales as decimales "+
+                    //    "FROM productos as p " +
+                    //    "join productos_medida as pmed on p.auto_empaque_compra=pmed.auto "+
+                    //    "left join productos_deposito as pdep on pdep.auto_producto=p.auto " +
+                    //    "left join empresa_depositos as edep on edep.auto=pdep.auto_deposito " +
+                    //    "where p.estatus='Activo' and p.categoria<>'Bien de Servicio' ";
+
+                    var sql = "SELECT " +
+                        "p.auto as autoprd, " +
+                        "p.codigo as codigoPrd, " +
+                        "p.nombre as nombrePrd, " +
+                        "p.estatus as estatusPrd, " +
+                        "pdep.fisica as exFisica, " +
+                        "edep.auto as autoDep, " +
+                        "edep.codigo as codigoDep, " +
+                        "edep.nombre as nombreDep, " +
+                        "pmed.decimales as decimales, " +
+                        "p.divisa/p.contenido_compras as costoUndDivisa, " +
+                        "p.pdf_1/ ((et.tasa/100)+1)  as pDivisaNeto_1, " +
+                        "p.pdf_2/ ((et.tasa/100)+1)  as pDivisaNeto_2, " +
+                        "p.pdf_3/ ((et.tasa/100)+1)  as pDivisaNeto_3, " +
+                        "p.pdf_4/ ((et.tasa/100)+1)  as pDivisaNeto_4, " +
+                        "p.pdf_pto/ ((et.tasa/100)+1)  as pDivisaNeto_5, " +
+                        "esuc.codigo as codigoSuc, " +
+                        "egru.idprecio as precioId " +
                         "FROM productos as p " +
-                        "join productos_medida as pmed on p.auto_empaque_compra=pmed.auto "+
+                        "join empresa_tasas as et on p.auto_tasa=et.auto " +
+                        "join productos_medida as pmed on p.auto_empaque_compra=pmed.auto " +
                         "left join productos_deposito as pdep on pdep.auto_producto=p.auto " +
                         "left join empresa_depositos as edep on edep.auto=pdep.auto_deposito " +
+                        "left join empresa_sucursal as esuc on edep.codigo_sucursal=esuc.codigo " +
+                        "left join empresa_grupo as egru on egru.auto=esuc.autoempresagrupo " +
                         "where p.estatus='Activo' and p.categoria<>'Bien de Servicio' ";
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
@@ -586,13 +636,13 @@ namespace ProvLibInventario
                         "WHERE p.auto=@autoPrd";
                     var prd = cnn.Database.SqlQuery<DtoLibInventario.Reportes.CompraVentaAlmacen.Ficha>(sql_1, p1).FirstOrDefault();
 
-                    var sql_2 = "SELECT c.documento as documento, cd.fecha as fecha, cd.cantidad as cnt, cd.empaque as empaque, "+
+                    var sql_2 = "SELECT c.documento as documento, c.fecha as fecha, cd.cantidad as cnt, cd.empaque as empaque, "+
                         "cd.contenido_empaque as contenido, cd.cantidad_und as cntUnd, cd.costo_und as xcostoUnd, cd.total_neto as tneto, "+
-                        "c.factor_cambio as factor, cd.signo as signoDoc, c.serie as tipoDoc "+
+                        "c.factor_cambio as factor, cd.signo as signoDoc, c.serie as tipoDoc, cd.estatus_anulado as estatusAnulado "+
                         "FROM compras_detalle as cd "+
                         "join compras as c on c.auto=cd.auto_documento "+
                         "join productos as p on cd.auto_producto=p.auto "+
-                        "where cd.auto_producto=@autoPrd and  cd.estatus_anulado='0'";
+                        "where cd.auto_producto=@autoPrd";
                     var lCompras= cnn.Database.SqlQuery<DtoLibInventario.Reportes.CompraVentaAlmacen.FichaCompra>(sql_2, p1).ToList();
 
                     var sql_3 = "SELECT sum(vd.cantidad_und*vd.signo) as cnt, "+
@@ -609,6 +659,57 @@ namespace ProvLibInventario
                     prd.compras = lCompras;
                     prd.ventas = lVentas;
                     rt.Entidad = prd;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibInventario.Reportes.DepositoResumen.Ficha> Reportes_DepositoResumen()
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibInventario.Reportes.DepositoResumen.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    var sql_1 =
+                        "Select (select count(*) from productos_deposito as pd " +
+                        "where pd.auto_deposito=a.autoDeposito and pd.fisica<>0) as cntStock , a.* "+
+                        "from (" +
+                        "select " +
+                        "ed.auto as autoDeposito, " +
+                        "count(*) as cItem, " +
+                        "ed.nombre as nombreDeposito, " +
+                        "sum(pd.fisica*(p.Divisa/p.contenido_compras)) as costo, " +
+                        "sum(pd.fisica*(p.pdf_1/ ((et.tasa/100)+1)  )) as pn1, " +
+                        "sum(pd.fisica*(p.pdf_2/ ((et.tasa/100)+1)  )) as pn2, " +
+                        "sum(pd.fisica*(p.pdf_3/ ((et.tasa/100)+1)  )) as pn3, " +
+                        "sum(pd.fisica*(p.pdf_4/ ((et.tasa/100)+1)  )) as pn4, " +
+                        "sum(pd.fisica*(p.pdf_pto/ ((et.tasa/100)+1)  )) as pn5, " +
+                        "es.codigo as codigoSuc, " +
+                        "eg.nombre as nombreGrupo, " +
+                        "eg.idprecio as precioId " +
+                        "FROM `productos_deposito` as pd " +
+                        "join empresa_depositos as ed on ed.auto=pd.auto_deposito " +
+                        "join productos as p on pd.auto_producto=p.auto " +
+                        "join empresa_tasas as et on et.auto=p.auto_tasa " +
+                        "join empresa_sucursal as es on ed.codigo_sucursal=es.codigo " +
+                        "join empresa_grupo as eg on eg.auto=es.autoempresagrupo " +
+                        "where p.estatus='Activo' and p.categoria<>'Bien de Servicio' " +
+                        "group by auto_deposito,nombreDeposito,codigoSuc,nombreGrupo,precioId" +
+                        ") as a";
+                    var lst = cnn.Database.SqlQuery<DtoLibInventario.Reportes.DepositoResumen.Ficha>(sql_1, p1).ToList();
+                    rt.Lista = lst;
                 }
             }
             catch (Exception e)

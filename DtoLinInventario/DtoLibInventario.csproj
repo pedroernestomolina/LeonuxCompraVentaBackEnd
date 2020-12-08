@@ -169,6 +169,7 @@
     <Compile Include="Reportes\CompraVentaAlmacen\FichaCompra.cs" />
     <Compile Include="Reportes\CompraVentaAlmacen\FichaVenta.cs" />
     <Compile Include="Reportes\CompraVentaAlmacen\Filtro.cs" />
+    <Compile Include="Reportes\DepositoResumen\Ficha.cs" />
     <Compile Include="Reportes\enumerados.cs" />
     <Compile Include="Reportes\Kardex\Ficha.cs" />
     <Compile Include="Reportes\Kardex\Filtro.cs" />

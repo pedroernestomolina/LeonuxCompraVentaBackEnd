@@ -42,6 +42,11 @@ namespace DtoLibInventario.Producto
         public decimal costoDivisa { get; set; }
         public decimal? existencia { get; set; }
 
+        public decimal pDivisaFull_1 { get; set; }
+        public decimal pDivisaFull_2 { get; set; }
+        public decimal pDivisaFull_3 { get; set; }
+        public decimal pDivisaFull_4 { get; set; }
+        public decimal pDivisaFull_5 { get; set; }
 
         public Enumerados.EnumCategoria categoria 
         {

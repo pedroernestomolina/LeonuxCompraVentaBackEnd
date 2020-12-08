@@ -13,14 +13,10 @@ namespace DtoLibInventario.Reportes.MaestroInventario
 
         public string autoDeposito { get; set; }
         public string autoDepartamento { get; set; }
-        public enumerados.EnumAdministradorPorDivisa admDivisa { get; set; }
-        public enumerados.EnumEstatus estatus { get; set; }
 
 
         public Filtro()
         {
-            admDivisa = enumerados.EnumAdministradorPorDivisa.SnDefinir;
-            estatus = enumerados.EnumEstatus.SnDefinir;
             autoDepartamento = "";
             autoDeposito = "";
         }

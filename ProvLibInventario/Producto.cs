@@ -29,6 +29,8 @@ namespace ProvLibInventario
                         "pm.nombre as empaque, etasa.tasa as tasaIva, etasa.nombre as tasaIvaDescripcion, "+
                         "p.estatus as xestatus, p.estatus_divisa, p.estatus_pesado, p.estatus_catalogo, p.estatus_oferta, "+
                         "p.fecha_alta as fechaAlta, p.fecha_cambio as fechaUltActualizacion, p.fecha_ult_costo as fechaUltCambioCosto, " +
+                        "p.pdf_1 as pDivisaFull_1, p.pdf_2 as pDivisaFull_2, p.pdf_3 as pDivisaFull_3, " +
+                        "p.pdf_4 as pDivisaFull_4, p.pdf_pto as pDivisaFull_5, " +
                         "p.divisa as costoDivisa, (select sum(fisica) from productos_deposito where auto_producto=p.auto) as existencia from productos as p ";
 
                     var xsql2="join empresa_departamentos as ed on p.auto_departamento=ed.auto "+
