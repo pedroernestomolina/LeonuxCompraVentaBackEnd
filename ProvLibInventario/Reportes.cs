@@ -656,8 +656,23 @@ namespace ProvLibInventario
                         "group by vd.auto_producto,p.nombre, vd.signo, v.factor_cambio, v.documento_nombre ";
                     var lVentas = cnn.Database.SqlQuery<DtoLibInventario.Reportes.CompraVentaAlmacen.FichaVenta>(sql_3, p1).ToList();
 
+                    var sql_4 = "SELECT pm.documento, " +
+                        "pm.fecha, " +
+                        "pm.estatus_anulado as estatusAnulado, " +
+                        "pm.tipo as tipoDoc, " +
+                        "pm.documento_nombre as nombreDoc, " +
+                        "pm.nota, " +
+                        "pmd.cantidad_und as cantUnd, " +
+                        "pmd.costo_und as costoUnd, " +
+                        "pmd.signo " +
+                        "FROM productos_movimientos_detalle as pmd " +
+                        "join productos_movimientos as pm on pm.auto=pmd.auto_documento " +
+                        "where pmd.auto_producto=@autoPrd and pmd.tipo<>'03'";
+                    var lAlm = cnn.Database.SqlQuery<DtoLibInventario.Reportes.CompraVentaAlmacen.FichaAlmacen>(sql_4, p1).ToList();
+
                     prd.compras = lCompras;
                     prd.ventas = lVentas;
+                    prd.almacen=lAlm;
                     rt.Entidad = prd;
                 }
             }

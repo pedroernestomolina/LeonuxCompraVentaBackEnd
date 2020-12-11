@@ -166,6 +166,7 @@
     <Compile Include="Proveedor\Lista\Filtro.cs" />
     <Compile Include="Proveedor\Lista\Resumen.cs" />
     <Compile Include="Reportes\CompraVentaAlmacen\Ficha.cs" />
+    <Compile Include="Reportes\CompraVentaAlmacen\FichaAlmacen.cs" />
     <Compile Include="Reportes\CompraVentaAlmacen\FichaCompra.cs" />
     <Compile Include="Reportes\CompraVentaAlmacen\FichaVenta.cs" />
     <Compile Include="Reportes\CompraVentaAlmacen\Filtro.cs" />

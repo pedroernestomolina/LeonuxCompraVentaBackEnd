@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibCompra.Compra
+namespace DtoLibCompra.Documento.Lista
 {
 
-    public class Filtro: BaseFiltro 
+    public class Filtro : BaseFiltro
     {
+
     }
 
 }

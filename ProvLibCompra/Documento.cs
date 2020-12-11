@@ -508,6 +508,55 @@ namespace ProvLibCompra
             return result;
         }
 
+        public DtoLib.ResultadoLista<DtoLibCompra.Documento.Lista.Resumen> Compra_DocumentoGetLista(DtoLibCompra.Documento.Lista.Filtro filtro)
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibCompra.Documento.Lista.Resumen>();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    var sql_1 = "SELECT " +
+                        "auto, fecha as fechaEmision, tipo, documento, " +
+                        "documento_nombre as tipoDocNombre, fecha_registro as fechaRegistro, " +
+                        "codigo_sucursal as codigoSuc, razon_social as provNombre, ci_rif as provCiRif, " +
+                        "total as monto, situacion, monto_Divisa as montoDivisa, estatus_anulado as estatusAnulado ";
+
+                    var sql_2 = " FROM compras ";
+
+                    var sql_3 = " where 1=1 ";
+
+                    if (filtro.segun_FechaEmisionDesde.HasValue)
+                    {
+                        p1.ParameterName = "@fDesde";
+                        p1.Value = filtro.segun_FechaEmisionDesde;
+                        sql_3 += " and fecha>=@fDesde ";
+                    }
+                    if (filtro.segun_FechaEmisionHasta.HasValue)
+                    {
+                        p2.ParameterName = "@fHasta";
+                        p2.Value = filtro.segun_FechaEmisionHasta;
+                        sql_3 += " and fecha<=@fHasta ";
+                    }
+
+                    var sql = sql_1 + sql_2 + sql_3;
+                    var lst = cnn.Database.SqlQuery<DtoLibCompra.Documento.Lista.Resumen>(sql, p1, p2, p3).ToList();
+                    result.Lista = lst;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

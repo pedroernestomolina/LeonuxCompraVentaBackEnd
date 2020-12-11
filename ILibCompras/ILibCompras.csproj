@@ -39,7 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICompra.cs" />
     <Compile Include="IConcepto.cs" />
     <Compile Include="IConfiguracion.cs" />
     <Compile Include="IDeposito.cs" />
@@ -49,6 +48,7 @@
     <Compile Include="IProducto.cs" />
     <Compile Include="IProveedor.cs" />
     <Compile Include="IProvider.cs" />
+    <Compile Include="IReportes.cs" />
     <Compile Include="ISucursal.cs" />
     <Compile Include="IUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

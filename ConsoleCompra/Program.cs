@@ -58,6 +58,41 @@ namespace ConsoleCompra
             //var r02 = compraPrv.Permiso_AdmDoc_Anular("0000000006");
             //var r03 = compraPrv.Permiso_AdmDoc_Visualizar("0000000006");
             //var r04 = compraPrv.Permiso_AdmDoc_Reporte("0000000006");
+
+            //var filtro = new DtoLibCompra.Documento.Lista.Filtro()
+            //{
+            //    segun_FechaEmisionDesde = new DateTime(2020, 11, 01),
+            //    segun_FechaEmisionHasta = new DateTime(2020, 12, 08),
+            //};
+            //var r01 = compraPrv.Compra_DocumentoGetLista(filtro);
+
+            //var filtro = new DtoLibCompra.Reportes.CompraPorDepartamento.Filtro ()
+            //{
+            //    desde= new DateTime(2020, 11, 01),
+            //    hasta= new DateTime(2020, 11, 30),
+            //};
+            //var r01 = compraPrv.Reportes_ComprasPorDepartamento (filtro);
+
+            //var filtro = new DtoLibCompra.Reportes.CompraDocumento.Filtro()
+            //{
+            //    desde = new DateTime(2020, 11, 01),
+            //    hasta = new DateTime(2020, 11, 30),
+            //};
+            //var r01 = compraPrv.Reportes_ComprasDocumento(filtro);
+
+            //var filtro = new DtoLibCompra.Reportes.CompraPorProductoDetalle.Filtro()
+            //{
+            //    desde = new DateTime(2020, 11, 01),
+            //    hasta = new DateTime(2020, 11, 30),
+            //};
+            //var r01 = compraPrv.Reportes_CompraPorProductoDetalle(filtro);
+
+            //var filtro = new DtoLibCompra.Reportes.CompraPorProducto.Filtro()
+            //{
+            //    desde = new DateTime(2020, 11, 01),
+            //    hasta = new DateTime(2020, 11, 30),
+            //};
+            //var r01 = compraPrv.Reportes_CompraPorProducto (filtro);
         }
 
     }

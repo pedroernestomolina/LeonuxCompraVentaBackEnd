@@ -21,6 +21,7 @@ namespace DtoLibInventario.Reportes.CompraVentaAlmacen
 
         public List<FichaCompra> compras { get; set; }
         public List<FichaVenta> ventas { get; set; }
+        public List<FichaAlmacen> almacen { get; set; }
 
     }
 

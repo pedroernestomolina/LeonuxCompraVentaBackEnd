@@ -40,8 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseFiltro.cs" />
-    <Compile Include="Compra\Filtro.cs" />
-    <Compile Include="Compra\Resumen.cs" />
     <Compile Include="Concepto\Ficha.cs" />
     <Compile Include="Configuracion\Enumerados.cs" />
     <Compile Include="Deposito\Data\Ficha.cs" />
@@ -57,6 +55,8 @@
     <Compile Include="Documento\Cargar\Factura\FichaPrdPrecioHistorico.cs" />
     <Compile Include="Documento\Cargar\Factura\FichaPrdPrecio.cs" />
     <Compile Include="Documento\Cargar\Factura\FichaPrdProveedor.cs" />
+    <Compile Include="Documento\Lista\Filtro.cs" />
+    <Compile Include="Documento\Lista\Resumen.cs" />
     <Compile Include="Documento\Visualizar\Ficha.cs" />
     <Compile Include="Documento\Visualizar\FichaDetalle.cs" />
     <Compile Include="Empresa\Data\Ficha.cs" />
@@ -76,6 +76,14 @@
     <Compile Include="Proveedor\Enumerados.cs" />
     <Compile Include="Proveedor\Lista\Filtro.cs" />
     <Compile Include="Proveedor\Lista\Resumen.cs" />
+    <Compile Include="Reportes\CompraDocumento\Ficha.cs" />
+    <Compile Include="Reportes\CompraDocumento\Filtro.cs" />
+    <Compile Include="Reportes\CompraPorDepartamento\Ficha.cs" />
+    <Compile Include="Reportes\CompraPorDepartamento\Filtro.cs" />
+    <Compile Include="Reportes\CompraPorProductoDetalle\Ficha.cs" />
+    <Compile Include="Reportes\CompraPorProductoDetalle\Filtro.cs" />
+    <Compile Include="Reportes\CompraPorProducto\Ficha.cs" />
+    <Compile Include="Reportes\CompraPorProducto\Filtro.cs" />
     <Compile Include="Sucursal\Data\Ficha.cs" />
     <Compile Include="Sucursal\Lista\Resumen.cs" />
     <Compile Include="Usuario\Buscar\Ficha.cs" />
