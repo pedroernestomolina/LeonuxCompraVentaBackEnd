@@ -119,17 +119,19 @@ namespace ProvLibInventario
                         entPrd.divisa = ficha.costoDivisa;
                         entPrd.fecha_ult_costo = fechaSistema.Date;
                         entPrd.fecha_cambio = fechaSistema.Date;
-
-                        entPrd.precio_1 = ficha.precio.pn1;
-                        entPrd.precio_2 = ficha.precio.pn2;
-                        entPrd.precio_3 = ficha.precio.pn3;
-                        entPrd.precio_4 = ficha.precio.pn4;
-                        entPrd.precio_pto = ficha.precio.pn5;
-                        entPrd.utilidad_1 = ficha.precio.ut1;
-                        entPrd.utilidad_2 = ficha.precio.ut2;
-                        entPrd.utilidad_3 = ficha.precio.ut3;
-                        entPrd.utilidad_4 = ficha.precio.ut4;
-                        entPrd.utilidad_pto = ficha.precio.ut5;
+                        if (ficha.precio != null)
+                        {
+                            entPrd.precio_1 = ficha.precio.pn1;
+                            entPrd.precio_2 = ficha.precio.pn2;
+                            entPrd.precio_3 = ficha.precio.pn3;
+                            entPrd.precio_4 = ficha.precio.pn4;
+                            entPrd.precio_pto = ficha.precio.pn5;
+                            entPrd.utilidad_1 = ficha.precio.ut1;
+                            entPrd.utilidad_2 = ficha.precio.ut2;
+                            entPrd.utilidad_3 = ficha.precio.ut3;
+                            entPrd.utilidad_4 = ficha.precio.ut4;
+                            entPrd.utilidad_pto = ficha.precio.ut5;
+                        }
                         cnn.SaveChanges();
 
                         var entHist = new productos_costos()

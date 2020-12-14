@@ -140,6 +140,7 @@
     <Compile Include="Producto\Depositos\Ver\Filtro.cs" />
     <Compile Include="Producto\Editar\Actualizar\Ficha.cs" />
     <Compile Include="Producto\Editar\Actualizar\FichaCodAlterno.cs" />
+    <Compile Include="Producto\Editar\Actualizar\FichaPrecio.cs" />
     <Compile Include="Producto\Editar\Obtener\Ficha.cs" />
     <Compile Include="Producto\Editar\Obtener\FichaAlterno.cs" />
     <Compile Include="Producto\Enumerados.cs" />

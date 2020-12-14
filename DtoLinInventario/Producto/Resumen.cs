@@ -48,6 +48,13 @@ namespace DtoLibInventario.Producto
         public decimal pDivisaFull_4 { get; set; }
         public decimal pDivisaFull_5 { get; set; }
 
+        public decimal costo { get; set; }
+        public decimal pNeto1 { get; set; }
+        public decimal pNeto2 { get; set; }
+        public decimal pNeto3 { get; set; }
+        public decimal pNeto4 { get; set; }
+        public decimal pNeto5 { get; set; }
+
         public Enumerados.EnumCategoria categoria 
         {
             get 

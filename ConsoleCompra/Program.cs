@@ -13,7 +13,7 @@ namespace ConsoleCompra
 
         static void Main(string[] args)
         {
-            ILibCompras.IProvider compraPrv = new ProvLibCompra.Provider("localhost", "pita");
+            ILibCompras.IProvider compraPrv = new ProvLibCompra.Provider("192.168.30.30", "pita");
             //var r01 = compraPrv.Sucursal_GetLista();
             //var r01 = compraPrv.Sucursal_GetFicha("0000000001");
             //var r01 = compraPrv.Deposito_GetLista();
@@ -66,12 +66,12 @@ namespace ConsoleCompra
             //};
             //var r01 = compraPrv.Compra_DocumentoGetLista(filtro);
 
-            //var filtro = new DtoLibCompra.Reportes.CompraPorDepartamento.Filtro ()
+            //var filtro = new DtoLibCompra.Reportes.CompraPorDepartamento.Filtro()
             //{
-            //    desde= new DateTime(2020, 11, 01),
-            //    hasta= new DateTime(2020, 11, 30),
+            //    desde = new DateTime(2020, 11, 01),
+            //    hasta = new DateTime(2020, 11, 30),
             //};
-            //var r01 = compraPrv.Reportes_ComprasPorDepartamento (filtro);
+            //var r01 = compraPrv.Reportes_ComprasPorDepartamento(filtro);
 
             //var filtro = new DtoLibCompra.Reportes.CompraDocumento.Filtro()
             //{
@@ -92,7 +92,7 @@ namespace ConsoleCompra
             //    desde = new DateTime(2020, 11, 01),
             //    hasta = new DateTime(2020, 11, 30),
             //};
-            //var r01 = compraPrv.Reportes_CompraPorProducto (filtro);
+            //var r01 = compraPrv.Reportes_CompraPorProducto(filtro);
         }
 
     }

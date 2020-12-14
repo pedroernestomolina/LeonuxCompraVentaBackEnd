@@ -16,7 +16,7 @@ namespace ConsoleInventario
             ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("localhost","pita");
 
             //var filt = new DtoLibInventario.Producto.Filtro();
-            //filt.cadena = "HARINA";
+            //filt.cadena = "MUÑECA";
             //filt.MetodoBusqueda = DtoLibInventario.Producto.Enumerados.EnumMetodoBusqueda.Nombre;
             //var rt1 = invPrv.Producto_GetLista(filt);
 

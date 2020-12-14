@@ -31,6 +31,8 @@ namespace ProvLibInventario
                         "p.fecha_alta as fechaAlta, p.fecha_cambio as fechaUltActualizacion, p.fecha_ult_costo as fechaUltCambioCosto, " +
                         "p.pdf_1 as pDivisaFull_1, p.pdf_2 as pDivisaFull_2, p.pdf_3 as pDivisaFull_3, " +
                         "p.pdf_4 as pDivisaFull_4, p.pdf_pto as pDivisaFull_5, " +
+                        "p.precio_1 as pNeto1, p.precio_2 as pNeto2, p.precio_3 as pNeto3, p.precio_4 as pNeto4, "+
+                        "p.precio_pto as pNeto5, p.costo, "+
                         "p.divisa as costoDivisa, (select sum(fisica) from productos_deposito where auto_producto=p.auto) as existencia from productos as p ";
 
                     var xsql2="join empresa_departamentos as ed on p.auto_departamento=ed.auto "+
@@ -1261,6 +1263,31 @@ namespace ProvLibInventario
                         entPrd.plu = ficha.plu;
                         entPrd.dias_garantia = ficha.diasEmpaque;
                         entPrd.estatus_catalogo = ficha.estatusCatalogo;
+                        if (ficha.precio_1 != null) 
+                        {
+                            entPrd.precio_1 = ficha.precio_1.neto;
+                            entPrd.pdf_1 = ficha.precio_1.divisaFull;
+                        }
+                        if (ficha.precio_2 != null)
+                        {
+                            entPrd.precio_2 = ficha.precio_2.neto;
+                            entPrd.pdf_2 = ficha.precio_2.divisaFull;
+                        }
+                        if (ficha.precio_3 != null)
+                        {
+                            entPrd.precio_3 = ficha.precio_3.neto;
+                            entPrd.pdf_3 = ficha.precio_3.divisaFull;
+                        }
+                        if (ficha.precio_4 != null)
+                        {
+                            entPrd.precio_4 = ficha.precio_4.neto;
+                            entPrd.pdf_4 = ficha.precio_4.divisaFull;
+                        }
+                        if (ficha.precio_5 != null)
+                        {
+                            entPrd.precio_pto = ficha.precio_5.neto;
+                            entPrd.pdf_pto = ficha.precio_5.divisaFull;
+                        }
                         cnn.SaveChanges();
 
                         if (entPrdExtra != null) 

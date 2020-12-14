@@ -137,15 +137,15 @@ namespace ProvLibCompra
                         "auto_producto as autoPrd, " +
                         "codigo as codigoPrd, " +
                         "nombre as nombrePrd, " +
-                        "cantidad_und as cantUnd, " +
-                        "costo_und as costoUnd, " +
+                        "sum(cantidad_und) as cantUnd, " +
+                        "sum(costo_und) as costoUnd, " +
                         "c.signo as signoDoc, " +
                         "c.documento, " +
                         "c.fecha, " +
                         "c.tipo as tipoDoc, " +
                         "c.serie as serieDoc, " +
                         "c.documento_nombre as nombreDoc, " +
-                        "c.factor_cambio as factor ";
+                        "sum(c.factor_cambio) as factor ";
 
                     var sql_2 = "FROM compras_detalle as cd " +
                         "join compras as c on c.auto=cd.auto_documento ";
