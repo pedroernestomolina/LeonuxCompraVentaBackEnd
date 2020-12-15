@@ -26,6 +26,7 @@ namespace DtoLibCompra.Reportes.CompraDocumento
         public string nombreDoc { get; set; }
         public decimal montoDscto { get; set; }
         public decimal montoCargo { get; set; }
+        public bool EsAnulado { get { return estatusAnulado == "1"; } }
         
     }
 

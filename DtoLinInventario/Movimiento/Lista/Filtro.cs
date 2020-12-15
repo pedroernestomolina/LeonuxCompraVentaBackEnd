@@ -15,6 +15,9 @@ namespace DtoLibInventario.Movimiento.Lista
         public DateTime? Hasta { get; set; }
         public  enumerados.EnumTipoDocumento TipoDocumento { get; set; }
         public string IdSucursal { get; set; }
+        public string IdDepOrigen { get; set; }
+        public string IdDepDestino { get; set; }
+        public enumerados.EnumEstatus Estatus { get; set; }
 
 
         public Filtro()
@@ -22,7 +25,10 @@ namespace DtoLibInventario.Movimiento.Lista
             Desde = null;
             Hasta = null;
             TipoDocumento = enumerados.EnumTipoDocumento.SinDefinir;
+            Estatus = enumerados.EnumEstatus.SinDefinir;
             IdSucursal = "";
+            IdDepOrigen= "";
+            IdDepDestino = "";
         }
 
     }

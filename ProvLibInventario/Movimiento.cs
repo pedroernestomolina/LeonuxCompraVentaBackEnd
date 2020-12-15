@@ -1096,7 +1096,28 @@ namespace ProvLibInventario
                     {
                         q = q.Where(w => w.codigo_sucursal==filtro.IdSucursal).ToList();
                     }
-
+                    if (filtro.IdDepOrigen != "")
+                    {
+                        q = q.Where(w => w.auto_deposito  == filtro.IdDepOrigen).ToList();
+                    }
+                    if (filtro.IdDepDestino != "")
+                    {
+                        q = q.Where(w => w.auto_destino == filtro.IdDepDestino).ToList();
+                    }
+                    if (filtro.Estatus != DtoLibInventario.Movimiento.enumerados.EnumEstatus.SinDefinir)
+                    {
+                        var estatus = "";
+                        switch (filtro.Estatus) 
+                        {
+                            case DtoLibInventario.Movimiento.enumerados.EnumEstatus.Activo:
+                                estatus = "0";
+                                break;
+                            case DtoLibInventario.Movimiento.enumerados.EnumEstatus.Anulado:
+                                estatus = "1";
+                                break;
+                        }
+                        q = q.Where(w => w.estatus_anulado == estatus).ToList();
+                    }
                     if (filtro.TipoDocumento!= DtoLibInventario.Movimiento.enumerados.EnumTipoDocumento.SinDefinir)
                     {
                         var tipo = "";

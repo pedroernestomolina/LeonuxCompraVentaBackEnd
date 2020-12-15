@@ -186,6 +186,13 @@ namespace ConsoleInventario
             //var filt = new DtoLibInventario.Reportes.CompraVentaAlmacen.Filtro();
             //filt.autoProducto = "0000000154";
             //var ficha = invPrv.Reportes_CompraVentaAlmacen(filt);
+
+            //var filt = new DtoLibInventario.Movimiento.Lista.Filtro();
+            //filt.Desde = new DateTime(2020,11,01);
+            //filt.Hasta = new DateTime(2020,11,30);
+            //filt.IdDepDestino = "0000000004";
+            //var ficha = invPrv.Producto_Movimiento_GetLista (filt);
+
         }
 
     }
