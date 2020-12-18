@@ -134,26 +134,25 @@ namespace ProvLibCompra
                     var p3 = new MySql.Data.MySqlClient.MySqlParameter();
 
                     var sql_1 = "SELECT " +
-                        "auto_producto as autoPrd, " +
-                        "codigo as codigoPrd, " +
-                        "nombre as nombrePrd, " +
-                        "sum(cantidad_und) as cantUnd, " +
-                        "sum(costo_und) as costoUnd, " +
-                        "c.signo as signoDoc, " +
-                        "c.documento, " +
-                        "c.fecha, " +
-                        "c.tipo as tipoDoc, " +
-                        "c.serie as serieDoc, " +
-                        "c.documento_nombre as nombreDoc, " +
-                        "sum(c.factor_cambio) as factor ";
+                       "auto_producto as autoPrd, " +
+                       "codigo as codigoPrd, " +
+                       "nombre as nombrePrd, " +
+                       "cantidad_und as cantUnd, " +
+                       "costo_und as costoUnd, " +
+                       "c.signo as signoDoc, " +
+                       "c.documento, " +
+                       "c.fecha, " +
+                       "c.tipo as tipoDoc, " +
+                       "c.serie as serieDoc, " +
+                       "c.documento_nombre as nombreDoc, " +
+                       "c.factor_cambio as factor ";
 
                     var sql_2 = "FROM compras_detalle as cd " +
                         "join compras as c on c.auto=cd.auto_documento ";
 
                     var sql_3 = "where 1=1 and c.estatus_anulado='0' ";
 
-                    var sql_4 = "group by auto_producto, codigo , nombre , c.signo, c.documento, c.fecha, c.tipo, "+
-                        "c.serie,c.documento_nombre";
+                    var sql_4 = "";
 
                     sql_3 += " and c.fecha>=@desde ";
                     p1.ParameterName = "@desde";

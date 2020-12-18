@@ -1,3 +1,4 @@
+D:\Proyectos FoxSystem\CompraVenta\ProvLibSistema\bin\Debug\EntityFramework.xml
 D:\Proyectos FoxSystem\CompraVenta\ProvLibSistema\bin\Debug\ProvLibSistema.dll.config
 D:\Proyectos FoxSystem\CompraVenta\ProvLibSistema\bin\Debug\ProvLibSistema.dll
 D:\Proyectos FoxSystem\CompraVenta\ProvLibSistema\bin\Debug\ProvLibSistema.pdb
@@ -12,7 +13,6 @@ D:\Proyectos FoxSystem\CompraVenta\ProvLibSistema\bin\Debug\DtoLibSistema.pdb
 D:\Proyectos FoxSystem\CompraVenta\ProvLibSistema\bin\Debug\DtoLib.pdb
 D:\Proyectos FoxSystem\CompraVenta\ProvLibSistema\bin\Debug\ILibSistema.pdb
 D:\Proyectos FoxSystem\CompraVenta\ProvLibSistema\bin\Debug\LibEntitySistema.pdb
-D:\Proyectos FoxSystem\CompraVenta\ProvLibSistema\bin\Debug\EntityFramework.xml
 D:\Proyectos FoxSystem\CompraVenta\ProvLibSistema\bin\Debug\EntityFramework.SqlServer.xml
 D:\Proyectos FoxSystem\CompraVenta\ProvLibSistema\obj\Debug\ProvLibSistema.csprojResolveAssemblyReference.cache
 D:\Proyectos FoxSystem\CompraVenta\ProvLibSistema\obj\Debug\ProvLibSistema.dll
