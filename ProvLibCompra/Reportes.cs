@@ -75,6 +75,7 @@ namespace ProvLibCompra
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p2 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
 
                     var sql_1 = "SELECT " +
                         "fecha, " +
@@ -107,8 +108,25 @@ namespace ProvLibCompra
                     p2.ParameterName = "@hasta";
                     p2.Value = filtro.hasta;
 
+                    if (filtro.codSucursal != "") 
+                    {
+                        sql_3 += " and c.codigo_sucursal=@suc ";
+                        p3.ParameterName = "@suc";
+                        p3.Value = filtro.codSucursal;
+                    }
+
+                    if (filtro.estatus != DtoLibCompra.Reportes.Enumerados.EnumEstatus.SinDefinir)
+                    {
+                        var xestatus = "0";
+                        if (filtro.estatus == DtoLibCompra.Reportes.Enumerados.EnumEstatus.Anulado)
+                            xestatus = "1";
+                        sql_3 += " and c.estatus_anulado=@estatus ";
+                        p4.ParameterName = "@estatus";
+                        p4.Value = xestatus;
+                    }
+
                     var sql = sql_1 + sql_2 + sql_3 + sql_4;
-                    var lst = cnn.Database.SqlQuery<DtoLibCompra.Reportes.CompraDocumento.Ficha>(sql, p1, p2, p3).ToList();
+                    var lst = cnn.Database.SqlQuery<DtoLibCompra.Reportes.CompraDocumento.Ficha>(sql, p1, p2, p3,p4).ToList();
                     rt.Lista = lst;
                 }
             }

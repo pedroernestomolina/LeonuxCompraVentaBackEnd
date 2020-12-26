@@ -19,6 +19,7 @@ namespace LibEntityCompra
         {
             this.productos_deposito = new HashSet<productos_deposito>();
             this.compras_detalle = new HashSet<compras_detalle>();
+            this.productos_kardex = new HashSet<productos_kardex>();
         }
     
         public string auto { get; set; }
@@ -30,5 +31,7 @@ namespace LibEntityCompra
         public virtual ICollection<productos_deposito> productos_deposito { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<compras_detalle> compras_detalle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<productos_kardex> productos_kardex { get; set; }
     }
 }

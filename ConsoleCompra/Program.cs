@@ -66,12 +66,12 @@ namespace ConsoleCompra
             //};
             //var r01 = compraPrv.Compra_DocumentoGetLista(filtro);
 
-            var filtro = new DtoLibCompra.Reportes.CompraPorDepartamento.Filtro()
-            {
-                desde = new DateTime(2020, 11, 01),
-                hasta = new DateTime(2020, 11, 30),
-            };
-            var r01 = compraPrv.Reportes_ComprasPorDepartamento(filtro);
+            //var filtro = new DtoLibCompra.Reportes.CompraPorDepartamento.Filtro()
+            //{
+            //    desde = new DateTime(2020, 11, 01),
+            //    hasta = new DateTime(2020, 11, 30),
+            //};
+            //var r01 = compraPrv.Reportes_ComprasPorDepartamento(filtro);
 
             //var filtro = new DtoLibCompra.Reportes.CompraDocumento.Filtro()
             //{
@@ -87,12 +87,14 @@ namespace ConsoleCompra
             //};
             //var r01 = compraPrv.Reportes_CompraPorProductoDetalle(filtro);
 
-            //var filtro = new DtoLibCompra.Reportes.CompraPorProducto.Filtro()
+            //var filtro = new DtoLibCompra.Reportes.CompraDocumento.Filtro()
             //{
             //    desde = new DateTime(2020, 11, 01),
             //    hasta = new DateTime(2020, 11, 30),
+            //    codSucursal = "02",
+            //    estatus = DtoLibCompra.Reportes.Enumerados.EnumEstatus.Anulado,
             //};
-            //var r01 = compraPrv.Reportes_CompraPorProducto(filtro);
+            //var r01 = compraPrv.Reportes_ComprasDocumento (filtro);
         }
 
     }

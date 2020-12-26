@@ -44,6 +44,8 @@
     <Compile Include="Configuracion\Enumerados.cs" />
     <Compile Include="Deposito\Data\Ficha.cs" />
     <Compile Include="Deposito\Lista\Resumen.cs" />
+    <Compile Include="Documento\Anular\Factura\Ficha.cs" />
+    <Compile Include="Documento\Anular\Factura\FichaAuditoria.cs" />
     <Compile Include="Documento\Cargar\Factura\Ficha.cs" />
     <Compile Include="Documento\Cargar\Factura\FichaCxP.cs" />
     <Compile Include="Documento\Cargar\Factura\FichaDetalle.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="Reportes\CompraPorProductoDetalle\Filtro.cs" />
     <Compile Include="Reportes\CompraPorProducto\Ficha.cs" />
     <Compile Include="Reportes\CompraPorProducto\Filtro.cs" />
+    <Compile Include="Reportes\Enumerados.cs" />
     <Compile Include="Sucursal\Data\Ficha.cs" />
     <Compile Include="Sucursal\Lista\Resumen.cs" />
     <Compile Include="Usuario\Buscar\Ficha.cs" />

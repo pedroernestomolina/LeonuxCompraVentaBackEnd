@@ -519,6 +519,7 @@ namespace ProvLibCompra
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p2 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
 
                     var sql_1 = "SELECT " +
                         "auto, fecha as fechaEmision, tipo, documento, " +
@@ -530,21 +531,47 @@ namespace ProvLibCompra
 
                     var sql_3 = " where 1=1 ";
 
-                    if (filtro.segun_FechaEmisionDesde.HasValue)
+                    p1.ParameterName = "@fDesde";
+                    p1.Value = filtro.Desde;
+                    sql_3 += " and fecha>=@fDesde ";
+                    p2.ParameterName = "@fHasta";
+                    p2.Value = filtro.Hasta;
+                    sql_3 += " and fecha<=@fHasta ";
+
+                    if (filtro.CodigoSuc != "") 
                     {
-                        p1.ParameterName = "@fDesde";
-                        p1.Value = filtro.segun_FechaEmisionDesde;
-                        sql_3 += " and fecha>=@fDesde ";
+                        p3.ParameterName = "@suc";
+                        p3.Value = filtro.CodigoSuc;
+                        sql_3 += " and codigo_sucursal=@suc";
                     }
-                    if (filtro.segun_FechaEmisionHasta.HasValue)
+                    if (filtro.TipoDocumento!= DtoLibCompra.Enumerados.enumTipoDocumento.SinDefinir)
                     {
-                        p2.ParameterName = "@fHasta";
-                        p2.Value = filtro.segun_FechaEmisionHasta;
-                        sql_3 += " and fecha<=@fHasta ";
+                        var xtipo = "";
+                        switch (filtro.TipoDocumento) 
+                        {
+                            case  DtoLibCompra.Enumerados.enumTipoDocumento.Factura:
+                                xtipo = "01";
+                                break;
+                            case DtoLibCompra.Enumerados.enumTipoDocumento.NotaDebito:
+                                xtipo = "02";
+                                break;
+                            case DtoLibCompra.Enumerados.enumTipoDocumento.NotaCredito:
+                                xtipo = "03";
+                                break;
+                            case DtoLibCompra.Enumerados.enumTipoDocumento.OrdenCompra:
+                                xtipo = "04";
+                                break;
+                            case DtoLibCompra.Enumerados.enumTipoDocumento.Recepcion:
+                                xtipo = "05";
+                                break;
+                        }
+                        p4.ParameterName = "@tipo";
+                        p4.Value = xtipo;
+                        sql_3 += " and tipo=@tipo";
                     }
 
                     var sql = sql_1 + sql_2 + sql_3;
-                    var lst = cnn.Database.SqlQuery<DtoLibCompra.Documento.Lista.Resumen>(sql, p1, p2, p3).ToList();
+                    var lst = cnn.Database.SqlQuery<DtoLibCompra.Documento.Lista.Resumen>(sql, p1, p2, p3, p4).ToList();
                     result.Lista = lst;
                 }
             }
@@ -555,6 +582,206 @@ namespace ProvLibCompra
             }
 
             return result;
+        }
+
+        public DtoLib.Resultado Compra_DocumentoAnularFactura(DtoLibCompra.Documento.Anular.Factura.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+
+                        var sql = "INSERT INTO `auditoria_documentos` (`auto_documento`, `auto_sistema_documentos`, " +
+                            "`auto_usuario`, `usuario`, `codigo`, `fecha`, `hora`, `memo`, `estacion`, `ip`) " +
+                            "VALUES (@p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, '')";
+
+                        var p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.autoDocumento);
+                        var p2 = new MySql.Data.MySqlClient.MySqlParameter("@p2", ficha.auditoria.autoSistemaDocumento);
+                        var p3 = new MySql.Data.MySqlClient.MySqlParameter("@p3", ficha.auditoria.autoUsuario);
+                        var p4 = new MySql.Data.MySqlClient.MySqlParameter("@p4", ficha.auditoria.usuario);
+                        var p5 = new MySql.Data.MySqlClient.MySqlParameter("@p5", ficha.auditoria.codigo);
+                        var p6 = new MySql.Data.MySqlClient.MySqlParameter("@p6", fechaSistema.Date);
+                        var p7 = new MySql.Data.MySqlClient.MySqlParameter("@p7", fechaSistema.ToShortTimeString());
+                        var p8 = new MySql.Data.MySqlClient.MySqlParameter("@p8", ficha.auditoria.motivo);
+                        var p9 = new MySql.Data.MySqlClient.MySqlParameter("@p9", ficha.auditoria.estacion);
+                        var vk = cnn.Database.ExecuteSqlCommand(sql, p1, p2, p3, p4, p5, p6, p7, p8, p9);
+                        if (vk == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL REGISTRAR MOVIMIENTO AUDITORIA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        var entCompra= cnn.compras.Find(ficha.autoDocumento);
+                        if (entCompra== null)
+                        {
+                            result.Mensaje = "DOCUMENTO NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        entCompra.estatus_anulado = "1";
+                        cnn.SaveChanges();
+
+                        sql = "update compras_detalle set estatus_anulado='1' where auto_documento=@p1";
+                        p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.autoDocumento);
+                        vk = cnn.Database.ExecuteSqlCommand(sql, p1);
+                        if (vk == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL ACTUALIZAR DETALLES DEL DOCUMENTO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        cnn.SaveChanges();
+
+                        var pA = new MySql.Data.MySqlClient.MySqlParameter("@pa", ficha.codigoDocumento);
+                        sql = "update productos_kardex set estatus_anulado='1' where auto_documento=@p1 and modulo='Compras' and codigo=@pA";
+                        p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.autoDocumento);
+                        vk = cnn.Database.ExecuteSqlCommand(sql, p1,pA);
+                        if (vk == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL ACTUALIZAR MOVIMIENTOS KARDEX";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        cnn.SaveChanges();
+
+                        var entCxP= cnn.cxp.Find(entCompra.auto_cxp);
+                        if (entCxP == null)
+                        {
+                            result.Mensaje = "DOCUMENTO POR PAGAR NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        entCxP.estatus_anulado = "1";
+                        cnn.SaveChanges();
+
+                        var entKardex = cnn.productos_kardex.Where(w => w.auto_documento == ficha.autoDocumento && w.modulo == "Compras" && w.codigo==ficha.codigoDocumento).ToList();
+                        foreach (var rg in entKardex)
+                        {
+                            var autoDeposito = rg.auto_deposito;
+                            var autoProducto = rg.auto_producto;
+                            var cnt = rg.cantidad_und;
+
+                            var entPrdDep = cnn.productos_deposito.FirstOrDefault(f => f.auto_deposito == autoDeposito && f.auto_producto == autoProducto);
+                            if (entPrdDep == null)
+                            {
+                                result.Mensaje = "PRODUCTO / DEPOSITO NO ENCONTRADO";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result;
+                            }
+
+                            entPrdDep.fisica -= cnt;
+                            entPrdDep.disponible = entPrdDep.fisica;
+                            cnn.SaveChanges();
+                        }
+                        cnn.SaveChanges();
+
+                        var entProveedor = cnn.proveedores.Find(entCompra.auto_proveedor);
+                        if (entProveedor == null)
+                        {
+                            result.Mensaje = "[ ID ] PROVEEDOR NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        entProveedor.saldo -= entCompra.total ;
+                        cnn.SaveChanges();
+
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Compra_DocumentoAnular_Verificar(string autoDoc)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+
+                    var entCompra= cnn.compras.Find(autoDoc);
+                    if (entCompra == null)
+                    {
+                        rt.Mensaje = "[ ID ] DOCUMENTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    if (entCompra.estatus_anulado == "1")
+                    {
+                        rt.Mensaje = "DOCUMENTO YA ANULADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    if (entCompra.fecha.Year != fechaSistema.Year || entCompra.fecha.Month != fechaSistema.Month)
+                    {
+                        rt.Mensaje = "DOCUMENTO SE ENCUENTRA EN OTRO PERIODO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    if (entCompra.estatus_cierre_contable == "1")
+                    {
+                        rt.Mensaje = "DOCUMENTO SE ENCUENTRA BLOQUEADO CONTABLEMENTE";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    var entCxP= cnn.cxp.Find(entCompra.auto_cxp);
+                    if (entCxP.acumulado>0)
+                    {
+                        rt.Mensaje = "HAY ABONOS REGISTRADO ( CUENTA POR PAGAR ) AL DOCUMENTO A ANULAR";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
         }
 
     }

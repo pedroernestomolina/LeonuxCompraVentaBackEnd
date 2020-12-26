@@ -113,6 +113,9 @@
     <Compile Include="productos_grupo.cs">
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>
+    <Compile Include="productos_kardex.cs">
+      <DependentUpon>ModelLibCompra.tt</DependentUpon>
+    </Compile>
     <Compile Include="productos_marca.cs">
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>
