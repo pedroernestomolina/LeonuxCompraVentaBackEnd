@@ -455,6 +455,58 @@ namespace ProvLibCajaBanco
             return rt;
         }
 
+        public DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha> Reporte_CobranzaDiara(DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha>();
+
+            try
+            {
+                using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
+                {
+                    var sql_1 = "SELECT rec.auto, substr(rec.auto,1,2) as codSuc, substr(rec.auto,3,2) as codEstacion, " +
+                        "rec.fecha, rec.hora, rec.documento as reciboNro, rec.importe, rec.cliente, rec.ci_rif as ciRif, rec.cambio, " +
+                        "mp.lote as loteNro, mp.referencia as refNro, mp.monto_recibido as montoRecibido, mp.medio as medioPagoDesc, " +
+                        "mp.codigo as medioPagoCod, " +
+                        "doc.tipo_documento as tipoDocumento, doc.documento as documentoNro, doc.operacion ";
+
+                    var sql_2 = " FROM cxc_recibos as rec " +
+                        "join cxc_medio_pago as mp on mp.auto_recibo=rec.auto " +
+                        "join cxc_documentos as doc on doc.auto_cxc_recibo=rec.auto ";
+
+                    var sql_3 = " where rec.estatus_anulado='0' and rec.fecha>=@desde and rec.fecha<=@hasta ";
+
+                    var sql_4 = "";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@desde";
+                    p1.Value = filtro.desdeFecha;
+                    p2.ParameterName = "@hasta";
+                    p2.Value = filtro.hastaFecha;
+
+                    if (filtro.codSucursal != "")
+                    {
+                        sql_3 += " and substr(rec.auto,1,2)=@codSucursal ";
+                        p3.ParameterName = "@codSucursal";
+                        p3.Value = filtro.codSucursal;
+                    }
+
+                    var sql = sql_1 + sql_2 + sql_3 + sql_4;
+                    var list = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha>(sql, p1, p2, p3).ToList();
+                    rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
     }
 
 }

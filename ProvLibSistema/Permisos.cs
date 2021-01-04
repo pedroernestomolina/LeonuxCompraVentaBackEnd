@@ -655,6 +655,99 @@ namespace ProvLibSistema
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibSistema.Permiso.Ficha> Permiso_ControlUsuarioGrupo(string autoGrupoUsuario)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibSistema.Permiso.Ficha>();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "@p1";
+                    p1.Value = autoGrupoUsuario;
+                    var permiso = cnn.Database.SqlQuery<DtoLibSistema.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='1230000000'", p1).FirstOrDefault();
+                    if (permiso == null)
+                    {
+                        result.Mensaje = "PERMISO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Entidad = null;
+                        return result;
+                    }
+                    result.Entidad = permiso;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibSistema.Permiso.Ficha> Permiso_ControlUsuarioGrupo_Agregar(string autoGrupoUsuario)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibSistema.Permiso.Ficha>();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "@p1";
+                    p1.Value = autoGrupoUsuario;
+                    var permiso = cnn.Database.SqlQuery<DtoLibSistema.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='1230010000'", p1).FirstOrDefault();
+                    if (permiso == null)
+                    {
+                        result.Mensaje = "PERMISO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Entidad = null;
+                        return result;
+                    }
+                    result.Entidad = permiso;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibSistema.Permiso.Ficha> Permiso_ControlUsuarioGrupo_Editar(string autoGrupoUsuario)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibSistema.Permiso.Ficha>();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "@p1";
+                    p1.Value = autoGrupoUsuario;
+                    var permiso = cnn.Database.SqlQuery<DtoLibSistema.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='1230020000'", p1).FirstOrDefault();
+                    if (permiso == null)
+                    {
+                        result.Mensaje = "PERMISO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Entidad = null;
+                        return result;
+                    }
+                    result.Entidad = permiso;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

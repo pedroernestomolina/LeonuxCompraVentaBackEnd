@@ -40,6 +40,8 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
         public decimal ImporteNeto { get; set; }
         public int Dias { get; set; }
         public decimal Castigop { get; set; }
+        public decimal ImporteDivisa { get; set; }
+        public decimal FactorCambio { get; set; }
 
 
         public CxC()
@@ -73,6 +75,8 @@ namespace DtoLibPosOffLine.Servidor.EnviarData
             ImporteNeto = 0.0m;
             Dias = 0;
             Castigop = 0.0m;
+            ImporteDivisa = 0.0m;
+            FactorCambio = 0.0m;
         }
 
     }

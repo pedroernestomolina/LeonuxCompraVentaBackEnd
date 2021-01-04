@@ -64,12 +64,11 @@ namespace ConsoleCajaBanco
             //filtro.codigoSucursal = "";
             //var r01 = cajaBancoPrv.Reporte_ResumenVentaSucursal(filtro);
 
-            //var filtro = new DtoLibCajaBanco.Reporte.Movimiento.VentasPorProductoSucursal.Filtro();
-            //filtro.desdeFecha = new DateTime(2020, 12, 1);
+            //var filtro = new DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Filtro();
+            //filtro.desdeFecha = new DateTime(2020, 12, 7);
             //filtro.hastaFecha = new DateTime(2020, 12, 7);
-            //filtro.codigoSucursal = "";
-            //var r01 = cajaBancoPrv.Reporte_VentaPorProductoSucursal(filtro);
-
+            //filtro.codSucursal = "04";
+            //var r01 = cajaBancoPrv.Reporte_CobranzaDiara(filtro);
         }
     }
 

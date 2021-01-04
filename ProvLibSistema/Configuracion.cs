@@ -128,7 +128,7 @@ namespace ProvLibSistema
                 using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
                 {
                     var sql = "SELECT auto , estatus_Divisa, divisa, costo, contenido_compras, " +
-                        "pdf_1, pdf_2, pdf_3, pdf_4, pdf_pto, tasa   FROM productos " +
+                        "pdf_1, pdf_2, pdf_3, pdf_4, pdf_pto, tasa, precio_1, precio_2, precio_3, precio_4, precio_pto  FROM productos " +
                         "where estatus='Activo'";
 
                     var list = cnn.Database.SqlQuery<DtoLibSistema.Configuracion.ActualizarTasaDivisa.CapturarData.Ficha>(sql).ToList();
@@ -234,125 +234,146 @@ namespace ProvLibSistema
             {
                 using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
                 {
-                    using (var ts = new TransactionScope())
+                    using (var ts = cnn.Database.BeginTransaction())
                     {
-                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
 
-                        var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL12");
-                        if (ent == null)
+                        try
                         {
-                            rt .Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                            var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+
+                            var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL12");
+                            if (ent == null)
+                            {
+                                rt.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return rt;
+                            }
+                            ent.usuario = ficha.ValorDivisa.ToString();
+                            cnn.SaveChanges();
+
+                            foreach (var rg in ficha.productosCostoSinDivisa)
+                            {
+                                var entPrd = cnn.productos.Find(rg.autoPrd);
+                                if (entPrd == null)
+                                {
+                                    rt.Mensaje = "[ ID ] Producto, No Encontrado";
+                                    rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return rt;
+                                }
+                                entPrd.divisa = rg.costoDivisa;
+                                entPrd.pdf_1 = rg.precioMonedaEnDivisaFull_1;
+                                entPrd.pdf_2 = rg.precioMonedaEnDivisaFull_2;
+                                entPrd.pdf_3 = rg.precioMonedaEnDivisaFull_3;
+                                entPrd.pdf_4 = rg.precioMonedaEnDivisaFull_4;
+                                entPrd.pdf_pto = rg.precioMonedaEnDivisaFull_5;
+                                cnn.SaveChanges();
+                            }
+
+                            foreach (var rg in ficha.productosCostoPrecioDivisa)
+                            {
+                                var entPrd = cnn.productos.Find(rg.autoPrd);
+                                if (entPrd == null)
+                                {
+                                    rt.Mensaje = "[ ID ] Producto, No Encontrado";
+                                    rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return rt;
+                                }
+                                entPrd.costo_proveedor = rg.costoProveedor;
+                                entPrd.costo_proveedor_und = rg.costoProveedorUnd;
+                                entPrd.costo_importacion = rg.costoImportacion;
+                                entPrd.costo_importacion_und = rg.costoImportacionUnd;
+                                entPrd.costo_varios = rg.costoVario;
+                                entPrd.costo_varios_und = rg.costoVarioUnd;
+                                entPrd.costo = rg.costo;
+                                entPrd.costo_und = rg.costoUnd;
+                                entPrd.fecha_ult_costo = fechaSistema.Date;
+                                entPrd.fecha_cambio = fechaSistema.Date;
+
+                                entPrd.precio_1 = rg.precio_1;
+                                entPrd.precio_2 = rg.precio_2;
+                                entPrd.precio_3 = rg.precio_3;
+                                entPrd.precio_4 = rg.precio_4;
+                                entPrd.precio_pto = rg.precio_5;
+                                cnn.SaveChanges();
+                            }
+
+                            cnn.Configuration.AutoDetectChangesEnabled = false;
+                            var lentHist = new List<productos_costos>();
+                            foreach (var rg in ficha.productosCostoPrecioDivisa)
+                            {
+                                var entHist = new productos_costos()
+                                {
+                                    auto_producto = rg.autoPrd,
+                                    costo = rg.costo,
+                                    costo_divisa = rg.costoDivisa,
+                                    divisa = ficha.ValorDivisa,
+                                    documento = rg.documento,
+                                    estacion = ficha.EstacionEquipo,
+                                    fecha = fechaSistema.Date,
+                                    hora = fechaSistema.ToShortTimeString(),
+                                    nota = rg.nota,
+                                    serie = rg.serie,
+                                    usuario = ficha.nombreUsuario,
+                                };
+                                lentHist.Add(entHist);
+                            }
+                            cnn.productos_costos.AddRange(lentHist);
+                            cnn.SaveChanges();
+
+                            var lentHist_2 = new List<productos_precios>();
+                            foreach (var rg in ficha.productosPrecioHistorico)
+                            {
+                                var entHist = new productos_precios()
+                                {
+                                    auto_producto = rg.autoPrd,
+                                    estacion = ficha.EstacionEquipo,
+                                    fecha = fechaSistema.Date,
+                                    hora = fechaSistema.ToShortTimeString(),
+                                    usuario = ficha.nombreUsuario,
+                                    nota = rg.nota,
+                                    precio = rg.precio,
+                                    precio_id = rg.idPrecio,
+                                };
+                                lentHist_2.Add(entHist);
+                            }
+                            cnn.productos_precios.AddRange(lentHist_2);
+                            cnn.SaveChanges();
+
+                            ts.Commit();
+                        }
+                        catch (DbEntityValidationException e)
+                        {
+                            var msg = "";
+                            foreach (var eve in e.EntityValidationErrors)
+                            {
+                                foreach (var ve in eve.ValidationErrors)
+                                {
+                                    msg += ve.ErrorMessage;
+                                }
+                            }
+                            rt.Mensaje = msg;
                             rt.Result = DtoLib.Enumerados.EnumResult.isError;
-                            return rt;
                         }
-                        ent.usuario = ficha.ValorDivisa.ToString();
-                        cnn.SaveChanges();
-
-                        foreach (var rg in ficha.productosCostoSinDivisa) 
+                        catch (System.Data.Entity.Infrastructure.DbUpdateException e)
                         {
-                            var entPrd = cnn.productos.Find(rg.autoPrd);
-                            if (entPrd == null)
+                            var msg = "";
+                            foreach (var eve in e.Entries)
                             {
-                                rt.Mensaje = "[ ID ] Producto, No Encontrado";
-                                rt.Result = DtoLib.Enumerados.EnumResult.isError;
-                                return rt;
+                                //msg += eve.m;
+                                foreach (var ve in eve.CurrentValues.PropertyNames)
+                                {
+                                    msg += ve.ToString();
+                                }
                             }
-                            entPrd.divisa = rg.costoDivisa;
-                            cnn.SaveChanges();
+                            rt.Mensaje = msg;
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
                         }
-
-                        foreach (var rg in ficha.productosCostoPrecioDivisa) 
+                        finally 
                         {
-                            var entPrd = cnn.productos.Find(rg.autoPrd);
-                            if (entPrd == null)
-                            {
-                                rt.Mensaje = "[ ID ] Producto, No Encontrado";
-                                rt.Result = DtoLib.Enumerados.EnumResult.isError;
-                                return rt;
-                            }
-                            entPrd.costo_proveedor = rg.costoProveedor;
-                            entPrd.costo_proveedor_und = rg.costoProveedorUnd;
-                            entPrd.costo_importacion = rg.costoImportacion;
-                            entPrd.costo_importacion_und = rg.costoImportacionUnd;
-                            entPrd.costo_varios = rg.costoVario;
-                            entPrd.costo_varios_und = rg.costoVarioUnd;
-                            entPrd.costo = rg.costo;
-                            entPrd.costo_und = rg.costoUnd;
-                            entPrd.fecha_ult_costo = fechaSistema.Date;
-                            entPrd.fecha_cambio = fechaSistema.Date;
-
-                            entPrd.precio_1 = rg.precio_1 ;
-                            entPrd.precio_2 = rg.precio_2;
-                            entPrd.precio_3 = rg.precio_3;
-                            entPrd.precio_4 = rg.precio_4;
-                            entPrd.precio_pto = rg.precio_5;
-                            cnn.SaveChanges();
-
-                            var entHist = new productos_costos()
-                            {
-                                auto_producto = rg.autoPrd,
-                                costo = rg.costo,
-                                costo_divisa = rg.costoDivisa,
-                                divisa = ficha.ValorDivisa ,
-                                documento = rg.documento,
-                                estacion = ficha.EstacionEquipo,
-                                fecha = fechaSistema.Date,
-                                hora = fechaSistema.ToShortTimeString(),
-                                nota = rg.nota,
-                                serie = rg.serie,
-                                usuario = ficha.nombreUsuario,
-                            };
-                            cnn.productos_costos.Add(entHist);
-                            cnn.SaveChanges();
+                            cnn.Configuration.AutoDetectChangesEnabled = false;
                         }
-
-                        foreach (var rg in ficha.productosPrecioHistorico)
-                        {
-                            var entHist = new productos_precios()
-                            {
-                                auto_producto = rg.autoPrd,
-                                estacion = ficha.EstacionEquipo ,
-                                fecha = fechaSistema.Date,
-                                hora = fechaSistema.ToShortTimeString(),
-                                usuario = ficha.nombreUsuario ,
-                                nota = rg.nota,
-                                precio = rg.precio,
-                                precio_id = rg.idPrecio,
-                            };
-                            cnn.productos_precios.Add(entHist);
-                            cnn.SaveChanges();
-                        }
-
-                        ts.Complete();
                     }
                 }
-            }
-            catch (DbEntityValidationException e)
-            {
-                var msg = "";
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        msg += ve.ErrorMessage;
-                    }
-                }
-                rt.Mensaje = msg;
-                rt.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
-            {
-                var msg = "";
-                foreach (var eve in e.Entries)
-                {
-                    //msg += eve.m;
-                    foreach (var ve in eve.CurrentValues.PropertyNames)
-                    {
-                        msg += ve.ToString();
-                    }
-                }
-                rt.Mensaje = msg;
-                rt.Result = DtoLib.Enumerados.EnumResult.isError;
             }
             catch (Exception e)
             {

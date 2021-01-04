@@ -1548,18 +1548,22 @@ namespace ProvSqLitePosOffLine
             const string InsertarCxC = @"INSERT INTO cxc (auto , c_cobranza , c_cobranzap , fecha , tipo_documento , documento ," +
                         "fecha_vencimiento , nota , importe , acumulado , auto_cliente , cliente , ci_rif , codigo_cliente , " +
                         "estatus_cancelado , resta , estatus_anulado , auto_documento , numero , auto_agencia , agencia , signo , " +
-                        "auto_vendedor , c_departamento , c_ventas , c_ventasp , serie , importe_neto , dias , castigop, cierre_ftp) " +
+                        "auto_vendedor , c_departamento , c_ventas , c_ventasp , serie , importe_neto , dias , castigop, cierre_ftp, "+
+                        "factor_cambio, importe_divisa) " +
                         "VALUES (?auto , ?c_cobranza , ?c_cobranzap , ?fecha , ?tipo_documento , ?documento ," +
                         "?fecha_vencimiento , ?nota , ?importe , ?acumulado , ?auto_cliente , ?cliente , ?ci_rif , ?codigo_cliente , " +
                         "?estatus_cancelado , ?resta , ?estatus_anulado , ?auto_documento , ?numero , ?auto_agencia , ?agencia , ?signo , " +
-                        "?auto_vendedor , ?c_departamento , ?c_ventas , ?c_ventasp , ?serie , ?importe_neto , ?dias , ?castigop, '')";
+                        "?auto_vendedor , ?c_departamento , ?c_ventas , ?c_ventasp , ?serie , ?importe_neto , ?dias , ?castigop, ''," +
+                        "?factor_cambio, ?importe_divisa)";
 
             const string InsertarCxCRecibo = @"INSERT INTO cxc_recibos (auto , documento , fecha , auto_usuario , importe , usuario , " +
                         "monto_recibido , cobrador , auto_cliente , cliente , ci_rif , codigo , estatus_anulado , direccion , telefono , " +
-                        "auto_cobrador , anticipos , cambio , nota , codigo_cobrador , auto_cxc , retenciones , descuentos , hora , cierre, cierre_ftp) " +
+                        "auto_cobrador , anticipos , cambio , nota , codigo_cobrador , auto_cxc , retenciones , descuentos , hora , cierre, cierre_ftp, "+
+                        "factor_cambio, importe_divisa) " +
                         "VALUES (?auto , ?documento , ?fecha , ?auto_usuario , ?importe , ?usuario , " +
                         "?monto_recibido , ?cobrador , ?auto_cliente , ?cliente , ?ci_rif , ?codigo , ?estatus_anulado , ?direccion , ?telefono , " +
-                        "?auto_cobrador , ?anticipos , ?cambio , ?nota , ?codigo_cobrador , ?auto_cxc , ?retenciones , ?descuentos , ?hora , ?cierre, '')";
+                        "?auto_cobrador , ?anticipos , ?cambio , ?nota , ?codigo_cobrador , ?auto_cxc , ?retenciones , ?descuentos , ?hora , ?cierre, '',"+
+                        "?factor_cambio, ?importe_divisa)";
 
             const string InsertarCxCDocumento = @"INSERT INTO cxc_documentos (id  , fecha , tipo_documento , documento , importe , " +
                         "operacion , auto_cxc , auto_cxc_pago , auto_cxc_recibo , numero_recibo , fecha_recepcion , dias , " +
@@ -1924,6 +1928,8 @@ namespace ProvSqLitePosOffLine
                                 comandoCxC.Parameters.AddWithValue("?importe_neto", v.DocCxC.ImporteNeto);
                                 comandoCxC.Parameters.AddWithValue("?dias", v.DocCxC.Dias);
                                 comandoCxC.Parameters.AddWithValue("?castigop", v.DocCxC.Castigop);
+                                comandoCxC.Parameters.AddWithValue("?factor_cambio", v.DocCxC.FactorCambio);
+                                comandoCxC.Parameters.AddWithValue("?importe_divisa", v.DocCxC.ImporteDivisa);
                                 var rtCxC = comandoCxC.ExecuteNonQuery();
                                 if (rtCxC == 0)
                                 {
@@ -1989,6 +1995,8 @@ namespace ProvSqLitePosOffLine
                                     comandoCxC.Parameters.AddWithValue("?importe_neto", pago.ImporteNeto);
                                     comandoCxC.Parameters.AddWithValue("?dias", pago.Dias);
                                     comandoCxC.Parameters.AddWithValue("?castigop", pago.Castigop);
+                                    comandoCxC.Parameters.AddWithValue("?factor_cambio",  pago.FactorCambio);
+                                    comandoCxC.Parameters.AddWithValue("?importe_divisa", pago.ImporteDivisa);
                                     rtCxC = comandoCxC.ExecuteNonQuery();
                                     if (rtCxC == 0)
                                     {
@@ -2026,6 +2034,8 @@ namespace ProvSqLitePosOffLine
                                     comandoCxCRecibo.Parameters.AddWithValue("?descuentos", rec.Descuentos);
                                     comandoCxCRecibo.Parameters.AddWithValue("?hora", rec.Hora);
                                     comandoCxCRecibo.Parameters.AddWithValue("?cierre", autoCierre);
+                                    comandoCxCRecibo.Parameters.AddWithValue("?factor_cambio", rec.FactorCambio);
+                                    comandoCxCRecibo.Parameters.AddWithValue("?importe_divisa", rec.ImporteDivisa);
                                     var rtCxCRecibo = comandoCxCRecibo.ExecuteNonQuery();
                                     if (rtCxCRecibo == 0)
                                     {

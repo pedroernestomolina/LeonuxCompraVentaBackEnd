@@ -22,6 +22,11 @@ namespace DtoLibSistema.Configuracion.ActualizarTasaDivisa.CapturarData
         private decimal pdf_4 { get; set; }
         private decimal pdf_pto { get; set; }
         private decimal tasa { get; set; }
+        private decimal precio_1 { get; set; }
+        private decimal precio_2 { get; set; }
+        private decimal precio_3 { get; set; }
+        private decimal precio_4 { get; set; }
+        private decimal precio_pto { get; set; }
 
         public string autoPrd { get { return auto; } }
         public bool isAdmDivisa { get { return estatus_divisa == "1" ? true : false; } }
@@ -33,6 +38,11 @@ namespace DtoLibSistema.Configuracion.ActualizarTasaDivisa.CapturarData
         public decimal precioFullDivisa_3 { get { return pdf_3; } }
         public decimal precioFullDivisa_4 { get { return pdf_4; } }
         public decimal precioFullDivisa_5 { get { return pdf_pto; } }
+        public decimal precioNetoMoneda_1 { get { return precio_1; } }
+        public decimal precioNetoMoneda_2 { get { return precio_2; } }
+        public decimal precioNetoMoneda_3 { get { return precio_3; } }
+        public decimal precioNetoMoneda_4 { get { return precio_4; } }
+        public decimal precioNetoMoneda_5 { get { return precio_pto; } }
         public decimal tasaIva { get { return tasa; } }
 
     }
