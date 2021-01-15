@@ -11,24 +11,9 @@ namespace DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria
     public class Ficha
     {
 
-        public string auto { get; set; }
-        public string codSuc { get; set; }
-        public string codEstacion { get; set; }
-        public DateTime fecha { get; set; }
-        public string hora { get; set; }
-        public string reciboNro { get; set; }
-        public decimal importe { get; set; }
-        public string cliente { get; set; }
-        public string ciRif { get; set; }
-        public decimal cambio { get; set; }
-        public string loteNro { get; set; }
-        public string refNro { get; set; }
-        public decimal montoRecibido { get; set; }
-        public string medioPagoDesc { get; set; }
-        public string medioPagoCod { get; set; }
-        public string tipoDocumento { get; set; }
-        public string documentoNro { get; set; }
-        public string operacion { get; set; }
+        public List<Data> data { get; set; }
+        public List<Movimiento> movimiento { get; set; }
+        public decimal montoCredito { get; set; }
 
     }
 

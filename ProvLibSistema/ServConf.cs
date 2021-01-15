@@ -177,6 +177,12 @@ namespace ProvLibSistema
                     cmd = "truncate table empresa_series_fiscales";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
+                    cmd = "INSERT INTO `empresa_series_fiscales` (`auto`, `serie`, `correlativo`, `estatus_factura`, `estatus_nd`, `estatus_nc`, `estatus_ne`, `estatus`, `control`) VALUES " +
+                        "('0000000001', '1', '0', '1', '1', '0', '0', 'Activo', '')," +
+                        "('0000000002', '1D', '0', '0', '0', '1', '0', 'Activo', '')," +
+                        "('0000000003', 'NEN', '0', '0', '0', '0', '1', 'Activo', '')";
+                    cnn.Database.ExecuteSqlCommand(cmd);
+
                     cmd = "truncate table empresa_tasas";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
@@ -592,7 +598,7 @@ namespace ProvLibSistema
                     cnn.Database.ExecuteSqlCommand(cmd);
 
                     cmd="update sistema_contadores set a_clientes_grupo='1',"+
-                        "a_usuarios='1',a_empresa_series_fiscales='0',a_empresa_depositos='2',"+
+                        "a_usuarios='1',a_empresa_series_fiscales='3',a_empresa_depositos='2',"+
                         "a_empresa_medios='15',a_empresa_cobradores='1',a_empresa_transporte='1',"+
                         "a_clientes='1',a_productos_conceptos='15',"+
                         "a_sistema_estados='1',a_clientes_zonas='1',a_proveedores_grupo='1',a_proveedores='1',"+

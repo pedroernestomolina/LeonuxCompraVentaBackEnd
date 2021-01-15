@@ -438,7 +438,7 @@ namespace ProvLibSistema
             return result;
         }
 
-        DtoLib.ResultadoEntidad<DtoLibSistema.Usuario.Cargar.Ficha> ILibSistema.IUsuario.Usuario_Buscar(DtoLibSistema.Usuario.Buscar.Ficha ficha)
+        public DtoLib.ResultadoEntidad<DtoLibSistema.Usuario.Cargar.Ficha> Usuario_Buscar(DtoLibSistema.Usuario.Buscar.Ficha ficha)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibSistema.Usuario.Cargar.Ficha>();
 
@@ -466,6 +466,69 @@ namespace ProvLibSistema
 
                     result.Entidad = ent;
                 }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Usuario_ActualizarSesion(DtoLibSistema.Usuario.ActualizarSesion.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+
+                        var ent = cnn.usuarios.Find(ficha.autoUsu);
+                        if (ent == null)
+                        {
+                            result.Mensaje = "[ ID ] USUARIO NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        ent.fecha_sesion = fechaSistema.Date;
+                        cnn.SaveChanges();
+
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
             }
             catch (Exception e)
             {

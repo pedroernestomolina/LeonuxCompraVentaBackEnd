@@ -59,6 +59,8 @@
         <AssociationConnector Association="compraModel.productos_kardex_ibfk_2" />
         <AssociationConnector Association="compraModel.productos_kardex_ibfk_1" />
         <AssociationConnector Association="compraModel.productos_kardex_ibfk_3" />
+        <EntityTypeShape EntityType="compraModel.usuarios" Width="1.5" PointX="11" PointY="7.875" />
+        <AssociationConnector Association="compraModel.compras_ibfk_2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -594,6 +594,22 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
           <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="clave" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="auto_grupo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="estatus" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="estatus_replica" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="fecha_alta" Type="date" Nullable="false" />
+          <Property Name="fecha_baja" Type="date" Nullable="false" />
+          <Property Name="fecha_sesion" Type="date" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <Association Name="compras_detalle_ibfk_1">
           <End Role="compras" Type="Self.compras" Multiplicity="1" />
           <End Role="compras_detalle" Type="Self.compras_detalle" Multiplicity="*" />
@@ -687,6 +703,18 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
             </Principal>
             <Dependent Role="compras">
               <PropertyRef Name="auto_proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="compras_ibfk_2">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="compras" Type="Self.compras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="compras">
+              <PropertyRef Name="auto_usuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -997,6 +1025,7 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
           <EntitySet Name="proveedores_grupo" EntityType="Self.proveedores_grupo" Schema="pita" store:Type="Tables" />
           <EntitySet Name="sistema_configuracion" EntityType="Self.sistema_configuracion" Schema="pita" store:Type="Tables" />
           <EntitySet Name="sistema_estados" EntityType="Self.sistema_estados" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="pita" store:Type="Tables" />
           <EntitySet Name="compras_detalle" EntityType="Self.compras_detalle" store:Type="Tables" store:Schema="pita">
             <DefiningQuery>SELECT
 `compras_detalle`.`auto_documento`, 
@@ -1111,6 +1140,10 @@ FROM `proveedores_agencias` AS `proveedores_agencias`</DefiningQuery>
           </AssociationSet>
           <AssociationSet Name="compras_ibfk_1" Association="Self.compras_ibfk_1">
             <End Role="proveedores" EntitySet="proveedores" />
+            <End Role="compras" EntitySet="compras" />
+          </AssociationSet>
+          <AssociationSet Name="compras_ibfk_2" Association="Self.compras_ibfk_2">
+            <End Role="usuarios" EntitySet="usuarios" />
             <End Role="compras" EntitySet="compras" />
           </AssociationSet>
           <AssociationSet Name="cxp_ibfk_1" Association="Self.cxp_ibfk_1">
@@ -1301,6 +1334,7 @@ FROM `proveedores_agencias` AS `proveedores_agencias`</DefiningQuery>
           <Property Name="cierre_ftp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="proveedores" Relationship="Self.compras_ibfk_1" FromRole="compras" ToRole="proveedores" />
           <NavigationProperty Name="compras_detalle" Relationship="compraModel.compras_detalle_ibfk_1" FromRole="compras" ToRole="compras_detalle" />
+          <NavigationProperty Name="usuarios" Relationship="compraModel.compras_ibfk_2" FromRole="compras" ToRole="usuarios" />
         </EntityType>
         <EntityType Name="proveedores">
           <Key>
@@ -1509,6 +1543,11 @@ FROM `proveedores_agencias` AS `proveedores_agencias`</DefiningQuery>
           <AssociationSet Name="productos_kardex_ibfk_3" Association="compraModel.productos_kardex_ibfk_3">
             <End Role="productos_conceptos" EntitySet="productos_conceptos" />
             <End Role="productos_kardex" EntitySet="productos_kardex" />
+          </AssociationSet>
+          <EntitySet Name="usuarios" EntityType="compraModel.usuarios" />
+          <AssociationSet Name="compras_ibfk_2" Association="compraModel.compras_ibfk_2">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="compras" EntitySet="compras" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="empresa_sucursal">
@@ -2386,6 +2425,35 @@ FROM `proveedores_agencias` AS `proveedores_agencias`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="clave" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_grupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="estatus_replica" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_alta" Type="DateTime" Nullable="false" />
+          <Property Name="fecha_baja" Type="DateTime" Nullable="false" />
+          <Property Name="fecha_sesion" Type="DateTime" Nullable="false" />
+          <Property Name="apellido" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="compras" Relationship="compraModel.compras_ibfk_2" FromRole="usuarios" ToRole="compras" />
+        </EntityType>
+        <Association Name="compras_ibfk_2">
+          <End Type="compraModel.usuarios" Role="usuarios" Multiplicity="1" />
+          <End Type="compraModel.compras" Role="compras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="compras">
+              <PropertyRef Name="auto_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2923,6 +2991,23 @@ FROM `proveedores_agencias` AS `proveedores_agencias`</DefiningQuery>
                 <ScalarProperty Name="auto_deposito" ColumnName="auto_deposito" />
                 <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="auto_producto" ColumnName="auto_producto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios">
+            <EntityTypeMapping TypeName="compraModel.usuarios">
+              <MappingFragment StoreEntitySet="usuarios">
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="fecha_sesion" ColumnName="fecha_sesion" />
+                <ScalarProperty Name="fecha_baja" ColumnName="fecha_baja" />
+                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+                <ScalarProperty Name="estatus_replica" ColumnName="estatus_replica" />
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="auto_grupo" ColumnName="auto_grupo" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

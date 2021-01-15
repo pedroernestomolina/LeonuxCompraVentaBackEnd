@@ -109,5 +109,6 @@ namespace LibEntityCompra
         public virtual proveedores proveedores { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<compras_detalle> compras_detalle { get; set; }
+        public virtual usuarios usuarios { get; set; }
     }
 }

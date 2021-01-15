@@ -12,7 +12,8 @@ namespace DtoLibInventario.Producto.Depositos.Asignar
     {
 
         public string autoProducto { get; set; }
-        public List<Deposito> depositos { get; set; }
+        public List<DepAsignar> depAsignar { get; set; }
+        public List<DepRemover> depRemover { get; set; }
 
     }
 

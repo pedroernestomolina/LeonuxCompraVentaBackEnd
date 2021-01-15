@@ -21,7 +21,7 @@ namespace ILibInventario
         DtoLib.ResultadoEntidad<DtoLibInventario.Producto.VerData.Proveedor.Ficha> Producto_GetProveedores (string autoPrd);
 
         DtoLib.ResultadoEntidad<DtoLibInventario.Producto.Depositos.Lista.Ficha> Producto_GetDepositos(string autoPrd);
-        DtoLib.Resultado Producto_AsignarDepositos(DtoLibInventario.Producto.Depositos.Asignar.Ficha ficha);
+        DtoLib.Resultado Producto_AsignarRemoverDepositos(DtoLibInventario.Producto.Depositos.Asignar.Ficha ficha);
         DtoLib.ResultadoEntidad<DtoLibInventario.Producto.Depositos.Ver.Ficha> Producto_GetDeposito(DtoLibInventario.Producto.Depositos.Ver.Filtro filtro);
         DtoLib.Resultado Producto_EditarDeposito(DtoLibInventario.Producto.Depositos.Editar.Ficha ficha);
 
@@ -49,7 +49,8 @@ namespace ILibInventario
         DtoLib.ResultadoEntidad<bool> Producto_Verificar_CodigoPluProductoYaRegistrado(string codigo, string autoPrd);
         DtoLib.ResultadoEntidad<bool> Producto_Verificar_ExistenciaEnCero(string autoPrd);
         DtoLib.ResultadoEntidad<bool> Producto_Verificar_QueExista_EstatusActivo_NoSeaBienServicio(string autoPrd);
-       
+        DtoLib.Resultado Producto_Verificar_DepositoRemover(string autoPrd, string autoDeposito);
+
     }
 
 }

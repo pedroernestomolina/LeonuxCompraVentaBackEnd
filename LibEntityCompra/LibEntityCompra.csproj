@@ -144,6 +144,9 @@
     <Compile Include="sistema_estados.cs">
       <DependentUpon>ModelLibCompra.tt</DependentUpon>
     </Compile>
+    <Compile Include="usuarios.cs">
+      <DependentUpon>ModelLibCompra.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

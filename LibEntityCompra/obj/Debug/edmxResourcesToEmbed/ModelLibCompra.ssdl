@@ -589,6 +589,22 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
     <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
+  <EntityType Name="usuarios">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="clave" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_grupo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="estatus" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="estatus_replica" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="fecha_alta" Type="date" Nullable="false" />
+    <Property Name="fecha_baja" Type="date" Nullable="false" />
+    <Property Name="fecha_sesion" Type="date" Nullable="false" />
+    <Property Name="apellido" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
   <Association Name="compras_detalle_ibfk_1">
     <End Role="compras" Type="Self.compras" Multiplicity="1" />
     <End Role="compras_detalle" Type="Self.compras_detalle" Multiplicity="*" />
@@ -682,6 +698,18 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
       </Principal>
       <Dependent Role="compras">
         <PropertyRef Name="auto_proveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="compras_ibfk_2">
+    <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+    <End Role="compras" Type="Self.compras" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuarios">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="compras">
+        <PropertyRef Name="auto_usuario" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -992,6 +1020,7 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
     <EntitySet Name="proveedores_grupo" EntityType="Self.proveedores_grupo" Schema="pita" store:Type="Tables" />
     <EntitySet Name="sistema_configuracion" EntityType="Self.sistema_configuracion" Schema="pita" store:Type="Tables" />
     <EntitySet Name="sistema_estados" EntityType="Self.sistema_estados" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="pita" store:Type="Tables" />
     <EntitySet Name="compras_detalle" EntityType="Self.compras_detalle" store:Type="Tables" store:Schema="pita">
       <DefiningQuery>SELECT
 `compras_detalle`.`auto_documento`, 
@@ -1106,6 +1135,10 @@ FROM `proveedores_agencias` AS `proveedores_agencias`</DefiningQuery>
     </AssociationSet>
     <AssociationSet Name="compras_ibfk_1" Association="Self.compras_ibfk_1">
       <End Role="proveedores" EntitySet="proveedores" />
+      <End Role="compras" EntitySet="compras" />
+    </AssociationSet>
+    <AssociationSet Name="compras_ibfk_2" Association="Self.compras_ibfk_2">
+      <End Role="usuarios" EntitySet="usuarios" />
       <End Role="compras" EntitySet="compras" />
     </AssociationSet>
     <AssociationSet Name="cxp_ibfk_1" Association="Self.cxp_ibfk_1">

@@ -455,9 +455,9 @@ namespace ProvLibCajaBanco
             return rt;
         }
 
-        public DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha> Reporte_CobranzaDiara(DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Filtro filtro)
+        public DtoLib.ResultadoEntidad<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha> Reporte_CobranzaDiara(DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Filtro filtro)
         {
-            var rt = new DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha>();
+            var rt = new DtoLib.ResultadoEntidad<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha>();
 
             try
             {
@@ -486,16 +486,42 @@ namespace ProvLibCajaBanco
                     p2.ParameterName = "@hasta";
                     p2.Value = filtro.hastaFecha;
 
+                    var xsql_1 = "select sum(total) as monto, tipo as tipoDoc, documento_nombre as nombreDoc ";
+                    var xsql_2 = "from ventas ";
+                    var xsql_3 = "where estatus_anulado='0' and fecha>=@desde and fecha<=@hasta ";
+                    var xsql_4 = "group by tipo, documento_nombre ";
+
+                    var ysql_1 = "select sum(total) as monto ";
+                    var ysql_2 = "from ventas ";
+                    var ysql_3 = "where estatus_anulado='0' and condicion_pago<>'CONTADO' and fecha>=@desde and fecha<=@hasta ";
+                    var ysql_4 = "";
+
                     if (filtro.codSucursal != "")
                     {
                         sql_3 += " and substr(rec.auto,1,2)=@codSucursal ";
+                        xsql_3 += " and codigo_sucursal=@codSucursal ";
+                        ysql_3 += " and codigo_sucursal=@codSucursal ";
                         p3.ParameterName = "@codSucursal";
                         p3.Value = filtro.codSucursal;
                     }
 
                     var sql = sql_1 + sql_2 + sql_3 + sql_4;
-                    var list = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha>(sql, p1, p2, p3).ToList();
-                    rt.Lista = list;
+                    var ldata= cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Data>(sql, p1, p2, p3).ToList();
+
+                    var xsql = xsql_1 + xsql_2 + xsql_3 + xsql_4;
+                    var lmov = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Movimiento>(xsql, p1, p2, p3).ToList();
+
+                    var ysql = ysql_1 + ysql_2 + ysql_3 + ysql_4;
+                    var montoCredito= cnn.Database.SqlQuery<decimal?>(ysql, p1, p2, p3).FirstOrDefault();
+
+                    var ficha= new DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha()
+                    {
+                         data=ldata,
+                         movimiento=lmov,
+                         montoCredito = montoCredito.HasValue?montoCredito.Value:0.0m,
+                    };
+
+                    rt.Entidad = ficha;
                 }
             }
             catch (Exception e)

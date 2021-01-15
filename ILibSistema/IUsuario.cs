@@ -19,6 +19,7 @@ namespace ILibSistema
         DtoLib.Resultado Usuario_Activar(DtoLibSistema.Usuario.Activar ficha);
         DtoLib.Resultado Usuario_Inactivar(DtoLibSistema.Usuario.Inactivar ficha);
         DtoLib.ResultadoEntidad<DtoLibSistema.Usuario.Cargar.Ficha> Usuario_Buscar(DtoLibSistema.Usuario.Buscar.Ficha ficha);
+        DtoLib.Resultado Usuario_ActualizarSesion(DtoLibSistema.Usuario.ActualizarSesion.Ficha ficha);
 
     }
 

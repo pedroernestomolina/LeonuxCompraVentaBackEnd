@@ -91,6 +91,7 @@
     <Property Name="cierre_ftp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="proveedores" Relationship="Self.compras_ibfk_1" FromRole="compras" ToRole="proveedores" />
     <NavigationProperty Name="compras_detalle" Relationship="compraModel.compras_detalle_ibfk_1" FromRole="compras" ToRole="compras_detalle" />
+    <NavigationProperty Name="usuarios" Relationship="compraModel.compras_ibfk_2" FromRole="compras" ToRole="usuarios" />
   </EntityType>
   <EntityType Name="proveedores">
     <Key>
@@ -299,6 +300,11 @@
     <AssociationSet Name="productos_kardex_ibfk_3" Association="compraModel.productos_kardex_ibfk_3">
       <End Role="productos_conceptos" EntitySet="productos_conceptos" />
       <End Role="productos_kardex" EntitySet="productos_kardex" />
+    </AssociationSet>
+    <EntitySet Name="usuarios" EntityType="compraModel.usuarios" />
+    <AssociationSet Name="compras_ibfk_2" Association="compraModel.compras_ibfk_2">
+      <End Role="usuarios" EntitySet="usuarios" />
+      <End Role="compras" EntitySet="compras" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="empresa_sucursal">
@@ -1173,6 +1179,35 @@
       </Principal>
       <Dependent Role="productos_kardex">
         <PropertyRef Name="auto_concepto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="usuarios">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="clave" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_grupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_replica" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_alta" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_baja" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_sesion" Type="DateTime" Nullable="false" />
+    <Property Name="apellido" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="compras" Relationship="compraModel.compras_ibfk_2" FromRole="usuarios" ToRole="compras" />
+  </EntityType>
+  <Association Name="compras_ibfk_2">
+    <End Type="compraModel.usuarios" Role="usuarios" Multiplicity="1" />
+    <End Type="compraModel.compras" Role="compras" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuarios">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="compras">
+        <PropertyRef Name="auto_usuario" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

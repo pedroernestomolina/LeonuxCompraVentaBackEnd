@@ -46,8 +46,10 @@
     <Compile Include="Reporte\Habladores\Ficha.cs" />
     <Compile Include="Reporte\Habladores\Filtro.cs" />
     <Compile Include="Reporte\Movimiento\ArqueoCajaPos\Ficha.cs" />
+    <Compile Include="Reporte\Movimiento\CobranzaDiaria\Data.cs" />
     <Compile Include="Reporte\Movimiento\CobranzaDiaria\Ficha.cs" />
     <Compile Include="Reporte\Movimiento\CobranzaDiaria\Filtro.cs" />
+    <Compile Include="Reporte\Movimiento\CobranzaDiaria\Movimiento.cs" />
     <Compile Include="Reporte\Movimiento\FacturaDetalle\Ficha.cs" />
     <Compile Include="Reporte\Movimiento\FacturaDetalle\Filtro.cs" />
     <Compile Include="Reporte\Movimiento\Filtro.cs" />

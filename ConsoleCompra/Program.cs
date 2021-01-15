@@ -95,6 +95,13 @@ namespace ConsoleCompra
             //    estatus = DtoLibCompra.Reportes.Enumerados.EnumEstatus.Anulado,
             //};
             //var r01 = compraPrv.Reportes_ComprasDocumento (filtro);
+
+            //var filtro = new DtoLibCompra.Documento.ListaRemision.Filtro ()
+            //{
+            //    autoProveedor="0000000002"
+            //};
+            //var r01 = compraPrv.Compra_DocumentoGetListaRemision(filtro);
+
         }
 
     }

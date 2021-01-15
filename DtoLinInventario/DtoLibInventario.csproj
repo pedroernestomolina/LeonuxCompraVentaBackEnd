@@ -131,7 +131,8 @@
     <Compile Include="Producto\Agregar\FichaCodAlterno.cs" />
     <Compile Include="Producto\Categoria\Resumen.cs" />
     <Compile Include="Producto\Clasificacion\Resumen.cs" />
-    <Compile Include="Producto\Depositos\Asignar\Deposito.cs" />
+    <Compile Include="Producto\Depositos\Asignar\DepAsignar.cs" />
+    <Compile Include="Producto\Depositos\Asignar\DepRemover.cs" />
     <Compile Include="Producto\Depositos\Asignar\Ficha.cs" />
     <Compile Include="Producto\Depositos\Editar\Ficha.cs" />
     <Compile Include="Producto\Depositos\Lista\Data.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Tool\AjusteNivelMinimoMaximo\Ajustar\Ficha.cs" />
     <Compile Include="Tool\AjusteNivelMinimoMaximo\Capturar\Ficha.cs" />
     <Compile Include="Tool\AjusteNivelMinimoMaximo\Capturar\Filtro.cs" />
+    <Compile Include="Usuario\ActualizarSesion\Ficha.cs" />
     <Compile Include="Usuario\Buscar\Ficha.cs" />
     <Compile Include="Usuario\Ficha.cs" />
     <Compile Include="Visor\Ajuste\Ficha.cs" />

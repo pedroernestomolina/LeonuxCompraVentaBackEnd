@@ -75,6 +75,7 @@
     <Compile Include="Sucursal\Ficha.cs" />
     <Compile Include="Sucursal\Resumen.cs" />
     <Compile Include="Usuario\Activar.cs" />
+    <Compile Include="Usuario\ActualizarSesion\Ficha.cs" />
     <Compile Include="Usuario\Agregar.cs" />
     <Compile Include="Usuario\Buscar\Ficha.cs" />
     <Compile Include="Usuario\Cargar\Ficha.cs" />
