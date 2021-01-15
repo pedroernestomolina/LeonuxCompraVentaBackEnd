@@ -1,4 +1,3 @@
-D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\EntityFramework.xml
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\ProvSqLitePosOffLine.dll.config
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\ProvSqLitePosOffLine.dll
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\ProvSqLitePosOffLine.pdb
@@ -16,6 +15,7 @@ D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\DtoLibPosOffLi
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\DtoLib.pdb
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\IPosOffLine.pdb
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\LibEntitySqLitePosOffLine.pdb
+D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\EntityFramework.xml
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\EntityFramework.SqlServer.xml
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\System.Data.SQLite.xml
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\obj\Debug\ProvSqLitePosOffLine.csprojResolveAssemblyReference.cache

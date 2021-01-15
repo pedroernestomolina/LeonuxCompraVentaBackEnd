@@ -895,6 +895,7 @@ namespace ProvLibCompra
                         montoIva1 = ent.impuesto1,
                         montoIva2 = ent.impuesto2,
                         montoIva3 = ent.impuesto3,
+                        codigoSucursal = ent.codigo_sucursal,
                     };
                     var lista = det.Select(s =>
                     {
@@ -903,6 +904,7 @@ namespace ProvLibCompra
                             prdAuto = s.auto_producto,
                             cntFactura = s.cantidad,
                             contenido = s.contenido_empaque,
+                            depositoAuto = s.auto_deposito,
                             depositoCodigo = s.codigo_deposito,
                             depositoNombre = s.deposito,
                             dscto1p = s.descuento1p,
