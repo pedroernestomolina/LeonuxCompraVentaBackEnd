@@ -63,6 +63,8 @@
     <Compile Include="Documento\Agregar\NotaCredito\FichaPrdKardex.cs" />
     <Compile Include="Documento\Anular\Factura\Ficha.cs" />
     <Compile Include="Documento\Anular\Factura\FichaAuditoria.cs" />
+    <Compile Include="Documento\Anular\NotaCredito\Ficha.cs" />
+    <Compile Include="Documento\Anular\NotaCredito\FichaAuditoria.cs" />
     <Compile Include="Documento\Cargar\Ficha.cs" />
     <Compile Include="Documento\Cargar\FichaDetalle.cs" />
     <Compile Include="Documento\ListaRemision\Ficha.cs" />

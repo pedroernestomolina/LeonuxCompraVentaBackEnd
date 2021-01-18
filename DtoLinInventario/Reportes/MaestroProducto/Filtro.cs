@@ -12,6 +12,7 @@ namespace DtoLibInventario.Reportes.MaestroProducto
     {
 
         public string autoDepartamento { get; set; }
+        public string autoDeposito { get; set; }
         public string autoTasa { get; set; }
         public enumerados.EnumAdministradorPorDivisa admDivisa { get; set; }
         public enumerados.EnumOrigen origen { get; set; }
@@ -26,6 +27,7 @@ namespace DtoLibInventario.Reportes.MaestroProducto
             categoria = enumerados.EnumCategoria.SnDefinir;
             estatus = enumerados.EnumEstatus.SnDefinir;
             autoDepartamento = "";
+            autoDeposito = "";
             autoTasa = "";
         }
 

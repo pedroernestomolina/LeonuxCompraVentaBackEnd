@@ -20,17 +20,19 @@ namespace ProvLibInventario
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
-                    var sql = "select p.codigo as codigoPrd , p.nombre as nombrePrd , p.referencia as referenciaPrd, p.modelo as modeloPrd, " +
+                    var sql_1 = "select p.codigo as codigoPrd , p.nombre as nombrePrd , p.referencia as referenciaPrd, p.modelo as modeloPrd, " +
                         " p.estatus as estatusPrd, p.estatus_divisa as estatusDivisaPrd, p.estatus_cambio as estatusCambioPrd, " +
                         " p.contenido_compras as contenidoPrd, p.origen as origenPrd, p.categoria as categoriaPrd, " +
                         " ed.nombre as departamento, " +
                         " pm.nombre as empaque, " +
-                        " etasa.tasa as tasaIva " +
-                        " from productos as p " +
+                        " etasa.tasa as tasaIva ";
+
+                    var sql_2 = " from productos as p " +
                         " join empresa_departamentos as ed on p.auto_departamento=ed.auto " +
                         " join productos_medida as pm on p.auto_empaque_compra=pm.auto " +
-                        " join empresa_tasas as etasa on p.auto_tasa=etasa.auto " +
-                        " where 1=1 ";
+                        " join empresa_tasas as etasa on p.auto_tasa=etasa.auto ";
+
+                    var sql_3 =" where 1=1 ";
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p2 = new MySql.Data.MySqlClient.MySqlParameter();
@@ -49,7 +51,7 @@ namespace ProvLibInventario
 
                     if (filtro.autoDepartamento != "")
                     {
-                        sql += " and p.auto_departamento=@autoDepartamento ";
+                        sql_3 += " and p.auto_departamento=@autoDepartamento ";
                         p1.ParameterName = "@autoDepartamento";
                         p1.Value = filtro.autoDepartamento;
                     }
@@ -58,13 +60,13 @@ namespace ProvLibInventario
                         var _f = "1";
                         if (filtro.admDivisa == DtoLibInventario.Reportes.enumerados.EnumAdministradorPorDivisa.No)
                             _f = "0";
-                        sql += " and p.estatus_divisa=@estatusDivisa ";
+                        sql_3 += " and p.estatus_divisa=@estatusDivisa ";
                         p2.ParameterName = "@estatusDivisa";
                         p2.Value = _f;
                     }
                     if (filtro.autoTasa != "")
                     {
-                        sql += " and p.auto_tasa=@autoTasa ";
+                        sql_3 += " and p.auto_tasa=@autoTasa ";
                         p3.ParameterName = "@autoTasa";
                         p3.Value = filtro.autoTasa;
                     }
@@ -75,7 +77,7 @@ namespace ProvLibInventario
                         {
                             _f = "Inactivo";
                         }
-                        sql += " and p.estatus=@estatus ";
+                        sql_3 += " and p.estatus=@estatus ";
                         p4.ParameterName = "@estatus";
                         p4.Value = _f;
                     }
@@ -100,7 +102,7 @@ namespace ProvLibInventario
                                 _f = "Uso Interno";
                                 break;
                         }
-                        sql += " and p.categoria=@categoria ";
+                        sql_3 += " and p.categoria=@categoria ";
                         p5.ParameterName = "@categoria";
                         p5.Value = _f;
                     }
@@ -111,11 +113,18 @@ namespace ProvLibInventario
                         {
                             _f = "Importado";
                         }
-                        sql += " and p.origen=@origen ";
+                        sql_3 += " and p.origen=@origen ";
                         p6.ParameterName = "@origen";
                         p6.Value = _f;
                     }
+                    if (filtro.autoDeposito != "")
+                    {
+                        sql_2 += " join productos_deposito as pdeposito on p.auto=pdeposito.auto_producto and pdeposito.auto_deposito=@autoDeposito ";
+                        p7.ParameterName = "@autoDeposito";
+                        p7.Value = filtro.autoDeposito;
+                    }
 
+                    var sql = sql_1 + sql_2 + sql_3;
                     var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.MaestroProducto.Ficha>(sql, p1, p2, p3, p4, p5, p6, p7, p8, p9, pA, pB, pC, pD).ToList();
                     rt.Lista = list;
                 }

@@ -13,7 +13,6 @@ namespace DtoLibCompra.Documento.Anular.Factura
 
         public string autoDocumento { get; set; }
         public string codigoDocumento { get; set; }
-
         public FichaAuditoria auditoria { get; set; }
 
     }

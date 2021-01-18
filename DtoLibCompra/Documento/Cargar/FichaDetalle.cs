@@ -29,6 +29,12 @@ namespace DtoLibCompra.Documento.Cargar
         public string depositoAuto { get; set; }
         public string depositoCodigo { get; set; }
         public string depositoNombre { get; set; }
+        public string codigoReferenciaProveedor { get; set; }
+        public string prdAutoDepartamento { get; set; }
+        public string prdAutoGrupo { get; set; }
+        public string prdAutoTasaIva { get; set; }
+        public string decimales { get; set; }
+        public string categoria { get; set; }
 
     }
 

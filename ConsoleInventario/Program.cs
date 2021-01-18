@@ -193,6 +193,10 @@ namespace ConsoleInventario
             //filt.IdDepDestino = "0000000004";
             //var ficha = invPrv.Producto_Movimiento_GetLista (filt);
 
+            //var filt = new DtoLibInventario.Reportes.MaestroProducto.Filtro();
+            //filt.autoDeposito = "0000000013";
+            //var ficha = invPrv.Reportes_MaestroProducto(filt);
+
         }
 
     }

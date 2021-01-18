@@ -19,6 +19,7 @@ namespace ILibCompras
         DtoLib.ResultadoAuto Compra_DocumentoAgregarNotaCredito (DtoLibCompra.Documento.Agregar.NotaCredito.Ficha docNC);
         DtoLib.ResultadoEntidad<DtoLibCompra.Documento.Visualizar.Ficha> Compra_DocumentoVisualizar(string auto);
         DtoLib.Resultado Compra_DocumentoAnularFactura(DtoLibCompra.Documento.Anular.Factura.Ficha ficha);
+        DtoLib.Resultado Compra_DocumentoAnularNotaCredito(DtoLibCompra.Documento.Anular.NotaCredito.Ficha ficha);
         DtoLib.Resultado Compra_DocumentoAnular_Verificar(string autoDoc);
 
     }
