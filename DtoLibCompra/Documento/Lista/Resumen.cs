@@ -24,7 +24,7 @@ namespace DtoLibCompra.Documento.Lista
         public decimal montoDivisa { get; set; }
         public string situacion { get; set; }
         private string estatusAnulado { get; set; }
-
+        public int signo { get; set; }
         public bool esAnulado
         {
             get
@@ -32,7 +32,6 @@ namespace DtoLibCompra.Documento.Lista
                 return estatusAnulado == "1";
             }
         }
-
         public Enumerados.enumTipoDocumento tipoDoc
         {
             get

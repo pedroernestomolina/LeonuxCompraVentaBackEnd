@@ -61,8 +61,8 @@ namespace ConsoleCompra
 
             //var filtro = new DtoLibCompra.Documento.Lista.Filtro()
             //{
-            //    segun_FechaEmisionDesde = new DateTime(2020, 11, 01),
-            //    segun_FechaEmisionHasta = new DateTime(2020, 12, 08),
+            //    Desde = new DateTime(2021, 01, 23),
+            //    Hasta = new DateTime(2021, 01, 23),
             //};
             //var r01 = compraPrv.Compra_DocumentoGetLista(filtro);
 

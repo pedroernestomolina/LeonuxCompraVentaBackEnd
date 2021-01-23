@@ -523,7 +523,7 @@ namespace ProvLibCompra
                     var p4 = new MySql.Data.MySqlClient.MySqlParameter();
 
                     var sql_1 = "SELECT " +
-                        "auto, fecha as fechaEmision, tipo, documento, " +
+                        "auto, fecha as fechaEmision, tipo, documento, signo, " +
                         "documento_nombre as tipoDocNombre, fecha_registro as fechaRegistro, " +
                         "codigo_sucursal as codigoSuc, razon_social as provNombre, ci_rif as provCiRif, " +
                         "total as monto, situacion, monto_Divisa as montoDivisa, estatus_anulado as estatusAnulado ";

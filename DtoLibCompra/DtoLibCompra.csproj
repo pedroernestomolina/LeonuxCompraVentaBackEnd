@@ -76,6 +76,10 @@
     <Compile Include="Empresa\Data\Ficha.cs" />
     <Compile Include="Empresa\Fiscal\Ficha.cs" />
     <Compile Include="Enumerados.cs" />
+    <Compile Include="Maestros\Grupo\Agregar.cs" />
+    <Compile Include="Maestros\Grupo\Editar.cs" />
+    <Compile Include="Maestros\Grupo\Ficha.cs" />
+    <Compile Include="Maestros\Grupo\Resumen.cs" />
     <Compile Include="Permiso\Enumerados.cs" />
     <Compile Include="Permiso\Ficha.cs" />
     <Compile Include="Producto\CodigoRefProveedor\Filtro.cs" />
