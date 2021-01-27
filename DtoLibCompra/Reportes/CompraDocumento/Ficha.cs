@@ -14,6 +14,7 @@ namespace DtoLibCompra.Reportes.CompraDocumento
         private string estatusAnulado { get; set; }
         public DateTime fecha { get; set; }
         public string documento { get; set; }
+        public string control { get; set; }
         public string serieDoc { get; set; }
         public string provNombre { get; set; }
         public string provCiRif { get; set; }

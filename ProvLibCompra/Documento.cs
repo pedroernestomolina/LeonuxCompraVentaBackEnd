@@ -523,7 +523,7 @@ namespace ProvLibCompra
                     var p4 = new MySql.Data.MySqlClient.MySqlParameter();
 
                     var sql_1 = "SELECT " +
-                        "auto, fecha as fechaEmision, tipo, documento, signo, " +
+                        "auto, fecha as fechaEmision, tipo, documento, signo, control, " +
                         "documento_nombre as tipoDocNombre, fecha_registro as fechaRegistro, " +
                         "codigo_sucursal as codigoSuc, razon_social as provNombre, ci_rif as provCiRif, " +
                         "total as monto, situacion, monto_Divisa as montoDivisa, estatus_anulado as estatusAnulado ";
@@ -1372,6 +1372,129 @@ namespace ProvLibCompra
             }
 
             return result;
+        }
+
+        public DtoLib.Resultado Compra_DocumentoAgregar_Verificar(string documentoNro, string controlNro, string autoPrv)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var entCompra = cnn.compras.FirstOrDefault(f=>f.documento==documentoNro && f.control==controlNro && f.auto_proveedor==autoPrv && f.estatus_anulado=="0");
+                    if (entCompra != null)
+                    {
+                        rt.Mensaje = "DOCUMENTO PARA ESTE PROVEEDOR CON EL NUMERO DE CONTROL Y DOCUMENTO YA ESTA REGISTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.Resultado Compra_DocumentoCorrectorFactura(DtoLibCompra.Documento.Corrector.Factura.Ficha docFac)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var entCompra = cnn.compras.Find(docFac.autoDoc);
+                        if (entCompra == null)
+                        {
+                            result.Mensaje = "DOCUMENTO NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        entCompra.documento = docFac.documentoNro;
+                        entCompra.control = docFac.controlNro;
+                        entCompra.fecha = docFac.fechaDocumento;
+                        entCompra.razon_social = docFac.nombreRazonSocialProveedor;
+                        entCompra.ci_rif = docFac.ciRifProveedor;
+                        entCompra.dir_fiscal = docFac.direccionFiscalProveedor;
+                        entCompra.nota = docFac.notaDocumento;
+                        cnn.SaveChanges();
+
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Compra_DocumentoCorrector_Verificar(string documentoNro, string controlNro, string autoPrv, string autoDoc)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var entCompra = cnn.compras.FirstOrDefault(f => f.documento == documentoNro && 
+                        f.control == controlNro && 
+                        f.auto_proveedor == autoPrv && 
+                        f.estatus_anulado == "0" && 
+                        f.auto!=autoDoc);
+                    if (entCompra != null)
+                    {
+                        rt.Mensaje = "NUMERO DE CONTROL Y DOCUMENTO YA ESTA REGISTRADO PARA ESTE PROVEEDOR";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
         }
 
     }

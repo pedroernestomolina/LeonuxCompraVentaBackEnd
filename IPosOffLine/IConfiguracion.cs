@@ -30,6 +30,8 @@ namespace IPosOffLine
         DtoLib.Resultado Configuracion_Actualizar(DtoLibPosOffLine.Configuracion.Guardar.Ficha ficha);
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Configuracion.Actual.Ficha> Configuracion_ActualCargar();
 
+        DtoLib.Resultado Configuracion_ActualizarClaveAcceso_Clave_1();
+
     }
 
 }

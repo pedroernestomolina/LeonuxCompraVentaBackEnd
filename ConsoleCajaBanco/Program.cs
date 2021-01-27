@@ -69,6 +69,13 @@ namespace ConsoleCajaBanco
             //filtro.hastaFecha = new DateTime(2022, 11, 7);
             //filtro.codSucursal = "04";
             //var r01 = cajaBancoPrv.Reporte_CobranzaDiara(filtro);
+
+            //var filtro = new DtoLibCajaBanco.Reporte.Movimiento.ResumenDiarioVentaSucursal.Filtro();
+            //filtro.desdeFecha = new DateTime(2021, 01, 1);
+            //filtro.hastaFecha = new DateTime(2021, 01, 15);
+            //filtro.codigoSucursal = "08";
+            //var r01 = cajaBancoPrv.Reporte_ResumenDiarioVentaSucursal(filtro);
+
         }
     }
 

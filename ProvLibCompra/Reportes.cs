@@ -79,7 +79,7 @@ namespace ProvLibCompra
 
                     var sql_1 = "SELECT " +
                         "fecha, " +
-                        "documento, " +
+                        "documento, control, " +
                         "serie as serieDoc, " +
                         "estatus_anulado as estatusAnulado, " +
                         "razon_social as provNombre, " +

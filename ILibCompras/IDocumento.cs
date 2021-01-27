@@ -20,7 +20,11 @@ namespace ILibCompras
         DtoLib.ResultadoEntidad<DtoLibCompra.Documento.Visualizar.Ficha> Compra_DocumentoVisualizar(string auto);
         DtoLib.Resultado Compra_DocumentoAnularFactura(DtoLibCompra.Documento.Anular.Factura.Ficha ficha);
         DtoLib.Resultado Compra_DocumentoAnularNotaCredito(DtoLibCompra.Documento.Anular.NotaCredito.Ficha ficha);
+        DtoLib.Resultado Compra_DocumentoCorrectorFactura(DtoLibCompra.Documento.Corrector.Factura.Ficha docFac);
+
         DtoLib.Resultado Compra_DocumentoAnular_Verificar(string autoDoc);
+        DtoLib.Resultado Compra_DocumentoAgregar_Verificar(string documentoNro, string controlNro, string autoPrv);
+        DtoLib.Resultado Compra_DocumentoCorrector_Verificar(string documentoNro, string controlNro, string autoPrv, string autoDoc);
 
     }
 

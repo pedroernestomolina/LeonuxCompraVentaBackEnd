@@ -96,12 +96,12 @@ namespace ConsoleCompra
             //};
             //var r01 = compraPrv.Reportes_ComprasDocumento (filtro);
 
-            //var filtro = new DtoLibCompra.Documento.ListaRemision.Filtro ()
+            //var filtro = new DtoLibCompra.Documento.Lista.Filtro()
             //{
-            //    autoProveedor="0000000002"
+            //     Desde= new DateTime(2021,01,01),
+            //      Hasta= new DateTime(2021,01,26),
             //};
-            //var r01 = compraPrv.Compra_DocumentoGetListaRemision(filtro);
-
+            //var r01 = compraPrv.Compra_DocumentoGetLista (filtro);
         }
 
     }

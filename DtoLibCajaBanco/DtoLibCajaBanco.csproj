@@ -55,6 +55,8 @@
     <Compile Include="Reporte\Movimiento\Filtro.cs" />
     <Compile Include="Reporte\Movimiento\Inventario\Ficha.cs" />
     <Compile Include="Reporte\Movimiento\Inventario\Filtro.cs" />
+    <Compile Include="Reporte\Movimiento\ResumenDiarioVentaSucursal\Ficha.cs" />
+    <Compile Include="Reporte\Movimiento\ResumenDiarioVentaSucursal\Filtro.cs" />
     <Compile Include="Reporte\Movimiento\ResumenVentaSucursal\Ficha.cs" />
     <Compile Include="Reporte\Movimiento\ResumenVentaSucursal\Filtro.cs" />
     <Compile Include="Reporte\Movimiento\ResumenVenta\Ficha.cs" />

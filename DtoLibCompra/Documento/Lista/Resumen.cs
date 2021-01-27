@@ -14,6 +14,7 @@ namespace DtoLibCompra.Documento.Lista
         public string auto { get; set; }
         public DateTime fechaEmision { get; set; }
         public string documento { get; set; }
+        public string control { get; set; }
         public string tipo { get; set; }
         public string tipoDocNombre { get; set; }
         public DateTime fechaRegistro { get; set; }
