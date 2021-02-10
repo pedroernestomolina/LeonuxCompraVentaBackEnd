@@ -69,12 +69,27 @@ namespace ConsoleCajaBanco
             //filtro.hastaFecha = new DateTime(2022, 11, 7);
             //filtro.codSucursal = "04";
             //var r01 = cajaBancoPrv.Reporte_CobranzaDiara(filtro);
+           
+            //var filtro = new DtoLibCajaBanco.Reporte.Movimiento.Inventario.Filtro ();
+            //filtro.desdeFecha = new DateTime(2021, 01, 1);
+            //filtro.hastaFecha = new DateTime(2021, 01, 29);
+            //filtro.autoDeposito = "0000000012";
+            //var r01 = cajaBancoPrv.Reporte_InventarioResumen(filtro);
 
             //var filtro = new DtoLibCajaBanco.Reporte.Movimiento.ResumenDiarioVentaSucursal.Filtro();
-            //filtro.desdeFecha = new DateTime(2021, 01, 1);
-            //filtro.hastaFecha = new DateTime(2021, 01, 15);
+            //filtro.desdeFecha = new DateTime(2021, 01, 01);
+            //filtro.hastaFecha = new DateTime(2021, 01, 31);
             //filtro.codigoSucursal = "08";
             //var r01 = cajaBancoPrv.Reporte_ResumenDiarioVentaSucursal(filtro);
+
+
+            //var filtro = new DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Filtro();
+            //filtro.porCierre = true;
+            //filtro.desdeCierre = 60;
+            //filtro.hastaCierre = 61;
+            //filtro.codSucursal = "08";
+            //var r01 = cajaBancoPrv.Reporte_CobranzaDiara(filtro);
+
 
         }
     }

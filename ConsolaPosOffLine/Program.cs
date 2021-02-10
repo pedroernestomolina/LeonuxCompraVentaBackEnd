@@ -15,6 +15,7 @@ namespace ConsolaPosOffLine
         {
             IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"C:\POS\DATA\LeonuxPosOffLine.db");
             _offLine.setServidorRemoto("localhost", "00000001");
+
             //var fechaActual = _offLine.FechaServidor();
             //var r01 = _offLine.Producto("0000000005");
             //var r01 = _offLine.Servidor_Test();

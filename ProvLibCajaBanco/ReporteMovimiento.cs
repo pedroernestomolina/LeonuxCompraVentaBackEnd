@@ -455,83 +455,138 @@ namespace ProvLibCajaBanco
             return rt;
         }
 
-        public DtoLib.ResultadoEntidad<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha> Reporte_CobranzaDiara(DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Filtro filtro)
-        {
-            var rt = new DtoLib.ResultadoEntidad<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha>();
+        //public DtoLib.ResultadoEntidad<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha> Reporte_CobranzaDiara(DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Filtro filtro)
+        //{
+        //    var rt = new DtoLib.ResultadoEntidad<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha>();
 
-            try
-            {
-                using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
-                {
-                    var sql_1 = "SELECT rec.auto, substr(rec.auto,1,2) as codSuc, substr(rec.auto,3,2) as codEstacion, " +
-                        "rec.fecha, rec.hora, rec.documento as reciboNro, rec.importe, rec.cliente, rec.ci_rif as ciRif, rec.cambio, " +
-                        "mp.lote as loteNro, mp.referencia as refNro, mp.monto_recibido as montoRecibido, mp.medio as medioPagoDesc, " +
-                        "mp.codigo as medioPagoCod, " +
-                        "doc.tipo_documento as tipoDocumento, doc.documento as documentoNro, doc.operacion ";
+        //    try
+        //    {
+        //        using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
+        //        {
+        //            var sql_1 = "SELECT rec.auto, substr(rec.auto,1,2) as codSuc, substr(rec.auto,3,2) as codEstacion, " +
+        //                "rec.fecha, rec.hora, rec.documento as reciboNro, rec.importe, rec.cliente, rec.ci_rif as ciRif, rec.cambio, " +
+        //                "mp.lote as loteNro, mp.referencia as refNro, mp.monto_recibido as montoRecibido, mp.medio as medioPagoDesc, " +
+        //                "mp.codigo as medioPagoCod, " +
+        //                "doc.tipo_documento as tipoDocumento, doc.documento as documentoNro, doc.operacion ";
 
-                    var sql_2 = " FROM cxc_recibos as rec " +
-                        "join cxc_medio_pago as mp on mp.auto_recibo=rec.auto " +
-                        "join cxc_documentos as doc on doc.auto_cxc_recibo=rec.auto ";
+        //            var sql_2 = " FROM cxc_recibos as rec " +
+        //                "join cxc_medio_pago as mp on mp.auto_recibo=rec.auto " +
+        //                "join cxc_documentos as doc on doc.auto_cxc_recibo=rec.auto ";
 
-                    var sql_3 = " where rec.estatus_anulado='0' and rec.fecha>=@desde and rec.fecha<=@hasta ";
+        //            var sql_3 = " where rec.estatus_anulado='0' and rec.fecha>=@desde and rec.fecha<=@hasta ";
 
-                    var sql_4 = "";
+        //            var sql_4 = "";
 
-                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
-                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
-                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+        //            var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+        //            var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+        //            var p3 = new MySql.Data.MySqlClient.MySqlParameter();
 
-                    p1.ParameterName = "@desde";
-                    p1.Value = filtro.desdeFecha;
-                    p2.ParameterName = "@hasta";
-                    p2.Value = filtro.hastaFecha;
+        //            p1.ParameterName = "@desde";
+        //            p1.Value = filtro.desdeFecha;
+        //            p2.ParameterName = "@hasta";
+        //            p2.Value = filtro.hastaFecha;
 
-                    var xsql_1 = "select sum(total) as monto, tipo as tipoDoc, documento_nombre as nombreDoc ";
-                    var xsql_2 = "from ventas ";
-                    var xsql_3 = "where estatus_anulado='0' and fecha>=@desde and fecha<=@hasta ";
-                    var xsql_4 = "group by tipo, documento_nombre ";
+        //            var xsql_1 = "select sum(total) as monto, tipo as tipoDoc, documento_nombre as nombreDoc ";
+        //            var xsql_2 = "from ventas ";
+        //            var xsql_3 = "where estatus_anulado='0' and fecha>=@desde and fecha<=@hasta ";
+        //            var xsql_4 = "group by tipo, documento_nombre ";
 
-                    var ysql_1 = "select sum(total) as monto ";
-                    var ysql_2 = "from ventas ";
-                    var ysql_3 = "where estatus_anulado='0' and condicion_pago<>'CONTADO' and fecha>=@desde and fecha<=@hasta ";
-                    var ysql_4 = "";
+        //            var ysql_1 = "select sum(total) as monto ";
+        //            var ysql_2 = "from ventas ";
+        //            var ysql_3 = "where estatus_anulado='0' and condicion_pago<>'CONTADO' and fecha>=@desde and fecha<=@hasta ";
+        //            var ysql_4 = "";
 
-                    if (filtro.codSucursal != "")
-                    {
-                        sql_3 += " and substr(rec.auto,1,2)=@codSucursal ";
-                        xsql_3 += " and codigo_sucursal=@codSucursal ";
-                        ysql_3 += " and codigo_sucursal=@codSucursal ";
-                        p3.ParameterName = "@codSucursal";
-                        p3.Value = filtro.codSucursal;
-                    }
+        //            if (filtro.codSucursal != "")
+        //            {
+        //                sql_3 += " and substr(rec.auto,1,2)=@codSucursal ";
+        //                xsql_3 += " and codigo_sucursal=@codSucursal ";
+        //                ysql_3 += " and codigo_sucursal=@codSucursal ";
+        //                p3.ParameterName = "@codSucursal";
+        //                p3.Value = filtro.codSucursal;
+        //            }
 
-                    var sql = sql_1 + sql_2 + sql_3 + sql_4;
-                    var ldata= cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Data>(sql, p1, p2, p3).ToList();
+        //            var sql = sql_1 + sql_2 + sql_3 + sql_4;
+        //            var ldata= cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Data>(sql, p1, p2, p3).ToList();
 
-                    var xsql = xsql_1 + xsql_2 + xsql_3 + xsql_4;
-                    var lmov = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Movimiento>(xsql, p1, p2, p3).ToList();
+        //            var xsql = xsql_1 + xsql_2 + xsql_3 + xsql_4;
+        //            var lmov = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Movimiento>(xsql, p1, p2, p3).ToList();
 
-                    var ysql = ysql_1 + ysql_2 + ysql_3 + ysql_4;
-                    var montoCredito= cnn.Database.SqlQuery<decimal?>(ysql, p1, p2, p3).FirstOrDefault();
+        //            var ysql = ysql_1 + ysql_2 + ysql_3 + ysql_4;
+        //            var montoCredito= cnn.Database.SqlQuery<decimal?>(ysql, p1, p2, p3).FirstOrDefault();
 
-                    var ficha= new DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha()
-                    {
-                         data=ldata,
-                         movimiento=lmov,
-                         montoCredito = montoCredito.HasValue?montoCredito.Value:0.0m,
-                    };
+        //            var ficha= new DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha()
+        //            {
+        //                 data=ldata,
+        //                 movimiento=lmov,
+        //                 montoCredito = montoCredito.HasValue?montoCredito.Value:0.0m,
+        //            };
 
-                    rt.Entidad = ficha;
-                }
-            }
-            catch (Exception e)
-            {
-                rt.Mensaje = e.Message;
-                rt.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
+        //            rt.Entidad = ficha;
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        rt.Mensaje = e.Message;
+        //        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+        //    }
 
-            return rt;
-        }
+        //    return rt;
+        //}
+
+        //public DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.ResumenDiarioVentaSucursal.Ficha> Reporte_ResumenDiarioVentaSucursal(DtoLibCajaBanco.Reporte.Movimiento.ResumenDiarioVentaSucursal.Filtro filtro)
+        //{
+        //    var rt = new DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.ResumenDiarioVentaSucursal.Ficha>();
+
+        //    try
+        //    {
+        //        using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
+        //        {
+        //            var sql_1 = "SELECT " +
+        //                "count(*) as cntMov, " +
+        //                "v.fecha, " +
+        //                "sum(v.total) as montoTotal, " +
+        //                "sum(v.total/v.factor_cambio) as montoDivisa, " +
+        //                "v.signo, " +
+        //                "v.documento_nombre as tipoDoc, " +
+        //                "es.nombre as nombreSuc, " +
+        //                "es.codigo as codigoSuc ";
+
+        //            var sql_2 = " FROM ventas as v " +
+        //                " join empresa_sucursal as es on es.codigo=v.codigo_sucursal ";
+
+        //            var sql_3 = " where fecha>=@desde and fecha<=@hasta and estatus_anulado='0' ";
+
+        //            var sql_4 = " group by v.fecha, v.signo, v.documento_nombre, es.codigo, es.nombre ";
+
+        //            var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+        //            var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+        //            var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+        //            p1.ParameterName = "@desde";
+        //            p1.Value = filtro.desdeFecha;
+        //            p2.ParameterName = "@hasta";
+        //            p2.Value = filtro.hastaFecha;
+
+        //            if (filtro.codigoSucursal != "")
+        //            {
+        //                sql_3 += " and v.codigo_sucursal=@codigoSucursal ";
+        //                p3.ParameterName = "@codigoSucursal";
+        //                p3.Value = filtro.codigoSucursal;
+        //            }
+
+        //            var sql = sql_1 + sql_2 + sql_3 + sql_4;
+        //            var list = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.ResumenDiarioVentaSucursal.Ficha>(sql, p1, p2, p3).ToList();
+        //            rt.Lista = list;
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        rt.Mensaje = e.Message;
+        //        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+        //    }
+
+        //    return rt;
+        //}
 
         public DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.ResumenDiarioVentaSucursal.Ficha> Reporte_ResumenDiarioVentaSucursal(DtoLibCajaBanco.Reporte.Movimiento.ResumenDiarioVentaSucursal.Filtro filtro)
         {
@@ -544,19 +599,21 @@ namespace ProvLibCajaBanco
                     var sql_1 = "SELECT " +
                         "count(*) as cntMov, " +
                         "v.fecha, " +
-                        "sum(v.total) as montoTotal, " +
-                        "sum(v.total/v.factor_cambio) as montoDivisa, " +
-                        "v.signo, " +
-                        "v.documento_nombre as tipoDoc, " +
+                        "sum(v.total*v.signo) as montoTotal, " +
+                        "sum((v.total/v.factor_cambio)*v.signo) as montoDivisa, " +
                         "es.nombre as nombreSuc, " +
-                        "es.codigo as codigoSuc ";
+                        "es.codigo as codigoSuc, " +
+                        "v.cierre, substr(v.auto,3,2) as caja, " +
+                        "v.signo, v.tipo as tipoDoc, "+
+                        "min(lpad(v.hora,5,'0')) as horaI, max(lpad(v.hora,5,'0')) as horaF, " +
+                        "min(documento) as docI, max(documento) as docF ";
 
                     var sql_2 = " FROM ventas as v " +
                         " join empresa_sucursal as es on es.codigo=v.codigo_sucursal ";
 
                     var sql_3 = " where fecha>=@desde and fecha<=@hasta and estatus_anulado='0' ";
 
-                    var sql_4 = " group by v.fecha, v.signo, v.documento_nombre, es.codigo, es.nombre ";
+                    var sql_4 = " group by v.fecha, es.codigo, es.nombre, v.cierre, v.signo, v.tipo, caja ";
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p2 = new MySql.Data.MySqlClient.MySqlParameter();
@@ -577,6 +634,105 @@ namespace ProvLibCajaBanco
                     var sql = sql_1 + sql_2 + sql_3 + sql_4;
                     var list = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.ResumenDiarioVentaSucursal.Ficha>(sql, p1, p2, p3).ToList();
                     rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha> Reporte_CobranzaDiara(DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoEntidad<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha>();
+
+            try
+            {
+                using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
+                {
+                    var sql_1 = "SELECT rec.auto, substr(rec.auto,1,2) as codSuc, substr(rec.auto,3,2) as codEstacion, " +
+                        "rec.fecha, rec.hora, rec.documento as reciboNro, rec.importe, rec.cliente, rec.ci_rif as ciRif, rec.cambio, " +
+                        "mp.lote as loteNro, mp.referencia as refNro, mp.monto_recibido as montoRecibido, mp.medio as medioPagoDesc, " +
+                        "mp.codigo as medioPagoCod, " +
+                        "doc.tipo_documento as tipoDocumento, doc.documento as documentoNro, doc.operacion ";
+
+                    var sql_2 = " FROM cxc_recibos as rec " +
+                        "join cxc_medio_pago as mp on mp.auto_recibo=rec.auto " +
+                        "join cxc_documentos as doc on doc.auto_cxc_recibo=rec.auto ";
+
+                    var sql_3 = " where rec.estatus_anulado='0' ";
+
+                    var sql_4 = "";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p5 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    var xsql_1 = "select sum(total) as monto, tipo as tipoDoc, documento_nombre as nombreDoc ";
+                    var xsql_2 = "from ventas ";
+                    var xsql_3 = "where estatus_anulado='0' ";
+                    var xsql_4 = "group by tipo, documento_nombre ";
+
+                    var ysql_1 = "select sum(total) as monto ";
+                    var ysql_2 = "from ventas ";
+                    var ysql_3 = "where estatus_anulado='0' and condicion_pago<>'CONTADO' ";
+                    var ysql_4 = "";
+
+                    if (filtro.porFecha)
+                    {
+                        sql_3+=" and rec.fecha>=@desde and rec.fecha<=@hasta ";
+                        p1.ParameterName = "@desde";
+                        p1.Value = filtro.desdeFecha;
+                        p2.ParameterName = "@hasta";
+                        p2.Value = filtro.hastaFecha;
+                        
+                        xsql_3 += " and fecha>=@desde and fecha<=@hasta ";
+                        ysql_3 += " and fecha>=@desde and fecha<=@hasta ";
+                    }
+
+                    if (filtro.porCierre)
+                    {
+                        sql_3 += " and substr(rec.cierre,5,6)>=@desdeCierre  and substr(rec.cierre,5,6)<=@hastaCierre ";
+                        p4.ParameterName = "@desdeCierre";
+                        p4.Value = filtro.desdeCierre;
+                        p5.ParameterName = "@hastaCierre";
+                        p5.Value = filtro.hastaCierre;
+
+                        xsql_3 += " and substr(cierre,5,6)>=@desdeCierre and substr(cierre,5,6)<=@hastaCierre ";
+                        ysql_3 += " and substr(cierre,5,6)>=@desdeCierre and substr(cierre,5,6)<=@hastaCierre ";
+                    }
+
+                    if (filtro.codSucursal != "")
+                    {
+                        sql_3 += " and substr(rec.auto,1,2)=@codSucursal ";
+                        xsql_3 += " and codigo_sucursal=@codSucursal ";
+                        ysql_3 += " and codigo_sucursal=@codSucursal ";
+                        p3.ParameterName = "@codSucursal";
+                        p3.Value = filtro.codSucursal;
+                    }
+
+                    var sql = sql_1 + sql_2 + sql_3 + sql_4;
+                    var ldata = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Data>(sql, p1, p2, p3, p4, p5).ToList();
+
+                    var xsql = xsql_1 + xsql_2 + xsql_3 + xsql_4;
+                    var lmov = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Movimiento>(xsql, p1, p2, p3, p4, p5).ToList();
+
+                    var ysql = ysql_1 + ysql_2 + ysql_3 + ysql_4;
+                    var montoCredito = cnn.Database.SqlQuery<decimal?>(ysql, p1, p2, p3, p4, p5).FirstOrDefault();
+
+                    var ficha = new DtoLibCajaBanco.Reporte.Movimiento.CobranzaDiaria.Ficha()
+                    {
+                        data = ldata,
+                        movimiento = lmov,
+                        montoCredito = montoCredito.HasValue ? montoCredito.Value : 0.0m,
+                    };
+
+                    rt.Entidad = ficha;
                 }
             }
             catch (Exception e)

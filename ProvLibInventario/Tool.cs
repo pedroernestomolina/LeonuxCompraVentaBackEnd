@@ -37,13 +37,29 @@ namespace ProvLibInventario
 
                     var dep = new MySql.Data.MySqlClient.MySqlParameter("@dep", filtro.autoDeposito);
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
                     if (filtro.autoDepartamento != "") 
                     {
                         cmd+= "and p.auto_departamento=@p1 ";
                         p1.ParameterName="@p1";
                         p1.Value = filtro.autoDepartamento;
                     }
-                    var list = cnn.Database.SqlQuery<DtoLibInventario.Tool.AjusteNivelMinimoMaximo.Capturar.Ficha>(cmd,dep,p1).ToList();
+
+                    if (filtro.cadena.Trim() != "")
+                    {
+                        var xcadena = filtro.cadena.Trim();
+                        cmd += " and p.nombre like @p2 ";
+                        p2.ParameterName = "@p2";
+                        if (xcadena.Substring(0,1)=="*")
+                            if (xcadena.Length>1)
+                                p2.Value = "%"+filtro.cadena.Substring(1) + "%";
+                            else
+                                p2.Value = "%%";
+                        else
+                            p2.Value = xcadena+"%";
+                    }
+
+                    var list = cnn.Database.SqlQuery<DtoLibInventario.Tool.AjusteNivelMinimoMaximo.Capturar.Ficha>(cmd, dep, p1, p2).ToList();
                     result.Lista = list;
                 }
             }

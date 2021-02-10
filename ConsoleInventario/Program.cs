@@ -197,6 +197,13 @@ namespace ConsoleInventario
             //filt.autoDeposito = "0000000013";
             //var ficha = invPrv.Reportes_MaestroProducto(filt);
 
+            var filtro = new DtoLibInventario.Tool.AjusteNivelMinimoMaximo.Capturar.Filtro()
+            {
+                autoDeposito = "0000000008",
+                cadena = "PANT",
+            };
+            var rt1 = invPrv.Tools_AjusteNivelMinimoMaximo_GetLista(filtro);
+
         }
 
     }

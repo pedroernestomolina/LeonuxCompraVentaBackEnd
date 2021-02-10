@@ -251,7 +251,24 @@ namespace ProvSqLitePosOffLine
                 MySqlDataReader reader;
                 using (var cn = new MySqlConnection(_cnn2.ConnectionString))
                 {
-                    var sql = "select p.*, d.codigo as codigoDepart, d.nombre as nombreDepart, " +
+                    //var sql = "select p.*, d.codigo as codigoDepart, d.nombre as nombreDepart, " +
+                    //    "g.codigo as codigoGrupo, g.nombre as nombreGrupo, m.nombre as nombreMarca, " +
+                    //    "pm.nombre as pv1Nombre, pm.decimales as pv1Decimales, " +
+                    //    "pm2.nombre as pv2Nombre, pm2.decimales as pv2Decimales, " +
+                    //    "pm3.nombre as pv3Nombre, pm3.decimales as pv3Decimales, " +
+                    //    "pm4.nombre as pv4Nombre, pm4.decimales as pv4Decimales, " +
+                    //    "pm5.nombre as pv5Nombre, pm5.decimales as pv5Decimales " +
+                    //    "from productos as p join empresa_departamentos as d on p.auto_departamento=d.auto " +
+                    //    " join productos_grupo as g on p.auto_grupo=g.auto " +
+                    //    " join productos_marca as m on p.auto_marca=m.auto " +
+                    //    " join productos_medida as pm on p.auto_precio_1=pm.auto " +
+                    //    " join productos_medida as pm2 on p.auto_precio_2=pm2.auto " +
+                    //    " join productos_medida as pm3 on p.auto_precio_3=pm3.auto " +
+                    //    " join productos_medida as pm4 on p.auto_precio_4=pm4.auto " +
+                    //    " join productos_medida as pm5 on p.auto_precio_pto=pm5.auto " +
+                    //    " join productos_deposito as dep on p.auto=dep.auto_producto and  dep.auto_deposito=@deposito ";
+
+                    var sql = "select p.*, d.codigo as codigoDepart, d.nombre as nombreDepart, " +    
                         "g.codigo as codigoGrupo, g.nombre as nombreGrupo, m.nombre as nombreMarca, " +
                         "pm.nombre as pv1Nombre, pm.decimales as pv1Decimales, " +
                         "pm2.nombre as pv2Nombre, pm2.decimales as pv2Decimales, " +
@@ -266,7 +283,8 @@ namespace ProvSqLitePosOffLine
                         " join productos_medida as pm3 on p.auto_precio_3=pm3.auto " +
                         " join productos_medida as pm4 on p.auto_precio_4=pm4.auto " +
                         " join productos_medida as pm5 on p.auto_precio_pto=pm5.auto " +
-                        " join productos_deposito as dep on p.auto=dep.auto_producto and  dep.auto_deposito=@deposito ";
+                        " join productos_deposito as dep on p.auto=dep.auto_producto and dep.auto_deposito=@deposito and dep.fisica>0 ";
+
                     var sql2 = "select * from productos_alterno";
 
                     //var sql3 = "select u.*,g.nombre as nombreGrupo from usuarios as u " +
@@ -1545,26 +1563,42 @@ namespace ProvSqLitePosOffLine
             const string UpdateProductoDeposito = @"UPDATE productos_deposito set fisica=fisica-?cantidadUnd, disponible=disponible-?cantidadUnd " +
                       "where auto_producto=?autoProducto and auto_deposito=?autoDeposito";
 
+            //const string InsertarCxC = @"INSERT INTO cxc (auto , c_cobranza , c_cobranzap , fecha , tipo_documento , documento ," +
+            //            "fecha_vencimiento , nota , importe , acumulado , auto_cliente , cliente , ci_rif , codigo_cliente , " +
+            //            "estatus_cancelado , resta , estatus_anulado , auto_documento , numero , auto_agencia , agencia , signo , " +
+            //            "auto_vendedor , c_departamento , c_ventas , c_ventasp , serie , importe_neto , dias , castigop, cierre_ftp, "+
+            //            "factor_cambio, importe_divisa) " +
+            //            "VALUES (?auto , ?c_cobranza , ?c_cobranzap , ?fecha , ?tipo_documento , ?documento ," +
+            //            "?fecha_vencimiento , ?nota , ?importe , ?acumulado , ?auto_cliente , ?cliente , ?ci_rif , ?codigo_cliente , " +
+            //            "?estatus_cancelado , ?resta , ?estatus_anulado , ?auto_documento , ?numero , ?auto_agencia , ?agencia , ?signo , " +
+            //            "?auto_vendedor , ?c_departamento , ?c_ventas , ?c_ventasp , ?serie , ?importe_neto , ?dias , ?castigop, ''," +
+            //            "?factor_cambio, ?importe_divisa)";
+
             const string InsertarCxC = @"INSERT INTO cxc (auto , c_cobranza , c_cobranzap , fecha , tipo_documento , documento ," +
                         "fecha_vencimiento , nota , importe , acumulado , auto_cliente , cliente , ci_rif , codigo_cliente , " +
                         "estatus_cancelado , resta , estatus_anulado , auto_documento , numero , auto_agencia , agencia , signo , " +
-                        "auto_vendedor , c_departamento , c_ventas , c_ventasp , serie , importe_neto , dias , castigop, cierre_ftp, "+
-                        "factor_cambio, importe_divisa) " +
+                        "auto_vendedor , c_departamento , c_ventas , c_ventasp , serie , importe_neto , dias , castigop, cierre_ftp) "+
                         "VALUES (?auto , ?c_cobranza , ?c_cobranzap , ?fecha , ?tipo_documento , ?documento ," +
                         "?fecha_vencimiento , ?nota , ?importe , ?acumulado , ?auto_cliente , ?cliente , ?ci_rif , ?codigo_cliente , " +
                         "?estatus_cancelado , ?resta , ?estatus_anulado , ?auto_documento , ?numero , ?auto_agencia , ?agencia , ?signo , " +
-                        "?auto_vendedor , ?c_departamento , ?c_ventas , ?c_ventasp , ?serie , ?importe_neto , ?dias , ?castigop, ''," +
-                        "?factor_cambio, ?importe_divisa)";
+                        "?auto_vendedor , ?c_departamento , ?c_ventas , ?c_ventasp , ?serie , ?importe_neto , ?dias , ?castigop, '')";
+
+            //const string InsertarCxCRecibo = @"INSERT INTO cxc_recibos (auto , documento , fecha , auto_usuario , importe , usuario , " +
+            //            "monto_recibido , cobrador , auto_cliente , cliente , ci_rif , codigo , estatus_anulado , direccion , telefono , " +
+            //            "auto_cobrador , anticipos , cambio , nota , codigo_cobrador , auto_cxc , retenciones , descuentos , hora , cierre, cierre_ftp, "+
+            //            "factor_cambio, importe_divisa) " +
+            //            "VALUES (?auto , ?documento , ?fecha , ?auto_usuario , ?importe , ?usuario , " +
+            //            "?monto_recibido , ?cobrador , ?auto_cliente , ?cliente , ?ci_rif , ?codigo , ?estatus_anulado , ?direccion , ?telefono , " +
+            //            "?auto_cobrador , ?anticipos , ?cambio , ?nota , ?codigo_cobrador , ?auto_cxc , ?retenciones , ?descuentos , ?hora , ?cierre, '',"+
+            //            "?factor_cambio, ?importe_divisa)";
 
             const string InsertarCxCRecibo = @"INSERT INTO cxc_recibos (auto , documento , fecha , auto_usuario , importe , usuario , " +
                         "monto_recibido , cobrador , auto_cliente , cliente , ci_rif , codigo , estatus_anulado , direccion , telefono , " +
-                        "auto_cobrador , anticipos , cambio , nota , codigo_cobrador , auto_cxc , retenciones , descuentos , hora , cierre, cierre_ftp, "+
-                        "factor_cambio, importe_divisa) " +
+                        "auto_cobrador , anticipos , cambio , nota , codigo_cobrador , auto_cxc , retenciones , descuentos , hora , cierre, cierre_ftp) " +
                         "VALUES (?auto , ?documento , ?fecha , ?auto_usuario , ?importe , ?usuario , " +
                         "?monto_recibido , ?cobrador , ?auto_cliente , ?cliente , ?ci_rif , ?codigo , ?estatus_anulado , ?direccion , ?telefono , " +
-                        "?auto_cobrador , ?anticipos , ?cambio , ?nota , ?codigo_cobrador , ?auto_cxc , ?retenciones , ?descuentos , ?hora , ?cierre, '',"+
-                        "?factor_cambio, ?importe_divisa)";
-
+                        "?auto_cobrador , ?anticipos , ?cambio , ?nota , ?codigo_cobrador , ?auto_cxc , ?retenciones , ?descuentos , ?hora , ?cierre, '')";
+            
             const string InsertarCxCDocumento = @"INSERT INTO cxc_documentos (id  , fecha , tipo_documento , documento , importe , " +
                         "operacion , auto_cxc , auto_cxc_pago , auto_cxc_recibo , numero_recibo , fecha_recepcion , dias , " +
                         "castigop , comisionp, cierre_ftp) " +
@@ -1895,7 +1929,6 @@ namespace ProvSqLitePosOffLine
                                     return result;
                                 }
 
-
                                 // INSERTAR CXC
                                 comandoCxC.Parameters.Clear();
                                 comandoCxC.Parameters.AddWithValue("?auto", autoCxC);
@@ -1928,8 +1961,8 @@ namespace ProvSqLitePosOffLine
                                 comandoCxC.Parameters.AddWithValue("?importe_neto", v.DocCxC.ImporteNeto);
                                 comandoCxC.Parameters.AddWithValue("?dias", v.DocCxC.Dias);
                                 comandoCxC.Parameters.AddWithValue("?castigop", v.DocCxC.Castigop);
-                                comandoCxC.Parameters.AddWithValue("?factor_cambio", v.DocCxC.FactorCambio);
-                                comandoCxC.Parameters.AddWithValue("?importe_divisa", v.DocCxC.ImporteDivisa);
+                                //comandoCxC.Parameters.AddWithValue("?factor_cambio", v.DocCxC.FactorCambio);
+                                //comandoCxC.Parameters.AddWithValue("?importe_divisa", v.DocCxC.ImporteDivisa);
                                 var rtCxC = comandoCxC.ExecuteNonQuery();
                                 if (rtCxC == 0)
                                 {
@@ -1995,8 +2028,8 @@ namespace ProvSqLitePosOffLine
                                     comandoCxC.Parameters.AddWithValue("?importe_neto", pago.ImporteNeto);
                                     comandoCxC.Parameters.AddWithValue("?dias", pago.Dias);
                                     comandoCxC.Parameters.AddWithValue("?castigop", pago.Castigop);
-                                    comandoCxC.Parameters.AddWithValue("?factor_cambio",  pago.FactorCambio);
-                                    comandoCxC.Parameters.AddWithValue("?importe_divisa", pago.ImporteDivisa);
+                                    //comandoCxC.Parameters.AddWithValue("?factor_cambio",  pago.FactorCambio);
+                                    //comandoCxC.Parameters.AddWithValue("?importe_divisa", pago.ImporteDivisa);
                                     rtCxC = comandoCxC.ExecuteNonQuery();
                                     if (rtCxC == 0)
                                     {
@@ -2034,8 +2067,8 @@ namespace ProvSqLitePosOffLine
                                     comandoCxCRecibo.Parameters.AddWithValue("?descuentos", rec.Descuentos);
                                     comandoCxCRecibo.Parameters.AddWithValue("?hora", rec.Hora);
                                     comandoCxCRecibo.Parameters.AddWithValue("?cierre", autoCierre);
-                                    comandoCxCRecibo.Parameters.AddWithValue("?factor_cambio", rec.FactorCambio);
-                                    comandoCxCRecibo.Parameters.AddWithValue("?importe_divisa", rec.ImporteDivisa);
+                                    //comandoCxCRecibo.Parameters.AddWithValue("?factor_cambio", rec.FactorCambio);
+                                    //comandoCxCRecibo.Parameters.AddWithValue("?importe_divisa", rec.ImporteDivisa);
                                     var rtCxCRecibo = comandoCxCRecibo.ExecuteNonQuery();
                                     if (rtCxCRecibo == 0)
                                     {
