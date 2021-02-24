@@ -19,6 +19,7 @@ namespace IPosOffLine
         DtoLib.Resultado Inicializar_BdLocal();
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Empresa.Ficha> Empresa_Datos();
         DtoLib.ResultadoEntidad<DateTime?> FechaUltimaActualizaion();
+        DtoLib.ResultadoEntidad<string> CodigoSucursal();
 
     }
 

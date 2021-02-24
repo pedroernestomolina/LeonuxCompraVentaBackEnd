@@ -745,6 +745,60 @@ namespace ProvLibInventario
             return rt;
         }
 
+        public DtoLib.ResultadoLista<DtoLibInventario.Reportes.MaestroNivelMinimo.Ficha> Reportes_NivelMinimo(DtoLibInventario.Reportes.MaestroNivelMinimo.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibInventario.Reportes.MaestroNivelMinimo.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+
+                    var sql_1 = "SELECT p.codigo as codigoPrd, p.nombre as nombrePrd, " +
+                        "ed.nombre as nombreDep, ed.codigo as codigoDep, pd.fisica as existencia, " +
+                        "pd.nivel_minimo as nivelMin, pd.nivel_optimo as nivelMax ";
+
+                    var sql_2 = " FROM productos_deposito as pd " +
+                        "join productos as p on p.auto=pd.auto_producto " +
+                        "join empresa_depositos as ed on pd.auto_deposito=ed.auto ";
+
+                    var sql_3 = " where pd.fisica< pd.nivel_minimo " +
+                        "and p.estatus='Activo' ";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p5 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    if (filtro.autoDeposito != "")
+                    {
+                        sql_3 += " and pd.auto_deposito=@autoDeposito ";
+                        p1.ParameterName = "@autoDeposito";
+                        p1.Value = filtro.autoDeposito;
+                    };
+
+                    if (filtro.autoDepartamento != "")
+                    {
+                        sql_3 += " and p.auto_departamento=@autoDepartamento ";
+                        p2.ParameterName = "@autoDepartamento";
+                        p2.Value = filtro.autoDepartamento;
+                    }
+
+                    var sql = sql_1 + sql_2 + sql_3;
+                    var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.MaestroNivelMinimo.Ficha>(sql, p1, p2, p3, p4, p5).ToList();
+                    rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
     }
 
 }

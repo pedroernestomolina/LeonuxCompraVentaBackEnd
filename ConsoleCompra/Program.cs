@@ -102,6 +102,25 @@ namespace ConsoleCompra
             //      Hasta= new DateTime(2021,01,26),
             //};
             //var r01 = compraPrv.Compra_DocumentoGetLista (filtro);
+
+            //var r01 = compraPrv.Estado_GetLista();
+
+            //var filtro = new DtoLibCompra.Proveedor.Documento.Filtro()
+            //{
+            //    autoProv = "0000000002",
+            //    desde = new DateTime(2021, 01, 01),
+            //    hasta = new DateTime(2021, 02, 22),
+            //};
+            //var r01 = compraPrv.Proveedor_Documento_GetLista(filtro);
+
+            //var filtro = new DtoLibCompra.Proveedor.Articulos.Filtro()
+            //{
+            //    autoProv = "0000000002",
+            //    desde = new DateTime(2021, 01, 01),
+            //    hasta = new DateTime(2021, 02, 22),
+            //};
+            //var r01 = compraPrv.Proveedor_CompraArticulos_GetLista(filtro);
+
         }
 
     }

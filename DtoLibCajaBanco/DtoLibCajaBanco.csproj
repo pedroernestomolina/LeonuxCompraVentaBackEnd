@@ -43,6 +43,10 @@
     <Compile Include="Deposito\Resumen.cs" />
     <Compile Include="EmpresaGrupo\Ficha.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reporte\Analisis\VentaProducto\Ficha.cs" />
+    <Compile Include="Reporte\Analisis\VentaProducto\Filtro.cs" />
+    <Compile Include="Reporte\Analisis\VentaPromedio\Ficha.cs" />
+    <Compile Include="Reporte\Analisis\VentaPromedio\Filtro.cs" />
     <Compile Include="Reporte\Habladores\Ficha.cs" />
     <Compile Include="Reporte\Habladores\Filtro.cs" />
     <Compile Include="Reporte\Movimiento\ArqueoCajaPos\Ficha.cs" />

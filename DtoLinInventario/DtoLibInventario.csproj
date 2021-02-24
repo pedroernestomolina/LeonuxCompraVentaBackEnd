@@ -39,6 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analisis\Detallado\Ficha.cs" />
+    <Compile Include="Analisis\Detallado\Filtro.cs" />
+    <Compile Include="Analisis\Enumerados.cs" />
+    <Compile Include="Analisis\Existencia\Ficha.cs" />
+    <Compile Include="Analisis\Existencia\Filtro.cs" />
     <Compile Include="Categoria\Resumen.cs" />
     <Compile Include="Concepto\Agregar.cs" />
     <Compile Include="Concepto\Editar.cs" />
@@ -106,6 +111,8 @@
     <Compile Include="Movimiento\enumerados.cs" />
     <Compile Include="Movimiento\Lista\Filtro.cs" />
     <Compile Include="Movimiento\Lista\Resumen.cs" />
+    <Compile Include="Analisis\General\Ficha.cs" />
+    <Compile Include="Analisis\General\Filtro.cs" />
     <Compile Include="Movimiento\Traslado\Consultar\Filtro.cs" />
     <Compile Include="Movimiento\Traslado\Consultar\ProductoPorDebajoNivelMinimo.cs" />
     <Compile Include="Movimiento\Traslado\Insertar\Ficha.cs" />
@@ -180,6 +187,8 @@
     <Compile Include="Reportes\MaestroExistencia\Filtro.cs" />
     <Compile Include="Reportes\MaestroInventario\Ficha.cs" />
     <Compile Include="Reportes\MaestroInventario\Filtro.cs" />
+    <Compile Include="Reportes\MaestroNivelMinimo\Ficha.cs" />
+    <Compile Include="Reportes\MaestroNivelMinimo\Filtro.cs" />
     <Compile Include="Reportes\MaestroPrecio\Ficha.cs" />
     <Compile Include="Reportes\MaestroPrecio\Filtro.cs" />
     <Compile Include="Reportes\MaestroProducto\Ficha.cs" />

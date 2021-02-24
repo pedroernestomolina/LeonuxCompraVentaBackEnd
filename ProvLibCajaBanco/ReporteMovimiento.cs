@@ -744,6 +744,125 @@ namespace ProvLibCajaBanco
             return rt;
         }
 
+
+
+        ////
+
+
+
+        public DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Analisis.VentaPromedio.Ficha> Reporte_Analisis_VentaPromedio(DtoLibCajaBanco.Reporte.Analisis.VentaPromedio.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Analisis.VentaPromedio.Ficha>();
+
+            try
+            {
+                using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
+                {
+                    var sql_1 = "SELECT count(*) as cntMov, sum(v.total*v.signo) as venta, " +
+                        "sum(v.monto_divisa*v.signo) as ventaDivisa, v.codigo_sucursal as codSucursal, " +
+                        "v.mes_relacion as mes, v.ano_relacion as ano, es.nombre as sucursal, " +
+                        "(max(v.fecha)-min(v.fecha))+1 as dias, " +
+
+                        "(SELECT count(*) " +
+                        "   FROM productos_deposito as pd " +
+                        "   join productos as p on pd.auto_producto=p.auto " +
+                        "   where pd.auto_deposito=es.autodepositoprincipal AND " +
+                        "   pd.fisica<>0 and p.estatus='Activo' and p.categoria<>'Bien de Servicio') as cntItemStock, " +
+
+                        "(SELECT sum(pd.fisica*(p.Divisa/p.contenido_compras)) " +
+                        "   FROM productos_deposito as pd " +
+                        "   join productos as p on pd.auto_producto=p.auto " +
+                        "   where pd.auto_deposito=es.autodepositoprincipal AND pd.fisica<>0 and " +
+                        "   p.estatus='Activo' and p.categoria<>'Bien de Servicio' ) as costoStock ";
+
+                    var sql_2 = " FROM ventas v " +
+                        "join empresa_sucursal es on es.codigo=v.codigo_sucursal ";
+
+                    var sql_3 = " where v.estatus_anulado='0' and v.fecha>=@desde and v.fecha<=@hasta ";
+
+                    var sql_4 = " group by v.codigo_sucursal, es.nombre, v.mes_relacion, v.ano_relacion, es.autodepositoprincipal ";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p5 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@desde";
+                    p1.Value = filtro.desde;
+                    p2.ParameterName = "@hasta";
+                    p2.Value = filtro.hasta;
+
+                    if (filtro.codSucursal != "")
+                    {
+                        sql_3 += " and v.codigo_sucursal=@codSucursal ";
+                        p3.ParameterName = "@codSucursal";
+                        p3.Value = filtro.codSucursal;
+                    }
+
+                    var sql = sql_1 + sql_2 + sql_3 + sql_4;
+                    var ldata = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Analisis.VentaPromedio.Ficha>(sql, p1, p2, p3, p4, p5).ToList();
+                    rt.Lista = ldata;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Analisis.VentaProducto.Ficha> Reporte_Analisis_VentaProducto(DtoLibCajaBanco.Reporte.Analisis.VentaProducto.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Analisis.VentaProducto.Ficha>();
+
+            try
+            {
+                using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
+                {
+
+                    var sql_1 = "SELECT sum(vd.cantidad_und*vd.signo) as cnt, vd.auto_producto as autoPrd, p.nombre as nombrePrd, "+
+                        "v.mes_relacion as mes, v.ano_relacion as ano";
+
+                    var sql_2 = " FROM ventas_detalle as vd "+
+                        "join ventas as v on vd.auto_documento=v.auto "+
+                        "join productos as p on vd.auto_producto=p.auto ";
+
+                    var sql_3 = " where v.estatus_anulado='0' and v.fecha>=@desde and v.fecha<=@hasta ";
+
+                    var sql_4 = " group by vd.auto_producto, p.nombre, v.mes_relacion, v.ano_relacion ";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p5 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@desde";
+                    p1.Value = filtro.desde;
+                    p2.ParameterName = "@hasta";
+                    p2.Value = filtro.hasta;
+
+                    if (filtro.codSucursal != "")
+                    {
+                    }
+
+                    var sql = sql_1 + sql_2 + sql_3 + sql_4;
+                    var ldata = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Analisis.VentaProducto.Ficha>(sql, p1, p2, p3, p4, p5).ToList();
+                    rt.Lista = ldata;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
     }
 
 }

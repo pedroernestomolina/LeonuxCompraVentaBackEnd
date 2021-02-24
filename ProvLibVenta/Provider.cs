@@ -24,7 +24,7 @@ namespace ProvLibVenta
             _Usuario = "root";
             _Password = "123";
             _Instancia = "localhost";
-            _BaseDatos = "bogagalpon";
+            _BaseDatos = "carolina";
             _cnVenta = new EntityConnectionStringBuilder();
 
             _cnVenta.Metadata = "res://*/ModelLibVentas.csdl|res://*/ModelLibVentas.ssdl|res://*/ModelLibVentas.msl";

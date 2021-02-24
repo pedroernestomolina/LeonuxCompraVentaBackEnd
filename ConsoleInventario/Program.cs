@@ -197,13 +197,41 @@ namespace ConsoleInventario
             //filt.autoDeposito = "0000000013";
             //var ficha = invPrv.Reportes_MaestroProducto(filt);
 
-            var filtro = new DtoLibInventario.Tool.AjusteNivelMinimoMaximo.Capturar.Filtro()
-            {
-                autoDeposito = "0000000008",
-                cadena = "PANT",
-            };
-            var rt1 = invPrv.Tools_AjusteNivelMinimoMaximo_GetLista(filtro);
+            //var filtro = new DtoLibInventario.Tool.AjusteNivelMinimoMaximo.Capturar.Filtro()
+            //{
+            //    autoDeposito = "0000000008",
+            //    cadena = "PANT",
+            //};
+            //var rt1 = invPrv.Tools_AjusteNivelMinimoMaximo_GetLista(filtro);
 
+            //var filtro = new DtoLibInventario.Reportes.MaestroNivelMinimo.Filtro ()
+            //{
+            //    autoDeposito = "0000000001",
+            //};
+            //var rt1 = invPrv.Reportes_NivelMinimo(filtro);
+
+            //var filtro = new DtoLibInventario.Analisis.General.Filtro()
+            //{
+            //    autoDeposito = "0000000006",
+            //    modulo = DtoLibInventario.Analisis.Enumerados.EnumModulo.Ventas,
+            //    ultimosXDias = 15,
+            //};
+            //var rt1 = invPrv.Producto_Analisis_General(filtro);
+
+            //var filtro = new DtoLibInventario.Analisis.Detallado.Filtro()
+            //{
+            //    autoDeposito = "0000000006",
+            //    modulo = DtoLibInventario.Analisis.Enumerados.EnumModulo.Ventas,
+            //    ultimosXDias = 15,
+            //    autoProducto = "0000000025",
+            //};
+            //var rt1 = invPrv.Producto_Analisis_Detallado(filtro);
+
+            //var filtro = new DtoLibInventario.Analisis.Existencia.Filtro()
+            //{
+            //    autoDeposito = "0000000006",
+            //};
+            //var rt1 = invPrv.Producto_Analisis_Existencia(filtro);
         }
 
     }

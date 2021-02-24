@@ -23,6 +23,12 @@ namespace DtoLibCompra.Proveedor.Data
         public string nombreEstado { get; set; }
         public string nombreGrupo { get; set; }
         public string nombreContacto { get; set; }
+        public string email { get; set; }
+        public string website { get; set; }
+        public string pais { get; set; }
+        public string codigoPostal { get; set; }
+        public decimal retIva { get; set; }
+        public string denominacionFiscal { get; set; }
 
     }
 

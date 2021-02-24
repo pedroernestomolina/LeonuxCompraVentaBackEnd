@@ -62,6 +62,7 @@
     <Compile Include="Deposito.cs" />
     <Compile Include="Documento.cs" />
     <Compile Include="Empresa.cs" />
+    <Compile Include="Estado.cs" />
     <Compile Include="Grupo.cs" />
     <Compile Include="Permiso.cs" />
     <Compile Include="Producto.cs" />

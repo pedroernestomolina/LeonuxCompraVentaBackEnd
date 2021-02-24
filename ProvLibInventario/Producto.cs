@@ -800,6 +800,8 @@ namespace ProvLibInventario
                     nr.decimales = entEmp.decimales;
                     nr.empaqueCompra = entEmp.nombre;
                     nr.empaqueCompraCont = entPrd.contenido_compras;
+                    nr.codigoPrd = entPrd.codigo;
+                    nr.nombrePrd = entPrd.nombre;
 
                     var list = new List<DtoLibInventario.Producto.VerData.Deposito>();
                     var dep = cnn.productos_deposito.Where(w => w.auto_producto == autoPrd).ToList();

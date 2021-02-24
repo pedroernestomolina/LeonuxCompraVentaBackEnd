@@ -2501,6 +2501,10 @@ namespace ProvSqLitePosOffLine
                     sql0 = "select * into outfile \"" + pathDestino + "productos_movimientos_detalle.txt\" FROM productos_movimientos_detalle where fecha>='2020/01/01' ";
                     comando1 = new MySqlCommand(sql0, cn);
                     rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "productos_medida.txt\" FROM productos_medida";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
                 };
             }
             catch (MySqlException ex2)
@@ -3047,6 +3051,10 @@ namespace ProvSqLitePosOffLine
                         comando1 = new MySqlCommand(sql0, cn, tr);
                         rt = comando1.ExecuteNonQuery();
 
+                        sql0 = "delete from productos_medida";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
 
                         // PROCESO DE INSERTAR
                         sql0 = "load data infile \"" + pathData + "/sistema_configuracion.txt\" into table sistema_configuracion";
@@ -3178,6 +3186,10 @@ namespace ProvSqLitePosOffLine
                         //rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/productos_movimientos_detalle.txt\" into table productos_movimientos_detalle";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        rt = comando1.ExecuteNonQuery();
+
+                        sql0 = "load data infile \"" + pathData + "/productos_medida.txt\" into table productos_medida";
                         comando1 = new MySqlCommand(sql0, cn, tr);
                         rt = comando1.ExecuteNonQuery();
 
