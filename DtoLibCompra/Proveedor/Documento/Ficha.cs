@@ -18,7 +18,9 @@ namespace DtoLibCompra.Proveedor.Documento
         public decimal tasaDivisa { get; set; }
         public string estatus { get; set; }
         public string codTipoDoc { get; set; }
+        public string nombreTipoDoc { get; set; }
         public string serie { get; set; }
+
 
     }
 

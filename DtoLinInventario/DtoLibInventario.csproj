@@ -49,7 +49,12 @@
     <Compile Include="Concepto\Editar.cs" />
     <Compile Include="Concepto\Ficha.cs" />
     <Compile Include="Concepto\Resumen.cs" />
+    <Compile Include="Configuracion\BusquedaPredeterminada\Editar\Ficha.cs" />
+    <Compile Include="Configuracion\CostoEdad\Editar\Ficha.cs" />
     <Compile Include="Configuracion\Enumerados.cs" />
+    <Compile Include="Configuracion\MetodoCalculoUtilidad\Editar\Ficha.cs" />
+    <Compile Include="Configuracion\PreferenciaPrecio\Editar\Ficha.cs" />
+    <Compile Include="Configuracion\RedondeoPrecio\Editar\Ficha.cs" />
     <Compile Include="Costo\Editar\Ficha.cs" />
     <Compile Include="Costo\Editar\FichaHistorica.cs" />
     <Compile Include="Costo\Editar\FichaPrecio.cs" />

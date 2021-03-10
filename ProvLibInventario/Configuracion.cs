@@ -32,7 +32,7 @@ namespace ProvLibInventario
                     var modo=DtoLibInventario.Configuracion.Enumerados.EnumPreferenciaBusqueda.SinDefinir;
                     switch (ent.usuario.Trim().ToUpper()) 
                     {
-                        case "CóDIGO":
+                        case "CODIGO":
                             modo = DtoLibInventario.Configuracion.Enumerados.EnumPreferenciaBusqueda.PorCodigo;
                             break;
                         case "NOMBRE":
@@ -238,6 +238,147 @@ namespace ProvLibInventario
                         int.TryParse(cnf, style, culture, out m1);
                     }
                     result.Entidad = m1;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+
+        public DtoLib.Resultado Configuracion_SetCostoEdadProducto(DtoLibInventario.Configuracion.CostoEdad.Editar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL50");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    ent.usuario = ficha.Edad.ToString("n0");
+                    cnn.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Configuracion_SetRedondeoPrecioVenta(DtoLibInventario.Configuracion.RedondeoPrecio.Editar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL46");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    ent.usuario = ficha.Redondeo;
+                    cnn.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Configuracion_SetPreferenciaRegistroPrecio(DtoLibInventario.Configuracion.PreferenciaPrecio.Editar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL41");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    ent.usuario = ficha.Preferencia;
+                    cnn.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Configuracion_SetMetodoCalculoUtilidad(DtoLibInventario.Configuracion.MetodoCalculoUtilidad.Editar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL13");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    ent.usuario = ficha.Metodo;
+                    cnn.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Configuracion_SetBusquedaPredeterminada(DtoLibInventario.Configuracion.BusquedaPredeterminada.Editar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL03");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    ent.usuario = ficha.Busqueda;
+                    cnn.SaveChanges();
                 }
             }
             catch (Exception e)

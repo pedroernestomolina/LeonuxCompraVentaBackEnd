@@ -18,6 +18,12 @@ namespace ILibInventario
         DtoLib.ResultadoEntidad<DtoLibInventario.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio> Configuracion_PreferenciaRegistroPrecio();
         DtoLib.ResultadoEntidad<int > Configuracion_CostoEdadProducto();
 
+        DtoLib.Resultado Configuracion_SetCostoEdadProducto(DtoLibInventario.Configuracion.CostoEdad.Editar.Ficha ficha);
+        DtoLib.Resultado Configuracion_SetRedondeoPrecioVenta(DtoLibInventario.Configuracion.RedondeoPrecio.Editar.Ficha ficha);
+        DtoLib.Resultado Configuracion_SetPreferenciaRegistroPrecio (DtoLibInventario.Configuracion.PreferenciaPrecio.Editar.Ficha ficha);
+        DtoLib.Resultado Configuracion_SetMetodoCalculoUtilidad(DtoLibInventario.Configuracion.MetodoCalculoUtilidad.Editar.Ficha ficha);
+        DtoLib.Resultado Configuracion_SetBusquedaPredeterminada(DtoLibInventario.Configuracion.BusquedaPredeterminada.Editar.Ficha ficha);
+
     }
 
 }
