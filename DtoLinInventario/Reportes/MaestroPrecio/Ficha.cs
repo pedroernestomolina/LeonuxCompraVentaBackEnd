@@ -49,6 +49,7 @@ namespace DtoLibInventario.Reportes.MaestroPrecio
         public decimal precioDivisaFull_4 { get { return pdf_4; } }
         public decimal precioDivisaFull_5 { get { return pdf_pto; } }
         public DateTime fechaUltCambioPrd { get { return fecha_cambio; } }
+        public string grupo { get; set; }
 
         public enumerados.EnumAdministradorPorDivisa isAdmDivisaPrd
         {

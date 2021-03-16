@@ -232,6 +232,8 @@ namespace ConsoleInventario
             //    autoDeposito = "0000000006",
             //};
             //var rt1 = invPrv.Producto_Analisis_Existencia(filtro);
+
+            var rt1 = invPrv.Grupo_GetListaByDepartamento("0000000002");
         }
 
     }

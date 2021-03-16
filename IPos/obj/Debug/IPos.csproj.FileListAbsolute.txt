@@ -1,0 +1,9 @@
+D:\Proyectos FoxSystem\CompraVenta\IPos\bin\Debug\IPos.dll
+D:\Proyectos FoxSystem\CompraVenta\IPos\bin\Debug\IPos.pdb
+D:\Proyectos FoxSystem\CompraVenta\IPos\bin\Debug\DtoLib.dll
+D:\Proyectos FoxSystem\CompraVenta\IPos\bin\Debug\DtoLibPos.dll
+D:\Proyectos FoxSystem\CompraVenta\IPos\bin\Debug\DtoLibPos.pdb
+D:\Proyectos FoxSystem\CompraVenta\IPos\bin\Debug\DtoLib.pdb
+D:\Proyectos FoxSystem\CompraVenta\IPos\obj\Debug\IPos.csprojResolveAssemblyReference.cache
+D:\Proyectos FoxSystem\CompraVenta\IPos\obj\Debug\IPos.dll
+D:\Proyectos FoxSystem\CompraVenta\IPos\obj\Debug\IPos.pdb

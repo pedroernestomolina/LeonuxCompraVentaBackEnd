@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 namespace ProvLibCajaBanco
 {
 
-    public partial class Provider : ILibCajaBanco.IProvider 
+    public partial class Provider : ILibCajaBanco.IProvider
     {
 
-        public class pag 
+        public class pag
         {
             public decimal monto { get; set; }
         }
@@ -26,7 +26,7 @@ namespace ProvLibCajaBanco
             public string nombreRazonSocial { get; set; }
             public string ciRif { get; set; }
             public decimal montoRecibido { get; set; }
-            public string codigoMedio{ get; set; }
+            public string codigoMedio { get; set; }
             public string nombreMedio { get; set; }
         }
 
@@ -78,7 +78,7 @@ namespace ProvLibCajaBanco
 
                                 var rt = new DtoLibCajaBanco.Reporte.Movimiento.ArqueoCajaPos.Ficha()
                                 {
-                                    autoCierre= s.auto_cierre.Substring(4),
+                                    autoCierre = s.auto_cierre.Substring(4),
                                     sucursal = s.auto_cierre.Substring(0, 2),
                                     equipo = s.auto_cierre.Substring(2, 2),
                                     autoUsuario = s.auto_usuario,
@@ -126,18 +126,18 @@ namespace ProvLibCajaBanco
                 using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
                 {
                     var mov = cnn.cxc_recibos.
-                        Join(cnn.cxc_medio_pago, v => v.auto, vp => vp.auto_recibo, (v,vp) => new enc 
-                        { 
-                            auto=v.auto, 
-                            documento=v.documento, 
-                            ciRif=v.ci_rif,
-                            nombreRazonSocial=v.cliente,
-                            fecha=v.fecha, 
-                            montoRecibido=vp.monto_recibido, 
-                            codigoMedio=vp.codigo, 
-                            nombreMedio=vp.medio,
+                        Join(cnn.cxc_medio_pago, v => v.auto, vp => vp.auto_recibo, (v, vp) => new enc
+                        {
+                            auto = v.auto,
+                            documento = v.documento,
+                            ciRif = v.ci_rif,
+                            nombreRazonSocial = v.cliente,
+                            fecha = v.fecha,
+                            montoRecibido = vp.monto_recibido,
+                            codigoMedio = vp.codigo,
+                            nombreMedio = vp.medio,
                         }).
-                        Where(w => w.fecha == fecha ).
+                        Where(w => w.fecha == fecha).
                         ToList();
                 }
             }
@@ -257,7 +257,7 @@ namespace ProvLibCajaBanco
 
             return rt;
         }
-        
+
         public DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.FacturaDetalle.Ficha> Reporte_VentaDetalle(DtoLibCajaBanco.Reporte.Movimiento.FacturaDetalle.Filtro filtro)
         {
             var rt = new DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.FacturaDetalle.Ficha>();
@@ -267,8 +267,8 @@ namespace ProvLibCajaBanco
                 using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
                 {
                     var sql = "select v.auto, v.documento, v.fecha, v.usuario as usuarioNombre, v.signo, " +
-                        "v.documento_nombre as documentoNombre, v.codigo_usuario as usuarioCodigo, v.total, v.renglones, "+
-                        "vd.nombre as nombreProducto, vd.cantidad_und as cantidadUnd, vd.precio_und as precioUnd, "+
+                        "v.documento_nombre as documentoNombre, v.codigo_usuario as usuarioCodigo, v.total, v.renglones, " +
+                        "vd.nombre as nombreProducto, vd.cantidad_und as cantidadUnd, vd.precio_und as precioUnd, " +
                         "vd.total as totalRenglon, v.hora " +
                         "from ventas as v join ventas_detalle as vd on vd.auto_documento=v.auto " +
                         "where v.fecha>=@desde and v.fecha<=@hasta and v.codigo_sucursal=@codigoSucursal and v.estatus_anulado='0'";
@@ -308,10 +308,10 @@ namespace ProvLibCajaBanco
                     var sql_1 = "SELECT vd.codigo as codigoPrd, vd.nombre as nombrePrd, sum(vd.cantidad_und) as cantidad, " +
                         "sum(vd.total) as totalMonto, v.documento_nombre as nombreDocumento, v.signo, " +
                         "sum(vd.total/v.factor_cambio) as totalMontoDivisa ";
-                    var sql_2=" FROM ventas_detalle as vd " +
+                    var sql_2 = " FROM ventas_detalle as vd " +
                         "join ventas as v on vd.auto_documento=v.auto ";
                     var sql_3 = " where v.fecha>=@desde and v.fecha<=@hasta and v.estatus_anulado='0' ";
-                    var sql_4 =" group by vd.auto_producto, vd.codigo, vd.nombre, v.documento_nombre, v.signo ";
+                    var sql_4 = " group by vd.auto_producto, vd.codigo, vd.nombre, v.documento_nombre, v.signo ";
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p2 = new MySql.Data.MySqlClient.MySqlParameter();
@@ -322,7 +322,7 @@ namespace ProvLibCajaBanco
                     p2.ParameterName = "@hasta";
                     p2.Value = filtro.hastaFecha;
 
-                    if (filtro.codigoSucursal != "") 
+                    if (filtro.codigoSucursal != "")
                     {
                         sql_3 += " and v.codigo_sucursal=@codigoSucursal ";
                         p3.ParameterName = "@codigoSucursal";
@@ -357,10 +357,10 @@ namespace ProvLibCajaBanco
                         "sum(v.total/v.factor_cambio) as montoDivisa, " +
                         "v.signo, " +
                         "v.documento_nombre as tipoDoc, " +
-                        "es.nombre as nombreSuc, "+
+                        "es.nombre as nombreSuc, " +
                         "es.codigo as codigoSuc ";
 
-                    var sql_2=" FROM ventas as v " +
+                    var sql_2 = " FROM ventas as v " +
                         " join empresa_sucursal as es on es.codigo=v.codigo_sucursal ";
 
                     var sql_3 = " where fecha>=@desde and fecha<=@hasta and estatus_anulado='0' ";
@@ -405,14 +405,14 @@ namespace ProvLibCajaBanco
             {
                 using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
                 {
-                    var sql_1 = "SELECT "+
-                        "es.codigo as codigoSuc, "+
-                        "es.nombre as nombreSuc, "+
-                        "vd.codigo as codigoPrd, "+
-                        "vd.nombre as nombrePrd, "+
+                    var sql_1 = "SELECT " +
+                        "es.codigo as codigoSuc, " +
+                        "es.nombre as nombreSuc, " +
+                        "vd.codigo as codigoPrd, " +
+                        "vd.nombre as nombrePrd, " +
                         "sum(vd.cantidad_und) as cantidad, " +
-                        "sum(vd.total) as totalMonto, "+
-                        "v.documento_nombre as nombreDocumento, "+
+                        "sum(vd.total) as totalMonto, " +
+                        "v.documento_nombre as nombreDocumento, " +
                         "v.signo, " +
                         "sum(vd.total/v.factor_cambio) as totalMontoDivisa ";
 
@@ -422,7 +422,7 @@ namespace ProvLibCajaBanco
 
                     var sql_3 = " where v.fecha>=@desde and v.fecha<=@hasta and v.estatus_anulado='0' ";
 
-                    var sql_4 = " group by vd.auto_producto, vd.codigo, vd.nombre, v.documento_nombre, v.signo, "+
+                    var sql_4 = " group by vd.auto_producto, vd.codigo, vd.nombre, v.documento_nombre, v.signo, " +
                         "es.codigo, es.nombre ";
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
@@ -604,7 +604,7 @@ namespace ProvLibCajaBanco
                         "es.nombre as nombreSuc, " +
                         "es.codigo as codigoSuc, " +
                         "v.cierre, substr(v.auto,3,2) as caja, " +
-                        "v.signo, v.tipo as tipoDoc, "+
+                        "v.signo, v.tipo as tipoDoc, " +
                         "min(lpad(v.hora,5,'0')) as horaI, max(lpad(v.hora,5,'0')) as horaF, " +
                         "min(documento) as docI, max(documento) as docF ";
 
@@ -685,12 +685,12 @@ namespace ProvLibCajaBanco
 
                     if (filtro.porFecha)
                     {
-                        sql_3+=" and rec.fecha>=@desde and rec.fecha<=@hasta ";
+                        sql_3 += " and rec.fecha>=@desde and rec.fecha<=@hasta ";
                         p1.ParameterName = "@desde";
                         p1.Value = filtro.desdeFecha;
                         p2.ParameterName = "@hasta";
                         p2.Value = filtro.hastaFecha;
-                        
+
                         xsql_3 += " and fecha>=@desde and fecha<=@hasta ";
                         ysql_3 += " and fecha>=@desde and fecha<=@hasta ";
                     }
@@ -758,29 +758,6 @@ namespace ProvLibCajaBanco
             {
                 using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
                 {
-                    var sql_1 = "SELECT count(*) as cntMov, sum(v.total*v.signo) as venta, " +
-                        "sum(v.monto_divisa*v.signo) as ventaDivisa, v.codigo_sucursal as codSucursal, " +
-                        "v.mes_relacion as mes, v.ano_relacion as ano, es.nombre as sucursal, " +
-                        "(max(v.fecha)-min(v.fecha))+1 as dias, " +
-
-                        "(SELECT count(*) " +
-                        "   FROM productos_deposito as pd " +
-                        "   join productos as p on pd.auto_producto=p.auto " +
-                        "   where pd.auto_deposito=es.autodepositoprincipal AND " +
-                        "   pd.fisica<>0 and p.estatus='Activo' and p.categoria<>'Bien de Servicio') as cntItemStock, " +
-
-                        "(SELECT sum(pd.fisica*(p.Divisa/p.contenido_compras)) " +
-                        "   FROM productos_deposito as pd " +
-                        "   join productos as p on pd.auto_producto=p.auto " +
-                        "   where pd.auto_deposito=es.autodepositoprincipal AND pd.fisica<>0 and " +
-                        "   p.estatus='Activo' and p.categoria<>'Bien de Servicio' ) as costoStock ";
-
-                    var sql_2 = " FROM ventas v " +
-                        "join empresa_sucursal es on es.codigo=v.codigo_sucursal ";
-
-                    var sql_3 = " where v.estatus_anulado='0' and v.fecha>=@desde and v.fecha<=@hasta ";
-
-                    var sql_4 = " group by v.codigo_sucursal, es.nombre, v.mes_relacion, v.ano_relacion, es.autodepositoprincipal ";
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p2 = new MySql.Data.MySqlClient.MySqlParameter();
@@ -788,19 +765,52 @@ namespace ProvLibCajaBanco
                     var p4 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p5 = new MySql.Data.MySqlClient.MySqlParameter();
 
+                    var xsql_3=@" where v.estatus_anulado='0' and v.fecha>=@desde and v.fecha<=@hasta ";
+                    if (filtro.codSucursal != "")
+                    {
+                        xsql_3 += " and v.codigo_sucursal=@codSucursal ";
+                        p3.ParameterName = "@codSucursal";
+                        p3.Value = filtro.codSucursal;
+                    }
+
+                    var xsql_4=@" group by v.codigo_sucursal, es.nombre, v.mes_relacion, v.ano_relacion, es.autodepositoprincipal ";
+
+                    var xsql_2 =@"SELECT count(*) as cntMov, sum(v.total*v.signo) as venta, sum(v.monto_divisa*v.signo) as ventaDivisa, 
+                                                v.codigo_sucursal as codSucursal, 
+                                                v.mes_relacion as mes, 
+                                                v.ano_relacion as ano, 
+                                                es.nombre as sucursal,
+                                                (SELECT count(*) FROM productos_deposito as pd    
+                                                        join productos as p on pd.auto_producto=p.auto    
+                                                        where pd.auto_deposito=es.autodepositoprincipal AND pd.fisica<>0 and p.estatus='Activo' and p.categoria<>'Bien de Servicio'
+                                                ) as cntItemStock, 
+                                                (SELECT sum(pd.fisica*(p.Divisa/p.contenido_compras))    
+                                                        FROM productos_deposito as pd    
+                                                        join productos as p on pd.auto_producto=p.auto    
+                                                        where pd.auto_deposito=es.autodepositoprincipal AND pd.fisica<>0 and p.estatus='Activo' and p.categoria<>'Bien de Servicio' 
+                                                ) as costoStock  
+                                        FROM ventas v join empresa_sucursal es on es.codigo=v.codigo_sucursal "+xsql_3+xsql_4;
+                    
+                    var xsql_1 =@"select v2.*, 
+                                        (
+	                                        select count(v3.fecha) 	
+			                                from 
+			                                    (
+				                                    select fecha, codigo_sucursal from ventas as v 
+					                                where v.estatus_anulado='0' and v.fecha>=@desde and v.fecha<=@hasta
+					                                group by v.fecha, v.codigo_sucursal 
+			                                    )as v3								
+			                                where v3.codigo_sucursal=v2.codSucursal
+	                                    ) as dias
+                                 from 
+                                    ( "+xsql_2+") as v2";
+
                     p1.ParameterName = "@desde";
                     p1.Value = filtro.desde;
                     p2.ParameterName = "@hasta";
                     p2.Value = filtro.hasta;
 
-                    if (filtro.codSucursal != "")
-                    {
-                        sql_3 += " and v.codigo_sucursal=@codSucursal ";
-                        p3.ParameterName = "@codSucursal";
-                        p3.Value = filtro.codSucursal;
-                    }
-
-                    var sql = sql_1 + sql_2 + sql_3 + sql_4;
+                    var sql = xsql_1;
                     var ldata = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Analisis.VentaPromedio.Ficha>(sql, p1, p2, p3, p4, p5).ToList();
                     rt.Lista = ldata;
                 }
@@ -823,11 +833,11 @@ namespace ProvLibCajaBanco
                 using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
                 {
 
-                    var sql_1 = "SELECT sum(vd.cantidad_und*vd.signo) as cnt, vd.auto_producto as autoPrd, p.nombre as nombrePrd, "+
+                    var sql_1 = "SELECT sum(vd.cantidad_und*vd.signo) as cnt, vd.auto_producto as autoPrd, p.nombre as nombrePrd, " +
                         "v.mes_relacion as mes, v.ano_relacion as ano";
 
-                    var sql_2 = " FROM ventas_detalle as vd "+
-                        "join ventas as v on vd.auto_documento=v.auto "+
+                    var sql_2 = " FROM ventas_detalle as vd " +
+                        "join ventas as v on vd.auto_documento=v.auto " +
                         "join productos as p on vd.auto_producto=p.auto ";
 
                     var sql_3 = " where v.estatus_anulado='0' and v.fecha>=@desde and v.fecha<=@hasta ";

@@ -89,11 +89,11 @@ namespace ConsoleCajaBanco
             //filtro.codSucursal = "08";
             //var r01 = cajaBancoPrv.Reporte_CobranzaDiara(filtro);
 
-            //var filtro = new DtoLibCajaBanco.Reporte.Analisis.VentaPromedio.Filtro();
-            //filtro.desde = new DateTime(2021, 02, 01);
-            //filtro.hasta = new DateTime(2021, 02, 22);
-            //filtro.codSucursal = "";
-            //var r01 = cajaBancoPrv.Reporte_Analisis_VentaPromedio(filtro);
+            var filtro = new DtoLibCajaBanco.Reporte.Analisis.VentaPromedio.Filtro();
+            filtro.desde = new DateTime(2021, 03, 01);
+            filtro.hasta = new DateTime(2021, 03, 15);
+            filtro.codSucursal = "04";
+            var r01 = cajaBancoPrv.Reporte_Analisis_VentaPromedio(filtro);
 
             //var filtro = new DtoLibCajaBanco.Reporte.Analisis.VentaProducto.Filtro();
             //filtro.desde = new DateTime(2021, 01, 01);

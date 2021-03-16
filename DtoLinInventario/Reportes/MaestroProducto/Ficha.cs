@@ -22,6 +22,7 @@ namespace DtoLibInventario.Reportes.MaestroProducto
         private string origenPrd { get; set; }
         private string categoriaPrd { get; set; }
         public string departamento { get; set; }
+        public string grupo { get; set; }
         public string empaque { get; set; }
         public decimal tasaIva { get; set; }
 

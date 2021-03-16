@@ -23,6 +23,7 @@ namespace DtoLibInventario.Reportes.MaestroInventario
         private string estatusDivisaPrd { get; set; }
         private string estatusCambioPrd { get; set; }
         public string departamento { get; set; }
+        public string grupo { get; set; }
         public decimal? existencia { get; set; }
         public decimal costoUnd { get; set; }
         public string decimales { get; set; }

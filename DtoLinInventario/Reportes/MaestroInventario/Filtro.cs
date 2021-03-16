@@ -13,12 +13,14 @@ namespace DtoLibInventario.Reportes.MaestroInventario
 
         public string autoDeposito { get; set; }
         public string autoDepartamento { get; set; }
+        public string autoGrupo { get; set; }
 
 
         public Filtro()
         {
             autoDepartamento = "";
             autoDeposito = "";
+            autoGrupo = "";
         }
 
     }

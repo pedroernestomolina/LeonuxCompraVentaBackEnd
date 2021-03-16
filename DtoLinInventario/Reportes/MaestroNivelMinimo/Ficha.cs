@@ -18,6 +18,8 @@ namespace DtoLibInventario.Reportes.MaestroNivelMinimo
         public decimal existencia { get; set; }
         public decimal nivelMin { get; set; }
         public decimal nivelMax { get; set; }
+        public string departamento { get; set; }
+        public string grupo { get; set; }
 
     }
 

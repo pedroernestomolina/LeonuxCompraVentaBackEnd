@@ -24,11 +24,13 @@ namespace ProvLibInventario
                         " p.estatus as estatusPrd, p.estatus_divisa as estatusDivisaPrd, p.estatus_cambio as estatusCambioPrd, " +
                         " p.contenido_compras as contenidoPrd, p.origen as origenPrd, p.categoria as categoriaPrd, " +
                         " ed.nombre as departamento, " +
+                        " pg.nombre as grupo, " +
                         " pm.nombre as empaque, " +
                         " etasa.tasa as tasaIva ";
 
                     var sql_2 = " from productos as p " +
                         " join empresa_departamentos as ed on p.auto_departamento=ed.auto " +
+                        " join productos_grupo as pg on p.auto_grupo=pg.auto " +
                         " join productos_medida as pm on p.auto_empaque_compra=pm.auto " +
                         " join empresa_tasas as etasa on p.auto_tasa=etasa.auto ";
 
@@ -47,7 +49,6 @@ namespace ProvLibInventario
                     var pB = new MySql.Data.MySqlClient.MySqlParameter();
                     var pC = new MySql.Data.MySqlClient.MySqlParameter();
                     var pD = new MySql.Data.MySqlClient.MySqlParameter();
-
 
                     if (filtro.autoDepartamento != "")
                     {
@@ -123,6 +124,12 @@ namespace ProvLibInventario
                         p7.ParameterName = "@autoDeposito";
                         p7.Value = filtro.autoDeposito;
                     }
+                    if (filtro.autoGrupo != "")
+                    {
+                        sql_3 += " and p.auto_grupo=@autoGrupo";
+                        p8.ParameterName = "@autoGrupo";
+                        p8.Value = filtro.autoGrupo;
+                    }
 
                     var sql = sql_1 + sql_2 + sql_3;
                     var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.MaestroProducto.Ficha>(sql, p1, p2, p3, p4, p5, p6, p7, p8, p9, pA, pB, pC, pD).ToList();
@@ -169,11 +176,13 @@ namespace ProvLibInventario
                         "p.divisa as costoDivisa, " +
                         "p.contenido_compras as contenidoCompras, " +
                         "ed.nombre as departamento, " +
+                        "pg.nombre as grupo, "+
                         "pm.decimales as decimales, ";
 
                     var sql_2 = "from productos as p " +
                         "join empresa_tasas as et on et.auto=p.auto_tasa " +
                         "join empresa_departamentos as ed on p.auto_departamento=ed.auto " +
+                        "join productos_grupo as pg on p.auto_grupo=pg.auto " +
                         "join productos_medida as pm on p.auto_empaque_compra=pm.auto ";
 
                     var sql_3 = "where p.estatus='Activo' and p.categoria<>'Bien de Servicio' ";
@@ -183,6 +192,7 @@ namespace ProvLibInventario
                     var p3 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p4 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p5 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p6 = new MySql.Data.MySqlClient.MySqlParameter();
 
 
                     if (filtro.autoDeposito == "")
@@ -224,8 +234,15 @@ namespace ProvLibInventario
                         p1.Value = filtro.autoDepartamento;
                     }
 
+                    if (filtro.autoGrupo != "")
+                    {
+                        sql_3 += " and p.auto_grupo=@autoGrupo ";
+                        p6.ParameterName = "@autoGrupo";
+                        p6.Value = filtro.autoGrupo;
+                    }
+
                     var sql = sql_1 + sql_2+ sql_3;
-                    var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.MaestroInventario.Ficha>(sql, p1, p2, p3, p4, p5).ToList();
+                    var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.MaestroInventario.Ficha>(sql, p1, p2, p3, p4, p5,p6).ToList();
                     rt.Lista = list;
                 }
             }
@@ -385,8 +402,11 @@ namespace ProvLibInventario
                         "p.pdf_4/ ((et.tasa/100)+1)  as pDivisaNeto_4, " +
                         "p.pdf_pto/ ((et.tasa/100)+1)  as pDivisaNeto_5, " +
                         "esuc.codigo as codigoSuc, " +
-                        "egru.idprecio as precioId " +
+                        "egru.idprecio as precioId, " +
+                        "edpt.nombre as departamento, pg.nombre as grupo "+
                         "FROM productos as p " +
+                        "join empresa_departamentos as edpt on p.auto_departamento=edpt.auto "+
+                        "join productos_grupo as pg on p.auto_grupo=pg.auto " +
                         "join empresa_tasas as et on p.auto_tasa=et.auto " +
                         "join productos_medida as pmed on p.auto_empaque_compra=pmed.auto " +
                         "left join productos_deposito as pdep on pdep.auto_producto=p.auto " +
@@ -397,6 +417,7 @@ namespace ProvLibInventario
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
 
                     if (filtro.autoDepartamento != "")
                     {
@@ -410,8 +431,14 @@ namespace ProvLibInventario
                         p2.ParameterName = "@autoDeposito";
                         p2.Value = filtro.autoDeposito;
                     }
+                    if (filtro.autoGrupo != "")
+                    {
+                        sql += " and p.auto_grupo=@autoGrupo ";
+                        p3.ParameterName = "@autoGrupo";
+                        p3.Value = filtro.autoGrupo;
+                    }
 
-                    var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.MaestroExistencia.Ficha>(sql,p1,p2).ToList();
+                    var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.MaestroExistencia.Ficha>(sql, p1, p2, p3).ToList();
                     rt.Lista = list;
                 }
             }
@@ -433,9 +460,10 @@ namespace ProvLibInventario
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
                     var sql_1 = "SELECT p.codigo, p.nombre, p.tasa, p.referencia, p.modelo, p.estatus, p.estatus_divisa, p.fecha_cambio, " +
-                        "edep.nombre as nombreDepartamento, ";
+                        "edep.nombre as nombreDepartamento, pg.nombre as grupo,  ";
                     var sql_2="FROM productos as p "+
                         "join empresa_departamentos edep on p.auto_departamento=edep.auto "+
+                        "join productos_grupo as pg on p.auto_grupo=pg.auto " +
                         "where 1=1 and estatus='Activo' ";
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
@@ -756,10 +784,13 @@ namespace ProvLibInventario
 
                     var sql_1 = "SELECT p.codigo as codigoPrd, p.nombre as nombrePrd, " +
                         "ed.nombre as nombreDep, ed.codigo as codigoDep, pd.fisica as existencia, " +
+                        "pg.nombre as grupo, edpt.nombre as departamento, "+
                         "pd.nivel_minimo as nivelMin, pd.nivel_optimo as nivelMax ";
 
                     var sql_2 = " FROM productos_deposito as pd " +
                         "join productos as p on p.auto=pd.auto_producto " +
+                        "join empresa_departamentos as edpt on edpt.auto=p.auto_departamento " +
+                        "join productos_grupo as pg on pg.auto=p.auto_grupo " +
                         "join empresa_depositos as ed on pd.auto_deposito=ed.auto ";
 
                     var sql_3 = " where pd.fisica< pd.nivel_minimo " +
@@ -783,6 +814,13 @@ namespace ProvLibInventario
                         sql_3 += " and p.auto_departamento=@autoDepartamento ";
                         p2.ParameterName = "@autoDepartamento";
                         p2.Value = filtro.autoDepartamento;
+                    }
+
+                    if (filtro.autoGrupo != "")
+                    {
+                        sql_3 += " and p.auto_grupo=@autoGrupo ";
+                        p3.ParameterName = "@autoGrupo";
+                        p3.Value = filtro.autoGrupo;
                     }
 
                     var sql = sql_1 + sql_2 + sql_3;

@@ -27,6 +27,8 @@ namespace DtoLibInventario.Reportes.MaestroExistencia
         public decimal pDivisaNeto_5 { get; set; }
         public string codigoSuc { get; set; }
         public string precioId { get; set; }
+        public string departamento { get; set; }
+        public string grupo { get; set; }
 
     }
 

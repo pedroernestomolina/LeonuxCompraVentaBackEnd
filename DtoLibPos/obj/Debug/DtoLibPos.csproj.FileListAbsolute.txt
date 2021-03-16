@@ -1,0 +1,4 @@
+D:\Proyectos FoxSystem\CompraVenta\DtoLibPos\bin\Debug\DtoLibPos.dll
+D:\Proyectos FoxSystem\CompraVenta\DtoLibPos\bin\Debug\DtoLibPos.pdb
+D:\Proyectos FoxSystem\CompraVenta\DtoLibPos\obj\Debug\DtoLibPos.dll
+D:\Proyectos FoxSystem\CompraVenta\DtoLibPos\obj\Debug\DtoLibPos.pdb

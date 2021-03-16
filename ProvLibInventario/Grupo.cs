@@ -220,6 +220,39 @@ namespace ProvLibInventario
             return result;
         }
 
+        public DtoLib.ResultadoLista<DtoLibInventario.Grupo.Resumen> Grupo_GetListaByDepartamento(string id)
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibInventario.Grupo.Resumen>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var sql_1 = " SELECT pg.auto, pg.nombre, pg.codigo ";
+                    var sql_2 = " from productos_grupo as pg "+
+                        " join productos as p on pg.auto=p.auto_grupo "+
+                        " join empresa_departamentos as ed on ed.auto=p.auto_departamento ";
+                    var sql_3 = " where ed.auto= @p1 ";
+                    var sql_4 = " group by pg.auto, pg.nombre, pg.codigo ";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "p1";
+                    p1.Value = id;
+
+                    var sql = sql_1 + sql_2 + sql_3 + sql_4;
+                    var list = cnn.Database.SqlQuery<DtoLibInventario.Grupo.Resumen>(sql,p1).ToList();
+                    result.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

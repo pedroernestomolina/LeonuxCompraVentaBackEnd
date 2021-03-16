@@ -12,6 +12,7 @@ namespace DtoLibInventario.Reportes.MaestroProducto
     {
 
         public string autoDepartamento { get; set; }
+        public string autoGrupo { get; set; }
         public string autoDeposito { get; set; }
         public string autoTasa { get; set; }
         public enumerados.EnumAdministradorPorDivisa admDivisa { get; set; }
@@ -29,6 +30,7 @@ namespace DtoLibInventario.Reportes.MaestroProducto
             autoDepartamento = "";
             autoDeposito = "";
             autoTasa = "";
+            autoGrupo = "";
         }
 
     }
