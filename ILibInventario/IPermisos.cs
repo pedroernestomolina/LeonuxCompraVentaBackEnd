@@ -58,6 +58,8 @@ namespace ILibInventario
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_Visor (string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_Estadistica (string autoGrupoUsuario);
 
+        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_Configuracion_Sistema(string autoGrupoUsuario);
+
     }
 
 }

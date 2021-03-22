@@ -138,6 +138,14 @@ namespace ProvLibInventario
                         cnn.productos_movimientos.Add(entMov);
                         cnn.SaveChanges();
 
+                        var entMovExtra = new productos_movimientos_extra()
+                        {
+                            auto_movimiento = entMov.auto,
+                            factor_cambio = ficha.factorCambio,
+                            monto_divisa = ficha.montoDivisa,
+                        };
+                        cnn.productos_movimientos_extra.Add(entMovExtra);
+                        cnn.SaveChanges();
 
                         var sql1 = @"INSERT INTO productos_movimientos_detalle (auto_documento, auto_producto, codigo, nombre, " +
                             "cantidad, cantidad_bono, cantidad_und, categoria, fecha, tipo, estatus_anulado, contenido_empaque, " +
@@ -171,7 +179,7 @@ namespace ProvLibInventario
                             if (entPrdDepOrigen == null)
                             {
                                 result.Result = DtoLib.Enumerados.EnumResult.isError;
-                                result.Mensaje = "[ PRODUCTO - DEPOSITO ORIGEN ] NO ENCONTRADO " + Environment.NewLine + "Producto: " + dt.autoProducto + ", Deposito: " + dt.autoDepositoOrigen;
+                                result.Mensaje = "[ PRODUCTO - DEPOSITO ORIGEN ] NO ENCONTRADO " + Environment.NewLine + "Producto: " + dt.nombreProducto + ", Deposito: " + dt.autoDepositoOrigen;
                                 return result;
                             }
                             entPrdDepOrigen.fisica -= dt.cantidadUnd;
@@ -182,7 +190,7 @@ namespace ProvLibInventario
                             if (entPrdDepDestino == null)
                             {
                                 result.Result = DtoLib.Enumerados.EnumResult.isError;
-                                result.Mensaje = "[ PRODUCTO - DEPOSITO DESTINO ] NO ENCONTRADO " + Environment.NewLine + "Producto: " + dt.autoProducto + ", Deposito: " + dt.autoDepositoOrigen;
+                                result.Mensaje = "[ PRODUCTO - DEPOSITO DESTINO ] NO ENCONTRADO " + Environment.NewLine + "Producto: " + dt.nombreProducto + ", Deposito: " + dt.autoDepositoOrigen;
                                 return result;
                             }
                             entPrdDepDestino.fisica += dt.cantidadUnd;
@@ -401,6 +409,14 @@ namespace ProvLibInventario
                         cnn.productos_movimientos.Add(entMov);
                         cnn.SaveChanges();
 
+                        var entMovExtra = new productos_movimientos_extra()
+                        {
+                            auto_movimiento = entMov.auto,
+                            factor_cambio = ficha.factorCambio,
+                            monto_divisa = ficha.montoDivisa,
+                        };
+                        cnn.productos_movimientos_extra.Add(entMovExtra);
+                        cnn.SaveChanges();
 
                         var sql1 = @"INSERT INTO productos_movimientos_detalle (auto_documento, auto_producto, codigo, nombre, " +
                             "cantidad, cantidad_bono, cantidad_und, categoria, fecha, tipo, estatus_anulado, contenido_empaque, " +
@@ -492,7 +508,7 @@ namespace ProvLibInventario
                             if (entPrdDep == null)
                             {
                                 result.Result = DtoLib.Enumerados.EnumResult.isError;
-                                result.Mensaje = "[ PRODUCTO - DEPOSITO ] NO ENCONTRADO " + Environment.NewLine + "Producto: " + dt.autoProducto + ", Deposito: " + dt.autoDeposito;
+                                result.Mensaje = "[ PRODUCTO - DEPOSITO ] NO ENCONTRADO " + Environment.NewLine + "Producto: " + dt.nombreProducto+ ", Deposito: " + dt.autoDeposito;
                                 return result;
                             }
                             entPrdDep.fisica += dt.cantidadUnd;
@@ -718,6 +734,14 @@ namespace ProvLibInventario
                         cnn.productos_movimientos.Add(entMov);
                         cnn.SaveChanges();
 
+                        var entMovExtra = new productos_movimientos_extra()
+                        {
+                            auto_movimiento = entMov.auto,
+                            factor_cambio = ficha.factorCambio,
+                            monto_divisa = ficha.montoDivisa,
+                        };
+                        cnn.productos_movimientos_extra.Add(entMovExtra);
+                        cnn.SaveChanges();
 
                         var sql1 = @"INSERT INTO productos_movimientos_detalle (auto_documento, auto_producto, codigo, nombre, " +
                             "cantidad, cantidad_bono, cantidad_und, categoria, fecha, tipo, estatus_anulado, contenido_empaque, " +
@@ -752,7 +776,7 @@ namespace ProvLibInventario
                             if (entPrdDep == null)
                             {
                                 result.Result = DtoLib.Enumerados.EnumResult.isError;
-                                result.Mensaje = "[ PRODUCTO - DEPOSITO ] NO ENCONTRADO " + Environment.NewLine + "Producto: " + dt.autoProducto + ", Deposito: " + dt.autoDeposito;
+                                result.Mensaje = "[ PRODUCTO - DEPOSITO ] NO ENCONTRADO " + Environment.NewLine + "Producto: " + dt.nombreProducto + ", Deposito: " + dt.autoDeposito;
                                 return result;
                             }
                             entPrdDep.fisica -= dt.cantidadUnd;
@@ -926,6 +950,14 @@ namespace ProvLibInventario
                         cnn.productos_movimientos.Add(entMov);
                         cnn.SaveChanges();
 
+                        var entMovExtra = new productos_movimientos_extra()
+                        {
+                            auto_movimiento = entMov.auto,
+                            factor_cambio = ficha.factorCambio,
+                            monto_divisa = ficha.montoDivisa,
+                        };
+                        cnn.productos_movimientos_extra.Add(entMovExtra);
+                        cnn.SaveChanges();
 
                         var sql1 = @"INSERT INTO productos_movimientos_detalle (auto_documento, auto_producto, codigo, nombre, " +
                             "cantidad, cantidad_bono, cantidad_und, categoria, fecha, tipo, estatus_anulado, contenido_empaque, " +
@@ -960,7 +992,7 @@ namespace ProvLibInventario
                             if (entPrdDep == null)
                             {
                                 result.Result = DtoLib.Enumerados.EnumResult.isError;
-                                result.Mensaje = "[ PRODUCTO - DEPOSITO ] NO ENCONTRADO " + Environment.NewLine + "Producto: " + dt.autoProducto + ", Deposito: " + dt.autoDeposito;
+                                result.Mensaje = "[ PRODUCTO - DEPOSITO ] NO ENCONTRADO " + Environment.NewLine + "Producto: " + dt.nombreProducto + ", Deposito: " + dt.autoDeposito;
                                 return result;
                             }
                             entPrdDep.fisica += dt.cantidadUnd;

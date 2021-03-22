@@ -10,14 +10,16 @@ namespace DtoLibInventario.Configuracion.MetodoCalculoUtilidad.Editar
     
     public class Ficha
     {
-   public string Metodo { get; set; }
+        
+        public string Metodo { get; set; }
+        public List<FichaPrecio> Precio{get;set;}
 
 
         public Ficha()
         {
             Metodo = "";
+            Precio = new List<FichaPrecio>();
         }
-     
 
     }
 

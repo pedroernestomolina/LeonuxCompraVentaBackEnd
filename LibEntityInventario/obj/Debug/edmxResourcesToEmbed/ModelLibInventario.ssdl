@@ -547,6 +547,15 @@ warning 6002: The table/view 'pita.productos_movimientos_detalle' does not have 
     <Property Name="auto_grupo" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
+  <EntityType Name="productos_movimientos_extra">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="auto_movimiento" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="factor_cambio" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="monto_divisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+  </EntityType>
   <EntityType Name="productos_precios">
     <Key>
       <PropertyRef Name="id" />
@@ -1000,6 +1009,7 @@ warning 6002: The table/view 'pita.productos_movimientos_detalle' does not have 
     <EntitySet Name="productos_marca" EntityType="Self.productos_marca" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_medida" EntityType="Self.productos_medida" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_movimientos" EntityType="Self.productos_movimientos" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_movimientos_extra" EntityType="Self.productos_movimientos_extra" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_precios" EntityType="Self.productos_precios" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_proveedor" EntityType="Self.productos_proveedor" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_subgrupo" EntityType="Self.productos_subgrupo" Schema="pita" store:Type="Tables" />

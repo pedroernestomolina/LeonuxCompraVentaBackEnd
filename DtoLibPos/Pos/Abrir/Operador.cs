@@ -15,6 +15,14 @@ namespace DtoLibPos.Pos.Abrir
         public string idEquipo { get; set; }
         public string estatus { get; set; }
 
+
+        public Operador()
+        {
+            idUsuario = "";
+            idEquipo = "";
+            estatus = "";
+        }
+
     }
 
 }

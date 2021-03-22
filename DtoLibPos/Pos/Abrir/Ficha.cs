@@ -11,7 +11,7 @@ namespace DtoLibPos.Pos.Abrir
     public class Ficha
     {
 
-        public string idSucursal { get;set; }
+        public string codSucursal { get;set; }
         public string idEquipo { get; set; }
         public Operador operadorAbrir { get; set; }
         public Arqueo arqueoAbrir { get; set; }
@@ -20,7 +20,7 @@ namespace DtoLibPos.Pos.Abrir
 
         public Ficha()
         {
-            idSucursal="";
+            codSucursal="";
             idEquipo = "";
             operadorAbrir = new Operador();
             arqueoAbrir = new Arqueo();

@@ -249,6 +249,7 @@
       <End Role="productos_conceptos" EntitySet="productos_conceptos" />
       <End Role="productos_kardex" EntitySet="productos_kardex" />
     </AssociationSet>
+    <EntitySet Name="productos_movimientos_extra" EntityType="invModel.productos_movimientos_extra" />
   </EntityContainer>
   <EntityType Name="empresa_departamentos">
     <Key>
@@ -1165,4 +1166,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="productos_movimientos_extra">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="auto_movimiento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="factor_cambio" Type="Decimal" Nullable="false" />
+    <Property Name="monto_divisa" Type="Decimal" Nullable="false" />
+  </EntityType>
 </Schema>

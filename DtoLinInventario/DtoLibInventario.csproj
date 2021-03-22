@@ -52,7 +52,10 @@
     <Compile Include="Configuracion\BusquedaPredeterminada\Editar\Ficha.cs" />
     <Compile Include="Configuracion\CostoEdad\Editar\Ficha.cs" />
     <Compile Include="Configuracion\Enumerados.cs" />
+    <Compile Include="Configuracion\MetodoCalculoUtilidad\CapturarData\Ficha.cs" />
     <Compile Include="Configuracion\MetodoCalculoUtilidad\Editar\Ficha.cs" />
+    <Compile Include="Configuracion\MetodoCalculoUtilidad\Editar\FichaPrecio.cs" />
+    <Compile Include="Configuracion\MetodoCalculoUtilidad\Editar\Precio.cs" />
     <Compile Include="Configuracion\PreferenciaPrecio\Editar\Ficha.cs" />
     <Compile Include="Configuracion\RedondeoPrecio\Editar\Ficha.cs" />
     <Compile Include="Costo\Editar\Ficha.cs" />
@@ -202,6 +205,8 @@
     <Compile Include="Reportes\Top20\Filtro.cs" />
     <Compile Include="Reportes\TopDepartUtilidad\Ficha.cs" />
     <Compile Include="Reportes\TopDepartUtilidad\Filtro.cs" />
+    <Compile Include="Reportes\Valorizacion\Ficha.cs" />
+    <Compile Include="Reportes\Valorizacion\Filtro.cs" />
     <Compile Include="Sucursal\Ficha.cs" />
     <Compile Include="Sucursal\Resumen.cs" />
     <Compile Include="TasaImpuesto\Resumen.cs" />

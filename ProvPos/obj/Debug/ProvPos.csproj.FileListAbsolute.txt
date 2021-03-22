@@ -1,4 +1,3 @@
-D:\Proyectos FoxSystem\CompraVenta\ProvPos\obj\Debug\ProvPos.csprojResolveAssemblyReference.cache
 D:\Proyectos FoxSystem\CompraVenta\ProvPos\bin\Debug\ProvPos.dll.config
 D:\Proyectos FoxSystem\CompraVenta\ProvPos\bin\Debug\ProvPos.dll
 D:\Proyectos FoxSystem\CompraVenta\ProvPos\bin\Debug\ProvPos.pdb
@@ -15,5 +14,6 @@ D:\Proyectos FoxSystem\CompraVenta\ProvPos\bin\Debug\IPos.pdb
 D:\Proyectos FoxSystem\CompraVenta\ProvPos\bin\Debug\LibEntityPos.pdb
 D:\Proyectos FoxSystem\CompraVenta\ProvPos\bin\Debug\EntityFramework.xml
 D:\Proyectos FoxSystem\CompraVenta\ProvPos\bin\Debug\EntityFramework.SqlServer.xml
+D:\Proyectos FoxSystem\CompraVenta\ProvPos\obj\Debug\ProvPos.csprojResolveAssemblyReference.cache
 D:\Proyectos FoxSystem\CompraVenta\ProvPos\obj\Debug\ProvPos.dll
 D:\Proyectos FoxSystem\CompraVenta\ProvPos\obj\Debug\ProvPos.pdb

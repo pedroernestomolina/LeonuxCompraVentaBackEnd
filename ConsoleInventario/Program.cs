@@ -233,7 +233,16 @@ namespace ConsoleInventario
             //};
             //var rt1 = invPrv.Producto_Analisis_Existencia(filtro);
 
-            var rt1 = invPrv.Grupo_GetListaByDepartamento("0000000002");
+            //var rt1 = invPrv.Grupo_GetListaByDepartamento("0000000002");
+
+            //var rt1 = invPrv.Configuracion_MetodoCalculoUtilidad_CapturarData();
+
+            //var filtro = new DtoLibInventario.Reportes.Valorizacion.Filtro()
+            //{
+            //    hasta = new DateTime(2021, 02, 15),
+            //};
+            //var rt1 = invPrv.Reportes_Valorizacion(filtro);
+
         }
 
     }

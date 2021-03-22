@@ -39,7 +39,7 @@ namespace ProvPos
                         }
 
                         var aCierre = cnn.Database.SqlQuery<int>("select a_cierre from sistema_contadores").FirstOrDefault();
-                        var autoCierre = ficha.idSucursal + ficha.idEquipo;
+                        var autoCierre = ficha.codSucursal + ficha.idEquipo;
                         autoCierre+=aCierre.ToString().Trim().PadLeft((10-autoCierre.Length), '0');
 
                         var op=ficha.operadorAbrir;
@@ -292,6 +292,94 @@ namespace ProvPos
                         result.Result = DtoLib.Enumerados.EnumResult.isError;
                         return result;
                     }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibPos.Pos.EnUso.Ficha> Jornada_EnUso_GetByIdEquipo(string idEquipo)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPos.Pos.EnUso.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+
+                    var nr = new DtoLibPos.Pos.EnUso.Ficha();
+                    var ent = cnn.p_operador.FirstOrDefault(f => f.id_equipo == idEquipo && f.estatus == "A");
+                    if (ent != null)
+                    {
+                        var codUsu="";
+                        var nomUsu="";
+                        var entUsuario= cnn.usuarios.Find(ent.auto_usuario);
+                        if (entUsuario!=null)
+                        {
+                            codUsu=entUsuario.codigo;
+                            nomUsu=entUsuario.nombre;
+                        }
+                        nr.id = ent.id;
+                        nr.idUsuario = ent.auto_usuario;
+                        nr.fechaApertura = ent.fecha_apertura;
+                        nr.horaApertura = ent.hora_apertura;
+                        nr.codUsuario=codUsu;
+                        nr.nomUsuario=nomUsu;
+                    }
+                    result.Entidad = nr;
+                    return result;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibPos.Pos.EnUso.Ficha> Jornada_EnUso_GetById(int id)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPos.Pos.EnUso.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = cnn.p_operador.Find(id);
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] JORNADA NO ENCONTRADA";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var codUsu = "";
+                    var nomUsu = "";
+                    var entUsuario = cnn.usuarios.Find(ent.auto_usuario);
+                    if (entUsuario != null)
+                    {
+                        codUsu = entUsuario.codigo;
+                        nomUsu = entUsuario.nombre;
+                    }
+                    var nr = new DtoLibPos.Pos.EnUso.Ficha()
+                    {
+                        id = ent.id,
+                        idUsuario = ent.auto_usuario,
+                        fechaApertura = ent.fecha_apertura,
+                        horaApertura = ent.hora_apertura,
+                        codUsuario = codUsu,
+                        nomUsuario = nomUsu,
+                    };
+                    result.Entidad = nr;
+
+                    return result;
                 }
             }
             catch (Exception e)

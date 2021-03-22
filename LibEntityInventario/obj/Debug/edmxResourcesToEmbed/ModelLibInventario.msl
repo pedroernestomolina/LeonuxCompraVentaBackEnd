@@ -558,5 +558,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="productos_movimientos_extra">
+      <EntityTypeMapping TypeName="invModel.productos_movimientos_extra">
+        <MappingFragment StoreEntitySet="productos_movimientos_extra">
+          <ScalarProperty Name="monto_divisa" ColumnName="monto_divisa" />
+          <ScalarProperty Name="factor_cambio" ColumnName="factor_cambio" />
+          <ScalarProperty Name="auto_movimiento" ColumnName="auto_movimiento" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

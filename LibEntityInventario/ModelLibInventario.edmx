@@ -552,6 +552,15 @@ warning 6002: The table/view 'pita.productos_movimientos_detalle' does not have 
           <Property Name="auto_grupo" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="productos_movimientos_extra">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="auto_movimiento" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="factor_cambio" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="monto_divisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="productos_precios">
           <Key>
             <PropertyRef Name="id" />
@@ -1005,6 +1014,7 @@ warning 6002: The table/view 'pita.productos_movimientos_detalle' does not have 
           <EntitySet Name="productos_marca" EntityType="Self.productos_marca" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_medida" EntityType="Self.productos_medida" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_movimientos" EntityType="Self.productos_movimientos" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="productos_movimientos_extra" EntityType="Self.productos_movimientos_extra" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_precios" EntityType="Self.productos_precios" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_proveedor" EntityType="Self.productos_proveedor" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_subgrupo" EntityType="Self.productos_subgrupo" Schema="pita" store:Type="Tables" />
@@ -1500,6 +1510,7 @@ FROM `productos_movimientos_detalle` AS `productos_movimientos_detalle`</Definin
             <End Role="productos_conceptos" EntitySet="productos_conceptos" />
             <End Role="productos_kardex" EntitySet="productos_kardex" />
           </AssociationSet>
+          <EntitySet Name="productos_movimientos_extra" EntityType="invModel.productos_movimientos_extra" />
         </EntityContainer>
         <EntityType Name="empresa_departamentos">
           <Key>
@@ -2416,6 +2427,15 @@ FROM `productos_movimientos_detalle` AS `productos_movimientos_detalle`</Definin
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="productos_movimientos_extra">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="auto_movimiento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="factor_cambio" Type="Decimal" Nullable="false" />
+          <Property Name="monto_divisa" Type="Decimal" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2976,6 +2996,16 @@ FROM `productos_movimientos_detalle` AS `productos_movimientos_detalle`</Definin
                 <ScalarProperty Name="auto_deposito" ColumnName="auto_deposito" />
                 <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="auto_producto" ColumnName="auto_producto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos_movimientos_extra">
+            <EntityTypeMapping TypeName="invModel.productos_movimientos_extra">
+              <MappingFragment StoreEntitySet="productos_movimientos_extra">
+                <ScalarProperty Name="monto_divisa" ColumnName="monto_divisa" />
+                <ScalarProperty Name="factor_cambio" ColumnName="factor_cambio" />
+                <ScalarProperty Name="auto_movimiento" ColumnName="auto_movimiento" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

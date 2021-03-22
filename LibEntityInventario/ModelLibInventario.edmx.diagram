@@ -58,6 +58,7 @@
         <AssociationConnector Association="invModel.productos_kardex_ibfk_2" />
         <AssociationConnector Association="invModel.productos_kardex_ibfk_1" />
         <AssociationConnector Association="invModel.productos_kardex_ibfk_3" />
+        <EntityTypeShape EntityType="invModel.productos_movimientos_extra" Width="1.5" PointX="6.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

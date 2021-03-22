@@ -837,6 +837,71 @@ namespace ProvLibInventario
             return rt;
         }
 
+        public DtoLib.ResultadoLista<DtoLibInventario.Reportes.Valorizacion.Ficha> Reportes_Valorizacion(DtoLibInventario.Reportes.Valorizacion.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibInventario.Reportes.Valorizacion.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+
+                    var sql_2 = "";
+                    var sql_3 = "";
+                    var sql_1 = @"select v3.*,
+                                    (select costo 
+		                                    from productos_costos
+		                                    where id=
+                                        			(
+				                                        SELECT max(id) as id
+				                                        FROM productos_costos 
+				                                        WHERE fecha<=@p1 and auto_producto=v3.auto and serie<>'MAN'
+				                                        group by auto_producto
+			                                        )
+	                                ) as costoHist
+                                  from
+                                    (select v1.*, v2.cntUnd
+		                                    from
+			                                (
+			                                    SELECT p.auto, p.codigo, p.nombre, p.costo_Und as costoUnd, p.contenido_compras as contEmpComp, ed.nombre as departamento, pg.nombre as grupo
+			                                    FROM `productos` as p
+                                                join empresa_departamentos as ed on p.auto_departamento=ed.auto
+                                                join productos_grupo as pg on p.auto_grupo=pg.auto
+			                                    where p.estatus='Activo' and p.categoria='Producto Terminado'
+			                                ) as v1
+                                            join 
+			                                (
+			                                    select auto_producto, sum(cantidad_und*signo) as cntUnd
+			                                    from productos_kardex
+			                                    where estatus_anulado='0' and fecha<=@p1
+			                                    group by auto_producto
+			                                ) as v2 on v2.auto_producto=v1.auto
+                                    ) as v3";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p5 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@p1";
+                    p1.Value = filtro.hasta;
+
+                    var sql = sql_1 + sql_2 + sql_3;
+                    cnn.Database.CommandTimeout = 0;
+                    var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.Valorizacion.Ficha>(sql, p1, p2, p3, p4, p5).ToList();
+                    rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
     }
 
 }

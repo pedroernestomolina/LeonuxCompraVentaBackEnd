@@ -77,6 +77,7 @@
     <Compile Include="Pos\Abrir\Resumen.cs" />
     <Compile Include="Pos\Cerrar\Arqueo.cs" />
     <Compile Include="Pos\Cerrar\Ficha.cs" />
+    <Compile Include="Pos\EnUso\Ficha.cs" />
     <Compile Include="Producto\Entidad\Ficha.cs" />
     <Compile Include="Producto\Entidad\Precio.cs" />
     <Compile Include="Producto\Lista\Ficha.cs" />

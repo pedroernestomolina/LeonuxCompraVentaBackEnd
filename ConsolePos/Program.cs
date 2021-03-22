@@ -124,6 +124,7 @@ namespace ConsolePos
             //var r02 = posProv.Configuracion_Pos_Actualizar(ficha);
             //var r01 = posProv.Configuracion_Pos_GetFicha();
 
+            //var r01 = posProv.Jornada_EnUso_GetByIdEquipo("1");
         }
     }
 
