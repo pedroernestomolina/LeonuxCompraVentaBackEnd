@@ -716,5 +716,47 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="empresa_departamentos">
+      <EntityTypeMapping TypeName="PosModel.empresa_departamentos">
+        <MappingFragment StoreEntitySet="empresa_departamentos">
+          <ScalarProperty Name="comision_4" ColumnName="comision_4" />
+          <ScalarProperty Name="comision_3" ColumnName="comision_3" />
+          <ScalarProperty Name="comision_2" ColumnName="comision_2" />
+          <ScalarProperty Name="comision_1" ColumnName="comision_1" />
+          <ScalarProperty Name="comision_g" ColumnName="comision_g" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productos_grupo">
+      <EntityTypeMapping TypeName="PosModel.productos_grupo">
+        <MappingFragment StoreEntitySet="productos_grupo">
+          <ScalarProperty Name="estatus_catalogo" ColumnName="estatus_catalogo" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productos_marca">
+      <EntityTypeMapping TypeName="PosModel.productos_marca">
+        <MappingFragment StoreEntitySet="productos_marca">
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productos_medida">
+      <EntityTypeMapping TypeName="PosModel.productos_medida">
+        <MappingFragment StoreEntitySet="productos_medida">
+          <ScalarProperty Name="decimales" ColumnName="decimales" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -1,3 +1,4 @@
+D:\Proyectos FoxSystem\CompraVenta\ProvLibCajaBanco\bin\Debug\EntityFramework.xml
 D:\Proyectos FoxSystem\CompraVenta\ProvLibCajaBanco\bin\Debug\ProvLibCajaBanco.dll.config
 D:\Proyectos FoxSystem\CompraVenta\ProvLibCajaBanco\bin\Debug\ProvLibCajaBanco.dll
 D:\Proyectos FoxSystem\CompraVenta\ProvLibCajaBanco\bin\Debug\ProvLibCajaBanco.pdb
@@ -12,7 +13,6 @@ D:\Proyectos FoxSystem\CompraVenta\ProvLibCajaBanco\bin\Debug\DtoLibCajaBanco.pd
 D:\Proyectos FoxSystem\CompraVenta\ProvLibCajaBanco\bin\Debug\DtoLib.pdb
 D:\Proyectos FoxSystem\CompraVenta\ProvLibCajaBanco\bin\Debug\ILibCajaBanco.pdb
 D:\Proyectos FoxSystem\CompraVenta\ProvLibCajaBanco\bin\Debug\LibEntityCajaBanco.pdb
-D:\Proyectos FoxSystem\CompraVenta\ProvLibCajaBanco\bin\Debug\EntityFramework.xml
 D:\Proyectos FoxSystem\CompraVenta\ProvLibCajaBanco\bin\Debug\EntityFramework.SqlServer.xml
 D:\Proyectos FoxSystem\CompraVenta\ProvLibCajaBanco\obj\Debug\ProvLibCajaBanco.csprojResolveAssemblyReference.cache
 D:\Proyectos FoxSystem\CompraVenta\ProvLibCajaBanco\obj\Debug\ProvLibCajaBanco.dll

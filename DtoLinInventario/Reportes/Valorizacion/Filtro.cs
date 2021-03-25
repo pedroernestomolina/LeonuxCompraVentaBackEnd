@@ -12,11 +12,13 @@ namespace DtoLibInventario.Reportes.Valorizacion
     {
 
         public DateTime hasta { get; set; }
+        public string idDeposito { get; set; }
 
 
         public Filtro()
         {
             hasta = DateTime.Now.Date;
+            idDeposito = "";
         }
 
     }

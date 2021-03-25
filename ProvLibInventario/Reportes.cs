@@ -848,8 +848,23 @@ namespace ProvLibInventario
 
                     var sql_2 = "";
                     var sql_3 = "";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p5 = new MySql.Data.MySqlClient.MySqlParameter();
+                    
+                    var xdep = "";
+                    if (filtro.idDeposito != "") 
+                    {
+                        xdep = " and  auto_deposito=@p2 ";
+                        p2.ParameterName="@p2";
+                        p2.Value = filtro.idDeposito;
+                    };
+
                     var sql_1 = @"select v3.*,
-                                    (select costo 
+                                    (select costo_divisa 
 		                                    from productos_costos
 		                                    where id=
                                         			(
@@ -863,7 +878,7 @@ namespace ProvLibInventario
                                     (select v1.*, v2.cntUnd
 		                                    from
 			                                (
-			                                    SELECT p.auto, p.codigo, p.nombre, p.costo_Und as costoUnd, p.contenido_compras as contEmpComp, ed.nombre as departamento, pg.nombre as grupo
+			                                    SELECT p.auto, p.codigo, p.nombre, p.costo_Und as costoUnd, p.contenido_compras as contEmpComp, ed.nombre as departamento, pg.nombre as grupo, p.divisa
 			                                    FROM `productos` as p
                                                 join empresa_departamentos as ed on p.auto_departamento=ed.auto
                                                 join productos_grupo as pg on p.auto_grupo=pg.auto
@@ -873,16 +888,10 @@ namespace ProvLibInventario
 			                                (
 			                                    select auto_producto, sum(cantidad_und*signo) as cntUnd
 			                                    from productos_kardex
-			                                    where estatus_anulado='0' and fecha<=@p1
+			                                    where estatus_anulado='0' and fecha<=@p1 "+ xdep +@" 
 			                                    group by auto_producto
 			                                ) as v2 on v2.auto_producto=v1.auto
                                     ) as v3";
-
-                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
-                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
-                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
-                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
-                    var p5 = new MySql.Data.MySqlClient.MySqlParameter();
 
                     p1.ParameterName = "@p1";
                     p1.Value = filtro.hasta;

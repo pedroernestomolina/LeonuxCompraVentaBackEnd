@@ -240,6 +240,7 @@ namespace ConsoleInventario
             //var filtro = new DtoLibInventario.Reportes.Valorizacion.Filtro()
             //{
             //    hasta = new DateTime(2021, 02, 15),
+            //    idDeposito="0000000004",
             //};
             //var rt1 = invPrv.Reportes_Valorizacion(filtro);
 

@@ -153,6 +153,19 @@
           <Property Name="comision" Type="decimal" Precision="6" Scale="2" Nullable="false" />
           <Property Name="contrato" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="empresa_departamentos">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="comision_g" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="comision_1" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="comision_2" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="comision_3" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="comision_4" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="empresa_depositos">
           <Key>
             <PropertyRef Name="auto" />
@@ -482,6 +495,31 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
           <Property Name="fecha_conteo" Type="date" Nullable="false" />
           <Property Name="resultado_conteo" Type="decimal" Precision="14" Scale="3" Nullable="false" />
           <Property Name="averia" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="productos_grupo">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="estatus_catalogo" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="productos_marca">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="productos_medida">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="decimales" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="sistema_configuracion">
           <Key>
@@ -957,6 +995,42 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="productos_ibfk_1">
+          <End Role="empresa_departamentos" Type="Self.empresa_departamentos" Multiplicity="1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empresa_departamentos">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_departamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="productos_ibfk_10">
+          <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_medida">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_precio_4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="productos_ibfk_11">
+          <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_medida">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_precio_pto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="productos_ibfk_12">
           <End Role="empresa_tasas" Type="Self.empresa_tasas" Multiplicity="1" />
           <End Role="productos" Type="Self.productos" Multiplicity="*" />
@@ -969,6 +1043,78 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="productos_ibfk_2">
+          <End Role="productos_grupo" Type="Self.productos_grupo" Multiplicity="1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_grupo">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="productos_ibfk_4">
+          <End Role="productos_marca" Type="Self.productos_marca" Multiplicity="1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_marca">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_marca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="productos_ibfk_5">
+          <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_medida">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_empaque_compra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="productos_ibfk_7">
+          <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_medida">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_precio_1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="productos_ibfk_8">
+          <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_medida">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_precio_2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="productos_ibfk_9">
+          <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_medida">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_precio_3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="ventas_detalle_ibfk_1">
           <End Role="productos" Type="Self.productos" Multiplicity="1" />
           <End Role="ventas_detalle" Type="Self.ventas_detalle" Multiplicity="*" />
@@ -978,6 +1124,30 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
             </Principal>
             <Dependent Role="ventas_detalle">
               <PropertyRef Name="auto_producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ventas_detalle_ibfk_2">
+          <End Role="empresa_departamentos" Type="Self.empresa_departamentos" Multiplicity="1" />
+          <End Role="ventas_detalle" Type="Self.ventas_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empresa_departamentos">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="ventas_detalle">
+              <PropertyRef Name="auto_departamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ventas_detalle_ibfk_3">
+          <End Role="productos_grupo" Type="Self.productos_grupo" Multiplicity="1" />
+          <End Role="ventas_detalle" Type="Self.ventas_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_grupo">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="ventas_detalle">
+              <PropertyRef Name="auto_grupo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1082,6 +1252,7 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
           <EntitySet Name="cxc" EntityType="Self.cxc" Schema="pita" store:Type="Tables" />
           <EntitySet Name="cxc_recibos" EntityType="Self.cxc_recibos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_cobradores" EntityType="Self.empresa_cobradores" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="empresa_departamentos" EntityType="Self.empresa_departamentos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_depositos" EntityType="Self.empresa_depositos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_medios" EntityType="Self.empresa_medios" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
@@ -1094,6 +1265,9 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
           <EntitySet Name="productos_alterno" EntityType="Self.productos_alterno" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_conceptos" EntityType="Self.productos_conceptos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_deposito" EntityType="Self.productos_deposito" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="productos_grupo" EntityType="Self.productos_grupo" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="productos_marca" EntityType="Self.productos_marca" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="productos_medida" EntityType="Self.productos_medida" Schema="pita" store:Type="Tables" />
           <EntitySet Name="sistema_configuracion" EntityType="Self.sistema_configuracion" Schema="pita" store:Type="Tables" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="pita" store:Type="Tables" />
           <EntitySet Name="usuarios_grupo" EntityType="Self.usuarios_grupo" Schema="pita" store:Type="Tables" />
@@ -1266,12 +1440,56 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
             <End Role="empresa_depositos" EntitySet="empresa_depositos" />
             <End Role="productos_deposito" EntitySet="productos_deposito" />
           </AssociationSet>
+          <AssociationSet Name="productos_ibfk_1" Association="Self.productos_ibfk_1">
+            <End Role="empresa_departamentos" EntitySet="empresa_departamentos" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="productos_ibfk_10" Association="Self.productos_ibfk_10">
+            <End Role="productos_medida" EntitySet="productos_medida" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="productos_ibfk_11" Association="Self.productos_ibfk_11">
+            <End Role="productos_medida" EntitySet="productos_medida" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
           <AssociationSet Name="productos_ibfk_12" Association="Self.productos_ibfk_12">
             <End Role="empresa_tasas" EntitySet="empresa_tasas" />
             <End Role="productos" EntitySet="productos" />
           </AssociationSet>
+          <AssociationSet Name="productos_ibfk_2" Association="Self.productos_ibfk_2">
+            <End Role="productos_grupo" EntitySet="productos_grupo" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="productos_ibfk_4" Association="Self.productos_ibfk_4">
+            <End Role="productos_marca" EntitySet="productos_marca" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="productos_ibfk_5" Association="Self.productos_ibfk_5">
+            <End Role="productos_medida" EntitySet="productos_medida" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="productos_ibfk_7" Association="Self.productos_ibfk_7">
+            <End Role="productos_medida" EntitySet="productos_medida" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="productos_ibfk_8" Association="Self.productos_ibfk_8">
+            <End Role="productos_medida" EntitySet="productos_medida" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="productos_ibfk_9" Association="Self.productos_ibfk_9">
+            <End Role="productos_medida" EntitySet="productos_medida" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
           <AssociationSet Name="ventas_detalle_ibfk_1" Association="Self.ventas_detalle_ibfk_1">
             <End Role="productos" EntitySet="productos" />
+            <End Role="ventas_detalle" EntitySet="ventas_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="ventas_detalle_ibfk_2" Association="Self.ventas_detalle_ibfk_2">
+            <End Role="empresa_departamentos" EntitySet="empresa_departamentos" />
+            <End Role="ventas_detalle" EntitySet="ventas_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="ventas_detalle_ibfk_3" Association="Self.ventas_detalle_ibfk_3">
+            <End Role="productos_grupo" EntitySet="productos_grupo" />
             <End Role="ventas_detalle" EntitySet="ventas_detalle" />
           </AssociationSet>
           <AssociationSet Name="ventas_detalle_ibfk_5" Association="Self.ventas_detalle_ibfk_5">
@@ -1410,6 +1628,15 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
           <NavigationProperty Name="ventas_detalle" Relationship="Self.ventas_detalle_ibfk_1" FromRole="productos" ToRole="ventas_detalle" />
           <NavigationProperty Name="empresa_tasas" Relationship="PosModel.productos_ibfk_12" FromRole="productos" ToRole="empresa_tasas" />
           <NavigationProperty Name="productos_deposito" Relationship="PosModel.productos_deposito_ibfk_1" FromRole="productos" ToRole="productos_deposito" />
+          <NavigationProperty Name="empresa_departamentos" Relationship="PosModel.productos_ibfk_1" FromRole="productos" ToRole="empresa_departamentos" />
+          <NavigationProperty Name="productos_grupo" Relationship="PosModel.productos_ibfk_2" FromRole="productos" ToRole="productos_grupo" />
+          <NavigationProperty Name="productos_marca" Relationship="PosModel.productos_ibfk_4" FromRole="productos" ToRole="productos_marca" />
+          <NavigationProperty Name="productos_medida" Relationship="PosModel.productos_ibfk_10" FromRole="productos" ToRole="productos_medida" />
+          <NavigationProperty Name="productos_medida1" Relationship="PosModel.productos_ibfk_11" FromRole="productos" ToRole="productos_medida" />
+          <NavigationProperty Name="productos_medida2" Relationship="PosModel.productos_ibfk_5" FromRole="productos" ToRole="productos_medida" />
+          <NavigationProperty Name="productos_medida3" Relationship="PosModel.productos_ibfk_7" FromRole="productos" ToRole="productos_medida" />
+          <NavigationProperty Name="productos_medida4" Relationship="PosModel.productos_ibfk_8" FromRole="productos" ToRole="productos_medida" />
+          <NavigationProperty Name="productos_medida5" Relationship="PosModel.productos_ibfk_9" FromRole="productos" ToRole="productos_medida" />
         </EntityType>
         <EntityType Name="productos_alterno">
           <Key>
@@ -1677,6 +1904,8 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
           <NavigationProperty Name="empresa_depositos" Relationship="PosModel.ventas_detalle_ibfk_5" FromRole="ventas_detalle" ToRole="empresa_depositos" />
           <NavigationProperty Name="vendedores" Relationship="PosModel.ventas_detalle_ibfk_9" FromRole="ventas_detalle" ToRole="vendedores" />
           <NavigationProperty Name="empresa_tasas" Relationship="PosModel.ventas_detalle_ibfk_7" FromRole="ventas_detalle" ToRole="empresa_tasas" />
+          <NavigationProperty Name="empresa_departamentos" Relationship="PosModel.ventas_detalle_ibfk_2" FromRole="ventas_detalle" ToRole="empresa_departamentos" />
+          <NavigationProperty Name="productos_grupo" Relationship="PosModel.ventas_detalle_ibfk_3" FromRole="ventas_detalle" ToRole="productos_grupo" />
         </EntityType>
         <Association Name="productos_alterno_ibfk_1">
           <End Role="productos" Type="Self.productos" Multiplicity="1">
@@ -1828,6 +2057,54 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
             <End Role="productos_deposito" EntitySet="productos_deposito" />
           </AssociationSet>
           <EntitySet Name="p_configuracion" EntityType="PosModel.p_configuracion" />
+          <EntitySet Name="empresa_departamentos" EntityType="PosModel.empresa_departamentos" />
+          <EntitySet Name="productos_grupo" EntityType="PosModel.productos_grupo" />
+          <EntitySet Name="productos_marca" EntityType="PosModel.productos_marca" />
+          <AssociationSet Name="productos_ibfk_1" Association="PosModel.productos_ibfk_1">
+            <End Role="empresa_departamentos" EntitySet="empresa_departamentos" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="ventas_detalle_ibfk_2" Association="PosModel.ventas_detalle_ibfk_2">
+            <End Role="empresa_departamentos" EntitySet="empresa_departamentos" />
+            <End Role="ventas_detalle" EntitySet="ventas_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="productos_ibfk_2" Association="PosModel.productos_ibfk_2">
+            <End Role="productos_grupo" EntitySet="productos_grupo" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="productos_ibfk_4" Association="PosModel.productos_ibfk_4">
+            <End Role="productos_marca" EntitySet="productos_marca" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="ventas_detalle_ibfk_3" Association="PosModel.ventas_detalle_ibfk_3">
+            <End Role="productos_grupo" EntitySet="productos_grupo" />
+            <End Role="ventas_detalle" EntitySet="ventas_detalle" />
+          </AssociationSet>
+          <EntitySet Name="productos_medida" EntityType="PosModel.productos_medida" />
+          <AssociationSet Name="productos_ibfk_10" Association="PosModel.productos_ibfk_10">
+            <End Role="productos_medida" EntitySet="productos_medida" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="productos_ibfk_11" Association="PosModel.productos_ibfk_11">
+            <End Role="productos_medida" EntitySet="productos_medida" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="productos_ibfk_5" Association="PosModel.productos_ibfk_5">
+            <End Role="productos_medida" EntitySet="productos_medida" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="productos_ibfk_7" Association="PosModel.productos_ibfk_7">
+            <End Role="productos_medida" EntitySet="productos_medida" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="productos_ibfk_8" Association="PosModel.productos_ibfk_8">
+            <End Role="productos_medida" EntitySet="productos_medida" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="productos_ibfk_9" Association="PosModel.productos_ibfk_9">
+            <End Role="productos_medida" EntitySet="productos_medida" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="clientes">
           <Key>
@@ -2536,6 +2813,187 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
           <Property Name="idConceptoSalida" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="idMedioPagoElectronico" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="empresa_departamentos">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="comision_g" Type="Decimal" Nullable="false" />
+          <Property Name="comision_1" Type="Decimal" Nullable="false" />
+          <Property Name="comision_2" Type="Decimal" Nullable="false" />
+          <Property Name="comision_3" Type="Decimal" Nullable="false" />
+          <Property Name="comision_4" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="productos" Relationship="PosModel.productos_ibfk_1" FromRole="empresa_departamentos" ToRole="productos" />
+          <NavigationProperty Name="ventas_detalle" Relationship="PosModel.ventas_detalle_ibfk_2" FromRole="empresa_departamentos" ToRole="ventas_detalle" />
+        </EntityType>
+        <EntityType Name="productos_grupo">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="estatus_catalogo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="productos" Relationship="PosModel.productos_ibfk_2" FromRole="productos_grupo" ToRole="productos" />
+          <NavigationProperty Name="ventas_detalle" Relationship="PosModel.ventas_detalle_ibfk_3" FromRole="productos_grupo" ToRole="ventas_detalle" />
+        </EntityType>
+        <EntityType Name="productos_marca">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="tipo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="productos" Relationship="PosModel.productos_ibfk_4" FromRole="productos_marca" ToRole="productos" />
+        </EntityType>
+        <Association Name="productos_ibfk_1">
+          <End Type="PosModel.empresa_departamentos" Role="empresa_departamentos" Multiplicity="1" />
+          <End Type="PosModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empresa_departamentos">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_departamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ventas_detalle_ibfk_2">
+          <End Type="PosModel.empresa_departamentos" Role="empresa_departamentos" Multiplicity="1" />
+          <End Type="PosModel.ventas_detalle" Role="ventas_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empresa_departamentos">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="ventas_detalle">
+              <PropertyRef Name="auto_departamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="productos_ibfk_2">
+          <End Type="PosModel.productos_grupo" Role="productos_grupo" Multiplicity="1" />
+          <End Type="PosModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_grupo">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="productos_ibfk_4">
+          <End Type="PosModel.productos_marca" Role="productos_marca" Multiplicity="1" />
+          <End Type="PosModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_marca">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_marca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ventas_detalle_ibfk_3">
+          <End Type="PosModel.productos_grupo" Role="productos_grupo" Multiplicity="1" />
+          <End Type="PosModel.ventas_detalle" Role="ventas_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_grupo">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="ventas_detalle">
+              <PropertyRef Name="auto_grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="productos_medida">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="decimales" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="productos" Relationship="PosModel.productos_ibfk_10" FromRole="productos_medida" ToRole="productos" />
+          <NavigationProperty Name="productos1" Relationship="PosModel.productos_ibfk_11" FromRole="productos_medida" ToRole="productos" />
+          <NavigationProperty Name="productos2" Relationship="PosModel.productos_ibfk_5" FromRole="productos_medida" ToRole="productos" />
+          <NavigationProperty Name="productos3" Relationship="PosModel.productos_ibfk_7" FromRole="productos_medida" ToRole="productos" />
+          <NavigationProperty Name="productos4" Relationship="PosModel.productos_ibfk_8" FromRole="productos_medida" ToRole="productos" />
+          <NavigationProperty Name="productos5" Relationship="PosModel.productos_ibfk_9" FromRole="productos_medida" ToRole="productos" />
+        </EntityType>
+        <Association Name="productos_ibfk_10">
+          <End Type="PosModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+          <End Type="PosModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_medida">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_precio_4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="productos_ibfk_11">
+          <End Type="PosModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+          <End Type="PosModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_medida">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_precio_pto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="productos_ibfk_5">
+          <End Type="PosModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+          <End Type="PosModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_medida">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_empaque_compra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="productos_ibfk_7">
+          <End Type="PosModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+          <End Type="PosModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_medida">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_precio_1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="productos_ibfk_8">
+          <End Type="PosModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+          <End Type="PosModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_medida">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_precio_2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="productos_ibfk_9">
+          <End Type="PosModel.productos_medida" Role="productos_medida" Multiplicity="1" />
+          <End Type="PosModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_medida">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="auto_precio_3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3254,6 +3712,48 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
                 <ScalarProperty Name="idDeposito" ColumnName="idDeposito" />
                 <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empresa_departamentos">
+            <EntityTypeMapping TypeName="PosModel.empresa_departamentos">
+              <MappingFragment StoreEntitySet="empresa_departamentos">
+                <ScalarProperty Name="comision_4" ColumnName="comision_4" />
+                <ScalarProperty Name="comision_3" ColumnName="comision_3" />
+                <ScalarProperty Name="comision_2" ColumnName="comision_2" />
+                <ScalarProperty Name="comision_1" ColumnName="comision_1" />
+                <ScalarProperty Name="comision_g" ColumnName="comision_g" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos_grupo">
+            <EntityTypeMapping TypeName="PosModel.productos_grupo">
+              <MappingFragment StoreEntitySet="productos_grupo">
+                <ScalarProperty Name="estatus_catalogo" ColumnName="estatus_catalogo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos_marca">
+            <EntityTypeMapping TypeName="PosModel.productos_marca">
+              <MappingFragment StoreEntitySet="productos_marca">
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos_medida">
+            <EntityTypeMapping TypeName="PosModel.productos_medida">
+              <MappingFragment StoreEntitySet="productos_medida">
+                <ScalarProperty Name="decimales" ColumnName="decimales" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

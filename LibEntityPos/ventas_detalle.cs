@@ -89,5 +89,7 @@ namespace LibEntityPos
         public virtual empresa_depositos empresa_depositos { get; set; }
         public virtual vendedores vendedores { get; set; }
         public virtual empresa_tasas empresa_tasas { get; set; }
+        public virtual empresa_departamentos empresa_departamentos { get; set; }
+        public virtual productos_grupo productos_grupo { get; set; }
     }
 }

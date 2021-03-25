@@ -121,5 +121,14 @@ namespace LibEntityPos
         public virtual empresa_tasas empresa_tasas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productos_deposito> productos_deposito { get; set; }
+        public virtual empresa_departamentos empresa_departamentos { get; set; }
+        public virtual productos_grupo productos_grupo { get; set; }
+        public virtual productos_marca productos_marca { get; set; }
+        public virtual productos_medida productos_medida { get; set; }
+        public virtual productos_medida productos_medida1 { get; set; }
+        public virtual productos_medida productos_medida2 { get; set; }
+        public virtual productos_medida productos_medida3 { get; set; }
+        public virtual productos_medida productos_medida4 { get; set; }
+        public virtual productos_medida productos_medida5 { get; set; }
     }
 }

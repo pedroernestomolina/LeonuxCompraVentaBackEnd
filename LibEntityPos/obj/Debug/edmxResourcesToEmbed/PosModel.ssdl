@@ -148,6 +148,19 @@
     <Property Name="comision" Type="decimal" Precision="6" Scale="2" Nullable="false" />
     <Property Name="contrato" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
+  <EntityType Name="empresa_departamentos">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="comision_g" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="comision_1" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="comision_2" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="comision_3" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="comision_4" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+  </EntityType>
   <EntityType Name="empresa_depositos">
     <Key>
       <PropertyRef Name="auto" />
@@ -477,6 +490,31 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
     <Property Name="fecha_conteo" Type="date" Nullable="false" />
     <Property Name="resultado_conteo" Type="decimal" Precision="14" Scale="3" Nullable="false" />
     <Property Name="averia" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+  </EntityType>
+  <EntityType Name="productos_grupo">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="estatus_catalogo" Type="varchar" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="productos_marca">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="tipo" Type="varchar" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="productos_medida">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="decimales" Type="varchar" MaxLength="1" Nullable="false" />
   </EntityType>
   <EntityType Name="sistema_configuracion">
     <Key>
@@ -952,6 +990,42 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="productos_ibfk_1">
+    <End Role="empresa_departamentos" Type="Self.empresa_departamentos" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_departamentos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_departamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_10">
+    <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_4" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_11">
+    <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_pto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="productos_ibfk_12">
     <End Role="empresa_tasas" Type="Self.empresa_tasas" Multiplicity="1" />
     <End Role="productos" Type="Self.productos" Multiplicity="*" />
@@ -964,6 +1038,78 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="productos_ibfk_2">
+    <End Role="productos_grupo" Type="Self.productos_grupo" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_grupo">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_grupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_4">
+    <End Role="productos_marca" Type="Self.productos_marca" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_marca">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_marca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_5">
+    <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_empaque_compra" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_7">
+    <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_8">
+    <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productos_ibfk_9">
+    <End Role="productos_medida" Type="Self.productos_medida" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_medida">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="auto_precio_3" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="ventas_detalle_ibfk_1">
     <End Role="productos" Type="Self.productos" Multiplicity="1" />
     <End Role="ventas_detalle" Type="Self.ventas_detalle" Multiplicity="*" />
@@ -973,6 +1119,30 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
       </Principal>
       <Dependent Role="ventas_detalle">
         <PropertyRef Name="auto_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ventas_detalle_ibfk_2">
+    <End Role="empresa_departamentos" Type="Self.empresa_departamentos" Multiplicity="1" />
+    <End Role="ventas_detalle" Type="Self.ventas_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empresa_departamentos">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="ventas_detalle">
+        <PropertyRef Name="auto_departamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ventas_detalle_ibfk_3">
+    <End Role="productos_grupo" Type="Self.productos_grupo" Multiplicity="1" />
+    <End Role="ventas_detalle" Type="Self.ventas_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_grupo">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="ventas_detalle">
+        <PropertyRef Name="auto_grupo" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1077,6 +1247,7 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
     <EntitySet Name="cxc" EntityType="Self.cxc" Schema="pita" store:Type="Tables" />
     <EntitySet Name="cxc_recibos" EntityType="Self.cxc_recibos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_cobradores" EntityType="Self.empresa_cobradores" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="empresa_departamentos" EntityType="Self.empresa_departamentos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_depositos" EntityType="Self.empresa_depositos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_medios" EntityType="Self.empresa_medios" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
@@ -1089,6 +1260,9 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
     <EntitySet Name="productos_alterno" EntityType="Self.productos_alterno" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_conceptos" EntityType="Self.productos_conceptos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_deposito" EntityType="Self.productos_deposito" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_grupo" EntityType="Self.productos_grupo" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_marca" EntityType="Self.productos_marca" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_medida" EntityType="Self.productos_medida" Schema="pita" store:Type="Tables" />
     <EntitySet Name="sistema_configuracion" EntityType="Self.sistema_configuracion" Schema="pita" store:Type="Tables" />
     <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="pita" store:Type="Tables" />
     <EntitySet Name="usuarios_grupo" EntityType="Self.usuarios_grupo" Schema="pita" store:Type="Tables" />
@@ -1261,12 +1435,56 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
       <End Role="empresa_depositos" EntitySet="empresa_depositos" />
       <End Role="productos_deposito" EntitySet="productos_deposito" />
     </AssociationSet>
+    <AssociationSet Name="productos_ibfk_1" Association="Self.productos_ibfk_1">
+      <End Role="empresa_departamentos" EntitySet="empresa_departamentos" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_10" Association="Self.productos_ibfk_10">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_11" Association="Self.productos_ibfk_11">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
     <AssociationSet Name="productos_ibfk_12" Association="Self.productos_ibfk_12">
       <End Role="empresa_tasas" EntitySet="empresa_tasas" />
       <End Role="productos" EntitySet="productos" />
     </AssociationSet>
+    <AssociationSet Name="productos_ibfk_2" Association="Self.productos_ibfk_2">
+      <End Role="productos_grupo" EntitySet="productos_grupo" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_4" Association="Self.productos_ibfk_4">
+      <End Role="productos_marca" EntitySet="productos_marca" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_5" Association="Self.productos_ibfk_5">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_7" Association="Self.productos_ibfk_7">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_8" Association="Self.productos_ibfk_8">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="productos_ibfk_9" Association="Self.productos_ibfk_9">
+      <End Role="productos_medida" EntitySet="productos_medida" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
     <AssociationSet Name="ventas_detalle_ibfk_1" Association="Self.ventas_detalle_ibfk_1">
       <End Role="productos" EntitySet="productos" />
+      <End Role="ventas_detalle" EntitySet="ventas_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="ventas_detalle_ibfk_2" Association="Self.ventas_detalle_ibfk_2">
+      <End Role="empresa_departamentos" EntitySet="empresa_departamentos" />
+      <End Role="ventas_detalle" EntitySet="ventas_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="ventas_detalle_ibfk_3" Association="Self.ventas_detalle_ibfk_3">
+      <End Role="productos_grupo" EntitySet="productos_grupo" />
       <End Role="ventas_detalle" EntitySet="ventas_detalle" />
     </AssociationSet>
     <AssociationSet Name="ventas_detalle_ibfk_5" Association="Self.ventas_detalle_ibfk_5">

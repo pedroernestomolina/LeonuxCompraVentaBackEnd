@@ -98,6 +98,292 @@ namespace ProvPos
             return rt;
         }
 
+        public DtoLib.ResultadoAuto Producto_BusquedaByCodigo(string buscar)
+        {
+            var result = new DtoLib.ResultadoAuto();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = cnn.productos.FirstOrDefault(f=>f.codigo==buscar);
+                    if (ent == null)
+                    {
+                        result.Auto = "";
+                    }
+                    else 
+                    {
+                        result.Auto = ent.auto;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoAuto Producto_BusquedaByPlu(string buscar)
+        {
+            var result = new DtoLib.ResultadoAuto();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = cnn.productos.FirstOrDefault(f=>f.plu==buscar);
+                    if (ent == null)
+                    {
+                        result.Auto = "";
+                    }
+                    else
+                    {
+                        result.Auto = ent.auto;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoAuto Producto_BusquedaByCodigoBarra(string buscar)
+        {
+            var result = new DtoLib.ResultadoAuto();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = cnn.productos_alterno.FirstOrDefault(f => f.codigo_alterno == buscar);
+                    if (ent == null)
+                    {
+                        result.Auto = "";
+                    }
+                    else
+                    {
+                        result.Auto = ent.auto_producto;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibPos.Producto.Entidad.Ficha> Producto_GetFichaById(string auto)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPos.Producto.Entidad.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = cnn.productos.Find(auto);
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var codGrupo="";
+                    var nomGrupo="";
+                    var entGrupo= cnn.productos_grupo.Find(ent.auto_grupo);
+                    if (entGrupo!=null)
+                    {
+                        codGrupo = entGrupo.codigo;
+                        nomGrupo = entGrupo.nombre;
+                    }
+
+                    var codDepartamento= "";
+                    var nomDepartamento= "";
+                    var entDepartamento= cnn.empresa_departamentos.Find(ent.auto_departamento);
+                    if (entDepartamento!= null)
+                    {
+                        codDepartamento = entDepartamento.codigo;
+                        nomDepartamento= entDepartamento.nombre;
+                    }
+                    
+                    var nomMarca= "";
+                    var entMarca= cnn.productos_marca.Find(ent.auto_marca);
+                    if (entMarca!= null)
+                    {
+                        nomMarca= entMarca.nombre;
+                    }
+
+                    var nomTasa= "";
+                    var valTasa = 0.0m;
+                    var entTasa = cnn.empresa_tasas.Find(ent.auto_tasa);
+                    if (entTasa != null)
+                    {
+                        nomTasa = entTasa.nombre;
+                        valTasa = entTasa.tasa;
+                    }
+
+                    var emp1 = "";
+                    var dec1 = "";
+                    var entMed_1 = cnn.productos_medida.Find(ent.auto_precio_1);
+                    if (entMed_1 != null)
+                    {
+                        emp1= entMed_1.nombre;
+                        dec1= entMed_1.decimales;
+                    }
+
+                    var emp2 = "";
+                    var dec2 = "";
+                    var entMed_2 = cnn.productos_medida.Find(ent.auto_precio_2);
+                    if (entMed_2 != null)
+                    {
+                        emp2 = entMed_2.nombre;
+                        dec2 = entMed_2.decimales;
+                    }
+
+                    var emp3 = "";
+                    var dec3 = "";
+                    var entMed_3 = cnn.productos_medida.Find(ent.auto_precio_3);
+                    if (entMed_3 != null)
+                    {
+                        emp3 = entMed_3.nombre;
+                        dec3 = entMed_3.decimales;
+                    }
+
+                    var emp4 = "";
+                    var dec4 = "";
+                    var entMed_4 = cnn.productos_medida.Find(ent.auto_precio_4);
+                    if (entMed_4 != null)
+                    {
+                        emp4 = entMed_4.nombre;
+                        dec4 = entMed_4.decimales;
+                    }
+
+                    var emp5 = "";
+                    var dec5 = "";
+                    var entMed_5 = cnn.productos_medida.Find(ent.auto_precio_pto);
+                    if (entMed_5 != null)
+                    {
+                        emp5 = entMed_5.nombre;
+                        dec5 = entMed_5.decimales;
+                    }
+
+                    var nr = new DtoLibPos.Producto.Entidad.Ficha()
+                    {
+                        Auto = ent.auto,
+                        CodigoPrd = ent.codigo,
+                        NombrePrd = ent.nombre,
+                        AutoDepartamento = ent.auto_departamento,
+                        AutoGrupo = ent.auto_grupo,
+                        AutoMarca = ent.auto_marca,
+                        AutoSubGrupo = ent.auto_subgrupo,
+                        AutoTasaIva = ent.auto_tasa,
+                        Categoria = ent.categoria,
+                        CodDepartamento = codDepartamento,
+                        CodGrupo = codGrupo,
+                        CodigoPLU = ent.plu,
+                        Pasillo = ent.lugar,
+                        TasaImpuesto = valTasa,
+                        NombreTasa = nomTasa,
+                        NombreGrupo = nomGrupo,
+                        NombreDepartamento = nomDepartamento,
+                        Marca = nomMarca,
+                        Modelo = ent.modelo,
+                        Referencia = ent.referencia,
+                        Estatus = ent.estatus,
+                        EstatusDivisa = ent.estatus_divisa,
+                        EstatusPesado = ent.estatus_pesado,
+
+                        AutoMedidaEmpaque_1 = ent.auto_precio_1,
+                        AutoMedidaEmpaque_2 = ent.auto_precio_2,
+                        AutoMedidaEmpaque_3 = ent.auto_precio_3,
+                        AutoMedidaEmpaque_4 = ent.auto_precio_4,
+                        AutoMedidaEmpaque_5 = ent.auto_precio_pto,
+                        pneto_1 = ent.precio_1,
+                        pneto_2 = ent.precio_2,
+                        pneto_3 = ent.precio_3,
+                        pneto_4 = ent.precio_4,
+                        pneto_5 = ent.precio_pto,
+                        pdf_1 = ent.pdf_1,
+                        pdf_2 = ent.pdf_2,
+                        pdf_3 = ent.pdf_3,
+                        pdf_4 = ent.pdf_4,
+                        pdf_5 = ent.pdf_pto,
+                        contenido_1 = ent.contenido_1,
+                        contenido_2 = ent.contenido_2,
+                        contenido_3 = ent.contenido_3,
+                        contenido_4 = ent.contenido_4,
+                        contenido_5 = ent.contenido_pto,
+                        empaque_1=emp1,
+                        empaque_2=emp2,
+                        empaque_3=emp3,
+                        empaque_4=emp4,
+                        empaque_5=emp5,
+                        decimales_1=dec1,
+                        decimales_2 = dec2,
+                        decimales_3 = dec3,
+                        decimales_4 = dec4,
+                        decimales_5 = dec5,
+                    };
+                    result.Entidad = nr;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibPos.Producto.Existencia.Entidad.Ficha> Producto_Existencia_GetByPrdDeposito(DtoLibPos.Producto.Existencia.Buscar.Ficha ficha)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPos.Producto.Existencia.Entidad.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = cnn.productos_deposito.FirstOrDefault(f => f.auto_producto== ficha.autoPrd && f.auto_deposito == ficha.autoDeposito);
+                    if (ent == null)
+                    {
+                        result.Mensaje = "DEPOSITO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    var nr = new DtoLibPos.Producto.Existencia.Entidad.Ficha()
+                    {
+                        autoPrd = ent.auto_producto,
+                        autoDeposito = ent.auto_deposito,
+                        codigoDeposito = ent.empresa_depositos.codigo,
+                        codigoPrd = ent.productos.codigo,
+                        exDisponible = ent.disponible,
+                        exFisica = ent.fisica,
+                        nombreDeposito = ent.empresa_depositos.nombre,
+                        nombrePrd = ent.productos.nombre,
+                    };
+                    result.Entidad=nr;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

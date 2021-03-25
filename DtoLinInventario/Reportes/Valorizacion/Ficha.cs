@@ -20,6 +20,7 @@ namespace DtoLibInventario.Reportes.Valorizacion
         public string grupo { get; set; }
         public decimal cntUnd { get; set; }
         public decimal? costoHist { get; set; }
+        public decimal divisa { get; set; }
 
 
         public Ficha()
@@ -33,6 +34,7 @@ namespace DtoLibInventario.Reportes.Valorizacion
             costoHist = null;
             contEmpComp = 0;
             cntUnd = 0.0m;
+            divisa = 0.0m;
         }
 
     }
