@@ -227,7 +227,7 @@ namespace ProvLibCompra
                                 it.nombreDeposito, it.codigoConcepto, it.nombreConcepto);
                             if (vk == 0)
                             {
-                                result.Mensaje = "PROBLEMA AL REGISTRAR MOVIMIENTO KARDEX [ " + Environment.NewLine + it.autoPrd + " ]";
+                                result.Mensaje = "PROBLEMA AL REGISTRAR MOVIMIENTO KARDEX [ " + Environment.NewLine + it.nombrePrd + " ]";
                                 result.Result = DtoLib.Enumerados.EnumResult.isError;
                                 return result;
                             }
@@ -239,7 +239,7 @@ namespace ProvLibCompra
                             var entPrd = cnn.productos.Find(it.autoPrd);
                             if (entPrd == null)
                             {
-                                result.Mensaje= "[ ID ] PRODUCTO NO ENCONTRADO";
+                                result.Mensaje = "PRODUCTO NO ENCONTRADO" + Environment.NewLine + it.nombrePrd;
                                 result.Result= DtoLib.Enumerados.EnumResult.isError;
                                 return result;;
                             }
@@ -302,7 +302,7 @@ namespace ProvLibCompra
                             var entPrdDeposito = cnn.productos_deposito.FirstOrDefault(f => f.auto_deposito == it.autoDep && f.auto_producto == it.autoPrd);
                             if (entPrdDeposito == null) 
                             {
-                                result.Mensaje = "[ ID ] PRODUCTO - DEPOSITO NO ENCONTRADO";
+                                result.Mensaje = "PRODUCTO - DEPOSITO NO ENCONTRADO" + Environment.NewLine + it.nombrePrd;
                                 result.Result = DtoLib.Enumerados.EnumResult.isError;
                                 return result; ;
                             }

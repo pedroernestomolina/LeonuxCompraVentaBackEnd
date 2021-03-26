@@ -1,10 +1,11 @@
+D:\Proyectos FoxSystem\CompraVenta\LibEntityCompra\bin\Debug\EntityFramework.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCompra\bin\Debug\LibEntityCompra.dll.config
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCompra\bin\Debug\LibEntityCompra.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCompra\bin\Debug\LibEntityCompra.pdb
-D:\Proyectos FoxSystem\CompraVenta\LibEntityCompra\bin\Debug\EntityFramework.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCompra\bin\Debug\EntityFramework.SqlServer.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCompra\bin\Debug\MySql.Data.Entity.EF6.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCompra\bin\Debug\EntityFramework.xml
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCompra\bin\Debug\EntityFramework.SqlServer.xml
+D:\Proyectos FoxSystem\CompraVenta\LibEntityCompra\obj\Debug\LibEntityCompra.csprojResolveAssemblyReference.cache
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCompra\obj\Debug\LibEntityCompra.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityCompra\obj\Debug\LibEntityCompra.pdb

@@ -34,6 +34,36 @@ namespace DtoLibCompra.Documento.Agregar.Factura
         public string nombreDeposito { get; set; }
         public string codigoConcepto { get; set; }
         public string nombreConcepto { get; set; }
+        public string nombrePrd { get; set; }
+
+
+        public FichaPrdKardex()
+        {
+            autoPrd = "";
+            autoDeposito = "";
+            autoConcepto = "";
+            montoTotal = 0.0m;
+            documentoNro = "";
+            modulo = "";
+            entidad = "";
+            signoDocumento = 1;
+            cantidadBonoFac = 0.0m;
+            cantidadFac = 0.0m;
+            cantidadUnd = 0.0m;
+            costoUnd = 0.0m;
+            esAnulado = "";
+            nota = "";
+            precioUnd = 0.0m;
+            codigoMovDoc = "";
+            siglasMovDoc = "";
+            codigoSucursal = "";
+            cierreFtp = "";
+            codigoDeposito = "";
+            nombreDeposito = "";
+            codigoConcepto = "";
+            nombreConcepto = "";
+            nombrePrd = "";
+        }
 
     }
 

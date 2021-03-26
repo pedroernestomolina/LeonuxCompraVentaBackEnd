@@ -272,6 +272,11 @@ namespace ProvLibCompra
                         utilidad_3 = entPrd.utilidad_3,
                         utilidad_4 = entPrd.utilidad_4,
                         utilidad_5 = entPrd.utilidad_pto,
+                        precio_1 = entPrd.precio_1,
+                        precio_2 = entPrd.precio_2,
+                        precio_3 = entPrd.precio_3,
+                        precio_4 = entPrd.precio_4,
+                        precio_5 = entPrd.precio_pto,
                     };
                     rt.Entidad = nr;
                 }

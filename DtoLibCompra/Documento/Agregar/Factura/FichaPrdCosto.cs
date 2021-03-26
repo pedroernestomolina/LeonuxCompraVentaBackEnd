@@ -17,6 +17,19 @@ namespace DtoLibCompra.Documento.Agregar.Factura
         public decimal costoDivisa { get; set; }
         public decimal cntUnd { get; set; }
         public int contenido { get; set; }
+        public string nombrePrd { get; set; }
+
+
+        public FichaPrdCosto()
+        {
+            autoPrd = "";
+            costo = 0.0m;
+            costoUnd = 0.0m;
+            costoDivisa = 0.0m;
+            cntUnd = 0.0m;
+            contenido = 0;
+            nombrePrd = "";
+        }
 
     }
 

@@ -14,6 +14,16 @@ namespace DtoLibCompra.Documento.Agregar.Factura
         public string autoPrd { get; set; }
         public string autoDep { get; set; }
         public decimal cantidadUnd { get; set; }
+        public string nombrePrd { get; set; }
+
+
+        public FichaPrdDeposito()
+        {
+            autoPrd = "";
+            autoDep = "";
+            cantidadUnd = 0.0m;
+            nombrePrd = "";
+        }
 
     }
 

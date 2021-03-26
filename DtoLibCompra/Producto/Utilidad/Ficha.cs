@@ -24,6 +24,34 @@ namespace DtoLibCompra.Producto.Utilidad
         public decimal utilidad_3 { get; set; }
         public decimal utilidad_4 { get; set; }
         public decimal utilidad_5 { get; set; }
+        public decimal precio_1 { get; set; }
+        public decimal precio_2 { get; set; }
+        public decimal precio_3 { get; set; }
+        public decimal precio_4 { get; set; }
+        public decimal precio_5 { get; set; }
+
+
+        public Ficha()
+        {
+            auto = "";
+            admDivisa = false;
+            tasaIva = 0.0m;
+            contenido_1 = 0;
+            contenido_2 = 0;
+            contenido_3 = 0;
+            contenido_4 = 0;
+            contenido_5 = 0;
+            utilidad_1 = 0.0m;
+            utilidad_2 = 0.0m;
+            utilidad_3 = 0.0m;
+            utilidad_4 = 0.0m;
+            utilidad_5 = 0.0m;
+            precio_1 = 0.0m;
+            precio_2 = 0.0m;
+            precio_3 = 0.0m;
+            precio_4 = 0.0m;
+            precio_5 = 0.0m;
+        }
 
     }
 
