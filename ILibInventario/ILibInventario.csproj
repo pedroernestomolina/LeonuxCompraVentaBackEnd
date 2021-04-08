@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAnalisis.cs" />
+    <Compile Include="IAuditoria.cs" />
     <Compile Include="IConcepto.cs" />
     <Compile Include="IConfiguracion.cs" />
     <Compile Include="ICosto.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="IProveedor.cs" />
     <Compile Include="IProvider.cs" />
     <Compile Include="IReportes.cs" />
+    <Compile Include="ISistema.cs" />
     <Compile Include="ISucursal.cs" />
     <Compile Include="ITasaImpuesto.cs" />
     <Compile Include="ITool.cs" />

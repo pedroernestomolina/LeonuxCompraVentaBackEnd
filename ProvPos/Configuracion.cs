@@ -80,6 +80,7 @@ namespace ProvPos
                     ent.idVendedor = ficha.idVendedor;
                     ent.idClaveUsar = ficha.idClaveUsar;
                     ent.idPrecioManejar = ficha.idPrecioManejar;
+                    ent.validarExistencia = ficha.validarExistencia;
                     cnn.SaveChanges();
                 }
             }
@@ -124,6 +125,7 @@ namespace ProvPos
                     nr.idVendedor = ent.idVendedor;
                     nr.idClaveUsar = ent.idClaveUsar;
                     nr.idPrecioManejar = ent.idPrecioManejar;
+                    nr.validarExistencia = ent.validarExistencia;
                     result.Entidad = nr;
                 }
             }

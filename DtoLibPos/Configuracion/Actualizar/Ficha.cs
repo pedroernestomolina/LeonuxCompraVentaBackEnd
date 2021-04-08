@@ -25,6 +25,7 @@ namespace DtoLibPos.Configuracion.Actualizar
         public string idConceptoSalida { get; set; }
         public string idClaveUsar { get; set; }
         public string idPrecioManejar { get; set; }
+        public string validarExistencia { get; set; }
 
 
         public Ficha()
@@ -43,6 +44,7 @@ namespace DtoLibPos.Configuracion.Actualizar
             idConceptoVenta = "";
             idClaveUsar = "";
             idPrecioManejar = "";
+            validarExistencia = "";
         }
 
     }

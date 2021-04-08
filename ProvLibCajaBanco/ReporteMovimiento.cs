@@ -154,14 +154,15 @@ namespace ProvLibCajaBanco
             {
                 using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
                 {
-                    var sql = "select p.codigo as codigoPrd, p.nombre as nombrePrd, pmed.decimales as decimales, " +
-                        "(select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and signo=1 and estatus_anulado='0' and fecha<=@hasta) as tEntradas, " +
-                        "(select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and signo=-1 and estatus_anulado='0' and fecha<=@hasta) as tSalidas, " +
-                        "(select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and fecha>=@desde and fecha<=@hasta and signo=-1 and estatus_anulado='0') as salidas, " +
-                        "(select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and fecha>=@desde and fecha<=@hasta and signo=1 and estatus_anulado='0' and modulo='Inventario') as entradas, " +
-                        "(select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and fecha>=@desde and fecha<=@hasta and signo=1 and estatus_anulado='0' and modulo<>'Inventario') as entradasOt " +
-                        "from productos as p " +
-                        "join productos_medida as pmed on pmed.auto=p.auto_empaque_compra";
+                    var sql = @"select p.codigo as codigoPrd, p.nombre as nombrePrd, pmed.decimales as decimales, 
+                        (select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and signo=1 and estatus_anulado='0' and fecha<=@hasta) as tEntradas,
+                        (select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and signo=-1 and estatus_anulado='0' and fecha<=@hasta) as tSalidas,
+                        (select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and fecha>=@desde and fecha<=@hasta and signo=-1 and estatus_anulado='0') as salidas, 
+                        (select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and fecha>=@desde and fecha<=@hasta and signo=1 and estatus_anulado='0' and modulo='Inventario') as entradas, 
+                        (select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and fecha>=@desde and fecha<=@hasta and signo=1 and estatus_anulado='0' and modulo<>'Inventario') as entradasOt 
+                        from productos as p 
+                        join productos_medida as pmed on pmed.auto=p.auto_empaque_compra
+                        join productos_deposito as pd on pd.auto_producto=p.auto and pd.auto_deposito=@autoDeposito";
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p2 = new MySql.Data.MySqlClient.MySqlParameter();
@@ -174,6 +175,7 @@ namespace ProvLibCajaBanco
                     p3.ParameterName = "@autoDeposito";
                     p3.Value = filtro.autoDeposito;
 
+                    cnn.Database.CommandTimeout = 0;
                     var list = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.Inventario.Ficha>(sql, p1, p2, p3).ToList();
                     rt.Lista = list;
                 }

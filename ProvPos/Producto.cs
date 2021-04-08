@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 
 namespace ProvPos
@@ -373,6 +374,80 @@ namespace ProvPos
                         nombrePrd = ent.productos.nombre,
                     };
                     result.Entidad=nr;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Producto_Existencia_BloquearEnPositivo(DtoLibPos.Producto.Existencia.Bloquear.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var ent = cnn.productos_deposito.FirstOrDefault(f => f.auto_producto == ficha.autoPrd && f.auto_deposito == ficha.autoDeposito);
+                        if (ent == null)
+                        {
+                            result.Mensaje = "PRODUCTO/DEPOSITO NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        if (ent.disponible < ficha.cantBloq)
+                        {
+                            result.Mensaje = "EXISTENCIA A BLOQUEAR NO DISPONIBLE";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        ent.reservada += ficha.cantBloq;
+                        ent.disponible -= ficha.cantBloq;
+                        cnn.SaveChanges();
+
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Producto_Existencia_BloquearEnNegativo(DtoLibPos.Producto.Existencia.Bloquear.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var ent = cnn.productos_deposito.FirstOrDefault(f => f.auto_producto == ficha.autoPrd && f.auto_deposito == ficha.autoDeposito);
+                        if (ent == null)
+                        {
+                            result.Mensaje = "PRODUCTO/DEPOSITO NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        ent.reservada += ficha.cantBloq;
+                        ent.disponible -= ficha.cantBloq;
+                        cnn.SaveChanges();
+
+                        ts.Complete();
+                    }
                 }
             }
             catch (Exception e)

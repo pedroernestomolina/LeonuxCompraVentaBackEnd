@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analisis.cs" />
+    <Compile Include="Auditoria.cs" />
     <Compile Include="Concepto.cs" />
     <Compile Include="Configuracion.cs" />
     <Compile Include="Costo.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Proveedor.cs" />
     <Compile Include="Provider.cs" />
     <Compile Include="Reportes.cs" />
+    <Compile Include="Sistema.cs" />
     <Compile Include="Sucursal.cs" />
     <Compile Include="TasaImpuesto.cs" />
     <Compile Include="Tool.cs" />

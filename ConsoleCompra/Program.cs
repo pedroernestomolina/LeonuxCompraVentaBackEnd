@@ -68,8 +68,8 @@ namespace ConsoleCompra
 
             //var filtro = new DtoLibCompra.Reportes.CompraPorDepartamento.Filtro()
             //{
-            //    desde = new DateTime(2020, 11, 01),
-            //    hasta = new DateTime(2020, 11, 30),
+            //    desde = new DateTime(2021, 03, 01),
+            //    hasta = new DateTime(2021, 04, 05),
             //};
             //var r01 = compraPrv.Reportes_ComprasPorDepartamento(filtro);
 

@@ -29,5 +29,6 @@ namespace LibEntityPos
         public string idConceptoDevVenta { get; set; }
         public string idConceptoSalida { get; set; }
         public string idMedioPagoElectronico { get; set; }
+        public string validarExistencia { get; set; }
     }
 }

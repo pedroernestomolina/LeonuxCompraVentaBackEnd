@@ -25,9 +25,9 @@ namespace ProvLibCompra
                     var p3 = new MySql.Data.MySqlClient.MySqlParameter();
 
                     var sql_1 = "SELECT " +
-                        "cd.auto_departamento as autoDepartamento,  " +
-                        "sum(cantidad_und*costo_und) as total, " +
-                        "sum((cantidad_und*costo_und)/c.factor_cambio) as totalDivisa, " +
+                        "p.auto_departamento as autoDepartamento,  " +
+                        "sum(cd.cantidad_und*cd.costo_und) as total, " +
+                        "sum((cd.cantidad_und*cd.costo_und)/c.factor_cambio) as totalDivisa, " +
                         "c.signo as signoDoc, " +
                         "c.tipo as tipoDoc, " +
                         "ed.nombre as nombreDepartamento, " +
@@ -36,7 +36,8 @@ namespace ProvLibCompra
 
                     var sql_2 = "FROM compras_detalle as cd " +
                         "join compras as c on cd.auto_documento=c.auto " +
-                        "join empresa_departamentos as ed on ed.auto=cd.auto_departamento ";
+                        "join productos as p on cd.auto_producto=p.auto " +
+                        "join empresa_departamentos as ed on ed.auto=p.auto_departamento ";
 
                     var sql_3 = "where c.estatus_anulado='0' ";
 

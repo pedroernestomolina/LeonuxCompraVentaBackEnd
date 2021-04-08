@@ -244,6 +244,18 @@ namespace ConsoleInventario
             //};
             //var rt1 = invPrv.Reportes_Valorizacion(filtro);
 
+            //var ficha = new DtoLibInventario.Auditoria.Buscar.Ficha()
+            //{
+            //    autoDocumento = "0000000717",
+            //    autoTipoDocumento = "0000000026",
+            //};
+            //var rt1 = invPrv.Auditoria_Documento_GetFichaBy(ficha);
+
+            //var rt1 = invPrv.Sistema_TipoDocumento_GetFichaById("0000000026");
+
+            //var rt1 = invPrv.Departamento_Eliminar("0000000010");
+            //var rt1 = invPrv.Permiso_EliminarDepartamento("0000000010");
+
         }
 
     }

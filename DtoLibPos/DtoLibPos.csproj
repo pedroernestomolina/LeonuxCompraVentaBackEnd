@@ -78,6 +78,7 @@
     <Compile Include="Pos\Cerrar\Arqueo.cs" />
     <Compile Include="Pos\Cerrar\Ficha.cs" />
     <Compile Include="Pos\EnUso\Ficha.cs" />
+    <Compile Include="Producto\Existencia\Bloquear\Ficha.cs" />
     <Compile Include="Producto\Existencia\Buscar\Ficha.cs" />
     <Compile Include="Producto\Existencia\Entidad\Ficha.cs" />
     <Compile Include="Producto\Entidad\Ficha.cs" />
@@ -96,6 +97,17 @@
     <Compile Include="Vendedor\Entidad\Ficha.cs" />
     <Compile Include="Vendedor\Lista\Ficha.cs" />
     <Compile Include="Vendedor\Lista\Filtro.cs" />
+    <Compile Include="Venta\Anular\Ficha.cs" />
+    <Compile Include="Venta\Anular\FichaDeposito.cs" />
+    <Compile Include="Venta\Anular\FichaItem.cs" />
+    <Compile Include="Venta\Item\ActualizarCantidad\Aumentar\Ficha.cs" />
+    <Compile Include="Venta\Item\ActualizarCantidad\Disminuir\Ficha.cs" />
+    <Compile Include="Venta\Item\Eliminar\Ficha.cs" />
+    <Compile Include="Venta\Item\Entidad\Ficha.cs" />
+    <Compile Include="Venta\Item\Lista\Filtro.cs" />
+    <Compile Include="Venta\Item\Registrar\FichaDeposito.cs" />
+    <Compile Include="Venta\Item\Registrar\FichaItem.cs" />
+    <Compile Include="Venta\Item\Registrar\Ficha.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

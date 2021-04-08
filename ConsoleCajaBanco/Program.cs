@@ -22,10 +22,11 @@ namespace ConsoleCajaBanco
             //cajaBancoPrv.Reporte(fecha);
 
             //var filtro = new DtoLibCajaBanco.Reporte.Movimiento.Inventario.Filtro();
-            //filtro.desdeFecha = new DateTime(2020, 10, 25);
-            //filtro.hastaFecha = new DateTime(2020, 10, 28);
-            //filtro.autoDeposito = "0000000004";
+            //filtro.desdeFecha = new DateTime(2021, 03, 31);
+            //filtro.hastaFecha = new DateTime(2021, 04, 05);
+            //filtro.autoDeposito = "0000000008";
             //var r01 = cajaBancoPrv.Reporte_InventarioResumen(filtro);
+
             //var r01 =  cajaBancoPrv.Deposito_GetLista();
             //var r01 =  cajaBancoPrv.Deposito_GetPrincipal();
 
@@ -89,11 +90,11 @@ namespace ConsoleCajaBanco
             //filtro.codSucursal = "08";
             //var r01 = cajaBancoPrv.Reporte_CobranzaDiara(filtro);
 
-            var filtro = new DtoLibCajaBanco.Reporte.Analisis.VentaPromedio.Filtro();
-            filtro.desde = new DateTime(2021, 03, 01);
-            filtro.hasta = new DateTime(2021, 03, 15);
-            filtro.codSucursal = "04";
-            var r01 = cajaBancoPrv.Reporte_Analisis_VentaPromedio(filtro);
+            //var filtro = new DtoLibCajaBanco.Reporte.Analisis.VentaPromedio.Filtro();
+            //filtro.desde = new DateTime(2021, 03, 01);
+            //filtro.hasta = new DateTime(2021, 03, 15);
+            //filtro.codSucursal = "04";
+            //var r01 = cajaBancoPrv.Reporte_Analisis_VentaPromedio(filtro);
 
             //var filtro = new DtoLibCajaBanco.Reporte.Analisis.VentaProducto.Filtro();
             //filtro.desde = new DateTime(2021, 01, 01);

@@ -125,6 +125,15 @@ namespace ConsolePos
             //var r01 = posProv.Configuracion_Pos_GetFicha();
 
             //var r01 = posProv.Jornada_EnUso_GetByIdEquipo("1");
+
+            //var ficha = new DtoLibPos.Venta.Anular.Ficha();
+            //ficha.items = new List<DtoLibPos.Venta.Anular.FichaItem>();
+            //ficha.items.Add(new DtoLibPos.Venta.Anular.FichaItem() { idOperador = 5, idItem = 7, });
+            //ficha.items.Add(new DtoLibPos.Venta.Anular.FichaItem() { idOperador = 5, idItem = 8, });
+            //ficha.itemDeposito = new List<DtoLibPos.Venta.Anular.FichaDeposito>();
+            //ficha.itemDeposito.Add(new DtoLibPos.Venta.Anular.FichaDeposito(){ autoProducto="0000000073", autoDeposito="0000000004", cantUndBloq=1} );
+            //ficha.itemDeposito.Add(new DtoLibPos.Venta.Anular.FichaDeposito(){ autoProducto="0000000040", autoDeposito="0000000004", cantUndBloq=1} );
+            //var r01 = posProv.Venta_Anular(ficha);
         }
     }
 

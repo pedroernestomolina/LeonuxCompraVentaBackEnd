@@ -56,6 +56,7 @@
     <Compile Include="IUsuario.cs" />
     <Compile Include="IVendedor.cs" />
     <Compile Include="IDocumento.cs" />
+    <Compile Include="IVenta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

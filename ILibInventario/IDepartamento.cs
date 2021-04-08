@@ -15,6 +15,7 @@ namespace ILibInventario
         DtoLib.ResultadoEntidad<DtoLibInventario.Departamento.Ficha> Departamento_GetFicha(string auto);
         DtoLib.ResultadoAuto Departamento_Agregar(DtoLibInventario.Departamento.Agregar ficha);
         DtoLib.Resultado Departamento_Editar(DtoLibInventario.Departamento.Editar ficha);
+        DtoLib.Resultado Departamento_Eliminar(string auto);
 
     }
 

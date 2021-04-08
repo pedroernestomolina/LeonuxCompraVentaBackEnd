@@ -44,6 +44,8 @@
     <Compile Include="Analisis\Enumerados.cs" />
     <Compile Include="Analisis\Existencia\Ficha.cs" />
     <Compile Include="Analisis\Existencia\Filtro.cs" />
+    <Compile Include="Auditoria\Buscar\Ficha.cs" />
+    <Compile Include="Auditoria\Entidad\Ficha.cs" />
     <Compile Include="Categoria\Resumen.cs" />
     <Compile Include="Concepto\Agregar.cs" />
     <Compile Include="Concepto\Editar.cs" />
@@ -207,6 +209,7 @@
     <Compile Include="Reportes\TopDepartUtilidad\Filtro.cs" />
     <Compile Include="Reportes\Valorizacion\Ficha.cs" />
     <Compile Include="Reportes\Valorizacion\Filtro.cs" />
+    <Compile Include="Sistema\TipoDocumento\Entidad\Ficha.cs" />
     <Compile Include="Sucursal\Ficha.cs" />
     <Compile Include="Sucursal\Resumen.cs" />
     <Compile Include="TasaImpuesto\Resumen.cs" />
