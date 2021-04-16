@@ -575,12 +575,17 @@
       <End Role="productos_medida" EntitySet="productos_medida" />
       <End Role="productos" EntitySet="productos" />
     </AssociationSet>
+    <EntitySet Name="p_configuracion" EntityType="PosModel.p_configuracion" />
+    <EntitySet Name="p_pendiente" EntityType="PosModel.p_pendiente" />
+    <AssociationSet Name="p_pendiente_ibfk_1" Association="PosModel.p_pendiente_ibfk_1">
+      <End Role="p_operador" EntitySet="p_operador" />
+      <End Role="p_pendiente" EntitySet="p_pendiente" />
+    </AssociationSet>
     <EntitySet Name="p_venta" EntityType="PosModel.p_venta" />
     <AssociationSet Name="p_venta_ibfk_1" Association="PosModel.p_venta_ibfk_1">
       <End Role="p_operador" EntitySet="p_operador" />
       <End Role="p_venta" EntitySet="p_venta" />
     </AssociationSet>
-    <EntitySet Name="p_configuracion" EntityType="PosModel.p_configuracion" />
   </EntityContainer>
   <EntityType Name="clientes">
     <Key>
@@ -945,6 +950,7 @@
     <Property Name="fecha_cierre" Type="DateTime" />
     <Property Name="hora_cierre" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="p_resumen" Relationship="PosModel.p_resumen_ibfk_1" FromRole="p_operador" ToRole="p_resumen" />
+    <NavigationProperty Name="p_pendiente" Relationship="PosModel.p_pendiente_ibfk_1" FromRole="p_operador" ToRole="p_pendiente" />
     <NavigationProperty Name="p_venta" Relationship="PosModel.p_venta_ibfk_1" FromRole="p_operador" ToRole="p_venta" />
   </EntityType>
   <EntityType Name="p_resumen">
@@ -1451,6 +1457,55 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="p_configuracion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idSucursal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idDeposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idVendedor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idCobrador" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idTransporte" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idMedioPagoEfectivo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idMedioPagoDivisa" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idMedioPagoOtros" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idClaveUsar" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="idPrecioManejar" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="idConceptoVenta" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idConceptoDevVenta" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idConceptoSalida" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idMedioPagoElectronico" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="validarExistencia" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="p_pendiente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_p_operador" Type="Int32" Nullable="false" />
+    <Property Name="auto_cliente" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cirif_cliente" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="nombre_cliente" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="feche" Type="DateTime" Nullable="false" />
+    <Property Name="hora" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="monto" Type="Decimal" Nullable="false" />
+    <Property Name="monto_divisa" Type="Decimal" Nullable="false" />
+    <Property Name="renglones" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="p_operador" Relationship="PosModel.p_pendiente_ibfk_1" FromRole="p_pendiente" ToRole="p_operador" />
+  </EntityType>
+  <Association Name="p_pendiente_ibfk_1">
+    <End Type="PosModel.p_operador" Role="p_operador" Multiplicity="1" />
+    <End Type="PosModel.p_pendiente" Role="p_pendiente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="p_operador">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="p_pendiente">
+        <PropertyRef Name="id_p_operador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityType Name="p_venta">
     <Key>
       <PropertyRef Name="id" />
@@ -1480,6 +1535,7 @@
     <Property Name="costoCompra" Type="Decimal" Nullable="false" />
     <Property Name="costoPromedio" Type="Decimal" Nullable="false" />
     <Property Name="auto_deposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="id_p_pendiente" Type="Int32" Nullable="false" />
     <NavigationProperty Name="p_operador" Relationship="PosModel.p_venta_ibfk_1" FromRole="p_venta" ToRole="p_operador" />
   </EntityType>
   <Association Name="p_venta_ibfk_1">
@@ -1494,25 +1550,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="p_configuracion">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="idSucursal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="idDeposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="idVendedor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="idCobrador" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="idTransporte" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="idMedioPagoEfectivo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="idMedioPagoDivisa" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="idMedioPagoOtros" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="idClaveUsar" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="idPrecioManejar" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="idConceptoVenta" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="idConceptoDevVenta" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="idConceptoSalida" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="idMedioPagoElectronico" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="validarExistencia" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-  </EntityType>
 </Schema>

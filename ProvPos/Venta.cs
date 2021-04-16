@@ -69,6 +69,7 @@ namespace ProvPos
                             tasaIva = ficha.item.tasaIva,
                             tipoIva = ficha.item.tipoIva,
                             auto_deposito = ficha.item.autoDeposito,
+                            id_p_pendiente=-1,
                         };
                         cnn.p_venta.Add(entVenta);
                         cnn.SaveChanges();
@@ -97,7 +98,7 @@ namespace ProvPos
                 {
                     var list = new List<DtoLibPos.Venta.Item.Entidad.Ficha>();
 
-                    var lstEnt = cnn.p_venta.Where(w => w.id_p_operador == ficha.idOperador).ToList();
+                    var lstEnt = cnn.p_venta.Where(w => w.id_p_operador == ficha.idOperador && w.id_p_pendiente == -1).ToList();
                     if (lstEnt != null)
                     {
                         if (lstEnt.Count > 0)

@@ -316,6 +316,16 @@ namespace ProvPos
                     var ent = cnn.p_operador.FirstOrDefault(f => f.id_equipo == idEquipo && f.estatus == "A");
                     if (ent != null)
                     {
+                        var idArqueoCierre = "";
+                        var idResumen=-1;
+
+                        var entResumen= cnn.p_resumen.FirstOrDefault(f=>f.id_p_operador==ent.id);
+                        if (entResumen!=null)
+                        {
+                            idArqueoCierre=entResumen.C__auto_pos_arqueo;
+                            idResumen=entResumen.id;
+                        }
+
                         var codUsu="";
                         var nomUsu="";
                         var entUsuario= cnn.usuarios.Find(ent.auto_usuario);
@@ -330,6 +340,8 @@ namespace ProvPos
                         nr.horaApertura = ent.hora_apertura;
                         nr.codUsuario=codUsu;
                         nr.nomUsuario=nomUsu;
+                        nr.idArqueoCierre = idArqueoCierre;
+                        nr.idResumen = idResumen;
                     }
                     result.Entidad = nr;
                     return result;

@@ -135,6 +135,9 @@
     <Compile Include="p_operador.cs">
       <DependentUpon>PosModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="p_pendiente.cs">
+      <DependentUpon>PosModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="p_resumen.cs">
       <DependentUpon>PosModel.tt</DependentUpon>
     </Compile>

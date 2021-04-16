@@ -334,6 +334,11 @@ namespace ProvPos
                         decimales_3 = dec3,
                         decimales_4 = dec4,
                         decimales_5 = dec5,
+
+                        Costo=ent.costo,
+                        CostoPromedio=ent.costo_promedio,
+                        CostoPromedioUnidad=ent.costo_promedio_und,
+                        CostoUnidad=ent.costo_und,
                     };
                     result.Entidad = nr;
                 }

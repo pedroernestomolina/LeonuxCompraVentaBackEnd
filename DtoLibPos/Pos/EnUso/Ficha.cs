@@ -12,6 +12,8 @@ namespace DtoLibPos.Pos.EnUso
     {
 
         public int id { get; set; }
+        public string idArqueoCierre { get; set; }
+        public int idResumen { get; set; }
         public string idUsuario { get; set; }
         public string codUsuario { get; set; }
         public string nomUsuario { get; set; }
@@ -22,6 +24,8 @@ namespace DtoLibPos.Pos.EnUso
         public Ficha()
         {
             id = -1;
+            idArqueoCierre = "";
+            idResumen = -1;
             idUsuario = "";
             codUsuario = "";
             nomUsuario = "";

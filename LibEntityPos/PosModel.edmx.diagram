@@ -34,7 +34,7 @@
         <AssociationConnector Association="PosModel.productos_ibfk_12" />
         <AssociationConnector Association="PosModel.ventas_detalle_ibfk_7" />
         <EntityTypeShape EntityType="PosModel.sistema_configuracion" Width="1.5" PointX="10.375" PointY="3.75" />
-        <EntityTypeShape EntityType="PosModel.p_operador" Width="1.5" PointX="10.375" PointY="9.375" />
+        <EntityTypeShape EntityType="PosModel.p_operador" Width="1.5" PointX="33.875" PointY="18.375" />
         <EntityTypeShape EntityType="PosModel.p_resumen" Width="1.5" PointX="12.625" PointY="8.125" />
         <EntityTypeShape EntityType="PosModel.pos_arqueo" Width="1.5" PointX="8.375" PointY="14.75" />
         <AssociationConnector Association="PosModel.p_resumen_ibfk_1" />
@@ -64,9 +64,11 @@
         <AssociationConnector Association="PosModel.productos_ibfk_7" />
         <AssociationConnector Association="PosModel.productos_ibfk_8" />
         <AssociationConnector Association="PosModel.productos_ibfk_9" />
-        <EntityTypeShape EntityType="PosModel.p_venta" Width="1.5" PointX="13" PointY="0.875" />
-        <AssociationConnector Association="PosModel.p_venta_ibfk_1" />
         <EntityTypeShape EntityType="PosModel.p_configuracion" Width="1.5" PointX="13.5" PointY="14.75" />
+        <EntityTypeShape EntityType="PosModel.p_pendiente" Width="1.5" PointX="27.875" PointY="24.625" />
+        <AssociationConnector Association="PosModel.p_pendiente_ibfk_1" />
+        <EntityTypeShape EntityType="PosModel.p_venta" Width="1.5" PointX="36.125" PointY="16.875" />
+        <AssociationConnector Association="PosModel.p_venta_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

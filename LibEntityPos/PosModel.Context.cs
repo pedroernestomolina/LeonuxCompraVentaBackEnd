@@ -51,7 +51,8 @@ namespace LibEntityPos
         public virtual DbSet<productos_grupo> productos_grupo { get; set; }
         public virtual DbSet<productos_marca> productos_marca { get; set; }
         public virtual DbSet<productos_medida> productos_medida { get; set; }
-        public virtual DbSet<p_venta> p_venta { get; set; }
         public virtual DbSet<p_configuracion> p_configuracion { get; set; }
+        public virtual DbSet<p_pendiente> p_pendiente { get; set; }
+        public virtual DbSet<p_venta> p_venta { get; set; }
     }
 }

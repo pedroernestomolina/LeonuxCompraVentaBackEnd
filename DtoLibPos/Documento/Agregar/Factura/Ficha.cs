@@ -113,6 +113,7 @@ namespace DtoLibPos.Documento.Agregar.Factura
         public FichaCxC DocCxC { get; set; }
         public FichaCxCPago DocCxCPago { get; set; }
         public FichaPosResumen Resumen { get; set; }
+        public List<FichaPosVenta> PosVenta{ get; set; }
 
 
         public Ficha()
@@ -218,6 +219,7 @@ namespace DtoLibPos.Documento.Agregar.Factura
             MovKardex = new List<FichaKardex>();
             ActDeposito = new List<FichaDeposito>();
             Resumen = new FichaPosResumen();
+            PosVenta = new List<FichaPosVenta>();
         }
 
     }

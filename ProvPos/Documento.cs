@@ -30,6 +30,10 @@ namespace ProvPos
                         var fechaNula= new DateTime(2000,1,1);
 
                         var sql = "update sistema_contadores set a_ventas=a_ventas+1, a_cxc=a_cxc+1, a_cxc_recibo=a_cxc_recibo+1, a_cxc_recibo_numero=a_cxc_recibo_numero+1";
+                        if (ficha.DocCxCPago == null)
+                        {
+                            sql = "update sistema_contadores set a_ventas=a_ventas+1, a_cxc=a_cxc+1";
+                        }
                         var r1 = cn.Database.ExecuteSqlCommand(sql);
                         if (r1 == 0)
                         {
@@ -40,14 +44,28 @@ namespace ProvPos
 
                         var aVenta = cn.Database.SqlQuery<int>("select a_ventas from sistema_contadores").FirstOrDefault();
                         var aCxC = cn.Database.SqlQuery<int>("select a_cxc from sistema_contadores").FirstOrDefault();
-                        var aCxCRecibo = cn.Database.SqlQuery<int>("select a_cxc_recibo from sistema_contadores").FirstOrDefault();
-                        var aCxCReciboNumero = cn.Database.SqlQuery<int>("select a_cxc_recibo_numero from sistema_contadores").FirstOrDefault();
 
-                        var autoVenta = aVenta.ToString().Trim().PadLeft(10, '0');
-                        var autoCxC = aCxC.ToString().Trim().PadLeft(10, '0');
-                        var autoRecibo = aCxCRecibo.ToString().Trim().PadLeft(10, '0');
-                        var reciboNUmero = aCxCReciboNumero.ToString().Trim().PadLeft(10, '0');
+                        var aCxCRecibo =0;
+                        var aCxCReciboNumero = 0;
+                        if (ficha.DocCxCPago != null) //NO ES CREDITO
+                        {
+                            aCxCRecibo = cn.Database.SqlQuery<int>("select a_cxc_recibo from sistema_contadores").FirstOrDefault();
+                            aCxCReciboNumero = cn.Database.SqlQuery<int>("select a_cxc_recibo_numero from sistema_contadores").FirstOrDefault();
+                        }
+
+                        var largo = 0;
+                        largo = 10-ficha.Prefijo.Length;
                         var fechaVenc = fechaSistema.AddDays(ficha.Dias);
+                        var autoVenta = ficha.Prefijo + aVenta.ToString().Trim().PadLeft(largo, '0');
+                        var autoCxC = ficha.Prefijo+aCxC.ToString().Trim().PadLeft(largo, '0');
+
+                        var autoRecibo = "";
+                        var reciboNUmero = "";
+                        if (ficha.DocCxCPago != null) //NO ES CREDITO
+                        {
+                            autoRecibo = ficha.Prefijo + aCxCRecibo.ToString().Trim().PadLeft(largo, '0');
+                            reciboNUmero = ficha.Prefijo+ aCxCReciboNumero.ToString().Trim().PadLeft(largo, '0');
+                        }
 
                         //DOCUMENTO VENTA
                         var entVenta = new ventas()
@@ -191,7 +209,7 @@ namespace ProvPos
                             c_ventas = _cxc.CVentas,
                             c_ventasp = _cxc.CVentasp,
                             serie = _cxc.Serie,
-                            importe_neto = _cxc.Importe,
+                            importe_neto = _cxc.ImporteNeto,
                             dias = _cxc.Dias,
                             castigop = _cxc.CastigoP,
                             cierre_ftp = _cxc.CierreFtp,
@@ -200,150 +218,158 @@ namespace ProvPos
                         cn.SaveChanges();
 
 
-                        sql = "update sistema_contadores set a_cxc=a_cxc+1";
-                        var r2 = cn.Database.ExecuteSqlCommand(sql);
-                        if (r2 == 0)
-                        {
-                            result.Mensaje = "PROBLEMA AL ACTUALIZAR TABLA CONTADORES [CXC PAGO]";
-                            result.Result = DtoLib.Enumerados.EnumResult.isError;
-                            return result;
-                        }
-                        var aCxCPago = cn.Database.SqlQuery<int>("select a_cxc from sistema_contadores").FirstOrDefault();
-                        var autoCxCPago = aCxCPago.ToString().Trim().PadLeft(10, '0');
-                        var pago = ficha.DocCxCPago.Pago;
+                        //
+                        //NO ES CREDITO
+                        //
 
-                        //DOCUEMNTO CXC PAGO
-                        var entCxCPago = new cxc()
+                        if (ficha.DocCxCPago != null) 
                         {
-                            auto = autoCxCPago,
-                            c_cobranza = pago.CCobranza,
-                            c_cobranzap = pago.CCobranzap,
-                            fecha = fechaSistema.Date,
-                            tipo_documento = pago.TipoDocumento,
-                            documento = reciboNUmero,
-                            fecha_vencimiento = fechaSistema.Date,
-                            nota = pago.Nota,
-                            importe = pago.Importe,
-                            acumulado = pago.Acumulado,
-                            auto_cliente = pago.AutoCliente,
-                            cliente = pago.Cliente,
-                            ci_rif = pago.CiRif,
-                            codigo_cliente = pago.CodigoCliente,
-                            estatus_cancelado = pago.EstatusCancelado,
-                            resta = pago.Resta,
-                            estatus_anulado = pago.EstatusAnulado,
-                            auto_documento = autoRecibo,
-                            numero = pago.Numero,
-                            auto_agencia = pago.AutoAgencia,
-                            agencia = pago.Agencia,
-                            signo = pago.Signo,
-                            auto_vendedor = pago.AutoVendedor,
-                            c_departamento = pago.CDepartamento,
-                            c_ventas = pago.CVentas,
-                            c_ventasp = pago.CVentasp,
-                            serie = pago.Serie,
-                            importe_neto = pago.ImporteNeto,
-                            dias = pago.Dias,
-                            castigop = pago.CastigoP,
-                            cierre_ftp = pago.CierreFtp,
-                        };
-                        cn.cxc.Add(entCxCPago);
-                        cn.SaveChanges();
-
-                        //DOCUEMNTO CXC RECIBO
-                        var recibo = ficha.DocCxCPago.Recibo;
-                        var entCxcRecibo = new cxc_recibos()
-                        {
-                            auto = autoRecibo,
-                            documento = reciboNUmero,
-                            fecha = fechaSistema,
-                            auto_usuario = recibo.AutoUsuario,
-                            importe = recibo.Importe,
-                            usuario = recibo.Usuario,
-                            monto_recibido = recibo.MontoRecibido,
-                            cobrador = recibo.Cobrador,
-                            auto_cliente = recibo.AutoCliente,
-                            cliente = recibo.Cliente,
-                            ci_rif = recibo.CiRif,
-                            codigo = recibo.Codigo,
-                            estatus_anulado = recibo.EstatusAnulado,
-                            direccion = recibo.Direccion,
-                            telefono = recibo.Telefono,
-                            auto_cobrador = recibo.AutoCobrador,
-                            anticipos = recibo.Anticipos,
-                            cambio = recibo.Cambio,
-                            nota = recibo.Nota,
-                            codigo_cobrador = recibo.CodigoCobrador,
-                            auto_cxc = autoCxCPago,
-                            retenciones = recibo.Retenciones,
-                            descuentos = recibo.Descuentos,
-                            hora = fechaSistema.ToShortTimeString(),
-                            cierre = recibo.Cierre,
-                            cierre_ftp = recibo.CierreFtp,
-                        };
-                        cn.cxc_recibos.Add(entCxcRecibo);
-                        cn.SaveChanges();
-
-                        //DOCUMENTO CXC DOCUMENTO
-                        var documento = ficha.DocCxCPago.Documento;
-                        var sql_InsertarCxCDocumento = @"INSERT INTO cxc_documentos (id  , fecha , tipo_documento , documento , importe , " +
-                                    "operacion , auto_cxc , auto_cxc_pago , auto_cxc_recibo , numero_recibo, fecha_recepcion, dias, castigop, comisionp, cierre_ftp) " +
-                                    "VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14})";
-                        var vCxcDoc = cn.Database.ExecuteSqlCommand(sql_InsertarCxCDocumento,
-                            documento.Id,
-                            fechaSistema.Date,
-                            documento.TipoDocumento,
-                            documento.Documento,
-                            documento.Importe,
-                            documento.Operacion,
-                            autoCxC,
-                            autoCxCPago,
-                            autoRecibo,
-                            reciboNUmero,
-                            fechaSistema.Date,
-                            documento.Dias, 
-                            documento.CastigoP,
-                            documento.ComisionP,
-                            documento.CierreFtp);
-                        if (vCxcDoc == 0)
-                        {
-                            result.Mensaje = "PROBLEMA AL REGISTRAR DOCUMENTO CXC";
-                            result.Result = DtoLib.Enumerados.EnumResult.isError;
-                            return result;
-                        }
-
-                        //DOCUEMNTO CXC METODOS PAGO
-                        foreach (var fp in ficha.DocCxCPago.MetodoPago)
-                        {
-                            var sql_InsertarCxCMedioPago = @"INSERT INTO cxc_medio_pago (auto_recibo , auto_medio_pago , auto_agencia, " +
-                                        "medio , codigo , monto_recibido , fecha , estatus_anulado , numero , agencia , auto_usuario, " +
-                                        "lote, referencia, auto_cobrador, cierre, fecha_agencia, cierre_fpt) "+
-                                        "VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}, {15}, {16})";
-                            var vCxcMedioPago = cn.Database.ExecuteSqlCommand(sql_InsertarCxCMedioPago,
-                                autoRecibo,
-                                fp.AutoMedioPago,
-                                fp.AutoAgencia,
-                                fp.Medio,
-                                fp.Codigo,
-                                fp.MontoRecibido,
-                                fechaSistema,
-                                fp.EstatusAnulado,
-                                fp.Numero,
-                                fp.Agencia,
-                                ficha.AutoUsuario,
-                                fp.Lote,
-                                fp.Referencia,
-                                fp.AutoCobrador,
-                                fp.Cierre,
-                                fechaNula,
-                                fp.CierreFtp);
-                            if (vCxcMedioPago == 0)
+                            sql = "update sistema_contadores set a_cxc=a_cxc+1";
+                            var r2 = cn.Database.ExecuteSqlCommand(sql);
+                            if (r2 == 0)
                             {
-                                result.Mensaje = "PROBLEMA AL REGISTRAR METODO PAGO CXC";
+                                result.Mensaje = "PROBLEMA AL ACTUALIZAR TABLA CONTADORES [CXC PAGO]";
                                 result.Result = DtoLib.Enumerados.EnumResult.isError;
                                 return result;
                             }
+                            var aCxCPago = cn.Database.SqlQuery<int>("select a_cxc from sistema_contadores").FirstOrDefault();
+                            var autoCxCPago = ficha.Prefijo + aCxCPago.ToString().Trim().PadLeft(largo, '0');
+                            var pago = ficha.DocCxCPago.Pago;
+
+                            //DOCUEMNTO CXC PAGO
+                            var entCxCPago = new cxc()
+                            {
+                                auto = autoCxCPago,
+                                c_cobranza = pago.CCobranza,
+                                c_cobranzap = pago.CCobranzap,
+                                fecha = fechaSistema.Date,
+                                tipo_documento = pago.TipoDocumento,
+                                documento = reciboNUmero,
+                                fecha_vencimiento = fechaSistema.Date,
+                                nota = pago.Nota,
+                                importe = pago.Importe,
+                                acumulado = pago.Acumulado,
+                                auto_cliente = pago.AutoCliente,
+                                cliente = pago.Cliente,
+                                ci_rif = pago.CiRif,
+                                codigo_cliente = pago.CodigoCliente,
+                                estatus_cancelado = pago.EstatusCancelado,
+                                resta = pago.Resta,
+                                estatus_anulado = pago.EstatusAnulado,
+                                auto_documento = autoRecibo,
+                                numero = pago.Numero,
+                                auto_agencia = pago.AutoAgencia,
+                                agencia = pago.Agencia,
+                                signo = pago.Signo,
+                                auto_vendedor = pago.AutoVendedor,
+                                c_departamento = pago.CDepartamento,
+                                c_ventas = pago.CVentas,
+                                c_ventasp = pago.CVentasp,
+                                serie = pago.Serie,
+                                importe_neto = pago.ImporteNeto,
+                                dias = pago.Dias,
+                                castigop = pago.CastigoP,
+                                cierre_ftp = pago.CierreFtp,
+                            };
+                            cn.cxc.Add(entCxCPago);
+                            cn.SaveChanges();
+
+                            //DOCUEMNTO CXC RECIBO
+                            var recibo = ficha.DocCxCPago.Recibo;
+                            var entCxcRecibo = new cxc_recibos()
+                            {
+                                auto = autoRecibo,
+                                documento = reciboNUmero,
+                                fecha = fechaSistema,
+                                auto_usuario = recibo.AutoUsuario,
+                                importe = recibo.Importe,
+                                usuario = recibo.Usuario,
+                                monto_recibido = recibo.MontoRecibido,
+                                cobrador = recibo.Cobrador,
+                                auto_cliente = recibo.AutoCliente,
+                                cliente = recibo.Cliente,
+                                ci_rif = recibo.CiRif,
+                                codigo = recibo.Codigo,
+                                estatus_anulado = recibo.EstatusAnulado,
+                                direccion = recibo.Direccion,
+                                telefono = recibo.Telefono,
+                                auto_cobrador = recibo.AutoCobrador,
+                                anticipos = recibo.Anticipos,
+                                cambio = recibo.Cambio,
+                                nota = recibo.Nota,
+                                codigo_cobrador = recibo.CodigoCobrador,
+                                auto_cxc = autoCxCPago,
+                                retenciones = recibo.Retenciones,
+                                descuentos = recibo.Descuentos,
+                                hora = fechaSistema.ToShortTimeString(),
+                                cierre = recibo.Cierre,
+                                cierre_ftp = recibo.CierreFtp,
+                            };
+                            cn.cxc_recibos.Add(entCxcRecibo);
+                            cn.SaveChanges();
+
+                            //DOCUMENTO CXC DOCUMENTO
+                            var documento = ficha.DocCxCPago.Documento;
+                            var sql_InsertarCxCDocumento = @"INSERT INTO cxc_documentos (id  , fecha , tipo_documento , documento , importe , " +
+                                        "operacion , auto_cxc , auto_cxc_pago , auto_cxc_recibo , numero_recibo, fecha_recepcion, dias, castigop, comisionp, cierre_ftp) " +
+                                        "VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14})";
+                            var vCxcDoc = cn.Database.ExecuteSqlCommand(sql_InsertarCxCDocumento,
+                                documento.Id,
+                                fechaSistema.Date,
+                                documento.TipoDocumento,
+                                documento.Documento,
+                                documento.Importe,
+                                documento.Operacion,
+                                autoCxC,
+                                autoCxCPago,
+                                autoRecibo,
+                                reciboNUmero,
+                                fechaNula.Date,
+                                documento.Dias,
+                                documento.CastigoP,
+                                documento.ComisionP,
+                                documento.CierreFtp);
+                            if (vCxcDoc == 0)
+                            {
+                                result.Mensaje = "PROBLEMA AL REGISTRAR DOCUMENTO CXC";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result;
+                            }
+
+                            //DOCUEMNTO CXC METODOS PAGO
+                            foreach (var fp in ficha.DocCxCPago.MetodoPago)
+                            {
+                                var sql_InsertarCxCMedioPago = @"INSERT INTO cxc_medio_pago (auto_recibo , auto_medio_pago , auto_agencia, " +
+                                            "medio , codigo , monto_recibido , fecha , estatus_anulado , numero , agencia , auto_usuario, " +
+                                            "lote, referencia, auto_cobrador, cierre, fecha_agencia, cierre_ftp) " +
+                                            "VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}, {15}, {16})";
+                                var vCxcMedioPago = cn.Database.ExecuteSqlCommand(sql_InsertarCxCMedioPago,
+                                    autoRecibo,
+                                    fp.AutoMedioPago,
+                                    fp.AutoAgencia,
+                                    fp.Medio,
+                                    fp.Codigo,
+                                    fp.MontoRecibido,
+                                    fechaSistema,
+                                    fp.EstatusAnulado,
+                                    fp.Numero,
+                                    fp.Agencia,
+                                    ficha.AutoUsuario,
+                                    fp.Lote,
+                                    fp.Referencia,
+                                    fp.AutoCobrador,
+                                    fp.Cierre,
+                                    fechaNula,
+                                    fp.CierreFtp);
+                                if (vCxcMedioPago == 0)
+                                {
+                                    result.Mensaje = "PROBLEMA AL REGISTRAR METODO PAGO CXC";
+                                    result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return result;
+                                }
+                            }
                         }
+
 
                         var sql1 = @"INSERT INTO ventas_detalle (auto_documento, auto_producto, codigo, nombre, auto_departamento,
                                     auto_grupo, auto_subgrupo, auto_deposito, cantidad, empaque, precio_neto, descuento1p, descuento2p,
@@ -398,7 +424,7 @@ namespace ProvPos
                                 return result;
                             }
                             entPrdDeposito.fisica -= dt.CantUnd;
-                            entPrdDeposito.disponible -= dt.CantUnd;
+                            entPrdDeposito.reservada -= dt.CantUnd;
                             cn.SaveChanges();
                         }
 
@@ -425,33 +451,51 @@ namespace ProvPos
                             }
                         };
 
-                        var res= ficha.Resumen;
-                        var entResumen = cn.p_resumen.Find(res.idResumen);
-                        if (entResumen == null) 
+                        var sql3 = @"DELETE from p_venta where id_operador=@p1 and id=@p2";
+                        foreach (var dt in ficha.PosVenta)
                         {
-                            result.Mensaje = "[ ID ] POS RESUMEN NO ENCONTRADO";
-                            result.Result = DtoLib.Enumerados.EnumResult.isError;
-                            return result;
+                            var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                            var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                            p1.ParameterName="@p1";
+                            p1.Value = dt.idOperador;
+                            p2.ParameterName = "@p2";
+                            p2.Value = dt.id;
+                            var vk = cn.Database.ExecuteSqlCommand(sql3, p1, p2);
+                            if (vk == 0)
+                            {
+                                result.Mensaje = "PROBLEMA AL ELIMINAR REGISTRAR VENTA";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result;
+                            }
                         }
-                        entResumen.m_efectivo += res.mEfectivo;
-                        entResumen.cnt_efectivo += res.cntEfectivo;
-                        entResumen.m_divisa += res.mDivisa;
-                        entResumen.cnt_divisa+= res.cntDivisa;
-                        entResumen.m_electronico += res.mElectronico;
-                        entResumen.cnt_electronico += res.cntElectronico;
-                        entResumen.m_otros+= res.mOtros;
-                        entResumen.cnt_otros+= res.cntotros;
-                        entResumen.m_devolucion += res.mDevolucion;
-                        entResumen.cnt_devolucion += res.cntDevolucion;
-                        entResumen.m_contado+= res.mContado;
-                        entResumen.m_credito+= res.mCredito;
-                        entResumen.cnt_doc += res.cntDoc;
-                        entResumen.cnt_fac+= res.cntFac;
-                        entResumen.cnt_ncr += res.cntNCr;
-                        entResumen.m_fac+= res.mFac;
-                        entResumen.m_ncr+= res.mNCr;
-                        entResumen.cnt_doc_contado += res.cntDocContado;
-                        entResumen.cnt_doc_credito += res.cntDocCredito;
+
+                        //var res= ficha.Resumen;
+                        //var entResumen = cn.p_resumen.Find(res.idResumen);
+                        //if (entResumen == null) 
+                        //{
+                        //    result.Mensaje = "[ ID ] POS RESUMEN NO ENCONTRADO";
+                        //    result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        //    return result;
+                        //}
+                        //entResumen.m_efectivo += res.mEfectivo;
+                        //entResumen.cnt_efectivo += res.cntEfectivo;
+                        //entResumen.m_divisa += res.mDivisa;
+                        //entResumen.cnt_divisa+= res.cntDivisa;
+                        //entResumen.m_electronico += res.mElectronico;
+                        //entResumen.cnt_electronico += res.cntElectronico;
+                        //entResumen.m_otros+= res.mOtros;
+                        //entResumen.cnt_otros+= res.cntotros;
+                        //entResumen.m_devolucion += res.mDevolucion;
+                        //entResumen.cnt_devolucion += res.cntDevolucion;
+                        //entResumen.m_contado+= res.mContado;
+                        //entResumen.m_credito+= res.mCredito;
+                        //entResumen.cnt_doc += res.cntDoc;
+                        //entResumen.cnt_fac+= res.cntFac;
+                        //entResumen.cnt_ncr += res.cntNCr;
+                        //entResumen.m_fac+= res.mFac;
+                        //entResumen.m_ncr+= res.mNCr;
+                        //entResumen.cnt_doc_contado += res.cntDocContado;
+                        //entResumen.cnt_doc_credito += res.cntDocCredito;
 
                         ts.Complete();
                         result.Auto = autoVenta;
