@@ -28,7 +28,7 @@ namespace ProvPos
                     var p5 = new MySql.Data.MySqlClient.MySqlParameter();
 
                     var sql_1 = " select p.auto, p.codigo, p.nombre, p.estatus, p.estatus_divisa as estatusDivisa, "+
-                        "p.estatus_pesado as estatusPesado , p.tasa as tasaIva, " +
+                        "p.estatus_pesado as estatusPesado , p.tasa as tasaIva, p.plu, " +
                         "pd.fisica as exFisica, pd.disponible as exDisponible ";
 
                     var sql_2 = " from productos as p " +
@@ -43,6 +43,11 @@ namespace ProvPos
                         sql_3 += " and p.nombre like @p1 ";
                         p1.ParameterName = "@p1";
                         p1.Value = cad + "%";
+                    }
+
+                    if (filtro.IsPorPlu) 
+                    {
+                        sql_3 += " and p.plu<>'' ";
                     }
 
                     if (filtro.AutoDeposito.Trim() != "")

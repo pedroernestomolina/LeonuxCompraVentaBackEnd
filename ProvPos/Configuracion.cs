@@ -81,6 +81,12 @@ namespace ProvPos
                     ent.idClaveUsar = ficha.idClaveUsar;
                     ent.idPrecioManejar = ficha.idPrecioManejar;
                     ent.validarExistencia = ficha.validarExistencia;
+                    ent.idTipoDocVenta = ficha.idTipoDocVenta ;
+                    ent.idTipoDocDevVenta  = ficha.idTipoDocDevVenta;
+                    ent.idTipoDocNotaEntrega = ficha.idTipoDocNotaEntrega;
+                    ent.idSerieFactura = ficha.idFacturaSerie;
+                    ent.idSerieNotaCredito = ficha.idNotaCreditoSerie;
+                    ent.idSerieNotaEntrega = ficha.idNotaEntregaSerie;
                     cnn.SaveChanges();
                 }
             }
@@ -126,6 +132,12 @@ namespace ProvPos
                     nr.idClaveUsar = ent.idClaveUsar;
                     nr.idPrecioManejar = ent.idPrecioManejar;
                     nr.validarExistencia = ent.validarExistencia;
+                    nr.idTipoDocVenta = ent.idTipoDocVenta;
+                    nr.idTipoDocDevVenta = ent.idTipoDocDevVenta;
+                    nr.idTipoDocNotaEntrega = ent.idTipoDocNotaEntrega;
+                    nr.idFacturaSerie = ent.idSerieFactura;
+                    nr.idNotaCreditoSerie = ent.idSerieNotaCredito;
+                    nr.idNotaEntregaSerie = ent.idSerieNotaEntrega;
                     result.Entidad = nr;
                 }
             }

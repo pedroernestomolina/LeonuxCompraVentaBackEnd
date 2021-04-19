@@ -30,5 +30,11 @@ namespace LibEntityPos
         public string idConceptoSalida { get; set; }
         public string idMedioPagoElectronico { get; set; }
         public string validarExistencia { get; set; }
+        public string idTipoDocVenta { get; set; }
+        public string idTipoDocDevVenta { get; set; }
+        public string idTipoDocNotaEntrega { get; set; }
+        public string idSerieFactura { get; set; }
+        public string idSerieNotaCredito { get; set; }
+        public string idSerieNotaEntrega { get; set; }
     }
 }

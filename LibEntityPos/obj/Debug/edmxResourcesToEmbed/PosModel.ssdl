@@ -227,6 +227,12 @@
     <Property Name="idConceptoSalida" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="idMedioPagoElectronico" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="validarExistencia" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="idTipoDocVenta" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="idTipoDocDevVenta" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="idTipoDocNotaEntrega" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="idSerieFactura" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="idSerieNotaCredito" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="idSerieNotaEntrega" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityType Name="p_operador">
     <Key>

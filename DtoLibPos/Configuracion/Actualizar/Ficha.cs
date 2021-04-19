@@ -26,6 +26,12 @@ namespace DtoLibPos.Configuracion.Actualizar
         public string idClaveUsar { get; set; }
         public string idPrecioManejar { get; set; }
         public string validarExistencia { get; set; }
+        public string idTipoDocVenta { get; set; }
+        public string idTipoDocDevVenta { get; set; }
+        public string idTipoDocNotaEntrega { get; set; }
+        public string idFacturaSerie { get; set; }
+        public string idNotaCreditoSerie { get; set; }
+        public string idNotaEntregaSerie { get; set; }
 
 
         public Ficha()
@@ -45,6 +51,12 @@ namespace DtoLibPos.Configuracion.Actualizar
             idClaveUsar = "";
             idPrecioManejar = "";
             validarExistencia = "";
+            idTipoDocDevVenta = "";
+            idTipoDocNotaEntrega = "";
+            idTipoDocVenta = "";
+            idFacturaSerie = "";
+            idNotaCreditoSerie = "";
+            idNotaEntregaSerie = "";
         }
 
     }

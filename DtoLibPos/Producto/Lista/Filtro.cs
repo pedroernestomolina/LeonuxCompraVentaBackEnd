@@ -14,6 +14,7 @@ namespace DtoLibPos.Producto.Lista
         public string Cadena { get; set; }
         public string AutoDeposito { get; set; }
         public string IdPrecioManejar { get; set; }
+        public bool IsPorPlu { get; set; }
 
 
         public Filtro()
@@ -21,6 +22,7 @@ namespace DtoLibPos.Producto.Lista
             Cadena = "";
             AutoDeposito = "";
             IdPrecioManejar = "";
+            IsPorPlu = false;
         }
 
     }

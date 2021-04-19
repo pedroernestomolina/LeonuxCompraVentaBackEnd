@@ -451,7 +451,7 @@ namespace ProvPos
                             }
                         };
 
-                        var sql3 = @"DELETE from p_venta where id_operador=@p1 and id=@p2";
+                        var sql3 = @"DELETE from p_venta where id_p_operador=@p1 and id=@p2";
                         foreach (var dt in ficha.PosVenta)
                         {
                             var p1 = new MySql.Data.MySqlClient.MySqlParameter();
@@ -469,33 +469,34 @@ namespace ProvPos
                             }
                         }
 
-                        //var res= ficha.Resumen;
-                        //var entResumen = cn.p_resumen.Find(res.idResumen);
-                        //if (entResumen == null) 
-                        //{
-                        //    result.Mensaje = "[ ID ] POS RESUMEN NO ENCONTRADO";
-                        //    result.Result = DtoLib.Enumerados.EnumResult.isError;
-                        //    return result;
-                        //}
-                        //entResumen.m_efectivo += res.mEfectivo;
-                        //entResumen.cnt_efectivo += res.cntEfectivo;
-                        //entResumen.m_divisa += res.mDivisa;
-                        //entResumen.cnt_divisa+= res.cntDivisa;
-                        //entResumen.m_electronico += res.mElectronico;
-                        //entResumen.cnt_electronico += res.cntElectronico;
-                        //entResumen.m_otros+= res.mOtros;
-                        //entResumen.cnt_otros+= res.cntotros;
-                        //entResumen.m_devolucion += res.mDevolucion;
-                        //entResumen.cnt_devolucion += res.cntDevolucion;
-                        //entResumen.m_contado+= res.mContado;
-                        //entResumen.m_credito+= res.mCredito;
-                        //entResumen.cnt_doc += res.cntDoc;
-                        //entResumen.cnt_fac+= res.cntFac;
-                        //entResumen.cnt_ncr += res.cntNCr;
-                        //entResumen.m_fac+= res.mFac;
-                        //entResumen.m_ncr+= res.mNCr;
-                        //entResumen.cnt_doc_contado += res.cntDocContado;
-                        //entResumen.cnt_doc_credito += res.cntDocCredito;
+                        var res = ficha.Resumen;
+                        var entResumen = cn.p_resumen.Find(res.idResumen);
+                        if (entResumen == null)
+                        {
+                            result.Mensaje = "[ ID ] POS RESUMEN NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        entResumen.m_efectivo += res.mEfectivo;
+                        entResumen.cnt_efectivo += res.cntEfectivo;
+                        entResumen.m_divisa += res.mDivisa;
+                        entResumen.cnt_divisa += res.cntDivisa;
+                        entResumen.m_electronico += res.mElectronico;
+                        entResumen.cnt_electronico += res.cntElectronico;
+                        entResumen.m_otros += res.mOtros;
+                        entResumen.cnt_otros += res.cntotros;
+                        entResumen.m_devolucion += res.mDevolucion;
+                        entResumen.cnt_devolucion += res.cntDevolucion;
+                        entResumen.m_contado += res.mContado;
+                        entResumen.m_credito += res.mCredito;
+                        entResumen.cnt_doc += res.cntDoc;
+                        entResumen.cnt_fac += res.cntFac;
+                        entResumen.cnt_ncr += res.cntNCr;
+                        entResumen.m_fac += res.mFac;
+                        entResumen.m_ncr += res.mNCr;
+                        entResumen.cnt_doc_contado += res.cntDocContado;
+                        entResumen.cnt_doc_credito += res.cntDocCredito;
+                        cn.SaveChanges();
 
                         ts.Complete();
                         result.Auto = autoVenta;

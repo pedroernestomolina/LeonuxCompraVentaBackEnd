@@ -25,6 +25,7 @@ namespace DtoLibPos.Producto.Lista
         public string Empaque { get; set; }
         public int Contenido { get; set; }
         public string Decimales { get; set; }
+        public string PLU { get; set; }
 
 
         public Ficha()
@@ -43,6 +44,7 @@ namespace DtoLibPos.Producto.Lista
             Empaque = "";
             Contenido = 0;
             Decimales = "";
+            PLU = "";
         }
 
     }

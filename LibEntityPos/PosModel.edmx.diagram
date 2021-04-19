@@ -64,11 +64,11 @@
         <AssociationConnector Association="PosModel.productos_ibfk_7" />
         <AssociationConnector Association="PosModel.productos_ibfk_8" />
         <AssociationConnector Association="PosModel.productos_ibfk_9" />
-        <EntityTypeShape EntityType="PosModel.p_configuracion" Width="1.5" PointX="13.5" PointY="14.75" />
         <EntityTypeShape EntityType="PosModel.p_pendiente" Width="1.5" PointX="27.875" PointY="24.625" />
         <AssociationConnector Association="PosModel.p_pendiente_ibfk_1" />
         <EntityTypeShape EntityType="PosModel.p_venta" Width="1.5" PointX="36.125" PointY="16.875" />
         <AssociationConnector Association="PosModel.p_venta_ibfk_1" />
+        <EntityTypeShape EntityType="PosModel.p_configuracion" Width="1.5" PointX="12.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
