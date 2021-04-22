@@ -14,7 +14,6 @@ namespace DtoLibPos.Documento.Agregar.Factura
         public decimal CCobranza { get; set; }
         public decimal CCobranzap { get; set; }
         public string TipoDocumento { get; set; }
-        public string Documento { get; set; }
         public string Nota { get; set; }
         public decimal Importe { get; set; }
         public decimal Acumulado { get; set; }
@@ -45,7 +44,6 @@ namespace DtoLibPos.Documento.Agregar.Factura
             CCobranza = 0.0m;
             CCobranzap = 0.0m;
             TipoDocumento = "";
-            Documento = "";
             Nota = "";
             Importe = 0.0m;
             Acumulado = 0.0m;

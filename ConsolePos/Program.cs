@@ -134,6 +134,13 @@ namespace ConsolePos
             //ficha.itemDeposito.Add(new DtoLibPos.Venta.Anular.FichaDeposito(){ autoProducto="0000000073", autoDeposito="0000000004", cantUndBloq=1} );
             //ficha.itemDeposito.Add(new DtoLibPos.Venta.Anular.FichaDeposito(){ autoProducto="0000000040", autoDeposito="0000000004", cantUndBloq=1} );
             //var r01 = posProv.Venta_Anular(ficha);
+            //var r01 = posProv.Sistema_ClaveAcceso_GetByIdNivel (4);
+
+            //var filtro = new DtoLibPos.Documento.Lista.Filtro() { idArqueo = "0420000001" };
+            //var r01 = posProv.Documento_Get_Lista (filtro);
+            //var r01 = posProv.Documento_GetById("0420000028");
+
+            //var r01 = posProv.Documento_Anular_Verificar("0430000059");
         }
     }
 

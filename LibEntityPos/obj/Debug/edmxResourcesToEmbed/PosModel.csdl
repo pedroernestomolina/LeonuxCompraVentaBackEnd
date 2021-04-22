@@ -486,12 +486,7 @@
     </AssociationSet>
     <EntitySet Name="sistema_configuracion" EntityType="PosModel.sistema_configuracion" />
     <EntitySet Name="p_operador" EntityType="PosModel.p_operador" />
-    <EntitySet Name="p_resumen" EntityType="PosModel.p_resumen" />
     <EntitySet Name="pos_arqueo" EntityType="PosModel.pos_arqueo" />
-    <AssociationSet Name="p_resumen_ibfk_1" Association="PosModel.p_resumen_ibfk_1">
-      <End Role="p_operador" EntitySet="p_operador" />
-      <End Role="p_resumen" EntitySet="p_resumen" />
-    </AssociationSet>
     <EntitySet Name="cxc" EntityType="PosModel.cxc" />
     <EntitySet Name="cxc_recibos" EntityType="PosModel.cxc_recibos" />
     <EntitySet Name="productos_deposito" EntityType="PosModel.productos_deposito" />
@@ -586,6 +581,11 @@
       <End Role="p_venta" EntitySet="p_venta" />
     </AssociationSet>
     <EntitySet Name="p_configuracion" EntityType="PosModel.p_configuracion" />
+    <EntitySet Name="p_resumen" EntityType="PosModel.p_resumen" />
+    <AssociationSet Name="p_resumen_ibfk_1" Association="PosModel.p_resumen_ibfk_1">
+      <End Role="p_operador" EntitySet="p_operador" />
+      <End Role="p_resumen" EntitySet="p_resumen" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="clientes">
     <Key>
@@ -949,37 +949,9 @@
     <Property Name="estatus" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
     <Property Name="fecha_cierre" Type="DateTime" />
     <Property Name="hora_cierre" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="p_resumen" Relationship="PosModel.p_resumen_ibfk_1" FromRole="p_operador" ToRole="p_resumen" />
     <NavigationProperty Name="p_pendiente" Relationship="PosModel.p_pendiente_ibfk_1" FromRole="p_operador" ToRole="p_pendiente" />
     <NavigationProperty Name="p_venta" Relationship="PosModel.p_venta_ibfk_1" FromRole="p_operador" ToRole="p_venta" />
-  </EntityType>
-  <EntityType Name="p_resumen">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="id_p_operador" Type="Int32" Nullable="false" />
-    <Property Name="C__auto_pos_arqueo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="m_efectivo" Type="Decimal" Nullable="false" />
-    <Property Name="cnt_efectivo" Type="Int32" Nullable="false" />
-    <Property Name="m_divisa" Type="Decimal" Nullable="false" />
-    <Property Name="cnt_divisa" Type="Int32" Nullable="false" />
-    <Property Name="m_electronico" Type="Decimal" Nullable="false" />
-    <Property Name="cnt_electronico" Type="Int32" Nullable="false" />
-    <Property Name="m_otros" Type="Decimal" Nullable="false" />
-    <Property Name="cnt_otros" Type="Int32" Nullable="false" />
-    <Property Name="m_devolucion" Type="Decimal" Nullable="false" />
-    <Property Name="cnt_devolucion" Type="Int32" Nullable="false" />
-    <Property Name="m_contado" Type="Decimal" Nullable="false" />
-    <Property Name="m_credito" Type="Decimal" Nullable="false" />
-    <Property Name="cnt_doc" Type="Int32" Nullable="false" />
-    <Property Name="cnt_fac" Type="Int32" Nullable="false" />
-    <Property Name="cnt_ncr" Type="Int32" Nullable="false" />
-    <Property Name="m_fac" Type="Decimal" Nullable="false" />
-    <Property Name="m_ncr" Type="Decimal" Nullable="false" />
-    <Property Name="cnt_doc_contado" Type="Int32" Nullable="false" />
-    <Property Name="cnt_doc_credito" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="p_operador" Relationship="PosModel.p_resumen_ibfk_1" FromRole="p_resumen" ToRole="p_operador" />
+    <NavigationProperty Name="p_resumen" Relationship="PosModel.p_resumen_ibfk_1" FromRole="p_operador" ToRole="p_resumen" />
   </EntityType>
   <EntityType Name="pos_arqueo">
     <Key>
@@ -1071,18 +1043,6 @@
     <Property Name="montoFac" Type="Decimal" Nullable="false" />
     <Property Name="montoNcr" Type="Decimal" Nullable="false" />
   </EntityType>
-  <Association Name="p_resumen_ibfk_1">
-    <End Type="PosModel.p_operador" Role="p_operador" Multiplicity="1" />
-    <End Type="PosModel.p_resumen" Role="p_resumen" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="p_operador">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="p_resumen">
-        <PropertyRef Name="id_p_operador" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="cxc">
     <Key>
       <PropertyRef Name="auto" />
@@ -1556,4 +1516,54 @@
     <Property Name="idSerieNotaCredito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="idSerieNotaEntrega" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="p_resumen">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_p_operador" Type="Int32" Nullable="false" />
+    <Property Name="C__auto_pos_arqueo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="m_efectivo" Type="Decimal" Nullable="false" />
+    <Property Name="cnt_efectivo" Type="Int32" Nullable="false" />
+    <Property Name="m_divisa" Type="Decimal" Nullable="false" />
+    <Property Name="cnt_divisa" Type="Int32" Nullable="false" />
+    <Property Name="m_electronico" Type="Decimal" Nullable="false" />
+    <Property Name="cnt_electronico" Type="Int32" Nullable="false" />
+    <Property Name="m_otros" Type="Decimal" Nullable="false" />
+    <Property Name="cnt_otros" Type="Int32" Nullable="false" />
+    <Property Name="m_devolucion" Type="Decimal" Nullable="false" />
+    <Property Name="cnt_devolucion" Type="Int32" Nullable="false" />
+    <Property Name="m_contado" Type="Decimal" Nullable="false" />
+    <Property Name="m_credito" Type="Decimal" Nullable="false" />
+    <Property Name="cnt_doc" Type="Int32" Nullable="false" />
+    <Property Name="cnt_fac" Type="Int32" Nullable="false" />
+    <Property Name="cnt_ncr" Type="Int32" Nullable="false" />
+    <Property Name="m_fac" Type="Decimal" Nullable="false" />
+    <Property Name="m_ncr" Type="Decimal" Nullable="false" />
+    <Property Name="cnt_doc_contado" Type="Int32" Nullable="false" />
+    <Property Name="cnt_doc_credito" Type="Int32" Nullable="false" />
+    <Property Name="m_nte" Type="Decimal" Nullable="false" />
+    <Property Name="cnt_nte" Type="Int32" Nullable="false" />
+    <Property Name="m_anu" Type="Decimal" Nullable="false" />
+    <Property Name="cnt_anu" Type="Int32" Nullable="false" />
+    <Property Name="m_anu_nte" Type="Decimal" Nullable="false" />
+    <Property Name="cnt_anu_nte" Type="Int32" Nullable="false" />
+    <Property Name="m_anu_ncr" Type="Decimal" Nullable="false" />
+    <Property Name="cnt_anu_ncr" Type="Int32" Nullable="false" />
+    <Property Name="m_anu_fac" Type="Decimal" Nullable="false" />
+    <Property Name="cnt_anu_fac" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="p_operador" Relationship="PosModel.p_resumen_ibfk_1" FromRole="p_resumen" ToRole="p_operador" />
+  </EntityType>
+  <Association Name="p_resumen_ibfk_1">
+    <End Type="PosModel.p_operador" Role="p_operador" Multiplicity="1" />
+    <End Type="PosModel.p_resumen" Role="p_resumen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="p_operador">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="p_resumen">
+        <PropertyRef Name="id_p_operador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

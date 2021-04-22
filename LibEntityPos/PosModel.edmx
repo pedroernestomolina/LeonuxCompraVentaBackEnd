@@ -293,6 +293,16 @@
           <Property Name="m_ncr" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="cnt_doc_contado" Type="int" Nullable="false" />
           <Property Name="cnt_doc_credito" Type="int" Nullable="false" />
+          <Property Name="m_nte" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="cnt_nte" Type="int" Nullable="false" />
+          <Property Name="m_anu" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="cnt_anu" Type="int" Nullable="false" />
+          <Property Name="m_anu_nte" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="cnt_anu_nte" Type="int" Nullable="false" />
+          <Property Name="m_anu_ncr" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="cnt_anu_ncr" Type="int" Nullable="false" />
+          <Property Name="m_anu_fac" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="cnt_anu_fac" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="p_venta">
           <Key>
@@ -2086,12 +2096,7 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
           </AssociationSet>
           <EntitySet Name="sistema_configuracion" EntityType="PosModel.sistema_configuracion" />
           <EntitySet Name="p_operador" EntityType="PosModel.p_operador" />
-          <EntitySet Name="p_resumen" EntityType="PosModel.p_resumen" />
           <EntitySet Name="pos_arqueo" EntityType="PosModel.pos_arqueo" />
-          <AssociationSet Name="p_resumen_ibfk_1" Association="PosModel.p_resumen_ibfk_1">
-            <End Role="p_operador" EntitySet="p_operador" />
-            <End Role="p_resumen" EntitySet="p_resumen" />
-          </AssociationSet>
           <EntitySet Name="cxc" EntityType="PosModel.cxc" />
           <EntitySet Name="cxc_recibos" EntityType="PosModel.cxc_recibos" />
           <EntitySet Name="productos_deposito" EntityType="PosModel.productos_deposito" />
@@ -2186,6 +2191,11 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
             <End Role="p_venta" EntitySet="p_venta" />
           </AssociationSet>
           <EntitySet Name="p_configuracion" EntityType="PosModel.p_configuracion" />
+          <EntitySet Name="p_resumen" EntityType="PosModel.p_resumen" />
+          <AssociationSet Name="p_resumen_ibfk_1" Association="PosModel.p_resumen_ibfk_1">
+            <End Role="p_operador" EntitySet="p_operador" />
+            <End Role="p_resumen" EntitySet="p_resumen" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="clientes">
           <Key>
@@ -2549,37 +2559,9 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
           <Property Name="estatus" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="fecha_cierre" Type="DateTime" />
           <Property Name="hora_cierre" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="p_resumen" Relationship="PosModel.p_resumen_ibfk_1" FromRole="p_operador" ToRole="p_resumen" />
           <NavigationProperty Name="p_pendiente" Relationship="PosModel.p_pendiente_ibfk_1" FromRole="p_operador" ToRole="p_pendiente" />
           <NavigationProperty Name="p_venta" Relationship="PosModel.p_venta_ibfk_1" FromRole="p_operador" ToRole="p_venta" />
-        </EntityType>
-        <EntityType Name="p_resumen">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_p_operador" Type="Int32" Nullable="false" />
-          <Property Name="C__auto_pos_arqueo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="m_efectivo" Type="Decimal" Nullable="false" />
-          <Property Name="cnt_efectivo" Type="Int32" Nullable="false" />
-          <Property Name="m_divisa" Type="Decimal" Nullable="false" />
-          <Property Name="cnt_divisa" Type="Int32" Nullable="false" />
-          <Property Name="m_electronico" Type="Decimal" Nullable="false" />
-          <Property Name="cnt_electronico" Type="Int32" Nullable="false" />
-          <Property Name="m_otros" Type="Decimal" Nullable="false" />
-          <Property Name="cnt_otros" Type="Int32" Nullable="false" />
-          <Property Name="m_devolucion" Type="Decimal" Nullable="false" />
-          <Property Name="cnt_devolucion" Type="Int32" Nullable="false" />
-          <Property Name="m_contado" Type="Decimal" Nullable="false" />
-          <Property Name="m_credito" Type="Decimal" Nullable="false" />
-          <Property Name="cnt_doc" Type="Int32" Nullable="false" />
-          <Property Name="cnt_fac" Type="Int32" Nullable="false" />
-          <Property Name="cnt_ncr" Type="Int32" Nullable="false" />
-          <Property Name="m_fac" Type="Decimal" Nullable="false" />
-          <Property Name="m_ncr" Type="Decimal" Nullable="false" />
-          <Property Name="cnt_doc_contado" Type="Int32" Nullable="false" />
-          <Property Name="cnt_doc_credito" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="p_operador" Relationship="PosModel.p_resumen_ibfk_1" FromRole="p_resumen" ToRole="p_operador" />
+          <NavigationProperty Name="p_resumen" Relationship="PosModel.p_resumen_ibfk_1" FromRole="p_operador" ToRole="p_resumen" />
         </EntityType>
         <EntityType Name="pos_arqueo">
           <Key>
@@ -2671,18 +2653,6 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
           <Property Name="montoFac" Type="Decimal" Nullable="false" />
           <Property Name="montoNcr" Type="Decimal" Nullable="false" />
         </EntityType>
-        <Association Name="p_resumen_ibfk_1">
-          <End Type="PosModel.p_operador" Role="p_operador" Multiplicity="1" />
-          <End Type="PosModel.p_resumen" Role="p_resumen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="p_operador">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="p_resumen">
-              <PropertyRef Name="id_p_operador" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="cxc">
           <Key>
             <PropertyRef Name="auto" />
@@ -3156,6 +3126,56 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
           <Property Name="idSerieNotaCredito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="idSerieNotaEntrega" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="p_resumen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_p_operador" Type="Int32" Nullable="false" />
+          <Property Name="C__auto_pos_arqueo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="m_efectivo" Type="Decimal" Nullable="false" />
+          <Property Name="cnt_efectivo" Type="Int32" Nullable="false" />
+          <Property Name="m_divisa" Type="Decimal" Nullable="false" />
+          <Property Name="cnt_divisa" Type="Int32" Nullable="false" />
+          <Property Name="m_electronico" Type="Decimal" Nullable="false" />
+          <Property Name="cnt_electronico" Type="Int32" Nullable="false" />
+          <Property Name="m_otros" Type="Decimal" Nullable="false" />
+          <Property Name="cnt_otros" Type="Int32" Nullable="false" />
+          <Property Name="m_devolucion" Type="Decimal" Nullable="false" />
+          <Property Name="cnt_devolucion" Type="Int32" Nullable="false" />
+          <Property Name="m_contado" Type="Decimal" Nullable="false" />
+          <Property Name="m_credito" Type="Decimal" Nullable="false" />
+          <Property Name="cnt_doc" Type="Int32" Nullable="false" />
+          <Property Name="cnt_fac" Type="Int32" Nullable="false" />
+          <Property Name="cnt_ncr" Type="Int32" Nullable="false" />
+          <Property Name="m_fac" Type="Decimal" Nullable="false" />
+          <Property Name="m_ncr" Type="Decimal" Nullable="false" />
+          <Property Name="cnt_doc_contado" Type="Int32" Nullable="false" />
+          <Property Name="cnt_doc_credito" Type="Int32" Nullable="false" />
+          <Property Name="m_nte" Type="Decimal" Nullable="false" />
+          <Property Name="cnt_nte" Type="Int32" Nullable="false" />
+          <Property Name="m_anu" Type="Decimal" Nullable="false" />
+          <Property Name="cnt_anu" Type="Int32" Nullable="false" />
+          <Property Name="m_anu_nte" Type="Decimal" Nullable="false" />
+          <Property Name="cnt_anu_nte" Type="Int32" Nullable="false" />
+          <Property Name="m_anu_ncr" Type="Decimal" Nullable="false" />
+          <Property Name="cnt_anu_ncr" Type="Int32" Nullable="false" />
+          <Property Name="m_anu_fac" Type="Decimal" Nullable="false" />
+          <Property Name="cnt_anu_fac" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="p_operador" Relationship="PosModel.p_resumen_ibfk_1" FromRole="p_resumen" ToRole="p_operador" />
+        </EntityType>
+        <Association Name="p_resumen_ibfk_1">
+          <End Type="PosModel.p_operador" Role="p_operador" Multiplicity="1" />
+          <End Type="PosModel.p_resumen" Role="p_resumen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="p_operador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="p_resumen">
+              <PropertyRef Name="id_p_operador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3689,34 +3709,6 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="p_resumen">
-            <EntityTypeMapping TypeName="PosModel.p_resumen">
-              <MappingFragment StoreEntitySet="p_resumen">
-                <ScalarProperty Name="cnt_doc_credito" ColumnName="cnt_doc_credito" />
-                <ScalarProperty Name="cnt_doc_contado" ColumnName="cnt_doc_contado" />
-                <ScalarProperty Name="m_ncr" ColumnName="m_ncr" />
-                <ScalarProperty Name="m_fac" ColumnName="m_fac" />
-                <ScalarProperty Name="cnt_ncr" ColumnName="cnt_ncr" />
-                <ScalarProperty Name="cnt_fac" ColumnName="cnt_fac" />
-                <ScalarProperty Name="cnt_doc" ColumnName="cnt_doc" />
-                <ScalarProperty Name="m_credito" ColumnName="m_credito" />
-                <ScalarProperty Name="m_contado" ColumnName="m_contado" />
-                <ScalarProperty Name="cnt_devolucion" ColumnName="cnt_devolucion" />
-                <ScalarProperty Name="m_devolucion" ColumnName="m_devolucion" />
-                <ScalarProperty Name="cnt_otros" ColumnName="cnt_otros" />
-                <ScalarProperty Name="m_otros" ColumnName="m_otros" />
-                <ScalarProperty Name="cnt_electronico" ColumnName="cnt_electronico" />
-                <ScalarProperty Name="m_electronico" ColumnName="m_electronico" />
-                <ScalarProperty Name="cnt_divisa" ColumnName="cnt_divisa" />
-                <ScalarProperty Name="m_divisa" ColumnName="m_divisa" />
-                <ScalarProperty Name="cnt_efectivo" ColumnName="cnt_efectivo" />
-                <ScalarProperty Name="m_efectivo" ColumnName="m_efectivo" />
-                <ScalarProperty Name="C__auto_pos_arqueo" ColumnName="&#xD;&#xA;auto_pos_arqueo" />
-                <ScalarProperty Name="id_p_operador" ColumnName="id_p_operador" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="pos_arqueo">
             <EntityTypeMapping TypeName="PosModel.pos_arqueo">
               <MappingFragment StoreEntitySet="pos_arqueo">
@@ -3970,6 +3962,44 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
                 <ScalarProperty Name="idVendedor" ColumnName="idVendedor" />
                 <ScalarProperty Name="idDeposito" ColumnName="idDeposito" />
                 <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="p_resumen">
+            <EntityTypeMapping TypeName="PosModel.p_resumen">
+              <MappingFragment StoreEntitySet="p_resumen">
+                <ScalarProperty Name="cnt_anu_fac" ColumnName="cnt_anu_fac" />
+                <ScalarProperty Name="m_anu_fac" ColumnName="m_anu_fac" />
+                <ScalarProperty Name="cnt_anu_ncr" ColumnName="cnt_anu_ncr" />
+                <ScalarProperty Name="m_anu_ncr" ColumnName="m_anu_ncr" />
+                <ScalarProperty Name="cnt_anu_nte" ColumnName="cnt_anu_nte" />
+                <ScalarProperty Name="m_anu_nte" ColumnName="m_anu_nte" />
+                <ScalarProperty Name="cnt_anu" ColumnName="cnt_anu" />
+                <ScalarProperty Name="m_anu" ColumnName="m_anu" />
+                <ScalarProperty Name="cnt_nte" ColumnName="cnt_nte" />
+                <ScalarProperty Name="m_nte" ColumnName="m_nte" />
+                <ScalarProperty Name="cnt_doc_credito" ColumnName="cnt_doc_credito" />
+                <ScalarProperty Name="cnt_doc_contado" ColumnName="cnt_doc_contado" />
+                <ScalarProperty Name="m_ncr" ColumnName="m_ncr" />
+                <ScalarProperty Name="m_fac" ColumnName="m_fac" />
+                <ScalarProperty Name="cnt_ncr" ColumnName="cnt_ncr" />
+                <ScalarProperty Name="cnt_fac" ColumnName="cnt_fac" />
+                <ScalarProperty Name="cnt_doc" ColumnName="cnt_doc" />
+                <ScalarProperty Name="m_credito" ColumnName="m_credito" />
+                <ScalarProperty Name="m_contado" ColumnName="m_contado" />
+                <ScalarProperty Name="cnt_devolucion" ColumnName="cnt_devolucion" />
+                <ScalarProperty Name="m_devolucion" ColumnName="m_devolucion" />
+                <ScalarProperty Name="cnt_otros" ColumnName="cnt_otros" />
+                <ScalarProperty Name="m_otros" ColumnName="m_otros" />
+                <ScalarProperty Name="cnt_electronico" ColumnName="cnt_electronico" />
+                <ScalarProperty Name="m_electronico" ColumnName="m_electronico" />
+                <ScalarProperty Name="cnt_divisa" ColumnName="cnt_divisa" />
+                <ScalarProperty Name="m_divisa" ColumnName="m_divisa" />
+                <ScalarProperty Name="cnt_efectivo" ColumnName="cnt_efectivo" />
+                <ScalarProperty Name="m_efectivo" ColumnName="m_efectivo" />
+                <ScalarProperty Name="C__auto_pos_arqueo" ColumnName="&#xD;&#xA;auto_pos_arqueo" />
+                <ScalarProperty Name="id_p_operador" ColumnName="id_p_operador" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

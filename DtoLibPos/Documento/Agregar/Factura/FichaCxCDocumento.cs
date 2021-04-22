@@ -13,7 +13,6 @@ namespace DtoLibPos.Documento.Agregar.Factura
 
         public int Id { get; set; }
         public string TipoDocumento { get; set; }
-        public string Documento { get; set; }
         public decimal Importe { get; set; }
         public string Operacion { get; set; }
         public int Dias { get; set; }
@@ -26,7 +25,6 @@ namespace DtoLibPos.Documento.Agregar.Factura
         {
             Id = 1;
             TipoDocumento = "";
-            Documento = "";
             Importe = 0.0m;
             Operacion = "";
             Dias = 0;

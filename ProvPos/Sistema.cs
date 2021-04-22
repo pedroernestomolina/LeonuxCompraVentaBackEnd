@@ -84,6 +84,56 @@ namespace ProvPos
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<string> Sistema_ClaveAcceso_GetByIdNivel(int id)
+        {
+            var result = new DtoLib.ResultadoEntidad<string>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var codigo = "";
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    switch (id) 
+                    {
+                        case 1:
+                            codigo = "GLOBAL17";
+                            break;
+                        case 2:
+                            codigo = "GLOBAL18";
+                            break;
+                        case 3:
+                            codigo = "GLOBAL19";
+                            break;
+                    }
+
+                    p1.ParameterName = "@p1";
+                    p1.Value = codigo;
+                    var sql = @"SELECT usuario as clave 
+                                FROM sistema_configuracion
+                                WHERE codigo=@p1";
+                    var ent = cnn.Database.SqlQuery<string>(sql, p1).FirstOrDefault();
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ CODIGO CONFIGURACION ] NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    result.Entidad = ent;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

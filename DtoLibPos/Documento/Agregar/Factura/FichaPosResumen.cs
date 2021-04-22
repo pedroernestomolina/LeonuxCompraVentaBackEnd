@@ -22,7 +22,7 @@ namespace DtoLibPos.Documento.Agregar.Factura
         public decimal mCredito { get; set; }
         public decimal mFac { get; set; }
         public decimal mNCr { get; set; }
-
+        //
         public int cntEfectivo { get; set; }
         public int cntDivisa { get; set; }
         public int cntElectronico { get; set; }
@@ -33,6 +33,11 @@ namespace DtoLibPos.Documento.Agregar.Factura
         public int cntNCr { get; set; }
         public int cntDocContado { get; set; }
         public int cntDocCredito { get; set; }
+        //
+        public decimal mNte { get; set; }
+        public int cntNte { get; set; }
+        public decimal mAnu { get; set; }
+        public int cntAnu { get; set; }
 
 
         public FichaPosResumen()
@@ -57,6 +62,11 @@ namespace DtoLibPos.Documento.Agregar.Factura
             cntNCr = 0;
             cntDocContado = 0;
             cntDocCredito = 0;
+            //
+            mNte = 0.0m;
+            mAnu = 0.0m;
+            cntNte = 0;
+            cntAnu = 0;
         }
 
     }

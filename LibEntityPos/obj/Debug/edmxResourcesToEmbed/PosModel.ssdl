@@ -288,6 +288,16 @@
     <Property Name="m_ncr" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="cnt_doc_contado" Type="int" Nullable="false" />
     <Property Name="cnt_doc_credito" Type="int" Nullable="false" />
+    <Property Name="m_nte" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cnt_nte" Type="int" Nullable="false" />
+    <Property Name="m_anu" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cnt_anu" Type="int" Nullable="false" />
+    <Property Name="m_anu_nte" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cnt_anu_nte" Type="int" Nullable="false" />
+    <Property Name="m_anu_ncr" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cnt_anu_ncr" Type="int" Nullable="false" />
+    <Property Name="m_anu_fac" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cnt_anu_fac" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="p_venta">
     <Key>

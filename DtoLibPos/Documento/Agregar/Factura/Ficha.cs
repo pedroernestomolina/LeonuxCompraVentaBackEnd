@@ -114,6 +114,7 @@ namespace DtoLibPos.Documento.Agregar.Factura
         public FichaCxCPago DocCxCPago { get; set; }
         public FichaPosResumen Resumen { get; set; }
         public List<FichaPosVenta> PosVenta{ get; set; }
+        public FichaSerie SerieFiscal { get; set; }
 
 
         public Ficha()
@@ -220,6 +221,7 @@ namespace DtoLibPos.Documento.Agregar.Factura
             ActDeposito = new List<FichaDeposito>();
             Resumen = new FichaPosResumen();
             PosVenta = new List<FichaPosVenta>();
+            SerieFiscal = null;
         }
 
     }

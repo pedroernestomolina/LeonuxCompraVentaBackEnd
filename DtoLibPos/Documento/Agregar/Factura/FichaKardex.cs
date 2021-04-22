@@ -15,7 +15,6 @@ namespace DtoLibPos.Documento.Agregar.Factura
         public decimal Total { get; set; }
         public string AutoDeposito { get; set; }
         public string AutoConcepto { get; set; }
-        public string Documento { get; set; }
         public string Modulo { get; set; }
         public string Entidad { get; set; }
         public int Signo { get; set; }
@@ -42,7 +41,6 @@ namespace DtoLibPos.Documento.Agregar.Factura
             Total = 0.0m;
             AutoDeposito = "";
             AutoConcepto = "";
-            Documento = "";
             Modulo = "";
             Entidad = "";
             Signo = 1;

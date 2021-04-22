@@ -528,34 +528,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="p_resumen">
-      <EntityTypeMapping TypeName="PosModel.p_resumen">
-        <MappingFragment StoreEntitySet="p_resumen">
-          <ScalarProperty Name="cnt_doc_credito" ColumnName="cnt_doc_credito" />
-          <ScalarProperty Name="cnt_doc_contado" ColumnName="cnt_doc_contado" />
-          <ScalarProperty Name="m_ncr" ColumnName="m_ncr" />
-          <ScalarProperty Name="m_fac" ColumnName="m_fac" />
-          <ScalarProperty Name="cnt_ncr" ColumnName="cnt_ncr" />
-          <ScalarProperty Name="cnt_fac" ColumnName="cnt_fac" />
-          <ScalarProperty Name="cnt_doc" ColumnName="cnt_doc" />
-          <ScalarProperty Name="m_credito" ColumnName="m_credito" />
-          <ScalarProperty Name="m_contado" ColumnName="m_contado" />
-          <ScalarProperty Name="cnt_devolucion" ColumnName="cnt_devolucion" />
-          <ScalarProperty Name="m_devolucion" ColumnName="m_devolucion" />
-          <ScalarProperty Name="cnt_otros" ColumnName="cnt_otros" />
-          <ScalarProperty Name="m_otros" ColumnName="m_otros" />
-          <ScalarProperty Name="cnt_electronico" ColumnName="cnt_electronico" />
-          <ScalarProperty Name="m_electronico" ColumnName="m_electronico" />
-          <ScalarProperty Name="cnt_divisa" ColumnName="cnt_divisa" />
-          <ScalarProperty Name="m_divisa" ColumnName="m_divisa" />
-          <ScalarProperty Name="cnt_efectivo" ColumnName="cnt_efectivo" />
-          <ScalarProperty Name="m_efectivo" ColumnName="m_efectivo" />
-          <ScalarProperty Name="C__auto_pos_arqueo" ColumnName="&#xD;&#xA;auto_pos_arqueo" />
-          <ScalarProperty Name="id_p_operador" ColumnName="id_p_operador" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="pos_arqueo">
       <EntityTypeMapping TypeName="PosModel.pos_arqueo">
         <MappingFragment StoreEntitySet="pos_arqueo">
@@ -809,6 +781,44 @@
           <ScalarProperty Name="idVendedor" ColumnName="idVendedor" />
           <ScalarProperty Name="idDeposito" ColumnName="idDeposito" />
           <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="p_resumen">
+      <EntityTypeMapping TypeName="PosModel.p_resumen">
+        <MappingFragment StoreEntitySet="p_resumen">
+          <ScalarProperty Name="cnt_anu_fac" ColumnName="cnt_anu_fac" />
+          <ScalarProperty Name="m_anu_fac" ColumnName="m_anu_fac" />
+          <ScalarProperty Name="cnt_anu_ncr" ColumnName="cnt_anu_ncr" />
+          <ScalarProperty Name="m_anu_ncr" ColumnName="m_anu_ncr" />
+          <ScalarProperty Name="cnt_anu_nte" ColumnName="cnt_anu_nte" />
+          <ScalarProperty Name="m_anu_nte" ColumnName="m_anu_nte" />
+          <ScalarProperty Name="cnt_anu" ColumnName="cnt_anu" />
+          <ScalarProperty Name="m_anu" ColumnName="m_anu" />
+          <ScalarProperty Name="cnt_nte" ColumnName="cnt_nte" />
+          <ScalarProperty Name="m_nte" ColumnName="m_nte" />
+          <ScalarProperty Name="cnt_doc_credito" ColumnName="cnt_doc_credito" />
+          <ScalarProperty Name="cnt_doc_contado" ColumnName="cnt_doc_contado" />
+          <ScalarProperty Name="m_ncr" ColumnName="m_ncr" />
+          <ScalarProperty Name="m_fac" ColumnName="m_fac" />
+          <ScalarProperty Name="cnt_ncr" ColumnName="cnt_ncr" />
+          <ScalarProperty Name="cnt_fac" ColumnName="cnt_fac" />
+          <ScalarProperty Name="cnt_doc" ColumnName="cnt_doc" />
+          <ScalarProperty Name="m_credito" ColumnName="m_credito" />
+          <ScalarProperty Name="m_contado" ColumnName="m_contado" />
+          <ScalarProperty Name="cnt_devolucion" ColumnName="cnt_devolucion" />
+          <ScalarProperty Name="m_devolucion" ColumnName="m_devolucion" />
+          <ScalarProperty Name="cnt_otros" ColumnName="cnt_otros" />
+          <ScalarProperty Name="m_otros" ColumnName="m_otros" />
+          <ScalarProperty Name="cnt_electronico" ColumnName="cnt_electronico" />
+          <ScalarProperty Name="m_electronico" ColumnName="m_electronico" />
+          <ScalarProperty Name="cnt_divisa" ColumnName="cnt_divisa" />
+          <ScalarProperty Name="m_divisa" ColumnName="m_divisa" />
+          <ScalarProperty Name="cnt_efectivo" ColumnName="cnt_efectivo" />
+          <ScalarProperty Name="m_efectivo" ColumnName="m_efectivo" />
+          <ScalarProperty Name="C__auto_pos_arqueo" ColumnName="&#xD;&#xA;auto_pos_arqueo" />
+          <ScalarProperty Name="id_p_operador" ColumnName="id_p_operador" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

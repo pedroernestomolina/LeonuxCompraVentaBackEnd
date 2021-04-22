@@ -371,6 +371,15 @@ namespace ProvPos
                         result.Result = DtoLib.Enumerados.EnumResult.isError;
                         return result;
                     }
+                    
+                    var idArqueoCierre = "";
+                    var idResumen=-1;
+                    var entResumen= cnn.p_resumen.FirstOrDefault(f=>f.id_p_operador==ent.id);
+                    if (entResumen!=null)
+                    {
+                        idArqueoCierre=entResumen.C__auto_pos_arqueo;
+                        idResumen=entResumen.id;
+                    }
 
                     var codUsu = "";
                     var nomUsu = "";
@@ -388,6 +397,8 @@ namespace ProvPos
                         horaApertura = ent.hora_apertura,
                         codUsuario = codUsu,
                         nomUsuario = nomUsu,
+                        idArqueoCierre=idArqueoCierre,
+                        idResumen=idResumen,
                     };
                     result.Entidad = nr;
 

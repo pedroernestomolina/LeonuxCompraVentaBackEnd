@@ -36,6 +36,16 @@ namespace LibEntityPos
         public decimal m_ncr { get; set; }
         public int cnt_doc_contado { get; set; }
         public int cnt_doc_credito { get; set; }
+        public decimal m_nte { get; set; }
+        public int cnt_nte { get; set; }
+        public decimal m_anu { get; set; }
+        public int cnt_anu { get; set; }
+        public decimal m_anu_nte { get; set; }
+        public int cnt_anu_nte { get; set; }
+        public decimal m_anu_ncr { get; set; }
+        public int cnt_anu_ncr { get; set; }
+        public decimal m_anu_fac { get; set; }
+        public int cnt_anu_fac { get; set; }
     
         public virtual p_operador p_operador { get; set; }
     }

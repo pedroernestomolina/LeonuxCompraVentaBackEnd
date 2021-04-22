@@ -15,6 +15,8 @@ namespace IPos
 
         DtoLib.ResultadoEntidad<DtoLibPos.Sistema.Serie.Entidad.Ficha> Sistema_Serie_GetFichaById(string id);
 
+        DtoLib.ResultadoEntidad<string> Sistema_ClaveAcceso_GetByIdNivel(int id);
+
     }
 
 }

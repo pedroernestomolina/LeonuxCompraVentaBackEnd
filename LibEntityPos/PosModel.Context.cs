@@ -42,7 +42,6 @@ namespace LibEntityPos
         public virtual DbSet<empresa_tasas> empresa_tasas { get; set; }
         public virtual DbSet<sistema_configuracion> sistema_configuracion { get; set; }
         public virtual DbSet<p_operador> p_operador { get; set; }
-        public virtual DbSet<p_resumen> p_resumen { get; set; }
         public virtual DbSet<pos_arqueo> pos_arqueo { get; set; }
         public virtual DbSet<cxc> cxc { get; set; }
         public virtual DbSet<cxc_recibos> cxc_recibos { get; set; }
@@ -54,5 +53,6 @@ namespace LibEntityPos
         public virtual DbSet<p_pendiente> p_pendiente { get; set; }
         public virtual DbSet<p_venta> p_venta { get; set; }
         public virtual DbSet<p_configuracion> p_configuracion { get; set; }
+        public virtual DbSet<p_resumen> p_resumen { get; set; }
     }
 }
