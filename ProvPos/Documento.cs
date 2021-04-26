@@ -1548,6 +1548,23 @@ namespace ProvPos
                             rt.Result = DtoLib.Enumerados.EnumResult.isError;
                             return rt;
                         }
+
+                        if (ent.condicion_pago != "CONTADO")
+                        {
+                            var entCxC = cnn.cxc.Find(ent.auto_cxc);
+                            if (entCxC == null)
+                            {
+                                rt.Mensaje = "CXC ASOCIADO AL DOCUMENTO NO ENCONTRADO";
+                                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return rt;
+                            }
+                            if (entCxC.acumulado > 0) 
+                            {
+                                rt.Mensaje = "EXISTE UN PAGO/COBRO ASOCIADO AL DOCUMENTO";
+                                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return rt;
+                            }
+                        }
                     }
                     if (ent.estatus_cierre_contable == "1")
                     {
@@ -1925,7 +1942,7 @@ namespace ProvPos
                         }
 
                         //DEPOSITO ACTUALIZAR
-                        sql = @"update productos_deposito set fisica=fisica-@cnt, disponible=disponible-@cnt 
+                        sql = @"update productos_deposito set fisica=fisica+@cnt, disponible=disponible+@cnt 
                                     where auto_producto=@prd and auto_deposito=@dep";
                         foreach (var dt in ficha.deposito)
                         {
