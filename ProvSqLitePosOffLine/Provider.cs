@@ -220,6 +220,15 @@ namespace ProvSqLitePosOffLine
                     cnn.SaveChanges();
 
                     cnn.Configuration.AutoDetectChangesEnabled = true;
+
+                    var sql="UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='Jornada'";
+                    var id=cnn.Database.ExecuteSqlCommand(sql);
+                    if (id == 0) 
+                    {
+                        result.Mensaje = "PROBLEMA AL HACER RESET A JORNADA";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
                 }
 
             }

@@ -141,6 +141,14 @@ namespace ConsolePos
             //var r01 = posProv.Documento_GetById("0420000028");
 
             //var r01 = posProv.Documento_Anular_Verificar("0430000059");
+            //var r01 = posProv.Jornada_Resumen_GetByIdResumen(8);
+
+            //var r01 = posProv.Documento_Get_MetodosPago("0440000059");
+            //var r01 = posProv.Sistema_TipoDocumento_GetLista();
+            //var r02 = posProv.Sistema_Serie_GetLista();
+
+            //var filtro = new DtoLibPos.Deposito.Lista.Filtro() { PorCodigoSuc = "01", };
+            //var r01 = posProv.Deposito_GetLista (filtro);
         }
     }
 

@@ -94,6 +94,25 @@ namespace ProvPos
         //    return result;
         //}
 
+        public DtoLib.Resultado Test()
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cn = new PosEntities(_cnPos.ConnectionString))
+                {
+                };
+            }
+            catch (Exception ex)
+            {
+                result.Mensaje = ex.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

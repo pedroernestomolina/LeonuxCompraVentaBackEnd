@@ -170,6 +170,14 @@
     <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="codigo_sucursal" Type="varchar" MaxLength="30" Nullable="false" />
   </EntityType>
+  <EntityType Name="empresa_grupo">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="120" Nullable="false" />
+    <Property Name="idPrecio" Type="varchar" MaxLength="1" Nullable="false" />
+  </EntityType>
   <EntityType Name="empresa_medios">
     <Key>
       <PropertyRef Name="auto" />
@@ -233,6 +241,13 @@
     <Property Name="idSerieFactura" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="idSerieNotaCredito" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="idSerieNotaEntrega" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="idSerieNotaDebito" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="activar_busqueda_descripcion" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="activar_repesaje" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="limite_inferior_repesaje" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="limite_superior_repesaje" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="modoPrecio" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="estatus" Type="varchar" MaxLength="1" Nullable="false" />
   </EntityType>
   <EntityType Name="p_operador">
     <Key>
@@ -298,6 +313,22 @@
     <Property Name="cnt_anu_ncr" Type="int" Nullable="false" />
     <Property Name="m_anu_fac" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="cnt_anu_fac" Type="int" Nullable="false" />
+    <Property Name="cnt_cambio" Type="int" Nullable="false" />
+    <Property Name="m_cambio" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cnt_doc_contado_anulado" Type="int" Nullable="false" />
+    <Property Name="cnt_doc_credito_anulado" Type="int" Nullable="false" />
+    <Property Name="m_contado_anulado" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="m_credito_anulado" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cnt_efectivo_anulado" Type="int" Nullable="false" />
+    <Property Name="m_efectivo_anulado" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cnt_divisa_anulado" Type="int" Nullable="false" />
+    <Property Name="m_divisa_aunlado" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cnt_electronico_anulado" Type="int" Nullable="false" />
+    <Property Name="m_electronico_anulado" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cnt_otros_anulado" Type="int" Nullable="false" />
+    <Property Name="m_otros_anulado" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cnt_cambio_anulado" Type="int" Nullable="false" />
+    <Property Name="m_cambio_anulado" Type="decimal" Precision="14" Scale="2" Nullable="false" />
   </EntityType>
   <EntityType Name="p_venta">
     <Key>
@@ -1324,6 +1355,7 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
     <EntitySet Name="empresa_cobradores" EntityType="Self.empresa_cobradores" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_departamentos" EntityType="Self.empresa_departamentos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_depositos" EntityType="Self.empresa_depositos" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="empresa_grupo" EntityType="Self.empresa_grupo" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_medios" EntityType="Self.empresa_medios" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_tasas" EntityType="Self.empresa_tasas" Schema="pita" store:Type="Tables" />

@@ -15,6 +15,7 @@ namespace IPos
     {
 
         DtoLib.ResultadoEntidad<DateTime> FechaServidor();
+        DtoLib.Resultado Test();
 
     }
 

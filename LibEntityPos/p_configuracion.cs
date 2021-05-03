@@ -36,5 +36,12 @@ namespace LibEntityPos
         public string idSerieFactura { get; set; }
         public string idSerieNotaCredito { get; set; }
         public string idSerieNotaEntrega { get; set; }
+        public string idSerieNotaDebito { get; set; }
+        public string activar_busqueda_descripcion { get; set; }
+        public string activar_repesaje { get; set; }
+        public decimal limite_inferior_repesaje { get; set; }
+        public decimal limite_superior_repesaje { get; set; }
+        public string modoPrecio { get; set; }
+        public string estatus { get; set; }
     }
 }

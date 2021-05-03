@@ -21,6 +21,8 @@ namespace IPos
         DtoLib.Resultado Documento_Anular_NotaEntrega(DtoLibPos.Documento.Anular.NotaEntrega.Ficha ficha);
         DtoLib.Resultado Documento_Anular_NotaCredito(DtoLibPos.Documento.Anular.NotaCredito.Ficha ficha);
         DtoLib.Resultado Documento_Anular_Factura(DtoLibPos.Documento.Anular.Factura.Ficha ficha);
+        //
+        DtoLib.ResultadoLista<DtoLibPos.Documento.Entidad.FichaMetodoPago> Documento_Get_MetodosPago_ByIdRecibo(string autoRecibo);
 
     }
 

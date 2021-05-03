@@ -526,8 +526,26 @@ namespace ProvPos
                         entResumen.cnt_anu_ncr += 0;
                         entResumen.cnt_anu_fac += 0;
                         //
+                        entResumen.m_cambio+= res.mCambio;
+                        entResumen.cnt_cambio += res.cntCambio;
+                        //
+                        entResumen.cnt_doc_contado_anulado += 0;
+                        entResumen.cnt_doc_credito_anulado += 0;
+                        entResumen.cnt_efectivo_anulado += 0;
+                        entResumen.cnt_divisa_anulado += 0;
+                        entResumen.cnt_electronico_anulado += 0;
+                        entResumen.cnt_otros_anulado += 0;
+                        entResumen.m_contado_anulado += 0.0m;
+                        entResumen.m_credito_anulado += 0.0m;
+                        entResumen.m_efectivo_anulado += 0.0m;
+                        entResumen.m_divisa_aunlado += 0.0m;
+                        entResumen.m_electronico_anulado += 0.0m;
+                        entResumen.m_otros_anulado += 0.0m;
+                        //
+                        entResumen.cnt_cambio_anulado += 0;
+                        entResumen.m_cambio_anulado += 0;
+                        //
                         cn.SaveChanges();
-
                         ts.Complete();
                         result.Auto = autoVenta;
                     }
@@ -1134,8 +1152,26 @@ namespace ProvPos
                         entResumen.cnt_anu_ncr += 0;
                         entResumen.cnt_anu_fac += 0;
                         //
+                        entResumen.m_cambio += 0.0m;
+                        entResumen.cnt_cambio += 0;
+                        //
+                        entResumen.cnt_doc_contado_anulado += 0;
+                        entResumen.cnt_doc_credito_anulado += 0;
+                        entResumen.cnt_efectivo_anulado += 0;
+                        entResumen.cnt_divisa_anulado += 0;
+                        entResumen.cnt_electronico_anulado += 0;
+                        entResumen.cnt_otros_anulado += 0;
+                        entResumen.m_contado_anulado += 0.0m;
+                        entResumen.m_credito_anulado += 0.0m;
+                        entResumen.m_efectivo_anulado += 0.0m;
+                        entResumen.m_divisa_aunlado += 0.0m;
+                        entResumen.m_electronico_anulado += 0.0m;
+                        entResumen.m_otros_anulado += 0.0m;
+                        //
+                        entResumen.cnt_cambio_anulado += 0;
+                        entResumen.m_cambio_anulado += 0;
+                        //
                         cn.SaveChanges();
-
                         ts.Complete();
                         result.Auto = autoVenta;
                     }
@@ -1473,8 +1509,26 @@ namespace ProvPos
                         entResumen.cnt_anu_ncr += 0;
                         entResumen.cnt_anu_fac += 0;
                         //
+                        entResumen.m_cambio += 0.0m;
+                        entResumen.cnt_cambio += 0;
+                        //
+                        entResumen.cnt_doc_contado_anulado += 0;
+                        entResumen.cnt_doc_credito_anulado += 0;
+                        entResumen.cnt_efectivo_anulado += 0;
+                        entResumen.cnt_divisa_anulado += 0;
+                        entResumen.cnt_electronico_anulado += 0;
+                        entResumen.cnt_otros_anulado += 0;
+                        entResumen.m_contado_anulado += 0.0m;
+                        entResumen.m_credito_anulado += 0.0m;
+                        entResumen.m_efectivo_anulado += 0.0m;
+                        entResumen.m_divisa_aunlado += 0.0m;
+                        entResumen.m_electronico_anulado += 0.0m;
+                        entResumen.m_otros_anulado += 0.0m;
+                        //
+                        entResumen.cnt_cambio_anulado += 0;
+                        entResumen.m_cambio_anulado += 0;
+                        //
                         cn.SaveChanges();
-
                         ts.Complete();
                         result.Auto = autoVenta;
                     }
@@ -1979,12 +2033,73 @@ namespace ProvPos
                         //RESUMEN
                         var monto = new MySql.Data.MySqlClient.MySqlParameter();
                         var id = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p01 = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p02 = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p03 = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p04 = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p05 = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p06 = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p07 = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p08 = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p09 = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p10 = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p11 = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p12 = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p13 = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p14 = new MySql.Data.MySqlClient.MySqlParameter();
+
+
+                        p01.ParameterName = "@cnt_doc_contado_anulado";
+                        p01.Value=ficha.resumen.cntContado;
+                        p02.ParameterName = "@cnt_doc_credito_anulado";
+                        p02.Value = ficha.resumen.cntCredito;
+                        p03.ParameterName = "@m_contado_anulado";
+                        p03.Value = ficha.resumen.mContado;
+                        p04.ParameterName = "@m_credito_anulado";
+                        p04.Value = ficha.resumen.mCredito;
+                        p05.ParameterName = "@cnt_efectivo_anulado";
+                        p05.Value = ficha.resumen.cntEfectivo;
+                        p06.ParameterName = "@m_efectivo_anulado";
+                        p06.Value = ficha.resumen.mEfectivo;
+                        p07.ParameterName = "@cnt_divisa_anulado";
+                        p07.Value = ficha.resumen.cntDivisa;
+                        p08.ParameterName = "@m_divisa_anulado";
+                        p08.Value = ficha.resumen.mDivisa;
+                        p09.ParameterName = "@cnt_electronico_anulado";
+                        p09.Value = ficha.resumen.cntElectronico;
+                        p10.ParameterName = "@m_electronico_anulado";
+                        p10.Value = ficha.resumen.mElectronico;
+                        p11.ParameterName = "@cnt_otros_anulado";
+                        p11.Value = ficha.resumen.cntOtros;
+                        p12.ParameterName = "@m_otros_anulado";
+                        p12.Value = ficha.resumen.mOtros;
+                        p13.ParameterName = "@cnt_cambio_anulado";
+                        p13.Value = ficha.resumen.cntCambio;
+                        p14.ParameterName = "@m_cambio_anulado";
+                        p14.Value = ficha.resumen.mCambio; 
+
                         monto.ParameterName = "@monto";
                         monto.Value = ficha.resumen.monto;
                         id.ParameterName = "@id";
                         id.Value = ficha.resumen.idResumen;
-                        sql = "update p_resumen set m_anu=m_anu+@monto, cnt_anu=cnt_anu+1, m_anu_fac=m_anu_fac+@monto, cnt_anu_fac=cnt_anu_fac+1 where id=@id";
-                        var v6 = cn.Database.ExecuteSqlCommand(sql, id, monto);
+                        sql = @"update p_resumen set m_anu=m_anu+@monto, cnt_anu=cnt_anu+1,
+                                m_anu_fac=m_anu_fac+@monto, cnt_anu_fac=cnt_anu_fac+1,
+                                cnt_doc_contado_anulado=cnt_doc_contado_anulado+@cnt_doc_contado_anulado,
+                                cnt_doc_credito_anulado=cnt_doc_credito_anulado+@cnt_doc_credito_anulado, 
+                                m_contado_anulado=m_contado_anulado+@m_contado_anulado,
+                                m_credito_anulado=m_credito_anulado+@m_credito_anulado, 
+                                cnt_efectivo_anulado=cnt_efectivo_anulado+@cnt_efectivo_anulado, 
+                                m_efectivo_anulado=m_efectivo_anulado+@m_efectivo_anulado,
+                                cnt_divisa_anulado=cnt_divisa_anulado+@cnt_divisa_anulado, 
+                                m_divisa_aunlado=m_divisa_aunlado+@m_divisa_anulado, 
+                                cnt_electronico_anulado=cnt_electronico_anulado+@cnt_electronico_anulado,
+                                m_electronico_anulado=m_electronico_anulado+@m_electronico_anulado,
+                                cnt_otros_anulado=cnt_otros_anulado+@cnt_otros_anulado, 
+                                m_otros_anulado=m_otros_anulado+@m_otros_anulado,
+                                cnt_cambio_anulado=cnt_cambio_anulado+@cnt_cambio_anulado,
+                                m_cambio_anulado=m_cambio_anulado+@m_cambio_anulado
+                                where id=@id";
+                        var v6 = cn.Database.ExecuteSqlCommand(sql, id, monto, p01,p02,p03,p04,p05,p06,p07,p08,p09,p10,p11,p12,p13,p14);
                         if (v6 == 0)
                         {
                             result.Mensaje = "PROBLEMA AL ACTUALIZAR MOVIMIENTO RESUMEN";
@@ -2080,6 +2195,35 @@ namespace ProvPos
             }
 
             return result;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibPos.Documento.Entidad.FichaMetodoPago> Documento_Get_MetodosPago_ByIdRecibo(string autoRecibo)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibPos.Documento.Entidad.FichaMetodoPago>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "@p1";
+                    p1.Value = autoRecibo;
+
+                    var sql_1 = @"select auto_medio_pago as autoMedioPago, medio as descMedioPago, codigo as codigoMedioPago, 
+                                monto_recibido as montoRecibido, lote, referencia  
+                                FROM cxc_medio_pago where auto_recibo=@p1 ";
+                    var sql = sql_1;
+                    var q = cnn.Database.SqlQuery<DtoLibPos.Documento.Entidad.FichaMetodoPago>(sql, p1).ToList();
+                    rt.Lista = q;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
         }
 
     }

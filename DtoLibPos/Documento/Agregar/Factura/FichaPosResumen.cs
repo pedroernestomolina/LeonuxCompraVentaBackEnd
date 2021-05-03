@@ -38,6 +38,9 @@ namespace DtoLibPos.Documento.Agregar.Factura
         public int cntNte { get; set; }
         public decimal mAnu { get; set; }
         public int cntAnu { get; set; }
+        //
+        public decimal mCambio{ get; set; }
+        public int cntCambio { get; set; }
 
 
         public FichaPosResumen()
@@ -67,6 +70,9 @@ namespace DtoLibPos.Documento.Agregar.Factura
             mAnu = 0.0m;
             cntNte = 0;
             cntAnu = 0;
+            //
+            mCambio = 0.0m;
+            cntCambio = 0;
         }
 
     }

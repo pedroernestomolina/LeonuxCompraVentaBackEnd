@@ -46,6 +46,22 @@ namespace LibEntityPos
         public int cnt_anu_ncr { get; set; }
         public decimal m_anu_fac { get; set; }
         public int cnt_anu_fac { get; set; }
+        public int cnt_cambio { get; set; }
+        public decimal m_cambio { get; set; }
+        public int cnt_doc_contado_anulado { get; set; }
+        public int cnt_doc_credito_anulado { get; set; }
+        public decimal m_contado_anulado { get; set; }
+        public decimal m_credito_anulado { get; set; }
+        public int cnt_efectivo_anulado { get; set; }
+        public decimal m_efectivo_anulado { get; set; }
+        public int cnt_divisa_anulado { get; set; }
+        public decimal m_divisa_aunlado { get; set; }
+        public int cnt_electronico_anulado { get; set; }
+        public decimal m_electronico_anulado { get; set; }
+        public int cnt_otros_anulado { get; set; }
+        public decimal m_otros_anulado { get; set; }
+        public int cnt_cambio_anulado { get; set; }
+        public decimal m_cambio_anulado { get; set; }
     
         public virtual p_operador p_operador { get; set; }
     }

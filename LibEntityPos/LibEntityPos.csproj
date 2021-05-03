@@ -76,6 +76,9 @@
     <Compile Include="empresa_depositos.cs">
       <DependentUpon>PosModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="empresa_grupo.cs">
+      <DependentUpon>PosModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="empresa_medios.cs">
       <DependentUpon>PosModel.tt</DependentUpon>
     </Compile>

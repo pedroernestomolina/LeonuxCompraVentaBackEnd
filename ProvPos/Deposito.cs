@@ -20,13 +20,22 @@ namespace ProvPos
             {
                 using (var cnn = new PosEntities(_cnPos.ConnectionString))
                 {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+
                     var sql_1 = " select auto as id, codigo, nombre, codigo_sucursal as codigoSuc ";
                     var sql_2 = " from empresa_depositos ";
                     var sql_3 = " where 1=1 ";
                     var sql_4 = "";
 
+                    if (filtro.PorCodigoSuc != "") 
+                    {
+                        sql_3 += " and codigo_sucursal=@p1";
+                        p1.ParameterName = "@p1";
+                        p1.Value = filtro.PorCodigoSuc;
+                    }
+
                     var sql = sql_1 + sql_2 + sql_3 + sql_4;
-                    var list = cnn.Database.SqlQuery<DtoLibPos.Deposito.Lista.Ficha>(sql).ToList();
+                    var list = cnn.Database.SqlQuery<DtoLibPos.Deposito.Lista.Ficha>(sql,p1).ToList();
                     result.Lista = list;
                 }
             }

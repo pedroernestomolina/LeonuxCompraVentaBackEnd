@@ -98,6 +98,7 @@
     <Compile Include="Documento\Anular\NotaEntrega\FichaDeposito.cs" />
     <Compile Include="Documento\Entidad\Ficha.cs" />
     <Compile Include="Documento\Entidad\FichaItem.cs" />
+    <Compile Include="Documento\Entidad\FichaMetodoPago.cs" />
     <Compile Include="Documento\Lista\Ficha.cs" />
     <Compile Include="Documento\Lista\Filtro.cs" />
     <Compile Include="Fiscal\Entidad\Ficha.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Pos\Cerrar\Arqueo.cs" />
     <Compile Include="Pos\Cerrar\Ficha.cs" />
     <Compile Include="Pos\EnUso\Ficha.cs" />
+    <Compile Include="Pos\Resumen\Ficha.cs" />
     <Compile Include="Producto\Existencia\Bloquear\Ficha.cs" />
     <Compile Include="Producto\Existencia\Buscar\Ficha.cs" />
     <Compile Include="Producto\Existencia\Entidad\Ficha.cs" />

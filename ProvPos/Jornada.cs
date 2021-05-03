@@ -109,6 +109,32 @@ namespace ProvPos
                             m_ncr = res.mNCr,
                             cnt_doc_contado = res.cntDocContado,
                             cnt_doc_credito = res.cntDocCredito,
+                            cnt_anu = 0,
+                            cnt_anu_fac = 0,
+                            cnt_anu_ncr = 0,
+                            cnt_anu_nte = 0,
+                            cnt_cambio = 0,
+                            cnt_nte = 0,
+                            m_anu = 0.0m,
+                            m_anu_fac = 0.0m,
+                            m_anu_ncr = 0.0m,
+                            m_anu_nte = 0.0m,
+                            m_cambio = 0.0m,
+                            m_nte = 0.0m,
+                            cnt_divisa_anulado = 0,
+                            cnt_doc_contado_anulado = 0,
+                            cnt_doc_credito_anulado = 0,
+                            cnt_efectivo_anulado = 0,
+                            cnt_electronico_anulado = 0,
+                            cnt_otros_anulado = 0,
+                            m_contado_anulado = 0.0m,
+                            m_credito_anulado = 0.0m,
+                            m_divisa_aunlado = 0.0m,
+                            m_efectivo_anulado = 0.0m,
+                            m_electronico_anulado = 0.0m,
+                            m_otros_anulado = 0.0m,
+                            cnt_cambio_anulado=0,
+                            m_cambio_anulado=0.0m,
                         };
                         cnn.p_resumen.Add(pResumen);
                         cnn.SaveChanges();
@@ -399,6 +425,84 @@ namespace ProvPos
                         nomUsuario = nomUsu,
                         idArqueoCierre=idArqueoCierre,
                         idResumen=idResumen,
+                    };
+                    result.Entidad = nr;
+
+                    return result;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibPos.Pos.Resumen.Ficha> Jornada_Resumen_GetByIdResumen(int id)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPos.Pos.Resumen.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = cnn.p_resumen.Find(id);
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] RESUMEN NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var nr = new DtoLibPos.Pos.Resumen.Ficha()
+                    {
+                        cnt_anu = ent.cnt_anu,
+                        cnt_anu_fac = ent.cnt_anu_fac,
+                        cnt_anu_ncr = ent.cnt_anu_ncr,
+                        cnt_anu_nte = ent.cnt_anu_nte,
+                        cntDevolucion = ent.cnt_devolucion,
+                        cntDivisa = ent.cnt_divisa,
+                        cntDoc = ent.cnt_doc,
+                        cntDocContado = ent.cnt_doc_contado,
+                        cntDocCredito = ent.cnt_doc_credito,
+                        cntEfectivo = ent.cnt_efectivo,
+                        cntElectronico = ent.cnt_electronico,
+                        cntFac = ent.cnt_fac,
+                        cntNCr = ent.cnt_ncr,
+                        cntNtE = ent.cnt_nte,
+                        cntotros = ent.cnt_otros,
+                        cnt_cambio_anulado=ent.cnt_cambio_anulado,
+                        m_anu = ent.m_anu,
+                        m_anu_fac = ent.m_anu_fac,
+                        m_anu_ncr = ent.m_anu_ncr,
+                        m_anu_nte = ent.m_anu_nte,
+                        mContado = ent.m_contado,
+                        mCredito = ent.m_credito,
+                        mDevolucion = ent.m_devolucion,
+                        mDivisa = ent.m_divisa,
+                        mEfectivo = ent.m_efectivo,
+                        mElectronico = ent.m_electronico,
+                        mFac = ent.m_fac,
+                        mNCr = ent.m_ncr,
+                        mNtE = ent.m_nte,
+                        mOtros = ent.m_otros,
+                        cnt_cambio=ent.cnt_cambio,
+                        m_cambio=ent.m_cambio,
+                        cntDocContado_anu=ent.cnt_doc_contado_anulado,
+                        cntDocCredito_anu=ent.cnt_doc_credito_anulado,
+                        cntEfectivo_anu=ent.cnt_efectivo_anulado,
+                        cntDivisa_anu=ent.cnt_divisa_anulado ,
+                        cntElectronico_anu=ent.cnt_electronico_anulado,
+                        cntotros_anu=ent.cnt_otros_anulado,
+                        mContado_anu=ent.m_contado_anulado,
+                        mCredito_anu=ent.m_credito_anulado,
+                        mEfectivo_anu=ent.m_efectivo_anulado,
+                        mDivisa_anu=ent.m_divisa_aunlado,
+                        mElectronico_anu=ent.m_electronico_anulado,
+                        mOtros_anu=ent.m_otros_anulado,
+                        mcambio_anulado=ent.m_cambio_anulado,
                     };
                     result.Entidad = nr;
 

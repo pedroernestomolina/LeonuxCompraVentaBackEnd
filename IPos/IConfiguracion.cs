@@ -11,7 +11,8 @@ namespace IPos
     public interface IConfiguracion
     {
 
-        DtoLib.ResultadoEntidad<decimal> Configuracion_FactorDivisa();
+        DtoLib.ResultadoEntidad<string> Configuracion_FactorDivisa();
+        DtoLib.Resultado Configuracion_Pos_Inicializar();
         DtoLib.Resultado Configuracion_Pos_Actualizar(DtoLibPos.Configuracion.Actualizar.Ficha ficha);
         DtoLib.ResultadoEntidad<DtoLibPos.Configuracion.Entidad.Ficha> Configuracion_Pos_GetFicha();
 

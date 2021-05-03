@@ -55,11 +55,23 @@ namespace ProvPos
                         return result;
                     }
 
+                    var _autoGrupo=ent.autoEmpresaGrupo;
+                    var _nGrupo="";
+                    var _pManejar="";
+                    var entGrupo= cnn.empresa_grupo.Find(_autoGrupo);
+                    if (entGrupo!=null)
+                    {
+                        _nGrupo=entGrupo.nombre;
+                        _pManejar=entGrupo.idPrecio;
+                    }
+
                     var nr = new DtoLibPos.Sucursal.Entidad.Ficha()
                     {
                         id = ent.auto,
                         codigo = ent.codigo,
                         nombre = ent.nombre,
+                        nombreGrupo=_nGrupo,
+                        precioManejar=_pManejar,
                     };
                     result.Entidad = nr;
                 }
