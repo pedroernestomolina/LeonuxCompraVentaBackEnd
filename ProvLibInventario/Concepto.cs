@@ -1,6 +1,7 @@
 ﻿using LibEntityInventario;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
@@ -245,6 +246,54 @@ namespace ProvLibInventario
                     }
                 }
                 result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Concepto_Eliminar(string auto)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var ent = cnn.productos_conceptos.Find(auto);
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONCEPTO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    };
+                    cnn.productos_conceptos.Remove(ent);
+                    cnn.SaveChanges();
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                var dbUpdateEx = ex as DbUpdateException;
+                var sqlEx = dbUpdateEx.InnerException;
+                if (sqlEx != null)
+                {
+                    var exx = (MySql.Data.MySqlClient.MySqlException)sqlEx.InnerException;
+                    if (exx != null)
+                    {
+                        if (exx.Number == 1451)
+                        {
+                            result.Mensaje = "REGISTRO CONTIENE DATA RELACIONADA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                    }
+                }
+                result.Mensaje = ex.Message;
                 result.Result = DtoLib.Enumerados.EnumResult.isError;
             }
             catch (Exception e)

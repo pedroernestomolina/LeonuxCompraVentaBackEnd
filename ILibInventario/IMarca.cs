@@ -15,6 +15,7 @@ namespace ILibInventario
         DtoLib.ResultadoEntidad<DtoLibInventario.Marca.Ficha> Marca_GetFicha(string auto);
         DtoLib.ResultadoAuto Marca_Agregar(DtoLibInventario.Marca.Agregar ficha);
         DtoLib.Resultado Marca_Editar(DtoLibInventario.Marca.Editar ficha);
+        DtoLib.Resultado Marca_Eliminar(string auto);
 
     }
 

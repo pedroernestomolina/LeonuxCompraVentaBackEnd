@@ -149,6 +149,8 @@ namespace ConsolePos
 
             //var filtro = new DtoLibPos.Deposito.Lista.Filtro() { PorCodigoSuc = "01", };
             //var r01 = posProv.Deposito_GetLista (filtro);
+
+            //var r01 = posProv.Sistema_Empresa_GetFicha();
         }
     }
 

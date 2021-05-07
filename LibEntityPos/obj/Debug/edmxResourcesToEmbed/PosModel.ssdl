@@ -283,7 +283,7 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="id_p_operador" Type="int" Nullable="false" />
-    <Property Name="&#xD;&#xA;auto_pos_arqueo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="&#xA;auto_pos_arqueo" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="m_efectivo" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="cnt_efectivo" Type="int" Nullable="false" />
     <Property Name="m_divisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />

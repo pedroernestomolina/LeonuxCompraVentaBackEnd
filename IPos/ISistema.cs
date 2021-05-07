@@ -19,6 +19,8 @@ namespace IPos
 
         DtoLib.ResultadoEntidad<string> Sistema_ClaveAcceso_GetByIdNivel(int id);
 
+        DtoLib.ResultadoEntidad<DtoLibPos.Sistema.Empresa.Ficha> Sistema_Empresa_GetFicha();
+
     }
 
 }

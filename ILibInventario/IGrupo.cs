@@ -16,6 +16,7 @@ namespace ILibInventario
         DtoLib.ResultadoAuto Grupo_Agregar(DtoLibInventario.Grupo.Agregar ficha);
         DtoLib.Resultado Grupo_Editar(DtoLibInventario.Grupo.Editar ficha);
         DtoLib.ResultadoLista<DtoLibInventario.Grupo.Resumen> Grupo_GetListaByDepartamento(string id);
+        DtoLib.Resultado Grupo_Eliminar(string auto);
 
     }
 

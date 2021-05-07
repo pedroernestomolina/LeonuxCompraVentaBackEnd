@@ -288,7 +288,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_p_operador" Type="int" Nullable="false" />
-          <Property Name="&#xD;&#xA;auto_pos_arqueo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="&#xA;auto_pos_arqueo" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="m_efectivo" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="cnt_efectivo" Type="int" Nullable="false" />
           <Property Name="m_divisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
@@ -2222,13 +2222,13 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
             <End Role="p_operador" EntitySet="p_operador" />
             <End Role="p_venta" EntitySet="p_venta" />
           </AssociationSet>
+          <EntitySet Name="p_configuracion" EntityType="PosModel.p_configuracion" />
+          <EntitySet Name="empresa_grupo" EntityType="PosModel.empresa_grupo" />
           <EntitySet Name="p_resumen" EntityType="PosModel.p_resumen" />
           <AssociationSet Name="p_resumen_ibfk_1" Association="PosModel.p_resumen_ibfk_1">
             <End Role="p_operador" EntitySet="p_operador" />
             <End Role="p_resumen" EntitySet="p_resumen" />
           </AssociationSet>
-          <EntitySet Name="p_configuracion" EntityType="PosModel.p_configuracion" />
-          <EntitySet Name="empresa_grupo" EntityType="PosModel.empresa_grupo" />
         </EntityContainer>
         <EntityType Name="clientes">
           <Key>
@@ -3132,13 +3132,55 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="p_configuracion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idSucursal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idDeposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idVendedor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idCobrador" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idTransporte" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idMedioPagoEfectivo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idMedioPagoDivisa" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idMedioPagoOtros" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idClaveUsar" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="idPrecioManejar" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="idConceptoVenta" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idConceptoDevVenta" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idConceptoSalida" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idMedioPagoElectronico" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="validarExistencia" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="idTipoDocVenta" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idTipoDocDevVenta" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idTipoDocNotaEntrega" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idSerieFactura" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idSerieNotaCredito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idSerieNotaEntrega" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idSerieNotaDebito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="activar_busqueda_descripcion" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="activar_repesaje" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="limite_inferior_repesaje" Type="Decimal" Nullable="false" />
+          <Property Name="limite_superior_repesaje" Type="Decimal" Nullable="false" />
+          <Property Name="modoPrecio" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="estatus" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="empresa_grupo">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="idPrecio" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="p_resumen">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_p_operador" Type="Int32" Nullable="false" />
-          <Property Name="C__auto_pos_arqueo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="C_auto_pos_arqueo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="m_efectivo" Type="Decimal" Nullable="false" />
           <Property Name="cnt_efectivo" Type="Int32" Nullable="false" />
           <Property Name="m_divisa" Type="Decimal" Nullable="false" />
@@ -3198,48 +3240,6 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="p_configuracion">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idSucursal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idDeposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idVendedor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idCobrador" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idTransporte" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idMedioPagoEfectivo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idMedioPagoDivisa" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idMedioPagoOtros" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idClaveUsar" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="idPrecioManejar" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="idConceptoVenta" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idConceptoDevVenta" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idConceptoSalida" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idMedioPagoElectronico" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="validarExistencia" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="idTipoDocVenta" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idTipoDocDevVenta" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idTipoDocNotaEntrega" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idSerieFactura" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idSerieNotaCredito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idSerieNotaEntrega" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idSerieNotaDebito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="activar_busqueda_descripcion" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="activar_repesaje" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="limite_inferior_repesaje" Type="Decimal" Nullable="false" />
-          <Property Name="limite_superior_repesaje" Type="Decimal" Nullable="false" />
-          <Property Name="modoPrecio" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="estatus" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="empresa_grupo">
-          <Key>
-            <PropertyRef Name="auto" />
-          </Key>
-          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
-          <Property Name="idPrecio" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4002,6 +4002,50 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="p_configuracion">
+            <EntityTypeMapping TypeName="PosModel.p_configuracion">
+              <MappingFragment StoreEntitySet="p_configuracion">
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="modoPrecio" ColumnName="modoPrecio" />
+                <ScalarProperty Name="limite_superior_repesaje" ColumnName="limite_superior_repesaje" />
+                <ScalarProperty Name="limite_inferior_repesaje" ColumnName="limite_inferior_repesaje" />
+                <ScalarProperty Name="activar_repesaje" ColumnName="activar_repesaje" />
+                <ScalarProperty Name="activar_busqueda_descripcion" ColumnName="activar_busqueda_descripcion" />
+                <ScalarProperty Name="idSerieNotaDebito" ColumnName="idSerieNotaDebito" />
+                <ScalarProperty Name="idSerieNotaEntrega" ColumnName="idSerieNotaEntrega" />
+                <ScalarProperty Name="idSerieNotaCredito" ColumnName="idSerieNotaCredito" />
+                <ScalarProperty Name="idSerieFactura" ColumnName="idSerieFactura" />
+                <ScalarProperty Name="idTipoDocNotaEntrega" ColumnName="idTipoDocNotaEntrega" />
+                <ScalarProperty Name="idTipoDocDevVenta" ColumnName="idTipoDocDevVenta" />
+                <ScalarProperty Name="idTipoDocVenta" ColumnName="idTipoDocVenta" />
+                <ScalarProperty Name="validarExistencia" ColumnName="validarExistencia" />
+                <ScalarProperty Name="idMedioPagoElectronico" ColumnName="idMedioPagoElectronico" />
+                <ScalarProperty Name="idConceptoSalida" ColumnName="idConceptoSalida" />
+                <ScalarProperty Name="idConceptoDevVenta" ColumnName="idConceptoDevVenta" />
+                <ScalarProperty Name="idConceptoVenta" ColumnName="idConceptoVenta" />
+                <ScalarProperty Name="idPrecioManejar" ColumnName="idPrecioManejar" />
+                <ScalarProperty Name="idClaveUsar" ColumnName="idClaveUsar" />
+                <ScalarProperty Name="idMedioPagoOtros" ColumnName="idMedioPagoOtros" />
+                <ScalarProperty Name="idMedioPagoDivisa" ColumnName="idMedioPagoDivisa" />
+                <ScalarProperty Name="idMedioPagoEfectivo" ColumnName="idMedioPagoEfectivo" />
+                <ScalarProperty Name="idTransporte" ColumnName="idTransporte" />
+                <ScalarProperty Name="idCobrador" ColumnName="idCobrador" />
+                <ScalarProperty Name="idVendedor" ColumnName="idVendedor" />
+                <ScalarProperty Name="idDeposito" ColumnName="idDeposito" />
+                <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empresa_grupo">
+            <EntityTypeMapping TypeName="PosModel.empresa_grupo">
+              <MappingFragment StoreEntitySet="empresa_grupo">
+                <ScalarProperty Name="idPrecio" ColumnName="idPrecio" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="p_resumen">
             <EntityTypeMapping TypeName="PosModel.p_resumen">
               <MappingFragment StoreEntitySet="p_resumen">
@@ -4050,53 +4094,9 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
                 <ScalarProperty Name="m_divisa" ColumnName="m_divisa" />
                 <ScalarProperty Name="cnt_efectivo" ColumnName="cnt_efectivo" />
                 <ScalarProperty Name="m_efectivo" ColumnName="m_efectivo" />
-                <ScalarProperty Name="C__auto_pos_arqueo" ColumnName="&#xD;&#xA;auto_pos_arqueo" />
+                <ScalarProperty Name="C_auto_pos_arqueo" ColumnName="&#xA;auto_pos_arqueo" />
                 <ScalarProperty Name="id_p_operador" ColumnName="id_p_operador" />
                 <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="p_configuracion">
-            <EntityTypeMapping TypeName="PosModel.p_configuracion">
-              <MappingFragment StoreEntitySet="p_configuracion">
-                <ScalarProperty Name="estatus" ColumnName="estatus" />
-                <ScalarProperty Name="modoPrecio" ColumnName="modoPrecio" />
-                <ScalarProperty Name="limite_superior_repesaje" ColumnName="limite_superior_repesaje" />
-                <ScalarProperty Name="limite_inferior_repesaje" ColumnName="limite_inferior_repesaje" />
-                <ScalarProperty Name="activar_repesaje" ColumnName="activar_repesaje" />
-                <ScalarProperty Name="activar_busqueda_descripcion" ColumnName="activar_busqueda_descripcion" />
-                <ScalarProperty Name="idSerieNotaDebito" ColumnName="idSerieNotaDebito" />
-                <ScalarProperty Name="idSerieNotaEntrega" ColumnName="idSerieNotaEntrega" />
-                <ScalarProperty Name="idSerieNotaCredito" ColumnName="idSerieNotaCredito" />
-                <ScalarProperty Name="idSerieFactura" ColumnName="idSerieFactura" />
-                <ScalarProperty Name="idTipoDocNotaEntrega" ColumnName="idTipoDocNotaEntrega" />
-                <ScalarProperty Name="idTipoDocDevVenta" ColumnName="idTipoDocDevVenta" />
-                <ScalarProperty Name="idTipoDocVenta" ColumnName="idTipoDocVenta" />
-                <ScalarProperty Name="validarExistencia" ColumnName="validarExistencia" />
-                <ScalarProperty Name="idMedioPagoElectronico" ColumnName="idMedioPagoElectronico" />
-                <ScalarProperty Name="idConceptoSalida" ColumnName="idConceptoSalida" />
-                <ScalarProperty Name="idConceptoDevVenta" ColumnName="idConceptoDevVenta" />
-                <ScalarProperty Name="idConceptoVenta" ColumnName="idConceptoVenta" />
-                <ScalarProperty Name="idPrecioManejar" ColumnName="idPrecioManejar" />
-                <ScalarProperty Name="idClaveUsar" ColumnName="idClaveUsar" />
-                <ScalarProperty Name="idMedioPagoOtros" ColumnName="idMedioPagoOtros" />
-                <ScalarProperty Name="idMedioPagoDivisa" ColumnName="idMedioPagoDivisa" />
-                <ScalarProperty Name="idMedioPagoEfectivo" ColumnName="idMedioPagoEfectivo" />
-                <ScalarProperty Name="idTransporte" ColumnName="idTransporte" />
-                <ScalarProperty Name="idCobrador" ColumnName="idCobrador" />
-                <ScalarProperty Name="idVendedor" ColumnName="idVendedor" />
-                <ScalarProperty Name="idDeposito" ColumnName="idDeposito" />
-                <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="empresa_grupo">
-            <EntityTypeMapping TypeName="PosModel.empresa_grupo">
-              <MappingFragment StoreEntitySet="empresa_grupo">
-                <ScalarProperty Name="idPrecio" ColumnName="idPrecio" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

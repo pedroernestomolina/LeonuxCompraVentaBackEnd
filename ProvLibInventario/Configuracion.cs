@@ -95,9 +95,9 @@ namespace ProvLibInventario
             return result;
         }
 
-        public DtoLib.ResultadoEntidad<decimal> Configuracion_TasaCambioActual()
+        public DtoLib.ResultadoEntidad<string> Configuracion_TasaCambioActual()
         {
-            var result = new DtoLib.ResultadoEntidad<decimal>();
+            var result = new DtoLib.ResultadoEntidad<string>();
 
             try
             {
@@ -110,17 +110,17 @@ namespace ProvLibInventario
                         result.Result = DtoLib.Enumerados.EnumResult.isError;
                         return result;
                     }
-
-                    var m1 = 0.0m;
-                    var cnf = ent.usuario;
-                    if (cnf.Trim() != "")
-                    {
-                        var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
-                        //var culture = CultureInfo.CreateSpecificCulture("es-ES");
-                        var culture = CultureInfo.CreateSpecificCulture("en-EN");
-                        Decimal.TryParse(cnf, style, culture, out m1);
-                    }
-                    result.Entidad = m1;
+                    result.Entidad = ent.usuario;
+                    //var m1 = 0.0m;
+                    //var cnf = ent.usuario;
+                    //if (cnf.Trim() != "")
+                    //{
+                    //    var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
+                    //    //var culture = CultureInfo.CreateSpecificCulture("es-ES");
+                    //    var culture = CultureInfo.CreateSpecificCulture("en-EN");
+                    //    Decimal.TryParse(cnf, style, culture, out m1);
+                    //}
+                    //result.Entidad = m1;
                 }
             }
             catch (Exception e)

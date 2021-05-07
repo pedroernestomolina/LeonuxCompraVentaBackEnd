@@ -170,6 +170,7 @@
     <Compile Include="Producto\Pesado\Resumen.cs" />
     <Compile Include="Producto\Plu\Lista\Resumen.cs" />
     <Compile Include="Producto\Resumen.cs" />
+    <Compile Include="Producto\VerData\CodAlterno.cs" />
     <Compile Include="Producto\VerData\Costo.cs" />
     <Compile Include="Producto\VerData\Deposito.cs" />
     <Compile Include="Producto\VerData\Existencia.cs" />

@@ -89,7 +89,7 @@ namespace ProvPos
                         var pResumen = new p_resumen()
                         {
                             id_p_operador = pOperador.id,
-                            C__auto_pos_arqueo = autoCierre,
+                            C_auto_pos_arqueo = autoCierre,
                             m_efectivo = res.mEfectivo,
                             cnt_efectivo = res.cntEfectivo,
                             m_divisa = res.mDivisa,
@@ -348,7 +348,7 @@ namespace ProvPos
                         var entResumen= cnn.p_resumen.FirstOrDefault(f=>f.id_p_operador==ent.id);
                         if (entResumen!=null)
                         {
-                            idArqueoCierre=entResumen.C__auto_pos_arqueo;
+                            idArqueoCierre=entResumen.C_auto_pos_arqueo;
                             idResumen=entResumen.id;
                         }
 
@@ -403,7 +403,7 @@ namespace ProvPos
                     var entResumen= cnn.p_resumen.FirstOrDefault(f=>f.id_p_operador==ent.id);
                     if (entResumen!=null)
                     {
-                        idArqueoCierre=entResumen.C__auto_pos_arqueo;
+                        idArqueoCierre=entResumen.C_auto_pos_arqueo;
                         idResumen=entResumen.id;
                     }
 

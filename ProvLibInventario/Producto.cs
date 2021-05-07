@@ -588,6 +588,9 @@ namespace ProvLibInventario
                         referencia = entPrd.referencia,
                         tasaIva = _tasaIva,
                         tipoABC = entPrd.abc,
+                        estatusPesado = entPrd.estatus_pesado,
+                        plu = entPrd.plu,
+                        diasEmpaque = entPrd.dias_garantia,
                     };
                     f.identidad = id;
 
@@ -2389,6 +2392,7 @@ namespace ProvLibInventario
                         rt.Result = DtoLib.Enumerados.EnumResult.isError;
                         return rt;
                     };
+                    var entPrdAlterno = cnn.productos_alterno.Where(w => w.auto_producto == autoPrd).ToList();
 
                     var entPrdMed = cnn.productos_medida.Find(entPrd.auto_empaque_compra);
                     var _depart = entPrd.empresa_departamentos.nombre;
@@ -2471,6 +2475,17 @@ namespace ProvLibInventario
                         autoMarca = entPrd.auto_marca,
                         decimales = _decimales,
                         activarCatalogo = _catalogo,
+                        estatusPesado = entPrd.estatus_pesado,
+                        plu = entPrd.plu,
+                        diasEmpaque = entPrd.dias_garantia,
+                        codAlterno = entPrdAlterno.Select(s =>
+                        {
+                            var nr = new DtoLibInventario.Producto.VerData.CodAlterno()
+                            {
+                                codigo = s.codigo_alterno,
+                            };
+                            return nr;
+                        }).ToList(),
                     };
 
                     rt.Entidad = id;

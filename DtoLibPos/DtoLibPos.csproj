@@ -127,6 +127,7 @@
     <Compile Include="Producto\Lista\Ficha.cs" />
     <Compile Include="Producto\Lista\Filtro.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sistema\Empresa\Ficha.cs" />
     <Compile Include="Sistema\Serie\Entidad\Ficha.cs" />
     <Compile Include="Sistema\TipoDocumento\Entidad\Ficha.cs" />
     <Compile Include="Sucursal\Entidad\Ficha.cs" />

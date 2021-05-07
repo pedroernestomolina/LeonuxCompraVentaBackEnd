@@ -186,6 +186,30 @@ namespace ProvPos
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibPos.Sistema.Empresa.Ficha> Sistema_Empresa_GetFicha()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPos.Sistema.Empresa.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var sql = @"SELECT nombre, direccion, rif as cirif, telefono 
+                                FROM empresa
+                                WHERE auto='0000000001'";
+                    var ent= cnn.Database.SqlQuery<DtoLibPos.Sistema.Empresa.Ficha>(sql).FirstOrDefault();
+                    result.Entidad = ent;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

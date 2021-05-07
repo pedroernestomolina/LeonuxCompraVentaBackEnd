@@ -626,6 +626,12 @@ namespace ProvLibSistema
                     cmd = "update sistema set codigo_empresa=@p1, prefijo=@p2";
                     cnn.Database.ExecuteSqlCommand(cmd, p1,p2);
 
+
+                    // TABLAS NUEVAS
+
+                    cmd = "truncate table productos_movimientos_extra";
+                    cnn.Database.ExecuteSqlCommand(cmd);
+
                     //
                     cmd = "SET foreign_key_checks = 1";
                     cnn.Database.ExecuteSqlCommand(cmd);

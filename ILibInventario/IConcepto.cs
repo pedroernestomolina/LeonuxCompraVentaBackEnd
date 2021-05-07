@@ -16,6 +16,7 @@ namespace ILibInventario
         DtoLib.ResultadoAuto Concepto_Agregar(DtoLibInventario.Concepto.Agregar ficha);
         DtoLib.Resultado Concepto_Editar(DtoLibInventario.Concepto.Editar ficha);
         DtoLib.ResultadoEntidad<DtoLibInventario.Concepto.Ficha> Concepto_PorTraslado();
+        DtoLib.Resultado Concepto_Eliminar(string auto);
 
     }
 

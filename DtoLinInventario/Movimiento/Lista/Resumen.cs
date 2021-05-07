@@ -25,6 +25,8 @@ namespace DtoLibInventario.Movimiento.Lista
         public string docConcepto { get; set; }
         public string docMotivo { get; set; }
         public bool isDocAnulado { get; set; }
+        public string depositoOrigen { get; set; }
+        public string depositoDestino { get; set; }
 
     }
 

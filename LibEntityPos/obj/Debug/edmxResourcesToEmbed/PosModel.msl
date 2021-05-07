@@ -757,6 +757,50 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="p_configuracion">
+      <EntityTypeMapping TypeName="PosModel.p_configuracion">
+        <MappingFragment StoreEntitySet="p_configuracion">
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+          <ScalarProperty Name="modoPrecio" ColumnName="modoPrecio" />
+          <ScalarProperty Name="limite_superior_repesaje" ColumnName="limite_superior_repesaje" />
+          <ScalarProperty Name="limite_inferior_repesaje" ColumnName="limite_inferior_repesaje" />
+          <ScalarProperty Name="activar_repesaje" ColumnName="activar_repesaje" />
+          <ScalarProperty Name="activar_busqueda_descripcion" ColumnName="activar_busqueda_descripcion" />
+          <ScalarProperty Name="idSerieNotaDebito" ColumnName="idSerieNotaDebito" />
+          <ScalarProperty Name="idSerieNotaEntrega" ColumnName="idSerieNotaEntrega" />
+          <ScalarProperty Name="idSerieNotaCredito" ColumnName="idSerieNotaCredito" />
+          <ScalarProperty Name="idSerieFactura" ColumnName="idSerieFactura" />
+          <ScalarProperty Name="idTipoDocNotaEntrega" ColumnName="idTipoDocNotaEntrega" />
+          <ScalarProperty Name="idTipoDocDevVenta" ColumnName="idTipoDocDevVenta" />
+          <ScalarProperty Name="idTipoDocVenta" ColumnName="idTipoDocVenta" />
+          <ScalarProperty Name="validarExistencia" ColumnName="validarExistencia" />
+          <ScalarProperty Name="idMedioPagoElectronico" ColumnName="idMedioPagoElectronico" />
+          <ScalarProperty Name="idConceptoSalida" ColumnName="idConceptoSalida" />
+          <ScalarProperty Name="idConceptoDevVenta" ColumnName="idConceptoDevVenta" />
+          <ScalarProperty Name="idConceptoVenta" ColumnName="idConceptoVenta" />
+          <ScalarProperty Name="idPrecioManejar" ColumnName="idPrecioManejar" />
+          <ScalarProperty Name="idClaveUsar" ColumnName="idClaveUsar" />
+          <ScalarProperty Name="idMedioPagoOtros" ColumnName="idMedioPagoOtros" />
+          <ScalarProperty Name="idMedioPagoDivisa" ColumnName="idMedioPagoDivisa" />
+          <ScalarProperty Name="idMedioPagoEfectivo" ColumnName="idMedioPagoEfectivo" />
+          <ScalarProperty Name="idTransporte" ColumnName="idTransporte" />
+          <ScalarProperty Name="idCobrador" ColumnName="idCobrador" />
+          <ScalarProperty Name="idVendedor" ColumnName="idVendedor" />
+          <ScalarProperty Name="idDeposito" ColumnName="idDeposito" />
+          <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="empresa_grupo">
+      <EntityTypeMapping TypeName="PosModel.empresa_grupo">
+        <MappingFragment StoreEntitySet="empresa_grupo">
+          <ScalarProperty Name="idPrecio" ColumnName="idPrecio" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="p_resumen">
       <EntityTypeMapping TypeName="PosModel.p_resumen">
         <MappingFragment StoreEntitySet="p_resumen">
@@ -805,53 +849,9 @@
           <ScalarProperty Name="m_divisa" ColumnName="m_divisa" />
           <ScalarProperty Name="cnt_efectivo" ColumnName="cnt_efectivo" />
           <ScalarProperty Name="m_efectivo" ColumnName="m_efectivo" />
-          <ScalarProperty Name="C__auto_pos_arqueo" ColumnName="&#xD;&#xA;auto_pos_arqueo" />
+          <ScalarProperty Name="C_auto_pos_arqueo" ColumnName="&#xA;auto_pos_arqueo" />
           <ScalarProperty Name="id_p_operador" ColumnName="id_p_operador" />
           <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="p_configuracion">
-      <EntityTypeMapping TypeName="PosModel.p_configuracion">
-        <MappingFragment StoreEntitySet="p_configuracion">
-          <ScalarProperty Name="estatus" ColumnName="estatus" />
-          <ScalarProperty Name="modoPrecio" ColumnName="modoPrecio" />
-          <ScalarProperty Name="limite_superior_repesaje" ColumnName="limite_superior_repesaje" />
-          <ScalarProperty Name="limite_inferior_repesaje" ColumnName="limite_inferior_repesaje" />
-          <ScalarProperty Name="activar_repesaje" ColumnName="activar_repesaje" />
-          <ScalarProperty Name="activar_busqueda_descripcion" ColumnName="activar_busqueda_descripcion" />
-          <ScalarProperty Name="idSerieNotaDebito" ColumnName="idSerieNotaDebito" />
-          <ScalarProperty Name="idSerieNotaEntrega" ColumnName="idSerieNotaEntrega" />
-          <ScalarProperty Name="idSerieNotaCredito" ColumnName="idSerieNotaCredito" />
-          <ScalarProperty Name="idSerieFactura" ColumnName="idSerieFactura" />
-          <ScalarProperty Name="idTipoDocNotaEntrega" ColumnName="idTipoDocNotaEntrega" />
-          <ScalarProperty Name="idTipoDocDevVenta" ColumnName="idTipoDocDevVenta" />
-          <ScalarProperty Name="idTipoDocVenta" ColumnName="idTipoDocVenta" />
-          <ScalarProperty Name="validarExistencia" ColumnName="validarExistencia" />
-          <ScalarProperty Name="idMedioPagoElectronico" ColumnName="idMedioPagoElectronico" />
-          <ScalarProperty Name="idConceptoSalida" ColumnName="idConceptoSalida" />
-          <ScalarProperty Name="idConceptoDevVenta" ColumnName="idConceptoDevVenta" />
-          <ScalarProperty Name="idConceptoVenta" ColumnName="idConceptoVenta" />
-          <ScalarProperty Name="idPrecioManejar" ColumnName="idPrecioManejar" />
-          <ScalarProperty Name="idClaveUsar" ColumnName="idClaveUsar" />
-          <ScalarProperty Name="idMedioPagoOtros" ColumnName="idMedioPagoOtros" />
-          <ScalarProperty Name="idMedioPagoDivisa" ColumnName="idMedioPagoDivisa" />
-          <ScalarProperty Name="idMedioPagoEfectivo" ColumnName="idMedioPagoEfectivo" />
-          <ScalarProperty Name="idTransporte" ColumnName="idTransporte" />
-          <ScalarProperty Name="idCobrador" ColumnName="idCobrador" />
-          <ScalarProperty Name="idVendedor" ColumnName="idVendedor" />
-          <ScalarProperty Name="idDeposito" ColumnName="idDeposito" />
-          <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="empresa_grupo">
-      <EntityTypeMapping TypeName="PosModel.empresa_grupo">
-        <MappingFragment StoreEntitySet="empresa_grupo">
-          <ScalarProperty Name="idPrecio" ColumnName="idPrecio" />
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
-          <ScalarProperty Name="auto" ColumnName="auto" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
