@@ -28,6 +28,10 @@ namespace ProvLibInventario
                     {
                         q = q.Where(f => f.auto_deposito == filtro.autoDeposito).ToList();
                     }
+                    if (filtro.autoDepartamento != "")
+                    {
+                        q = q.Where(f => f.productos.auto_departamento == filtro.autoDepartamento).ToList();
+                    }
 
                     var list = new List<DtoLibInventario.Movimiento.Traslado.Consultar.ProductoPorDebajoNivelMinimo>();
                     if (q != null)

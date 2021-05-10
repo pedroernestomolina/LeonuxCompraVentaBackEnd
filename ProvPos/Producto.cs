@@ -40,6 +40,10 @@ namespace ProvPos
                     if (filtro.Cadena.Trim() != "") 
                     {
                         var cad = filtro.Cadena.Trim();
+                        if (cad.Substring(0, 1) == "*")
+                        {
+                            cad = "%" + cad.Substring(1);
+                        }
                         sql_3 += " and p.nombre like @p1 ";
                         p1.ParameterName = "@p1";
                         p1.Value = cad + "%";
