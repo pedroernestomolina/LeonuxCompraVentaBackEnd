@@ -16,7 +16,7 @@ namespace LibEntityPos
     {
         public int id { get; set; }
         public int id_p_operador { get; set; }
-        public string C_auto_pos_arqueo { get; set; }
+        public string C__auto_pos_arqueo { get; set; }
         public decimal m_efectivo { get; set; }
         public int cnt_efectivo { get; set; }
         public decimal m_divisa { get; set; }

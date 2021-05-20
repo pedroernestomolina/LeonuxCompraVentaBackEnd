@@ -68,7 +68,7 @@
         <AssociationConnector Association="PosModel.p_venta_ibfk_1" />
         <EntityTypeShape EntityType="PosModel.p_configuracion" Width="1.5" PointX="12.375" PointY="0.75" />
         <EntityTypeShape EntityType="PosModel.empresa_grupo" Width="1.5" PointX="21.75" PointY="5.125" />
-        <EntityTypeShape EntityType="PosModel.p_resumen" Width="1.5" PointX="36.125" PointY="23.875" />
+        <EntityTypeShape EntityType="PosModel.p_resumen" Width="1.5" PointX="36.5" PointY="23.875" />
         <AssociationConnector Association="PosModel.p_resumen_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>

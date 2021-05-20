@@ -1538,7 +1538,7 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="id_p_operador" Type="Int32" Nullable="false" />
-    <Property Name="C_auto_pos_arqueo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C__auto_pos_arqueo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="m_efectivo" Type="Decimal" Nullable="false" />
     <Property Name="cnt_efectivo" Type="Int32" Nullable="false" />
     <Property Name="m_divisa" Type="Decimal" Nullable="false" />

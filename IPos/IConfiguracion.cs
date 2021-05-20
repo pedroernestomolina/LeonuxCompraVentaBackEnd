@@ -17,6 +17,7 @@ namespace IPos
         DtoLib.ResultadoEntidad<DtoLibPos.Configuracion.Entidad.Ficha> Configuracion_Pos_GetFicha();
         DtoLib.Resultado Configuracion_Pos_CambioDepositoSucursalFrio();
         DtoLib.Resultado Configuracion_Pos_CambioDepositoSucursalViveres();
+        DtoLib.Resultado Configuracion_Pos_CambioDepositoSucursal(DtoLibPos.Configuracion.CambioDepositoSucursal.Ficha ficha);
 
     }
 

@@ -849,7 +849,7 @@
           <ScalarProperty Name="m_divisa" ColumnName="m_divisa" />
           <ScalarProperty Name="cnt_efectivo" ColumnName="cnt_efectivo" />
           <ScalarProperty Name="m_efectivo" ColumnName="m_efectivo" />
-          <ScalarProperty Name="C_auto_pos_arqueo" ColumnName="&#xA;auto_pos_arqueo" />
+          <ScalarProperty Name="C__auto_pos_arqueo" ColumnName="&#xD;&#xA;auto_pos_arqueo" />
           <ScalarProperty Name="id_p_operador" ColumnName="id_p_operador" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>

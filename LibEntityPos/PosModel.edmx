@@ -288,7 +288,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_p_operador" Type="int" Nullable="false" />
-          <Property Name="&#xA;auto_pos_arqueo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="&#xD;&#xA;auto_pos_arqueo" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="m_efectivo" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="cnt_efectivo" Type="int" Nullable="false" />
           <Property Name="m_divisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
@@ -3180,7 +3180,7 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_p_operador" Type="Int32" Nullable="false" />
-          <Property Name="C_auto_pos_arqueo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="C__auto_pos_arqueo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="m_efectivo" Type="Decimal" Nullable="false" />
           <Property Name="cnt_efectivo" Type="Int32" Nullable="false" />
           <Property Name="m_divisa" Type="Decimal" Nullable="false" />
@@ -4094,7 +4094,7 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
                 <ScalarProperty Name="m_divisa" ColumnName="m_divisa" />
                 <ScalarProperty Name="cnt_efectivo" ColumnName="cnt_efectivo" />
                 <ScalarProperty Name="m_efectivo" ColumnName="m_efectivo" />
-                <ScalarProperty Name="C_auto_pos_arqueo" ColumnName="&#xA;auto_pos_arqueo" />
+                <ScalarProperty Name="C__auto_pos_arqueo" ColumnName="&#xD;&#xA;auto_pos_arqueo" />
                 <ScalarProperty Name="id_p_operador" ColumnName="id_p_operador" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

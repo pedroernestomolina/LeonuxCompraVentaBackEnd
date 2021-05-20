@@ -55,6 +55,7 @@ namespace DtoLibCompra.Documento.Visualizar
         public string equipoEstacion { get; set; }
         public int renglones { get; set; }
         public int signo { get; set; }
+        public string aplica { get; set; }
         public List<FichaDetalle> detalles { get; set; }
 
     }

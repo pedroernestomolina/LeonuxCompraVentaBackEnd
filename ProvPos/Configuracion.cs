@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace ProvPos
 {
-    
-    public partial class Provider: IPos.IProvider
+
+    public partial class Provider : IPos.IProvider
     {
 
         public DtoLib.ResultadoEntidad<string> Configuracion_FactorDivisa()
@@ -84,7 +84,7 @@ namespace ProvPos
                     ent.idSerieFactura = "";
                     ent.idSerieNotaCredito = "";
                     ent.idSerieNotaEntrega = "";
-                    ent.idSerieNotaDebito = ""; 
+                    ent.idSerieNotaDebito = "";
                     //
                     ent.idClaveUsar = "";
                     ent.idPrecioManejar = "";
@@ -94,7 +94,7 @@ namespace ProvPos
                     ent.limite_inferior_repesaje = 0.0m;
                     ent.limite_superior_repesaje = 0.0m;
                     //
-                    ent.modoPrecio = ""; 
+                    ent.modoPrecio = "";
                     ent.estatus = "";
                     //
                     cnn.SaveChanges();
@@ -136,8 +136,8 @@ namespace ProvPos
                     ent.idCobrador = ficha.idCobrador;
                     ent.idTransporte = ficha.idTransporte;
                     ent.idVendedor = ficha.idVendedor;
-                    ent.idTipoDocVenta = ficha.idTipoDocVenta ;
-                    ent.idTipoDocDevVenta  = ficha.idTipoDocDevVenta;
+                    ent.idTipoDocVenta = ficha.idTipoDocVenta;
+                    ent.idTipoDocDevVenta = ficha.idTipoDocDevVenta;
                     ent.idTipoDocNotaEntrega = ficha.idTipoDocNotaEntrega;
                     ent.idSerieFactura = ficha.idFacturaSerie;
                     ent.idSerieNotaCredito = ficha.idNotaCreditoSerie;
@@ -228,7 +228,7 @@ namespace ProvPos
 
         public DtoLib.Resultado Configuracion_Pos_CambioDepositoSucursalFrio()
         {
-         var result = new DtoLib.Resultado();
+            var result = new DtoLib.Resultado();
 
             try
             {
@@ -283,6 +283,36 @@ namespace ProvPos
 
             return result;
         }
+
+        public DtoLib.Resultado Configuracion_Pos_CambioDepositoSucursal(DtoLibPos.Configuracion.CambioDepositoSucursal.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = cnn.p_configuracion.Find(1);
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    ent.idSucursal = ficha.idSucursal;
+                    ent.idDeposito = ficha.idDeposito;
+                    cnn.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

@@ -471,6 +471,7 @@ namespace ProvLibCompra
                         montoIva1 = ent.impuesto1,
                         montoIva2 = ent.impuesto2,
                         montoIva3 = ent.impuesto3,
+                        aplica=ent.aplica,
                     };
                     var lista = det.Select(s =>
                     {
@@ -526,7 +527,7 @@ namespace ProvLibCompra
                         "auto, fecha as fechaEmision, tipo, documento, signo, control, " +
                         "documento_nombre as tipoDocNombre, fecha_registro as fechaRegistro, " +
                         "codigo_sucursal as codigoSuc, razon_social as provNombre, ci_rif as provCiRif, " +
-                        "total as monto, situacion, monto_Divisa as montoDivisa, estatus_anulado as estatusAnulado ";
+                        "total as monto, situacion, monto_Divisa as montoDivisa, estatus_anulado as estatusAnulado, aplica ";
 
                     var sql_2 = " FROM compras ";
 

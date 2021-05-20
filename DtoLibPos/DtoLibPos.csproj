@@ -51,6 +51,7 @@
     <Compile Include="Concepto\Lista\Ficha.cs" />
     <Compile Include="Concepto\Lista\Filtro.cs" />
     <Compile Include="Configuracion\Actualizar\Ficha.cs" />
+    <Compile Include="Configuracion\CambioDepositoSucursal\Ficha.cs" />
     <Compile Include="Configuracion\Entidad\Ficha.cs" />
     <Compile Include="Deposito\Entidad\Ficha.cs" />
     <Compile Include="Deposito\Lista\Ficha.cs" />
