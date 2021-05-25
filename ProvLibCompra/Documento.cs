@@ -251,7 +251,7 @@ namespace ProvLibCompra
                             var exLista = cnn.productos_deposito.Where(w => w.auto_producto == it.autoPrd).ToList();
                             if (exLista.Count>0)
                                 ex=exLista.Sum(s => s.fisica);
-                            if (ex!=0)
+                            if ((ex + it.cntUnd) != 0)
                             {
                                 cActual = entPrd.costo_promedio_und * ex;
                                 cCompra = it.costoUnd * it.cntUnd;

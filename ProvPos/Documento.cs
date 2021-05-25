@@ -596,23 +596,49 @@ namespace ProvPos
                 using (var cnn = new PosEntities(_cnPos.ConnectionString))
                 {
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p5 = new MySql.Data.MySqlClient.MySqlParameter();
 
-                    var sql_1 = @"select auto as id,documento as docNumero, control, fecha as fechaEmision, 
-                                hora as horaEmision, razon_social as nombreRazonSocial, ci_Rif as cirif, 
-                                total as monto, estatus_Anulado as estatus, renglones, serie, monto_divisa as montoDivisa, 
-                                tipo as docCodigo, signo as docSigno, documento_nombre as docNombre
-                                FROM ventas ";
-                    var sql_2 = " where 1=1 ";
+                    var sql_1 = @"select v.auto as id, v.documento as docNumero, v.control, v.fecha as fechaEmision, 
+                                v.hora as horaEmision, v.razon_social as nombreRazonSocial, v.ci_Rif as cirif, 
+                                v.total as monto, v.estatus_Anulado as estatus, v.renglones, v.serie, v.monto_divisa as montoDivisa, 
+                                v.tipo as docCodigo, v.signo as docSigno, v.documento_nombre as docNombre, v.aplica as docAplica, 
+                                v.codigo_sucursal as sucursalCod, v.situacion as docSituacion, es.nombre as sucursalDesc
+                                FROM ventas as v ";
+                    var sql_2 = " join empresa_sucursal as es on v.codigo_sucursal=es.codigo ";
+                    var sql_3 = " where 1=1 ";
 
                     if (filtro.idArqueo != "")
                     {
-                        sql_2 += " and cierre=@p1 ";
+                        sql_3 += " and v.cierre=@p1 ";
                         p1.ParameterName = "@p1";
                         p1.Value = filtro.idArqueo;
                     }
+                    if (filtro.codTipoDocumento != "")
+                    {
+                        sql_3 += " and v.tipo=@p2 ";
+                        p2.ParameterName = "@p2";
+                        p2.Value = filtro.codTipoDocumento;
+                    }
+                    if (filtro.codSucursal != "")
+                    {
+                        sql_3 += " and v.codigo_sucursal=@p3 ";
+                        p3.ParameterName = "@p3";
+                        p3.Value = filtro.codSucursal;
+                    }
+                    if (filtro.fecha != null)
+                    {
+                        sql_3 += " and v.fecha>=@p4 and v.fecha<=@p5";
+                        p4.ParameterName = "@p4";
+                        p4.Value = filtro.fecha.desde;
+                        p5.ParameterName = "@p5";
+                        p5.Value = filtro.fecha.hasta;
+                    }
 
-                    var sql = sql_1 + sql_2; 
-                    var q = cnn.Database.SqlQuery<DtoLibPos.Documento.Lista.Ficha>(sql, p1).ToList();
+                    var sql = sql_1 + sql_2+ sql_3; 
+                    var q = cnn.Database.SqlQuery<DtoLibPos.Documento.Lista.Ficha>(sql, p1,p2,p3,p4,p5).ToList();
                     rt.Lista = q;
                 }
             }

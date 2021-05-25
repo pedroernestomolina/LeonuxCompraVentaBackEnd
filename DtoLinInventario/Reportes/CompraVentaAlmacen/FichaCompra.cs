@@ -23,7 +23,18 @@ namespace DtoLibInventario.Reportes.CompraVentaAlmacen
         public decimal tneto { get; set; }
         public decimal xcostoUnd { get; set; }
         public string estatusAnulado { get; set; }
-        public decimal costoUnd { get { return tneto / cntUnd; } }
+        public decimal costoUnd 
+        { 
+            get 
+            {
+                var rt = 0.0m;
+                if (cntUnd != 0.0m) 
+                {
+                    rt = tneto / cntUnd; 
+                }
+                return rt; 
+            }
+        }
         public decimal costoDivisaUnd { get { return (costoUnd / factor); } }
         public bool isAnulado { get { return estatusAnulado == "1"; } }
 

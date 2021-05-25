@@ -26,6 +26,10 @@ namespace DtoLibPos.Documento.Lista
         public string DocNombre { get; set; }
         public string DocCodigo { get; set; }
         public int DocSigno { get; set; }
+        public string DocAplica { get; set; }
+        public string SucursalCod { get; set; }
+        public string SucursalDesc { get; set; }
+        public string DocSituacion { get; set; }
 
 
         public Ficha()
@@ -45,6 +49,10 @@ namespace DtoLibPos.Documento.Lista
             DocNombre="";
             DocCodigo="";
             DocSigno=1;
+            DocAplica = "";
+            DocSituacion = "";
+            SucursalCod = "";
+            SucursalDesc = "";
         }
 
     }
