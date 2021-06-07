@@ -55,5 +55,7 @@ namespace LibEntityPos
         public virtual DbSet<p_configuracion> p_configuracion { get; set; }
         public virtual DbSet<empresa_grupo> empresa_grupo { get; set; }
         public virtual DbSet<p_resumen> p_resumen { get; set; }
+        public virtual DbSet<clientes_grupo> clientes_grupo { get; set; }
+        public virtual DbSet<clientes_zonas> clientes_zonas { get; set; }
     }
 }

@@ -151,6 +151,40 @@ namespace ConsolePos
             //var r01 = posProv.Deposito_GetLista (filtro);
 
             //var r01 = posProv.Sistema_Empresa_GetFicha();
+
+            //var filtro = new DtoLibPos.ClienteGrupo.Lista.Filtro();
+            //var r01 = posProv.ClienteGrupo_GetLista(filtro);
+
+            //var r02 = posProv.ClienteGrupo_GetFichaById ("0000000001");
+
+            //var ficha = new DtoLibPos.ClienteGrupo.Editar.Ficha()
+            //{
+            //    auto = "0000000002",
+            //    codigo = "01",
+            //    nombre = "PRUEBA 1",
+            //};
+            //var r03 = posProv.ClienteGrupo_Editar(ficha);
+
+            //var filtro = new DtoLibPos.ClienteZona.Lista.Filtro();
+            //var r01 = posProv.ClienteZona_GetLista (filtro);
+
+            //var r02 = posProv.ClienteZona_GetFichaById("0000000001");
+
+            //var ficha = new DtoLibPos.ClienteZona.Agregar.Ficha()
+            //{
+            //    codigo = "01",
+            //    nombre = "ZONA 2",
+            //};
+            //var r03 = posProv.ClienteZona_Agregar(ficha);
+
+            //var ficha = new DtoLibPos.ClienteZona.Editar .Ficha()
+            //{
+            //    auto="0000000002",
+            //    codigo = "02",
+            //    nombre = "ZONA 02",
+            //};
+            //var r03 = posProv.ClienteZona_Editar(ficha);
+
         }
     }
 

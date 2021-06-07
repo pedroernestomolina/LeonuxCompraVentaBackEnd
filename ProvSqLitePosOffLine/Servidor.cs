@@ -2935,266 +2935,327 @@ namespace ProvSqLitePosOffLine
                         //DESACTIVAR RESTRICCIONES FORANEAS
                         sql0 = "SET FOREIGN_KEY_CHECKS=0";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
 
                         //LIMPIANDO TABLAS
                         sql0 = "delete from sistema_configuracion";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from usuarios_grupo_permisos";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from usuarios";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from usuarios_grupo";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from empresa";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from empresa_tasas";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from empresa_departamentos";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from productos_alterno";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from productos_deposito";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from productos";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from productos_grupo";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from productos_marca";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from productos_lista";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         //
 
                         sql0 = "delete from proveedores_grupo";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from proveedores";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from compras_detalle WHERE TIPO='04'";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from compras WHERE TIPO='04'";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from productos_precios";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from clientes where auto > '0900000001'";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         //
 
                         sql0 = "delete from productos_kardex where modulo <> 'Ventas'";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from empresa_grupo";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from empresa_sucursal";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from sistema_menu";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from sistema_funciones";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from empresa_depositos";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from productos_movimientos_detalle";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from productos_movimientos";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from productos_medida";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
 
                         // PROCESO DE INSERTAR
                         sql0 = "load data infile \"" + pathData + "/sistema_configuracion.txt\" into table sistema_configuracion";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/usuarios_grupo.txt\" into table usuarios_grupo";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/usuarios.txt\" into table usuarios";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/usuarios_grupo_permisos.txt\" into table usuarios_grupo_permisos";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/empresa.txt\" into table empresa";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/empresa_tasas.txt\" into table empresa_tasas";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/empresa_departamentos.txt\" into table empresa_departamentos";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/productos_alterno.txt\" into table productos_alterno";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/productos_deposito.txt\" into table productos_deposito";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/productos.txt\" into table productos";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/productos_grupo.txt\" into table productos_grupo";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/productos_marca.txt\" into table productos_marca";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/productos_lista.txt\" into table productos_lista";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         //
 
                         sql0 = "load data infile \"" + pathData + "/proveeodres_grupo.txt\" into table proveedores_grupo";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/proveeodres.txt\" into table proveedores";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/compras.txt\" into table compras";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/compras_detalle.txt\" into table compras_detalle";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/productos_precios.txt\" into table productos_precios";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
                        
                         //
 
                         sql0 = "load data infile \"" + pathData + "/clientes.txt\" into table clientes";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         //
 
                         sql0 = "load data infile \"" + pathData + "/productos_kardex.txt\" into table productos_kardex";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from productos_kardex where codigo_sucursal<>?codigoSucursal";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         comando1.Parameters.Clear();
                         comando1.Parameters.AddWithValue("?codigoSucursal", codigoSuc);
                         //rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/empresa_grupo.txt\" into table empresa_grupo";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/empresa_sucursal.txt\" into table empresa_sucursal";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/sistema_menu.txt\" into table sistema_menu";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/sistema_funciones.txt\" into table sistema_funciones";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/empresa_depositos.txt\" into table empresa_depositos";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from empresa_depositos where codigo_sucursal<>?codigoSucursal";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         comando1.Parameters.Clear();
                         comando1.Parameters.AddWithValue("?codigoSucursal", codigoSuc);
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/productos_movimientos.txt\" into table productos_movimientos";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "delete from productos_movimientos where codigo_sucursal<>?codigoSucursal";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         comando1.Parameters.Clear();
                         comando1.Parameters.AddWithValue("?codigoSucursal", codigoSuc);
                         //rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/productos_movimientos_detalle.txt\" into table productos_movimientos_detalle";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/productos_medida.txt\" into table productos_medida";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "update sistema set deposito_principal=(select autodepositoprincipal from empresa_sucursal where codigo=?codigoSucursal)";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         comando1.Parameters.Clear();
                         comando1.Parameters.AddWithValue("?codigoSucursal", codigoSuc);
                         rt = comando1.ExecuteNonQuery();
@@ -3202,6 +3263,7 @@ namespace ProvSqLitePosOffLine
                         //ESTADO NORMAL RESTRICCIONES FORANEAS
                         sql0 = "SET FOREIGN_KEY_CHECKS=1";
                         comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
                         tr.Commit();

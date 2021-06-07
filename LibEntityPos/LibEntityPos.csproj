@@ -61,6 +61,12 @@
     <Compile Include="clientes.cs">
       <DependentUpon>PosModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="clientes_grupo.cs">
+      <DependentUpon>PosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="clientes_zonas.cs">
+      <DependentUpon>PosModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="cxc.cs">
       <DependentUpon>PosModel.tt</DependentUpon>
     </Compile>

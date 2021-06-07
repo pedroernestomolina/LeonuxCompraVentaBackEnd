@@ -587,6 +587,16 @@
       <End Role="p_operador" EntitySet="p_operador" />
       <End Role="p_resumen" EntitySet="p_resumen" />
     </AssociationSet>
+    <EntitySet Name="clientes_grupo" EntityType="PosModel.clientes_grupo" />
+    <EntitySet Name="clientes_zonas" EntityType="PosModel.clientes_zonas" />
+    <AssociationSet Name="clientes_ibfk_1" Association="PosModel.clientes_ibfk_1">
+      <End Role="clientes_grupo" EntitySet="clientes_grupo" />
+      <End Role="clientes" EntitySet="clientes" />
+    </AssociationSet>
+    <AssociationSet Name="clientes_ibfk_3" Association="PosModel.clientes_ibfk_3">
+      <End Role="clientes_zonas" EntitySet="clientes_zonas" />
+      <End Role="clientes" EntitySet="clientes" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="clientes">
     <Key>
@@ -664,6 +674,8 @@
     <NavigationProperty Name="empresa_cobradores" Relationship="PosModel.clientes_ibfk_5" FromRole="clientes" ToRole="empresa_cobradores" />
     <NavigationProperty Name="cxc" Relationship="PosModel.cxc_ibfk_1" FromRole="clientes" ToRole="cxc" />
     <NavigationProperty Name="cxc_recibos" Relationship="PosModel.cxc_recibos_ibfk_2" FromRole="clientes" ToRole="cxc_recibos" />
+    <NavigationProperty Name="clientes_grupo" Relationship="PosModel.clientes_ibfk_1" FromRole="clientes" ToRole="clientes_grupo" />
+    <NavigationProperty Name="clientes_zonas" Relationship="PosModel.clientes_ibfk_3" FromRole="clientes" ToRole="clientes_zonas" />
   </EntityType>
   <Association Name="ventas_detalle_ibfk_6">
     <End Type="PosModel.clientes" Role="clientes" Multiplicity="1" />
@@ -1595,6 +1607,48 @@
       </Principal>
       <Dependent Role="p_resumen">
         <PropertyRef Name="id_p_operador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="clientes_grupo">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="clientes" Relationship="PosModel.clientes_ibfk_1" FromRole="clientes_grupo" ToRole="clientes" />
+  </EntityType>
+  <EntityType Name="clientes_zonas">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="clientes" Relationship="PosModel.clientes_ibfk_3" FromRole="clientes_zonas" ToRole="clientes" />
+  </EntityType>
+  <Association Name="clientes_ibfk_1">
+    <End Type="PosModel.clientes_grupo" Role="clientes_grupo" Multiplicity="1" />
+    <End Type="PosModel.clientes" Role="clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clientes_grupo">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="clientes">
+        <PropertyRef Name="auto_grupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="clientes_ibfk_3">
+    <End Type="PosModel.clientes_zonas" Role="clientes_zonas" Multiplicity="1" />
+    <End Type="PosModel.clientes" Role="clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clientes_zonas">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="clientes">
+        <PropertyRef Name="auto_zona" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

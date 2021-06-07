@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICliente.cs" />
+    <Compile Include="IClienteGrupo.cs" />
+    <Compile Include="IClienteZona.cs" />
     <Compile Include="ICobrador.cs" />
     <Compile Include="IConcepto.cs" />
     <Compile Include="IConfiguracion.cs" />
@@ -51,6 +53,7 @@
     <Compile Include="IPermiso.cs" />
     <Compile Include="IProducto.cs" />
     <Compile Include="IProvider.cs" />
+    <Compile Include="IReportesAdm.cs" />
     <Compile Include="ISistema.cs" />
     <Compile Include="ISucursal.cs" />
     <Compile Include="ITransporte.cs" />

@@ -100,5 +100,7 @@ namespace LibEntityPos
         public virtual ICollection<cxc> cxc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cxc_recibos> cxc_recibos { get; set; }
+        public virtual clientes_grupo clientes_grupo { get; set; }
+        public virtual clientes_zonas clientes_zonas { get; set; }
     }
 }

@@ -39,6 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClienteGrupo\Agregar\Ficha.cs" />
+    <Compile Include="ClienteGrupo\Editar\Ficha.cs" />
+    <Compile Include="ClienteGrupo\Entidad\Ficha.cs" />
+    <Compile Include="ClienteGrupo\Lista\Ficha.cs" />
+    <Compile Include="ClienteGrupo\Lista\Filtro.cs" />
+    <Compile Include="ClienteZona\Agregar\Ficha.cs" />
+    <Compile Include="ClienteZona\Editar\Ficha.cs" />
+    <Compile Include="ClienteZona\Entidad\Ficha.cs" />
+    <Compile Include="ClienteZona\Lista\Ficha.cs" />
+    <Compile Include="ClienteZona\Lista\Filtro.cs" />
     <Compile Include="Cliente\Agregar\Ficha.cs" />
     <Compile Include="Cliente\Entidad\Ficha.cs" />
     <Compile Include="Cliente\Lista\Enumerados.cs" />
@@ -128,6 +138,8 @@
     <Compile Include="Producto\Lista\Ficha.cs" />
     <Compile Include="Producto\Lista\Filtro.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reportes\VentaAdministrativa\GeneralDocumento\Ficha.cs" />
+    <Compile Include="Reportes\VentaAdministrativa\GeneralDocumento\Filtro.cs" />
     <Compile Include="Sistema\Empresa\Ficha.cs" />
     <Compile Include="Sistema\Serie\Entidad\Ficha.cs" />
     <Compile Include="Sistema\TipoDocumento\Entidad\Ficha.cs" />

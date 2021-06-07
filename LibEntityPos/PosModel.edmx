@@ -76,6 +76,22 @@
           <Property Name="fecha_clasificacion" Type="date" Nullable="false" />
           <Property Name="monto_clasificacion" Type="decimal" Precision="14" Scale="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="clientes_grupo">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <EntityType Name="clientes_zonas">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="60" Nullable="false" />
+        </EntityType>
         <EntityType Name="cxc">
           <Key>
             <PropertyRef Name="auto" />
@@ -943,6 +959,18 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
           <Property Name="hora" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <Association Name="clientes_ibfk_1">
+          <End Role="clientes_grupo" Type="Self.clientes_grupo" Multiplicity="1" />
+          <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes_grupo">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="auto_grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="clientes_ibfk_11">
           <End Role="vendedores" Type="Self.vendedores" Multiplicity="1" />
           <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
@@ -952,6 +980,18 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
             </Principal>
             <Dependent Role="clientes">
               <PropertyRef Name="auto_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="clientes_ibfk_3">
+          <End Role="clientes_zonas" Type="Self.clientes_zonas" Multiplicity="1" />
+          <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes_zonas">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="auto_zona" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1355,6 +1395,8 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
         </Association>
         <EntityContainer Name="PosModelStoreContainer">
           <EntitySet Name="clientes" EntityType="Self.clientes" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="clientes_grupo" EntityType="Self.clientes_grupo" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="clientes_zonas" EntityType="Self.clientes_zonas" Schema="pita" store:Type="Tables" />
           <EntitySet Name="cxc" EntityType="Self.cxc" Schema="pita" store:Type="Tables" />
           <EntitySet Name="cxc_recibos" EntityType="Self.cxc_recibos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_cobradores" EntityType="Self.empresa_cobradores" Schema="pita" store:Type="Tables" />
@@ -1501,8 +1543,16 @@ FROM `pos_arqueo` AS `pos_arqueo`</DefiningQuery>
 `ventas_detalle`.`cierre_ftp`
 FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="clientes_ibfk_1" Association="Self.clientes_ibfk_1">
+            <End Role="clientes_grupo" EntitySet="clientes_grupo" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
           <AssociationSet Name="clientes_ibfk_11" Association="Self.clientes_ibfk_11">
             <End Role="vendedores" EntitySet="vendedores" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <AssociationSet Name="clientes_ibfk_3" Association="Self.clientes_ibfk_3">
+            <End Role="clientes_zonas" EntitySet="clientes_zonas" />
             <End Role="clientes" EntitySet="clientes" />
           </AssociationSet>
           <AssociationSet Name="clientes_ibfk_5" Association="Self.clientes_ibfk_5">
@@ -2229,6 +2279,16 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
             <End Role="p_operador" EntitySet="p_operador" />
             <End Role="p_resumen" EntitySet="p_resumen" />
           </AssociationSet>
+          <EntitySet Name="clientes_grupo" EntityType="PosModel.clientes_grupo" />
+          <EntitySet Name="clientes_zonas" EntityType="PosModel.clientes_zonas" />
+          <AssociationSet Name="clientes_ibfk_1" Association="PosModel.clientes_ibfk_1">
+            <End Role="clientes_grupo" EntitySet="clientes_grupo" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <AssociationSet Name="clientes_ibfk_3" Association="PosModel.clientes_ibfk_3">
+            <End Role="clientes_zonas" EntitySet="clientes_zonas" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="clientes">
           <Key>
@@ -2306,6 +2366,8 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
           <NavigationProperty Name="empresa_cobradores" Relationship="PosModel.clientes_ibfk_5" FromRole="clientes" ToRole="empresa_cobradores" />
           <NavigationProperty Name="cxc" Relationship="PosModel.cxc_ibfk_1" FromRole="clientes" ToRole="cxc" />
           <NavigationProperty Name="cxc_recibos" Relationship="PosModel.cxc_recibos_ibfk_2" FromRole="clientes" ToRole="cxc_recibos" />
+          <NavigationProperty Name="clientes_grupo" Relationship="PosModel.clientes_ibfk_1" FromRole="clientes" ToRole="clientes_grupo" />
+          <NavigationProperty Name="clientes_zonas" Relationship="PosModel.clientes_ibfk_3" FromRole="clientes" ToRole="clientes_zonas" />
         </EntityType>
         <Association Name="ventas_detalle_ibfk_6">
           <End Type="PosModel.clientes" Role="clientes" Multiplicity="1" />
@@ -3240,6 +3302,48 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="clientes_grupo">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="clientes" Relationship="PosModel.clientes_ibfk_1" FromRole="clientes_grupo" ToRole="clientes" />
+        </EntityType>
+        <EntityType Name="clientes_zonas">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="clientes" Relationship="PosModel.clientes_ibfk_3" FromRole="clientes_zonas" ToRole="clientes" />
+        </EntityType>
+        <Association Name="clientes_ibfk_1">
+          <End Type="PosModel.clientes_grupo" Role="clientes_grupo" Multiplicity="1" />
+          <End Type="PosModel.clientes" Role="clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes_grupo">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="auto_grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="clientes_ibfk_3">
+          <End Type="PosModel.clientes_zonas" Role="clientes_zonas" Multiplicity="1" />
+          <End Type="PosModel.clientes" Role="clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes_zonas">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="auto_zona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4097,6 +4201,24 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
                 <ScalarProperty Name="C__auto_pos_arqueo" ColumnName="&#xD;&#xA;auto_pos_arqueo" />
                 <ScalarProperty Name="id_p_operador" ColumnName="id_p_operador" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clientes_grupo">
+            <EntityTypeMapping TypeName="PosModel.clientes_grupo">
+              <MappingFragment StoreEntitySet="clientes_grupo">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clientes_zonas">
+            <EntityTypeMapping TypeName="PosModel.clientes_zonas">
+              <MappingFragment StoreEntitySet="clientes_zonas">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
