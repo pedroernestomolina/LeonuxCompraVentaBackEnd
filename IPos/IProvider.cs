@@ -11,7 +11,7 @@ namespace IPos
     public interface IProvider: IProducto, ICliente, ISucursal, IDeposito,
         ICobrador, IVendedor, IMedioPago, IConcepto, ITransporte, ISistema, 
         IFiscal, IUsuario, IPermiso, IConfiguracion, IJornada, IDocumento,
-        IVenta, IPendiente, IReportesAdm, IClienteGrupo, IClienteZona
+        IVenta, IPendiente, IReportesAdm, IClienteGrupo, IClienteZona, IConfiguracionAdm
     {
 
         DtoLib.ResultadoEntidad<DateTime> FechaServidor();

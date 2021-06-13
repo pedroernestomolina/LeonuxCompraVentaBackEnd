@@ -26,6 +26,7 @@ namespace ProvPos
                     var p4 = new MySql.Data.MySqlClient.MySqlParameter();
 
                     var sql_1 = @"SELECT 
+                        v.auto,
                         v.fecha, 
                         v.documento,
                         v.control, 
@@ -41,9 +42,11 @@ namespace ProvPos
                         v.signo as signoDoc, 
                         v.documento_nombre as nombreDoc, 
                         (v.descuento1+v.descuento2) as montoDscto, 
-                        v.cargos as montoCargo ";
+                        v.cargos as montoCargo,
+                        s.codigo as sucCodigo, s.nombre as sucNombre ";
 
-                    var sql_2 = "FROM ventas as v ";
+                    var sql_2 = @" FROM ventas as v 
+                                    join empresa_sucursal as s on s.codigo=v.codigo_sucursal ";
 
                     var sql_3 = "where 1=1 ";
 
@@ -63,26 +66,343 @@ namespace ProvPos
                         p3.ParameterName = "@suc";
                         p3.Value = filtro.codSucursal;
                     }
+                    var tipodoc = "";
                     if (filtro.tipoDocFactura)
                     {
-                        sql_3 += " and v.tipo='01' ";
+                        if (tipodoc == "") 
+                            { tipodoc += " and v.tipo in ("; }
+                        tipodoc += "'01'";
                     }
                     if (filtro.tipoDocNtDebito)
                     {
-                        sql_3 += " and v.tipo='02' ";
+                        if (tipodoc == "")
+                            tipodoc += " and v.tipo in (";
+                        else
+                            tipodoc += ", ";
+                        tipodoc += "'02'";
                     }
                     if (filtro.tipoDocNtCredito)
                     {
-                        sql_3 += " and v.tipo='03' ";
+                        if (tipodoc == "")
+                            tipodoc += " and v.tipo in (";
+                        else
+                            tipodoc += ", ";
+                        tipodoc += "'03'";
                     }
                     if (filtro.tipoDocNtEntrega)
                     {
-                        sql_3 += " and v.tipo='04' ";
+                        if (tipodoc == "")
+                            tipodoc += " and v.tipo in (";
+                        else
+                            tipodoc += ", ";
+                        tipodoc += "'04'";
+                    }
+                    if (tipodoc != "")
+                    {
+                        tipodoc += ")";
+                        sql_3 += tipodoc;
                     }
 
                     var sql = sql_1 + sql_2 + sql_3 + sql_4;
                     var lst = cnn.Database.SqlQuery<DtoLibPos.Reportes.VentaAdministrativa.GeneralDocumento.Ficha>(sql, p1, p2, p3, p4).ToList();
                     rt.Lista = lst;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibPos.Reportes.VentaAdministrativa.GeneralPorDepartamento.Ficha> ReportesAdm_GeneralPorDepartamento(DtoLibPos.Reportes.VentaAdministrativa.GeneralPorDepartamento.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibPos.Reportes.VentaAdministrativa.GeneralPorDepartamento.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    var sql_1 = @"select 
+                                    sum(vd.cantidad_und*costo_und*vd.signo) as costo, 
+                                    sum((vd.cantidad_und*costo_und*vd.signo)/v.factor_cambio) as costoDivisa, 
+                                    sum(vd.cantidad_und*precio_und*vd.signo) as venta,
+                                    sum((vd.cantidad_und*precio_und*vd.signo)/v.factor_cambio) as ventaDivisa,
+                                    edep.codigo as codDepart, edep.nombre as nombreDepart ";
+
+                    var sql_2 = @" from ventas_detalle as vd
+                                   join ventas as v on vd.auto_documento=v.auto
+                                   join empresa_departamentos as edep on edep.auto=vd.auto_departamento ";
+
+                    var sql_3 = @" where 1=1 and v.tipo in ('01','02','03') ";
+
+                    var sql_4 = @" group by vd.auto_departamento ";
+
+                    sql_3 += " and v.fecha>=@desde ";
+                    p1.ParameterName = "@desde";
+                    p1.Value = filtro.desde;
+
+                    sql_3 += " and v.fecha<=@hasta ";
+                    p2.ParameterName = "@hasta";
+                    p2.Value = filtro.hasta;
+
+                    if (filtro.codSucursal != "")
+                    {
+                        sql_3 += " and v.codigo_sucursal=@suc ";
+                        p3.ParameterName = "@suc";
+                        p3.Value = filtro.codSucursal;
+                    }
+
+                    var sql = sql_1 + sql_2 + sql_3 + sql_4;
+                    var lst = cnn.Database.SqlQuery<DtoLibPos.Reportes.VentaAdministrativa.GeneralPorDepartamento.Ficha>(sql, p1, p2, p3, p4).ToList();
+                    rt.Lista = lst;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibPos.Reportes.VentaAdministrativa.GeneralPorGrupo.Ficha> ReportesAdm_GeneralPorGrupo(DtoLibPos.Reportes.VentaAdministrativa.GeneralPorGrupo.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibPos.Reportes.VentaAdministrativa.GeneralPorGrupo.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    var sql_1 = @"select 
+                                    sum(vd.cantidad_und*costo_und*vd.signo) as costo, 
+                                    sum((vd.cantidad_und*costo_und*vd.signo)/v.factor_cambio) as costoDivisa, 
+                                    sum(vd.cantidad_und*precio_und*vd.signo) as venta,
+                                    sum((vd.cantidad_und*precio_und*vd.signo)/v.factor_cambio) as ventaDivisa,
+                                    pgr.codigo as codGrupo, pgr.nombre as nombreGrupo ";
+
+                    var sql_2 = @" from ventas_detalle as vd
+                                   join ventas as v on vd.auto_documento=v.auto
+                                   join productos_grupo as pgr on pgr.auto=vd.auto_grupo ";
+
+                    var sql_3 = @" where 1=1 and v.tipo in ('01','02','03') ";
+
+                    var sql_4 = @" group by vd.auto_grupo ";
+
+                    sql_3 += " and v.fecha>=@desde ";
+                    p1.ParameterName = "@desde";
+                    p1.Value = filtro.desde;
+
+                    sql_3 += " and v.fecha<=@hasta ";
+                    p2.ParameterName = "@hasta";
+                    p2.Value = filtro.hasta;
+
+                    if (filtro.codSucursal != "")
+                    {
+                        sql_3 += " and v.codigo_sucursal=@suc ";
+                        p3.ParameterName = "@suc";
+                        p3.Value = filtro.codSucursal;
+                    }
+
+                    var sql = sql_1 + sql_2 + sql_3 + sql_4;
+                    var lst = cnn.Database.SqlQuery<DtoLibPos.Reportes.VentaAdministrativa.GeneralPorGrupo.Ficha>(sql, p1, p2, p3, p4).ToList();
+                    rt.Lista = lst;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibPos.Reportes.VentaAdministrativa.Resumen.Ficha> ReportesAdm_Resumen(DtoLibPos.Reportes.VentaAdministrativa.Resumen.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibPos.Reportes.VentaAdministrativa.Resumen.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var sql_1 = "SELECT " +
+                        "count(*) as cntMov, " +
+                        "sum(v.total) as montoTotal, " +
+                        "sum(v.total/v.factor_cambio) as montoDivisa, " +
+                        "v.signo, " +
+                        "v.documento_nombre as tipoDoc, " +
+                        "es.nombre as nombreSuc, " +
+                        "es.codigo as codigoSuc ";
+
+                    var sql_2 = " FROM ventas as v " +
+                        " join empresa_sucursal as es on es.codigo=v.codigo_sucursal ";
+
+                    var sql_3 = " where fecha>=@desde and fecha<=@hasta and estatus_anulado='0' ";
+
+                    var sql_4 = " group by v.signo, v.documento_nombre, es.codigo, es.nombre ";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@desde";
+                    p1.Value = filtro.desdeFecha;
+                    p2.ParameterName = "@hasta";
+                    p2.Value = filtro.hastaFecha;
+
+                    if (filtro.codigoSucursal != "")
+                    {
+                        sql_3 += " and v.codigo_sucursal=@codigoSucursal ";
+                        p3.ParameterName = "@codigoSucursal";
+                        p3.Value = filtro.codigoSucursal;
+                    }
+
+                    var sql = sql_1 + sql_2 + sql_3 + sql_4;
+                    var list = cnn.Database.SqlQuery<DtoLibPos.Reportes.VentaAdministrativa.Resumen.Ficha>(sql, p1, p2, p3).ToList();
+                    rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibPos.Reportes.VentaAdministrativa.VentaPorProducto.Ficha> ReportesAdm_VentaPorProducto(DtoLibPos.Reportes.VentaAdministrativa.VentaPorProducto.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibPos.Reportes.VentaAdministrativa.VentaPorProducto.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var sql_1 = "SELECT vd.codigo as codigoPrd, vd.nombre as nombrePrd, sum(vd.cantidad_und) as cantidad, " +
+                        "sum(vd.total) as totalMonto, v.documento_nombre as nombreDocumento, v.signo, " +
+                        "sum(vd.total/v.factor_cambio) as totalMontoDivisa ";
+                    var sql_2 = " FROM ventas_detalle as vd " +
+                        "join ventas as v on vd.auto_documento=v.auto ";
+                    var sql_3 = " where v.fecha>=@desde and v.fecha<=@hasta and v.estatus_anulado='0' ";
+                    var sql_4 = " group by vd.auto_producto, vd.codigo, vd.nombre, v.documento_nombre, v.signo ";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@desde";
+                    p1.Value = filtro.desdeFecha;
+                    p2.ParameterName = "@hasta";
+                    p2.Value = filtro.hastaFecha;
+
+                    if (filtro.codigoSucursal != "")
+                    {
+                        sql_3 += " and v.codigo_sucursal=@codigoSucursal ";
+                        p3.ParameterName = "@codigoSucursal";
+                        p3.Value = filtro.codigoSucursal;
+                    }
+
+                    var sql = sql_1 + sql_2 + sql_3 + sql_4;
+                    var list = cnn.Database.SqlQuery<DtoLibPos.Reportes.VentaAdministrativa.VentaPorProducto.Ficha>(sql, p1, p2, p3).ToList();
+                    rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibPos.Reportes.VentaAdministrativa.GeneralDocumentoDetalle.Ficha> Reporte_GenrealDocumentoDetalle(DtoLibPos.Reportes.VentaAdministrativa.GeneralDocumentoDetalle.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibPos.Reportes.VentaAdministrativa.GeneralDocumentoDetalle.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@desde";
+                    p1.Value = filtro.desdeFecha;
+                    p2.ParameterName = "@hasta";
+                    p2.Value = filtro.hastaFecha;
+
+                    var sql_1 = @"select v.auto, v.documento, v.fecha, v.usuario as usuarioNombre, v.signo, 
+                        v.documento_nombre as documentoNombre, v.codigo_usuario as usuarioCodigo, v.total, v.renglones, 
+                        vd.nombre as nombreProducto, vd.cantidad_und as cantidadUnd, vd.precio_und as precioUnd, 
+                        vd.total as totalRenglon, v.hora, s.codigo as sucCodigo, s.nombre as sucNombre ";
+                    var sql_2 = @" from ventas as v 
+                                    join empresa_sucursal as s on s.codigo=v.codigo_sucursal 
+                                    join ventas_detalle as vd on vd.auto_documento=v.auto ";
+                    var sql_3 = @" where v.fecha>=@desde and v.fecha<=@hasta and v.estatus_anulado='0' ";
+
+                    if (filtro.codigoSucursal != "")
+                    {
+                        sql_3 += " and v.codigo_sucursal=@suc ";
+                        p3.ParameterName = "@suc";
+                        p3.Value = filtro.codigoSucursal;
+                    }
+                    var tipodoc = "";
+                    if (filtro.tipoDocFactura)
+                    {
+                        if (tipodoc == "")
+                        { tipodoc += " and v.tipo in ("; }
+                        tipodoc += "'01'";
+                    }
+                    if (filtro.tipoDocNtDebito)
+                    {
+                        if (tipodoc == "")
+                            tipodoc += " and v.tipo in (";
+                        else
+                            tipodoc += ", ";
+                        tipodoc += "'02'";
+                    }
+                    if (filtro.tipoDocNtCredito)
+                    {
+                        if (tipodoc == "")
+                            tipodoc += " and v.tipo in (";
+                        else
+                            tipodoc += ", ";
+                        tipodoc += "'03'";
+                    }
+                    if (filtro.tipoDocNtEntrega)
+                    {
+                        if (tipodoc == "")
+                            tipodoc += " and v.tipo in (";
+                        else
+                            tipodoc += ", ";
+                        tipodoc += "'04'";
+                    }
+                    if (tipodoc != "")
+                    {
+                        tipodoc += ")";
+                        sql_3 += tipodoc;
+                    }
+
+                    var sql = sql_1 + sql_2 + sql_3;
+                    var list = cnn.Database.SqlQuery<DtoLibPos.Reportes.VentaAdministrativa.GeneralDocumentoDetalle.Ficha>(sql, p1, p2, p3).ToList();
+                    rt.Lista = list;
                 }
             }
             catch (Exception e)

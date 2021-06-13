@@ -185,7 +185,27 @@ namespace ConsolePos
             //};
             //var r03 = posProv.ClienteZona_Editar(ficha);
 
+            //var filtro = new DtoLibPos.Reportes.VentaAdministrativa.GeneralPorDepartamento.Filtro()
+            //{
+            //    codSucursal = "08",
+            //    desde = new DateTime(2021, 5, 1),
+            //    hasta = new DateTime(2021, 5, 1),
+            //};
+            //var r01 = posProv.ReportesAdm_GeneralPorDepartamento(filtro);
+
+            //var r01 = posProv.Configuracion_BusquedaCliente();
+
+            //var filtro = new DtoLibPos.Reportes.VentaAdministrativa.GeneralDocumentoDetalle.Filtro()
+            //{
+            //    desdeFecha = new DateTime(2021, 05, 01),
+            //    hastaFecha = new DateTime(2021, 06, 11),
+            //    codigoSucursal = "",
+            //    tipoDocNtCredito = true,
+            //    tipoDocNtEntrega = true,
+            //};
+            //var r01 = posProv.Reporte_GenrealDocumentoDetalle(filtro);
         }
+
     }
 
 }

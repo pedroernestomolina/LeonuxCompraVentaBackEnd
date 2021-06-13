@@ -11,6 +11,7 @@ namespace DtoLibPos.Reportes.VentaAdministrativa.GeneralDocumento
     public class Ficha
     {
 
+        public string auto { get; set; }
         public DateTime fecha { get; set; }
         public string documento { get; set; }
         public string control { get; set; }
@@ -27,10 +28,14 @@ namespace DtoLibPos.Reportes.VentaAdministrativa.GeneralDocumento
         public string nombreDoc { get; set; }
         public decimal montoDscto { get; set; }
         public decimal montoCargo { get; set; }
+        public string sucNombre { get; set; }
+        public string sucCodigo { get; set; }
+        public string estacion { get { return auto.Substring(2, 2); } }
 
 
         public Ficha()
         {
+            auto = "";
             fecha = DateTime.Now.Date;
             documento = "";
             control = "";
@@ -46,6 +51,8 @@ namespace DtoLibPos.Reportes.VentaAdministrativa.GeneralDocumento
             nombreDoc = "";
             montoDscto = 0.0m;
             montoCargo = 0.0m;
+            sucCodigo = "";
+            sucNombre = "";
         }
 
     }

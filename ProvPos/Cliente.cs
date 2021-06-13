@@ -31,12 +31,61 @@ namespace ProvPos
                     var p1 = new MySqlParameter();
                     if (filtro.cadena != "")
                     {
+                        var valor = "";
+                        if (filtro.preferenciaBusqueda == DtoLibPos.Cliente.Lista.Enumerados.enumPreferenciaBusqueda.Codigo)
+                        {
+                            var cad = filtro.cadena.Trim().ToUpper();
+                            if (cad.Substring(0, 1) == "*")
+                            {
+                                cad = cad.Substring(1);
+                                sql_3 += " and codigo like @p";
+                                valor = "%" + cad + "%";
+                            }
+                            else
+                            {
+                                sql_3 += " and codigo like @p";
+                                valor = cad + "%";
+                            }
+                        }
                         if (filtro.preferenciaBusqueda == DtoLibPos.Cliente.Lista.Enumerados.enumPreferenciaBusqueda.Nombre)
                         {
-                            sql_3 += " and razon_social like @p1 ";
-                            p1.ParameterName = "p1";
-                            p1.Value = filtro.cadena + "%";
+                            var cad = filtro.cadena.Trim().ToUpper();
+                            if (cad.Substring(0, 1) == "*")
+                            {
+                                cad = cad.Substring(1);
+                                sql_3 += " and razon_social like @p";
+                                valor = "%" + cad + "%";
+                            }
+                            else
+                            {
+                                sql_3 += " and razon_social like @p";
+                                valor = cad + "%";
+                            }
                         }
+                        if (filtro.preferenciaBusqueda == DtoLibPos.Cliente.Lista.Enumerados.enumPreferenciaBusqueda.CiRif)
+                        {
+                            var cad = filtro.cadena.Trim().ToUpper();
+                            if (cad.Substring(0, 1) == "*")
+                            {
+                                cad = cad.Substring(1);
+                                sql_3 += " and ci_rif like @p";
+                                valor = "%" + cad + "%";
+                            }
+                            else
+                            {
+                                sql_3 += " and ci_rif like @p";
+                                valor = cad + "%";
+                            }
+                        }
+                        p1.ParameterName = "@p";
+                        p1.Value = valor;
+
+                        //if (filtro.preferenciaBusqueda == DtoLibPos.Cliente.Lista.Enumerados.enumPreferenciaBusqueda.Nombre)
+                        //{
+                        //    sql_3 += " and razon_social like @p1 ";
+                        //    p1.ParameterName = "p1";
+                        //    p1.Value = filtro.cadena + "%";
+                        //}
                     }
                     var sql = sql_1 + sql_2 + sql_3 + sql_4;
                     var lst = cnn.Database.SqlQuery<DtoLibPos.Cliente.Lista.Ficha>(sql, p1).ToList();
@@ -248,6 +297,94 @@ namespace ProvPos
                 result.Result = DtoLib.Enumerados.EnumResult.isError;
             }
             return result;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibPos.Cliente.Documento.Ficha> Cliente_Documento_GetLista(DtoLibPos.Cliente.Documento.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibPos.Cliente.Documento.Ficha>();
+
+            try
+            {
+                using (var cnn= new PosEntities(_cnPos.ConnectionString))
+                {
+                    var sql_1 = @"SELECT v.fecha, v.documento, v.total as monto, 
+                                    v.monto_divisa as montoDivisa, v.factor_cambio as tasaDivisa, 
+                                    v.estatus_anulado as estatus, v.tipo as codTipoDoc, v.serie, 
+                                    v.signo, v.documento_nombre as nombreTipoDoc  ";
+                    var sql_2 = " FROM ventas as v";
+                    var sql_3 = " where v.auto_cliente=@p1 and v.fecha>=@p2 and v.fecha<=@p3 ";
+                    var sql_4 = "";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@p1";
+                    p1.Value = filtro.autoCliente;
+                    p2.ParameterName = "@p2";
+                    p2.Value = filtro.desde;
+                    p3.ParameterName = "@p3";
+                    p3.Value = filtro.hasta;
+
+                    var sql = sql_1 + sql_2 + sql_3 + sql_4;
+                    var list = cnn.Database.SqlQuery<DtoLibPos.Cliente.Documento.Ficha>(sql, p1, p2, p3, p4).ToList();
+                    rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibPos.Cliente.Articulos.Ficha> Cliente_ArticuloVenta_GetLista(DtoLibPos.Cliente.Articulos.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibPos.Cliente.Articulos.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var sql_1 = @"SELECT p.codigo as codigoPrd, p.nombre as nombrePrd, v.fecha, v.documento, 
+                            vd.cantidad, vd.cantidad_und as cantUnd, vd.empaque, vd.estatus_anulado as estatus, 
+                            vd.contenido_empaque as contenidoEmp, v.tipo as codTipoDoc, v.serie, v.factor_cambio as tasaCambio, 
+                            vd.precio_und as precioUnd, v.signo, v.documento_nombre as nombreTipoDoc ";
+
+                    var sql_2 = @" FROM ventas_detalle as vd 
+                                join productos as p on vd.auto_producto=p.auto 
+                                join ventas as v on vd.auto_documento=v.auto ";
+
+                    var sql_3 = " where v.auto_cliente=@p1 and v.fecha>=@p2 and v.fecha<=@p3 ";
+                    var sql_4 = "";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@p1";
+                    p1.Value = filtro.autoCliente;
+                    p2.ParameterName = "@p2";
+                    p2.Value = filtro.desde;
+                    p3.ParameterName = "@p3";
+                    p3.Value = filtro.hasta;
+
+                    var sql = sql_1 + sql_2 + sql_3 + sql_4;
+                    var list = cnn.Database.SqlQuery<DtoLibPos.Cliente.Articulos.Ficha>(sql, p1, p2, p3, p4).ToList();
+                    rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
         }
 
     }

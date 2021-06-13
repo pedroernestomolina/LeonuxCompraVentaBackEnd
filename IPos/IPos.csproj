@@ -45,6 +45,7 @@
     <Compile Include="ICobrador.cs" />
     <Compile Include="IConcepto.cs" />
     <Compile Include="IConfiguracion.cs" />
+    <Compile Include="IConfiguracionAdm.cs" />
     <Compile Include="IDeposito.cs" />
     <Compile Include="IFiscal.cs" />
     <Compile Include="IJornada.cs" />
