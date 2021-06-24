@@ -283,6 +283,7 @@
           <Property Name="autoConceptoMovDevVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="autoConceptoMovSalida" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="fechaUltActualizacion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="habilitar_precio5_ventamayor" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="Transporte">
           <Key>
@@ -511,7 +512,6 @@
           <EntitySet Name="Transporte" EntityType="LeonuxPosOffLineModel.Transporte" />
           <EntitySet Name="VentaPago" EntityType="LeonuxPosOffLineModel.VentaPago" />
           <EntitySet Name="Permiso" EntityType="LeonuxPosOffLineModel.Permiso" />
-          <EntitySet Name="Sistema" EntityType="LeonuxPosOffLineModel.Sistema" />
           <EntitySet Name="Serie" EntityType="LeonuxPosOffLineModel.Serie" />
           <EntitySet Name="Operador" EntityType="LeonuxPosOffLineModel.Operador" />
           <EntitySet Name="Jornada" EntityType="LeonuxPosOffLineModel.Jornada" />
@@ -521,6 +521,7 @@
           <EntitySet Name="Venta" EntityType="LeonuxPosOffLineModel.Venta" />
           <EntitySet Name="UsuarioPermiso" EntityType="LeonuxPosOffLineModel.UsuarioPermiso" />
           <EntitySet Name="OperadorCierre" EntityType="LeonuxPosOffLineModel.OperadorCierre" />
+          <EntitySet Name="Sistema" EntityType="LeonuxPosOffLineModel.Sistema" />
         </EntityContainer>
         <EntityType Name="ProductoBarra">
           <Key>
@@ -715,42 +716,6 @@
           <Property Name="descripcion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="requiereClave" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="codigo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Sistema">
-          <Key>
-            <PropertyRef Name="auto" />
-          </Key>
-          <Property Name="auto" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="factorCambio" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="sucursalCodigo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="serieFactura" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="serieNotaCredito" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="serieNotaDebito" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="activarRepesaje" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="limiteRepesajeInferior" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="limiteRepesajeSuperior" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="modoOperacion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="activarBusquedaPorDescripcion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="autoDeposito" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="autoVendedor" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="autoCobrador" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="autoTransporte" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="autoMedioPagoEfectivo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="autoMedioPagoDivisa" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="autoMedioPagoElectronico" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="autoMedioPagoOtro" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="clave1" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="clave2" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="clave3" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="clavePos" Type="Int64" Nullable="false" />
-          <Property Name="tarifaAsignada" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="EtiquetarPrecioPorTipoNegocio" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="serieNotaEntrega" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="equipoNumero" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="autoConceptoMovVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="autoConceptoMovDevVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="autoConceptoMovSalida" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="fechaUltActualizacion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Serie">
           <Key>
@@ -983,6 +948,43 @@
           <Property Name="montoFac" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="montoNcr" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
         </EntityType>
+        <EntityType Name="Sistema">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="factorCambio" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="sucursalCodigo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="serieFactura" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="serieNotaCredito" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="serieNotaDebito" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="activarRepesaje" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="limiteRepesajeInferior" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="limiteRepesajeSuperior" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="modoOperacion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="activarBusquedaPorDescripcion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoDeposito" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoVendedor" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoCobrador" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoTransporte" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoMedioPagoEfectivo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoMedioPagoDivisa" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoMedioPagoElectronico" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoMedioPagoOtro" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="clave1" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="clave2" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="clave3" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="clavePos" Type="Int64" Nullable="false" />
+          <Property Name="tarifaAsignada" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="EtiquetarPrecioPorTipoNegocio" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="serieNotaEntrega" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="equipoNumero" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoConceptoMovVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoConceptoMovDevVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="autoConceptoMovSalida" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="fechaUltActualizacion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="habilitar_precio5_ventamayor" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1194,43 +1196,6 @@
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
                 <ScalarProperty Name="modulo" ColumnName="modulo" />
                 <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sistema">
-            <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Sistema">
-              <MappingFragment StoreEntitySet="Sistema">
-                <ScalarProperty Name="fechaUltActualizacion" ColumnName="fechaUltActualizacion" />
-                <ScalarProperty Name="autoConceptoMovSalida" ColumnName="autoConceptoMovSalida" />
-                <ScalarProperty Name="autoConceptoMovDevVenta" ColumnName="autoConceptoMovDevVenta" />
-                <ScalarProperty Name="autoConceptoMovVenta" ColumnName="autoConceptoMovVenta" />
-                <ScalarProperty Name="equipoNumero" ColumnName="equipoNumero" />
-                <ScalarProperty Name="serieNotaEntrega" ColumnName="serieNotaEntrega" />
-                <ScalarProperty Name="EtiquetarPrecioPorTipoNegocio" ColumnName="EtiquetarPrecioPorTipoNegocio" />
-                <ScalarProperty Name="tarifaAsignada" ColumnName="tarifaAsignada" />
-                <ScalarProperty Name="clavePos" ColumnName="clavePos" />
-                <ScalarProperty Name="clave3" ColumnName="clave3" />
-                <ScalarProperty Name="clave2" ColumnName="clave2" />
-                <ScalarProperty Name="clave1" ColumnName="clave1" />
-                <ScalarProperty Name="autoMedioPagoOtro" ColumnName="autoMedioPagoOtro" />
-                <ScalarProperty Name="autoMedioPagoElectronico" ColumnName="autoMedioPagoElectronico" />
-                <ScalarProperty Name="autoMedioPagoDivisa" ColumnName="autoMedioPagoDivisa" />
-                <ScalarProperty Name="autoMedioPagoEfectivo" ColumnName="autoMedioPagoEfectivo" />
-                <ScalarProperty Name="autoTransporte" ColumnName="autoTransporte" />
-                <ScalarProperty Name="autoCobrador" ColumnName="autoCobrador" />
-                <ScalarProperty Name="autoVendedor" ColumnName="autoVendedor" />
-                <ScalarProperty Name="autoDeposito" ColumnName="autoDeposito" />
-                <ScalarProperty Name="activarBusquedaPorDescripcion" ColumnName="activarBusquedaPorDescripcion" />
-                <ScalarProperty Name="modoOperacion" ColumnName="modoOperacion" />
-                <ScalarProperty Name="limiteRepesajeSuperior" ColumnName="limiteRepesajeSuperior" />
-                <ScalarProperty Name="limiteRepesajeInferior" ColumnName="limiteRepesajeInferior" />
-                <ScalarProperty Name="activarRepesaje" ColumnName="activarRepesaje" />
-                <ScalarProperty Name="serieNotaDebito" ColumnName="serieNotaDebito" />
-                <ScalarProperty Name="serieNotaCredito" ColumnName="serieNotaCredito" />
-                <ScalarProperty Name="serieFactura" ColumnName="serieFactura" />
-                <ScalarProperty Name="sucursalCodigo" ColumnName="sucursalCodigo" />
-                <ScalarProperty Name="factorCambio" ColumnName="factorCambio" />
-                <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1470,6 +1435,44 @@
                 <ScalarProperty Name="diferencia" ColumnName="diferencia" />
                 <ScalarProperty Name="idOperador" ColumnName="idOperador" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sistema">
+            <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Sistema">
+              <MappingFragment StoreEntitySet="Sistema">
+                <ScalarProperty Name="habilitar_precio5_ventamayor" ColumnName="habilitar_precio5_ventamayor" />
+                <ScalarProperty Name="fechaUltActualizacion" ColumnName="fechaUltActualizacion" />
+                <ScalarProperty Name="autoConceptoMovSalida" ColumnName="autoConceptoMovSalida" />
+                <ScalarProperty Name="autoConceptoMovDevVenta" ColumnName="autoConceptoMovDevVenta" />
+                <ScalarProperty Name="autoConceptoMovVenta" ColumnName="autoConceptoMovVenta" />
+                <ScalarProperty Name="equipoNumero" ColumnName="equipoNumero" />
+                <ScalarProperty Name="serieNotaEntrega" ColumnName="serieNotaEntrega" />
+                <ScalarProperty Name="EtiquetarPrecioPorTipoNegocio" ColumnName="EtiquetarPrecioPorTipoNegocio" />
+                <ScalarProperty Name="tarifaAsignada" ColumnName="tarifaAsignada" />
+                <ScalarProperty Name="clavePos" ColumnName="clavePos" />
+                <ScalarProperty Name="clave3" ColumnName="clave3" />
+                <ScalarProperty Name="clave2" ColumnName="clave2" />
+                <ScalarProperty Name="clave1" ColumnName="clave1" />
+                <ScalarProperty Name="autoMedioPagoOtro" ColumnName="autoMedioPagoOtro" />
+                <ScalarProperty Name="autoMedioPagoElectronico" ColumnName="autoMedioPagoElectronico" />
+                <ScalarProperty Name="autoMedioPagoDivisa" ColumnName="autoMedioPagoDivisa" />
+                <ScalarProperty Name="autoMedioPagoEfectivo" ColumnName="autoMedioPagoEfectivo" />
+                <ScalarProperty Name="autoTransporte" ColumnName="autoTransporte" />
+                <ScalarProperty Name="autoCobrador" ColumnName="autoCobrador" />
+                <ScalarProperty Name="autoVendedor" ColumnName="autoVendedor" />
+                <ScalarProperty Name="autoDeposito" ColumnName="autoDeposito" />
+                <ScalarProperty Name="activarBusquedaPorDescripcion" ColumnName="activarBusquedaPorDescripcion" />
+                <ScalarProperty Name="modoOperacion" ColumnName="modoOperacion" />
+                <ScalarProperty Name="limiteRepesajeSuperior" ColumnName="limiteRepesajeSuperior" />
+                <ScalarProperty Name="limiteRepesajeInferior" ColumnName="limiteRepesajeInferior" />
+                <ScalarProperty Name="activarRepesaje" ColumnName="activarRepesaje" />
+                <ScalarProperty Name="serieNotaDebito" ColumnName="serieNotaDebito" />
+                <ScalarProperty Name="serieNotaCredito" ColumnName="serieNotaCredito" />
+                <ScalarProperty Name="serieFactura" ColumnName="serieFactura" />
+                <ScalarProperty Name="sucursalCodigo" ColumnName="sucursalCodigo" />
+                <ScalarProperty Name="factorCambio" ColumnName="factorCambio" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

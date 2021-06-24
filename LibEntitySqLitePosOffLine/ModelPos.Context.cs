@@ -39,7 +39,6 @@ namespace LibEntitySqLitePosOffLine
         public virtual DbSet<Transporte> Transporte { get; set; }
         public virtual DbSet<VentaPago> VentaPago { get; set; }
         public virtual DbSet<Permiso> Permiso { get; set; }
-        public virtual DbSet<Sistema> Sistema { get; set; }
         public virtual DbSet<Serie> Serie { get; set; }
         public virtual DbSet<Operador> Operador { get; set; }
         public virtual DbSet<Jornada> Jornada { get; set; }
@@ -49,5 +48,6 @@ namespace LibEntitySqLitePosOffLine
         public virtual DbSet<Venta> Venta { get; set; }
         public virtual DbSet<UsuarioPermiso> UsuarioPermiso { get; set; }
         public virtual DbSet<OperadorCierre> OperadorCierre { get; set; }
+        public virtual DbSet<Sistema> Sistema { get; set; }
     }
 }

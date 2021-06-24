@@ -13,6 +13,8 @@ namespace DtoLibPosOffLine.Item
 
         public int Id { get; set; }
         public decimal Cantidad { get; set; }
+        public decimal Precio { get; set; }
+        public string Tarifa { get; set; }
 
     }
 

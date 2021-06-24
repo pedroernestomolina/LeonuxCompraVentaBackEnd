@@ -45,5 +45,6 @@ namespace LibEntitySqLitePosOffLine
         public string autoConceptoMovDevVenta { get; set; }
         public string autoConceptoMovSalida { get; set; }
         public string fechaUltActualizacion { get; set; }
+        public string habilitar_precio5_ventamayor { get; set; }
     }
 }

@@ -13,7 +13,8 @@ namespace ConsolaPosOffLine
 
         static void Main(string[] args)
         {
-            IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"C:\POS\DATA\LeonuxPosOffLine.db");
+            IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"c:\POS\DATA\LeonuxPosOffLine.db");
+            //IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"D:\Proyectos FoxSystem\CompraVenta\LeonuxPosOffLine.db");
             _offLine.setServidorRemoto("localhost", "00000001");
 
             //var fechaActual = _offLine.FechaServidor();
@@ -39,6 +40,17 @@ namespace ConsolaPosOffLine
             //else
             //    Console.WriteLine("TODO OK");
             //Console.ReadKey();
+
+            var r01 = _offLine.Servidor_AgregarCampoTabla_Sistema_Habilitar_Precio_VentaMayor();
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                Console.WriteLine(r01.Mensaje);
+            }
+            else
+            {
+                Console.WriteLine("CAMPO CREADO SATISFACTORIAMENTE");
+            }
+            Console.ReadKey();
         }
 
     }

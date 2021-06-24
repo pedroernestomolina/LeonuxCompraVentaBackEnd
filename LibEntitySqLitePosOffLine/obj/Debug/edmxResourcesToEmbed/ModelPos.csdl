@@ -15,7 +15,6 @@
     <EntitySet Name="Transporte" EntityType="LeonuxPosOffLineModel.Transporte" />
     <EntitySet Name="VentaPago" EntityType="LeonuxPosOffLineModel.VentaPago" />
     <EntitySet Name="Permiso" EntityType="LeonuxPosOffLineModel.Permiso" />
-    <EntitySet Name="Sistema" EntityType="LeonuxPosOffLineModel.Sistema" />
     <EntitySet Name="Serie" EntityType="LeonuxPosOffLineModel.Serie" />
     <EntitySet Name="Operador" EntityType="LeonuxPosOffLineModel.Operador" />
     <EntitySet Name="Jornada" EntityType="LeonuxPosOffLineModel.Jornada" />
@@ -25,6 +24,7 @@
     <EntitySet Name="Venta" EntityType="LeonuxPosOffLineModel.Venta" />
     <EntitySet Name="UsuarioPermiso" EntityType="LeonuxPosOffLineModel.UsuarioPermiso" />
     <EntitySet Name="OperadorCierre" EntityType="LeonuxPosOffLineModel.OperadorCierre" />
+    <EntitySet Name="Sistema" EntityType="LeonuxPosOffLineModel.Sistema" />
   </EntityContainer>
   <EntityType Name="ProductoBarra">
     <Key>
@@ -219,42 +219,6 @@
     <Property Name="descripcion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
     <Property Name="requiereClave" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
     <Property Name="codigo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="Sistema">
-    <Key>
-      <PropertyRef Name="auto" />
-    </Key>
-    <Property Name="auto" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="factorCambio" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-    <Property Name="sucursalCodigo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="serieFactura" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="serieNotaCredito" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="serieNotaDebito" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="activarRepesaje" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="limiteRepesajeInferior" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-    <Property Name="limiteRepesajeSuperior" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-    <Property Name="modoOperacion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="activarBusquedaPorDescripcion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="autoDeposito" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="autoVendedor" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="autoCobrador" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="autoTransporte" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="autoMedioPagoEfectivo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="autoMedioPagoDivisa" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="autoMedioPagoElectronico" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="autoMedioPagoOtro" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="clave1" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="clave2" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="clave3" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="clavePos" Type="Int64" Nullable="false" />
-    <Property Name="tarifaAsignada" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="EtiquetarPrecioPorTipoNegocio" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="serieNotaEntrega" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="equipoNumero" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="autoConceptoMovVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="autoConceptoMovDevVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="autoConceptoMovSalida" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="fechaUltActualizacion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Serie">
     <Key>
@@ -486,5 +450,42 @@
     <Property Name="cntDocNcr" Type="Int64" Nullable="false" />
     <Property Name="montoFac" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
     <Property Name="montoNcr" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+  </EntityType>
+  <EntityType Name="Sistema">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="factorCambio" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+    <Property Name="sucursalCodigo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="serieFactura" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="serieNotaCredito" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="serieNotaDebito" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="activarRepesaje" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="limiteRepesajeInferior" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+    <Property Name="limiteRepesajeSuperior" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+    <Property Name="modoOperacion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="activarBusquedaPorDescripcion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="autoDeposito" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="autoVendedor" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="autoCobrador" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="autoTransporte" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="autoMedioPagoEfectivo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="autoMedioPagoDivisa" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="autoMedioPagoElectronico" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="autoMedioPagoOtro" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="clave1" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="clave2" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="clave3" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="clavePos" Type="Int64" Nullable="false" />
+    <Property Name="tarifaAsignada" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="EtiquetarPrecioPorTipoNegocio" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="serieNotaEntrega" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="equipoNumero" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="autoConceptoMovVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="autoConceptoMovDevVenta" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="autoConceptoMovSalida" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="fechaUltActualizacion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="habilitar_precio5_ventamayor" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

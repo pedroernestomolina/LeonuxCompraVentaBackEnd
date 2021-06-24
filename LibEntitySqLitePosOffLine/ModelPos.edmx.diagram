@@ -19,7 +19,6 @@
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Transporte" Width="1.5" PointX="12.375" PointY="6.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.VentaPago" Width="1.5" PointX="12.375" PointY="9.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Permiso" Width="1.5" PointX="5.375" PointY="13.75" />
-        <EntityTypeShape EntityType="LeonuxPosOffLineModel.Sistema" Width="1.5" PointX="10.375" PointY="13.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Serie" Width="1.5" PointX="3.375" PointY="9.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Operador" Width="1.5" PointX="14.375" PointY="0.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Jornada" Width="1.5" PointX="12.375" PointY="13.75" />
@@ -29,6 +28,7 @@
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Venta" Width="1.5" PointX="7.375" PointY="13.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.UsuarioPermiso" Width="1.5" PointX="0.75" PointY="6.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.OperadorCierre" Width="1.5" PointX="15.625" PointY="4.75" />
+        <EntityTypeShape EntityType="LeonuxPosOffLineModel.Sistema" Width="1.5" PointX="9.375" PointY="14.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

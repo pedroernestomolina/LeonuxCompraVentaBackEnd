@@ -246,6 +246,30 @@ namespace ProvPos
             return result;
         }
 
+        public DtoLib.ResultadoLista<DtoLibPos.Sistema.Estado.Entidad.Ficha> Sistema_Estado_GetLista()
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibPos.Sistema.Estado.Entidad.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var sql = @"SELECT auto, nombre 
+                                FROM sistema_estados 
+                                WHERE 1=1";
+                    var lst = cnn.Database.SqlQuery<DtoLibPos.Sistema.Estado.Entidad.Ficha>(sql).ToList();
+                    result.Lista = lst;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

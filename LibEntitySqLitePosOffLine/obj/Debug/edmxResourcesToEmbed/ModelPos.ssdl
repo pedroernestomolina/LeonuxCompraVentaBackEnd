@@ -278,6 +278,7 @@
     <Property Name="autoConceptoMovDevVenta" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
     <Property Name="autoConceptoMovSalida" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
     <Property Name="fechaUltActualizacion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="habilitar_precio5_ventamayor" Type="nvarchar" MaxLength="2147483647" />
   </EntityType>
   <EntityType Name="Transporte">
     <Key>

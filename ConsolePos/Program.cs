@@ -204,6 +204,9 @@ namespace ConsolePos
             //    tipoDocNtEntrega = true,
             //};
             //var r01 = posProv.Reporte_GenrealDocumentoDetalle(filtro);
+
+            //var r01 = posProv.Sistema_Estado_GetLista();
+
         }
 
     }

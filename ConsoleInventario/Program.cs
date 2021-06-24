@@ -256,6 +256,7 @@ namespace ConsoleInventario
             //var rt1 = invPrv.Departamento_Eliminar("0000000010");
             //var rt1 = invPrv.Permiso_EliminarDepartamento("0000000010");
 
+            //var rt1 = invPrv.Configuracion_HabilitarPrecio_5_ParaVentaMayorPos();
         }
 
     }

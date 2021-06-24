@@ -209,43 +209,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Sistema">
-      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Sistema">
-        <MappingFragment StoreEntitySet="Sistema">
-          <ScalarProperty Name="fechaUltActualizacion" ColumnName="fechaUltActualizacion" />
-          <ScalarProperty Name="autoConceptoMovSalida" ColumnName="autoConceptoMovSalida" />
-          <ScalarProperty Name="autoConceptoMovDevVenta" ColumnName="autoConceptoMovDevVenta" />
-          <ScalarProperty Name="autoConceptoMovVenta" ColumnName="autoConceptoMovVenta" />
-          <ScalarProperty Name="equipoNumero" ColumnName="equipoNumero" />
-          <ScalarProperty Name="serieNotaEntrega" ColumnName="serieNotaEntrega" />
-          <ScalarProperty Name="EtiquetarPrecioPorTipoNegocio" ColumnName="EtiquetarPrecioPorTipoNegocio" />
-          <ScalarProperty Name="tarifaAsignada" ColumnName="tarifaAsignada" />
-          <ScalarProperty Name="clavePos" ColumnName="clavePos" />
-          <ScalarProperty Name="clave3" ColumnName="clave3" />
-          <ScalarProperty Name="clave2" ColumnName="clave2" />
-          <ScalarProperty Name="clave1" ColumnName="clave1" />
-          <ScalarProperty Name="autoMedioPagoOtro" ColumnName="autoMedioPagoOtro" />
-          <ScalarProperty Name="autoMedioPagoElectronico" ColumnName="autoMedioPagoElectronico" />
-          <ScalarProperty Name="autoMedioPagoDivisa" ColumnName="autoMedioPagoDivisa" />
-          <ScalarProperty Name="autoMedioPagoEfectivo" ColumnName="autoMedioPagoEfectivo" />
-          <ScalarProperty Name="autoTransporte" ColumnName="autoTransporte" />
-          <ScalarProperty Name="autoCobrador" ColumnName="autoCobrador" />
-          <ScalarProperty Name="autoVendedor" ColumnName="autoVendedor" />
-          <ScalarProperty Name="autoDeposito" ColumnName="autoDeposito" />
-          <ScalarProperty Name="activarBusquedaPorDescripcion" ColumnName="activarBusquedaPorDescripcion" />
-          <ScalarProperty Name="modoOperacion" ColumnName="modoOperacion" />
-          <ScalarProperty Name="limiteRepesajeSuperior" ColumnName="limiteRepesajeSuperior" />
-          <ScalarProperty Name="limiteRepesajeInferior" ColumnName="limiteRepesajeInferior" />
-          <ScalarProperty Name="activarRepesaje" ColumnName="activarRepesaje" />
-          <ScalarProperty Name="serieNotaDebito" ColumnName="serieNotaDebito" />
-          <ScalarProperty Name="serieNotaCredito" ColumnName="serieNotaCredito" />
-          <ScalarProperty Name="serieFactura" ColumnName="serieFactura" />
-          <ScalarProperty Name="sucursalCodigo" ColumnName="sucursalCodigo" />
-          <ScalarProperty Name="factorCambio" ColumnName="factorCambio" />
-          <ScalarProperty Name="auto" ColumnName="auto" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Serie">
       <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Serie">
         <MappingFragment StoreEntitySet="Serie">
@@ -482,6 +445,44 @@
           <ScalarProperty Name="diferencia" ColumnName="diferencia" />
           <ScalarProperty Name="idOperador" ColumnName="idOperador" />
           <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sistema">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Sistema">
+        <MappingFragment StoreEntitySet="Sistema">
+          <ScalarProperty Name="habilitar_precio5_ventamayor" ColumnName="habilitar_precio5_ventamayor" />
+          <ScalarProperty Name="fechaUltActualizacion" ColumnName="fechaUltActualizacion" />
+          <ScalarProperty Name="autoConceptoMovSalida" ColumnName="autoConceptoMovSalida" />
+          <ScalarProperty Name="autoConceptoMovDevVenta" ColumnName="autoConceptoMovDevVenta" />
+          <ScalarProperty Name="autoConceptoMovVenta" ColumnName="autoConceptoMovVenta" />
+          <ScalarProperty Name="equipoNumero" ColumnName="equipoNumero" />
+          <ScalarProperty Name="serieNotaEntrega" ColumnName="serieNotaEntrega" />
+          <ScalarProperty Name="EtiquetarPrecioPorTipoNegocio" ColumnName="EtiquetarPrecioPorTipoNegocio" />
+          <ScalarProperty Name="tarifaAsignada" ColumnName="tarifaAsignada" />
+          <ScalarProperty Name="clavePos" ColumnName="clavePos" />
+          <ScalarProperty Name="clave3" ColumnName="clave3" />
+          <ScalarProperty Name="clave2" ColumnName="clave2" />
+          <ScalarProperty Name="clave1" ColumnName="clave1" />
+          <ScalarProperty Name="autoMedioPagoOtro" ColumnName="autoMedioPagoOtro" />
+          <ScalarProperty Name="autoMedioPagoElectronico" ColumnName="autoMedioPagoElectronico" />
+          <ScalarProperty Name="autoMedioPagoDivisa" ColumnName="autoMedioPagoDivisa" />
+          <ScalarProperty Name="autoMedioPagoEfectivo" ColumnName="autoMedioPagoEfectivo" />
+          <ScalarProperty Name="autoTransporte" ColumnName="autoTransporte" />
+          <ScalarProperty Name="autoCobrador" ColumnName="autoCobrador" />
+          <ScalarProperty Name="autoVendedor" ColumnName="autoVendedor" />
+          <ScalarProperty Name="autoDeposito" ColumnName="autoDeposito" />
+          <ScalarProperty Name="activarBusquedaPorDescripcion" ColumnName="activarBusquedaPorDescripcion" />
+          <ScalarProperty Name="modoOperacion" ColumnName="modoOperacion" />
+          <ScalarProperty Name="limiteRepesajeSuperior" ColumnName="limiteRepesajeSuperior" />
+          <ScalarProperty Name="limiteRepesajeInferior" ColumnName="limiteRepesajeInferior" />
+          <ScalarProperty Name="activarRepesaje" ColumnName="activarRepesaje" />
+          <ScalarProperty Name="serieNotaDebito" ColumnName="serieNotaDebito" />
+          <ScalarProperty Name="serieNotaCredito" ColumnName="serieNotaCredito" />
+          <ScalarProperty Name="serieFactura" ColumnName="serieFactura" />
+          <ScalarProperty Name="sucursalCodigo" ColumnName="sucursalCodigo" />
+          <ScalarProperty Name="factorCambio" ColumnName="factorCambio" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -158,6 +158,7 @@
     <Compile Include="Reportes\VentaAdministrativa\VentaPorProducto\Ficha.cs" />
     <Compile Include="Reportes\VentaAdministrativa\VentaPorProducto\Filtro.cs" />
     <Compile Include="Sistema\Empresa\Ficha.cs" />
+    <Compile Include="Sistema\Estado\Entidad\Ficha.cs" />
     <Compile Include="Sistema\Serie\Entidad\Ficha.cs" />
     <Compile Include="Sistema\TipoDocumento\Entidad\Ficha.cs" />
     <Compile Include="Sucursal\Entidad\Ficha.cs" />

@@ -221,6 +221,8 @@ namespace ProvSqLitePosOffLine
                         return result;
                     };
                     ent.cantidad = ficha.Cantidad;
+                    ent.precioNeto = ficha.Precio;
+                    ent.tarifaPrecio = ficha.Tarifa;
                     cnn.SaveChanges();
                 }
             }

@@ -895,6 +895,33 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<bool> Configuracion_Habilitar_Precio5_VentaMayor()
+        {
+            var result = new DtoLib.ResultadoEntidad<bool>();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var ent = cnn.Sistema.Find("0000000001");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "ENTIDAD CONFIGURACION DEL POS NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    };
+                    result.Entidad = ent.habilitar_precio5_ventamayor.Trim().ToUpper() == "S" ? true : false;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

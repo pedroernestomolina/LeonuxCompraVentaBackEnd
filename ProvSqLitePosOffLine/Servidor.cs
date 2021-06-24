@@ -245,6 +245,7 @@ namespace ProvSqLitePosOffLine
             var _depositoAsignado = "";
             var _tarifaAsignada = "1";
             var _fechaServidor = DateTime.Now.Date;
+            var _habilitar_precio5_ventaMayor = false;
 
             try
             {
@@ -268,7 +269,7 @@ namespace ProvSqLitePosOffLine
                     //    " join productos_medida as pm5 on p.auto_precio_pto=pm5.auto " +
                     //    " join productos_deposito as dep on p.auto=dep.auto_producto and  dep.auto_deposito=@deposito ";
 
-                    var sql = "select p.*, d.codigo as codigoDepart, d.nombre as nombreDepart, " +    
+                    var sql = "select p.*, d.codigo as codigoDepart, d.nombre as nombreDepart, " +
                         "g.codigo as codigoGrupo, g.nombre as nombreGrupo, m.nombre as nombreMarca, " +
                         "pm.nombre as pv1Nombre, pm.decimales as pv1Decimales, " +
                         "pm2.nombre as pv2Nombre, pm2.decimales as pv2Decimales, " +
@@ -315,7 +316,7 @@ namespace ProvSqLitePosOffLine
                         "where codigo=@codigo"; //DEPOSITO, TARIFA PARA EL TIPO DE NEGOCIO INDICADO
                     var sqlI = "select auto,nombre,codigo from productos_conceptos";
                     var sqlJ = "select auto,nombre,rif,direccion,telefono from empresa where auto='0000000001'";
-
+                    var sqlK = "select usuario from sistema_configuracion where codigo='GLOBAL51'";
 
                     var sql1 = "select now()";
                     MySqlCommand comando1 = new MySqlCommand(sql1);
@@ -328,7 +329,7 @@ namespace ProvSqLitePosOffLine
                     var xsql = "select deposito_principal from sistema";
                     MySqlCommand xcomando = new MySqlCommand(xsql);
                     xcomando.Connection = cn;
-                    var xdeposito= xcomando.ExecuteScalar().ToString();
+                    var xdeposito = xcomando.ExecuteScalar().ToString();
 
 
                     MySqlCommand comando = new MySqlCommand(sql);
@@ -370,7 +371,7 @@ namespace ProvSqLitePosOffLine
                         {
                             nr.IsActivo = false;
                         }
-                        else 
+                        else
                         {
                             nr.IsActivo = isActivo == "ACTIVO" ? true : false;
                         }
@@ -475,7 +476,7 @@ namespace ProvSqLitePosOffLine
                         nr.CodigoFuncion = reader.GetString("codigo_funcion");
                         nr.Estatus = reader.GetString("estatus");
                         nr.Seguridad = reader.GetString("seguridad");
-                        nr.CodigoGrupo= reader.GetString("codigo_grupo");
+                        nr.CodigoGrupo = reader.GetString("codigo_grupo");
                         list3_1.Add(nr);
                     }
                     reader.Close();
@@ -662,6 +663,14 @@ namespace ProvSqLitePosOffLine
                     }
                     reader.Close();
 
+                    MySqlCommand comandok = new MySqlCommand(sqlK);
+                    comandok.Connection = cn;
+                    var xhabilitar_precio5_ventaMayor = comandoF.ExecuteScalar().ToString(); // SI,NO
+                    if (xhabilitar_precio5_ventaMayor.Trim().ToUpper() == "SI")
+                    {
+                        _habilitar_precio5_ventaMayor = true;
+                    }
+
                     exito = true;
                 };
             }
@@ -706,6 +715,7 @@ namespace ProvSqLitePosOffLine
                                 sistema.autoDeposito = _depositoAsignado;
                                 sistema.tarifaAsignada = _tarifaAsignada;
                                 sistema.EtiquetarPrecioPorTipoNegocio = _etiquetarPrecioPorTipoNegocio ? "S" : "N";
+                                sistema.habilitar_precio5_ventamayor = _habilitar_precio5_ventaMayor ? "S" : "N";
                                 sistema.fechaUltActualizacion = _fechaServidor.ToShortDateString();
                                 cnn.SaveChanges();
                             }
@@ -1011,7 +1021,7 @@ namespace ProvSqLitePosOffLine
                             foreach (var r in list3)
                             {
                                 var _estatus = "A";
-                                if (r.UsuarioEstatus.Trim().ToUpper() == "INACTIVO") 
+                                if (r.UsuarioEstatus.Trim().ToUpper() == "INACTIVO")
                                 {
                                     _estatus = "I";
                                 }
@@ -1023,7 +1033,7 @@ namespace ProvSqLitePosOffLine
                                     usuarioClave = r.UsuarioClave,
                                     usuarioCodigo = r.UsuarioCodigo,
                                     usuarioDescripcion = r.UsuarioDescripcion,
-                                    usuarioEstatus= _estatus 
+                                    usuarioEstatus = _estatus
                                 };
                                 listUsuario.Add(nr);
                             }
@@ -1154,7 +1164,7 @@ namespace ProvSqLitePosOffLine
                                     correlativo = r.Correlativo,
                                 };
                                 var xverifica = serieList.FirstOrDefault(f => f.auto == r.Auto);
-                                if (xverifica == null) 
+                                if (xverifica == null)
                                 {
                                     listSerie.Add(nr);
                                 }
@@ -1553,11 +1563,11 @@ namespace ProvSqLitePosOffLine
 
             const string InsertarProductoKardex = @"INSERT INTO productos_kardex (auto_producto, total , auto_deposito , auto_concepto , " +
                       "auto_documento, fecha , hora , documento , modulo , entidad , signo , cantidad , cantidad_bono , cantidad_und , costo_und ," +
-                      "estatus_anulado , nota , precio_und , codigo , siglas , codigo_sucursal, cierre_ftp, codigo_deposito, nombre_deposito, "+
+                      "estatus_anulado , nota , precio_und , codigo , siglas , codigo_sucursal, cierre_ftp, codigo_deposito, nombre_deposito, " +
                       "codigo_concepto, nombre_concepto) " +
                       "VALUES (?auto_producto, ?total , ?auto_deposito , ?auto_concepto , " +
                       "?auto_documento, ?fecha , ?hora , ?documento , ?modulo , ?entidad , ?signo , ?cantidad , ?cantidad_bono , ?cantidad_und , ?costo_und ," +
-                      "?estatus_anulado , ?nota , ?precio_und , ?codigo , ?siglas , ?codigo_sucursal, ?cierre_ftp, ?codigo_deposito, ?nombre_deposito, "+
+                      "?estatus_anulado , ?nota , ?precio_und , ?codigo , ?siglas , ?codigo_sucursal, ?cierre_ftp, ?codigo_deposito, ?nombre_deposito, " +
                       "?codigo_concepto, ?nombre_concepto)";
 
             const string UpdateProductoDeposito = @"UPDATE productos_deposito set fisica=fisica-?cantidadUnd, disponible=disponible-?cantidadUnd " +
@@ -1577,7 +1587,7 @@ namespace ProvSqLitePosOffLine
             const string InsertarCxC = @"INSERT INTO cxc (auto , c_cobranza , c_cobranzap , fecha , tipo_documento , documento ," +
                         "fecha_vencimiento , nota , importe , acumulado , auto_cliente , cliente , ci_rif , codigo_cliente , " +
                         "estatus_cancelado , resta , estatus_anulado , auto_documento , numero , auto_agencia , agencia , signo , " +
-                        "auto_vendedor , c_departamento , c_ventas , c_ventasp , serie , importe_neto , dias , castigop, cierre_ftp) "+
+                        "auto_vendedor , c_departamento , c_ventas , c_ventasp , serie , importe_neto , dias , castigop, cierre_ftp) " +
                         "VALUES (?auto , ?c_cobranza , ?c_cobranzap , ?fecha , ?tipo_documento , ?documento ," +
                         "?fecha_vencimiento , ?nota , ?importe , ?acumulado , ?auto_cliente , ?cliente , ?ci_rif , ?codigo_cliente , " +
                         "?estatus_cancelado , ?resta , ?estatus_anulado , ?auto_documento , ?numero , ?auto_agencia , ?agencia , ?signo , " +
@@ -1598,7 +1608,7 @@ namespace ProvSqLitePosOffLine
                         "VALUES (?auto , ?documento , ?fecha , ?auto_usuario , ?importe , ?usuario , " +
                         "?monto_recibido , ?cobrador , ?auto_cliente , ?cliente , ?ci_rif , ?codigo , ?estatus_anulado , ?direccion , ?telefono , " +
                         "?auto_cobrador , ?anticipos , ?cambio , ?nota , ?codigo_cobrador , ?auto_cxc , ?retenciones , ?descuentos , ?hora , ?cierre, '')";
-            
+
             const string InsertarCxCDocumento = @"INSERT INTO cxc_documentos (id  , fecha , tipo_documento , documento , importe , " +
                         "operacion , auto_cxc , auto_cxc_pago , auto_cxc_recibo , numero_recibo , fecha_recepcion , dias , " +
                         "castigop , comisionp, cierre_ftp) " +
@@ -1619,12 +1629,12 @@ namespace ProvSqLitePosOffLine
             const string InsertarPosArqueo = @"INSERT INTO pos_arqueo (auto_cierre, auto_usuario, codigo, usuario, fecha, hora, " +
                         "diferencia, efectivo, cheque, debito, credito, ticket, firma, retiro, otros, devolucion, subtotal, cobranza, " +
                         "total, mefectivo, mcheque, mbanco1, mbanco2, mbanco3, mbanco4, mtarjeta, mticket, mtrans, mfirma, motros, " +
-                        "mgastos, mretiro, mretenciones, msubtotal, mtotal, cierre_ftp, cnt_divisa, cnt_divisa_usuario, "+
+                        "mgastos, mretiro, mretenciones, msubtotal, mtotal, cierre_ftp, cnt_divisa, cnt_divisa_usuario, " +
                         "cntDoc, cntDocFac, cntDocNcr, montoFac, montoNcr) " +
                         "VALUES (?auto_cierre, ?auto_usuario, ?codigo, ?usuario, ?fecha, ?hora, " +
                         "?diferencia, ?efectivo, ?cheque, ?debito, ?credito, ?ticket, ?firma, ?retiro, ?otros, ?devolucion, ?subtotal, ?cobranza, " +
                         "?total, ?mefectivo, ?mcheque, ?mbanco1, ?mbanco2, ?mbanco3, ?mbanco4, ?mtarjeta, ?mticket, ?mtrans, ?mfirma, ?motros, " +
-                        "?mgastos, ?mretiro, ?mretenciones, ?msubtotal, ?mtotal, ?cierre_ftp, ?cnt_divisa, ?cnt_divisa_usuario, "+
+                        "?mgastos, ?mretiro, ?mretenciones, ?msubtotal, ?mtotal, ?cierre_ftp, ?cnt_divisa, ?cnt_divisa_usuario, " +
                         "?cntDoc, ?cntDocFac, ?cntDocNcr, ?montoFac, ?montoNcr)";
 
             try
@@ -2660,7 +2670,7 @@ namespace ProvSqLitePosOffLine
 
             return result;
         }
-        
+
         public DtoLib.Resultado Servidor_Principal_PreprararCierre(string codigoEmpresa, string rutaLeonuxBandeja, string rutaLeonuxFtpBandejaData)
         {
             var result = new DtoLib.Resultado();
@@ -2687,17 +2697,17 @@ namespace ProvSqLitePosOffLine
 
                         //VENTAS
                         sql0 = "select * into outfile \"" + pathDestino + "ventas.txt\" FROM ventas where (tipo='01' or tipo='02' or tipo='03' or tipo='04') and cierre_ftp=''";
-                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        comando1 = new MySqlCommand(sql0, cn, tr);
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "select * into outfile \"" + pathDestino + "ventas_detalle.txt\" FROM ventas_detalle where (tipo='01' or tipo='02' or tipo='03' or tipo='04') and cierre_ftp=''";
-                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        comando1 = new MySqlCommand(sql0, cn, tr);
                         rt = comando1.ExecuteNonQuery();
 
 
                         //CXC
                         sql0 = "select * into outfile \"" + pathDestino + "cxc.txt\" FROM cxc where cierre_ftp=''";
-                        comando1 = new MySqlCommand(sql0, cn,tr);
+                        comando1 = new MySqlCommand(sql0, cn, tr);
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "select * into outfile \"" + pathDestino + "cxc_recibos.txt\" FROM cxc_recibos where cierre_ftp=''";
@@ -2762,22 +2772,22 @@ namespace ProvSqLitePosOffLine
 
                         //EMPAQUETAR CIERRE
                         var fecha = DateTime.Now;
-                        var df= "data"+codigoEmpresa+"_";
+                        var df = "data" + codigoEmpresa + "_";
                         df += fecha.Year.ToString() + "_";
                         df += fecha.Month.ToString().Trim().PadLeft(2, '0') + "_";
                         df += fecha.Day.ToString().Trim().PadLeft(2, '0') + "_";
-                        df += "h_"+fecha.Hour.ToString().Trim().PadLeft(2, '0') + "_";
+                        df += "h_" + fecha.Hour.ToString().Trim().PadLeft(2, '0') + "_";
                         df += fecha.Minute.ToString().Trim().PadLeft(2, '0');
                         df += ".zip";
 
                         var destino = "";
-                        destino += pathBandeja + @"/"+df;
+                        destino += pathBandeja + @"/" + df;
                         ZipFile.CreateFromDirectory(pathTemp, destino, CompressionLevel.Fastest, false);
 
 
                         //TRASLADAR ARCHIVO A DESTINO
                         string sourceFile = System.IO.Path.Combine(pathBandeja, df);
-                        string destFile = System.IO.Path.Combine(pathFtpData , df);
+                        string destFile = System.IO.Path.Combine(pathFtpData, df);
                         System.IO.File.Copy(sourceFile, destFile, true);
 
 
@@ -2790,7 +2800,7 @@ namespace ProvSqLitePosOffLine
                         comando1 = new MySqlCommand(sql0, cn, tr);
                         var v = comando1.ExecuteScalar();
                         if (v == null)
-                        { 
+                        {
                         }
 
                         var cierre = int.Parse(v.ToString());
@@ -3177,7 +3187,7 @@ namespace ProvSqLitePosOffLine
                         comando1 = new MySqlCommand(sql0, cn, tr);
                         comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
-                       
+
                         //
 
                         sql0 = "load data infile \"" + pathData + "/clientes.txt\" into table clientes";
@@ -3283,6 +3293,32 @@ namespace ProvSqLitePosOffLine
             }
 
             return result;
+        }
+
+        public DtoLib.Resultado Servidor_AgregarCampoTabla_Sistema_Habilitar_Precio_VentaMayor()
+        {
+            var rt = new DtoLib.Resultado();
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    using (var ts = cnn.Database.BeginTransaction())
+                    {
+
+                        var sql = "alter table sistema add habilitar_precio5_ventamayor TEXT";
+                        var result = cnn.Database.ExecuteSqlCommand(sql);
+                        cnn.SaveChanges();
+                        ts.Commit();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
         }
 
     }
