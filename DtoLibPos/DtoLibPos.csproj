@@ -50,11 +50,14 @@
     <Compile Include="ClienteZona\Lista\Ficha.cs" />
     <Compile Include="ClienteZona\Lista\Filtro.cs" />
     <Compile Include="Cliente\Agregar\Ficha.cs" />
+    <Compile Include="Cliente\Agregar\FichaValidar.cs" />
     <Compile Include="Cliente\Articulos\Ficha.cs" />
     <Compile Include="Cliente\Articulos\Filtro.cs" />
     <Compile Include="Cliente\Documento\Enumerados.cs" />
     <Compile Include="Cliente\Documento\Ficha.cs" />
     <Compile Include="Cliente\Documento\Filtro.cs" />
+    <Compile Include="Cliente\Editar\Actualizar\Ficha.cs" />
+    <Compile Include="Cliente\Editar\ObtenerData\Ficha.cs" />
     <Compile Include="Cliente\Entidad\Ficha.cs" />
     <Compile Include="Configuracion\BusquedaCliente\Entidad\Enumerados.cs" />
     <Compile Include="Cliente\Lista\Enumerados.cs" />

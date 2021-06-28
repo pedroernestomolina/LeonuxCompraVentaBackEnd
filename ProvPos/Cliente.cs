@@ -291,6 +291,32 @@ namespace ProvPos
                 result.Mensaje = msg;
                 result.Result = DtoLib.Enumerados.EnumResult.isError;
             }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                var dbUpdateEx = ex as System.Data.Entity.Infrastructure.DbUpdateException;
+                var sqlEx = dbUpdateEx.InnerException;
+                if (sqlEx != null)
+                {
+                    var exx = (MySql.Data.MySqlClient.MySqlException)sqlEx.InnerException;
+                    if (exx != null)
+                    {
+                        if (exx.Number == 1452)
+                        {
+                            result.Mensaje = "PROBLEMA DE CLAVE FORANEA" + Environment.NewLine + exx.Message;
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        else 
+                        {
+                            result.Mensaje = exx.Message;
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                    }
+                }
+                result.Mensaje = ex.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
             catch (Exception e)
             {
                 result.Mensaje = e.Message;
@@ -385,6 +411,205 @@ namespace ProvPos
             }
 
             return rt;
+        }
+
+        public DtoLib.Resultado Cliente_Agregar_Validar(DtoLibPos.Cliente.Agregar.FichaValidar ficha)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var ctx = new PosEntities(_cnPos.ConnectionString))
+                {
+                    if (ficha.codigo.Trim() != "")
+                    {
+                        var entCli = ctx.clientes.FirstOrDefault(f => f.codigo.Trim().ToUpper() == ficha.codigo && f.estatus.Trim().ToUpper() == "ACTIVO");
+                        if (entCli != null)
+                        {
+                            rt.Mensaje = "[ CODIGO ] CLIENTE YA REGISTRADO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        };
+                    }
+                    if (ficha.ciRif.Trim() != "")
+                    {
+                        var entCli = ctx.clientes.FirstOrDefault(f => f.ci_rif.Trim().ToUpper() == ficha.ciRif && f.estatus.Trim().ToUpper()=="ACTIVO");
+                        if (entCli != null)
+                        {
+                            rt.Mensaje = "[ CI/RIF ] CLIENTE YA REGISTRADO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        };
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibPos.Cliente.Editar.ObtenerData.Ficha> Cliente_Editar_GetFicha(string autoId)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPos.Cliente.Editar.ObtenerData.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = cnn.clientes.Find(autoId);
+                    if (ent == null)
+                    {
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Mensaje = "[ ID ] CLIENTE NO ENCONTRADO";
+                        return result;
+                    }
+
+                    var nr = new DtoLibPos.Cliente.Editar.ObtenerData.Ficha()
+                    {
+                        idGrupo = ent.auto_grupo,
+                        idEstado = ent.auto_estado,
+                        idZona = ent.auto_zona,
+                        idVendedor = ent.auto_vendedor,
+                        idCobrador = ent.auto_cobrador,
+                        tarifa = ent.tarifa,
+                        categoria = ent.categoria,
+                        nivel = ent.abc,
+                        ciRif = ent.ci_rif,
+                        codigo = ent.codigo,
+                        razonSocial = ent.razon_social,
+                        dirFiscal = ent.dir_fiscal,
+                        dirDespacho = ent.dir_despacho,
+                        pais = ent.pais,
+                        contacto = ent.contacto,
+                        telefono1 = ent.telefono,
+                        telefono2 = ent.telefono2,
+                        email = ent.email,
+                        celular = ent.celular,
+                        fax = ent.fax,
+                        webSite = ent.website,
+                        codPostal = ent.codigo_postal,
+                        estatusCredito = ent.estatus_credito,
+                        dscto = ent.descuento,
+                        cargo = ent.recargo,
+                        limiteDoc = ent.doc_pendientes,
+                        diasCredito = ent.dias_credito,
+                        limiteCredito = ent.limite_credito,
+                    };
+                    result.Entidad = nr;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Cliente_Editar(DtoLibPos.Cliente.Editar.Actualizar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var ctx = new PosEntities(_cnPos.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = ctx.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                        var fechaNula = new DateTime(2000, 01, 01);
+
+                        var ent = ctx.clientes.Find(ficha.autoId);
+                        if (ent == null)
+                        {
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            result.Mensaje = "[ ID ] CLIENTE NO ENCONTRADO";
+                            return result;
+                        }
+
+                        ent.auto_grupo = ficha.idGrupo;
+                        ent.auto_zona = ficha.idZona;
+                        ent.auto_estado = ficha.idEstado;
+                        ent.auto_cobrador = ficha.idCobrador;
+                        ent.auto_vendedor = ficha.idVendedor;
+                        ent.ci_rif = ficha.ciRif;
+                        ent.razon_social = ficha.razonSocial;
+                        ent.dir_fiscal = ficha.dirFiscal;
+                        ent.telefono = ficha.telefono1;
+                        ent.estatus_credito = ficha.estatusCredito;
+                        ent.categoria = ficha.categoria;
+                        ent.tarifa = ficha.tarifa;
+                        ent.dias_credito = ficha.diasCredito;
+                        ent.limite_credito = ficha.limiteCredito;
+                        ent.doc_pendientes = ficha.limiteDoc;
+                        ent.pais = ficha.pais;
+                        ent.codigo = ficha.codigo;
+                        ent.dir_despacho = ficha.dirDespacho;
+                        ent.contacto = ficha.contacto;
+                        ent.email = ficha.email;
+                        ent.website = ficha.webSite;
+                        ent.codigo_postal = ficha.codPostal;
+                        ent.descuento = ficha.dscto;
+                        ent.recargo = ficha.cargo;
+                        ent.telefono2 = ficha.telefono2;
+                        ent.fax = ficha.fax;
+                        ent.celular = ficha.celular;
+                        ent.abc = ficha.nivel;
+                        ctx.SaveChanges();
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                var dbUpdateEx = ex as System.Data.Entity.Infrastructure.DbUpdateException;
+                var sqlEx = dbUpdateEx.InnerException;
+                if (sqlEx != null)
+                {
+                    var exx = (MySql.Data.MySqlClient.MySqlException)sqlEx.InnerException;
+                    if (exx != null)
+                    {
+                        if (exx.Number == 1452)
+                        {
+                            result.Mensaje = "PROBLEMA DE CLAVE FORANEA" + Environment.NewLine + exx.Message;
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        else
+                        {
+                            result.Mensaje = exx.Message;
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                    }
+                }
+                result.Mensaje = ex.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            return result;
         }
 
     }
