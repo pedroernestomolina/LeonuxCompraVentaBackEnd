@@ -414,6 +414,44 @@ namespace ProvPos
             return rt;
         }
 
+        public DtoLib.ResultadoLista<DtoLibPos.Reportes.VentaAdministrativa.Consolidado.Ficha> Reporte_Consolidado(DtoLibPos.Reportes.VentaAdministrativa.Consolidado.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibPos.Reportes.VentaAdministrativa.Consolidado.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@desde";
+                    p1.Value = filtro.desde;
+                    p2.ParameterName = "@hasta";
+                    p2.Value = filtro.hasta;
+
+                    var sql_1 = @"SELECT v.auto, v.fecha, v.codigo_sucursal as codigoSuc, v.documento, 
+                                    v.total, v.tipo, v.aplica, v.factor_cambio as factor, s.nombre as nombreSuc,
+                                    v.documento_nombre as docNombre, v.signo, v.monto_divisa as totalDivisa ";
+                    var sql_2 = @" FROM ventas as v 
+                                    join empresa_sucursal as s on v.codigo_sucursal=s.codigo ";
+                    var sql_3 = @" where v.fecha>=@desde and v.fecha<=@hasta and v.estatus_anulado='0' ";
+
+                    var sql = sql_1 + sql_2 + sql_3;
+                    var list = cnn.Database.SqlQuery<DtoLibPos.Reportes.VentaAdministrativa.Consolidado.Ficha>(sql, p1, p2, p3).ToList();
+                    rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
     }
 
 }

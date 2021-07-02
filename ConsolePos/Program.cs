@@ -207,6 +207,20 @@ namespace ConsolePos
 
             //var r01 = posProv.Sistema_Estado_GetLista();
 
+            //var filtro = new DtoLibPos.Reportes.Clientes.Maestro.Filtro() 
+            //{
+            //    estatus="Inactivo"
+            //};
+            //var r01 = posProv.ReportesCli_Maestro (filtro);
+
+            //var filtro = new DtoLibPos.Reportes.VentaAdministrativa.Consolidado.Filtro()
+            //{
+            //    desde = new DateTime(2021, 06, 01),
+            //    hasta = new DateTime(2021, 06, 05),
+            //    codSucursal = "",
+            //};
+            //var r01 = posProv.Reporte_Consolidado(filtro);
+
         }
 
     }

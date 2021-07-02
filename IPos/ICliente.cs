@@ -19,8 +19,13 @@ namespace IPos
         DtoLib.Resultado Cliente_Editar(DtoLibPos.Cliente.Editar.Actualizar.Ficha ficha);
         DtoLib.ResultadoLista<DtoLibPos.Cliente.Documento.Ficha> Cliente_Documento_GetLista(DtoLibPos.Cliente.Documento.Filtro filtro);
         DtoLib.ResultadoLista<DtoLibPos.Cliente.Articulos.Ficha> Cliente_ArticuloVenta_GetLista(DtoLibPos.Cliente.Articulos.Filtro filtro);
+        DtoLib.Resultado Cliente_Activar(DtoLibPos.Cliente.EstatusActivarInactivar.Ficha ficha);
+        DtoLib.Resultado Cliente_Inactivar(DtoLibPos.Cliente.EstatusActivarInactivar.Ficha ficha);
         //
         DtoLib.Resultado Cliente_Agregar_Validar(DtoLibPos.Cliente.Agregar.FichaValidar ficha);
+        DtoLib.Resultado Cliente_Editar_Validar(DtoLibPos.Cliente.Editar.Actualizar.FichaValidar ficha);
+        DtoLib.Resultado Cliente_EstatusActivar_Validar(string autoId);
+        DtoLib.Resultado Cliente_EstatusInactivar_Validar(string autoId);
 
     }
 

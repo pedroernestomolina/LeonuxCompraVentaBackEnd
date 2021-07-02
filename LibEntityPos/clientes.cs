@@ -102,5 +102,6 @@ namespace LibEntityPos
         public virtual ICollection<cxc_recibos> cxc_recibos { get; set; }
         public virtual clientes_grupo clientes_grupo { get; set; }
         public virtual clientes_zonas clientes_zonas { get; set; }
+        public virtual sistema_estados sistema_estados { get; set; }
     }
 }

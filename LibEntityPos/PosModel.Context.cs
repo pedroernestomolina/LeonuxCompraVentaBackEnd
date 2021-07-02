@@ -57,5 +57,6 @@ namespace LibEntityPos
         public virtual DbSet<p_resumen> p_resumen { get; set; }
         public virtual DbSet<clientes_grupo> clientes_grupo { get; set; }
         public virtual DbSet<clientes_zonas> clientes_zonas { get; set; }
+        public virtual DbSet<sistema_estados> sistema_estados { get; set; }
     }
 }

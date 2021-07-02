@@ -119,13 +119,44 @@ namespace ProvPos
 
                     var nr = new DtoLibPos.Cliente.Entidad.Ficha()
                     {
-                        CiRif = ent.ci_rif,
-                        Codigo = ent.codigo,
-                        DireccionFiscal = ent.dir_fiscal,
-                        Id = ent.auto,
-                        Nombre = ent.razon_social,
-                        Telefono = ent.telefono,
-                        estatus= ent.estatus,
+                        ciRif = ent.ci_rif,
+                        codigo = ent.codigo,
+                        dirFiscal = ent.dir_fiscal,
+                        id = ent.auto,
+                        razonSocial = ent.razon_social,
+                        telefono1 = ent.telefono,
+                        estatus = ent.estatus,
+                        cargo = ent.recargo,
+                        categoria = ent.categoria,
+                        celular = ent.celular,
+                        cobrador = ent.empresa_cobradores.nombre,
+                        codPostal = ent.codigo_postal,
+                        contacto = ent.contacto,
+                        denFiscal = ent.denominacion_fiscal,
+                        diasCredito = ent.dias_credito,
+                        dirDespacho = ent.dir_despacho,
+                        dscto = ent.descuento,
+                        email = ent.email,
+                        estado = ent.sistema_estados.nombre,
+                        estatusCredito = ent.estatus_credito,
+                        fax = ent.fax,
+                        fechaAlta = ent.fecha_alta,
+                        fechaBaja = ent.fecha_baja,
+                        grupo = ent.clientes_grupo.nombre,
+                        idCobrador = ent.auto_cobrador,
+                        idEstado = ent.auto_estado,
+                        idGrupo = ent.auto_grupo,
+                        idVendedor = ent.auto_vendedor,
+                        idZona = ent.auto_zona,
+                        limiteCredito = ent.limite_credito,
+                        limiteDoc = ent.doc_pendientes,
+                        nivel = ent.abc,
+                        pais = ent.pais,
+                        tarifa = ent.tarifa,
+                        telefono2 = ent.telefono2,
+                        vendedor = ent.vendedores.nombre,
+                        webSite = ent.website,
+                        zona = ent.clientes_zonas.nombre,
                     };
                     result.Entidad = nr;
                 }
@@ -156,13 +187,44 @@ namespace ProvPos
 
                     var nr = new DtoLibPos.Cliente.Entidad.Ficha()
                     {
-                        CiRif = ent.ci_rif,
-                        Codigo = ent.codigo,
-                        DireccionFiscal = ent.dir_fiscal,
-                        Id = ent.auto,
-                        Nombre = ent.razon_social,
-                        Telefono = ent.telefono,
-                        estatus=ent.estatus,
+                        ciRif = ent.ci_rif,
+                        codigo = ent.codigo,
+                        dirFiscal = ent.dir_fiscal,
+                        id = ent.auto,
+                        razonSocial = ent.razon_social,
+                        telefono1 = ent.telefono,
+                        estatus = ent.estatus,
+                        cargo = ent.recargo,
+                        categoria = ent.categoria,
+                        celular = ent.celular,
+                        cobrador = ent.empresa_cobradores.nombre,
+                        codPostal = ent.codigo_postal,
+                        contacto = ent.contacto,
+                        denFiscal = ent.denominacion_fiscal,
+                        diasCredito = ent.dias_credito,
+                        dirDespacho = ent.dir_despacho,
+                        dscto = ent.descuento,
+                        email = ent.email,
+                        estado = ent.sistema_estados.nombre,
+                        estatusCredito = ent.estatus_credito,
+                        fax = ent.fax,
+                        fechaAlta = ent.fecha_alta,
+                        fechaBaja = ent.fecha_baja,
+                        grupo = ent.clientes_grupo.nombre,
+                        idCobrador = ent.auto_cobrador,
+                        idEstado = ent.auto_estado,
+                        idGrupo = ent.auto_grupo,
+                        idVendedor = ent.auto_vendedor,
+                        idZona = ent.auto_zona,
+                        limiteCredito = ent.limite_credito,
+                        limiteDoc = ent.doc_pendientes,
+                        nivel = ent.abc,
+                        pais = ent.pais,
+                        tarifa = ent.tarifa,
+                        telefono2 = ent.telefono2,
+                        vendedor = ent.vendedores.nombre,
+                        webSite = ent.website,
+                        zona = ent.clientes_zonas.nombre,
                     };
                     result.Entidad = nr;
                 }
@@ -413,45 +475,6 @@ namespace ProvPos
             return rt;
         }
 
-        public DtoLib.Resultado Cliente_Agregar_Validar(DtoLibPos.Cliente.Agregar.FichaValidar ficha)
-        {
-            var rt = new DtoLib.Resultado();
-
-            try
-            {
-                using (var ctx = new PosEntities(_cnPos.ConnectionString))
-                {
-                    if (ficha.codigo.Trim() != "")
-                    {
-                        var entCli = ctx.clientes.FirstOrDefault(f => f.codigo.Trim().ToUpper() == ficha.codigo && f.estatus.Trim().ToUpper() == "ACTIVO");
-                        if (entCli != null)
-                        {
-                            rt.Mensaje = "[ CODIGO ] CLIENTE YA REGISTRADO";
-                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
-                            return rt;
-                        };
-                    }
-                    if (ficha.ciRif.Trim() != "")
-                    {
-                        var entCli = ctx.clientes.FirstOrDefault(f => f.ci_rif.Trim().ToUpper() == ficha.ciRif && f.estatus.Trim().ToUpper()=="ACTIVO");
-                        if (entCli != null)
-                        {
-                            rt.Mensaje = "[ CI/RIF ] CLIENTE YA REGISTRADO";
-                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
-                            return rt;
-                        };
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                rt.Mensaje = e.Message;
-                rt.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return rt;
-        }
-
         public DtoLib.ResultadoEntidad<DtoLibPos.Cliente.Editar.ObtenerData.Ficha> Cliente_Editar_GetFicha(string autoId)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibPos.Cliente.Editar.ObtenerData.Ficha>();
@@ -610,6 +633,313 @@ namespace ProvPos
                 result.Result = DtoLib.Enumerados.EnumResult.isError;
             }
             return result;
+        }
+
+        public DtoLib.Resultado Cliente_Inactivar(DtoLibPos.Cliente.EstatusActivarInactivar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var ctx = new PosEntities(_cnPos.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = ctx.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                        var fechaNula = new DateTime(2000, 01, 01);
+
+                        var ent = ctx.clientes.Find(ficha.autoId);
+                        if (ent == null)
+                        {
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            result.Mensaje = "[ ID ] CLIENTE NO ENCONTRADO";
+                            return result;
+                        }
+                        ent.estatus = "Inactivo";
+                        ent.fecha_baja = fechaSistema;
+                        ctx.SaveChanges();
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                var dbUpdateEx = ex as System.Data.Entity.Infrastructure.DbUpdateException;
+                var sqlEx = dbUpdateEx.InnerException;
+                if (sqlEx != null)
+                {
+                    var exx = (MySql.Data.MySqlClient.MySqlException)sqlEx.InnerException;
+                    if (exx != null)
+                    {
+                        if (exx.Number == 1452)
+                        {
+                            result.Mensaje = "PROBLEMA DE CLAVE FORANEA" + Environment.NewLine + exx.Message;
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        else
+                        {
+                            result.Mensaje = exx.Message;
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                    }
+                }
+                result.Mensaje = ex.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            return result;
+        }
+
+        public DtoLib.Resultado Cliente_Activar(DtoLibPos.Cliente.EstatusActivarInactivar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var ctx = new PosEntities(_cnPos.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = ctx.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                        var fechaNula = new DateTime(2000, 01, 01);
+
+                        var ent = ctx.clientes.Find(ficha.autoId);
+                        if (ent == null)
+                        {
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            result.Mensaje = "[ ID ] CLIENTE NO ENCONTRADO";
+                            return result;
+                        }
+                        ent.estatus = "Activo";
+                        ent.fecha_baja = fechaNula;
+                        ctx.SaveChanges();
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                var dbUpdateEx = ex as System.Data.Entity.Infrastructure.DbUpdateException;
+                var sqlEx = dbUpdateEx.InnerException;
+                if (sqlEx != null)
+                {
+                    var exx = (MySql.Data.MySqlClient.MySqlException)sqlEx.InnerException;
+                    if (exx != null)
+                    {
+                        if (exx.Number == 1452)
+                        {
+                            result.Mensaje = "PROBLEMA DE CLAVE FORANEA" + Environment.NewLine + exx.Message;
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        else
+                        {
+                            result.Mensaje = exx.Message;
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                    }
+                }
+                result.Mensaje = ex.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            return result;
+        }
+
+
+        //
+
+        public DtoLib.Resultado Cliente_Agregar_Validar(DtoLibPos.Cliente.Agregar.FichaValidar ficha)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var ctx = new PosEntities(_cnPos.ConnectionString))
+                {
+                    if (ficha.codigo.Trim() != "")
+                    {
+                        var entCli = ctx.clientes.FirstOrDefault(f => f.codigo.Trim().ToUpper() == ficha.codigo && f.estatus.Trim().ToUpper() == "ACTIVO");
+                        if (entCli != null)
+                        {
+                            rt.Mensaje = "[ CODIGO ] CLIENTE YA REGISTRADO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        };
+                    }
+                    if (ficha.ciRif.Trim() != "")
+                    {
+                        var entCli = ctx.clientes.FirstOrDefault(f => f.ci_rif.Trim().ToUpper() == ficha.ciRif && f.estatus.Trim().ToUpper() == "ACTIVO");
+                        if (entCli != null)
+                        {
+                            rt.Mensaje = "[ CI/RIF ] CLIENTE YA REGISTRADO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        };
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.Resultado Cliente_Editar_Validar(DtoLibPos.Cliente.Editar.Actualizar.FichaValidar ficha)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var ctx = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = ctx.clientes.Find(ficha.autoId);
+                    if (ent == null)
+                    {
+                        rt.Mensaje = "[ ID ] CLIENTE NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    if (ent.estatus.Trim().ToUpper() != "ACTIVO")
+                    {
+                        rt.Mensaje = "CLIENTE EN ESTADO INACTIVO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    if (ficha.codigo.Trim() != "")
+                    {
+                        var entPrv = ctx.clientes.FirstOrDefault(f => f.codigo.Trim().ToUpper() == ficha.codigo && f.auto != ficha.autoId);
+                        if (entPrv != null)
+                        {
+                            rt.Mensaje = "[ CODIGO ] CLIENTE YA REGISTRADO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        };
+                    }
+                    if (ficha.ciRif.Trim() != "")
+                    {
+                        var entPrv = ctx.clientes.FirstOrDefault(f => f.ci_rif.Trim().ToUpper() == ficha.ciRif && f.auto != ficha.autoId);
+                        if (entPrv != null)
+                        {
+                            rt.Mensaje = "[ CI/RIF ] CLIENTE YA REGISTRADO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        };
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.Resultado Cliente_EstatusActivar_Validar(string autoId)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var ctx = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = ctx.clientes.Find(autoId);
+                    if (ent == null)
+                    {
+                        rt.Mensaje = "[ ID ] CLIENTE NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    if (ent.estatus.Trim().ToUpper() != "INACTIVO")
+                    {
+                        rt.Mensaje = "CLIENTE YA SE ENCUENTRA ACTIVO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.Resultado Cliente_EstatusInactivar_Validar(string autoId)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var ctx = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = ctx.clientes.Find(autoId);
+                    if (ent == null)
+                    {
+                        rt.Mensaje = "[ ID ] CLIENTE NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    if (ent.estatus.Trim().ToUpper() != "ACTIVO")
+                    {
+                        rt.Mensaje = "CLIENTE YA SE ENCUENTRA INACTIVO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
         }
 
     }

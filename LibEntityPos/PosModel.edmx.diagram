@@ -74,6 +74,8 @@
         <EntityTypeShape EntityType="PosModel.clientes_zonas" Width="1.5" PointX="10.375" PointY="8.875" />
         <AssociationConnector Association="PosModel.clientes_ibfk_1" />
         <AssociationConnector Association="PosModel.clientes_ibfk_3" />
+        <EntityTypeShape EntityType="PosModel.sistema_estados" Width="1.5" PointX="10.375" PointY="11.875" />
+        <AssociationConnector Association="PosModel.clientes_ibfk_2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

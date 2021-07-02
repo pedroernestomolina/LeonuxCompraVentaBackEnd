@@ -597,6 +597,11 @@
       <End Role="clientes_zonas" EntitySet="clientes_zonas" />
       <End Role="clientes" EntitySet="clientes" />
     </AssociationSet>
+    <EntitySet Name="sistema_estados" EntityType="PosModel.sistema_estados" />
+    <AssociationSet Name="clientes_ibfk_2" Association="PosModel.clientes_ibfk_2">
+      <End Role="sistema_estados" EntitySet="sistema_estados" />
+      <End Role="clientes" EntitySet="clientes" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="clientes">
     <Key>
@@ -676,6 +681,7 @@
     <NavigationProperty Name="cxc_recibos" Relationship="PosModel.cxc_recibos_ibfk_2" FromRole="clientes" ToRole="cxc_recibos" />
     <NavigationProperty Name="clientes_grupo" Relationship="PosModel.clientes_ibfk_1" FromRole="clientes" ToRole="clientes_grupo" />
     <NavigationProperty Name="clientes_zonas" Relationship="PosModel.clientes_ibfk_3" FromRole="clientes" ToRole="clientes_zonas" />
+    <NavigationProperty Name="sistema_estados" Relationship="PosModel.clientes_ibfk_2" FromRole="clientes" ToRole="sistema_estados" />
   </EntityType>
   <Association Name="ventas_detalle_ibfk_6">
     <End Type="PosModel.clientes" Role="clientes" Multiplicity="1" />
@@ -1649,6 +1655,26 @@
       </Principal>
       <Dependent Role="clientes">
         <PropertyRef Name="auto_zona" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="sistema_estados">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="clientes" Relationship="PosModel.clientes_ibfk_2" FromRole="sistema_estados" ToRole="clientes" />
+  </EntityType>
+  <Association Name="clientes_ibfk_2">
+    <End Type="PosModel.sistema_estados" Role="sistema_estados" Multiplicity="1" />
+    <End Type="PosModel.clientes" Role="clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sistema_estados">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="clientes">
+        <PropertyRef Name="auto_estado" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

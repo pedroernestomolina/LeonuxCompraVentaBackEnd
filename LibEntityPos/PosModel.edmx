@@ -643,6 +643,13 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
           <Property Name="tipo" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="modulo" Type="varchar" MaxLength="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="sistema_estados">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="usuarios">
           <Key>
             <PropertyRef Name="auto" />
@@ -980,6 +987,18 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
             </Principal>
             <Dependent Role="clientes">
               <PropertyRef Name="auto_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="clientes_ibfk_2">
+          <End Role="sistema_estados" Type="Self.sistema_estados" Multiplicity="1" />
+          <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sistema_estados">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="auto_estado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1420,6 +1439,7 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
           <EntitySet Name="productos_marca" EntityType="Self.productos_marca" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_medida" EntityType="Self.productos_medida" Schema="pita" store:Type="Tables" />
           <EntitySet Name="sistema_configuracion" EntityType="Self.sistema_configuracion" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="sistema_estados" EntityType="Self.sistema_estados" Schema="pita" store:Type="Tables" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="pita" store:Type="Tables" />
           <EntitySet Name="usuarios_grupo" EntityType="Self.usuarios_grupo" Schema="pita" store:Type="Tables" />
           <EntitySet Name="vendedores" EntityType="Self.vendedores" Schema="pita" store:Type="Tables" />
@@ -1549,6 +1569,10 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
           </AssociationSet>
           <AssociationSet Name="clientes_ibfk_11" Association="Self.clientes_ibfk_11">
             <End Role="vendedores" EntitySet="vendedores" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <AssociationSet Name="clientes_ibfk_2" Association="Self.clientes_ibfk_2">
+            <End Role="sistema_estados" EntitySet="sistema_estados" />
             <End Role="clientes" EntitySet="clientes" />
           </AssociationSet>
           <AssociationSet Name="clientes_ibfk_3" Association="Self.clientes_ibfk_3">
@@ -2289,6 +2313,11 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
             <End Role="clientes_zonas" EntitySet="clientes_zonas" />
             <End Role="clientes" EntitySet="clientes" />
           </AssociationSet>
+          <EntitySet Name="sistema_estados" EntityType="PosModel.sistema_estados" />
+          <AssociationSet Name="clientes_ibfk_2" Association="PosModel.clientes_ibfk_2">
+            <End Role="sistema_estados" EntitySet="sistema_estados" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="clientes">
           <Key>
@@ -2368,6 +2397,7 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
           <NavigationProperty Name="cxc_recibos" Relationship="PosModel.cxc_recibos_ibfk_2" FromRole="clientes" ToRole="cxc_recibos" />
           <NavigationProperty Name="clientes_grupo" Relationship="PosModel.clientes_ibfk_1" FromRole="clientes" ToRole="clientes_grupo" />
           <NavigationProperty Name="clientes_zonas" Relationship="PosModel.clientes_ibfk_3" FromRole="clientes" ToRole="clientes_zonas" />
+          <NavigationProperty Name="sistema_estados" Relationship="PosModel.clientes_ibfk_2" FromRole="clientes" ToRole="sistema_estados" />
         </EntityType>
         <Association Name="ventas_detalle_ibfk_6">
           <End Type="PosModel.clientes" Role="clientes" Multiplicity="1" />
@@ -3344,6 +3374,26 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="sistema_estados">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="clientes" Relationship="PosModel.clientes_ibfk_2" FromRole="sistema_estados" ToRole="clientes" />
+        </EntityType>
+        <Association Name="clientes_ibfk_2">
+          <End Type="PosModel.sistema_estados" Role="sistema_estados" Multiplicity="1" />
+          <End Type="PosModel.clientes" Role="clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sistema_estados">
+              <PropertyRef Name="auto" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="auto_estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4217,6 +4267,14 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
             <EntityTypeMapping TypeName="PosModel.clientes_zonas">
               <MappingFragment StoreEntitySet="clientes_zonas">
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sistema_estados">
+            <EntityTypeMapping TypeName="PosModel.sistema_estados">
+              <MappingFragment StoreEntitySet="sistema_estados">
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>

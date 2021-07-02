@@ -55,6 +55,7 @@
     <Compile Include="IProducto.cs" />
     <Compile Include="IProvider.cs" />
     <Compile Include="IReportesAdm.cs" />
+    <Compile Include="IReportesCli.cs" />
     <Compile Include="ISistema.cs" />
     <Compile Include="ISucursal.cs" />
     <Compile Include="ITransporte.cs" />

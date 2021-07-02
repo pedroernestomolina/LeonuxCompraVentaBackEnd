@@ -420,7 +420,7 @@ namespace ProvLibCompra
                         rt.Result = DtoLib.Enumerados.EnumResult.isError;
                         return rt;
                     }
-                    if (ent.estatus != "Activo") 
+                    if (ent.estatus.Trim().ToUpper() != "ACTIVO") 
                     {
                         rt.Mensaje = "PROVEEDOR EN ESTADO INACTIVO";
                         rt.Result = DtoLib.Enumerados.EnumResult.isError;
