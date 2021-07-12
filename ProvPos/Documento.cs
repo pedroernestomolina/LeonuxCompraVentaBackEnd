@@ -600,6 +600,7 @@ namespace ProvPos
                     var p3 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p4 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p5 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p6 = new MySql.Data.MySqlClient.MySqlParameter();
 
                     var sql_1 = @"select v.auto as id, v.documento as docNumero, v.control, v.fecha as fechaEmision, 
                                 v.hora as horaEmision, v.razon_social as nombreRazonSocial, v.ci_Rif as cirif, 
@@ -630,15 +631,21 @@ namespace ProvPos
                     }
                     if (filtro.fecha != null)
                     {
-                        sql_3 += " and v.fecha>=@p4 and v.fecha<=@p5";
+                        sql_3 += " and v.fecha>=@p4 and v.fecha<=@p5 ";
                         p4.ParameterName = "@p4";
                         p4.Value = filtro.fecha.desde;
                         p5.ParameterName = "@p5";
                         p5.Value = filtro.fecha.hasta;
                     }
+                    if (filtro.idCliente != "")
+                    {
+                        sql_3 += " and v.auto_cliente=@p6 ";
+                        p6.ParameterName = "@p6";
+                        p6.Value = filtro.idCliente ;
+                    }
 
                     var sql = sql_1 + sql_2+ sql_3; 
-                    var q = cnn.Database.SqlQuery<DtoLibPos.Documento.Lista.Ficha>(sql, p1,p2,p3,p4,p5).ToList();
+                    var q = cnn.Database.SqlQuery<DtoLibPos.Documento.Lista.Ficha>(sql, p1,p2,p3,p4,p5,p6).ToList();
                     rt.Lista = q;
                 }
             }

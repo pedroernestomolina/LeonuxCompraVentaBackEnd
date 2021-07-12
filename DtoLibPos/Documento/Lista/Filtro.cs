@@ -29,11 +29,13 @@ namespace DtoLibPos.Documento.Lista
         public Fecha fecha { get;set;}
         public string codSucursal { get; set; }
         public string codTipoDocumento { get; set; }
+        public string idCliente { get; set; }
 
 
         public Filtro()
         {
             idArqueo = "";
+            idCliente = "";
             fecha = null;
             codSucursal = "";
             codTipoDocumento = "";

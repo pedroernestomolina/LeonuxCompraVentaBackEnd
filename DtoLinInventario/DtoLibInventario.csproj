@@ -231,6 +231,8 @@
     <Compile Include="Visor\Existencia\Enumerados.cs" />
     <Compile Include="Visor\Existencia\Ficha.cs" />
     <Compile Include="Visor\Existencia\Filtro.cs" />
+    <Compile Include="Visor\Precio\Ficha.cs" />
+    <Compile Include="Visor\Precio\Filtro.cs" />
     <Compile Include="Visor\Traslado\Ficha.cs" />
     <Compile Include="Visor\Traslado\Filtro.cs" />
   </ItemGroup>

@@ -101,6 +101,12 @@ namespace ConsoleCajaBanco
             //filtro.hasta = new DateTime(2021, 02, 28);
             //filtro.codSucursal = "";
             //var r01 = cajaBancoPrv.Reporte_Analisis_VentaProducto (filtro);
+
+            //var filtro = new DtoLibCajaBanco.Reporte.Analisis.VentaDiaria.Filtro();
+            //filtro.desde = new DateTime(2021, 07, 01);
+            //filtro.hasta = new DateTime(2021, 07, 08);
+            //var r01 = cajaBancoPrv.Reporte_Analisis_VentaDiaria(filtro);
+
         }
     }
 

@@ -327,6 +327,51 @@ namespace ProvLibInventario
             return rt;
         }
 
+        public DtoLib.ResultadoLista<DtoLibInventario.Visor.Precio.Ficha> Visor_Precio(DtoLibInventario.Visor.Precio.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibInventario.Visor.Precio.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    var sql_1 = @"SELECT p.auto as autoPrd,p.codigo as codigoPrd,p.nombre as nombrePrd, 
+                                  ed.nombre as nombreDep, ed.codigo as codigoDep,pg.codigo as codigoGrupo, 
+                                  pg.nombre as nombreGrupo,p.costo_und as costoUnd, p.divisa as costoDivisa,                                   p.contenido_compras as contEmpCompra, p.precio_1, p.precio_2, p.precio_3, p.precio_4,                                   p.precio_pto as precio_5, p.estatus, p.estatus_divisa as estatusDivisa,                                   p.fecha_ult_costo as fechaUltCosto
+                                  FROM productos as p ";
+                    var sql_2 = @" join empresa_departamentos as ed on ed.auto=p.auto_departamento
+                                  join productos_grupo as pg on pg.auto=p.auto_grupo ";
+                    var sql_3 = @" WHERE 1 = 1 and categoria<>'Bien de Servicio' ";
+
+                    if (filtro.autoDepart != "")
+                    {
+                        sql_3 += " and p.auto_departamento=@autoDepartamento ";
+                        p1.ParameterName = "@autoDepartamento";
+                        p1.Value = filtro.autoDepart;
+                    }
+                    if (filtro.autoGrupo != "")
+                    {
+                        sql_3 += " and p.auto_grupo=@autoGrupo ";
+                        p2.ParameterName = "@autoGrupo";
+                        p2.Value = filtro.autoGrupo;
+                    }
+                    var sql = sql_1 + sql_2 + sql_3;
+                    var lst = cnn.Database.SqlQuery<DtoLibInventario.Visor.Precio.Ficha>(sql, p1, p2).ToList();
+                    rt.Lista = lst;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
     }
 
 }

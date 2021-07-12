@@ -875,6 +875,42 @@ namespace ProvLibCajaBanco
             return rt;
         }
 
+        public DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Analisis.VentaDiaria.Ficha> Reporte_Analisis_VentaDiaria(DtoLibCajaBanco.Reporte.Analisis.VentaDiaria.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Analisis.VentaDiaria.Ficha>();
+
+            try
+            {
+                using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                                        
+                    p1.ParameterName = "@desde";
+                    p1.Value = filtro.desde;
+                    p2.ParameterName = "@hasta";
+                    p2.Value = filtro.hasta;
+
+                    var xsql_1 = @"select v.auto, v.fecha, v.codigo_sucursal as codSucursal, es.nombre as nomSucursal 
+                                    from ventas as v 
+                                    join empresa_sucursal as es on es.codigo=v.codigo_sucursal
+                                    where fecha>=@desde and fecha<=@hasta and estatus_anulado='0'";
+
+                    var sql = xsql_1;
+                    var ldata = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Analisis.VentaDiaria.Ficha>(sql, p1, p2, p3).ToList();
+                    rt.Lista = ldata;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
     }
 
 }
