@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cliente\Agregar.cs" />
+    <Compile Include="Cliente\ExportarData\Ficha.cs" />
+    <Compile Include="Cliente\ExportarData\Filtro.cs" />
     <Compile Include="Cliente\Ficha.cs" />
     <Compile Include="Cliente\Resumen.cs" />
     <Compile Include="Cobrador\Ficha.cs" />

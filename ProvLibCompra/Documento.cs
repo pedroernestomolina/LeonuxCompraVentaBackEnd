@@ -22,7 +22,7 @@ namespace ProvLibCompra
             {
                 using (var cnn = new compraEntities(_cnCompra.ConnectionString))
                 {
-                    using (var ts = new TransactionScope())
+                    using (var ts = cnn.Database.BeginTransaction())
                     {
                         var sql = "";
 
@@ -367,7 +367,7 @@ namespace ProvLibCompra
                             cnn.SaveChanges();
                         }
 
-                        ts.Complete();
+                        ts.Commit();
                         result.Auto = autoMovCompra;
                     }
                 }
@@ -385,18 +385,30 @@ namespace ProvLibCompra
                 result.Mensaje = msg;
                 result.Result = DtoLib.Enumerados.EnumResult.isError;
             }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
             {
-                var msg = "";
-                foreach (var eve in e.Entries)
+                var dbUpdateEx = ex as System.Data.Entity.Infrastructure.DbUpdateException;
+                var sqlEx = dbUpdateEx.InnerException;
+                if (sqlEx != null)
                 {
-                    //msg += eve.m;
-                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    var exx = (MySql.Data.MySqlClient.MySqlException)sqlEx.InnerException;
+                    if (exx != null)
                     {
-                        msg += ve.ToString();
+                        if (exx.Number == 1452)
+                        {
+                            result.Mensaje = "PROBLEMA DE CLAVE FORANEA" + Environment.NewLine + exx.Message;
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        else
+                        {
+                            result.Mensaje = exx.Message;
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
                     }
                 }
-                result.Mensaje = msg;
+                result.Mensaje = ex.Message;
                 result.Result = DtoLib.Enumerados.EnumResult.isError;
             }
             catch (Exception e)

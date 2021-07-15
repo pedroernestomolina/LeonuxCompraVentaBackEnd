@@ -911,6 +911,45 @@ namespace ProvLibCajaBanco
             return rt;
         }
 
+        public DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Analisis.VentaPorCierre.Ficha> Reporte_Analisis_VentaPorCierre(DtoLibCajaBanco.Reporte.Analisis.VentaPorCierre.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Analisis.VentaPorCierre.Ficha>();
+
+            try
+            {
+                using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@desde";
+                    p1.Value = filtro.desde;
+                    p2.ParameterName = "@hasta";
+                    p2.Value = filtro.hasta;
+
+                    var xsql_1 = @"SELECT c.auto_cierre as autoCierre, c.fecha, c.hora, c.cntdoc, c.cntdocfac, c.cntdocncr, 
+                                c.efectivo as montoEfectivo, c.cheque as montoDivisa, c.debito as montoDebito,
+                                c.otros as montoOtros, c.cnt_divisa as cntDivisa, c.total, 
+                                es.nombre as nomSucursal, es.codigo as codSucursal ";
+                    var xsql_2 = @" FROM pos_arqueo as c
+                                join empresa_sucursal as es on es.codigo=substr(c.auto_cierre,1,2) ";
+                    var xsql_3 = @" where c.fecha>=@desde and c.fecha<=@hasta ";
+
+                    var sql = xsql_1+xsql_2+xsql_3;
+                    var ldata = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Analisis.VentaPorCierre.Ficha>(sql, p1, p2, p3).ToList();
+                    rt.Lista = ldata;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
     }
 
 }

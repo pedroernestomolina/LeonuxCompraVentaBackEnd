@@ -41,16 +41,19 @@ namespace ConsolaPosOffLine
             //    Console.WriteLine("TODO OK");
             //Console.ReadKey();
 
-            var r01 = _offLine.Servidor_AgregarCampoTabla_Sistema_Habilitar_Precio_VentaMayor();
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
-            {
-                Console.WriteLine(r01.Mensaje);
-            }
-            else
-            {
-                Console.WriteLine("CAMPO CREADO SATISFACTORIAMENTE");
-            }
-            Console.ReadKey();
+            //var filtro= new DtoLibPosOffLine.Cliente.ExportarData.Filtro ();
+            //var r01 = _offLine.Cliente_ExportarData (filtro);
+
+            //var r01 = _offLine.Servidor_AgregarCampoTabla_Sistema_Habilitar_Precio_VentaMayor();
+            //if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            //{
+            //    Console.WriteLine(r01.Mensaje);
+            //}
+            //else
+            //{
+            //    Console.WriteLine("CAMPO CREADO SATISFACTORIAMENTE");
+            //}
+            //Console.ReadKey();
         }
 
     }

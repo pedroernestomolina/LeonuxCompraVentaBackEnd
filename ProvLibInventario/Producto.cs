@@ -1577,11 +1577,11 @@ namespace ProvLibInventario
                         entPrd.auto_precio_4 = "0000000001";
                         entPrd.auto_precio_pto = "0000000001";
                         entPrd.memo = "";
-                        entPrd.contenido_1 = 0;
-                        entPrd.contenido_2 = 0;
-                        entPrd.contenido_3 = 0;
-                        entPrd.contenido_4 = 0;
-                        entPrd.contenido_pto = 0;
+                        entPrd.contenido_1 = 1;
+                        entPrd.contenido_2 = 1;
+                        entPrd.contenido_3 = 1;
+                        entPrd.contenido_4 = 1;
+                        entPrd.contenido_pto = 1;
                         entPrd.corte = "";
                         entPrd.estatus_pesado = ficha.esPesado;
                         entPrd.plu = ficha.plu;

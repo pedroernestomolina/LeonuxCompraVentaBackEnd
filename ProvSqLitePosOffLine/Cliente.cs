@@ -183,6 +183,30 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
+        public DtoLib.ResultadoLista<DtoLibPosOffLine.Cliente.ExportarData.Ficha> Cliente_ExportarData(DtoLibPosOffLine.Cliente.ExportarData.Filtro filtro)
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibPosOffLine.Cliente.ExportarData.Ficha>();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var xsql_1= "select nombreRazonSocial, ciRif, dirFiscal, telefono ";
+                    var xsql_2 = " from cliente ";
+                    var xsql= xsql_1 +xsql_2;
+                    var list = cnn.Database.SqlQuery<DtoLibPosOffLine.Cliente.ExportarData.Ficha>(xsql).ToList();
+                    result.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }
