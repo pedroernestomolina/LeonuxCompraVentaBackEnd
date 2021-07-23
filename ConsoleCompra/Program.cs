@@ -121,6 +121,10 @@ namespace ConsoleCompra
             //};
             //var r01 = compraPrv.Proveedor_CompraArticulos_GetLista(filtro);
 
+            //var filtro = new DtoLibCompra.Reportes.Proveedor.Maestro.Filtro ()
+            //{
+            //};
+            //var r01 = compraPrv.ReportesProv_Maestro (filtro);
         }
 
     }

@@ -466,7 +466,7 @@ namespace ProvLibCompra
             {
                 using (var cnn = new compraEntities(_cnCompra.ConnectionString))
                 {
-                    var sql_1 = "SELECT c.fecha, c.documento, c.total as monto, c.monto_divisa as montoDivisa, c.factor_cambio as tasaDivisa, " +
+                    var sql_1 = "SELECT c.fecha, c.documento, c.control as controlNro, c.total as monto, c.monto_divisa as montoDivisa, c.factor_cambio as tasaDivisa, " +
                         "c.estatus_anulado as estatus, c.tipo as codTipoDoc, c.serie, c.signo, c.documento_nombre as nombreTipoDoc  ";
                     var sql_2 = " FROM compras as c";
                     var sql_3 = " where c.auto_proveedor=@p1 and c.fecha>=@p2 and c.fecha<=@p3 ";

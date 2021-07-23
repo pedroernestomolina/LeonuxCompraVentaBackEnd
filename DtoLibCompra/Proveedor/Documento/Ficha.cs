@@ -20,7 +20,7 @@ namespace DtoLibCompra.Proveedor.Documento
         public string codTipoDoc { get; set; }
         public string nombreTipoDoc { get; set; }
         public string serie { get; set; }
-
+        public string controlNro { get; set; }
 
     }
 

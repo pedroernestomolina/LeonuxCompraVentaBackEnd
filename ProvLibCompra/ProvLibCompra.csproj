@@ -70,6 +70,7 @@
     <Compile Include="Proveedor.cs" />
     <Compile Include="Provider.cs" />
     <Compile Include="Reportes.cs" />
+    <Compile Include="ReportesProv.cs" />
     <Compile Include="Sucursal.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>

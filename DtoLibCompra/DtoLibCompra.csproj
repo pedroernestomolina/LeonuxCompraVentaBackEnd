@@ -114,6 +114,8 @@
     <Compile Include="Reportes\CompraPorProducto\Ficha.cs" />
     <Compile Include="Reportes\CompraPorProducto\Filtro.cs" />
     <Compile Include="Reportes\Enumerados.cs" />
+    <Compile Include="Reportes\Proveedor\Maestro\Ficha.cs" />
+    <Compile Include="Reportes\Proveedor\Maestro\Filtro.cs" />
     <Compile Include="Sucursal\Data\Ficha.cs" />
     <Compile Include="Sucursal\Lista\Resumen.cs" />
     <Compile Include="Usuario\ActualizarSesion\Ficha.cs" />

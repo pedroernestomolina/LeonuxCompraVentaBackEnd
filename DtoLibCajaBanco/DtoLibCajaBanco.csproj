@@ -69,6 +69,8 @@
     <Compile Include="Reporte\Movimiento\ResumenVentaSucursal\Filtro.cs" />
     <Compile Include="Reporte\Movimiento\ResumenVenta\Ficha.cs" />
     <Compile Include="Reporte\Movimiento\ResumenVenta\Filtro.cs" />
+    <Compile Include="Reporte\Movimiento\VentaPorCliente\Ficha.cs" />
+    <Compile Include="Reporte\Movimiento\VentaPorCliente\Filtro.cs" />
     <Compile Include="Reporte\Movimiento\VentasPorProductoSucursal\Ficha.cs" />
     <Compile Include="Reporte\Movimiento\VentasPorProductoSucursal\Filtro.cs" />
     <Compile Include="Reporte\Movimiento\VentasPorProducto\Ficha.cs" />

@@ -111,6 +111,11 @@ namespace ConsoleCajaBanco
             //filtro.desde = new DateTime(2021, 07, 01);
             //filtro.hasta = new DateTime(2021, 07, 08);
             //var r01 = cajaBancoPrv.Reporte_Analisis_VentaPorCierre(filtro);
+
+            //var filtro = new DtoLibCajaBanco.Reporte.Movimiento.VentaPorCliente.Filtro();
+            //filtro.desdeFecha = new DateTime(2021, 07, 01);
+            //filtro.hastaFecha= new DateTime(2021, 07, 20);
+            //var r01 = cajaBancoPrv.Reporte_VentaPorCliente(filtro);
         }
     }
 

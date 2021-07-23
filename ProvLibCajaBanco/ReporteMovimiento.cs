@@ -746,10 +746,55 @@ namespace ProvLibCajaBanco
             return rt;
         }
 
+        public DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.VentaPorCliente.Ficha> Reporte_VentaPorCliente(DtoLibCajaBanco.Reporte.Movimiento.VentaPorCliente.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Movimiento.VentaPorCliente.Ficha>();
+
+            try
+            {
+                using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
+                {
+                    var sql_1 = @"SELECT v.razon_social as entidad, v.dir_fiscal as dirFiscal, v.ci_rif as ciRif, 
+                                    v.telefono, v.total as monto, v.monto_divisa as montoDivisa, v.signo, 
+                                    es.nombre as sucNombre, es.codigo as sucCodigo ";
+
+                    var sql_2 = " FROM ventas as v " +
+                        " join empresa_sucursal as es on es.codigo=v.codigo_sucursal ";
+
+                    var sql_3 = " where fecha>=@desde and fecha<=@hasta and estatus_anulado='0' ";
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@desde";
+                    p1.Value = filtro.desdeFecha;
+                    p2.ParameterName = "@hasta";
+                    p2.Value = filtro.hastaFecha;
+
+                    if (filtro.codigoSucursal != "")
+                    {
+                        sql_3 += " and v.codigo_sucursal=@codigoSucursal ";
+                        p3.ParameterName = "@codigoSucursal";
+                        p3.Value = filtro.codigoSucursal;
+                    }
+
+                    var sql = sql_1 + sql_2 + sql_3;
+                    var list = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.VentaPorCliente.Ficha>(sql, p1, p2, p3).ToList();
+                    rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
 
 
         ////
-
 
 
         public DtoLib.ResultadoLista<DtoLibCajaBanco.Reporte.Analisis.VentaPromedio.Ficha> Reporte_Analisis_VentaPromedio(DtoLibCajaBanco.Reporte.Analisis.VentaPromedio.Filtro filtro)

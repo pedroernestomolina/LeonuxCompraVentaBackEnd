@@ -50,6 +50,7 @@
     <Compile Include="IProducto.cs" />
     <Compile Include="IProveedor.cs" />
     <Compile Include="IProvider.cs" />
+    <Compile Include="IReporteProv.cs" />
     <Compile Include="IReportes.cs" />
     <Compile Include="ISucursal.cs" />
     <Compile Include="IUsuario.cs" />
