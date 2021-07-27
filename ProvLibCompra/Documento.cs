@@ -534,6 +534,7 @@ namespace ProvLibCompra
                     var p2 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p3 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p4 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p5 = new MySql.Data.MySqlClient.MySqlParameter();
 
                     var sql_1 = "SELECT " +
                         "auto, fecha as fechaEmision, tipo, documento, signo, control, " +
@@ -583,9 +584,15 @@ namespace ProvLibCompra
                         p4.Value = xtipo;
                         sql_3 += " and tipo=@tipo";
                     }
+                    if (filtro.idProveedor != "")
+                    {
+                        p5.ParameterName = "@autoProv";
+                        p5.Value = filtro.idProveedor;
+                        sql_3 += " and auto_proveedor =@autoProv";
+                    }
 
                     var sql = sql_1 + sql_2 + sql_3;
-                    var lst = cnn.Database.SqlQuery<DtoLibCompra.Documento.Lista.Resumen>(sql, p1, p2, p3, p4).ToList();
+                    var lst = cnn.Database.SqlQuery<DtoLibCompra.Documento.Lista.Resumen>(sql, p1, p2, p3, p4, p5).ToList();
                     result.Lista = lst;
                 }
             }
@@ -1507,6 +1514,44 @@ namespace ProvLibCompra
                 rt.Result = DtoLib.Enumerados.EnumResult.isError;
             }
 
+            return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibCompra.Documento.ListaItemImportar.Ficha> Compra_Documento_ItemImportar_GetLista(string autoDoc)
+        {
+            var rt= new DtoLib.ResultadoLista<DtoLibCompra.Documento.ListaItemImportar.Ficha>();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var sql_1 = @"SELECT auto_producto as prdAuto, codigo as prdCodigo, nombre as prdNombre, 
+                                auto_departamento as prdAutoDepartamento, auto_grupo as prdAutoGrupo, 
+                                auto_subgrupo as prdAutoSubGrupo, cantidad as cntFactura, empaque as empaqueCompra, 
+                                descuento1p as dscto1p, descuento2p as dscto2p, descuento3p as dscto3p, 
+                                tasa as tasaIva, estatus_unidad as estatusUnidad,  costo_compra as precioFactura,
+                                decimales, contenido_empaque as contenidoEmp, auto_tasa as prdAutoTasaIva, categoria,
+                                codigo_proveedor as codRefProv ";
+
+                    var sql_2 = "FROM compras_detalle ";
+
+                    var sql_3 = "where auto_documento = @autoDoc ";
+
+                    var p1= new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "@autoDoc";
+                    p1.Value = autoDoc;
+
+                    var sql = sql_1 + sql_2 + sql_3;
+                    var lst = cnn.Database.SqlQuery<DtoLibCompra.Documento.ListaItemImportar.Ficha>(sql, p1).ToList();
+                    rt.Lista = lst;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            
             return rt;
         }
 

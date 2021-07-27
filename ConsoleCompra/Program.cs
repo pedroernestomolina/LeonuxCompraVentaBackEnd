@@ -125,6 +125,9 @@ namespace ConsoleCompra
             //{
             //};
             //var r01 = compraPrv.ReportesProv_Maestro (filtro);
+
+            //var r01 = compraPrv.Compra_Documento_ItemImportar_GetLista("0000000419");
+
         }
 
     }

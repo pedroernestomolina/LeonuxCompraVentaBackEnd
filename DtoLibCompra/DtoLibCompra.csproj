@@ -68,6 +68,7 @@
     <Compile Include="Documento\Cargar\Ficha.cs" />
     <Compile Include="Documento\Cargar\FichaDetalle.cs" />
     <Compile Include="Documento\Corrector\Factura\Ficha.cs" />
+    <Compile Include="Documento\ListaItemImportar\Ficha.cs" />
     <Compile Include="Documento\ListaRemision\Ficha.cs" />
     <Compile Include="Documento\ListaRemision\Filtro.cs" />
     <Compile Include="Documento\Lista\Filtro.cs" />
