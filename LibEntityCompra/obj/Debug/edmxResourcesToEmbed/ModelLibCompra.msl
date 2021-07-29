@@ -552,5 +552,53 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="compras_pend_detalle">
+      <EntityTypeMapping TypeName="compraModel.compras_pend_detalle">
+        <MappingFragment StoreEntitySet="compras_pend_detalle">
+          <ScalarProperty Name="codrefprv_fact" ColumnName="codrefprv_fact" />
+          <ScalarProperty Name="tasa_iva" ColumnName="tasa_iva" />
+          <ScalarProperty Name="prd_decimales" ColumnName="prd_decimales" />
+          <ScalarProperty Name="prd_categoria" ColumnName="prd_categoria" />
+          <ScalarProperty Name="dsct_3_fact" ColumnName="dsct_3_fact" />
+          <ScalarProperty Name="dsct_2_fact" ColumnName="dsct_2_fact" />
+          <ScalarProperty Name="dsct_1_fact" ColumnName="dsct_1_fact" />
+          <ScalarProperty Name="empaque_unidad" ColumnName="empaque_unidad" />
+          <ScalarProperty Name="empaque_cont" ColumnName="empaque_cont" />
+          <ScalarProperty Name="empaque_nombre" ColumnName="empaque_nombre" />
+          <ScalarProperty Name="precio_fact" ColumnName="precio_fact" />
+          <ScalarProperty Name="cant_fact" ColumnName="cant_fact" />
+          <ScalarProperty Name="tasa_auto" ColumnName="tasa_auto" />
+          <ScalarProperty Name="subg_auto" ColumnName="subg_auto" />
+          <ScalarProperty Name="grupo_auto" ColumnName="grupo_auto" />
+          <ScalarProperty Name="depart_auto" ColumnName="depart_auto" />
+          <ScalarProperty Name="prd_nombre" ColumnName="prd_nombre" />
+          <ScalarProperty Name="prd_codigo" ColumnName="prd_codigo" />
+          <ScalarProperty Name="prd_auto" ColumnName="prd_auto" />
+          <ScalarProperty Name="idPend" ColumnName="idPend" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="compras_pend">
+      <EntityTypeMapping TypeName="compraModel.compras_pend">
+        <MappingFragment StoreEntitySet="compras_pend">
+          <ScalarProperty Name="documento_control" ColumnName="documento_control" />
+          <ScalarProperty Name="documento_numero" ColumnName="documento_numero" />
+          <ScalarProperty Name="usuario_nombre" ColumnName="usuario_nombre" />
+          <ScalarProperty Name="documento_nombre" ColumnName="documento_nombre" />
+          <ScalarProperty Name="documento_factor_cambio" ColumnName="documento_factor_cambio" />
+          <ScalarProperty Name="documento_items" ColumnName="documento_items" />
+          <ScalarProperty Name="documento_monto_divisa" ColumnName="documento_monto_divisa" />
+          <ScalarProperty Name="documento_monto" ColumnName="documento_monto" />
+          <ScalarProperty Name="documento_tipo" ColumnName="documento_tipo" />
+          <ScalarProperty Name="entidad_nombre" ColumnName="entidad_nombre" />
+          <ScalarProperty Name="entidad_cirif" ColumnName="entidad_cirif" />
+          <ScalarProperty Name="hora" ColumnName="hora" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="auto_usuario" ColumnName="auto_usuario" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

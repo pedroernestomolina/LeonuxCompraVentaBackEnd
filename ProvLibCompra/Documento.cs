@@ -1555,6 +1555,154 @@ namespace ProvLibCompra
             return rt;
         }
 
+        public DtoLib.Resultado Compra_Documento_Pendiente_Agregar(DtoLibCompra.Documento.Pendiente.Agregar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    using (var ts = cnn.Database.BeginTransaction())
+                    {
+                        var sql = "";
+
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                        var xfecha= fechaSistema.Date;
+                        var xhora=fechaSistema.ToShortTimeString();
+                        var entCompraPend = new compras_pend
+                        {
+                            auto_usuario = ficha.usuarioId,
+                            documento_factor_cambio = ficha.docFactorCambio,
+                            documento_items = ficha.docItemsNro,
+                            documento_monto = ficha.docMonto,
+                            documento_monto_divisa = ficha.docMontoDivisa,
+                            documento_tipo = ficha.docTipo,
+                            entidad_cirif = ficha.entidadCiRif,
+                            entidad_nombre = ficha.entidadNombre,
+                            documento_nombre = ficha.docNombre,
+                            usuario_nombre = ficha.usuarioNombre,
+                            documento_control = ficha.docControl,
+                            documento_numero = ficha.docNumero,
+                            fecha = xfecha,
+                            hora = xhora,
+                        };
+                        cnn.compras_pend.Add(entCompraPend);
+                        cnn.SaveChanges();
+
+                        foreach (var it in ficha.items)
+                        {
+                            var entCompraPendDet = new compras_pend_detalle()
+                            {
+                                idPend = entCompraPend.id,
+                                cant_fact = it.cntFactura,
+                                codrefprv_fact = it.codRefProv,
+                                depart_auto = it.prdAutoDepartamento,
+                                dsct_1_fact = it.dscto1p,
+                                dsct_2_fact = it.dscto2p,
+                                dsct_3_fact = it.dscto3p,
+                                empaque_cont = it.contenidoEmp,
+                                empaque_nombre = it.empaqueCompra,
+                                empaque_unidad = it.estatusUnidad,
+                                grupo_auto = it.prdAutoGrupo,
+                                prd_auto = it.prdAuto,
+                                prd_categoria = it.categoria,
+                                prd_codigo = it.prdCodigo,
+                                prd_decimales = it.decimales,
+                                prd_nombre = it.prdNombre,
+                                precio_fact = it.precioFactura,
+                                subg_auto = it.prdAutoSubGrupo,
+                                tasa_auto = it.prdAutoTasaIva,
+                                tasa_iva = it.tasaIva,
+                            };
+                            cnn.compras_pend_detalle.Add(entCompraPendDet);
+                            cnn.SaveChanges();
+                        }
+                        ts.Commit();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                var dbUpdateEx = ex as System.Data.Entity.Infrastructure.DbUpdateException;
+                var sqlEx = dbUpdateEx.InnerException;
+                if (sqlEx != null)
+                {
+                    var exx = (MySql.Data.MySqlClient.MySqlException)sqlEx.InnerException;
+                    if (exx != null)
+                    {
+                        if (exx.Number == 1452)
+                        {
+                            result.Mensaje = "PROBLEMA DE CLAVE FORANEA" + Environment.NewLine + exx.Message;
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        else
+                        {
+                            result.Mensaje = exx.Message;
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                    }
+                }
+                result.Mensaje = ex.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<int> Compra_Documento_Pendiente_Cnt(DtoLibCompra.Documento.Pendiente.Filtro.Ficha filtro)
+        {
+            var result = new DtoLib.ResultadoEntidad<int>();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    var sql_1 = "SELECT count(*) as cnt ";
+                    var sql_2 = "FROM compras_pend ";
+                    var sql_3 = "where (auto_usuario=@idUsuario and documento_tipo=@docTipo) ";
+
+                    p1.ParameterName = "@idUsuario";
+                    p1.Value = filtro.idUsuario ;
+                    p2.ParameterName = "@docTipo";
+                    p2.Value = filtro.docTipo;
+                    var sql = sql_1 + sql_2 + sql_3;
+                    var cnt = cnn.Database.SqlQuery<int> (sql, p1, p2).FirstOrDefault();
+                    result.Entidad  = cnt;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

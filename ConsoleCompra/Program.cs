@@ -127,6 +127,12 @@ namespace ConsoleCompra
             //var r01 = compraPrv.ReportesProv_Maestro (filtro);
 
             //var r01 = compraPrv.Compra_Documento_ItemImportar_GetLista("0000000419");
+            //var ficha = new DtoLibCompra.Documento.Pendiente.Filtro.Ficha()
+            //{
+            //    docTipo = "01",
+            //    idUsuario = "0000000001",
+            //};
+            //var r01 = compraPrv.Compra_Documento_Pendiente_Cnt (ficha);
 
         }
 

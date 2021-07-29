@@ -306,6 +306,12 @@
       <End Role="usuarios" EntitySet="usuarios" />
       <End Role="compras" EntitySet="compras" />
     </AssociationSet>
+    <EntitySet Name="compras_pend_detalle" EntityType="compraModel.compras_pend_detalle" />
+    <EntitySet Name="compras_pend" EntityType="compraModel.compras_pend" />
+    <AssociationSet Name="compras_pend_detalle_ibfk_1" Association="compraModel.compras_pend_detalle_ibfk_1">
+      <End Role="compras_pend" EntitySet="compras_pend" />
+      <End Role="compras_pend_detalle" EntitySet="compras_pend_detalle" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="empresa_sucursal">
     <Key>
@@ -1208,6 +1214,66 @@
       </Principal>
       <Dependent Role="compras">
         <PropertyRef Name="auto_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="compras_pend_detalle">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idPend" Type="Int32" Nullable="false" />
+    <Property Name="prd_auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="prd_codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="prd_nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="depart_auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="grupo_auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="subg_auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="tasa_auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cant_fact" Type="Decimal" Nullable="false" />
+    <Property Name="precio_fact" Type="Decimal" Nullable="false" />
+    <Property Name="empaque_nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="empaque_cont" Type="Int32" Nullable="false" />
+    <Property Name="empaque_unidad" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="dsct_1_fact" Type="Decimal" Nullable="false" />
+    <Property Name="dsct_2_fact" Type="Decimal" Nullable="false" />
+    <Property Name="dsct_3_fact" Type="Decimal" Nullable="false" />
+    <Property Name="prd_categoria" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="prd_decimales" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="tasa_iva" Type="Decimal" Nullable="false" />
+    <Property Name="codrefprv_fact" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="compras_pend" Relationship="compraModel.compras_pend_detalle_ibfk_1" FromRole="compras_pend_detalle" ToRole="compras_pend" />
+  </EntityType>
+  <EntityType Name="compras_pend">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="auto_usuario" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="hora" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="entidad_cirif" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="entidad_nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="documento_tipo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="documento_monto" Type="Decimal" Nullable="false" />
+    <Property Name="documento_monto_divisa" Type="Decimal" Nullable="false" />
+    <Property Name="documento_items" Type="Int32" Nullable="false" />
+    <Property Name="documento_factor_cambio" Type="Decimal" Nullable="false" />
+    <Property Name="documento_nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="usuario_nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="documento_numero" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="documento_control" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="compras_pend_detalle" Relationship="compraModel.compras_pend_detalle_ibfk_1" FromRole="compras_pend" ToRole="compras_pend_detalle" />
+  </EntityType>
+  <Association Name="compras_pend_detalle_ibfk_1">
+    <End Type="compraModel.compras_pend" Role="compras_pend" Multiplicity="1" />
+    <End Type="compraModel.compras_pend_detalle" Role="compras_pend_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="compras_pend">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="compras_pend_detalle">
+        <PropertyRef Name="idPend" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

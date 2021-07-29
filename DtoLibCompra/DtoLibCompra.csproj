@@ -73,6 +73,9 @@
     <Compile Include="Documento\ListaRemision\Filtro.cs" />
     <Compile Include="Documento\Lista\Filtro.cs" />
     <Compile Include="Documento\Lista\Resumen.cs" />
+    <Compile Include="Documento\Pendiente\Agregar\Ficha.cs" />
+    <Compile Include="Documento\Pendiente\Agregar\FichaDetalle.cs" />
+    <Compile Include="Documento\Pendiente\Filtro\Ficha.cs" />
     <Compile Include="Documento\Visualizar\Ficha.cs" />
     <Compile Include="Documento\Visualizar\FichaDetalle.cs" />
     <Compile Include="Empresa\Data\Ficha.cs" />

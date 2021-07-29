@@ -182,6 +182,52 @@ warning 6002: The table/view 'pita.compras_detalle' does not have a primary key 
     <Property Name="fecha_lote" Type="date" Nullable="false" />
     <Property Name="cierre_ftp" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
+  <EntityType Name="compras_pend">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="auto_usuario" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="fecha" Type="date" Nullable="false" />
+    <Property Name="hora" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="entidad_cirif" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="entidad_nombre" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="documento_tipo" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="documento_monto" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="documento_monto_divisa" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="documento_items" Type="int" Nullable="false" />
+    <Property Name="documento_factor_cambio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="documento_nombre" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="usuario_nombre" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="documento_numero" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="documento_control" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="compras_pend_detalle">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idPend" Type="int" Nullable="false" />
+    <Property Name="prd_auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="prd_codigo" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="prd_nombre" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="depart_auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="grupo_auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="subg_auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="tasa_auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="cant_fact" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="precio_fact" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="empaque_nombre" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="empaque_cont" Type="int" Nullable="false" />
+    <Property Name="empaque_unidad" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="dsct_1_fact" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="dsct_2_fact" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="dsct_3_fact" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="prd_categoria" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="prd_decimales" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="tasa_iva" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="codrefprv_fact" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
   <EntityType Name="cxp">
     <Key>
       <PropertyRef Name="auto" />
@@ -534,11 +580,11 @@ warning 6002: The table/view 'pita.productos_kardex' does not have a primary key
     <Property Name="fecha_baja" Type="date" Nullable="false" />
     <Property Name="fecha_ult_pago" Type="date" Nullable="false" />
     <Property Name="fecha_ult_compra" Type="date" Nullable="false" />
-    <Property Name="anticipos" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-    <Property Name="debitos" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-    <Property Name="creditos" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-    <Property Name="saldo" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-    <Property Name="disponible" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="anticipos" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="debitos" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="creditos" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="saldo" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="disponible" Type="decimal" Precision="18" Scale="2" Nullable="false" />
     <Property Name="memo" Type="text" Nullable="false" />
     <Property Name="advertencia" Type="varchar" MaxLength="120" Nullable="false" />
     <Property Name="estatus" Type="varchar" MaxLength="10" Nullable="false" />
@@ -629,18 +675,6 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="compras_detalle_ibfk_3">
-    <End Role="empresa_departamentos" Type="Self.empresa_departamentos" Multiplicity="1" />
-    <End Role="compras_detalle" Type="Self.compras_detalle" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="empresa_departamentos">
-        <PropertyRef Name="auto" />
-      </Principal>
-      <Dependent Role="compras_detalle">
-        <PropertyRef Name="auto_departamento" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="compras_detalle_ibfk_4">
     <End Role="productos_grupo" Type="Self.productos_grupo" Multiplicity="1" />
     <End Role="compras_detalle" Type="Self.compras_detalle" Multiplicity="*" />
@@ -710,6 +744,18 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
       </Principal>
       <Dependent Role="compras">
         <PropertyRef Name="auto_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="compras_pend_detalle_ibfk_1">
+    <End Role="compras_pend" Type="Self.compras_pend" Multiplicity="1" />
+    <End Role="compras_pend_detalle" Type="Self.compras_pend_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="compras_pend">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="compras_pend_detalle">
+        <PropertyRef Name="idPend" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1001,6 +1047,8 @@ warning 6002: The table/view 'pita.proveedores_agencias' does not have a primary
   </Association>
   <EntityContainer Name="compraModelStoreContainer">
     <EntitySet Name="compras" EntityType="Self.compras" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="compras_pend" EntityType="Self.compras_pend" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="compras_pend_detalle" EntityType="Self.compras_pend_detalle" Schema="pita" store:Type="Tables" />
     <EntitySet Name="cxp" EntityType="Self.cxp" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_departamentos" EntityType="Self.empresa_departamentos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_depositos" EntityType="Self.empresa_depositos" Schema="pita" store:Type="Tables" />
@@ -1113,10 +1161,6 @@ FROM `proveedores_agencias` AS `proveedores_agencias`</DefiningQuery>
       <End Role="productos" EntitySet="productos" />
       <End Role="compras_detalle" EntitySet="compras_detalle" />
     </AssociationSet>
-    <AssociationSet Name="compras_detalle_ibfk_3" Association="Self.compras_detalle_ibfk_3">
-      <End Role="empresa_departamentos" EntitySet="empresa_departamentos" />
-      <End Role="compras_detalle" EntitySet="compras_detalle" />
-    </AssociationSet>
     <AssociationSet Name="compras_detalle_ibfk_4" Association="Self.compras_detalle_ibfk_4">
       <End Role="productos_grupo" EntitySet="productos_grupo" />
       <End Role="compras_detalle" EntitySet="compras_detalle" />
@@ -1140,6 +1184,10 @@ FROM `proveedores_agencias` AS `proveedores_agencias`</DefiningQuery>
     <AssociationSet Name="compras_ibfk_2" Association="Self.compras_ibfk_2">
       <End Role="usuarios" EntitySet="usuarios" />
       <End Role="compras" EntitySet="compras" />
+    </AssociationSet>
+    <AssociationSet Name="compras_pend_detalle_ibfk_1" Association="Self.compras_pend_detalle_ibfk_1">
+      <End Role="compras_pend" EntitySet="compras_pend" />
+      <End Role="compras_pend_detalle" EntitySet="compras_pend_detalle" />
     </AssociationSet>
     <AssociationSet Name="cxp_ibfk_1" Association="Self.cxp_ibfk_1">
       <End Role="proveedores" EntitySet="proveedores" />
