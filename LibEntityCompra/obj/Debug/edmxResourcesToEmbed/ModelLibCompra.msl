@@ -582,6 +582,15 @@
     <EntitySetMapping Name="compras_pend">
       <EntityTypeMapping TypeName="compraModel.compras_pend">
         <MappingFragment StoreEntitySet="compras_pend">
+          <ScalarProperty Name="documento_dias_credito" ColumnName="documento_dias_credito" />
+          <ScalarProperty Name="documento_fecha_emision" ColumnName="documento_fecha_emision" />
+          <ScalarProperty Name="entidad_codigo" ColumnName="entidad_codigo" />
+          <ScalarProperty Name="entidad_dirFiscal" ColumnName="entidad_dirFiscal" />
+          <ScalarProperty Name="entidad_auto" ColumnName="entidad_auto" />
+          <ScalarProperty Name="auto_sucursal" ColumnName="auto_sucursal" />
+          <ScalarProperty Name="auto_deposito" ColumnName="auto_deposito" />
+          <ScalarProperty Name="documento_notas" ColumnName="documento_notas" />
+          <ScalarProperty Name="documento_ordenCompra" ColumnName="documento_ordenCompra" />
           <ScalarProperty Name="documento_control" ColumnName="documento_control" />
           <ScalarProperty Name="documento_numero" ColumnName="documento_numero" />
           <ScalarProperty Name="usuario_nombre" ColumnName="usuario_nombre" />

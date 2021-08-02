@@ -35,6 +35,15 @@ namespace LibEntityCompra
         public string usuario_nombre { get; set; }
         public string documento_numero { get; set; }
         public string documento_control { get; set; }
+        public string documento_ordenCompra { get; set; }
+        public string documento_notas { get; set; }
+        public string auto_deposito { get; set; }
+        public string auto_sucursal { get; set; }
+        public string entidad_auto { get; set; }
+        public string entidad_dirFiscal { get; set; }
+        public string entidad_codigo { get; set; }
+        public System.DateTime documento_fecha_emision { get; set; }
+        public int documento_dias_credito { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<compras_pend_detalle> compras_pend_detalle { get; set; }

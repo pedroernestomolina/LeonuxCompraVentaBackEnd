@@ -1565,8 +1565,6 @@ namespace ProvLibCompra
                 {
                     using (var ts = cnn.Database.BeginTransaction())
                     {
-                        var sql = "";
-
                         var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
                         var xfecha= fechaSistema.Date;
                         var xhora=fechaSistema.ToShortTimeString();
@@ -1586,6 +1584,15 @@ namespace ProvLibCompra
                             documento_numero = ficha.docNumero,
                             fecha = xfecha,
                             hora = xhora,
+                            auto_deposito = ficha.autoDeposito,
+                            auto_sucursal = ficha.autoSucursal,
+                            documento_notas = ficha.docNotas,
+                            documento_ordenCompra = ficha.docOrdenCompra,
+                            entidad_auto = ficha.entidadAuto,
+                            entidad_codigo = ficha.entidadCodigo,
+                            entidad_dirFiscal = ficha.entidadCodigo,
+                            documento_dias_credito = ficha.docDiasCredito,
+                            documento_fecha_emision = ficha.docFechaEmision,
                         };
                         cnn.compras_pend.Add(entCompraPend);
                         cnn.SaveChanges();
@@ -1692,6 +1699,193 @@ namespace ProvLibCompra
                     var sql = sql_1 + sql_2 + sql_3;
                     var cnt = cnn.Database.SqlQuery<int> (sql, p1, p2).FirstOrDefault();
                     result.Entidad  = cnt;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibCompra.Documento.Pendiente.Lista.Ficha> Compra_Documento_Pendiente_GetLista(DtoLibCompra.Documento.Pendiente.Filtro.Ficha filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibCompra.Documento.Pendiente.Lista.Ficha>();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    var sql_1 = @"SELECT id, entidad_cirif as entidadCiRif, entidad_nombre as entidadNombre, 
+                                documento_tipo as docTipo, documento_monto as docMonto, documento_monto_divisa as docMontoDivisa, 
+                                documento_nombre as docNombre, documento_factor_cambio as docFactorCambio, 
+                                documento_numero as docNumero, documento_control as docControl, documento_items as docItemsNro ";
+                    var sql_2 = "FROM compras_pend ";
+                    var sql_3 = "where 1=1 ";
+                    if (filtro.idUsuario != "") 
+                    {
+                        sql_3 += "and auto_usuario=@idUsuario ";
+                        p1.ParameterName = "@idUsuario";
+                        p1.Value = filtro.idUsuario ;
+                    }
+                    if (filtro.docTipo  != "")
+                    {
+                        sql_3 += "and documento_tipo=@docTipo ";
+                        p2.ParameterName = "@docTipo";
+                        p2.Value = filtro.docTipo;
+                    }
+                    var sql = sql_1 + sql_2 + sql_3;
+                    var lst = cnn.Database.SqlQuery<DtoLibCompra.Documento.Pendiente.Lista .Ficha>(sql, p1,p2,p3).ToList();
+                    rt.Lista = lst;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.Resultado Compra_Documento_Pendiente_Eliminar(int idPend)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    using (var ts = cnn.Database.BeginTransaction())
+                    {
+                        var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                        p1.ParameterName = "@id";
+                        p1.Value = idPend;
+
+                        var sql = @"delete 
+                                    from compras_pend_detalle 
+                                    where idPend=@id";
+                        var cnt= cnn.Database.ExecuteSqlCommand(sql, p1);
+                        if (cnt == 0) 
+                        {
+                            rt.Mensaje = "ITEMS NO ENCONTRADOS ";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        }
+                        sql = @"delete 
+                                    from compras_pend 
+                                    where id=@id";
+                        cnt = cnn.Database.ExecuteSqlCommand(sql, p1);
+                        if (cnt == 0)
+                        {
+                            rt.Mensaje = "[ ID ] DOCUMENTO PENDIENTE NO ENCONTRADO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        }
+
+                        cnn.SaveChanges();
+                        ts.Commit();
+                    }
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                rt .Mensaje = msg;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                var dbUpdateEx = ex as System.Data.Entity.Infrastructure.DbUpdateException;
+                var sqlEx = dbUpdateEx.InnerException;
+                rt.Mensaje = ex.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibCompra.Documento.Pendiente.Abrir.Ficha> Compra_Documento_Pendiente_Abrir(int idPend)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibCompra.Documento.Pendiente.Abrir.Ficha>();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    var ent = cnn.compras_pend.Find(idPend);
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] DOCUMENTO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var det = cnn.compras_pend_detalle.Where(f => f.idPend == idPend).ToList();
+                    var doc = new DtoLibCompra.Documento.Pendiente.Abrir.Ficha()
+                    {
+                        docControl = ent.documento_control,
+                        docDiasCredito = ent.documento_dias_credito,
+                        docFactorCambio = ent.documento_factor_cambio,
+                        docFechaEmision = ent.documento_fecha_emision,
+                        docNumero = ent.documento_numero,
+                        docNotas = ent.documento_notas,
+                        docOrdenCompra = ent.documento_ordenCompra,
+                        entidadAuto = ent.entidad_auto,
+                        entidadCiRif = ent.entidad_cirif,
+                        entidadCodigo = ent.entidad_codigo,
+                        entidadDirFiscal = ent.entidad_dirFiscal,
+                        entidadNombre = ent.entidad_nombre,
+                        autoDeposito = ent.auto_deposito,
+                        autoSucursal = ent.auto_sucursal,
+                    };
+                    var lista = det.Select(s =>
+                    {
+                        var dt = new DtoLibCompra.Documento.Pendiente.Abrir.FichaDetalle()
+                        {
+                            categoria = s.prd_categoria,
+                            cntFactura = s.cant_fact,
+                            codRefProv = s.codrefprv_fact,
+                            contenidoEmp = s.empaque_cont,
+                            decimales = s.prd_decimales,
+                            dscto1p = s.dsct_1_fact,
+                            dscto2p = s.dsct_2_fact,
+                            dscto3p = s.dsct_3_fact,
+                            empaqueCompra = s.empaque_nombre,
+                            estatusUnidad = s.empaque_unidad,
+                            prdAuto = s.prd_auto,
+                            prdAutoDepartamento = s.depart_auto,
+                            prdAutoGrupo = s.grupo_auto,
+                            prdAutoSubGrupo = s.subg_auto,
+                            prdAutoTasaIva = s.tasa_auto,
+                            prdCodigo = s.prd_codigo,
+                            prdNombre = s.prd_nombre,
+                            precioFactura = s.precio_fact,
+                            tasaIva = s.tasa_iva,
+                        };
+                        return dt;
+                    }).ToList();
+                    doc.items  = lista;
+
+                    result.Entidad = doc;
                 }
             }
             catch (Exception e)

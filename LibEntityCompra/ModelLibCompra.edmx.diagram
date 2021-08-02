@@ -62,7 +62,7 @@
         <EntityTypeShape EntityType="compraModel.usuarios" Width="1.5" PointX="11" PointY="7.875" />
         <AssociationConnector Association="compraModel.compras_ibfk_2" />
         <EntityTypeShape EntityType="compraModel.compras_pend_detalle" Width="1.5" PointX="38.125" PointY="10.875" />
-        <EntityTypeShape EntityType="compraModel.compras_pend" Width="1.5" PointX="35.875" PointY="11.375" />
+        <EntityTypeShape EntityType="compraModel.compras_pend" Width="1.5" PointX="35.875" PointY="10.625" />
         <AssociationConnector Association="compraModel.compras_pend_detalle_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>

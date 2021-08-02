@@ -1263,6 +1263,15 @@
     <Property Name="usuario_nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="documento_numero" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="documento_control" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="documento_ordenCompra" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="documento_notas" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="auto_deposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_sucursal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="entidad_auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="entidad_dirFiscal" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="entidad_codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="documento_fecha_emision" Type="DateTime" Nullable="false" />
+    <Property Name="documento_dias_credito" Type="Int32" Nullable="false" />
     <NavigationProperty Name="compras_pend_detalle" Relationship="compraModel.compras_pend_detalle_ibfk_1" FromRole="compras_pend" ToRole="compras_pend_detalle" />
   </EntityType>
   <Association Name="compras_pend_detalle_ibfk_1">

@@ -201,6 +201,15 @@ warning 6002: The table/view 'pita.compras_detalle' does not have a primary key 
     <Property Name="usuario_nombre" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="documento_numero" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="documento_control" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="documento_ordenCompra" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="documento_notas" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="auto_deposito" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_sucursal" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="entidad_auto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="entidad_dirFiscal" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="entidad_codigo" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="documento_fecha_emision" Type="date" Nullable="false" />
+    <Property Name="documento_dias_credito" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="compras_pend_detalle">
     <Key>
