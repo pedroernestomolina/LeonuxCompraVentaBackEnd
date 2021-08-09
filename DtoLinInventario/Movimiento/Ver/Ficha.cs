@@ -29,7 +29,7 @@ namespace DtoLibInventario.Movimiento.Ver
         public string usuario { get; set; }
         public string usuarioCodigo { get; set; }
         public enumerados.EnumTipoDocumento docTipo { get; set; }
-
+        public string estatusAnulado { get; set; }
         public List<Detalle> detalles { get; set; }
 
     }

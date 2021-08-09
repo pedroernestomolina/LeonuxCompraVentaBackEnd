@@ -22,13 +22,14 @@ namespace ProvLibCompra
             {
                 using (var cnn = new compraEntities(_cnCompra.ConnectionString))
                 {
-                    var sql = "select p.auto, p.codigo, p.razon_social as nombreRazonSocial, p.ci_rif as ciRif, " +
-                        "p.dir_fiscal as dirFiscal, p.telefono, p.contacto as nombreContacto, p.estatus , " +
-                        "g.nombre as nombreGrupo, e.nombre as nombreEstado "+
-                        "FROM proveedores as p "+
-                        "join proveedores_grupo as g on p.auto_grupo=g.auto "+
-                        "join sistema_estados as e on p.auto_estado=e.auto "+
-                        "where 1=1 ";
+                    var sql = @"select p.auto, p.codigo, p.razon_social as nombreRazonSocial, p.ci_rif as ciRif, 
+                        p.dir_fiscal as dirFiscal, p.telefono, p.contacto as nombreContacto, p.estatus , 
+                        g.nombre as nombreGrupo, e.nombre as nombreEstado, p.fecha_alta as fechaAlta, 
+                        p.fecha_ult_compra as fechaUltCompra, p.fecha_baja as fechaBaja 
+                        FROM proveedores as p 
+                        join proveedores_grupo as g on p.auto_grupo=g.auto 
+                        join sistema_estados as e on p.auto_estado=e.auto 
+                        where 1=1 ";
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p2 = new MySql.Data.MySqlClient.MySqlParameter();
@@ -157,6 +158,9 @@ namespace ProvLibCompra
                         pais = ent.pais,
                         retIva = ent.retencion_iva,
                         website = ent.website,
+                        fechaAlta = ent.fecha_alta,
+                        fechaUltCompra = ent.fecha_ult_compra,
+                        fechaBaja = ent.fecha_baja,
                     };
 
                     result.Entidad = nr;

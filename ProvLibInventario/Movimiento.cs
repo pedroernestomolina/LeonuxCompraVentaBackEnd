@@ -318,6 +318,7 @@ namespace ProvLibInventario
                         usuarioCodigo = ent.codigo_usuario,
                         nombreDocumento = ent.documento_nombre,
                         docTipo=tipo,
+                        estatusAnulado=ent.estatus_anulado,
                     };
 
                     var det = entDet.Select(s =>

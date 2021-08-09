@@ -29,6 +29,9 @@ namespace DtoLibCompra.Proveedor.Data
         public string codigoPostal { get; set; }
         public decimal retIva { get; set; }
         public string denominacionFiscal { get; set; }
+        public DateTime fechaAlta { get; set; }
+        public DateTime fechaUltCompra { get; set; }
+        public DateTime fechaBaja { get; set; }
 
     }
 

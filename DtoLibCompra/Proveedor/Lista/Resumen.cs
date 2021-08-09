@@ -22,6 +22,9 @@ namespace DtoLibCompra.Proveedor.Lista
         public string nombreGrupo { get; set; }
         public string nombreEstado { get; set; }
         public string nombreContacto { get; set; }
+        public DateTime fechaAlta { get; set; }
+        public DateTime fechaUltCompra { get; set; }
+        public DateTime fechaBaja { get; set; }
         public Enumerados.EnumEstatus estatusPrv 
         {
             get 
