@@ -19,6 +19,8 @@ namespace ILibCompras
         DtoLib.Resultado Proveedor_EditarFicha_Validar(DtoLibCompra.Proveedor.Editar.FichaValidar ficha);
         DtoLib.ResultadoLista<DtoLibCompra.Proveedor.Documento.Ficha> Proveedor_Documento_GetLista(DtoLibCompra.Proveedor.Documento.Filtro filtro);
         DtoLib.ResultadoLista<DtoLibCompra.Proveedor.Articulos.Ficha > Proveedor_CompraArticulos_GetLista(DtoLibCompra.Proveedor.Articulos.Filtro filtro);
+        DtoLib.Resultado Proveedor_Activar(DtoLibCompra.Proveedor.ActivarInactivar.Ficha ficha);
+        DtoLib.Resultado Proveedor_Inactivar(DtoLibCompra.Proveedor.ActivarInactivar.Ficha ficha);
 
     }
 

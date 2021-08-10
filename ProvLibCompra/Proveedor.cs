@@ -488,6 +488,22 @@ namespace ProvLibCompra
                     p3.ParameterName = "@p3";
                     p3.Value = filtro.hasta;
 
+                    switch (filtro.tipoDoc)
+                    { 
+                        case DtoLibCompra.Proveedor.Documento.Enumerados.enumTipoDoc.Factura:
+                            sql_3 += "and c.tipo='01' ";
+                            break;
+                        case DtoLibCompra.Proveedor.Documento.Enumerados.enumTipoDoc.NotaDebito:
+                            sql_3 += "and c.tipo='02' ";
+                            break;
+                        case DtoLibCompra.Proveedor.Documento.Enumerados.enumTipoDoc.NotaCRedito:
+                            sql_3 += "and c.tipo='03' ";
+                            break;
+                        case DtoLibCompra.Proveedor.Documento.Enumerados.enumTipoDoc.OrdenCompra:
+                            sql_3 += "and c.tipo='04' ";
+                            break;
+                    }
+
                     var sql = sql_1 + sql_2 + sql_3 + sql_4;
                     var list = cnn.Database.SqlQuery<DtoLibCompra.Proveedor.Documento.Ficha>(sql, p1, p2, p3, p4).ToList();
                     rt.Lista = list;
@@ -537,6 +553,92 @@ namespace ProvLibCompra
                     var sql = sql_1 + sql_2 + sql_3 + sql_4;
                     var list = cnn.Database.SqlQuery<DtoLibCompra.Proveedor.Articulos.Ficha>(sql, p1, p2, p3, p4).ToList();
                     rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.Resultado Proveedor_Activar(DtoLibCompra.Proveedor.ActivarInactivar.Ficha ficha)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                        var fechaNula = new DateTime(2000, 1, 1);
+
+                        var entPrv = cnn.proveedores.Find(ficha.id);
+                        if (entPrv == null)
+                        {
+                            rt.Mensaje = "[ ID ] PROVEEDOR NO ENCONTRADO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        }
+                        if (entPrv.estatus.Trim().ToUpper() == "ACTIVO")
+                        {
+                            rt.Mensaje = "PROVEEDOR YA ACTIVO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        }
+
+                        entPrv.estatus="Activo";
+                        entPrv.fecha_baja = fechaNula;
+                        cnn.SaveChanges();
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.Resultado Proveedor_Inactivar(DtoLibCompra.Proveedor.ActivarInactivar.Ficha ficha)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new compraEntities(_cnCompra.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                        var fechaNula = new DateTime(2000, 1, 1);
+
+                        var entPrv = cnn.proveedores.Find(ficha.id);
+                        if (entPrv == null)
+                        {
+                            rt.Mensaje = "[ ID ] PROVEEDOR NO ENCONTRADO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        }
+                        if (entPrv.estatus.Trim().ToUpper() == "INACTIVO")
+                        {
+                            rt.Mensaje = "PROVEEDOR YA INACTIVO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        }
+
+                        entPrv.estatus = "Inactivo";
+                        entPrv.fecha_baja = fechaSistema.Date;
+                        cnn.SaveChanges();
+                        ts.Complete();
+                    }
                 }
             }
             catch (Exception e)
