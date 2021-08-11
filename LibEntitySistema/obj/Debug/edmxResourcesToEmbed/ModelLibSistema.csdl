@@ -47,6 +47,10 @@
       <End Role="productos" EntitySet="productos" />
       <End Role="productos_precios" EntitySet="productos_precios" />
     </AssociationSet>
+    <EntitySet Name="empresa_cobradores" EntityType="sistemaModel.empresa_cobradores" />
+    <EntitySet Name="empresa_series_fiscales" EntityType="sistemaModel.empresa_series_fiscales" />
+    <EntitySet Name="vendedores" EntityType="sistemaModel.vendedores" />
+    <EntitySet Name="sistema_contadores" EntityType="sistemaModel.sistema_contadores" />
   </EntityContainer>
   <EntityType Name="empresa">
     <Key>
@@ -286,4 +290,234 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="empresa_cobradores">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="comision" Type="Decimal" Nullable="false" />
+    <Property Name="contrato" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="empresa_series_fiscales">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="serie" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="correlativo" Type="Int32" Nullable="false" />
+    <Property Name="estatus_factura" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_nd" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_nc" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_ne" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="control" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vendedores">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="ci" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="direccion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="contacto" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="website" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_alta" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_baja" Type="DateTime" Nullable="false" />
+    <Property Name="memo" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="advertencia" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ventas_g" Type="Decimal" Nullable="false" />
+    <Property Name="ventas_1" Type="Decimal" Nullable="false" />
+    <Property Name="ventas_2" Type="Decimal" Nullable="false" />
+    <Property Name="ventas_3" Type="Decimal" Nullable="false" />
+    <Property Name="ventas_4" Type="Decimal" Nullable="false" />
+    <Property Name="cobranza_g" Type="Decimal" Nullable="false" />
+    <Property Name="cobranza_1" Type="Decimal" Nullable="false" />
+    <Property Name="cobranza_2" Type="Decimal" Nullable="false" />
+    <Property Name="cobranza_3" Type="Decimal" Nullable="false" />
+    <Property Name="cobranza_4" Type="Decimal" Nullable="false" />
+    <Property Name="estatus_ventas" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_cobranza" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_departamento" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_f1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_f2" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_f3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_f4" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_f5" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_f6" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_f7" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_f8" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="castigop" Type="Decimal" Nullable="false" />
+    <Property Name="tolerancia" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sistema_contadores">
+    <Key>
+      <PropertyRef Name="a_clientes_grupo" />
+      <PropertyRef Name="a_usuarios" />
+      <PropertyRef Name="a_empresa_series_fiscales" />
+      <PropertyRef Name="a_empresa_depositos" />
+      <PropertyRef Name="a_empresa_medios" />
+      <PropertyRef Name="a_empresa_cobradores" />
+      <PropertyRef Name="a_empresa_transporte" />
+      <PropertyRef Name="a_clientes" />
+      <PropertyRef Name="a_sistema_estados" />
+      <PropertyRef Name="a_clientes_zonas" />
+      <PropertyRef Name="a_proveedores_grupo" />
+      <PropertyRef Name="a_proveedores" />
+      <PropertyRef Name="a_productos_grupo" />
+      <PropertyRef Name="a_productos_subgrupo" />
+      <PropertyRef Name="a_productos_marca" />
+      <PropertyRef Name="a_productos_medida" />
+      <PropertyRef Name="a_productos_conceptos" />
+      <PropertyRef Name="a_empresa_departamentos" />
+      <PropertyRef Name="a_productos" />
+      <PropertyRef Name="a_empresa_tasas" />
+      <PropertyRef Name="a_productos_movimientos" />
+      <PropertyRef Name="a_productos_movimientos_cargos" />
+      <PropertyRef Name="a_empresa_agencias" />
+      <PropertyRef Name="a_cxc" />
+      <PropertyRef Name="a_cxc_nd" />
+      <PropertyRef Name="a_cxc_nc" />
+      <PropertyRef Name="a_cxc_chq" />
+      <PropertyRef Name="a_cxc_recibo" />
+      <PropertyRef Name="a_cxc_recibo_numero" />
+      <PropertyRef Name="a_ventas" />
+      <PropertyRef Name="a_cxp" />
+      <PropertyRef Name="a_cxp_nd" />
+      <PropertyRef Name="a_cxp_nc" />
+      <PropertyRef Name="a_cxp_chq" />
+      <PropertyRef Name="a_cxp_recibo" />
+      <PropertyRef Name="a_cxp_recibo_numero" />
+      <PropertyRef Name="a_compras" />
+      <PropertyRef Name="a_ventas_presupuesto" />
+      <PropertyRef Name="a_ventas_pedido" />
+      <PropertyRef Name="a_sistema_transito" />
+      <PropertyRef Name="a_ventas_retenciones" />
+      <PropertyRef Name="a_ventas_despacho" />
+      <PropertyRef Name="a_cxc_anticipo" />
+      <PropertyRef Name="a_cxp_anticipo" />
+      <PropertyRef Name="a_productos_movimientos_descargos" />
+      <PropertyRef Name="a_productos_movimientos_traslados" />
+      <PropertyRef Name="a_productos_movimientos_ajustes" />
+      <PropertyRef Name="a_compras_orden" />
+      <PropertyRef Name="a_compras_retenciones" />
+      <PropertyRef Name="a_clientes_afiliados" />
+      <PropertyRef Name="a_compras_retencion_iva" />
+      <PropertyRef Name="a_compras_retencion_islr" />
+      <PropertyRef Name="a_pos_cuentas" />
+      <PropertyRef Name="a_pos_comandas" />
+      <PropertyRef Name="a_bancos" />
+      <PropertyRef Name="a_bancos_movimientos" />
+      <PropertyRef Name="a_bancos_movimientos_conceptos" />
+      <PropertyRef Name="a_bancos_egreso" />
+      <PropertyRef Name="a_contabilidad_plan_cuentas" />
+      <PropertyRef Name="a_sistema_transito_asiento" />
+      <PropertyRef Name="a_sistema_transito_asiento_numero" />
+      <PropertyRef Name="a_vendedores" />
+      <PropertyRef Name="a_bancos_beneficiarios" />
+      <PropertyRef Name="a_vendedores_comisiones" />
+      <PropertyRef Name="a_vendedores_comisiones_numero" />
+      <PropertyRef Name="a_comanda1" />
+      <PropertyRef Name="a_comanda2" />
+      <PropertyRef Name="a_comanda3" />
+      <PropertyRef Name="a_cierre" />
+      <PropertyRef Name="a_cxp_planifica" />
+      <PropertyRef Name="a_pos_eventos" />
+      <PropertyRef Name="a_compras_lista" />
+      <PropertyRef Name="a_compras_recepcion" />
+      <PropertyRef Name="a_productos_conteo" />
+      <PropertyRef Name="a_productos_movimientos_recepcion" />
+      <PropertyRef Name="a_empresa_sucursal" />
+      <PropertyRef Name="a_cierre_ftp" />
+      <PropertyRef Name="a_empresa_grupo" />
+      <PropertyRef Name="a_usuarios_grupo" />
+      <PropertyRef Name="a_productos_movimientos_traslados_dev" />
+    </Key>
+    <Property Name="a_clientes_grupo" Type="Int32" Nullable="false" />
+    <Property Name="a_usuarios" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_series_fiscales" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_depositos" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_medios" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_cobradores" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_transporte" Type="Int32" Nullable="false" />
+    <Property Name="a_clientes" Type="Int32" Nullable="false" />
+    <Property Name="a_sistema_estados" Type="Int32" Nullable="false" />
+    <Property Name="a_clientes_zonas" Type="Int32" Nullable="false" />
+    <Property Name="a_proveedores_grupo" Type="Int32" Nullable="false" />
+    <Property Name="a_proveedores" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_grupo" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_subgrupo" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_marca" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_medida" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_conceptos" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_departamentos" Type="Int32" Nullable="false" />
+    <Property Name="a_productos" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_tasas" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_movimientos" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_movimientos_cargos" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_agencias" Type="Int32" Nullable="false" />
+    <Property Name="a_cxc" Type="Int32" Nullable="false" />
+    <Property Name="a_cxc_nd" Type="Int32" Nullable="false" />
+    <Property Name="a_cxc_nc" Type="Int32" Nullable="false" />
+    <Property Name="a_cxc_chq" Type="Int32" Nullable="false" />
+    <Property Name="a_cxc_recibo" Type="Int32" Nullable="false" />
+    <Property Name="a_cxc_recibo_numero" Type="Int32" Nullable="false" />
+    <Property Name="a_ventas" Type="Int32" Nullable="false" />
+    <Property Name="a_cxp" Type="Int32" Nullable="false" />
+    <Property Name="a_cxp_nd" Type="Int32" Nullable="false" />
+    <Property Name="a_cxp_nc" Type="Int32" Nullable="false" />
+    <Property Name="a_cxp_chq" Type="Int32" Nullable="false" />
+    <Property Name="a_cxp_recibo" Type="Int32" Nullable="false" />
+    <Property Name="a_cxp_recibo_numero" Type="Int32" Nullable="false" />
+    <Property Name="a_compras" Type="Int32" Nullable="false" />
+    <Property Name="a_ventas_presupuesto" Type="Int32" Nullable="false" />
+    <Property Name="a_ventas_pedido" Type="Int32" Nullable="false" />
+    <Property Name="a_sistema_transito" Type="Int32" Nullable="false" />
+    <Property Name="a_ventas_retenciones" Type="Int32" Nullable="false" />
+    <Property Name="a_ventas_despacho" Type="Int32" Nullable="false" />
+    <Property Name="a_cxc_anticipo" Type="Int32" Nullable="false" />
+    <Property Name="a_cxp_anticipo" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_movimientos_descargos" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_movimientos_traslados" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_movimientos_ajustes" Type="Int32" Nullable="false" />
+    <Property Name="a_compras_orden" Type="Int32" Nullable="false" />
+    <Property Name="a_compras_retenciones" Type="Int32" Nullable="false" />
+    <Property Name="a_clientes_afiliados" Type="Int32" Nullable="false" />
+    <Property Name="a_compras_retencion_iva" Type="Int32" Nullable="false" />
+    <Property Name="a_compras_retencion_islr" Type="Int32" Nullable="false" />
+    <Property Name="a_pos_cuentas" Type="Int32" Nullable="false" />
+    <Property Name="a_pos_comandas" Type="Int32" Nullable="false" />
+    <Property Name="a_bancos" Type="Int32" Nullable="false" />
+    <Property Name="a_bancos_movimientos" Type="Int32" Nullable="false" />
+    <Property Name="a_bancos_movimientos_conceptos" Type="Int32" Nullable="false" />
+    <Property Name="a_bancos_egreso" Type="Int32" Nullable="false" />
+    <Property Name="a_contabilidad_plan_cuentas" Type="Int32" Nullable="false" />
+    <Property Name="a_sistema_transito_asiento" Type="Int32" Nullable="false" />
+    <Property Name="a_sistema_transito_asiento_numero" Type="Int32" Nullable="false" />
+    <Property Name="a_vendedores" Type="Int32" Nullable="false" />
+    <Property Name="a_bancos_beneficiarios" Type="Int32" Nullable="false" />
+    <Property Name="a_vendedores_comisiones" Type="Int32" Nullable="false" />
+    <Property Name="a_vendedores_comisiones_numero" Type="Int32" Nullable="false" />
+    <Property Name="a_comanda1" Type="Int32" Nullable="false" />
+    <Property Name="a_comanda2" Type="Int32" Nullable="false" />
+    <Property Name="a_comanda3" Type="Int32" Nullable="false" />
+    <Property Name="a_cierre" Type="Int32" Nullable="false" />
+    <Property Name="a_cxp_planifica" Type="Int32" Nullable="false" />
+    <Property Name="a_pos_eventos" Type="Int32" Nullable="false" />
+    <Property Name="a_compras_lista" Type="Int32" Nullable="false" />
+    <Property Name="a_compras_recepcion" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_conteo" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_movimientos_recepcion" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_sucursal" Type="Int32" Nullable="false" />
+    <Property Name="a_cierre_ftp" Type="Int32" Nullable="false" />
+    <Property Name="a_empresa_grupo" Type="Int32" Nullable="false" />
+    <Property Name="a_usuarios_grupo" Type="Int32" Nullable="false" />
+    <Property Name="a_productos_movimientos_traslados_dev" Type="Int32" Nullable="false" />
+  </EntityType>
 </Schema>

@@ -61,10 +61,16 @@
     <Compile Include="empresa.cs">
       <DependentUpon>ModelLibSistema.tt</DependentUpon>
     </Compile>
+    <Compile Include="empresa_cobradores.cs">
+      <DependentUpon>ModelLibSistema.tt</DependentUpon>
+    </Compile>
     <Compile Include="empresa_depositos.cs">
       <DependentUpon>ModelLibSistema.tt</DependentUpon>
     </Compile>
     <Compile Include="empresa_grupo.cs">
+      <DependentUpon>ModelLibSistema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="empresa_series_fiscales.cs">
       <DependentUpon>ModelLibSistema.tt</DependentUpon>
     </Compile>
     <Compile Include="empresa_sucursal.cs">
@@ -99,6 +105,9 @@
     <Compile Include="sistema_configuracion.cs">
       <DependentUpon>ModelLibSistema.tt</DependentUpon>
     </Compile>
+    <Compile Include="sistema_contadores.cs">
+      <DependentUpon>ModelLibSistema.tt</DependentUpon>
+    </Compile>
     <Compile Include="sistema_funciones.cs">
       <DependentUpon>ModelLibSistema.tt</DependentUpon>
     </Compile>
@@ -106,6 +115,9 @@
       <DependentUpon>ModelLibSistema.tt</DependentUpon>
     </Compile>
     <Compile Include="usuarios_grupo.cs">
+      <DependentUpon>ModelLibSistema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vendedores.cs">
       <DependentUpon>ModelLibSistema.tt</DependentUpon>
     </Compile>
   </ItemGroup>

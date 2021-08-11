@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cobrador\Agregar\Ficha.cs" />
+    <Compile Include="Cobrador\Editar\Ficha.cs" />
+    <Compile Include="Cobrador\Entidad\Ficha.cs" />
     <Compile Include="Cobrador\Lista\Ficha.cs" />
     <Compile Include="Cobrador\Lista\Filtro.cs" />
     <Compile Include="Configuracion\ActualizarTasaDivisa\ActualizarData\Ficha.cs" />
@@ -86,6 +89,9 @@
     <Compile Include="Usuario\Ficha.cs" />
     <Compile Include="Usuario\Inactivar.cs" />
     <Compile Include="Usuario\Resumen.cs" />
+    <Compile Include="Vendedor\Agregar\Ficha.cs" />
+    <Compile Include="Vendedor\Editar\Ficha.cs" />
+    <Compile Include="Vendedor\Entidad\Ficha.cs" />
     <Compile Include="Vendedor\Lista\Ficha.cs" />
     <Compile Include="Vendedor\Lista\Filtro.cs" />
   </ItemGroup>

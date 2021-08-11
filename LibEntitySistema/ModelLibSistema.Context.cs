@@ -36,5 +36,9 @@ namespace LibEntitySistema
         public virtual DbSet<productos> productos { get; set; }
         public virtual DbSet<productos_costos> productos_costos { get; set; }
         public virtual DbSet<productos_precios> productos_precios { get; set; }
+        public virtual DbSet<empresa_cobradores> empresa_cobradores { get; set; }
+        public virtual DbSet<empresa_series_fiscales> empresa_series_fiscales { get; set; }
+        public virtual DbSet<vendedores> vendedores { get; set; }
+        public virtual DbSet<sistema_contadores> sistema_contadores { get; set; }
     }
 }

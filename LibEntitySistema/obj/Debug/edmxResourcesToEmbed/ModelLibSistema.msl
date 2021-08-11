@@ -245,5 +245,160 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="empresa_cobradores">
+      <EntityTypeMapping TypeName="sistemaModel.empresa_cobradores">
+        <MappingFragment StoreEntitySet="empresa_cobradores">
+          <ScalarProperty Name="contrato" ColumnName="contrato" />
+          <ScalarProperty Name="comision" ColumnName="comision" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="empresa_series_fiscales">
+      <EntityTypeMapping TypeName="sistemaModel.empresa_series_fiscales">
+        <MappingFragment StoreEntitySet="empresa_series_fiscales">
+          <ScalarProperty Name="control" ColumnName="control" />
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+          <ScalarProperty Name="estatus_ne" ColumnName="estatus_ne" />
+          <ScalarProperty Name="estatus_nc" ColumnName="estatus_nc" />
+          <ScalarProperty Name="estatus_nd" ColumnName="estatus_nd" />
+          <ScalarProperty Name="estatus_factura" ColumnName="estatus_factura" />
+          <ScalarProperty Name="correlativo" ColumnName="correlativo" />
+          <ScalarProperty Name="serie" ColumnName="serie" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vendedores">
+      <EntityTypeMapping TypeName="sistemaModel.vendedores">
+        <MappingFragment StoreEntitySet="vendedores">
+          <ScalarProperty Name="tolerancia" ColumnName="tolerancia" />
+          <ScalarProperty Name="castigop" ColumnName="castigop" />
+          <ScalarProperty Name="estatus_f8" ColumnName="estatus_f8" />
+          <ScalarProperty Name="estatus_f7" ColumnName="estatus_f7" />
+          <ScalarProperty Name="estatus_f6" ColumnName="estatus_f6" />
+          <ScalarProperty Name="estatus_f5" ColumnName="estatus_f5" />
+          <ScalarProperty Name="estatus_f4" ColumnName="estatus_f4" />
+          <ScalarProperty Name="estatus_f3" ColumnName="estatus_f3" />
+          <ScalarProperty Name="estatus_f2" ColumnName="estatus_f2" />
+          <ScalarProperty Name="estatus_f1" ColumnName="estatus_f1" />
+          <ScalarProperty Name="estatus_departamento" ColumnName="estatus_departamento" />
+          <ScalarProperty Name="estatus_cobranza" ColumnName="estatus_cobranza" />
+          <ScalarProperty Name="estatus_ventas" ColumnName="estatus_ventas" />
+          <ScalarProperty Name="cobranza_4" ColumnName="cobranza_4" />
+          <ScalarProperty Name="cobranza_3" ColumnName="cobranza_3" />
+          <ScalarProperty Name="cobranza_2" ColumnName="cobranza_2" />
+          <ScalarProperty Name="cobranza_1" ColumnName="cobranza_1" />
+          <ScalarProperty Name="cobranza_g" ColumnName="cobranza_g" />
+          <ScalarProperty Name="ventas_4" ColumnName="ventas_4" />
+          <ScalarProperty Name="ventas_3" ColumnName="ventas_3" />
+          <ScalarProperty Name="ventas_2" ColumnName="ventas_2" />
+          <ScalarProperty Name="ventas_1" ColumnName="ventas_1" />
+          <ScalarProperty Name="ventas_g" ColumnName="ventas_g" />
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+          <ScalarProperty Name="advertencia" ColumnName="advertencia" />
+          <ScalarProperty Name="memo" ColumnName="memo" />
+          <ScalarProperty Name="fecha_baja" ColumnName="fecha_baja" />
+          <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+          <ScalarProperty Name="website" ColumnName="website" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="contacto" ColumnName="contacto" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="ci" ColumnName="ci" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sistema_contadores">
+      <EntityTypeMapping TypeName="sistemaModel.sistema_contadores">
+        <MappingFragment StoreEntitySet="sistema_contadores">
+          <ScalarProperty Name="a_productos_movimientos_traslados_dev" ColumnName="a_productos_movimientos_traslados_dev" />
+          <ScalarProperty Name="a_usuarios_grupo" ColumnName="a_usuarios_grupo" />
+          <ScalarProperty Name="a_empresa_grupo" ColumnName="a_empresa_grupo" />
+          <ScalarProperty Name="a_cierre_ftp" ColumnName="a_cierre_ftp" />
+          <ScalarProperty Name="a_empresa_sucursal" ColumnName="a_empresa_sucursal" />
+          <ScalarProperty Name="a_productos_movimientos_recepcion" ColumnName="a_productos_movimientos_recepcion" />
+          <ScalarProperty Name="a_productos_conteo" ColumnName="a_productos_conteo" />
+          <ScalarProperty Name="a_compras_recepcion" ColumnName="a_compras_recepcion" />
+          <ScalarProperty Name="a_compras_lista" ColumnName="a_compras_lista" />
+          <ScalarProperty Name="a_pos_eventos" ColumnName="a_pos_eventos" />
+          <ScalarProperty Name="a_cxp_planifica" ColumnName="a_cxp_planifica" />
+          <ScalarProperty Name="a_cierre" ColumnName="a_cierre" />
+          <ScalarProperty Name="a_comanda3" ColumnName="a_comanda3" />
+          <ScalarProperty Name="a_comanda2" ColumnName="a_comanda2" />
+          <ScalarProperty Name="a_comanda1" ColumnName="a_comanda1" />
+          <ScalarProperty Name="a_vendedores_comisiones_numero" ColumnName="a_vendedores_comisiones_numero" />
+          <ScalarProperty Name="a_vendedores_comisiones" ColumnName="a_vendedores_comisiones" />
+          <ScalarProperty Name="a_bancos_beneficiarios" ColumnName="a_bancos_beneficiarios" />
+          <ScalarProperty Name="a_vendedores" ColumnName="a_vendedores" />
+          <ScalarProperty Name="a_sistema_transito_asiento_numero" ColumnName="a_sistema_transito_asiento_numero" />
+          <ScalarProperty Name="a_sistema_transito_asiento" ColumnName="a_sistema_transito_asiento" />
+          <ScalarProperty Name="a_contabilidad_plan_cuentas" ColumnName="a_contabilidad_plan_cuentas" />
+          <ScalarProperty Name="a_bancos_egreso" ColumnName="a_bancos_egreso" />
+          <ScalarProperty Name="a_bancos_movimientos_conceptos" ColumnName="a_bancos_movimientos_conceptos" />
+          <ScalarProperty Name="a_bancos_movimientos" ColumnName="a_bancos_movimientos" />
+          <ScalarProperty Name="a_bancos" ColumnName="a_bancos" />
+          <ScalarProperty Name="a_pos_comandas" ColumnName="a_pos_comandas" />
+          <ScalarProperty Name="a_pos_cuentas" ColumnName="a_pos_cuentas" />
+          <ScalarProperty Name="a_compras_retencion_islr" ColumnName="a_compras_retencion_islr" />
+          <ScalarProperty Name="a_compras_retencion_iva" ColumnName="a_compras_retencion_iva" />
+          <ScalarProperty Name="a_clientes_afiliados" ColumnName="a_clientes_afiliados" />
+          <ScalarProperty Name="a_compras_retenciones" ColumnName="a_compras_retenciones" />
+          <ScalarProperty Name="a_compras_orden" ColumnName="a_compras_orden" />
+          <ScalarProperty Name="a_productos_movimientos_ajustes" ColumnName="a_productos_movimientos_ajustes" />
+          <ScalarProperty Name="a_productos_movimientos_traslados" ColumnName="a_productos_movimientos_traslados" />
+          <ScalarProperty Name="a_productos_movimientos_descargos" ColumnName="a_productos_movimientos_descargos" />
+          <ScalarProperty Name="a_cxp_anticipo" ColumnName="a_cxp_anticipo" />
+          <ScalarProperty Name="a_cxc_anticipo" ColumnName="a_cxc_anticipo" />
+          <ScalarProperty Name="a_ventas_despacho" ColumnName="a_ventas_despacho" />
+          <ScalarProperty Name="a_ventas_retenciones" ColumnName="a_ventas_retenciones" />
+          <ScalarProperty Name="a_sistema_transito" ColumnName="a_sistema_transito" />
+          <ScalarProperty Name="a_ventas_pedido" ColumnName="a_ventas_pedido" />
+          <ScalarProperty Name="a_ventas_presupuesto" ColumnName="a_ventas_presupuesto" />
+          <ScalarProperty Name="a_compras" ColumnName="a_compras" />
+          <ScalarProperty Name="a_cxp_recibo_numero" ColumnName="a_cxp_recibo_numero" />
+          <ScalarProperty Name="a_cxp_recibo" ColumnName="a_cxp_recibo" />
+          <ScalarProperty Name="a_cxp_chq" ColumnName="a_cxp_chq" />
+          <ScalarProperty Name="a_cxp_nc" ColumnName="a_cxp_nc" />
+          <ScalarProperty Name="a_cxp_nd" ColumnName="a_cxp_nd" />
+          <ScalarProperty Name="a_cxp" ColumnName="a_cxp" />
+          <ScalarProperty Name="a_ventas" ColumnName="a_ventas" />
+          <ScalarProperty Name="a_cxc_recibo_numero" ColumnName="a_cxc_recibo_numero" />
+          <ScalarProperty Name="a_cxc_recibo" ColumnName="a_cxc_recibo" />
+          <ScalarProperty Name="a_cxc_chq" ColumnName="a_cxc_chq" />
+          <ScalarProperty Name="a_cxc_nc" ColumnName="a_cxc_nc" />
+          <ScalarProperty Name="a_cxc_nd" ColumnName="a_cxc_nd" />
+          <ScalarProperty Name="a_cxc" ColumnName="a_cxc" />
+          <ScalarProperty Name="a_empresa_agencias" ColumnName="a_empresa_agencias" />
+          <ScalarProperty Name="a_productos_movimientos_cargos" ColumnName="a_productos_movimientos_cargos" />
+          <ScalarProperty Name="a_productos_movimientos" ColumnName="a_productos_movimientos" />
+          <ScalarProperty Name="a_empresa_tasas" ColumnName="a_empresa_tasas" />
+          <ScalarProperty Name="a_productos" ColumnName="a_productos" />
+          <ScalarProperty Name="a_empresa_departamentos" ColumnName="a_empresa_departamentos" />
+          <ScalarProperty Name="a_productos_conceptos" ColumnName="a_productos_conceptos" />
+          <ScalarProperty Name="a_productos_medida" ColumnName="a_productos_medida" />
+          <ScalarProperty Name="a_productos_marca" ColumnName="a_productos_marca" />
+          <ScalarProperty Name="a_productos_subgrupo" ColumnName="a_productos_subgrupo" />
+          <ScalarProperty Name="a_productos_grupo" ColumnName="a_productos_grupo" />
+          <ScalarProperty Name="a_proveedores" ColumnName="a_proveedores" />
+          <ScalarProperty Name="a_proveedores_grupo" ColumnName="a_proveedores_grupo" />
+          <ScalarProperty Name="a_clientes_zonas" ColumnName="a_clientes_zonas" />
+          <ScalarProperty Name="a_sistema_estados" ColumnName="a_sistema_estados" />
+          <ScalarProperty Name="a_clientes" ColumnName="a_clientes" />
+          <ScalarProperty Name="a_empresa_transporte" ColumnName="a_empresa_transporte" />
+          <ScalarProperty Name="a_empresa_cobradores" ColumnName="a_empresa_cobradores" />
+          <ScalarProperty Name="a_empresa_medios" ColumnName="a_empresa_medios" />
+          <ScalarProperty Name="a_empresa_depositos" ColumnName="a_empresa_depositos" />
+          <ScalarProperty Name="a_empresa_series_fiscales" ColumnName="a_empresa_series_fiscales" />
+          <ScalarProperty Name="a_usuarios" ColumnName="a_usuarios" />
+          <ScalarProperty Name="a_clientes_grupo" ColumnName="a_clientes_grupo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

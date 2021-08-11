@@ -18,6 +18,10 @@
         <EntityTypeShape EntityType="sistemaModel.productos_precios" Width="1.5" PointX="9.625" PointY="11.375" />
         <AssociationConnector Association="sistemaModel.productos_costos_ibfk_1" />
         <AssociationConnector Association="sistemaModel.productos_precios_ibfk_1" />
+        <EntityTypeShape EntityType="sistemaModel.empresa_cobradores" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="sistemaModel.empresa_series_fiscales" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="sistemaModel.vendedores" Width="1.5" PointX="11.75" PointY="0.75" />
+        <EntityTypeShape EntityType="sistemaModel.sistema_contadores" Width="1.5" PointX="3.375" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
