@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cobrador.cs" />
     <Compile Include="Configuracion.cs" />
     <Compile Include="Deposito.cs" />
     <Compile Include="Funcion.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Sucursal.cs" />
     <Compile Include="SucursalGrupo.cs" />
     <Compile Include="Usuario.cs" />
+    <Compile Include="Vendedor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DtoLibSistema\DtoLibSistema.csproj">

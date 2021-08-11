@@ -9,7 +9,8 @@ namespace ILibSistema
 {
     
     public interface IProvider: IDeposito, ISucursal, ISucursalGrupo, IUsuario, 
-        IPrecio, IFuncion, IGrupoUsuario, IServConf, IPermisos, IConfiguracion
+        IPrecio, IFuncion, IGrupoUsuario, IServConf, IPermisos, IConfiguracion,
+        IVendedor, ICobrador
     {
 
         DtoLib.ResultadoEntidad<DateTime> FechaServidor();

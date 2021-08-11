@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICobrador.cs" />
     <Compile Include="IConfiguracion.cs" />
     <Compile Include="IDeposito.cs" />
     <Compile Include="IFuncion.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="ISucursal.cs" />
     <Compile Include="ISucursalGrupo.cs" />
     <Compile Include="IUsuario.cs" />
+    <Compile Include="IVendedor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

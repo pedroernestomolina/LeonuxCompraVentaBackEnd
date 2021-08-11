@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cobrador\Lista\Ficha.cs" />
+    <Compile Include="Cobrador\Lista\Filtro.cs" />
     <Compile Include="Configuracion\ActualizarTasaDivisa\ActualizarData\Ficha.cs" />
     <Compile Include="Configuracion\ActualizarTasaDivisa\ActualizarData\FichaProductoCostoPrecioDivisa.cs" />
     <Compile Include="Configuracion\ActualizarTasaDivisa\ActualizarData\FichaProductoCostoSinDivisa.cs" />
@@ -84,6 +86,8 @@
     <Compile Include="Usuario\Ficha.cs" />
     <Compile Include="Usuario\Inactivar.cs" />
     <Compile Include="Usuario\Resumen.cs" />
+    <Compile Include="Vendedor\Lista\Ficha.cs" />
+    <Compile Include="Vendedor\Lista\Filtro.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
