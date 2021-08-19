@@ -18,6 +18,10 @@ namespace DtoLibPos.Venta.Item.ActualizarCantidad.Aumentar
         public decimal cantidad { get; set; }
         public decimal cantUndBloq { get; set; }
         public bool validarExistencia { get; set; }
+        //
+        public decimal precioNeto { get; set; }
+        public string tarifaVenta { get; set; }
+        public decimal precioDivisa { get; set; }
 
 
         public Ficha()
@@ -29,6 +33,9 @@ namespace DtoLibPos.Venta.Item.ActualizarCantidad.Aumentar
             cantidad = 0.0m;
             cantUndBloq = 0.0m;
             validarExistencia = false;
+            precioNeto = 0.0m;
+            precioDivisa = 0.0m;
+            tarifaVenta = "";
         }
 
     }

@@ -361,7 +361,6 @@ namespace ProvPos
             return result;
         }
 
-
         public DtoLib.Resultado Venta_Item_ActualizarCantidad_Aumentar(DtoLibPos.Venta.Item.ActualizarCantidad.Aumentar.Ficha ficha)
         {
             var result = new DtoLib.Resultado();
@@ -406,6 +405,9 @@ namespace ProvPos
                             return result;
                         }
                         ent.cantidad += ficha.cantidad;
+                        ent.pneto = ficha.precioNeto;
+                        ent.tarifaPrecio = ficha.tarifaVenta;
+                        ent.pdivisaFull = ficha.precioDivisa;
                         cnn.SaveChanges();
 
                         ts.Complete();
