@@ -14,6 +14,7 @@ namespace DtoLibPos.Pos.Abrir
         public string idUsuario { get; set; }
         public string idEquipo { get; set; }
         public string estatus { get; set; }
+        public string codSucursal { get; set; }
 
 
         public Operador()
@@ -21,6 +22,7 @@ namespace DtoLibPos.Pos.Abrir
             idUsuario = "";
             idEquipo = "";
             estatus = "";
+            codSucursal = "";
         }
 
     }

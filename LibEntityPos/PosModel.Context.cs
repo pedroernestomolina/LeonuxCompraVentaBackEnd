@@ -27,7 +27,6 @@ namespace LibEntityPos
     
         public virtual DbSet<productos> productos { get; set; }
         public virtual DbSet<productos_alterno> productos_alterno { get; set; }
-        public virtual DbSet<ventas> ventas { get; set; }
         public virtual DbSet<ventas_detalle> ventas_detalle { get; set; }
         public virtual DbSet<clientes> clientes { get; set; }
         public virtual DbSet<empresa_cobradores> empresa_cobradores { get; set; }
@@ -41,9 +40,7 @@ namespace LibEntityPos
         public virtual DbSet<usuarios_grupo> usuarios_grupo { get; set; }
         public virtual DbSet<empresa_tasas> empresa_tasas { get; set; }
         public virtual DbSet<sistema_configuracion> sistema_configuracion { get; set; }
-        public virtual DbSet<p_operador> p_operador { get; set; }
         public virtual DbSet<pos_arqueo> pos_arqueo { get; set; }
-        public virtual DbSet<cxc> cxc { get; set; }
         public virtual DbSet<cxc_recibos> cxc_recibos { get; set; }
         public virtual DbSet<productos_deposito> productos_deposito { get; set; }
         public virtual DbSet<empresa_departamentos> empresa_departamentos { get; set; }
@@ -54,9 +51,12 @@ namespace LibEntityPos
         public virtual DbSet<p_venta> p_venta { get; set; }
         public virtual DbSet<p_configuracion> p_configuracion { get; set; }
         public virtual DbSet<empresa_grupo> empresa_grupo { get; set; }
-        public virtual DbSet<p_resumen> p_resumen { get; set; }
         public virtual DbSet<clientes_grupo> clientes_grupo { get; set; }
         public virtual DbSet<clientes_zonas> clientes_zonas { get; set; }
         public virtual DbSet<sistema_estados> sistema_estados { get; set; }
+        public virtual DbSet<p_resumen> p_resumen { get; set; }
+        public virtual DbSet<p_operador> p_operador { get; set; }
+        public virtual DbSet<ventas> ventas { get; set; }
+        public virtual DbSet<cxc> cxc { get; set; }
     }
 }

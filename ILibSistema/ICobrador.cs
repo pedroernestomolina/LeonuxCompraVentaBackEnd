@@ -15,6 +15,9 @@ namespace ILibSistema
         DtoLib.ResultadoEntidad<DtoLibSistema.Cobrador.Entidad.Ficha> Cobrador_GetFicha_ById(string id);
         DtoLib.ResultadoAuto Cobrador_AgregarFicha(DtoLibSistema.Cobrador.Agregar.Ficha ficha);
         DtoLib.Resultado Cobrador_EditarFicha(DtoLibSistema.Cobrador.Editar.Ficha ficha);
+        //
+        DtoLib.Resultado Cobrador_Validar_Agregar(DtoLibSistema.Cobrador.Agregar.Ficha ficha);
+        DtoLib.Resultado Cobrador_Validar_Editar(DtoLibSistema.Cobrador.Editar.Ficha ficha);
 
     }
 

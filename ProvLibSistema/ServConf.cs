@@ -24,6 +24,9 @@ namespace ProvLibSistema
                     var cmd = "SET foreign_key_checks = 0";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
+                    var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                    var fechaNula = new DateTime(2000, 1, 1);
+
                     //AUDITORIA
                     cmd = "truncate table auditoria_accesos";
                     cnn.Database.ExecuteSqlCommand(cmd);
@@ -44,77 +47,21 @@ namespace ProvLibSistema
                     cmd = "INSERT INTO `usuarios_grupo` (`auto`, `nombre`) VALUES ('0000000001', 'ADMINISTRADOR')";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
-                    cmd = "INSERT INTO `usuarios_grupo_permisos` (`codigo_grupo`, `codigo_funcion`, `estatus`, `seguridad`) VALUES " +
-                        "('0000000001', '0101000000', '1', 'Ninguna'),('0000000001', '0101010000', '1', 'Ninguna'),('0000000001', '0101020000', '1', 'Ninguna')," +
-                        "('0000000001', '0101030000', '1', 'Ninguna'),('0000000001', '0101040000', '1', 'Ninguna'),('0000000001', '0102000000', '1', 'Ninguna')," +
-                        "('0000000001', '0102010000', '1', 'Ninguna'),('0000000001', '0102020000', '1', 'Ninguna'),('0000000001', '0102030000', '1', 'Ninguna')," +
-                        "('0000000001', '0103000000', '1', 'Ninguna'),('0000000001', '0103010000', '1', 'Ninguna'),('0000000001', '0103020000', '1', 'Ninguna')," +
-                        "('0000000001', '0103030000', '1', 'Ninguna'),('0000000001', '0104000000', '1', 'Ninguna'),('0000000001', '0199000000', '1', 'Ninguna')," +
-                        "('0000000001', '0201000000', '1', 'Ninguna'),('0000000001', '0201010000', '1', 'Ninguna'),('0000000001', '0201020000', '1', 'Ninguna')," +
-                        "('0000000001', '0201030000', '1', 'Ninguna'),('0000000001', '0202000000', '1', 'Ninguna'),('0000000001', '0202010000', '1', 'Ninguna')," +
-                        "('0000000001', '0202020000', '1', 'Ninguna'),('0000000001', '0202030000', '1', 'Ninguna'),('0000000001', '0299000000', '1', 'Ninguna')," +
-                        "('0000000001', '0301000000', '1', 'Ninguna'),('0000000001', '0301010000', '1', 'Ninguna'),('0000000001', '0301020000', '1', 'Ninguna')," +
-                        "('0000000001', '0301030000', '1', 'Ninguna'),('0000000001', '0301040000', '1', 'Ninguna'),('0000000001', '0301050000', '1', 'Ninguna')," +
-                        "('0000000001', '0302000000', '1', 'Ninguna'),('0000000001', '0302010000', '1', 'Ninguna'),('0000000001', '0302020000', '1', 'Ninguna')," +
-                        "('0000000001', '0302030000', '1', 'Ninguna'),('0000000001', '0303000000', '1', 'Ninguna'),('0000000001', '0303010000', '1', 'Ninguna')," +
-                        "('0000000001', '0303020000', '1', 'Ninguna'),('0000000001', '0303030000', '1', 'Ninguna'),('0000000001', '0304000000', '1', 'Ninguna')," +
-                        "('0000000001', '0304010000', '1', 'Ninguna'),('0000000001', '0304020000', '1', 'Ninguna'),('0000000001', '0304030000', '1', 'Ninguna')," +
-                        "('0000000001', '0305000000', '1', 'Ninguna'),('0000000001', '0305010000', '1', 'Ninguna'),('0000000001', '0305020000', '1', 'Ninguna')," +
-                        "('0000000001', '0305030000', '1', 'Ninguna'),('0000000001', '0306000000', '1', 'Ninguna'),('0000000001', '0306010000', '1', 'Ninguna')," +
-                        "('0000000001', '0306020000', '1', 'Ninguna'),('0000000001', '0306030000', '1', 'Ninguna'),('0000000001', '0307000000', '1', 'Ninguna')," +
-                        "('0000000001', '0307010000', '1', 'Ninguna'),('0000000001', '0307020000', '1', 'Ninguna'),('0000000001', '0307030000', '1', 'Ninguna')," +
-                        "('0000000001', '0308000000', '1', 'Ninguna'),('0000000001', '0308010000', '1', 'Ninguna'),('0000000001', '0308020000', '1', 'Ninguna')," +
-                        "('0000000001', '0308030000', '1', 'Ninguna'),('0000000001', '0308040000', '1', 'Ninguna'),('0000000001', '0309000000', '1', 'Ninguna')," +
-                        "('0000000001', '0309010000', '1', 'Ninguna'),('0000000001', '0310000000', '1', 'Ninguna'),('0000000001', '0311000000', '1', 'Ninguna')," +
-                        "('0000000001', '0312000000', '1', 'Ninguna'),('0000000001', '0315000000', '1', 'Ninguna'),('0000000001', '0316000000', '1', 'Ninguna')," +
-                        "('0000000001', '0316010000', '1', 'Ninguna'),('0000000001', '0399000000', '1', 'Ninguna'),('0000000001', '0401000000', '1', 'Ninguna')," +
-                        "('0000000001', '0402000000', '1', 'Ninguna'),('0000000001', '0402010000', '1', 'Ninguna'),('0000000001', '0403000000', '1', 'Ninguna')," +
-                        "('0000000001', '0499000000', '1', 'Ninguna'),('0000000001', '0501000000', '1', 'Ninguna'),('0000000001', '0502000000', '1', 'Ninguna')," +
-                        "('0000000001', '0502010000', '1', 'Ninguna'),('0000000001', '0503000000', '1', 'Ninguna'),('0000000001', '0599000000', '1', 'Ninguna')," +
-                        "('0000000001', '0601000000', '1', 'Ninguna'),('0000000001', '0601010000', '1', 'Ninguna'),('0000000001', '0601020000', '1', 'Ninguna')," +
-                        "('0000000001', '0601030000', '1', 'Ninguna'),('0000000001', '0602000000', '1', 'Ninguna'),('0000000001', '0602010000', '1', 'Ninguna')," +
-                        "('0000000001', '0602020000', '1', 'Ninguna'),('0000000001', '0602030000', '1', 'Ninguna'),('0000000001', '0603000000', '1', 'Ninguna')," +
-                        "('0000000001', '0603010000', '1', 'Ninguna'),('0000000001', '0603020000', '1', 'Ninguna'),('0000000001', '0603030000', '1', 'Ninguna')," +
-                        "('0000000001', '0604000000', '1', 'Ninguna'),('0000000001', '0604010000', '1', 'Ninguna'),('0000000001', '0604020000', '1', 'Ninguna')," +
-                        "('0000000001', '0604030000', '1', 'Ninguna'),('0000000001', '0605000000', '1', 'Ninguna'),('0000000001', '0606000000', '1', 'Ninguna')," +
-                        "('0000000001', '0606010000', '1', 'Ninguna'),('0000000001', '0607000000', '1', 'Ninguna'),('0000000001', '0699000000', '1', 'Ninguna')," +
-                        "('0000000001', '0701000000', '1', 'Ninguna'),('0000000001', '0702000000', '1', 'Ninguna'),('0000000001', '0703000000', '1', 'Ninguna')," +
-                        "('0000000001', '0704000000', '1', 'Ninguna'),('0000000001', '0705000000', '1', 'Ninguna'),('0000000001', '0705010000', '1', 'Ninguna')," +
-                        "('0000000001', '0706000000', '1', 'Ninguna'),('0000000001', '0707000000', '1', 'Ninguna'),('0000000001', '0708000000', '1', 'Ninguna')," +
-                        "('0000000001', '0708010000', '1', 'Ninguna'),('0000000001', '0709000000', '1', 'Ninguna'),('0000000001', '0710000000', '1', 'Ninguna')," +
-                        "('0000000001', '0711000000', '1', 'Ninguna'),('0000000001', '0715000000', '1', 'Ninguna'),('0000000001', '0799000000', '1', 'Ninguna')," +
-                        "('0000000001', '0801000000', '1', 'Ninguna'),('0000000001', '0801010000', '1', 'Ninguna'),('0000000001', '0801020000', '1', 'Ninguna')," +
-                        "('0000000001', '0801030000', '1', 'Ninguna'),('0000000001', '0801040000', '1', 'Ninguna'),('0000000001', '0802000000', '1', 'Ninguna')," +
-                        "('0000000001', '0803000000', '1', 'Ninguna'),('0000000001', '0804000000', '1', 'Ninguna'),('0000000001', '0805000000', '1', 'Ninguna')," +
-                        "('0000000001', '0806000000', '1', 'Ninguna'),('0000000001', '0807000000', '1', 'Ninguna'),('0000000001', '0807010000', '1', 'Ninguna')," +
-                        "('0000000001', '0808000000', '1', 'Ninguna'),('0000000001', '0808010000', '1', 'Ninguna'),('0000000001', '0808020000', '1', 'Ninguna')," +
-                        "('0000000001', '0808030000', '1', 'Ninguna'),('0000000001', '0808040000', '1', 'Ninguna'),('0000000001', '0808050000', '1', 'Ninguna')," +
-                        "('0000000001', '0808060000', '1', 'Ninguna'),('0000000001', '0808070000', '1', 'Ninguna'),('0000000001', '0808080000', '1', 'Ninguna')," +
-                        "('0000000001', '0808090000', '1', 'Ninguna'),('0000000001', '0809000000', '1', 'Ninguna'),('0000000001', '0810000000', '1', 'Ninguna')," +
-                        "('0000000001', '0811000000', '1', 'Ninguna'),('0000000001', '0812000000', '1', 'Ninguna'),('0000000001', '0812010000', '1', 'Ninguna')," +
-                        "('0000000001', '0813000000', '1', 'Ninguna'),('0000000001', '0814000000', '1', 'Ninguna'),('0000000001', '0814010000', '1', 'Ninguna')," +
-                        "('0000000001', '0815000000', '1', 'Ninguna'),('0000000001', '0899000000', '1', 'Ninguna'),('0000000001', '0901000000', '1', 'Ninguna')," +
-                        
-                        "('0000000001', '0816000000', '1', 'Ninguna'),('0000000001', '0816010000', '1', 'Ninguna'),('0000000001', '0816020000', '1', 'Ninguna')," +
-                        "('0000000001', '0816030000', '1', 'Ninguna'),('0000000001', '0816040000', '1', 'Ninguna'),('0000000001', '0816050000', '1', 'Ninguna')," +
-                        "('0000000001', '0816070000', '1', 'Ninguna'),('0000000001', '0816080000', '1', 'Ninguna'),('0000000001', '0816090000', '1', 'Ninguna')," +
-                        "('0000000001', '0816100000', '1', 'Ninguna'),('0000000001', '0816110000', '1', 'Ninguna'),('0000000001', '0816120000', '1', 'Ninguna')," +
-
-                        "('0000000001', '0902000000', '1', 'Ninguna'),('0000000001', '0999000000', '1', 'Ninguna'),('0000000001', '1101000000', '1', 'Ninguna')," +
-                        "('0000000001', '1102000000', '1', 'Ninguna'),('0000000001', '1103000000', '1', 'Ninguna'),('0000000001', '1104000000', '1', 'Ninguna')," +
-                        "('0000000001', '1105000000', '1', 'Ninguna'),('0000000001', '1106000000', '1', 'Ninguna'),('0000000001', '1107000000', '1', 'Ninguna')," +
-                        "('0000000001', '1199000000', '1', 'Ninguna'),('0000000001', '1201000000', '1', 'Ninguna'),('0000000001', '1202000000', '1', 'Ninguna')," +
-                        "('0000000001', '1203000000', '1', 'Ninguna'),('0000000001', '1204000000', '1', 'Ninguna'),('0000000001', '1204010000', '1', 'Ninguna')," +
-                        "('0000000001', '1204020000', '1', 'Ninguna'),('0000000001', '1204030000', '1', 'Ninguna'),('0000000001', '1205000000', '1', 'Ninguna')," +
-                        "('0000000001', '1206000000', '1', 'Ninguna'),('0000000001', '1207000000', '1', 'Ninguna'),('0000000001', '1208000000', '1', 'Ninguna')," +
-                        "('0000000001', '1209000000', '1', 'Ninguna')";
+                    cmd = @"INSERT INTO usuarios_grupo_permisos (codigo_grupo, codigo_funcion, estatus, seguridad)
+                            select '0000000001',sf.codigo, '1', 'Ninguna' from sistema_funciones as sf";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
-                    cmd = "INSERT INTO `usuarios` (`auto`, `nombre`, `clave`, `codigo`, `auto_grupo`, `estatus`, "+
-                        "`estatus_replica`, `fecha_alta`, `fecha_baja`, `fecha_sesion`, `apellido`) "+
-                        "VALUES ('0000000001', 'SUPERVISOR', '', 'SUPERVISOR', '0000000001', 'Activo', "+
-                        "'0', '2000-01-01', '2000-01-01', '2000-01-01', 'SUPERVISOR')";
-                    cnn.Database.ExecuteSqlCommand(cmd);
+                    var fp1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var fp2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    fp1.ParameterName = "@fAlta";
+                    fp1.Value = fechaSistema.Date;
+                    fp2.ParameterName = "fNula";
+                    fp2.Value = fechaNula;
+                    cmd = @"INSERT INTO `usuarios` (`auto`, `nombre`, `clave`, `codigo`, `auto_grupo`, `estatus`,
+                        `estatus_replica`, `fecha_alta`, `fecha_baja`, `fecha_sesion`, `apellido`) 
+                        VALUES ('0000000001', 'SUPERVISOR', '', 'SUPERVISOR', '0000000001', 'Activo',
+                        '0', @falta, @fNula, @fNula, 'SUPERVISOR')";
+                    cnn.Database.ExecuteSqlCommand(cmd, fp1,fp2);
 
                     //EMPRESA
 
@@ -618,7 +565,7 @@ namespace ProvLibSistema
                         "a_bancos_beneficiarios='0',a_vendedores_comisiones='0',a_vendedores_comisiones_numero='0',"+
                         "a_cierre='0', a_productos_conteo='0', a_compras_lista='0', a_compras_recepcion='0', "+
                         "a_productos_movimientos_recepcion='0',a_empresa_sucursal='1', a_cierre_ftp='0',a_empresa_grupo='1',"+
-                        "a_usuarios_grupo='1'";
+                        "a_usuarios_grupo='1', a_productos_movimientos_traslados_dev='0'";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
                     var p1= new MySql.Data.MySqlClient.MySqlParameter("@p1",ficha.CodSucursal);
@@ -630,6 +577,27 @@ namespace ProvLibSistema
                     // TABLAS NUEVAS
 
                     cmd = "truncate table productos_movimientos_extra";
+                    cnn.Database.ExecuteSqlCommand(cmd);
+
+                    cmd = "truncate table compras_pend_detalle";
+                    cnn.Database.ExecuteSqlCommand(cmd);
+
+                    cmd = "truncate table compras_pend";
+                    cnn.Database.ExecuteSqlCommand(cmd);
+
+                    cmd = "truncate table p_venta";
+                    cnn.Database.ExecuteSqlCommand(cmd);
+
+                    cmd = "truncate table p_pendiente";
+                    cnn.Database.ExecuteSqlCommand(cmd);
+
+                    cmd = "truncate table p_resumen";
+                    cnn.Database.ExecuteSqlCommand(cmd);
+
+                    cmd = "truncate table p_operador";
+                    cnn.Database.ExecuteSqlCommand(cmd);
+
+                    cmd = "truncate table p_configuracion";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
                     //

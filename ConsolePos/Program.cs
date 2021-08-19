@@ -221,6 +221,10 @@ namespace ConsolePos
             //};
             //var r01 = posProv.Reporte_Consolidado(filtro);
 
+            //var r01 = posProv.Deposito_GetFicha_ByCodigo("08");
+            //var r01 = posProv.Sucursal_GetFicha_ByCodigo("08");
+            //var r01 = posProv.Jornada_EnUso_GetBy_EquipoSucursal ("1","08");
+
         }
 
     }

@@ -15,6 +15,7 @@ namespace DtoLibSistema.Vendedor.Lista
         public string codigo { get; set; }
         public string nombre { get; set; }
         public string ciRif { get; set; }
+        public string estatus { get; set; }
 
 
         public Ficha()
@@ -23,6 +24,7 @@ namespace DtoLibSistema.Vendedor.Lista
             ciRif = "";
             codigo = "";
             nombre = "";
+            estatus = "";
         }
 
     }

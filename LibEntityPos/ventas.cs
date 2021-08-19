@@ -125,10 +125,10 @@ namespace LibEntityPos
         public string estatus_cierre_contable { get; set; }
         public string cierre_ftp { get; set; }
     
+        public virtual clientes clientes { get; set; }
+        public virtual usuarios usuarios { get; set; }
+        public virtual vendedores vendedores { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ventas_detalle> ventas_detalle { get; set; }
-        public virtual clientes clientes { get; set; }
-        public virtual vendedores vendedores { get; set; }
-        public virtual usuarios usuarios { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace ProvLibSistema
             {
                 using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
                 {
-                    var sql = @"select v.auto as id, v.codigo, v.nombre, v.ci as ciRif 
+                    var sql = @"select v.auto as id, v.codigo, v.nombre, v.ci as ciRif, v.estatus  
                         FROM vendedores as v 
                         where 1=1 ";
 
@@ -292,6 +292,170 @@ namespace ProvLibSistema
             }
 
             return result;
+        }
+
+        public DtoLib.Resultado Vendedor_Activar(DtoLibSistema.Vendedor.ActivarInactivar.Ficha ficha)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                        var fechaNula = new DateTime(2000, 1, 1);
+
+                        var entVnd= cnn.vendedores.Find(ficha.id);
+                        if (entVnd == null)
+                        {
+                            rt.Mensaje = "[ ID ] VENDEDOR NO ENCONTRADO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        }
+                        if (entVnd.estatus.Trim().ToUpper() == "ACTIVO")
+                        {
+                            rt.Mensaje = "VENDEDOR YA ACTIVO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        }
+
+                        entVnd.estatus = "Activo";
+                        entVnd.fecha_baja = fechaNula;
+                        cnn.SaveChanges();
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.Resultado Vendedor_Inactivar(DtoLibSistema.Vendedor.ActivarInactivar.Ficha ficha)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                        var fechaNula = new DateTime(2000, 1, 1);
+
+                        var entVnd= cnn.vendedores.Find(ficha.id);
+                        if (entVnd == null)
+                        {
+                            rt.Mensaje = "[ ID ] VENDEDOR NO ENCONTRADO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        }
+                        if (entVnd.estatus.Trim().ToUpper() == "INACTIVO")
+                        {
+                            rt.Mensaje = "VENDEDOR YA INACTIVO";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        }
+
+                        entVnd.estatus = "Inactivo";
+                        entVnd.fecha_baja = fechaSistema.Date;
+                        cnn.SaveChanges();
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        //
+
+        public DtoLib.Resultado Vendedor_Validar_Agregar(DtoLibSistema.Vendedor.Agregar.Ficha ficha)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    if (ficha.ciRif.Trim() == "")
+                    {
+                        rt.Mensaje = "[ CI/RIF ] CAMPO NO PUEDE ESTAR VACIO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    var entVnd = cnn.vendedores.FirstOrDefault(f => f.ci.Trim().ToUpper() == ficha.ciRif);
+                    if (entVnd != null)
+                    {
+                        rt.Mensaje = "[ CI/RIF ] VENDEDOR YA REGISTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+        public DtoLib.Resultado Vendedor_Validar_Editar(DtoLibSistema.Vendedor.Editar.Ficha ficha)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    var ent = cnn.vendedores.Find(ficha.id);
+                    if (ent == null)
+                    {
+                        rt.Mensaje = "[ ID ] VENDEDOR NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    if (ent.estatus.Trim().ToUpper() != "ACTIVO")
+                    {
+                        rt.Mensaje = "VENDEDOR EN ESTADO INACTIVO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    if (ficha.ciRif.Trim() == "")
+                    {
+                        rt.Mensaje = "[ CI/RIF ] CAMPO NO PUEDE ESTAR VACIO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    var entVnd = cnn.vendedores.FirstOrDefault(f => f.ci.Trim().ToUpper() == ficha.ciRif && f.auto != ficha.id);
+                    if (entVnd != null)
+                    {
+                        rt.Mensaje = "[ CI/RIF ] VENDEDOR YA REGISTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
         }
 
     }

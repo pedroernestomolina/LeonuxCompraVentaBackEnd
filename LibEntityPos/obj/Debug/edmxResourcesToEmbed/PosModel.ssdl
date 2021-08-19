@@ -117,7 +117,7 @@
     <Property Name="c_departamento" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="c_ventas" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="c_ventasp" Type="decimal" Precision="6" Scale="2" Nullable="false" />
-    <Property Name="serie" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="serie" Type="varchar" MaxLength="5" Nullable="false" />
     <Property Name="importe_neto" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="dias" Type="int" Nullable="false" />
     <Property Name="castigop" Type="decimal" Precision="14" Scale="2" Nullable="false" />
@@ -277,6 +277,7 @@
     <Property Name="estatus" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="fecha_cierre" Type="date" />
     <Property Name="hora_cierre" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="codigo_sucursal" Type="varchar" MaxLength="30" Nullable="false" />
   </EntityType>
   <EntityType Name="p_pendiente">
     <Key>
@@ -299,7 +300,6 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="id_p_operador" Type="int" Nullable="false" />
-    <Property Name="&#xD;&#xA;auto_pos_arqueo" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="m_efectivo" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="cnt_efectivo" Type="int" Nullable="false" />
     <Property Name="m_divisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
@@ -345,6 +345,7 @@
     <Property Name="m_otros_anulado" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="cnt_cambio_anulado" Type="int" Nullable="false" />
     <Property Name="m_cambio_anulado" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="auto_pos_arqueo" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityType Name="p_venta">
     <Key>
@@ -787,7 +788,7 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
     <Property Name="auto_transporte" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="situacion" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="signo" Type="int" Nullable="false" />
-    <Property Name="serie" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="serie" Type="varchar" MaxLength="5" Nullable="false" />
     <Property Name="tarifa" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="tipo_remision" Type="varchar" MaxLength="2" Nullable="false" />
     <Property Name="documento_remision" Type="varchar" MaxLength="10" Nullable="false" />

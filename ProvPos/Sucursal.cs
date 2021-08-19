@@ -85,6 +85,52 @@ namespace ProvPos
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibPos.Sucursal.Entidad.Ficha> Sucursal_GetFicha_ByCodigo(string codigo)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPos.Sucursal.Entidad.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = cnn.empresa_sucursal.FirstOrDefault(f => f.codigo.Trim().ToUpper() == codigo.Trim().ToUpper());
+                    if (ent == null)
+                    {
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Mensaje = "[ CODIGO ] SUCURSAL NO ENCONTRADO";
+                        return result;
+                    }
+
+                    var _autoGrupo = ent.autoEmpresaGrupo;
+                    var _nGrupo = "";
+                    var _pManejar = "";
+                    var entGrupo = cnn.empresa_grupo.Find(_autoGrupo);
+                    if (entGrupo != null)
+                    {
+                        _nGrupo = entGrupo.nombre;
+                        _pManejar = entGrupo.idPrecio;
+                    }
+
+                    var nr = new DtoLibPos.Sucursal.Entidad.Ficha()
+                    {
+                        id = ent.auto,
+                        codigo = ent.codigo,
+                        nombre = ent.nombre,
+                        nombreGrupo = _nGrupo,
+                        precioManejar = _pManejar,
+                    };
+                    result.Entidad = nr;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

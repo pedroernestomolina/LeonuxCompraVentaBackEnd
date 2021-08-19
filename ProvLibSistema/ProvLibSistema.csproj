@@ -66,6 +66,7 @@
     <Compile Include="Precio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider.cs" />
+    <Compile Include="SerieFiscal.cs" />
     <Compile Include="ServConf.cs" />
     <Compile Include="Sucursal.cs" />
     <Compile Include="SucursalGrupo.cs" />

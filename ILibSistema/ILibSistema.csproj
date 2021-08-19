@@ -47,6 +47,7 @@
     <Compile Include="IPermisos.cs" />
     <Compile Include="IPrecio.cs" />
     <Compile Include="IProvider.cs" />
+    <Compile Include="ISerieFiscal.cs" />
     <Compile Include="IServConf.cs" />
     <Compile Include="ISucursal.cs" />
     <Compile Include="ISucursalGrupo.cs" />

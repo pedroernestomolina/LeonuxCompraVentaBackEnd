@@ -91,7 +91,7 @@ namespace ProvLibSistema
                         var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
                         var fechaNula = new DateTime(2000, 1, 1);
 
-                        var sql = "update sistema_contadores set a_cobradores=a_cobradores+1";
+                        var sql = "update sistema_contadores set a_empresa_cobradores=a_empresa_cobradores+1";
                         var r1 = cnn.Database.ExecuteSqlCommand(sql);
                         if (r1 == 0)
                         {
@@ -99,7 +99,7 @@ namespace ProvLibSistema
                             result.Result = DtoLib.Enumerados.EnumResult.isError;
                             return result;
                         }
-                        var auto = cnn.Database.SqlQuery<int>("select a_cobradores from sistema_contadores").FirstOrDefault();
+                        var auto = cnn.Database.SqlQuery<int>("select a_empresa_cobradores from sistema_contadores").FirstOrDefault();
                         var id = auto.ToString().Trim().PadLeft(10, '0');
 
                         var ent = new empresa_cobradores()
@@ -241,6 +241,78 @@ namespace ProvLibSistema
             }
 
             return result;
+        }
+
+        //
+
+        public DtoLib.Resultado Cobrador_Validar_Agregar(DtoLibSistema.Cobrador.Agregar.Ficha ficha)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    if (ficha.codigo.Trim() == "")
+                    {
+                        rt.Mensaje = "[ CODIGO ] CAMPO NO PUEDE ESTAR VACIO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    var entCob = cnn.empresa_cobradores.FirstOrDefault(f => f.codigo.Trim().ToUpper() == ficha.codigo);
+                    if (entCob != null)
+                    {
+                        rt.Mensaje = "[ CODIGO ] COBRADOR YA REGISTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+        public DtoLib.Resultado Cobrador_Validar_Editar(DtoLibSistema.Cobrador.Editar.Ficha ficha)
+        {
+            var rt = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    var ent = cnn.empresa_cobradores.Find(ficha.id);
+                    if (ent == null)
+                    {
+                        rt.Mensaje = "[ ID ] COBRADOR NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    if (ficha.codigo.Trim() == "")
+                    {
+                        rt.Mensaje = "[ CODIGO ] CAMPO NO PUEDE ESTAR VACIO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    var entCob = cnn.empresa_cobradores.FirstOrDefault(f => f.codigo.Trim().ToUpper() == ficha.codigo && f.auto != ficha.id);
+                    if (entCob != null)
+                    {
+                        rt.Mensaje = "[ CODIGO ] COBRADOR YA REGISTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
         }
 
     }

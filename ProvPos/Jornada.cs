@@ -39,7 +39,7 @@ namespace ProvPos
                         }
 
                         var aCierre = cnn.Database.SqlQuery<int>("select a_cierre from sistema_contadores").FirstOrDefault();
-                        var autoCierre = ficha.codSucursal + ficha.idEquipo;
+                        var autoCierre = ficha.codSucursal + ficha.idEquipo.Trim().PadLeft(2,'0');
                         autoCierre+=aCierre.ToString().Trim().PadLeft((10-autoCierre.Length), '0');
 
                         var op=ficha.operadorAbrir;
@@ -52,6 +52,7 @@ namespace ProvPos
                             hora_apertura = horaSistema,
                             hora_cierre = "",
                             id_equipo = op.idEquipo,
+                            codigo_sucursal= op.codSucursal,
                         };
                         cnn.p_operador.Add(pOperador);
                         cnn.SaveChanges();
@@ -89,7 +90,7 @@ namespace ProvPos
                         var pResumen = new p_resumen()
                         {
                             id_p_operador = pOperador.id,
-                            C__auto_pos_arqueo= autoCierre,
+                            auto_pos_arqueo= autoCierre,
                             m_efectivo = res.mEfectivo,
                             cnt_efectivo = res.cntEfectivo,
                             m_divisa = res.mDivisa,
@@ -318,6 +319,15 @@ namespace ProvPos
                         result.Result = DtoLib.Enumerados.EnumResult.isError;
                         return result;
                     }
+
+                    var entItems = cnn.p_venta.FirstOrDefault(f => f.id_p_operador == idOperador);
+                    if (entItems != null) 
+                    {
+                        result.Mensaje = "EXISTEN ITEMS PENDIENTES POR RESOLVER";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
                 }
             }
             catch (Exception e)
@@ -348,7 +358,7 @@ namespace ProvPos
                         var entResumen= cnn.p_resumen.FirstOrDefault(f=>f.id_p_operador==ent.id);
                         if (entResumen!=null)
                         {
-                            idArqueoCierre=entResumen.C__auto_pos_arqueo;
+                            idArqueoCierre=entResumen.auto_pos_arqueo;
                             idResumen=entResumen.id;
                         }
 
@@ -403,7 +413,7 @@ namespace ProvPos
                     var entResumen= cnn.p_resumen.FirstOrDefault(f=>f.id_p_operador==ent.id);
                     if (entResumen!=null)
                     {
-                        idArqueoCierre=entResumen.C__auto_pos_arqueo;
+                        idArqueoCierre=entResumen.auto_pos_arqueo;
                         idResumen=entResumen.id;
                     }
 
@@ -507,6 +517,86 @@ namespace ProvPos
                     result.Entidad = nr;
 
                     return result;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibPos.Pos.EnUso.Ficha> Jornada_EnUso_GetBy_EquipoSucursal(string idEquipo, string codSucursal)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPos.Pos.EnUso.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+
+                    var nr = new DtoLibPos.Pos.EnUso.Ficha();
+                    var ent = cnn.p_operador.FirstOrDefault(f => f.id_equipo == idEquipo && f.codigo_sucursal==codSucursal && f.estatus == "A");
+                    if (ent != null)
+                    {
+                        var idArqueoCierre = "";
+                        var idResumen = -1;
+
+                        var entResumen = cnn.p_resumen.FirstOrDefault(f => f.id_p_operador == ent.id);
+                        if (entResumen != null)
+                        {
+                            idArqueoCierre = entResumen.auto_pos_arqueo;
+                            idResumen = entResumen.id;
+                        }
+
+                        var codUsu = "";
+                        var nomUsu = "";
+                        var entUsuario = cnn.usuarios.Find(ent.auto_usuario);
+                        if (entUsuario != null)
+                        {
+                            codUsu = entUsuario.codigo;
+                            nomUsu = entUsuario.nombre;
+                        }
+                        nr.id = ent.id;
+                        nr.idUsuario = ent.auto_usuario;
+                        nr.fechaApertura = ent.fecha_apertura;
+                        nr.horaApertura = ent.hora_apertura;
+                        nr.codUsuario = codUsu;
+                        nr.nomUsuario = nomUsu;
+                        nr.idArqueoCierre = idArqueoCierre;
+                        nr.idResumen = idResumen;
+                    }
+                    result.Entidad = nr;
+                    return result;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Jornada_Verificar_Abrir_EquipoSucursal(string idEquipo, string codSucursal)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+
+                    var ent = cnn.p_operador.FirstOrDefault(f => f.id_equipo == idEquipo && f.codigo_sucursal.Trim().ToUpper()==codSucursal.Trim().ToUpper() && f.estatus == "A");
+                    if (ent != null)
+                    {
+                        result.Mensaje = "EXISTE UNA JORANADA ABIERTA PARA ESTE EQUIPO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
                 }
             }
             catch (Exception e)

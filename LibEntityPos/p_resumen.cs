@@ -16,7 +16,6 @@ namespace LibEntityPos
     {
         public int id { get; set; }
         public int id_p_operador { get; set; }
-        public string C__auto_pos_arqueo { get; set; }
         public decimal m_efectivo { get; set; }
         public int cnt_efectivo { get; set; }
         public decimal m_divisa { get; set; }
@@ -62,6 +61,7 @@ namespace LibEntityPos
         public decimal m_otros_anulado { get; set; }
         public int cnt_cambio_anulado { get; set; }
         public decimal m_cambio_anulado { get; set; }
+        public string auto_pos_arqueo { get; set; }
     
         public virtual p_operador p_operador { get; set; }
     }

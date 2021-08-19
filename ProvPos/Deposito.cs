@@ -83,6 +83,41 @@ namespace ProvPos
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibPos.Deposito.Entidad.Ficha> Deposito_GetFicha_ByCodigo(string codigo)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPos.Deposito.Entidad.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = cnn.empresa_depositos.FirstOrDefault(f=>f.codigo.Trim().ToUpper()==codigo.Trim().ToUpper());
+                    if (ent == null)
+                    {
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Mensaje = "[ CODIGO ] DEPOSITO NO ENCONTRADO";
+                        return result;
+                    }
+
+                    var nr = new DtoLibPos.Deposito.Entidad.Ficha()
+                    {
+                        id = ent.auto,
+                        codigo = ent.codigo,
+                        nombre = ent.nombre,
+                        codSuc = ent.codigo_sucursal,
+                    };
+                    result.Entidad = nr;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

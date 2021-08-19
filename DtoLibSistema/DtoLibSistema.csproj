@@ -74,6 +74,12 @@
     <Compile Include="Precio\Ficha.cs" />
     <Compile Include="Precio\Resumen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerieFiscal\ActivarInactivar\Ficha.cs" />
+    <Compile Include="SerieFiscal\Agregar\Ficha.cs" />
+    <Compile Include="SerieFiscal\Editar\Ficha.cs" />
+    <Compile Include="SerieFiscal\Entidad\Ficha.cs" />
+    <Compile Include="SerieFiscal\Lista\Ficha.cs" />
+    <Compile Include="SerieFiscal\Lista\Filtro.cs" />
     <Compile Include="Sucursal\Agregar.cs" />
     <Compile Include="Sucursal\AsignarDepositoPrincipal.cs" />
     <Compile Include="Sucursal\Editar.cs" />
@@ -89,6 +95,7 @@
     <Compile Include="Usuario\Ficha.cs" />
     <Compile Include="Usuario\Inactivar.cs" />
     <Compile Include="Usuario\Resumen.cs" />
+    <Compile Include="Vendedor\ActivarInactivar\Ficha.cs" />
     <Compile Include="Vendedor\Agregar\Ficha.cs" />
     <Compile Include="Vendedor\Editar\Ficha.cs" />
     <Compile Include="Vendedor\Entidad\Ficha.cs" />

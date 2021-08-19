@@ -13,7 +13,7 @@ namespace ConsoleSistema
 
         static void Main(string[] args)
         {
-            ILibSistema.IProvider sistPrv = new ProvLibSistema.Provider("192.168.30.30","pita");
+            ILibSistema.IProvider sistPrv = new ProvLibSistema.Provider("localhost","pita");
             //var r01 = sistPrv.SucursalGrupo_GetLista();
             //var ficha = new DtoLibSistema.GrupoSucursal.Editar()
             //{
@@ -99,6 +99,11 @@ namespace ConsoleSistema
 
             //var filtro2 = new DtoLibSistema.Cobrador.Lista.Filtro();
             //var r02 = sistPrv.Cobrador_GetLista(filtro2);
+
+            //var filtro = new DtoLibSistema.SerieFiscal.Lista.Filtro();
+            //var r02 = sistPrv.SerieFiscal_GetLista(filtro);
+
+            //var r01 = sistPrv.SerieFiscal_GetFicha_ById("0000000001");
 
         }
 
