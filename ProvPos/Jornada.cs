@@ -28,6 +28,7 @@ namespace ProvPos
 
                         var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
                         var horaSistema = fechaSistema.ToShortTimeString();
+                        var fechaNula = new DateTime(2000, 01, 01);
 
                         sql = "update sistema_contadores set a_cierre=a_cierre+1 ";
                         var r1 = cnn.Database.ExecuteSqlCommand(sql);
@@ -71,7 +72,7 @@ namespace ProvPos
                             "{26}, {27}, {28}, {29},{30}, {31}, {32}, {33}, {34}, {35}, {36}, {37}, {38}, {39}, "+
                             "{40}, {41}, {42})";
                         var arqueo = cnn.Database.ExecuteSqlCommand(InsertarPosArqueo, 
-                            autoCierre,arq.idUsuario,arq.codUsuario, arq.nombreUsuario, fechaSistema.Date, horaSistema,
+                            autoCierre,arq.idUsuario,arq.codUsuario, arq.nombreUsuario, fechaNula.Date, horaSistema,
                             arq.diferencia, arq.efectivo, arq.cheque, arq.debito,arq.credito, arq.ticket, arq.firma,
                             arq.retiro, arq.otros, arq.devolucion, arq.subTotal, arq.cobranza,
                             arq.total, arq.mefectivo, arq.mcheque, arq.mbanco1, arq.mbanco2, arq.mbanco3, arq.mbanco4, arq.mtarjeta,
@@ -240,7 +241,7 @@ namespace ProvPos
                             "total={12}, mefectivo={13}, mcheque={14}, mbanco1={15}, mbanco2={16}, mbanco3={17}, mbanco4={18}, mtarjeta={19}, " +
                             "mticket={20}, mtrans={21}, mfirma={22}, motros={23}, mgastos={24}, mretiro={25}, mretenciones={26}, msubtotal={27}, " +
                             "mtotal={28}, cierre_ftp={29}, cnt_divisa={30}, cnt_divisa_usuario={31}, cntDoc={32}, cntDocFac={33}, cntDocNcr={34}, " +
-                            "montoFac={35}, montoNcr={36} " +
+                            "montoFac={35}, montoNcr={36}, fecha={38}, hora={39} " +
                             "where auto_cierre={37}";
                         var arqueo = cnn.Database.ExecuteSqlCommand(UpdatePosArqueo,
                             arq.diferencia, arq.efectivo, arq.cheque, arq.debito, arq.credito, arq.ticket, arq.firma,
@@ -248,7 +249,7 @@ namespace ProvPos
                             arq.total, arq.mefectivo, arq.mcheque, arq.mbanco1, arq.mbanco2, arq.mbanco3, arq.mbanco4, arq.mtarjeta,
                             arq.mticket, arq.mtrans, arq.mfirma, arq.motros, arq.mgastos, arq.mretiro, arq.mretenciones, arq.msubtotal,
                             arq.mtotal, arq.cierreFtp, arq.cntDivisia, arq.cntDivisaUsuario, arq.cntDoc, arq.cntDocFac, arq.cntDocNCr,
-                            arq.montoFac, arq.montoNCr,arq.autoArqueo);
+                            arq.montoFac, arq.montoNCr,arq.autoArqueo, fechaSistema.Date, horaSistema);
                         if (arqueo == 0)
                         {
                             result.Mensaje = "PROBLEMA AL ACTUALIZAR MOVIMIENTO DE ARQUEO";

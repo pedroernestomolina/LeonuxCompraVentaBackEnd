@@ -12,7 +12,7 @@ namespace IPos
         ICobrador, IVendedor, IMedioPago, IConcepto, ITransporte, ISistema, 
         IFiscal, IUsuario, IPermiso, IConfiguracion, IJornada, IDocumento,
         IVenta, IPendiente, IReportesAdm, IClienteGrupo, IClienteZona, IConfiguracionAdm,
-        IReportesCli
+        IReportesCli, IReportesPos
     {
 
         DtoLib.ResultadoEntidad<DateTime> FechaServidor();

@@ -313,6 +313,33 @@ namespace ProvPos
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<string> Configuracion_Habilitar_Precio5_VentaMayor()
+        {
+            var result = new DtoLib.ResultadoEntidad<string>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL51");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION GLOBAL NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    result.Entidad = ent.usuario;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

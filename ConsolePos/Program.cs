@@ -225,6 +225,10 @@ namespace ConsolePos
             //var r01 = posProv.Sucursal_GetFicha_ByCodigo("08");
             //var r01 = posProv.Jornada_EnUso_GetBy_EquipoSucursal ("1","08");
 
+            //var filtro = new DtoLibPos.Reportes.POS.Filtro();
+            //filtro.IdCierre = "0801001004";
+            //var r01 = posProv.ReportePos_PagoDetalle(filtro);
+
         }
 
     }

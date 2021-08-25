@@ -346,6 +346,9 @@ namespace ProvPos
                             return result;
                         }
                         ent.cantidad -= ficha.cantidad;
+                        ent.pneto = ficha.precioNeto;
+                        ent.tarifaPrecio = ficha.tarifaVenta;
+                        ent.pdivisaFull = ficha.precioDivisa;
                         cnn.SaveChanges();
 
                         ts.Complete();

@@ -18,6 +18,7 @@ namespace IPos
         DtoLib.Resultado Configuracion_Pos_CambioDepositoSucursalFrio();
         DtoLib.Resultado Configuracion_Pos_CambioDepositoSucursalViveres();
         DtoLib.Resultado Configuracion_Pos_CambioDepositoSucursal(DtoLibPos.Configuracion.CambioDepositoSucursal.Ficha ficha);
+        DtoLib.ResultadoEntidad<string> Configuracion_Habilitar_Precio5_VentaMayor();
 
     }
 
