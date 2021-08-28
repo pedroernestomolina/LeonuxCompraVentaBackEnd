@@ -94,6 +94,8 @@
     <Compile Include="Marca\Editar.cs" />
     <Compile Include="Marca\Ficha.cs" />
     <Compile Include="Marca\Resumen.cs" />
+    <Compile Include="MonitorPos\Entidad\Ficha.cs" />
+    <Compile Include="MonitorPos\Lista\Filtro.cs" />
     <Compile Include="Movimiento\Ajuste\Insertar\Ficha.cs" />
     <Compile Include="Movimiento\Ajuste\Insertar\FichaDetalle.cs" />
     <Compile Include="Movimiento\Ajuste\Insertar\FichaKardex.cs" />

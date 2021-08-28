@@ -104,6 +104,11 @@
     <Compile Include="Reporte\Pago\Filtro.cs" />
     <Compile Include="Reporte\Pago\Resumen\Detalle.cs" />
     <Compile Include="Reporte\Pago\Resumen\Ficha.cs" />
+    <Compile Include="ResumenVentaPos\Entidad\Ficha.cs" />
+    <Compile Include="ResumenVentaPos\Generar\Filtro.cs" />
+    <Compile Include="ResumenVentaPos\Lista\Filtro.cs" />
+    <Compile Include="ResumenVentaPos\Subir\Detalle.cs" />
+    <Compile Include="ResumenVentaPos\Subir\Ficha.cs" />
     <Compile Include="Serie\Ficha.cs" />
     <Compile Include="Servidor\EnviarData\CxC.cs" />
     <Compile Include="Servidor\EnviarData\CxCDocumento.cs" />

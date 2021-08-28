@@ -16,6 +16,7 @@ namespace ProvSqLitePosOffLine
 
         static EntityConnectionStringBuilder _cnn;
         static MySqlConnectionStringBuilder _cnn2;
+        static MySqlConnectionStringBuilder _cnn3;
         static string _bdRemotoInstancia;
         static string _bdRemotaBaseDatos;
         static string _bdLocal;
@@ -61,6 +62,12 @@ namespace ProvSqLitePosOffLine
             _cnn2.UserID = _usuario;
             _cnn2.Password = _password;
             _cnn2.Server = _instancia;
+
+            _cnn3 = new MySqlConnectionStringBuilder();
+            _cnn3.Database = "pitaTest";
+            _cnn3.UserID = "leonuxBD";
+            _cnn3.Password = "ghx_k!kibx+D";
+            _cnn3.Server = "107.180.50.172";
         }
 
         public DtoLib.ResultadoEntidad<DateTime> FechaServidor()

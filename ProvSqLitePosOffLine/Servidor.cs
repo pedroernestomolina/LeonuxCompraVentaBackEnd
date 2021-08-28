@@ -2898,10 +2898,6 @@ namespace ProvSqLitePosOffLine
                         comando1.Parameters.AddWithValue("?cierre", aCierre);
                         rt = comando1.ExecuteNonQuery();
 
-
-
-
-
                         tr.Commit();
                     }
                     catch (Exception ex1)

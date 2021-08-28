@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -528,6 +530,200 @@ namespace ProvSqLitePosOffLine
                         result.Entidad = nr;
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        //
+
+        public class data 
+        {
+            public string autoProducto { get; set; }
+            public decimal cnt { get; set; }
+            public string sucEquipo { get; set; }
+        }
+        public DtoLib.Resultado VentaDocumento_Resumen_Generar(DtoLibPosOffLine.ResumenVentaPos.Generar.Filtro filtro)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                var ldata = new List<data>();
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    var p1 = new System.Data.SQLite.SQLiteParameter("idOperador", filtro.idOperador);
+                    var sql = @"select vd.autoProducto, sum(vd.cantidadUnd*v.signo) as cnt, v.prefijo as sucEquipo
+                                from VentaDetalle as vd
+                                join Venta as v on vd.idVenta=v.id
+                                where v.estatusActivo='1' and v.idOperador=@idOperador
+                                group by vd.autoProducto, v.prefijo";
+                    ldata= cnn.Database.SqlQuery<data>(sql, p1).ToList();
+                }
+                if (ldata.Count > 0)
+                {
+
+                    using (var cn = new MySqlConnection(_cnn2.ConnectionString))
+                    {
+                        cn.Open();
+                        MySqlTransaction tr = null;
+
+                        try
+                        {
+                            tr = cn.BeginTransaction();
+
+                            var p0 = new MySql.Data.MySqlClient.MySqlParameter();
+                            p0.ParameterName = "sucEq";
+                            p0.Value = filtro.sucEquipo;
+                            var sql0 = @"delete from resumen_ventas_pos where sucEquipo=@sucEq";
+                            var comando1 = new MySqlCommand(sql0, cn, tr);
+                            comando1.Parameters.Clear();
+                            comando1.Parameters.Add(p0);
+                            comando1.ExecuteNonQuery();
+
+                            sql0 = @"INSERT INTO resumen_ventas_pos (autoProducto, cnt, sucEquipo) VALUES (@autoPrd, @cnt, @sucEq)";
+                            var comando2 = new MySqlCommand(sql0, cn, tr);
+                            var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                            var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                            var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                            foreach (var dt in ldata)
+                            {
+                                p1.ParameterName = "autoPrd";
+                                p1.Value = dt.autoProducto;
+                                p2.ParameterName = "cnt";
+                                p2.Value = dt.cnt;
+                                p3.ParameterName = "sucEq";
+                                p3.Value = filtro.sucEquipo;
+
+                                comando2.Parameters.Clear();
+                                comando2.Parameters.Add(p1);
+                                comando2.Parameters.Add(p2);
+                                comando2.Parameters.Add(p3);
+                                comando2.ExecuteNonQuery();
+                            }
+                            tr.Commit();
+                        }
+                        catch (Exception ex1)
+                        {
+                            tr.Rollback();
+                            result.Mensaje = ex1.Message;
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        }
+                    };
+
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibPosOffLine.ResumenVentaPos.Entidad.Ficha> VentaDocumento_Resumen_GetLista(DtoLibPosOffLine.ResumenVentaPos.Lista.Filtro filtro)
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibPosOffLine.ResumenVentaPos.Entidad.Ficha>();
+
+            try
+            {
+                using (var cn = new MySqlConnection(_cnn2.ConnectionString))
+                {
+                    cn.Open();
+
+                    var lst = new List<DtoLibPosOffLine.ResumenVentaPos.Entidad.Ficha>();
+                    var p0 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p0.ParameterName = "codSuc";
+                    p0.Value = filtro.codSucursal;
+                    var sql0 = @"SELECT autoProducto, @codSuc as codSucursal, sum(cnt) as cnt 
+                                FROM resumen_ventas_pos
+                                group by autoProducto";
+                    var comando1 = new MySqlCommand(sql0, cn);
+                    comando1.Parameters.Clear();
+                    comando1.Parameters.Add(p0);
+                    var rd= comando1.ExecuteReader();
+                    while (rd.Read())
+                    {
+                        var nr = new DtoLibPosOffLine.ResumenVentaPos.Entidad.Ficha()
+                        {
+                            autoProducto = rd.GetString("autoProducto"),
+                            codSucursal = rd.GetString("codSucursal"),
+                            cnt = rd.GetDecimal("cnt"),
+                        };
+                        lst.Add(nr);
+                    }
+                    rd.Close();
+                    result.Lista = lst;
+                };
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado VentaDocumento_Resumen_Subir(DtoLibPosOffLine.ResumenVentaPos.Subir.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+
+                using (var cn = new MySqlConnection(_cnn3.ConnectionString))
+                {
+                    cn.Open();
+                    MySqlTransaction tr = null;
+
+                    try
+                    {
+                        tr = cn.BeginTransaction();
+
+                        var sql0 = @"delete from venta_resumen where codSucursal=@codSuc";
+                        var comando1 = new MySqlCommand(sql0, cn, tr);
+                        var p0 = new MySql.Data.MySqlClient.MySqlParameter();
+                        p0.ParameterName = "codSuc";
+                        p0.Value = ficha.codSucursal;
+                        comando1.Parameters.Clear();
+                        comando1.Parameters.Add(p0);
+                        comando1.ExecuteNonQuery();
+
+                        var sql1 = @"INSERT INTO venta_resumen (autoProducto, codSucursal, cnt) VALUES (@autoPrd, @codSuc, @cnt)";
+                        var comando2 = new MySqlCommand(sql1, cn, tr);
+                        var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                        foreach (var it in ficha.detalles) 
+                        {
+                            p1.ParameterName = "autoPrd";
+                            p1.Value = it.autoProducto;
+                            p2.ParameterName = "cnt";
+                            p2.Value = it.cnt;
+                            p3.ParameterName = "codSuc";
+                            p3.Value = ficha.codSucursal;
+                            comando2.Parameters.Clear();
+                            comando2.Parameters.Add(p1);
+                            comando2.Parameters.Add(p2);
+                            comando2.Parameters.Add(p3);
+                            comando2.ExecuteNonQuery();
+                        }
+                        tr.Commit();
+                    }
+                    catch (Exception ex1)
+                    {
+                        tr.Rollback();
+                        result.Mensaje = ex1.Message;
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                    }
+                };
             }
             catch (Exception e)
             {

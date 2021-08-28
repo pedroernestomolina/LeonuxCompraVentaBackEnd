@@ -1,4 +1,5 @@
 ﻿using LibEntityInventario;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.EntityClient;
@@ -14,10 +15,12 @@ namespace ProvLibInventario
     {
 
         static EntityConnectionStringBuilder _cnInv ;
+        static MySqlConnectionStringBuilder _cnn2;
         private string _Instancia;
         private string _BaseDatos;
         private string _Usuario;
         private string _Password;
+
 
 
         public Provider(string instancia, string bd)
@@ -27,6 +30,12 @@ namespace ProvLibInventario
             _Instancia = instancia;
             _BaseDatos = bd;
             setConexion();
+            
+            _cnn2 = new MySqlConnectionStringBuilder();
+            _cnn2.Database = "pitaTest";
+            _cnn2.UserID = "leonuxBD";
+            _cnn2.Password = "ghx_k!kibx+D";
+            _cnn2.Server = "107.180.50.172";
         }
 
 

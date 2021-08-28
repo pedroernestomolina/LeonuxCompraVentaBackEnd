@@ -68,6 +68,7 @@
     <Compile Include="Grupo.cs" />
     <Compile Include="Kardex.cs" />
     <Compile Include="Marca.cs" />
+    <Compile Include="MonitorPos.cs" />
     <Compile Include="Movimiento.cs" />
     <Compile Include="Permisos.cs" />
     <Compile Include="Precio.cs" />

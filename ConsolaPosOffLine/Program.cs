@@ -13,9 +13,9 @@ namespace ConsolaPosOffLine
 
         static void Main(string[] args)
         {
-            IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"c:\POS\DATA\LeonuxPosOffLine.db");
+            IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"C:\Modulos Leonux\POS\Data\LeonuxPosOffLine.db");
             //IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"D:\Proyectos FoxSystem\CompraVenta\LeonuxPosOffLine.db");
-            _offLine.setServidorRemoto("localhost", "00000001");
+            _offLine.setServidorRemoto("localhost", "bodega");
 
             //var fechaActual = _offLine.FechaServidor();
             //var r01 = _offLine.Producto("0000000005");
@@ -54,6 +54,41 @@ namespace ConsolaPosOffLine
             //    Console.WriteLine("CAMPO CREADO SATISFACTORIAMENTE");
             //}
             //Console.ReadKey();
+
+            //var filtro = new DtoLibPosOffLine.ResumenVentaPos.Generar.Filtro()
+            //{
+            //    idOperador = 319,
+            //    sucEquipo = "0B01",
+            //};
+            //var r01 = _offLine.VentaDocumento_Resumen_Generar(filtro);
+
+            //var filtro2 = new DtoLibPosOffLine.ResumenVentaPos.Generar.Filtro()
+            //{
+            //    idOperador = 329,
+            //    sucEquipo = "0601",
+            //};
+            //var r02 = _offLine.VentaDocumento_Resumen_Generar(filtro2);
+
+            var filtro3 = new DtoLibPosOffLine.ResumenVentaPos.Lista.Filtro
+            {
+                codSucursal = "08",
+            };
+            var r03 = _offLine.VentaDocumento_Resumen_GetLista(filtro3);
+
+            var ficha = new DtoLibPosOffLine.ResumenVentaPos.Subir.Ficha()
+            {
+                codSucursal = "08",
+                detalles = r03.Lista.Select(s =>
+                {
+                    var nr = new DtoLibPosOffLine.ResumenVentaPos.Subir.Detalle()
+                    {
+                        autoProducto = s.autoProducto,
+                        cnt = s.cnt,
+                    };
+                    return nr;
+                }).ToList(),
+            };
+            var r04 = _offLine.VentaDocumento_Resumen_Subir(ficha);
         }
 
     }

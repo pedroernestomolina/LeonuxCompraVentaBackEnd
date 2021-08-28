@@ -260,6 +260,9 @@ namespace ConsoleInventario
 
             //var filtro = new DtoLibInventario.Visor.Precio.Filtro();
             //var rt1 = invPrv.Visor_Precio(filtro);
+
+            var filtro = new DtoLibInventario.MonitorPos.Lista.Filtro() { codSucursal = "08" };
+            var rt1 = invPrv.MonitorPos_VentaResumen_GetLista(filtro);
         }
 
     }

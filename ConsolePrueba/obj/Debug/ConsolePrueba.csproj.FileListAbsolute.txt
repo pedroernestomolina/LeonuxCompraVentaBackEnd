@@ -15,6 +15,7 @@ D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\DtoLibPosOffLine.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\EntityFramework.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\LibEntityCompra.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\LibEntitySqLitePosOffLine.dll
+D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\System.Data.SQLite.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\DtoLibCompra.pdb
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\DtoLibVenta.pdb
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\DtoLib.pdb
@@ -29,6 +30,7 @@ D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\DtoLibPosOffLine.pdb
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\EntityFramework.xml
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\LibEntityCompra.pdb
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\LibEntitySqLitePosOffLine.pdb
+D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\bin\Debug\System.Data.SQLite.xml
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\obj\Debug\ConsolePrueba.csprojResolveAssemblyReference.cache
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\obj\Debug\ConsolePrueba.exe
 D:\Proyectos FoxSystem\CompraVenta\ConsolePrueba\obj\Debug\ConsolePrueba.pdb
