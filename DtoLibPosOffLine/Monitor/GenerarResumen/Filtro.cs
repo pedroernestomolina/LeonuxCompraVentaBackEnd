@@ -5,18 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibPosOffLine.ResumenVentaPos.Lista
+namespace DtoLibPosOffLine.Monitor.GenerarResumen
 {
     
     public class Filtro
     {
 
-        public string codSucursal { get; set; }
+        public string cierre { get; set; }
 
 
         public Filtro() 
         {
-            codSucursal = "";
+            cierre = "";
         }
 
     }

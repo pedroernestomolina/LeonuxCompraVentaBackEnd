@@ -5,19 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibPosOffLine.ResumenVentaPos.Subir
+namespace DtoLibPosOffLine.Monitor.SubirResumen
 {
     
     public class Ficha
     {
 
         public string codSucursal { get; set; }
-        public List<Detalle> detalles { get; set; }
+        public string cierre { get; set; }
+        public List<Detalle> Lista { get; set; }
 
-        public Ficha() 
+
+        public Ficha()
         {
             codSucursal = "";
-            detalles = new List<Detalle>();
+            cierre = "";
+            Lista = new List<Detalle>();
         }
 
     }

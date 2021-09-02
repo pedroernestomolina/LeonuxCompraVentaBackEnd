@@ -72,6 +72,13 @@
     <Compile Include="Jornada\Cerrar\Ficha.cs" />
     <Compile Include="Jornada\Enumerado.cs" />
     <Compile Include="MedioCobro\Ficha.cs" />
+    <Compile Include="Monitor\GenerarResumen\Ficha.cs" />
+    <Compile Include="Monitor\GenerarResumen\Filtro.cs" />
+    <Compile Include="Monitor\InsertarCierre\Ficha.cs" />
+    <Compile Include="Monitor\ListaResumen\Ficha.cs" />
+    <Compile Include="Monitor\ResumenDia\Filtro.cs" />
+    <Compile Include="Monitor\SubirResumen\Detalle.cs" />
+    <Compile Include="Monitor\SubirResumen\Ficha.cs" />
     <Compile Include="MovConceptoInv\Ficha.cs" />
     <Compile Include="Operador\Abrir\Ficha.cs" />
     <Compile Include="Operador\Cargar\Ficha.cs" />
@@ -104,11 +111,6 @@
     <Compile Include="Reporte\Pago\Filtro.cs" />
     <Compile Include="Reporte\Pago\Resumen\Detalle.cs" />
     <Compile Include="Reporte\Pago\Resumen\Ficha.cs" />
-    <Compile Include="ResumenVentaPos\Entidad\Ficha.cs" />
-    <Compile Include="ResumenVentaPos\Generar\Filtro.cs" />
-    <Compile Include="ResumenVentaPos\Lista\Filtro.cs" />
-    <Compile Include="ResumenVentaPos\Subir\Detalle.cs" />
-    <Compile Include="ResumenVentaPos\Subir\Ficha.cs" />
     <Compile Include="Serie\Ficha.cs" />
     <Compile Include="Servidor\EnviarData\CxC.cs" />
     <Compile Include="Servidor\EnviarData\CxCDocumento.cs" />

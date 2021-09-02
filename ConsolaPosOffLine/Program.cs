@@ -55,40 +55,49 @@ namespace ConsolaPosOffLine
             //}
             //Console.ReadKey();
 
-            //var filtro = new DtoLibPosOffLine.ResumenVentaPos.Generar.Filtro()
-            //{
-            //    idOperador = 319,
-            //    sucEquipo = "0B01",
-            //};
-            //var r01 = _offLine.VentaDocumento_Resumen_Generar(filtro);
+            
+            //var xfiltro = new DtoLibPosOffLine.Monitor.ResumenDia.Filtro(){ equipo="01", idOperador=367};
+            //var rx1 = _offLine.Monitor_Resumen_Dia(xfiltro);
 
-            //var filtro2 = new DtoLibPosOffLine.ResumenVentaPos.Generar.Filtro()
-            //{
-            //    idOperador = 329,
-            //    sucEquipo = "0601",
-            //};
-            //var r02 = _offLine.VentaDocumento_Resumen_Generar(filtro2);
+            //var xfiltro2 = new DtoLibPosOffLine.Monitor.ResumenDia.Filtro() { equipo = "02", idOperador = 366 };
+            //var rx2 = _offLine.Monitor_Resumen_Dia(xfiltro2);
 
-            var filtro3 = new DtoLibPosOffLine.ResumenVentaPos.Lista.Filtro
+            var r00 = _offLine.Monitor_ListaResumen();
+            r00.Lista.Add(new DtoLibPosOffLine.Monitor.ListaResumen.Ficha());
+
+            foreach (DtoLibPosOffLine.Monitor.ListaResumen.Ficha rCierre in r00.Lista)
             {
-                codSucursal = "08",
-            };
-            var r03 = _offLine.VentaDocumento_Resumen_GetLista(filtro3);
-
-            var ficha = new DtoLibPosOffLine.ResumenVentaPos.Subir.Ficha()
-            {
-                codSucursal = "08",
-                detalles = r03.Lista.Select(s =>
+                var xcierre = rCierre.cierreGenerar;
+                var filtro = new DtoLibPosOffLine.Monitor.GenerarResumen.Filtro()
                 {
-                    var nr = new DtoLibPosOffLine.ResumenVentaPos.Subir.Detalle()
+                    cierre = xcierre,
+                };
+                var r01 = _offLine.Monitor_GenerarResumen(filtro);
+
+                var list = r01.Lista.Select(s =>
+                {
+                    var rg = new DtoLibPosOffLine.Monitor.SubirResumen.Detalle()
                     {
                         autoProducto = s.autoProducto,
                         cnt = s.cnt,
                     };
-                    return nr;
-                }).ToList(),
-            };
-            var r04 = _offLine.VentaDocumento_Resumen_Subir(ficha);
+                    return rg;
+                }).ToList();
+                var ficha = new DtoLibPosOffLine.Monitor.SubirResumen.Ficha()
+                {
+                    codSucursal = "08",
+                    cierre = xcierre,
+                    Lista = list,
+                };
+                var r02 = _offLine.Monitor_SubirResumen(ficha);
+
+                var cierre = new DtoLibPosOffLine.Monitor.InsertarCierre.Ficha()
+                {
+                    cierre = xcierre,
+                    estatus = "T",
+                };
+                var r03 = _offLine.Monitor_InsertarCierre(cierre);
+            }
         }
 
     }

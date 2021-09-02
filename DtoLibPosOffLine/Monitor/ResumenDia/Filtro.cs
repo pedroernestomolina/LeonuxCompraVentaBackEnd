@@ -5,20 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibPosOffLine.ResumenVentaPos.Generar
+namespace DtoLibPosOffLine.Monitor.ResumenDia
 {
     
     public class Filtro
     {
 
+        public string equipo { get; set; }
         public int idOperador { get; set; }
-        public string sucEquipo { get; set; }
 
 
         public Filtro() 
         {
             idOperador = -1;
-            sucEquipo = "";
+            equipo = "";
         }
 
     }

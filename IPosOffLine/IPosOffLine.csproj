@@ -47,6 +47,7 @@
     <Compile Include="IItem.cs" />
     <Compile Include="IJornada.cs" />
     <Compile Include="IMedioCobro.cs" />
+    <Compile Include="IMonitor.cs" />
     <Compile Include="IMovConceptoInv.cs" />
     <Compile Include="IOperador.cs" />
     <Compile Include="IPendiente.cs" />

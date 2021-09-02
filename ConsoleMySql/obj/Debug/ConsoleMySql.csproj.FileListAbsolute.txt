@@ -2,5 +2,6 @@ D:\Proyectos FoxSystem\CompraVenta\ConsoleMySql\bin\Debug\ConsoleMySql.exe.confi
 D:\Proyectos FoxSystem\CompraVenta\ConsoleMySql\bin\Debug\ConsoleMySql.exe
 D:\Proyectos FoxSystem\CompraVenta\ConsoleMySql\bin\Debug\ConsoleMySql.pdb
 D:\Proyectos FoxSystem\CompraVenta\ConsoleMySql\bin\Debug\MySql.Data.dll
+D:\Proyectos FoxSystem\CompraVenta\ConsoleMySql\obj\Debug\ConsoleMySql.csprojResolveAssemblyReference.cache
 D:\Proyectos FoxSystem\CompraVenta\ConsoleMySql\obj\Debug\ConsoleMySql.exe
 D:\Proyectos FoxSystem\CompraVenta\ConsoleMySql\obj\Debug\ConsoleMySql.pdb

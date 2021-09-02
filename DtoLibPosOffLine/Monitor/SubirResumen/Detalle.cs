@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibPosOffLine.ResumenVentaPos.Subir
+namespace DtoLibPosOffLine.Monitor.SubirResumen
 {
     
     public class Detalle
