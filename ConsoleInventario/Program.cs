@@ -14,6 +14,7 @@ namespace ConsoleInventario
         static void Main(string[] args)
         {
             ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("localhost","pita");
+            //var r01 = invPrv.Producto_GetFicha("0000000450");
 
             //var filt = new DtoLibInventario.Producto.Filtro();
             //filt.cadena = "MUÑECA";
@@ -261,8 +262,8 @@ namespace ConsoleInventario
             //var filtro = new DtoLibInventario.Visor.Precio.Filtro();
             //var rt1 = invPrv.Visor_Precio(filtro);
 
-            var filtro = new DtoLibInventario.MonitorPos.Lista.Filtro() { codSucursal = "08" };
-            var rt1 = invPrv.MonitorPos_VentaResumen_GetLista(filtro);
+            //var filtro = new DtoLibInventario.MonitorPos.Lista.Filtro() { codSucursal = "08" };
+            //var rt1 = invPrv.MonitorPos_VentaResumen_GetLista(filtro);
         }
 
     }

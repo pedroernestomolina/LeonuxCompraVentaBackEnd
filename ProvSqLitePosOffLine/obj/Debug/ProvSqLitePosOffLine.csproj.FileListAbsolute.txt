@@ -1,4 +1,3 @@
-D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\MySql.Data.dll
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\ProvSqLitePosOffLine.dll.config
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\ProvSqLitePosOffLine.dll
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\ProvSqLitePosOffLine.pdb
@@ -8,6 +7,7 @@ D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\EntityFramewor
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\EntityFramework.SqlServer.dll
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\IPosOffLine.dll
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\LibEntitySqLitePosOffLine.dll
+D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\MySql.Data.dll
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\System.Data.SQLite.dll
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\System.Data.SQLite.EF6.dll
 D:\Proyectos FoxSystem\CompraVenta\ProvSqLitePosOffLine\bin\Debug\System.Data.SQLite.Linq.dll

@@ -20,9 +20,9 @@ namespace ProvLibCompra
         private string _Password;
 
 
-        public Provider(string instancia, string bd)
+        public Provider(string instancia, string bd, string usu="root")
         {
-            _Usuario = "root";
+            _Usuario = usu;
             _Password = "123";
             _Instancia = instancia;
             _BaseDatos = bd;

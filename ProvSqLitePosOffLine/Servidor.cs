@@ -500,8 +500,8 @@ namespace ProvSqLitePosOffLine
                     if (_cm5 != null)
                     {
                         var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
-                        //var culture = CultureInfo.CreateSpecificCulture("es-ES");
-                        var culture = CultureInfo.CreateSpecificCulture("en-EN");
+                        var culture = CultureInfo.CreateSpecificCulture("es-ES");
+                        //var culture = CultureInfo.CreateSpecificCulture("en-EN");
                         Decimal.TryParse(_cm5.ToString(), style, culture, out factorCambio);
                     }
 

@@ -15,9 +15,9 @@ namespace ProvLibSistema
     public partial class Provider : ILibSistema.IProvider
     {
 
-        public DtoLib.ResultadoEntidad<decimal> Configuracion_TasaCambioActual()
+        public DtoLib.ResultadoEntidad<string> Configuracion_TasaCambioActual()
         {
-            var result = new DtoLib.ResultadoEntidad<decimal>();
+            var result = new DtoLib.ResultadoEntidad<string>();
 
             try
             {
@@ -30,17 +30,7 @@ namespace ProvLibSistema
                         result.Result = DtoLib.Enumerados.EnumResult.isError;
                         return result;
                     }
-
-                    var m1 = 0.0m;
-                    var cnf = ent.usuario;
-                    if (cnf.Trim() != "")
-                    {
-                        var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
-                        //var culture = CultureInfo.CreateSpecificCulture("es-ES");
-                        var culture = CultureInfo.CreateSpecificCulture("en-EN");
-                        Decimal.TryParse(cnf, style, culture, out m1);
-                    }
-                    result.Entidad = m1;
+                    result.Entidad = ent.usuario;
                 }
             }
             catch (Exception e)
@@ -52,9 +42,9 @@ namespace ProvLibSistema
             return result;
         }
 
-        public DtoLib.ResultadoEntidad<decimal> Configuracion_TasaRecepcionPos()
+        public DtoLib.ResultadoEntidad<string> Configuracion_TasaRecepcionPos()
         {
-            var result = new DtoLib.ResultadoEntidad<decimal>();
+            var result = new DtoLib.ResultadoEntidad<string>();
 
             try
             {
@@ -67,17 +57,7 @@ namespace ProvLibSistema
                         result.Result = DtoLib.Enumerados.EnumResult.isError;
                         return result;
                     }
-
-                    var m1 = 0.0m;
-                    var cnf = ent.usuario;
-                    if (cnf.Trim() != "")
-                    {
-                        var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
-                        //var culture = CultureInfo.CreateSpecificCulture("es-ES");
-                        var culture = CultureInfo.CreateSpecificCulture("en-EN");
-                        Decimal.TryParse(cnf, style, culture, out m1);
-                    }
-                    result.Entidad = m1;
+                    result.Entidad = ent.usuario;
                 }
             }
             catch (Exception e)
@@ -89,6 +69,79 @@ namespace ProvLibSistema
             return result;
         }
 
+        //public DtoLib.ResultadoEntidad<decimal> Configuracion_TasaCambioActual()
+        //{
+        //    var result = new DtoLib.ResultadoEntidad<decimal>();
+
+        //    try
+        //    {
+        //        using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+        //        {
+        //            var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL12");
+        //            if (ent == null)
+        //            {
+        //                result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+        //                result.Result = DtoLib.Enumerados.EnumResult.isError;
+        //                return result;
+        //            }
+
+        //            var m1 = 0.0m;
+        //            var cnf = ent.usuario;
+        //            if (cnf.Trim() != "")
+        //            {
+        //                var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
+        //                //var culture = CultureInfo.CreateSpecificCulture("es-ES");
+        //                var culture = CultureInfo.CreateSpecificCulture("en-EN");
+        //                Decimal.TryParse(cnf, style, culture, out m1);
+        //            }
+        //            result.Entidad = m1;
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        result.Mensaje = e.Message;
+        //        result.Result = DtoLib.Enumerados.EnumResult.isError;
+        //    }
+
+        //    return result;
+        //}
+
+        //public DtoLib.ResultadoEntidad<decimal> Configuracion_TasaRecepcionPos()
+        //{
+        //    var result = new DtoLib.ResultadoEntidad<decimal>();
+
+        //    try
+        //    {
+        //        using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+        //        {
+        //            var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL48");
+        //            if (ent == null)
+        //            {
+        //                result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+        //                result.Result = DtoLib.Enumerados.EnumResult.isError;
+        //                return result;
+        //            }
+
+        //            var m1 = 0.0m;
+        //            var cnf = ent.usuario;
+        //            if (cnf.Trim() != "")
+        //            {
+        //                var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
+        //                //var culture = CultureInfo.CreateSpecificCulture("es-ES");
+        //                var culture = CultureInfo.CreateSpecificCulture("en-EN");
+        //                Decimal.TryParse(cnf, style, culture, out m1);
+        //            }
+        //            result.Entidad = m1;
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        result.Mensaje = e.Message;
+        //        result.Result = DtoLib.Enumerados.EnumResult.isError;
+        //    }
+
+        //    return result;
+        //}
 
         public DtoLib.Resultado Configuracion_Actualizar_TasaRecepcionPos(DtoLibSistema.Configuracion.ActualizarTasaRecepcionPos.Ficha ficha)
         {

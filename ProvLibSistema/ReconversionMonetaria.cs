@@ -31,11 +31,21 @@ namespace ProvLibSistema
                             var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL12");
                             if (ent == null)
                             {
-                                rt.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                                rt.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO"+Environment.NewLine+"TASA DIVISA";
                                 rt.Result = DtoLib.Enumerados.EnumResult.isError;
                                 return rt;
                             }
                             ent.usuario = ficha.tasaDivisa.ToString();
+                            cnn.SaveChanges();
+
+                            var entTasaPos = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL48");
+                            if (entTasaPos == null)
+                            {
+                                rt.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO"+Environment.NewLine+"TASA DIVISA POS";
+                                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return rt;
+                            }
+                            entTasaPos.usuario = ficha.tasaDivisaPos.ToString();
                             cnn.SaveChanges();
 
                             var entRec = new reconversion_monetaria()
@@ -207,6 +217,7 @@ namespace ProvLibSistema
                 using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
                 {
                     var sql_1 = @"SELECT auto as autoId, nombre, 
+                                    divisa as costoDivisa,
                                     costo, costo_und as costoUnd, 
                                     costo_promedio as costoProm, costo_promedio_und as costoPromUnd, 
                                     costo_proveedor as costoProv, costo_proveedor_und as costoProvUnd,
@@ -232,6 +243,27 @@ namespace ProvLibSistema
                         SaldoPorPagar = list_3,
                     };
                     result.Entidad = ent;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<int> ReconversionMonetaria_GetCount()
+        {
+            var result = new DtoLib.ResultadoEntidad<int>();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    var cnt = cnn.reconversion_monetaria.Count();
+                    result.Entidad = cnt;
                 }
             }
             catch (Exception e)

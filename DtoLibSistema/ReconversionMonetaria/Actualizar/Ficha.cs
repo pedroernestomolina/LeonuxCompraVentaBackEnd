@@ -13,6 +13,7 @@ namespace DtoLibSistema.ReconversionMonetaria.Actualizar
 
         public decimal factorReconverion { get; set; }
         public decimal tasaDivisa { get; set; }
+        public decimal tasaDivisaPos { get; set; }
         public string idUsuario { get; set; }
         public string codUsuario { get; set; }
         public string usuario { get; set; }
@@ -34,6 +35,7 @@ namespace DtoLibSistema.ReconversionMonetaria.Actualizar
             usuario = "";
             factorReconverion = 0.0m;
             tasaDivisa = 0.0m;
+            tasaDivisaPos = 0.0m;
             equipoEstacion = "";
             Producto = new List<ItemPrd>();
             Proveedor = new List<ItemProv>();

@@ -14,6 +14,8 @@ namespace ConsoleCompra
         static void Main(string[] args)
         {
             ILibCompras.IProvider compraPrv = new ProvLibCompra.Provider("localhost", "pita");
+            //var r01 = compraPrv.FechaServidor();
+
             //var r01 = compraPrv.Sucursal_GetLista();
             //var r01 = compraPrv.Sucursal_GetFicha("0000000001");
             //var r01 = compraPrv.Deposito_GetLista();

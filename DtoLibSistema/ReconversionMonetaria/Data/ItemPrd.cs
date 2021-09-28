@@ -13,6 +13,7 @@ namespace DtoLibSistema.ReconversionMonetaria.Data
 
         public string autoId { get; set; }
         public string nombre { get; set; }
+        public decimal costoDivisa { get; set; }
         public decimal costoPrv { get; set; }
         public decimal costoPrvUnd { get; set; }
         public decimal costo { get; set; }
@@ -30,6 +31,7 @@ namespace DtoLibSistema.ReconversionMonetaria.Data
         {
             autoId = "";
             nombre = "";
+            costoDivisa = 0.0m;
             costo = 0.0m;
             costoUnd = 0.0m;
             costoPrv = 0.0m;
