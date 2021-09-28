@@ -334,6 +334,104 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
+        public DtoLib.Resultado Operador_Jornada_Cerrar(DtoLibPosOffLine.Operador.Cerrar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+                    using (var ts = cnn.Database.BeginTransaction())
+                    {
+
+                        var ent = cnn.Operador.Find(ficha.IdOperador);
+                        if (ent == null)
+                        {
+                            result.Mensaje = "[ ID ] OPERADOR NO ENCONTRADA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        if (ent.estatus == "C")
+                        {
+                            result.Mensaje = "ESTATUS OPERADOR CERRADA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        var entJ = cnn.Jornada.Find(ficha.IdJornada);
+                        if (entJ == null)
+                        {
+                            result.Mensaje = "[ ID ] JORNADA NO ENCONTRADA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        if (entJ.estatus == "C")
+                        {
+                            result.Mensaje = "ESTATUS JORNADA CERRADA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        //CIERRE ENCABEZADO
+                        ent.estatus = ficha.Estatus;
+                        ent.fechaCierre = ficha.Fecha;
+                        ent.horaCierre = ficha.Hora;
+                        ent.estatus = "C";
+                        cnn.SaveChanges();
+
+                        //CIERRE MOVIMIENTOS
+                        var entCierre = new LibEntitySqLitePosOffLine.OperadorCierre();
+                        entCierre.idOperador = ent.id;
+                        entCierre.diferencia = ficha.Movimientos.diferencia;
+                        entCierre.efectivo = ficha.Movimientos.efectivo;
+                        entCierre.divisa = ficha.Movimientos.divisa;
+                        entCierre.tarjeta = ficha.Movimientos.tarjeta;
+                        entCierre.otros = ficha.Movimientos.otros;
+                        entCierre.firma = ficha.Movimientos.firma;
+                        entCierre.devolucion = ficha.Movimientos.devolucion;
+                        entCierre.subTotal = ficha.Movimientos.subTotal;
+                        entCierre.total = ficha.Movimientos.total;
+                        entCierre.mEfectivo = ficha.Movimientos.mEfectivo;
+                        entCierre.mDivisa = ficha.Movimientos.mDivisa;
+                        entCierre.mTarjeta = ficha.Movimientos.mTarjeta;
+                        entCierre.mOtros = ficha.Movimientos.mOtro;
+                        entCierre.mFirma = ficha.Movimientos.mFirma;
+                        entCierre.mSubTotal = ficha.Movimientos.mSubTotal;
+                        entCierre.mTotal = ficha.Movimientos.mTotal;
+                        //
+                        entCierre.cntDivisa = ficha.Movimientos.cntDivisa;
+                        entCierre.cntDivisaUsu = ficha.Movimientos.cntDivisaUsu;
+                        entCierre.cntDoc = ficha.Movimientos.cntDoc;
+                        entCierre.cntDocFac = ficha.Movimientos.cntDocFac;
+                        entCierre.cntDocNcr = ficha.Movimientos.cntDocNcr;
+                        entCierre.montoFac = ficha.Movimientos.montoFac;
+                        entCierre.montoNcr = ficha.Movimientos.montoNcr;
+
+                        cnn.OperadorCierre.Add(entCierre);
+                        cnn.SaveChanges();
+
+                        //CIERRE JORNADA
+                        entJ.estatus = ficha.Estatus;
+                        entJ.fechaCierre = ficha.Fecha;
+                        entJ.horaCierre = ficha.Hora;
+                        entJ.estatus = "C";
+                        cnn.SaveChanges();
+
+                        ts.Commit();
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

@@ -27,7 +27,6 @@ namespace LibEntitySistema
     
         public virtual DbSet<empresa_depositos> empresa_depositos { get; set; }
         public virtual DbSet<empresa_grupo> empresa_grupo { get; set; }
-        public virtual DbSet<empresa_sucursal> empresa_sucursal { get; set; }
         public virtual DbSet<empresa> empresa { get; set; }
         public virtual DbSet<usuarios> usuarios { get; set; }
         public virtual DbSet<sistema_funciones> sistema_funciones { get; set; }
@@ -40,5 +39,9 @@ namespace LibEntitySistema
         public virtual DbSet<empresa_series_fiscales> empresa_series_fiscales { get; set; }
         public virtual DbSet<vendedores> vendedores { get; set; }
         public virtual DbSet<sistema_contadores> sistema_contadores { get; set; }
+        public virtual DbSet<empresa_sucursal> empresa_sucursal { get; set; }
+        public virtual DbSet<proveedores> proveedores { get; set; }
+        public virtual DbSet<reconversion_monetaria> reconversion_monetaria { get; set; }
+        public virtual DbSet<cxp> cxp { get; set; }
     }
 }

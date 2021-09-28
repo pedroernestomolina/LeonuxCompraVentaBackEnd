@@ -36,6 +36,34 @@ namespace DtoLibPosOffLine.Operador.Cerrar
         public decimal montoFac { get; set; }
         public decimal montoNcr { get; set; }
 
+
+        public Movimiento() 
+        {
+            diferencia = 0.0m;
+            efectivo = 0.0m;
+            divisa = 0.0m;
+            tarjeta = 0.0m;
+            otros = 0.0m;
+            firma = 0.0m;
+            devolucion = 0.0m;
+            subTotal = 0.0m;
+            total = 0.0m;
+            mEfectivo = 0.0m;
+            mDivisa = 0.0m;
+            mTarjeta = 0.0m;
+            mOtro = 0.0m;
+            mFirma = 0.0m;
+            mSubTotal = 0.0m;
+            mTotal = 0.0m;
+            cntDivisa = 0.0m;
+            cntDivisaUsu = 0.0m;
+            cntDoc = 0;
+            cntDocFac = 0;
+            cntDocNcr = 0;
+            montoFac = 0.0m;
+            montoNcr = 0.0m;
+        }
+
     }
 
 }

@@ -50,7 +50,8 @@ namespace ProvLibSistema
                                     codigo = s.codigo,
                                     nombre = s.nombre,
                                     grupo = _grupo,
-                                    deposito=_deposito,
+                                    deposito = _deposito,
+                                    estatusFactMayor = s.estatus_facturar_mayor,
                                 };
                                 return r;
                             }).ToList();
@@ -117,6 +118,7 @@ namespace ProvLibSistema
                         nombreGrupoSucursal = nomGrupo,
                         nombre = ent.nombre,
                         precioId = idPrecioGrupo,
+                        estatusFacturarMayor = ent.estatus_facturar_mayor,
                     };
                     result.Entidad = nr;
                 }
@@ -166,6 +168,7 @@ namespace ProvLibSistema
                             autoDepositoPrincipal = "",
                             nombre = ficha.nombre,
                             codigo = ficha.codigo,
+                            estatus_facturar_mayor = ficha.estatusFactMayor,
                         };
                         cnn.empresa_sucursal.Add(ent);
                         cnn.SaveChanges();
@@ -232,6 +235,7 @@ namespace ProvLibSistema
                         ent.autoEmpresaGrupo=ficha.autoGrupo;
                         ent.codigo=ficha.codigo;
                         ent.nombre = ficha.nombre;
+                        ent.estatus_facturar_mayor = ficha.estatusFactMayor;
                         cnn.SaveChanges();
 
                         var cnt = cnn.empresa_sucursal.Where(f => f.codigo == ficha.codigo).Count();

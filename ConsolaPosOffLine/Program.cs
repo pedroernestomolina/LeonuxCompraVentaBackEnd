@@ -13,7 +13,8 @@ namespace ConsolaPosOffLine
 
         static void Main(string[] args)
         {
-            IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"C:\Modulos Leonux\POS\Data\LeonuxPosOffLine.db");
+            IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"C:\Modulos Leonux\POS\Data\Leonux.db");
+            //IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"C:\Modulos Leonux\POS\Data\LeonuxPosOffLine.db");
             //IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"D:\Proyectos FoxSystem\CompraVenta\LeonuxPosOffLine.db");
             _offLine.setServidorRemoto("localhost", "bodega");
 
@@ -61,6 +62,8 @@ namespace ConsolaPosOffLine
 
             //var xfiltro2 = new DtoLibPosOffLine.Monitor.ResumenDia.Filtro() { equipo = "02", idOperador = 366 };
             //var rx2 = _offLine.Monitor_Resumen_Dia(xfiltro2);
+
+            var xr = _offLine.TestBD_Local();
 
             var r00 = _offLine.Monitor_ListaResumen();
             r00.Lista.Add(new DtoLibPosOffLine.Monitor.ListaResumen.Ficha());

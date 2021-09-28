@@ -105,6 +105,7 @@ namespace ConsoleSistema
 
             //var r01 = sistPrv.SerieFiscal_GetFicha_ById("0000000001");
 
+            //var r01 = sistPrv.ReconversionMonetaria_GetData();
         }
 
     }

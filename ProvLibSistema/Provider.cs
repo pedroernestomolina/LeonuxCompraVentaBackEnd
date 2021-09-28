@@ -20,9 +20,9 @@ namespace ProvLibSistema
         private string _Password;
 
 
-        public Provider(string instancia, string bd)
+        public Provider(string instancia, string bd, string usuario="root")
         {
-            _Usuario = "root";
+            _Usuario = usuario;
             _Password = "123";
             _Instancia = instancia;
             _BaseDatos = bd;

@@ -16,6 +16,18 @@ namespace DtoLibSistema.Sucursal
         public string nombre { get; set; }
         public string grupo { get; set; }
         public string deposito { get; set; }
+        public string estatusFactMayor { get; set; }
+
+
+        public Resumen() 
+        {
+            auto = "";
+            codigo = "";
+            nombre = "";
+            grupo = "";
+            deposito = "";
+            estatusFactMayor = "";
+        }
 
     }
 

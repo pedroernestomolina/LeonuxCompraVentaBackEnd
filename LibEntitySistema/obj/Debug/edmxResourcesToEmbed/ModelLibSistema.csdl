@@ -17,20 +17,9 @@
     <Property Name="nombre" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="idPrecio" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
   </EntityType>
-  <EntityType Name="empresa_sucursal">
-    <Key>
-      <PropertyRef Name="auto" />
-    </Key>
-    <Property Name="auto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="autoDepositoPrincipal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="autoEmpresaGrupo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="codigo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="nombre" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
-  </EntityType>
   <EntityContainer Name="sistemaEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="empresa_depositos" EntityType="Self.empresa_depositos" />
     <EntitySet Name="empresa_grupo" EntityType="Self.empresa_grupo" />
-    <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" />
     <EntitySet Name="empresa" EntityType="sistemaModel.empresa" />
     <EntitySet Name="usuarios" EntityType="sistemaModel.usuarios" />
     <EntitySet Name="sistema_funciones" EntityType="sistemaModel.sistema_funciones" />
@@ -51,6 +40,14 @@
     <EntitySet Name="empresa_series_fiscales" EntityType="sistemaModel.empresa_series_fiscales" />
     <EntitySet Name="vendedores" EntityType="sistemaModel.vendedores" />
     <EntitySet Name="sistema_contadores" EntityType="sistemaModel.sistema_contadores" />
+    <EntitySet Name="empresa_sucursal" EntityType="sistemaModel.empresa_sucursal" />
+    <EntitySet Name="proveedores" EntityType="sistemaModel.proveedores" />
+    <EntitySet Name="reconversion_monetaria" EntityType="sistemaModel.reconversion_monetaria" />
+    <EntitySet Name="cxp" EntityType="sistemaModel.cxp" />
+    <AssociationSet Name="cxp_ibfk_1" Association="sistemaModel.cxp_ibfk_1">
+      <End Role="proveedores" EntitySet="proveedores" />
+      <End Role="cxp" EntitySet="cxp" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="empresa">
     <Key>
@@ -520,4 +517,117 @@
     <Property Name="a_usuarios_grupo" Type="Int32" Nullable="false" />
     <Property Name="a_productos_movimientos_traslados_dev" Type="Int32" Nullable="false" />
   </EntityType>
+  <EntityType Name="empresa_sucursal">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="autoDepositoPrincipal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="autoEmpresaGrupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_facturar_mayor" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="proveedores">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ci_rif" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="razon_social" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="auto_grupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="dir_fiscal" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="contacto" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="website" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="pais" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="denominacion_fiscal" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="auto_estado" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo_postal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="retencion_iva" Type="Decimal" Nullable="false" />
+    <Property Name="retencion_islr" Type="Decimal" Nullable="false" />
+    <Property Name="fecha_alta" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_baja" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_ult_pago" Type="DateTime" Nullable="false" />
+    <Property Name="fecha_ult_compra" Type="DateTime" Nullable="false" />
+    <Property Name="anticipos" Type="Decimal" Nullable="false" />
+    <Property Name="debitos" Type="Decimal" Nullable="false" />
+    <Property Name="creditos" Type="Decimal" Nullable="false" />
+    <Property Name="saldo" Type="Decimal" Nullable="false" />
+    <Property Name="disponible" Type="Decimal" Nullable="false" />
+    <Property Name="memo" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="advertencia" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_codigo_cobrar" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_codigo_ingresos" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_codigo_anticipos" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="beneficiario" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="rif" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="ctabanco" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="nj" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="cxp" Relationship="sistemaModel.cxp_ibfk_1" FromRole="proveedores" ToRole="cxp" />
+  </EntityType>
+  <EntityType Name="reconversion_monetaria">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="hora" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idUsuario" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo_usuario" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="factor_reconversion" Type="Decimal" Nullable="false" />
+    <Property Name="factor_divisa" Type="Decimal" Nullable="false" />
+    <Property Name="items_afectados" Type="Int32" Nullable="false" />
+    <Property Name="proveedores_afectados" Type="Int32" Nullable="false" />
+    <Property Name="saldos_por_pagar_afectados" Type="Int32" Nullable="false" />
+    <Property Name="equipo_estacion" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="cxp">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="tipo_documento" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="documento" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_vencimiento" Type="DateTime" Nullable="false" />
+    <Property Name="nota" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="importe" Type="Decimal" Nullable="false" />
+    <Property Name="acumulado" Type="Decimal" Nullable="false" />
+    <Property Name="auto_proveedor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="proveedor" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ci_rif" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="codigo_proveedor" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_cancelado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="resta" Type="Decimal" Nullable="false" />
+    <Property Name="estatus_anulado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="auto_documento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numero" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_agencia" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="agencia" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="signo" Type="Int32" Nullable="false" />
+    <Property Name="dias" Type="Int32" Nullable="false" />
+    <Property Name="auto_asiento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="anexo" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_cierre_contable" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="importeDivisa" Type="Decimal" Nullable="false" />
+    <NavigationProperty Name="proveedores" Relationship="sistemaModel.cxp_ibfk_1" FromRole="cxp" ToRole="proveedores" />
+  </EntityType>
+  <Association Name="cxp_ibfk_1">
+    <End Type="sistemaModel.proveedores" Role="proveedores" Multiplicity="1" />
+    <End Type="sistemaModel.cxp" Role="cxp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="proveedores">
+        <PropertyRef Name="auto" />
+      </Principal>
+      <Dependent Role="cxp">
+        <PropertyRef Name="auto_proveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -58,6 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cxp.cs">
+      <DependentUpon>ModelLibSistema.tt</DependentUpon>
+    </Compile>
     <Compile Include="empresa.cs">
       <DependentUpon>ModelLibSistema.tt</DependentUpon>
     </Compile>
@@ -102,6 +105,12 @@
       <DependentUpon>ModelLibSistema.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="proveedores.cs">
+      <DependentUpon>ModelLibSistema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="reconversion_monetaria.cs">
+      <DependentUpon>ModelLibSistema.tt</DependentUpon>
+    </Compile>
     <Compile Include="sistema_configuracion.cs">
       <DependentUpon>ModelLibSistema.tt</DependentUpon>
     </Compile>

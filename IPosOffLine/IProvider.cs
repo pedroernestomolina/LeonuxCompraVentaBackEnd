@@ -10,7 +10,7 @@ namespace IPosOffLine
 
     public interface IProvider: IProducto, ICliente, IServidor, IItem, IVentaDocumento, IFiscal, IConfiguracion,
         IPendiente, IPermiso, IDeposito, ICobrador, IVendedor, ITransporte, IMedioCobro, ISerie,
-        IJornada, IOperador, IUsuario, IMovConceptoInv, IReporte, IMonitor
+        IJornada, IOperador, IUsuario, IMovConceptoInv, IReporte, IMonitor, IMonitorBoletin
     {
 
         void setServidorRemoto(string instancia, string baseDatos);
@@ -20,6 +20,10 @@ namespace IPosOffLine
         DtoLib.ResultadoEntidad<DtoLibPosOffLine.Empresa.Ficha> Empresa_Datos();
         DtoLib.ResultadoEntidad<DateTime?> FechaUltimaActualizaion();
         DtoLib.ResultadoEntidad<string> CodigoSucursal();
+        //
+        DtoLib.Resultado TestBD_Local();
+        DtoLib.Resultado TestBD_Remoto();
+        DtoLib.Resultado TestBD_Nube();
 
     }
 

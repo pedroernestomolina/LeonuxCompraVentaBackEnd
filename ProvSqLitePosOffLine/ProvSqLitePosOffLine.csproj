@@ -77,6 +77,7 @@
     <Compile Include="Jornada.cs" />
     <Compile Include="MedioCobro.cs" />
     <Compile Include="Monitor.cs" />
+    <Compile Include="MonitorBoletin.cs" />
     <Compile Include="MovConceptoInv.cs" />
     <Compile Include="Operador.cs" />
     <Compile Include="Pendiente.cs" />

@@ -663,12 +663,19 @@ namespace ProvSqLitePosOffLine
                     }
                     reader.Close();
 
-                    MySqlCommand comandok = new MySqlCommand(sqlK);
-                    comandok.Connection = cn;
-                    var xhabilitar_precio5_ventaMayor = comandoF.ExecuteScalar().ToString(); // SI,NO
-                    if (xhabilitar_precio5_ventaMayor.Trim().ToUpper() == "SI")
+                    MySqlCommand comandoL = new MySqlCommand("select estatus_facturar_mayor from empresa_sucursal where codigo=@codigo_sucursal");
+                    comandoL.Parameters.AddWithValue("@codigo_sucursal", _codigoSucursal);
+                    comandoL.Connection = cn;
+                    var xhabilitar_facturar_Mayor = comandoL.ExecuteScalar().ToString(); // SI,NO
+                    if (xhabilitar_facturar_Mayor=="1")
                     {
-                        _habilitar_precio5_ventaMayor = true;
+                        MySqlCommand comandok = new MySqlCommand(sqlK);
+                        comandok.Connection = cn;
+                        var xhabilitar_precio5_ventaMayor = comandok.ExecuteScalar().ToString(); // SI,NO
+                        if (xhabilitar_precio5_ventaMayor.Trim().ToUpper() == "SI")
+                        {
+                            _habilitar_precio5_ventaMayor = true;
+                        }
                     }
 
                     exito = true;

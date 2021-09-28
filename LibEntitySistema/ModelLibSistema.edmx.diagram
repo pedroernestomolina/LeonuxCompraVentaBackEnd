@@ -7,7 +7,6 @@
       <Diagram DiagramId="0b917235a57a469a870e33b5604ecd02" Name="Diagram1">
         <EntityTypeShape EntityType="sistemaModel.empresa_depositos" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="sistemaModel.empresa_grupo" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="sistemaModel.empresa_sucursal" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="sistemaModel.empresa" Width="1.5" PointX="3.375" PointY="3.75" />
         <EntityTypeShape EntityType="sistemaModel.usuarios" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="sistemaModel.sistema_funciones" Width="1.5" PointX="5.375" PointY="4.75" />
@@ -22,6 +21,11 @@
         <EntityTypeShape EntityType="sistemaModel.empresa_series_fiscales" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="sistemaModel.vendedores" Width="1.5" PointX="11.75" PointY="0.75" />
         <EntityTypeShape EntityType="sistemaModel.sistema_contadores" Width="1.5" PointX="3.375" PointY="11.75" />
+        <EntityTypeShape EntityType="sistemaModel.empresa_sucursal" Width="1.5" PointX="0.75" PointY="3.5" />
+        <EntityTypeShape EntityType="sistemaModel.proveedores" Width="1.5" PointX="12.375" PointY="9.75" />
+        <EntityTypeShape EntityType="sistemaModel.reconversion_monetaria" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="sistemaModel.cxp" Width="1.5" PointX="14.625" PointY="10.75" />
+        <AssociationConnector Association="sistemaModel.cxp_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

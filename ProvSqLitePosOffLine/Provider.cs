@@ -343,6 +343,64 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
+
+
+        public DtoLib.Resultado TestBD_Local()
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado TestBD_Remoto()
+        {
+            var result = new DtoLib.Resultado(); 
+
+            try
+            {
+                using (var cn = new MySqlConnection(_cnn2.ConnectionString))
+                {
+                    cn.Open();
+                };
+            }
+            catch (MySqlException ex)
+            {
+                result.Mensaje = ex.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado TestBD_Nube()
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cn = new MySqlConnection(_cnn3.ConnectionString))
+                {
+                    cn.Open();
+                };
+            }
+            catch (MySqlException ex)
+            {
+                result.Mensaje = ex.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

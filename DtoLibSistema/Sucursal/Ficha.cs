@@ -20,6 +20,22 @@ namespace DtoLibSistema.Sucursal
         public string autoGrupoSucursal { get; set; }
         public string nombreGrupoSucursal { get; set; }
         public string precioId { get; set; }
+        public string estatusFacturarMayor { get; set; }
+
+
+        public Ficha() 
+        {
+            auto = "";
+            codigo = "";
+            nombre = "";
+            autoDepositoPrincipal = "";
+            codigoDepositoPrincipal = "";
+            nombreDepositoPrincipal = "";
+            autoGrupoSucursal = "";
+            nombreGrupoSucursal = "";
+            precioId = "";
+            estatusFacturarMayor = "";
+        }
 
     }
 

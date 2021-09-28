@@ -30,6 +30,13 @@ namespace ProvLibInventario
             _Instancia = instancia;
             _BaseDatos = bd;
             setConexion();
+
+            //CONEXION BD REMOTA: GODADDY
+            //_Usuario = "leonuxBD";
+            //_Password = "ghx_k!kibx+D";
+            //_Instancia = "107.180.50.172";
+            //_BaseDatos = "0001";
+            //setConexion();
             
             _cnn2 = new MySqlConnectionStringBuilder();
             _cnn2.Database = "pitaTest";

@@ -52,6 +52,11 @@
     <Compile Include="Configuracion\ActualizarTasaRecepcionPos\Ficha.cs" />
     <Compile Include="Configuracion\Enumerados.cs" />
     <Compile Include="Configuracion\InicializarBD\Ficha.cs" />
+    <Compile Include="ReconversionMonetaria\Actualizar\Ficha.cs" />
+    <Compile Include="ReconversionMonetaria\Actualizar\ItemPrd.cs" />
+    <Compile Include="ReconversionMonetaria\Actualizar\ItemHistCosto.cs" />
+    <Compile Include="ReconversionMonetaria\Actualizar\ItemHistPrecio.cs" />
+    <Compile Include="ReconversionMonetaria\Actualizar\ItemProv.cs" />
     <Compile Include="Deposito\Agregar.cs" />
     <Compile Include="Deposito\Editar.cs" />
     <Compile Include="Deposito\Ficha.cs" />
@@ -74,6 +79,11 @@
     <Compile Include="Precio\Ficha.cs" />
     <Compile Include="Precio\Resumen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReconversionMonetaria\Actualizar\ItemSaldoPorPagar.cs" />
+    <Compile Include="ReconversionMonetaria\Data\Ficha.cs" />
+    <Compile Include="ReconversionMonetaria\Data\ItemPrd.cs" />
+    <Compile Include="ReconversionMonetaria\Data\ItemProv.cs" />
+    <Compile Include="ReconversionMonetaria\Data\ItemSaldoPorPagar.cs" />
     <Compile Include="SerieFiscal\ActivarInactivar\Ficha.cs" />
     <Compile Include="SerieFiscal\Agregar\Ficha.cs" />
     <Compile Include="SerieFiscal\Editar\Ficha.cs" />
