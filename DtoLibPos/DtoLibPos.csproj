@@ -129,6 +129,7 @@
     <Compile Include="MedioPago\Entidad\Ficha.cs" />
     <Compile Include="MedioPago\Lista\Ficha.cs" />
     <Compile Include="MedioPago\Lista\Filtro.cs" />
+    <Compile Include="Pendiente\Cnt\Filtro.cs" />
     <Compile Include="Pendiente\Dejar\Ficha.cs" />
     <Compile Include="Pendiente\Dejar\FichaItem.cs" />
     <Compile Include="Pendiente\Lista\Ficha.cs" />

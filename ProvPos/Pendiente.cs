@@ -67,7 +67,7 @@ namespace ProvPos
             return result;
         }
 
-        public DtoLib.ResultadoEntidad<int> Pendiente_CtasPendientes(int idOperador)
+        public DtoLib.ResultadoEntidad<int> Pendiente_CtasPendientes(DtoLibPos.Pendiente.Cnt.Filtro filtro)
         {
             var result = new DtoLib.ResultadoEntidad<int>();
 
@@ -75,7 +75,11 @@ namespace ProvPos
             {
                 using (var cn = new PosEntities(_cnPos.ConnectionString))
                 {
-                    var lEnt = cn.p_pendiente.Where(s => s.id_p_operador == idOperador).ToList();
+                    var lEnt = cn.p_pendiente.ToList();
+                    if (filtro.idOperador != null)
+                    {
+                        lEnt=lEnt.Where(s => s.id_p_operador == filtro.idOperador.Value).ToList();
+                    }
                     result.Entidad = lEnt.Count();
                 };
             }
@@ -88,7 +92,7 @@ namespace ProvPos
             return result;
         }
 
-        public DtoLib.Resultado Pendiente_AbrirCta(int idCta)
+        public DtoLib.Resultado Pendiente_AbrirCta(int idCta, int idOperador)
         {
             var result = new DtoLib.Resultado();
 
@@ -112,6 +116,7 @@ namespace ProvPos
                         foreach (var it in entVenta)
                         {
                             it.id_p_pendiente = -1;
+                            it.id_p_operador = idOperador;
                             cn.SaveChanges();
                         }
 
@@ -137,7 +142,9 @@ namespace ProvPos
             {
                 using (var cn = new PosEntities(_cnPos.ConnectionString))
                 {
-                    var entLista = cn.p_pendiente.Where(ss => ss.id_p_operador == filtro.idOperador).ToList();
+                    var entLista = cn.p_pendiente.ToList();
+                    if (filtro.idOperador.HasValue)
+                        entLista = entLista.Where(ss => ss.id_p_operador == filtro.idOperador.Value).ToList();
                     foreach(var it in entLista) 
                     {
                         var nr = new DtoLibPos.Pendiente.Lista.Ficha()

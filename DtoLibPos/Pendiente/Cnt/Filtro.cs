@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibPos.Pendiente.Lista
+namespace DtoLibPos.Pendiente.Cnt
 {
     
     public class Filtro
@@ -14,7 +14,7 @@ namespace DtoLibPos.Pendiente.Lista
         public int? idOperador { get; set; }
 
 
-        public Filtro()
+        public Filtro() 
         {
             idOperador = null;
         }

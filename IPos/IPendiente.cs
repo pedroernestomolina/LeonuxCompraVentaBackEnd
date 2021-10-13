@@ -12,9 +12,9 @@ namespace IPos
     {
 
         DtoLib.Resultado Pendiente_DejarCta(DtoLibPos.Pendiente.Dejar.Ficha ficha);
-        DtoLib.ResultadoEntidad<int> Pendiente_CtasPendientes(int idOperador);
+        DtoLib.ResultadoEntidad<int> Pendiente_CtasPendientes(DtoLibPos.Pendiente.Cnt.Filtro filtro);
         DtoLib.ResultadoLista<DtoLibPos.Pendiente.Lista.Ficha> Pendiente_Lista(DtoLibPos.Pendiente.Lista.Filtro filtro);
-        DtoLib.Resultado Pendiente_AbrirCta(int idCta);
+        DtoLib.Resultado Pendiente_AbrirCta(int idCta, int idOperador);
 
     }
 
