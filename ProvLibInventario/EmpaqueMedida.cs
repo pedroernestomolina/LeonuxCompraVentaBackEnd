@@ -122,31 +122,30 @@ namespace ProvLibInventario
                     }
                 }
             }
-            catch (DbEntityValidationException e)
+            catch (DbUpdateException ex)
             {
-                var msg = "";
-                foreach (var eve in e.EntityValidationErrors)
+                var dbUpdateEx = ex as DbUpdateException;
+                var sqlEx = dbUpdateEx.InnerException;
+                if (sqlEx != null)
                 {
-                    foreach (var ve in eve.ValidationErrors)
+                    var exx = (MySql.Data.MySqlClient.MySqlException)sqlEx.InnerException;
+                    if (exx != null)
                     {
-                        msg += ve.ErrorMessage;
+                        if (exx.Number == 1451)
+                        {
+                            result.Mensaje = "REGISTRO CONTIENE DATA RELACIONADA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        if (exx.Number == 1062)
+                        {
+                            result.Mensaje = exx.Message;
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
                     }
                 }
-                result.Mensaje = msg;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
-            {
-                var msg = "";
-                foreach (var eve in e.Entries)
-                {
-                    //msg += eve.m;
-                    foreach (var ve in eve.CurrentValues.PropertyNames)
-                    {
-                        msg += ve.ToString();
-                    }
-                }
-                result.Mensaje = msg;
+                result.Mensaje = ex.Message;
                 result.Result = DtoLib.Enumerados.EnumResult.isError;
             }
             catch (Exception e)
@@ -184,31 +183,30 @@ namespace ProvLibInventario
                     }
                 }
             }
-            catch (DbEntityValidationException e)
+            catch (DbUpdateException ex)
             {
-                var msg = "";
-                foreach (var eve in e.EntityValidationErrors)
+                var dbUpdateEx = ex as DbUpdateException;
+                var sqlEx = dbUpdateEx.InnerException;
+                if (sqlEx != null)
                 {
-                    foreach (var ve in eve.ValidationErrors)
+                    var exx = (MySql.Data.MySqlClient.MySqlException)sqlEx.InnerException;
+                    if (exx != null)
                     {
-                        msg += ve.ErrorMessage;
+                        if (exx.Number == 1451)
+                        {
+                            result.Mensaje = "REGISTRO CONTIENE DATA RELACIONADA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        if (exx.Number == 1062)
+                        {
+                            result.Mensaje = exx.Message;
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
                     }
                 }
-                result.Mensaje = msg;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
-            {
-                var msg = "";
-                foreach (var eve in e.Entries)
-                {
-                    //msg += eve.m;
-                    foreach (var ve in eve.CurrentValues.PropertyNames)
-                    {
-                        msg += ve.ToString();
-                    }
-                }
-                result.Mensaje = msg;
+                result.Mensaje = ex.Message;
                 result.Result = DtoLib.Enumerados.EnumResult.isError;
             }
             catch (Exception e)

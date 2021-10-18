@@ -264,6 +264,14 @@ namespace ConsoleInventario
 
             //var filtro = new DtoLibInventario.MonitorPos.Lista.Filtro() { codSucursal = "08" };
             //var rt1 = invPrv.MonitorPos_VentaResumen_GetLista(filtro);
+
+            //var ficha = new DtoLibInventario.Departamento.Editar() { codigo ="02", nombre="VIVERES", auto="0000000003"};
+            //var rt1 = invPrv.Departamento_Editar(ficha);
+
+            //var ficha = new DtoLibInventario.Grupo.Editar() { codigo = "AZUCAR", nombre = "AZUCAR", auto = "0000000005" };
+            //var rt1 = invPrv.Grupo_Editar(ficha);
+
+
         }
 
     }

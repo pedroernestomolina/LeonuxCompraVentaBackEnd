@@ -10,7 +10,8 @@ namespace ILibSistema
     
     public interface IProvider: IDeposito, ISucursal, ISucursalGrupo, IUsuario, 
         IPrecio, IFuncion, IGrupoUsuario, IServConf, IPermisos, IConfiguracion,
-        IVendedor, ICobrador, ISerieFiscal, IReconversionMonetaria
+        IVendedor, ICobrador, ISerieFiscal, IReconversionMonetaria,
+        INegocio
     {
 
         DtoLib.ResultadoEntidad<DateTime> FechaServidor();
