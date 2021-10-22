@@ -1,6 +1,7 @@
 ﻿using LibEntityInventario;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
@@ -857,6 +858,14 @@ namespace ProvLibInventario
                         return rt;
                     }
 
+                    var entPrdExt = cnn.productos_ext.Find(autoPrd);
+                    if (entPrdExt== null)
+                    {
+                        rt.Mensaje = "[ ID ] PRODUCTO PRECIO MAYOR NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
                     var entEmpresa = cnn.empresa.FirstOrDefault();
                     if (entEmpresa == null)
                     {
@@ -890,6 +899,8 @@ namespace ProvLibInventario
                     var emp3 = cnn.productos_medida.Find(entPrd.auto_precio_3);
                     var emp4 = cnn.productos_medida.Find(entPrd.auto_precio_4);
                     var emp5 = cnn.productos_medida.Find(entPrd.auto_precio_pto);
+                    var empMay1 = cnn.productos_medida.Find(entPrdExt.auto_precio_may_1);
+                    var empMay2 = cnn.productos_medida.Find(entPrdExt.auto_precio_may_2);
 
                     var precio = new DtoLibInventario.Producto.VerData.Precio()
                     {
@@ -906,12 +917,16 @@ namespace ProvLibInventario
                         etiqueta3 = entEmpresa.precio_3,
                         etiqueta4 = entEmpresa.precio_4,
                         etiqueta5 = entEmpresa.precio_5,
+                        etiquetaMay1 = "Mayor 1",
+                        etiquetaMay2 = "Mayor 2",
 
                         contenido1 = entPrd.contenido_1,
                         contenido2 = entPrd.contenido_2,
                         contenido3 = entPrd.contenido_3,
                         contenido4 = entPrd.contenido_4,
                         contenido5 = entPrd.contenido_pto,
+                        contenidoMay1 = entPrdExt.contenido_may_1,
+                        contenidoMay2 = entPrdExt.contenido_may_2,
 
                         finOferta = entPrd.fin,
                         inicioOferta = entPrd.inicio,
@@ -924,12 +939,16 @@ namespace ProvLibInventario
                         precioNeto3 = entPrd.precio_3,
                         precioNeto4 = entPrd.precio_4,
                         precioNeto5 = entPrd.precio_pto,
+                        precioNetoMay1 = entPrdExt.precio_may_1,
+                        precioNetoMay2 = entPrdExt.precio_may_2,
 
                         precioFullDivisa1 = entPrd.pdf_1,
                         precioFullDivisa2 = entPrd.pdf_2,
                         precioFullDivisa3 = entPrd.pdf_3,
                         precioFullDivisa4 = entPrd.pdf_4,
                         precioFullDivisa5 = entPrd.pdf_pto,
+                        precioFullDivisaMay1 = entPrdExt.pdmf_1,
+                        precioFullDivisaMay2 = entPrdExt.pdmf_2,
 
                         precioOferta = entPrd.precio_oferta,
                         precioSugerido = entPrd.precio_sugerido,
@@ -939,12 +958,16 @@ namespace ProvLibInventario
                         utilidad3 = entPrd.utilidad_3,
                         utilidad4 = entPrd.utilidad_4,
                         utilidad5 = entPrd.utilidad_pto,
+                        utilidadMay1 = entPrdExt.utilidad_may_1,
+                        utilidadMay2 = entPrdExt.utilidad_may_2,
 
                         empaque1 = emp1.nombre,
                         empaque2 = emp2.nombre,
                         empaque3 = emp3.nombre,
                         empaque4 = emp4.nombre,
                         empaque5 = emp5.nombre,
+                        empaqueMay1 = empMay1.nombre,
+                        empaqueMay2 = empMay2.nombre,
 
                         estatusOferta = _enOferta,
                     };
@@ -1377,39 +1400,30 @@ namespace ProvLibInventario
                     }
                 }
             }
-            catch (DbEntityValidationException e)
+            catch (DbUpdateException ex)
             {
-                var msg = "";
-                foreach (var eve in e.EntityValidationErrors)
+                var dbUpdateEx = ex as DbUpdateException;
+                var sqlEx = dbUpdateEx.InnerException;
+                if (sqlEx != null)
                 {
-                    foreach (var ve in eve.ValidationErrors)
+                    var exx = (MySql.Data.MySqlClient.MySqlException)sqlEx.InnerException;
+                    if (exx != null)
                     {
-                        msg += ve.ErrorMessage;
-                    }
-                }
-                rt.Mensaje = msg;
-                rt.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
-            {
-                var msg = "";
-                if (e.InnerException != null)
-                {
-                    var x = e.InnerException.InnerException;
-                    msg = x.Message;
-                }
-                else
-                {
-                    foreach (var eve in e.Entries)
-                    {
-                        //msg += eve.m;
-                        foreach (var ve in eve.CurrentValues.PropertyNames)
+                        if (exx.Number == 1451)
                         {
-                            msg += ve.ToString();
+                            rt.Mensaje = "REGISTRO CONTIENE DATA RELACIONADA";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        }
+                        if (exx.Number == 1062)
+                        {
+                            rt.Mensaje = exx.Message;
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
                         }
                     }
                 }
-                rt.Mensaje = msg;
+                rt.Mensaje = ex.Message;
                 rt.Result = DtoLib.Enumerados.EnumResult.isError;
             }
             catch (Exception e)
@@ -1493,7 +1507,7 @@ namespace ProvLibInventario
                     using (var ts = new TransactionScope())
                     {
                         var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
-                        var fechaNula = new DateTime(200, 1, 1);
+                        var fechaNula = new DateTime(2000, 1, 1);
 
                         var sql = "update sistema_contadores set a_productos=a_productos+1";
                         var r1 = cnn.Database.ExecuteSqlCommand(sql);
@@ -1611,6 +1625,28 @@ namespace ProvLibInventario
                         cnn.productos_extra.Add(entPrdExtra);
                         cnn.SaveChanges();
 
+                        var entPrdExt= new productos_ext()
+                        {
+                            auto_producto = autoPrd,
+                            auto_precio_may_1 = "0000000001",
+                            auto_precio_may_2 = "0000000001",
+                            auto_precio_may_3 = "0000000001",
+                            contenido_may_1 = 1,
+                            contenido_may_2 = 1,
+                            contenido_may_3 = 1,
+                            pdmf_1 = 0.0m,
+                            pdmf_2 = 0.0m,
+                            pdmf_3 = 0.0m,
+                            precio_may_1 = 0.0m,
+                            precio_may_2 = 0.0m,
+                            precio_may_3 = 0.0m,
+                            utilidad_may_1 = 0.0m,
+                            utilidad_may_2 = 0.0m,
+                            utilidad_may_3 = 0.0m,
+                        };
+                        cnn.productos_ext.Add(entPrdExt);
+                        cnn.SaveChanges();
+
                         foreach (var rg in ficha.codigosAlterno)
                         {
                             var codAlterno = new productos_alterno()
@@ -1627,39 +1663,30 @@ namespace ProvLibInventario
                     }
                 }
             }
-            catch (DbEntityValidationException e)
+            catch (DbUpdateException ex)
             {
-                var msg = "";
-                foreach (var eve in e.EntityValidationErrors)
+                var dbUpdateEx = ex as DbUpdateException;
+                var sqlEx = dbUpdateEx.InnerException;
+                if (sqlEx != null)
                 {
-                    foreach (var ve in eve.ValidationErrors)
+                    var exx = (MySql.Data.MySqlClient.MySqlException)sqlEx.InnerException;
+                    if (exx != null)
                     {
-                        msg += ve.ErrorMessage;
-                    }
-                }
-                rt.Mensaje = msg;
-                rt.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
-            {
-                var msg = "";
-                if (e.InnerException != null)
-                {
-                    var x = e.InnerException.InnerException;
-                    msg = x.Message;
-                }
-                else
-                {
-                    foreach (var eve in e.Entries)
-                    {
-                        //msg += eve.m;
-                        foreach (var ve in eve.CurrentValues.PropertyNames)
+                        if (exx.Number == 1451)
                         {
-                            msg += ve.ToString();
+                            rt.Mensaje = "REGISTRO CONTIENE DATA RELACIONADA";
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
+                        }
+                        if (exx.Number == 1062)
+                        {
+                            rt.Mensaje = exx.Message;
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return rt;
                         }
                     }
                 }
-                rt.Mensaje = msg;
+                rt.Mensaje = ex.Message;
                 rt.Result = DtoLib.Enumerados.EnumResult.isError;
             }
             catch (Exception e)

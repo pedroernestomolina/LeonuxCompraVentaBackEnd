@@ -51,5 +51,6 @@ namespace LibEntityCompra
         public virtual DbSet<usuarios> usuarios { get; set; }
         public virtual DbSet<compras_pend_detalle> compras_pend_detalle { get; set; }
         public virtual DbSet<compras_pend> compras_pend { get; set; }
+        public virtual DbSet<productos_ext> productos_ext { get; set; }
     }
 }

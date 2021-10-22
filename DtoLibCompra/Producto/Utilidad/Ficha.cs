@@ -29,6 +29,13 @@ namespace DtoLibCompra.Producto.Utilidad
         public decimal precio_3 { get; set; }
         public decimal precio_4 { get; set; }
         public decimal precio_5 { get; set; }
+        //
+        public int contenido_may_1 { get; set; }
+        public int contenido_may_2 { get; set; }
+        public decimal utilidad_may_1 { get; set; }
+        public decimal utilidad_may_2 { get; set; }
+        public decimal precio_may_1 { get; set; }
+        public decimal precio_may_2 { get; set; }
 
 
         public Ficha()
@@ -51,6 +58,13 @@ namespace DtoLibCompra.Producto.Utilidad
             precio_3 = 0.0m;
             precio_4 = 0.0m;
             precio_5 = 0.0m;
+            //
+            contenido_may_1 = 0;
+            contenido_may_2 = 0;
+            utilidad_may_1 = 0.0m;
+            utilidad_may_2 = 0.0m;
+            precio_may_1 = 0.0m;
+            precio_may_2 = 0.0m;
         }
 
     }

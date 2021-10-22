@@ -312,6 +312,7 @@
       <End Role="compras_pend" EntitySet="compras_pend" />
       <End Role="compras_pend_detalle" EntitySet="compras_pend_detalle" />
     </AssociationSet>
+    <EntitySet Name="productos_ext" EntityType="compraModel.productos_ext" />
   </EntityContainer>
   <EntityType Name="empresa_sucursal">
     <Key>
@@ -322,6 +323,7 @@
     <Property Name="autoEmpresaGrupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="codigo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_facturar_mayor" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="empresa_depositos">
     <Key>
@@ -1286,4 +1288,25 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="productos_ext">
+    <Key>
+      <PropertyRef Name="auto_producto" />
+    </Key>
+    <Property Name="auto_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_precio_may_1" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_precio_may_2" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_precio_may_3" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="contenido_may_1" Type="Int32" Nullable="false" />
+    <Property Name="contenido_may_2" Type="Int32" Nullable="false" />
+    <Property Name="contenido_may_3" Type="Int32" Nullable="false" />
+    <Property Name="utilidad_may_1" Type="Decimal" Nullable="false" />
+    <Property Name="utilidad_may_2" Type="Decimal" Nullable="false" />
+    <Property Name="utilidad_may_3" Type="Decimal" Nullable="false" />
+    <Property Name="precio_may_1" Type="Decimal" Nullable="false" />
+    <Property Name="precio_may_2" Type="Decimal" Nullable="false" />
+    <Property Name="precio_may_3" Type="Decimal" Nullable="false" />
+    <Property Name="pdmf_1" Type="Decimal" Nullable="false" />
+    <Property Name="pdmf_2" Type="Decimal" Nullable="false" />
+    <Property Name="pdmf_3" Type="Decimal" Nullable="false" />
+  </EntityType>
 </Schema>

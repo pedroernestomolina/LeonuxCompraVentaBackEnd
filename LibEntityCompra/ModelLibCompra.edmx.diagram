@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2db625cab3cd432daa71bdfe61d98f09" Name="Diagram1" ZoomLevel="33">
+      <Diagram DiagramId="2db625cab3cd432daa71bdfe61d98f09" Name="Diagram1" ZoomLevel="32">
         <EntityTypeShape EntityType="compraModel.compras" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="compraModel.proveedores" Width="1.5" PointX="6.75" PointY="11.25" IsExpanded="true" />
         <AssociationConnector Association="compraModel.compras_ibfk_1" ManuallyRouted="false" />
@@ -64,6 +64,7 @@
         <EntityTypeShape EntityType="compraModel.compras_pend_detalle" Width="1.5" PointX="38.125" PointY="10.875" />
         <EntityTypeShape EntityType="compraModel.compras_pend" Width="1.5" PointX="35.875" PointY="10.625" />
         <AssociationConnector Association="compraModel.compras_pend_detalle_ibfk_1" />
+        <EntityTypeShape EntityType="compraModel.productos_ext" Width="1.5" PointX="11.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

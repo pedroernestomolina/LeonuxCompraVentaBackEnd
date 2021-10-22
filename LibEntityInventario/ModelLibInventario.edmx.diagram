@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ad1f3511c37643949b6827222fa659e8" Name="Diagram1" ZoomLevel="27">
+      <Diagram DiagramId="ad1f3511c37643949b6827222fa659e8" Name="Diagram1" ZoomLevel="26">
         <EntityTypeShape EntityType="invModel.productos" Width="2.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="invModel.empresa_departamentos" Width="1.5" PointX="15.125" PointY="24" />
         <EntityTypeShape EntityType="invModel.empresa_depositos" Width="1.5" PointX="9.25" PointY="1.375" />
@@ -59,6 +59,8 @@
         <AssociationConnector Association="invModel.productos_kardex_ibfk_1" />
         <AssociationConnector Association="invModel.productos_kardex_ibfk_3" />
         <EntityTypeShape EntityType="invModel.productos_movimientos_extra" Width="1.5" PointX="6.375" PointY="9.75" />
+        <EntityTypeShape EntityType="invModel.productos_precios_ext" Width="1.5" PointX="10.375" PointY="5.75" />
+        <EntityTypeShape EntityType="invModel.productos_ext" Width="1.5" PointX="11.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

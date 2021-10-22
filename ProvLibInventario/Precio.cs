@@ -36,6 +36,9 @@ namespace ProvLibInventario
                     var et3 = "Precio 3";
                     var et4 = "Precio 4";
                     var et5 = "Precio 5";
+                    var etM1 = "Mayor 1";
+                    var etM2 = "Mayor 2";
+
                     var emp = cnn.empresa.FirstOrDefault();
                     if (emp != null)
                     {
@@ -96,6 +99,12 @@ namespace ProvLibInventario
                                     case "PTO":
                                         r.etqPrecio = et5;
                                         break;
+                                    case "MY1":
+                                        r.etqPrecio = etM1;
+                                        break;
+                                    case "MY2":
+                                        r.etqPrecio = etM2;
+                                        break;
                                 }
                                 return r;
                             }).ToList();
@@ -130,6 +139,14 @@ namespace ProvLibInventario
                     if (entPrd == null)
                     {
                         rt.Mensaje = "[ ID ] PRODUCTO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    var entPrdExt = cnn.productos_ext.Find(autoPrd);
+                    if (entPrdExt== null)
+                    {
+                        rt.Mensaje = "[ ID ] PRODUCTO PRECIO MAYOR NO ENCONTRADO";
                         rt.Result = DtoLib.Enumerados.EnumResult.isError;
                         return rt;
                     }
@@ -194,11 +211,33 @@ namespace ProvLibInventario
                         autoEmp4 = entPrd.auto_precio_4,
                         autoEmp5 = entPrd.auto_precio_pto,
 
+                        costo = entPrd.costo,
                         costoUnd = entPrd.costo_und,
                         costoDivisa = entPrd.divisa,
-                        contempCompra=entPrd.contenido_compras,
-                        empCompra= entPrd.productos_medida2.nombre,
-                        fechaUltActualizacion=_fechaUltActCosto,
+                        contempCompra = entPrd.contenido_compras,
+                        empCompra = entPrd.productos_medida2.nombre,
+                        fechaUltActualizacion = _fechaUltActCosto,
+
+                        // PRECIOS DE MAYOR
+                        autoEmpMay1 = entPrdExt.auto_precio_may_1,
+                        autoEmpMay2 = entPrdExt.auto_precio_may_2,
+                        autoEmpMay3 = entPrdExt.auto_precio_may_3,
+
+                        contenidoMay1 = entPrdExt.contenido_may_1,
+                        contenidoMay2 = entPrdExt.contenido_may_2,
+                        contenidoMay3 = entPrdExt.contenido_may_3,
+
+                        utilidadMay1 = entPrdExt.utilidad_may_1,
+                        utilidadMay2 = entPrdExt.utilidad_may_2,
+                        utilidadMay3 = entPrdExt.utilidad_may_3,
+
+                        precioNetoMay1 = entPrdExt.precio_may_1,
+                        precioNetoMay2 = entPrdExt.precio_may_2,
+                        precioNetoMay3 = entPrdExt.precio_may_3,
+
+                        precioFullDivisaMay1 = entPrdExt.pdmf_1,
+                        precioFullDivisaMay2 = entPrdExt.pdmf_2,
+                        precioFullDivisaMay3 = entPrdExt.pdmf_3,
                     };
 
                     rt.Entidad = precio;
@@ -231,37 +270,60 @@ namespace ProvLibInventario
                             result.Result = DtoLib.Enumerados.EnumResult.isError;
                             return result;
                         }
-                        entPrd.fecha_cambio = fechaSistema.Date;
+                        var entPrdExt = cnn.productos_ext.Find(ficha.autoProducto);
+                        if (entPrdExt== null)
+                        {
+                            result.Mensaje = "[ ID ] Producto Precios Mayor, No Encontrado";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
 
+                        entPrd.fecha_cambio = fechaSistema.Date;
+                        //
                         entPrd.auto_precio_1 = ficha.precio_1.autoEmp;
                         entPrd.precio_1 = ficha.precio_1.precioNeto;
                         entPrd.utilidad_1 = ficha.precio_1.utilidad ;
                         entPrd.pdf_1 = ficha.precio_1.precio_divisa_Neto;
                         entPrd.contenido_1 = ficha.precio_1.contenido;
-
+                        //
                         entPrd.auto_precio_2 = ficha.precio_2.autoEmp;
                         entPrd.precio_2 = ficha.precio_2.precioNeto;
                         entPrd.utilidad_2 = ficha.precio_2.utilidad;
                         entPrd.pdf_2 = ficha.precio_2.precio_divisa_Neto;
                         entPrd.contenido_2 = ficha.precio_2.contenido;
-
+                        //
                         entPrd.auto_precio_3 = ficha.precio_3.autoEmp;
                         entPrd.precio_3 = ficha.precio_3.precioNeto;
                         entPrd.utilidad_3 = ficha.precio_3.utilidad;
                         entPrd.pdf_3 = ficha.precio_3.precio_divisa_Neto;
                         entPrd.contenido_3 = ficha.precio_3.contenido;
-
+                        //
                         entPrd.auto_precio_4 = ficha.precio_4.autoEmp;
                         entPrd.precio_4 = ficha.precio_4.precioNeto;
                         entPrd.utilidad_4 = ficha.precio_4.utilidad;
                         entPrd.pdf_4 = ficha.precio_4.precio_divisa_Neto;
                         entPrd.contenido_4 = ficha.precio_4.contenido;
-
+                        //
                         entPrd.auto_precio_pto = ficha.precio_5.autoEmp;
                         entPrd.precio_pto = ficha.precio_5.precioNeto;
                         entPrd.utilidad_pto = ficha.precio_5.utilidad;
                         entPrd.pdf_pto = ficha.precio_5.precio_divisa_Neto;
                         entPrd.contenido_pto= ficha.precio_5.contenido;
+                        cnn.SaveChanges();
+
+                        //
+                        entPrdExt.auto_precio_may_1 = ficha.may_1.autoEmp;
+                        entPrdExt.precio_may_1 = ficha.may_1.precioNeto;
+                        entPrdExt.utilidad_may_1 = ficha.may_1.utilidad;
+                        entPrdExt.pdmf_1 = ficha.may_1.precio_divisa_Neto;
+                        entPrdExt.contenido_may_1 = ficha.may_1.contenido;
+                        //
+                        entPrdExt.auto_precio_may_2 = ficha.may_2.autoEmp;
+                        entPrdExt.precio_may_2 = ficha.may_2.precioNeto;
+                        entPrdExt.utilidad_may_2 = ficha.may_2.utilidad;
+                        entPrdExt.pdmf_2 = ficha.may_2.precio_divisa_Neto;
+                        entPrdExt.contenido_may_2 = ficha.may_2.contenido;
+                        //
                         cnn.SaveChanges();
 
                         foreach (var it in ficha.historia) 
@@ -278,6 +340,15 @@ namespace ProvLibInventario
                                 precio_id = it.precio_id,
                             };
                             cnn.productos_precios.Add(entHist);
+                            cnn.SaveChanges();
+
+                            var entHistExt = new productos_precios_ext()
+                            {
+                                contenido = it.contenido,
+                                empaque = it.empaque,
+                                id_producto_precio = entHist.id,
+                            };
+                            cnn.productos_precios_ext.Add(entHistExt);
                             cnn.SaveChanges();
                         }
 

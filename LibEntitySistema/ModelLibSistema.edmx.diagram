@@ -26,6 +26,7 @@
         <EntityTypeShape EntityType="sistemaModel.reconversion_monetaria" Width="1.5" PointX="0.75" PointY="13.75" />
         <EntityTypeShape EntityType="sistemaModel.cxp" Width="1.5" PointX="14.625" PointY="10.75" />
         <AssociationConnector Association="sistemaModel.cxp_ibfk_1" />
+        <EntityTypeShape EntityType="sistemaModel.productos_ext" Width="1.5" PointX="14.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -116,6 +116,7 @@ warning 6002: The table/view 'pita.cxc_medio_pago' does not have a primary key d
     <Property Name="autoEmpresaGrupo" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="codigo" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="120" Nullable="false" />
+    <Property Name="estatus_facturar_mayor" Type="varchar" MaxLength="1" Nullable="false" />
   </EntityType>
   <EntityType Name="empresa_tasas">
     <Key>
@@ -366,6 +367,27 @@ warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defin
     <Property Name="resultado_conteo" Type="decimal" Precision="14" Scale="3" Nullable="false" />
     <Property Name="averia" Type="decimal" Precision="14" Scale="3" Nullable="false" />
   </EntityType>
+  <EntityType Name="productos_ext">
+    <Key>
+      <PropertyRef Name="auto_producto" />
+    </Key>
+    <Property Name="auto_producto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_precio_may_1" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_precio_may_2" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_precio_may_3" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="contenido_may_1" Type="int" Nullable="false" />
+    <Property Name="contenido_may_2" Type="int" Nullable="false" />
+    <Property Name="contenido_may_3" Type="int" Nullable="false" />
+    <Property Name="utilidad_may_1" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="utilidad_may_2" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="utilidad_may_3" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="precio_may_1" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+    <Property Name="precio_may_2" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+    <Property Name="precio_may_3" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+    <Property Name="pdmf_1" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+    <Property Name="pdmf_2" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+    <Property Name="pdmf_3" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+  </EntityType>
   <EntityType Name="productos_extra">
     <Key>
       <PropertyRef Name="auto_productos" />
@@ -570,6 +592,15 @@ warning 6002: The table/view 'pita.productos_movimientos_detalle' does not have 
     <Property Name="precio" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
+  <EntityType Name="productos_precios_ext">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_producto_precio" Type="int" Nullable="false" />
+    <Property Name="empaque" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="contenido" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="productos_proveedor">
     <Key>
       <PropertyRef Name="auto_producto" />
@@ -614,11 +645,11 @@ warning 6002: The table/view 'pita.productos_movimientos_detalle' does not have 
     <Property Name="fecha_baja" Type="date" Nullable="false" />
     <Property Name="fecha_ult_pago" Type="date" Nullable="false" />
     <Property Name="fecha_ult_compra" Type="date" Nullable="false" />
-    <Property Name="anticipos" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-    <Property Name="debitos" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-    <Property Name="creditos" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-    <Property Name="saldo" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-    <Property Name="disponible" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="anticipos" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="debitos" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="creditos" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="saldo" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="disponible" Type="decimal" Precision="18" Scale="2" Nullable="false" />
     <Property Name="memo" Type="text" Nullable="false" />
     <Property Name="advertencia" Type="varchar" MaxLength="120" Nullable="false" />
     <Property Name="estatus" Type="varchar" MaxLength="10" Nullable="false" />
@@ -1004,6 +1035,7 @@ warning 6002: The table/view 'pita.productos_movimientos_detalle' does not have 
     <EntitySet Name="productos_conceptos" EntityType="Self.productos_conceptos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_costos" EntityType="Self.productos_costos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_deposito" EntityType="Self.productos_deposito" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_ext" EntityType="Self.productos_ext" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_extra" EntityType="Self.productos_extra" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_grupo" EntityType="Self.productos_grupo" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_marca" EntityType="Self.productos_marca" Schema="pita" store:Type="Tables" />
@@ -1011,6 +1043,7 @@ warning 6002: The table/view 'pita.productos_movimientos_detalle' does not have 
     <EntitySet Name="productos_movimientos" EntityType="Self.productos_movimientos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_movimientos_extra" EntityType="Self.productos_movimientos_extra" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_precios" EntityType="Self.productos_precios" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_precios_ext" EntityType="Self.productos_precios_ext" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_proveedor" EntityType="Self.productos_proveedor" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_subgrupo" EntityType="Self.productos_subgrupo" Schema="pita" store:Type="Tables" />
     <EntitySet Name="proveedores" EntityType="Self.proveedores" Schema="pita" store:Type="Tables" />

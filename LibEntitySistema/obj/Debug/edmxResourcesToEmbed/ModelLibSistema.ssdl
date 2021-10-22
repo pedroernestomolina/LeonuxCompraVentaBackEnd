@@ -232,6 +232,27 @@
     <Property Name="documento" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
+  <EntityType Name="productos_ext">
+    <Key>
+      <PropertyRef Name="auto_producto" />
+    </Key>
+    <Property Name="auto_producto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_precio_may_1" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_precio_may_2" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_precio_may_3" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="contenido_may_1" Type="int" Nullable="false" />
+    <Property Name="contenido_may_2" Type="int" Nullable="false" />
+    <Property Name="contenido_may_3" Type="int" Nullable="false" />
+    <Property Name="utilidad_may_1" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="utilidad_may_2" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="utilidad_may_3" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="precio_may_1" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+    <Property Name="precio_may_2" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+    <Property Name="precio_may_3" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+    <Property Name="pdmf_1" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+    <Property Name="pdmf_2" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+    <Property Name="pdmf_3" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+  </EntityType>
   <EntityType Name="productos_precios">
     <Key>
       <PropertyRef Name="id" />
@@ -604,6 +625,7 @@ warning 6002: The table/view 'pita.sistema_contadores' does not have a primary k
     <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos" EntityType="Self.productos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_costos" EntityType="Self.productos_costos" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_ext" EntityType="Self.productos_ext" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_precios" EntityType="Self.productos_precios" Schema="pita" store:Type="Tables" />
     <EntitySet Name="proveedores" EntityType="Self.proveedores" Schema="pita" store:Type="Tables" />
     <EntitySet Name="reconversion_monetaria" EntityType="Self.reconversion_monetaria" Schema="pita" store:Type="Tables" />

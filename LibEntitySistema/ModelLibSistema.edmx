@@ -237,6 +237,27 @@
           <Property Name="documento" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="productos_ext">
+          <Key>
+            <PropertyRef Name="auto_producto" />
+          </Key>
+          <Property Name="auto_producto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="auto_precio_may_1" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="auto_precio_may_2" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="auto_precio_may_3" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="contenido_may_1" Type="int" Nullable="false" />
+          <Property Name="contenido_may_2" Type="int" Nullable="false" />
+          <Property Name="contenido_may_3" Type="int" Nullable="false" />
+          <Property Name="utilidad_may_1" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="utilidad_may_2" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="utilidad_may_3" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="precio_may_1" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="precio_may_2" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="precio_may_3" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="pdmf_1" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="pdmf_2" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="pdmf_3" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="productos_precios">
           <Key>
             <PropertyRef Name="id" />
@@ -609,6 +630,7 @@ warning 6002: The table/view 'pita.sistema_contadores' does not have a primary k
           <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos" EntityType="Self.productos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_costos" EntityType="Self.productos_costos" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="productos_ext" EntityType="Self.productos_ext" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_precios" EntityType="Self.productos_precios" Schema="pita" store:Type="Tables" />
           <EntitySet Name="proveedores" EntityType="Self.proveedores" Schema="pita" store:Type="Tables" />
           <EntitySet Name="reconversion_monetaria" EntityType="Self.reconversion_monetaria" Schema="pita" store:Type="Tables" />
@@ -766,6 +788,7 @@ FROM `sistema_contadores` AS `sistema_contadores`</DefiningQuery>
             <End Role="proveedores" EntitySet="proveedores" />
             <End Role="cxp" EntitySet="cxp" />
           </AssociationSet>
+          <EntitySet Name="productos_ext" EntityType="sistemaModel.productos_ext" />
         </EntityContainer>
         <EntityType Name="empresa">
           <Key>
@@ -1348,6 +1371,27 @@ FROM `sistema_contadores` AS `sistema_contadores`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="productos_ext">
+          <Key>
+            <PropertyRef Name="auto_producto" />
+          </Key>
+          <Property Name="auto_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_precio_may_1" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_precio_may_2" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_precio_may_3" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="contenido_may_1" Type="Int32" Nullable="false" />
+          <Property Name="contenido_may_2" Type="Int32" Nullable="false" />
+          <Property Name="contenido_may_3" Type="Int32" Nullable="false" />
+          <Property Name="utilidad_may_1" Type="Decimal" Nullable="false" />
+          <Property Name="utilidad_may_2" Type="Decimal" Nullable="false" />
+          <Property Name="utilidad_may_3" Type="Decimal" Nullable="false" />
+          <Property Name="precio_may_1" Type="Decimal" Nullable="false" />
+          <Property Name="precio_may_2" Type="Decimal" Nullable="false" />
+          <Property Name="precio_may_3" Type="Decimal" Nullable="false" />
+          <Property Name="pdmf_1" Type="Decimal" Nullable="false" />
+          <Property Name="pdmf_2" Type="Decimal" Nullable="false" />
+          <Property Name="pdmf_3" Type="Decimal" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1842,6 +1886,28 @@ FROM `sistema_contadores` AS `sistema_contadores`</DefiningQuery>
                 <ScalarProperty Name="tipo_documento" ColumnName="tipo_documento" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos_ext">
+            <EntityTypeMapping TypeName="sistemaModel.productos_ext">
+              <MappingFragment StoreEntitySet="productos_ext">
+                <ScalarProperty Name="pdmf_3" ColumnName="pdmf_3" />
+                <ScalarProperty Name="pdmf_2" ColumnName="pdmf_2" />
+                <ScalarProperty Name="pdmf_1" ColumnName="pdmf_1" />
+                <ScalarProperty Name="precio_may_3" ColumnName="precio_may_3" />
+                <ScalarProperty Name="precio_may_2" ColumnName="precio_may_2" />
+                <ScalarProperty Name="precio_may_1" ColumnName="precio_may_1" />
+                <ScalarProperty Name="utilidad_may_3" ColumnName="utilidad_may_3" />
+                <ScalarProperty Name="utilidad_may_2" ColumnName="utilidad_may_2" />
+                <ScalarProperty Name="utilidad_may_1" ColumnName="utilidad_may_1" />
+                <ScalarProperty Name="contenido_may_3" ColumnName="contenido_may_3" />
+                <ScalarProperty Name="contenido_may_2" ColumnName="contenido_may_2" />
+                <ScalarProperty Name="contenido_may_1" ColumnName="contenido_may_1" />
+                <ScalarProperty Name="auto_precio_may_3" ColumnName="auto_precio_may_3" />
+                <ScalarProperty Name="auto_precio_may_2" ColumnName="auto_precio_may_2" />
+                <ScalarProperty Name="auto_precio_may_1" ColumnName="auto_precio_may_1" />
+                <ScalarProperty Name="auto_producto" ColumnName="auto_producto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

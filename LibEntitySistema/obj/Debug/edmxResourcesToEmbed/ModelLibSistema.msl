@@ -492,5 +492,27 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="productos_ext">
+      <EntityTypeMapping TypeName="sistemaModel.productos_ext">
+        <MappingFragment StoreEntitySet="productos_ext">
+          <ScalarProperty Name="pdmf_3" ColumnName="pdmf_3" />
+          <ScalarProperty Name="pdmf_2" ColumnName="pdmf_2" />
+          <ScalarProperty Name="pdmf_1" ColumnName="pdmf_1" />
+          <ScalarProperty Name="precio_may_3" ColumnName="precio_may_3" />
+          <ScalarProperty Name="precio_may_2" ColumnName="precio_may_2" />
+          <ScalarProperty Name="precio_may_1" ColumnName="precio_may_1" />
+          <ScalarProperty Name="utilidad_may_3" ColumnName="utilidad_may_3" />
+          <ScalarProperty Name="utilidad_may_2" ColumnName="utilidad_may_2" />
+          <ScalarProperty Name="utilidad_may_1" ColumnName="utilidad_may_1" />
+          <ScalarProperty Name="contenido_may_3" ColumnName="contenido_may_3" />
+          <ScalarProperty Name="contenido_may_2" ColumnName="contenido_may_2" />
+          <ScalarProperty Name="contenido_may_1" ColumnName="contenido_may_1" />
+          <ScalarProperty Name="auto_precio_may_3" ColumnName="auto_precio_may_3" />
+          <ScalarProperty Name="auto_precio_may_2" ColumnName="auto_precio_may_2" />
+          <ScalarProperty Name="auto_precio_may_1" ColumnName="auto_precio_may_1" />
+          <ScalarProperty Name="auto_producto" ColumnName="auto_producto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

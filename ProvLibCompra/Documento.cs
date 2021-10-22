@@ -337,6 +337,14 @@ namespace ProvLibCompra
                                 return result; ;
                             }
 
+                            var entPrdExt = cnn.productos_ext.Find(it.autoPrd);
+                            if (entPrdExt == null)
+                            {
+                                result.Mensaje = "[ ID ] PRODUCTO EXT NO ENCONTRADO";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result; ;
+                            }
+
                             entPrd.pdf_1 = it.pDivisaFull_1;
                             entPrd.pdf_2 = it.pDivisaFull_2;
                             entPrd.pdf_3 = it.pDivisaFull_3;
@@ -347,6 +355,14 @@ namespace ProvLibCompra
                             entPrd.precio_3 = it.precioNeto_3;
                             entPrd.precio_4 = it.precioNeto_4;
                             entPrd.precio_pto = it.precioNeto_5;
+                            cnn.SaveChanges();
+
+                            //
+
+                            entPrdExt.pdmf_1  = it.pDivisaFull_May_1;
+                            entPrdExt.pdmf_2= it.pDivisaFull_May_2;
+                            entPrdExt.precio_may_1 = it.precioNeto_May_1;
+                            entPrdExt.precio_may_2= it.precioNeto_May_2;
                             cnn.SaveChanges();
                         }
 

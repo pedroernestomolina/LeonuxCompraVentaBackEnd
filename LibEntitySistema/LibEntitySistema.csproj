@@ -101,6 +101,9 @@
     <Compile Include="productos_costos.cs">
       <DependentUpon>ModelLibSistema.tt</DependentUpon>
     </Compile>
+    <Compile Include="productos_ext.cs">
+      <DependentUpon>ModelLibSistema.tt</DependentUpon>
+    </Compile>
     <Compile Include="productos_precios.cs">
       <DependentUpon>ModelLibSistema.tt</DependentUpon>
     </Compile>

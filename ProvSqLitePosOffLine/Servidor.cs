@@ -2522,6 +2522,10 @@ namespace ProvSqLitePosOffLine
                     sql0 = "select * into outfile \"" + pathDestino + "productos_medida.txt\" FROM productos_medida";
                     comando1 = new MySqlCommand(sql0, cn);
                     rt = comando1.ExecuteNonQuery();
+
+                    sql0 = "select * into outfile \"" + pathDestino + "productos_ext.txt\" FROM productos_ext";
+                    comando1 = new MySqlCommand(sql0, cn);
+                    rt = comando1.ExecuteNonQuery();
                 };
             }
             catch (MySqlException ex2)
@@ -3097,6 +3101,11 @@ namespace ProvSqLitePosOffLine
                         comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();
 
+                        sql0 = "delete from productos_ext";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
+                        rt = comando1.ExecuteNonQuery();
+
 
                         // PROCESO DE INSERTAR
                         sql0 = "load data infile \"" + pathData + "/sistema_configuracion.txt\" into table sistema_configuracion";
@@ -3262,6 +3271,12 @@ namespace ProvSqLitePosOffLine
                         rt = comando1.ExecuteNonQuery();
 
                         sql0 = "load data infile \"" + pathData + "/productos_medida.txt\" into table productos_medida";
+                        comando1 = new MySqlCommand(sql0, cn, tr);
+                        comando1.CommandTimeout = int.MaxValue;
+                        rt = comando1.ExecuteNonQuery();
+
+                        //nuevo
+                        sql0 = "load data infile \"" + pathData + "/productos_ext.txt\" into table productos_ext";
                         comando1 = new MySqlCommand(sql0, cn, tr);
                         comando1.CommandTimeout = int.MaxValue;
                         rt = comando1.ExecuteNonQuery();

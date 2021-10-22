@@ -18,6 +18,8 @@ namespace DtoLibSistema.Configuracion.ActualizarTasaDivisa.ActualizarData
         public decimal precioMonedaEnDivisaFull_3 { get; set; }
         public decimal precioMonedaEnDivisaFull_4 { get; set; }
         public decimal precioMonedaEnDivisaFull_5 { get; set; }
+        public decimal precioMonedaEnDivisaFull_May_1 { get; set; }
+        public decimal precioMonedaEnDivisaFull_May_2 { get; set; }
 
 
         public FichaProductoCostoSinDivisa()
@@ -29,6 +31,8 @@ namespace DtoLibSistema.Configuracion.ActualizarTasaDivisa.ActualizarData
             precioMonedaEnDivisaFull_3 = 0.0m;
             precioMonedaEnDivisaFull_4 = 0.0m;
             precioMonedaEnDivisaFull_5 = 0.0m;
+            precioMonedaEnDivisaFull_May_1 = 0.0m;
+            precioMonedaEnDivisaFull_May_2 = 0.0m;
         }
 
     }

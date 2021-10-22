@@ -257,6 +257,14 @@ namespace ProvLibCompra
                         return rt;
                     }
 
+                    var entPrdExt = cnn.productos_ext.Find(auto);
+                    if (entPrdExt == null)
+                    {
+                        rt.Mensaje = "PRODUCTO EXT NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
                     var nr = new DtoLibCompra.Producto.Utilidad.Ficha()
                     {
                         auto = entPrd.auto,
@@ -277,6 +285,13 @@ namespace ProvLibCompra
                         precio_3 = entPrd.precio_3,
                         precio_4 = entPrd.precio_4,
                         precio_5 = entPrd.precio_pto,
+                        //
+                        contenido_may_1 = entPrdExt.contenido_may_1,
+                        contenido_may_2 = entPrdExt.contenido_may_2,
+                        utilidad_may_1 = entPrdExt.utilidad_may_1,
+                        utilidad_may_2 = entPrdExt.utilidad_may_2,
+                        precio_may_1 = entPrdExt.precio_may_1,
+                        precio_may_2 = entPrdExt.precio_may_2,
                     };
                     rt.Entidad = nr;
                 }

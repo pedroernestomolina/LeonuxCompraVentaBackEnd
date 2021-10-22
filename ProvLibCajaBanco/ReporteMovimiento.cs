@@ -38,18 +38,25 @@ namespace ProvLibCajaBanco
             {
                 using (var cnn = new cajaBancoEntities(_cnCajBanco.ConnectionString))
                 {
+                    cnn.Database.CommandTimeout = 0;
+
                     var list = new List<DtoLibCajaBanco.Reporte.Movimiento.ArqueoCajaPos.Ficha>();
-                    var mov = cnn.pos_arqueo.ToList();
+                    //var mov = cnn.pos_arqueo.ToList();
+                    var desde= DateTime.Now.Date;
+                    var hasta= DateTime.Now.Date;
                     if (filtro.desdeFecha.HasValue)
                     {
-                        var desde = filtro.desdeFecha.Value;
-                        mov = mov.Where(f => f.fecha >= desde).ToList();
+                        desde = filtro.desdeFecha.Value;
+                        //var desde = filtro.desdeFecha.Value;
+                        //mov = mov.Where(f => f.fecha >= desde).ToList();
                     }
                     if (filtro.hastaFecha.HasValue)
                     {
-                        var hasta = filtro.hastaFecha.Value;
-                        mov = mov.Where(f => f.fecha <= hasta).ToList();
+                        hasta= filtro.hastaFecha.Value;
+                        //var hasta = filtro.hastaFecha.Value;
+                        //mov = mov.Where(f => f.fecha <= hasta).ToList();
                     }
+                    var mov = cnn.pos_arqueo.Where(f => f.fecha >= desde && f.fecha <= hasta).ToList();
                     if (filtro.autoSucursal.Trim() != "")
                     {
                         mov = mov.Where(f => f.auto_cierre.Substring(0, 2) == filtro.autoSucursal).ToList();

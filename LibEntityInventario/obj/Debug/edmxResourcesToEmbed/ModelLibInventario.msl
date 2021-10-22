@@ -252,6 +252,7 @@
     <EntitySetMapping Name="empresa_sucursal">
       <EntityTypeMapping TypeName="invModel.empresa_sucursal">
         <MappingFragment StoreEntitySet="empresa_sucursal">
+          <ScalarProperty Name="estatus_facturar_mayor" ColumnName="estatus_facturar_mayor" />
           <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="codigo" ColumnName="codigo" />
           <ScalarProperty Name="autoEmpresaGrupo" ColumnName="autoEmpresaGrupo" />
@@ -565,6 +566,38 @@
           <ScalarProperty Name="factor_cambio" ColumnName="factor_cambio" />
           <ScalarProperty Name="auto_movimiento" ColumnName="auto_movimiento" />
           <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productos_precios_ext">
+      <EntityTypeMapping TypeName="invModel.productos_precios_ext">
+        <MappingFragment StoreEntitySet="productos_precios_ext">
+          <ScalarProperty Name="contenido" ColumnName="contenido" />
+          <ScalarProperty Name="empaque" ColumnName="empaque" />
+          <ScalarProperty Name="id_producto_precio" ColumnName="id_producto_precio" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productos_ext">
+      <EntityTypeMapping TypeName="invModel.productos_ext">
+        <MappingFragment StoreEntitySet="productos_ext">
+          <ScalarProperty Name="pdmf_3" ColumnName="pdmf_3" />
+          <ScalarProperty Name="pdmf_2" ColumnName="pdmf_2" />
+          <ScalarProperty Name="pdmf_1" ColumnName="pdmf_1" />
+          <ScalarProperty Name="precio_may_3" ColumnName="precio_may_3" />
+          <ScalarProperty Name="precio_may_2" ColumnName="precio_may_2" />
+          <ScalarProperty Name="precio_may_1" ColumnName="precio_may_1" />
+          <ScalarProperty Name="utilidad_may_3" ColumnName="utilidad_may_3" />
+          <ScalarProperty Name="utilidad_may_2" ColumnName="utilidad_may_2" />
+          <ScalarProperty Name="utilidad_may_1" ColumnName="utilidad_may_1" />
+          <ScalarProperty Name="contenido_may_3" ColumnName="contenido_may_3" />
+          <ScalarProperty Name="contenido_may_2" ColumnName="contenido_may_2" />
+          <ScalarProperty Name="contenido_may_1" ColumnName="contenido_may_1" />
+          <ScalarProperty Name="auto_precio_may_3" ColumnName="auto_precio_may_3" />
+          <ScalarProperty Name="auto_precio_may_2" ColumnName="auto_precio_may_2" />
+          <ScalarProperty Name="auto_precio_may_1" ColumnName="auto_precio_may_1" />
+          <ScalarProperty Name="auto_producto" ColumnName="auto_producto" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

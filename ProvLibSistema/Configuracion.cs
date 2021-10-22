@@ -1,6 +1,7 @@
 ﻿using LibEntitySistema;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Linq;
@@ -69,80 +70,6 @@ namespace ProvLibSistema
             return result;
         }
 
-        //public DtoLib.ResultadoEntidad<decimal> Configuracion_TasaCambioActual()
-        //{
-        //    var result = new DtoLib.ResultadoEntidad<decimal>();
-
-        //    try
-        //    {
-        //        using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
-        //        {
-        //            var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL12");
-        //            if (ent == null)
-        //            {
-        //                result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
-        //                result.Result = DtoLib.Enumerados.EnumResult.isError;
-        //                return result;
-        //            }
-
-        //            var m1 = 0.0m;
-        //            var cnf = ent.usuario;
-        //            if (cnf.Trim() != "")
-        //            {
-        //                var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
-        //                //var culture = CultureInfo.CreateSpecificCulture("es-ES");
-        //                var culture = CultureInfo.CreateSpecificCulture("en-EN");
-        //                Decimal.TryParse(cnf, style, culture, out m1);
-        //            }
-        //            result.Entidad = m1;
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        result.Mensaje = e.Message;
-        //        result.Result = DtoLib.Enumerados.EnumResult.isError;
-        //    }
-
-        //    return result;
-        //}
-
-        //public DtoLib.ResultadoEntidad<decimal> Configuracion_TasaRecepcionPos()
-        //{
-        //    var result = new DtoLib.ResultadoEntidad<decimal>();
-
-        //    try
-        //    {
-        //        using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
-        //        {
-        //            var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL48");
-        //            if (ent == null)
-        //            {
-        //                result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
-        //                result.Result = DtoLib.Enumerados.EnumResult.isError;
-        //                return result;
-        //            }
-
-        //            var m1 = 0.0m;
-        //            var cnf = ent.usuario;
-        //            if (cnf.Trim() != "")
-        //            {
-        //                var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
-        //                //var culture = CultureInfo.CreateSpecificCulture("es-ES");
-        //                var culture = CultureInfo.CreateSpecificCulture("en-EN");
-        //                Decimal.TryParse(cnf, style, culture, out m1);
-        //            }
-        //            result.Entidad = m1;
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        result.Mensaje = e.Message;
-        //        result.Result = DtoLib.Enumerados.EnumResult.isError;
-        //    }
-
-        //    return result;
-        //}
-
         public DtoLib.Resultado Configuracion_Actualizar_TasaRecepcionPos(DtoLibSistema.Configuracion.ActualizarTasaRecepcionPos.Ficha ficha)
         {
             var result = new DtoLib.Resultado();
@@ -180,10 +107,13 @@ namespace ProvLibSistema
             {
                 using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
                 {
-                    var sql = "SELECT auto , estatus_Divisa, divisa, costo, contenido_compras, " +
-                        "pdf_1, pdf_2, pdf_3, pdf_4, pdf_pto, tasa, precio_1, precio_2, precio_3, precio_4, precio_pto  FROM productos " +
-                        "where estatus='Activo'";
-
+                    var sql = @"SELECT p.auto, p.estatus_Divisa, p.divisa, p.costo, p.contenido_compras, 
+                                    p.pdf_1, p.pdf_2, p.pdf_3, p.pdf_4, p.pdf_pto, p.tasa, 
+                                    p.precio_1, p.precio_2, p.precio_3, p.precio_4, p.precio_pto,
+                                    pext.pdmf_1, pext.pdmf_2, pext.precio_may_1, pext.precio_may_2
+                                    FROM productos as p 
+                                    join productos_ext as pext on p.auto=pext.auto_producto
+                                    where p.estatus='Activo'";
                     var list = cnn.Database.SqlQuery<DtoLibSistema.Configuracion.ActualizarTasaDivisa.CapturarData.Ficha>(sql).ToList();
                     result.Lista = list;
                 }
@@ -320,35 +250,104 @@ namespace ProvLibSistema
                                 entPrd.pdf_4 = rg.precioMonedaEnDivisaFull_4;
                                 entPrd.pdf_pto = rg.precioMonedaEnDivisaFull_5;
                                 cnn.SaveChanges();
-                            }
 
-                            foreach (var rg in ficha.productosCostoPrecioDivisa)
-                            {
-                                var entPrd = cnn.productos.Find(rg.autoPrd);
-                                if (entPrd == null)
+                                var entPrdExt = cnn.productos_ext.Find(rg.autoPrd);
+                                if (entPrdExt == null)
                                 {
                                     rt.Mensaje = "[ ID ] Producto, No Encontrado";
                                     rt.Result = DtoLib.Enumerados.EnumResult.isError;
                                     return rt;
                                 }
-                                entPrd.costo_proveedor = rg.costoProveedor;
-                                entPrd.costo_proveedor_und = rg.costoProveedorUnd;
-                                entPrd.costo_importacion = rg.costoImportacion;
-                                entPrd.costo_importacion_und = rg.costoImportacionUnd;
-                                entPrd.costo_varios = rg.costoVario;
-                                entPrd.costo_varios_und = rg.costoVarioUnd;
-                                entPrd.costo = rg.costo;
-                                entPrd.costo_und = rg.costoUnd;
-                                entPrd.fecha_ult_costo = fechaSistema.Date;
-                                entPrd.fecha_cambio = fechaSistema.Date;
-
-                                entPrd.precio_1 = rg.precio_1;
-                                entPrd.precio_2 = rg.precio_2;
-                                entPrd.precio_3 = rg.precio_3;
-                                entPrd.precio_4 = rg.precio_4;
-                                entPrd.precio_pto = rg.precio_5;
+                                entPrdExt.pdmf_1 = rg.precioMonedaEnDivisaFull_May_1;
+                                entPrdExt.pdmf_2 = rg.precioMonedaEnDivisaFull_May_2;
                                 cnn.SaveChanges();
                             }
+
+                            foreach (var rg in ficha.productosCostoPrecioDivisa)
+                            {
+                                var p1= new MySql.Data.MySqlClient.MySqlParameter("@costoProveedor", rg.costoProveedor);
+                                var p2= new MySql.Data.MySqlClient.MySqlParameter("@costoProveedorUnd", rg.costoProveedorUnd);
+                                var p3= new MySql.Data.MySqlClient.MySqlParameter("@costoImportacion", rg.costoImportacion);
+                                var p4= new MySql.Data.MySqlClient.MySqlParameter("@costoImportacionUnd", rg.costoImportacionUnd);
+                                var p5= new MySql.Data.MySqlClient.MySqlParameter("@costoVario", rg.costoVario);
+                                var p6= new MySql.Data.MySqlClient.MySqlParameter("@costoVarioUnd", rg.costoVarioUnd);
+                                var p7= new MySql.Data.MySqlClient.MySqlParameter("@costo", rg.costo);
+                                var p8= new MySql.Data.MySqlClient.MySqlParameter("@costoUnd", rg.costoUnd);
+                                var p9= new MySql.Data.MySqlClient.MySqlParameter("@fecha", fechaSistema.Date);
+                                var pa= new MySql.Data.MySqlClient.MySqlParameter("@precio_1", rg.precio_1);
+                                var pb= new MySql.Data.MySqlClient.MySqlParameter("@precio_2", rg.precio_2);
+                                var pc= new MySql.Data.MySqlClient.MySqlParameter("@precio_3", rg.precio_3);
+                                var pd= new MySql.Data.MySqlClient.MySqlParameter("@precio_4", rg.precio_4);
+                                var pe= new MySql.Data.MySqlClient.MySqlParameter("@precio_5", rg.precio_5);
+                                var pf= new MySql.Data.MySqlClient.MySqlParameter("@auto", rg.autoPrd);
+                                var sql = @"update productos set 
+                                            costo_proveedor=@costoProveedor,
+                                            costo_proveedor_und = @costoProveedorUnd,
+                                            costo_importacion = @costoImportacion,
+                                            costo_importacion_und = @costoImportacionUnd,
+                                            costo_varios = @costoVario,
+                                            costo_varios_und = @costoVarioUnd,
+                                            costo = @costo,
+                                            costo_und = @costoUnd,
+                                            fecha_ult_costo = @fecha,
+                                            fecha_cambio = @fecha,
+                                            precio_1 = @precio_1,
+                                            precio_2 = @precio_2,
+                                            precio_3 = @precio_3,
+                                            precio_4 = @precio_4,
+                                            precio_pto = @precio_5
+                                            where auto=@auto";
+                                var i= cnn.Database.ExecuteSqlCommand(sql, p1, p2, p3, p4, p5, p6, p7, p8, p9, pa, pb, pc, pd, pe, pf);
+                                if (i == 0) 
+                                {
+                                    rt.Mensaje = "PROBLEMA AL ACTUALIZAR ITEM ["+rg.autoPrd+"]";
+                                    rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return rt;
+                                }
+
+                                var p11 = new MySql.Data.MySqlClient.MySqlParameter("@precio_may_1", rg.precioMay_1);
+                                var p22 = new MySql.Data.MySqlClient.MySqlParameter("@precio_may_2", rg.precioMay_2);
+                                var p33 = new MySql.Data.MySqlClient.MySqlParameter("@auto", rg.autoPrd);
+                                var sql2 = @"update productos_ext set 
+                                            precio_may_1 = @precio_may_1,
+                                            precio_may_2 = @precio_may_2
+                                            where auto_producto=@auto";
+                                var i2 = cnn.Database.ExecuteSqlCommand(sql2, p11, p22, p33);
+                                if (i2 == 0)
+                                {
+                                    rt.Mensaje = "PROBLEMA AL ACTUALIZAR ITEM [" + rg.autoPrd + "]";
+                                    rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return rt;
+                                }
+                            }
+
+                            //foreach (var rg in ficha.productosCostoPrecioDivisa)
+                            //{
+                            //    var entPrd = cnn.productos.Find(rg.autoPrd);
+                            //    if (entPrd == null)
+                            //    {
+                            //        rt.Mensaje = "[ ID ] Producto, No Encontrado";
+                            //        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                            //        return rt;
+                            //    }
+                            //    entPrd.costo_proveedor = rg.costoProveedor;
+                            //    entPrd.costo_proveedor_und = rg.costoProveedorUnd;
+                            //    entPrd.costo_importacion = rg.costoImportacion;
+                            //    entPrd.costo_importacion_und = rg.costoImportacionUnd;
+                            //    entPrd.costo_varios = rg.costoVario;
+                            //    entPrd.costo_varios_und = rg.costoVarioUnd;
+                            //    entPrd.costo = rg.costo;
+                            //    entPrd.costo_und = rg.costoUnd;
+                            //    entPrd.fecha_ult_costo = fechaSistema.Date;
+                            //    entPrd.fecha_cambio = fechaSistema.Date;
+
+                            //    entPrd.precio_1 = rg.precio_1;
+                            //    entPrd.precio_2 = rg.precio_2;
+                            //    entPrd.precio_3 = rg.precio_3;
+                            //    entPrd.precio_4 = rg.precio_4;
+                            //    entPrd.precio_pto = rg.precio_5;
+                            //    cnn.SaveChanges();
+                            //}
 
                             cnn.Configuration.AutoDetectChangesEnabled = false;
                             var lentHist = new List<productos_costos>();
@@ -394,31 +393,33 @@ namespace ProvLibSistema
 
                             ts.Commit();
                         }
-                        catch (DbEntityValidationException e)
+                        catch (DbUpdateException ex)
                         {
-                            var msg = "";
-                            foreach (var eve in e.EntityValidationErrors)
+                            var dbUpdateEx = ex as DbUpdateException;
+                            var sqlEx = dbUpdateEx.InnerException;
+                            if (sqlEx != null)
                             {
-                                foreach (var ve in eve.ValidationErrors)
+                                var exx = (MySql.Data.MySqlClient.MySqlException)sqlEx.InnerException;
+                                if (exx != null)
                                 {
-                                    msg += ve.ErrorMessage;
+                                    if (exx.Number == 1451)
+                                    {
+                                        rt.Mensaje = "REGISTRO CONTIENE DATA RELACIONADA";
+                                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                        return rt;
+                                    }
+                                    if (exx.Number == 1062)
+                                    {
+                                        rt.Mensaje = exx.Message;
+                                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                        return rt;
+                                    }
+                                    rt.Mensaje = exx.Message;
+                                    rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return rt;
                                 }
                             }
-                            rt.Mensaje = msg;
-                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
-                        }
-                        catch (System.Data.Entity.Infrastructure.DbUpdateException e)
-                        {
-                            var msg = "";
-                            foreach (var eve in e.Entries)
-                            {
-                                //msg += eve.m;
-                                foreach (var ve in eve.CurrentValues.PropertyNames)
-                                {
-                                    msg += ve.ToString();
-                                }
-                            }
-                            rt.Mensaje = msg;
+                            rt.Mensaje = ex.Message;
                             rt.Result = DtoLib.Enumerados.EnumResult.isError;
                         }
                         finally 

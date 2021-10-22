@@ -43,5 +43,6 @@ namespace LibEntitySistema
         public virtual DbSet<proveedores> proveedores { get; set; }
         public virtual DbSet<reconversion_monetaria> reconversion_monetaria { get; set; }
         public virtual DbSet<cxp> cxp { get; set; }
+        public virtual DbSet<productos_ext> productos_ext { get; set; }
     }
 }
