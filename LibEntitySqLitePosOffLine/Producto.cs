@@ -66,5 +66,13 @@ namespace LibEntitySqLitePosOffLine
         public long cont_5 { get; set; }
         public string dec_5 { get; set; }
         public string emp_5 { get; set; }
+        public Nullable<decimal> precioMay_1 { get; set; }
+        public Nullable<decimal> precioMay_2 { get; set; }
+        public Nullable<long> contMay_1 { get; set; }
+        public Nullable<long> contMay_2 { get; set; }
+        public string empMay_1 { get; set; }
+        public string empMay_2 { get; set; }
+        public string decMay_1 { get; set; }
+        public string decMay_2 { get; set; }
     }
 }

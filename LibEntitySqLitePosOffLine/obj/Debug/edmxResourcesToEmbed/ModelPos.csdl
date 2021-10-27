@@ -313,6 +313,14 @@
     <Property Name="cont_5" Type="Int64" Nullable="false" />
     <Property Name="dec_5" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
     <Property Name="emp_5" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="precioMay_1" Type="Decimal" Precision="53" Scale="0" />
+    <Property Name="precioMay_2" Type="Decimal" Precision="53" Scale="0" />
+    <Property Name="contMay_1" Type="Int64" />
+    <Property Name="contMay_2" Type="Int64" />
+    <Property Name="empMay_1" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="empMay_2" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="decMay_1" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="decMay_2" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="MovConceptoInv">
     <Key>
@@ -487,5 +495,6 @@
     <Property Name="autoConceptoMovSalida" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
     <Property Name="fechaUltActualizacion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
     <Property Name="habilitar_precio5_ventamayor" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="habilitar_ventaMayor" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

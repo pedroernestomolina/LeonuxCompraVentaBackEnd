@@ -226,6 +226,14 @@
     <Property Name="cont_5" Type="integer" Nullable="false" />
     <Property Name="dec_5" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
     <Property Name="emp_5" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="precioMay_1" Type="decimal" Precision="53" Scale="0" />
+    <Property Name="precioMay_2" Type="decimal" Precision="53" Scale="0" />
+    <Property Name="contMay_1" Type="integer" />
+    <Property Name="contMay_2" Type="integer" />
+    <Property Name="empMay_1" Type="nvarchar" MaxLength="2147483647" />
+    <Property Name="empMay_2" Type="nvarchar" MaxLength="2147483647" />
+    <Property Name="decMay_1" Type="nvarchar" MaxLength="2147483647" />
+    <Property Name="decMay_2" Type="nvarchar" MaxLength="2147483647" />
   </EntityType>
   <EntityType Name="ProductoBarra">
     <Key>
@@ -279,6 +287,7 @@
     <Property Name="autoConceptoMovSalida" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
     <Property Name="fechaUltActualizacion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
     <Property Name="habilitar_precio5_ventamayor" Type="nvarchar" MaxLength="2147483647" />
+    <Property Name="habilitar_ventaMayor" Type="nvarchar" MaxLength="2147483647" />
   </EntityType>
   <EntityType Name="Transporte">
     <Key>

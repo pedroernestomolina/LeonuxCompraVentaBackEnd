@@ -60,6 +60,8 @@ namespace ProvSqLitePosOffLine
         public DataPrecio Precio_3 { get; set; }
         public DataPrecio Precio_4 { get; set; }
         public DataPrecio Precio_5 { get; set; }
+        public DataPrecio PrecioMay_1 { get; set; }
+        public DataPrecio PrecioMay_2 { get; set; }
     }
 
     public class DataPrecio
@@ -246,6 +248,7 @@ namespace ProvSqLitePosOffLine
             var _tarifaAsignada = "1";
             var _fechaServidor = DateTime.Now.Date;
             var _habilitar_precio5_ventaMayor = false;
+            var _habilitar_ventaMayor = false;
 
             try
             {
@@ -271,12 +274,16 @@ namespace ProvSqLitePosOffLine
 
                     var sql = "select p.*, d.codigo as codigoDepart, d.nombre as nombreDepart, " +
                         "g.codigo as codigoGrupo, g.nombre as nombreGrupo, m.nombre as nombreMarca, " +
+                        "pext.precio_may_1, pext.precio_may_2, pext.contenido_may_1, pext.contenido_may_2, pext.utilidad_may_1, pext.utilidad_may_2, "+
                         "pm.nombre as pv1Nombre, pm.decimales as pv1Decimales, " +
                         "pm2.nombre as pv2Nombre, pm2.decimales as pv2Decimales, " +
                         "pm3.nombre as pv3Nombre, pm3.decimales as pv3Decimales, " +
                         "pm4.nombre as pv4Nombre, pm4.decimales as pv4Decimales, " +
-                        "pm5.nombre as pv5Nombre, pm5.decimales as pv5Decimales " +
+                        "pm5.nombre as pv5Nombre, pm5.decimales as pv5Decimales, " +
+                        "pmMay1.nombre as pvMay1Nombre, pmMay1.decimales as pvMay1Decimales, " +
+                        "pmMay2.nombre as pvMay2Nombre, pmMay2.decimales as pvMay2Decimales " +
                         "from productos as p join empresa_departamentos as d on p.auto_departamento=d.auto " +
+                        " join productos_ext as pext on p.auto=pext.auto_producto "+
                         " join productos_grupo as g on p.auto_grupo=g.auto " +
                         " join productos_marca as m on p.auto_marca=m.auto " +
                         " join productos_medida as pm on p.auto_precio_1=pm.auto " +
@@ -284,6 +291,8 @@ namespace ProvSqLitePosOffLine
                         " join productos_medida as pm3 on p.auto_precio_3=pm3.auto " +
                         " join productos_medida as pm4 on p.auto_precio_4=pm4.auto " +
                         " join productos_medida as pm5 on p.auto_precio_pto=pm5.auto " +
+                        " join productos_medida as pmMay1 on pext.auto_precio_may_1=pmMay1.auto " +
+                        " join productos_medida as pmMay2 on pext.auto_precio_may_2=pmMay2.auto " +
                         " join productos_deposito as dep on p.auto=dep.auto_producto and dep.auto_deposito=@deposito and dep.fisica>0 ";
 
                     var sql2 = "select * from productos_alterno";
@@ -426,12 +435,28 @@ namespace ProvSqLitePosOffLine
                             Empaque = reader.GetString("pv5Nombre"),
                             Neto = reader.GetDecimal("precio_pto"),
                         };
+                        var pM1 = new DataPrecio()
+                        {
+                            Contenido = reader.GetInt32("contenido_may_1"),
+                            Decimales = reader.GetString("pvMay1Decimales"),
+                            Empaque = reader.GetString("pvMay1Nombre"),
+                            Neto = reader.GetDecimal("precio_may_1"),
+                        };
+                        var pM2 = new DataPrecio()
+                        {
+                            Contenido = reader.GetInt32("contenido_may_2"),
+                            Decimales = reader.GetString("pvMay2Decimales"),
+                            Empaque = reader.GetString("pvMay2Nombre"),
+                            Neto = reader.GetDecimal("precio_may_2"),
+                        };
 
                         nr.Precio_1 = pv1;
                         nr.Precio_2 = pv2;
                         nr.Precio_3 = pv3;
                         nr.Precio_4 = pv4;
                         nr.Precio_5 = pv5;
+                        nr.PrecioMay_1 = pM1;
+                        nr.PrecioMay_2 = pM2;
 
                         list.Add(nr);
                     }
@@ -669,13 +694,14 @@ namespace ProvSqLitePosOffLine
                     var xhabilitar_facturar_Mayor = comandoL.ExecuteScalar().ToString(); // SI,NO
                     if (xhabilitar_facturar_Mayor=="1")
                     {
-                        MySqlCommand comandok = new MySqlCommand(sqlK);
-                        comandok.Connection = cn;
-                        var xhabilitar_precio5_ventaMayor = comandok.ExecuteScalar().ToString(); // SI,NO
-                        if (xhabilitar_precio5_ventaMayor.Trim().ToUpper() == "SI")
-                        {
-                            _habilitar_precio5_ventaMayor = true;
-                        }
+                        _habilitar_ventaMayor = true;
+                        //MySqlCommand comandok = new MySqlCommand(sqlK);
+                        //comandok.Connection = cn;
+                        //var xhabilitar_precio5_ventaMayor = comandok.ExecuteScalar().ToString(); // SI,NO
+                        //if (xhabilitar_precio5_ventaMayor.Trim().ToUpper() == "SI")
+                        //{
+                        //    _habilitar_precio5_ventaMayor = true;
+                        //}
                     }
 
                     exito = true;
@@ -723,6 +749,7 @@ namespace ProvSqLitePosOffLine
                                 sistema.tarifaAsignada = _tarifaAsignada;
                                 sistema.EtiquetarPrecioPorTipoNegocio = _etiquetarPrecioPorTipoNegocio ? "S" : "N";
                                 sistema.habilitar_precio5_ventamayor = _habilitar_precio5_ventaMayor ? "S" : "N";
+                                sistema.habilitar_ventaMayor = _habilitar_ventaMayor ? "S" : "N";
                                 sistema.fechaUltActualizacion = _fechaServidor.ToShortDateString();
                                 cnn.SaveChanges();
                             }
@@ -1003,6 +1030,14 @@ namespace ProvSqLitePosOffLine
                                     autoSubGrupo = r.AutoSubGrupo,
                                     autoMarca = r.AutoMarca,
                                     autoTasaIva = r.AutoTasaIva,
+                                    contMay_1 = r.PrecioMay_1.Contenido,
+                                    contMay_2 = r.PrecioMay_2.Contenido,
+                                    precioMay_1 = r.PrecioMay_1.Neto,
+                                    precioMay_2 = r.PrecioMay_2.Neto,
+                                    decMay_1 = r.PrecioMay_1.Decimales,
+                                    decMay_2 = r.PrecioMay_2.Decimales,
+                                    empMay_1 = r.PrecioMay_1.Empaque,
+                                    empMay_2 = r.PrecioMay_2.Empaque,
                                 };
                                 listnr.Add(nr);
                             }
@@ -2763,7 +2798,7 @@ namespace ProvSqLitePosOffLine
 
 
                         //KARDEX RESUMEN
-                        sql0 = "select auto_producto, sum(cantidad*signo) as cnt, auto_deposito " +
+                        sql0 = "select auto_producto, sum(cantidad_und*signo) as cnt, auto_deposito " +
                                "into outfile \"" + pathDestino + "productos_kardex_resumen.txt\"" +
                                "FROM productos_kardex where estatus_anulado='0' and modulo='Ventas' and cierre_ftp='' " +
                                "group by auto_producto, auto_deposito";

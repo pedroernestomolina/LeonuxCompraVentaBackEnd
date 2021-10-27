@@ -231,6 +231,14 @@
           <Property Name="cont_5" Type="integer" Nullable="false" />
           <Property Name="dec_5" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="emp_5" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="precioMay_1" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="precioMay_2" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="contMay_1" Type="integer" />
+          <Property Name="contMay_2" Type="integer" />
+          <Property Name="empMay_1" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="empMay_2" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="decMay_1" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="decMay_2" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="ProductoBarra">
           <Key>
@@ -284,6 +292,7 @@
           <Property Name="autoConceptoMovSalida" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="fechaUltActualizacion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="habilitar_precio5_ventamayor" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="habilitar_ventaMayor" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="Transporte">
           <Key>
@@ -810,6 +819,14 @@
           <Property Name="cont_5" Type="Int64" Nullable="false" />
           <Property Name="dec_5" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="emp_5" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="precioMay_1" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="precioMay_2" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="contMay_1" Type="Int64" />
+          <Property Name="contMay_2" Type="Int64" />
+          <Property Name="empMay_1" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="empMay_2" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="decMay_1" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="decMay_2" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MovConceptoInv">
           <Key>
@@ -984,6 +1001,7 @@
           <Property Name="autoConceptoMovSalida" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="fechaUltActualizacion" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="habilitar_precio5_ventamayor" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="habilitar_ventaMayor" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1242,6 +1260,14 @@
           <EntitySetMapping Name="Producto">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Producto">
               <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="decMay_2" ColumnName="decMay_2" />
+                <ScalarProperty Name="decMay_1" ColumnName="decMay_1" />
+                <ScalarProperty Name="empMay_2" ColumnName="empMay_2" />
+                <ScalarProperty Name="empMay_1" ColumnName="empMay_1" />
+                <ScalarProperty Name="contMay_2" ColumnName="contMay_2" />
+                <ScalarProperty Name="contMay_1" ColumnName="contMay_1" />
+                <ScalarProperty Name="precioMay_2" ColumnName="precioMay_2" />
+                <ScalarProperty Name="precioMay_1" ColumnName="precioMay_1" />
                 <ScalarProperty Name="emp_5" ColumnName="emp_5" />
                 <ScalarProperty Name="dec_5" ColumnName="dec_5" />
                 <ScalarProperty Name="cont_5" ColumnName="cont_5" />
@@ -1441,6 +1467,7 @@
           <EntitySetMapping Name="Sistema">
             <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Sistema">
               <MappingFragment StoreEntitySet="Sistema">
+                <ScalarProperty Name="habilitar_ventaMayor" ColumnName="habilitar_ventaMayor" />
                 <ScalarProperty Name="habilitar_precio5_ventamayor" ColumnName="habilitar_precio5_ventamayor" />
                 <ScalarProperty Name="fechaUltActualizacion" ColumnName="fechaUltActualizacion" />
                 <ScalarProperty Name="autoConceptoMovSalida" ColumnName="autoConceptoMovSalida" />

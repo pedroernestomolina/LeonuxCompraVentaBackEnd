@@ -252,6 +252,14 @@
     <EntitySetMapping Name="Producto">
       <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Producto">
         <MappingFragment StoreEntitySet="Producto">
+          <ScalarProperty Name="decMay_2" ColumnName="decMay_2" />
+          <ScalarProperty Name="decMay_1" ColumnName="decMay_1" />
+          <ScalarProperty Name="empMay_2" ColumnName="empMay_2" />
+          <ScalarProperty Name="empMay_1" ColumnName="empMay_1" />
+          <ScalarProperty Name="contMay_2" ColumnName="contMay_2" />
+          <ScalarProperty Name="contMay_1" ColumnName="contMay_1" />
+          <ScalarProperty Name="precioMay_2" ColumnName="precioMay_2" />
+          <ScalarProperty Name="precioMay_1" ColumnName="precioMay_1" />
           <ScalarProperty Name="emp_5" ColumnName="emp_5" />
           <ScalarProperty Name="dec_5" ColumnName="dec_5" />
           <ScalarProperty Name="cont_5" ColumnName="cont_5" />
@@ -451,6 +459,7 @@
     <EntitySetMapping Name="Sistema">
       <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Sistema">
         <MappingFragment StoreEntitySet="Sistema">
+          <ScalarProperty Name="habilitar_ventaMayor" ColumnName="habilitar_ventaMayor" />
           <ScalarProperty Name="habilitar_precio5_ventamayor" ColumnName="habilitar_precio5_ventamayor" />
           <ScalarProperty Name="fechaUltActualizacion" ColumnName="fechaUltActualizacion" />
           <ScalarProperty Name="autoConceptoMovSalida" ColumnName="autoConceptoMovSalida" />

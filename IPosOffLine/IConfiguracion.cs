@@ -33,6 +33,7 @@ namespace IPosOffLine
         DtoLib.Resultado Configuracion_ActualizarClaveAcceso_Clave_1();
 
         DtoLib.ResultadoEntidad<bool> Configuracion_Habilitar_Precio5_VentaMayor();
+        DtoLib.ResultadoEntidad<bool> Configuracion_Habilitar_VentaMayor();
 
     }
 
