@@ -10,7 +10,8 @@ namespace IPosOffLine
 
     public interface IProvider: IProducto, ICliente, IServidor, IItem, IVentaDocumento, IFiscal, IConfiguracion,
         IPendiente, IPermiso, IDeposito, ICobrador, IVendedor, ITransporte, IMedioCobro, ISerie,
-        IJornada, IOperador, IUsuario, IMovConceptoInv, IReporte, IMonitor, IMonitorBoletin
+        IJornada, IOperador, IUsuario, IMovConceptoInv, IReporte, IMonitor, IMonitorBoletin,
+        IGestionBD
     {
 
         void setServidorRemoto(string instancia, string baseDatos);

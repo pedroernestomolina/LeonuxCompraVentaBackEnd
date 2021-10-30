@@ -125,6 +125,8 @@
     <Compile Include="Movimiento\Lista\Resumen.cs" />
     <Compile Include="Analisis\General\Ficha.cs" />
     <Compile Include="Analisis\General\Filtro.cs" />
+    <Compile Include="Movimiento\Traslado\Capturar\ProductoPorDebajoNivelMinimo\Ficha.cs" />
+    <Compile Include="Movimiento\Traslado\Capturar\ProductoPorDebajoNivelMinimo\Filtro.cs" />
     <Compile Include="Movimiento\Traslado\Consultar\Filtro.cs" />
     <Compile Include="Movimiento\Traslado\Consultar\ProductoPorDebajoNivelMinimo.cs" />
     <Compile Include="Movimiento\Traslado\Insertar\Ficha.cs" />

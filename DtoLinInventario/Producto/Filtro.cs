@@ -32,7 +32,9 @@ namespace DtoLibInventario.Producto
         public Enumerados.EnumOferta oferta { get; set; }
 
         public Enumerados.EnumMetodoBusqueda MetodoBusqueda { get; set; }
-        public Existencia existencia { get; set; } 
+        public Existencia existencia { get; set; }
+
+        public bool? precioMayorHabilitado { get; set; }
 
 
         public Filtro()
@@ -53,6 +55,7 @@ namespace DtoLibInventario.Producto
             oferta = Enumerados.EnumOferta.SnDefinir;
             existencia = Existencia.SinDefinir ;
             catalogo = Enumerados.EnumCatalogo.SnDefinir;
+            precioMayorHabilitado = null;
         }
 
     }

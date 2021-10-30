@@ -13,10 +13,10 @@ namespace ConsolaPosOffLine
 
         static void Main(string[] args)
         {
-            IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"C:\Modulos Leonux\POS\Data\Leonux.db");
-            //IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"C:\Modulos Leonux\POS\Data\LeonuxPosOffLine.db");
+            //IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"C:\Modulos Leonux\POS\Data\Leonux.db");
             //IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"D:\Proyectos FoxSystem\CompraVenta\LeonuxPosOffLine.db");
-            _offLine.setServidorRemoto("localhost", "bodega");
+            IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"C:\POS\Data\LeonuxPosOffLine.db");
+            _offLine.setServidorRemoto("localhost", "00000001");
 
             //var fechaActual = _offLine.FechaServidor();
             //var r01 = _offLine.Producto("0000000005");
@@ -63,44 +63,57 @@ namespace ConsolaPosOffLine
             //var xfiltro2 = new DtoLibPosOffLine.Monitor.ResumenDia.Filtro() { equipo = "02", idOperador = 366 };
             //var rx2 = _offLine.Monitor_Resumen_Dia(xfiltro2);
 
-            var xr = _offLine.TestBD_Local();
+            //var xr = _offLine.TestBD_Local();
 
-            var r00 = _offLine.Monitor_ListaResumen();
-            r00.Lista.Add(new DtoLibPosOffLine.Monitor.ListaResumen.Ficha());
+            //var r00 = _offLine.Monitor_ListaResumen();
+            //r00.Lista.Add(new DtoLibPosOffLine.Monitor.ListaResumen.Ficha());
 
-            foreach (DtoLibPosOffLine.Monitor.ListaResumen.Ficha rCierre in r00.Lista)
+            //foreach (DtoLibPosOffLine.Monitor.ListaResumen.Ficha rCierre in r00.Lista)
+            //{
+            //    var xcierre = rCierre.cierreGenerar;
+            //    var filtro = new DtoLibPosOffLine.Monitor.GenerarResumen.Filtro()
+            //    {
+            //        cierre = xcierre,
+            //    };
+            //    var r01 = _offLine.Monitor_GenerarResumen(filtro);
+
+            //    var list = r01.Lista.Select(s =>
+            //    {
+            //        var rg = new DtoLibPosOffLine.Monitor.SubirResumen.Detalle()
+            //        {
+            //            autoProducto = s.autoProducto,
+            //            cnt = s.cnt,
+            //        };
+            //        return rg;
+            //    }).ToList();
+            //    var ficha = new DtoLibPosOffLine.Monitor.SubirResumen.Ficha()
+            //    {
+            //        codSucursal = "08",
+            //        cierre = xcierre,
+            //        Lista = list,
+            //    };
+            //    var r02 = _offLine.Monitor_SubirResumen(ficha);
+
+            //    var cierre = new DtoLibPosOffLine.Monitor.InsertarCierre.Ficha()
+            //    {
+            //        cierre = xcierre,
+            //        estatus = "T",
+            //    };
+            //    var r03 = _offLine.Monitor_InsertarCierre(cierre);
+            //}
+
+
+            var r01 = _offLine.Gestion_AgregarCampos();
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
             {
-                var xcierre = rCierre.cierreGenerar;
-                var filtro = new DtoLibPosOffLine.Monitor.GenerarResumen.Filtro()
-                {
-                    cierre = xcierre,
-                };
-                var r01 = _offLine.Monitor_GenerarResumen(filtro);
-
-                var list = r01.Lista.Select(s =>
-                {
-                    var rg = new DtoLibPosOffLine.Monitor.SubirResumen.Detalle()
-                    {
-                        autoProducto = s.autoProducto,
-                        cnt = s.cnt,
-                    };
-                    return rg;
-                }).ToList();
-                var ficha = new DtoLibPosOffLine.Monitor.SubirResumen.Ficha()
-                {
-                    codSucursal = "08",
-                    cierre = xcierre,
-                    Lista = list,
-                };
-                var r02 = _offLine.Monitor_SubirResumen(ficha);
-
-                var cierre = new DtoLibPosOffLine.Monitor.InsertarCierre.Ficha()
-                {
-                    cierre = xcierre,
-                    estatus = "T",
-                };
-                var r03 = _offLine.Monitor_InsertarCierre(cierre);
+                Console.WriteLine(r01.Mensaje);
             }
+            else
+            {
+                Console.WriteLine("CAMPO CREADO SATISFACTORIAMENTE");
+            }
+            Console.ReadKey();
+
         }
 
     }

@@ -36,11 +36,11 @@ namespace ProvLibInventario
                         "p.precio_pto as pNeto5, p.costo, " +
                         "p.divisa as costoDivisa, (select sum(fisica) from productos_deposito where auto_producto=p.auto) as existencia from productos as p ";
 
-                    var xsql2 = "join empresa_departamentos as ed on p.auto_departamento=ed.auto " +
-                        "join productos_grupo as pg on p.auto_grupo=pg.auto " +
-                        "join productos_medida as pm on p.auto_empaque_compra=pm.auto " +
-                        "join productos_marca as pmarca on p.auto_marca=pmarca.auto " +
-                        "join empresa_tasas as etasa on p.auto_tasa=etasa.auto ";
+                    var xsql2 = @"join empresa_departamentos as ed on p.auto_departamento=ed.auto
+                                join productos_grupo as pg on p.auto_grupo=pg.auto 
+                                join productos_medida as pm on p.auto_empaque_compra=pm.auto 
+                                join productos_marca as pmarca on p.auto_marca=pmarca.auto 
+                                join empresa_tasas as etasa on p.auto_tasa=etasa.auto ";
 
                     var xsql3 = "where 1=1 ";
 
@@ -279,6 +279,14 @@ namespace ProvLibInventario
                         xsql3 += " and pproveedor.auto_proveedor=@autoProveedor ";
                         pF.ParameterName = "@autoProveedor";
                         pF.Value = filtro.autoProveedor;
+                    }
+                    if (filtro.precioMayorHabilitado != null)
+                    {
+                        if (filtro.precioMayorHabilitado.Value == true) 
+                        {
+                            xsql2 += " join productos_ext as pext on p.auto=pext.auto_producto ";
+                            xsql3 += " and (pext.utilidad_may_1<>0 or pext.utilidad_may_2<>0 or pext.contenido_may_1>1 or pext.contenido_may_2>1) ";
+                        }
                     }
 
                     var xsql = xsql1 + xsql2 + xsql3;

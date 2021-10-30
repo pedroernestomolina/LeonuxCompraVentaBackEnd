@@ -1981,6 +1981,71 @@ namespace ProvLibInventario
             return result;
         }
 
+
+        //
+
+        public DtoLib.ResultadoLista<DtoLibInventario.Movimiento.Traslado.Capturar.ProductoPorDebajoNivelMinimo.Ficha> Capturar_ProductosPorDebajoNivelMinimo(DtoLibInventario.Movimiento.Traslado.Capturar.ProductoPorDebajoNivelMinimo.Filtro filtro)
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibInventario.Movimiento.Traslado.Capturar.ProductoPorDebajoNivelMinimo.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    var sql_1 = @"select p.auto as autoPrd, p.codigo as codigoPrd, p.nombre as nombrePrd, p.contenido_compras as empCompraCont, 
+                                  p.auto_departamento as autoDepartamento, p.auto_grupo as autoGrupo, p.categoria, 
+                                  p.costo_und as costoUnd, p.divisa as costoDivisa, p.estatus_divisa as estatusDivisa,
+                                  p.fecha_cambio as fechaUltActualizacion,
+                                  eTasa.tasa as tasaIva, eTasa.nombre as tasaIvaNombre,
+                                  eDepo.auto as autoDeposito, eDepo.codigo as codigoDeposito, eDepo.nombre as nombreDeposito, 
+                                  pDepo.fisica as exFisica, pDepo.disponible as exDisponible, pDepo.reservada as exReservada,
+                                  pDepo.nivel_minimo as nivelMinimo, pDepo.nivel_optimo as nivelOptimo,
+                                  eDepoOrigen.auto as autoDepositoOrigen, eDepoOrigen.codigo as codigoDepositoOrigen, eDepoOrigen.nombre as nombreDepositoOrigen, 
+                                  pDepoOrigen.fisica as exFisicaOrigen, pDepoOrigen.reservada as exReservaOrigen, pDepoOrigen.disponible as exDisponibleOrigen,
+                                  pMed.decimales, pMed.nombre as empCompra
+                                  from productos as p 
+                                  join productos_medida as pMed on p.auto_empaque_compra=pMed.auto 
+                                  join productos_deposito as pDepo on p.auto=pDepo.auto_producto 
+                                  join productos_deposito as pDepoOrigen on p.auto=pDepoOrigen.auto_producto and pDepoOrigen.auto_deposito=@autoDepOrigen
+                                  join empresa_depositos as eDepo on pDepo.auto_deposito=eDepo.auto
+                                  join empresa_depositos as eDepoOrigen on pDepoOrigen.auto_deposito=eDepoOrigen.auto
+                                  join empresa_departamentos as eDepart on p.auto_departamento=eDepart.auto
+                                  join empresa_tasas as eTasa on p.auto_tasa=eTasa.auto ";
+                    p3.ParameterName = "@autoDepOrigen";
+                    p3.Value = filtro.autoDepositoOrigen;
+
+                    var sql_2 = @" where p.estatus='ACTIVO' and pDepo.fisica<pDepo.nivel_minimo ";
+                    if (filtro.autoDepositoVerificarNivel != "")
+                    {
+                        p1.ParameterName = "@autoDeposito";
+                        p1.Value = filtro.autoDepositoVerificarNivel;
+                        sql_2 += " and pDepo.auto_deposito=@autoDeposito ";
+                    }
+                    if (filtro.autoDepartamento != "")
+                    {
+                        p2.ParameterName = "@autoDepartamento";
+                        p2.Value = filtro.autoDepartamento;
+                        sql_2 += " and p.auto_departamento=@autoDepartamento ";
+                    }
+                    var sql = sql_1 + sql_2;
+                    var lt=cnn.Database.SqlQuery<DtoLibInventario.Movimiento.Traslado.Capturar.ProductoPorDebajoNivelMinimo.Ficha>(sql, p1, p2,p3).ToList();
+                    result.Lista = lt;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+
     }
 
 }

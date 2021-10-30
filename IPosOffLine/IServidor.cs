@@ -21,9 +21,6 @@ namespace IPosOffLine
         DtoLib.Resultado Servidor_Principal_PreprararCierre(string codigoEmpresa, string pathLeonuxBandeja, string pathLeonuxFtpBandejaData);
         DtoLib.Resultado Servidor_Principal_InsertarBoletin(string codigoSuc, string rutaArchivoTxt);
 
-        //
-        DtoLib.Resultado Servidor_AgregarCampoTabla_Sistema_Habilitar_Precio_VentaMayor();
-
     }
 
 }

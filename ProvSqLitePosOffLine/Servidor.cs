@@ -3348,32 +3348,6 @@ namespace ProvSqLitePosOffLine
             return result;
         }
 
-        public DtoLib.Resultado Servidor_AgregarCampoTabla_Sistema_Habilitar_Precio_VentaMayor()
-        {
-            var rt = new DtoLib.Resultado();
-            try
-            {
-                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
-                {
-                    using (var ts = cnn.Database.BeginTransaction())
-                    {
-
-                        var sql = "alter table sistema add habilitar_precio5_ventamayor TEXT";
-                        var result = cnn.Database.ExecuteSqlCommand(sql);
-                        cnn.SaveChanges();
-                        ts.Commit();
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                rt.Mensaje = e.Message;
-                rt.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return rt;
-        }
-
     }
 
 }

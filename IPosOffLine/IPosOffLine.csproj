@@ -44,6 +44,7 @@
     <Compile Include="IConfiguracion.cs" />
     <Compile Include="IDeposito.cs" />
     <Compile Include="IFiscal.cs" />
+    <Compile Include="IGestionBD.cs" />
     <Compile Include="IItem.cs" />
     <Compile Include="IJornada.cs" />
     <Compile Include="IMedioCobro.cs" />

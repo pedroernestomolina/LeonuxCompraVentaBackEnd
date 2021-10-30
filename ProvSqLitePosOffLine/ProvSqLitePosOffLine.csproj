@@ -73,6 +73,7 @@
     <Compile Include="Configuracion.cs" />
     <Compile Include="Deposito.cs" />
     <Compile Include="Fiscal.cs" />
+    <Compile Include="GestionBD.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Jornada.cs" />
     <Compile Include="MedioCobro.cs" />
