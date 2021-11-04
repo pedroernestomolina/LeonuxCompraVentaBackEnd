@@ -24,23 +24,28 @@ namespace ProvLibInventario
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
 
-                    var xsql1 = "select p.auto, p.codigo, p.nombre_corto as nombre, p.nombre as descripcion, ed.nombre as departamento, pg.nombre as grupo, " +
-                        "pmarca.nombre as marca, p.modelo, p.referencia, p.categoria as xcategoria, p.origen as xorigen, " +
-                        "p.contenido_compras as contenido, p.estatus_cambio, " +
-                        "pm.nombre as empaque, etasa.tasa as tasaIva, etasa.nombre as tasaIvaDescripcion, " +
-                        "p.estatus as xestatus, p.estatus_divisa, p.estatus_pesado, p.estatus_catalogo, p.estatus_oferta, " +
-                        "p.fecha_alta as fechaAlta, p.fecha_cambio as fechaUltActualizacion, p.fecha_ult_costo as fechaUltCambioCosto, " +
-                        "p.pdf_1 as pDivisaFull_1, p.pdf_2 as pDivisaFull_2, p.pdf_3 as pDivisaFull_3, " +
-                        "p.pdf_4 as pDivisaFull_4, p.pdf_pto as pDivisaFull_5, " +
-                        "p.precio_1 as pNeto1, p.precio_2 as pNeto2, p.precio_3 as pNeto3, p.precio_4 as pNeto4, " +
-                        "p.precio_pto as pNeto5, p.costo, " +
-                        "p.divisa as costoDivisa, (select sum(fisica) from productos_deposito where auto_producto=p.auto) as existencia from productos as p ";
+                    var xsql1 = @"select p.auto, p.codigo, p.nombre_corto as nombre, p.nombre as descripcion, ed.nombre as departamento, pg.nombre as grupo, 
+                        pmarca.nombre as marca, p.modelo, p.referencia, p.categoria as xcategoria, p.origen as xorigen, 
+                        p.contenido_compras as contenido, p.estatus_cambio, 
+                        pm.nombre as empaque, etasa.tasa as tasaIva, etasa.nombre as tasaIvaDescripcion, 
+                        p.estatus as xestatus, p.estatus_divisa, p.estatus_pesado, p.estatus_catalogo, p.estatus_oferta, 
+                        p.fecha_alta as fechaAlta, p.fecha_cambio as fechaUltActualizacion, p.fecha_ult_costo as fechaUltCambioCosto, 
+                        p.pdf_1 as pDivisaFull_1, p.pdf_2 as pDivisaFull_2, p.pdf_3 as pDivisaFull_3, 
+                        p.pdf_4 as pDivisaFull_4, p.pdf_pto as pDivisaFull_5, 
+                        p.precio_1 as pNeto1, p.precio_2 as pNeto2, p.precio_3 as pNeto3, p.precio_4 as pNeto4, 
+                        p.precio_pto as pNeto5, p.costo, 
+                        pext.precio_may_1 as pNetoMay1, pext.precio_may_2 as pNetoMay2, 
+                        pext.contenido_may_1 as contMay1, pext.contenido_may_2 as contMay2, 
+                        pext.pdmf_1 as pDivisaFullMay_1,
+                        pext.pdmf_2 as pDivisaFullMay_2,
+                        p.divisa as costoDivisa, (select sum(fisica) from productos_deposito where auto_producto=p.auto) as existencia from productos as p ";
 
-                    var xsql2 = @"join empresa_departamentos as ed on p.auto_departamento=ed.auto
+                    var xsql2 = @" join empresa_departamentos as ed on p.auto_departamento=ed.auto
                                 join productos_grupo as pg on p.auto_grupo=pg.auto 
                                 join productos_medida as pm on p.auto_empaque_compra=pm.auto 
                                 join productos_marca as pmarca on p.auto_marca=pmarca.auto 
-                                join empresa_tasas as etasa on p.auto_tasa=etasa.auto ";
+                                join empresa_tasas as etasa on p.auto_tasa=etasa.auto 
+                                join productos_ext as pext on p.auto=pext.auto_producto ";
 
                     var xsql3 = "where 1=1 ";
 

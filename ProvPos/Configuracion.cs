@@ -321,14 +321,15 @@ namespace ProvPos
             {
                 using (var cnn = new PosEntities(_cnPos.ConnectionString))
                 {
-                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL51");
-                    if (ent == null)
-                    {
-                        result.Mensaje = "[ ID ] CONFIGURACION GLOBAL NO ENCONTRADO";
-                        result.Result = DtoLib.Enumerados.EnumResult.isError;
-                        return result;
-                    }
-                    result.Entidad = ent.usuario;
+                    //var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL51");
+                    //if (ent == null)
+                    //{
+                    //    result.Mensaje = "[ ID ] CONFIGURACION GLOBAL NO ENCONTRADO";
+                    //    result.Result = DtoLib.Enumerados.EnumResult.isError;
+                    //    return result;
+                    //}
+                    //result.Entidad = ent.usuario;
+                    result.Entidad = "0"; // NO HABILITADO, SE USARA VENTAS POR MAYOR
                 }
             }
             catch (Exception e)

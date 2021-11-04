@@ -13,7 +13,7 @@ namespace ConsoleInventario
 
         static void Main(string[] args)
         {
-            ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("10.10.100.82","00000002");
+            ILibInventario.IProvider invPrv = new ProvLibInventario.Provider("localhost","pita");
             //var r01 = invPrv.Producto_GetFicha("0000000450");
 
             //var filt = new DtoLibInventario.Producto.Filtro();
@@ -276,6 +276,11 @@ namespace ConsoleInventario
 
             //var filtro1 = new DtoLibInventario.Movimiento.Traslado.Capturar.ProductoPorDebajoNivelMinimo.Filtro() { autoDepositoVerificarNivel = "0000000008", autoDepartamento = "", autoDepositoOrigen = "0000000001" };
             //var rt1 = invPrv.Capturar_ProductosPorDebajoNivelMinimo(filtro1);
+
+            //var filt = new DtoLibInventario.Producto.Filtro();
+            //filt.cadena = "HARINA";
+            //filt.MetodoBusqueda = DtoLibInventario.Producto.Enumerados.EnumMetodoBusqueda.Nombre;
+            //var rt1 = invPrv.Producto_GetLista(filt);
         }
 
     }

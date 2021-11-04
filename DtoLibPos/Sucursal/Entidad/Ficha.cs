@@ -16,6 +16,7 @@ namespace DtoLibPos.Sucursal.Entidad
         public string nombre { get; set; }
         public string nombreGrupo { get; set; }
         public string precioManejar { get; set; }
+        public string estatusVentaMayor { get; set; }
 
 
         public Ficha()
@@ -25,6 +26,7 @@ namespace DtoLibPos.Sucursal.Entidad
             nombre = "";
             nombreGrupo = "";
             precioManejar = "";
+            estatusVentaMayor = "";
         }
 
     }

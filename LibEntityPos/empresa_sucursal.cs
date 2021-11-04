@@ -19,5 +19,6 @@ namespace LibEntityPos
         public string autoEmpresaGrupo { get; set; }
         public string codigo { get; set; }
         public string nombre { get; set; }
+        public string estatus_facturar_mayor { get; set; }
     }
 }

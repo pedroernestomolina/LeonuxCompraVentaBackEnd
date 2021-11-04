@@ -72,6 +72,7 @@ namespace ProvPos
                         nombre = ent.nombre,
                         nombreGrupo=_nGrupo,
                         precioManejar=_pManejar,
+                        estatusVentaMayor=ent.estatus_facturar_mayor
                     };
                     result.Entidad = nr;
                 }
@@ -118,6 +119,7 @@ namespace ProvPos
                         nombre = ent.nombre,
                         nombreGrupo = _nGrupo,
                         precioManejar = _pManejar,
+                        estatusVentaMayor = ent.estatus_facturar_mayor
                     };
                     result.Entidad = nr;
                 }

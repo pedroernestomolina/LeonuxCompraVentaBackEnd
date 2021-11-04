@@ -218,6 +218,7 @@
           <Property Name="autoEmpresaGrupo" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="codigo" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="estatus_facturar_mayor" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="empresa_tasas">
           <Key>
@@ -2028,7 +2029,6 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
           <EntitySet Name="empresa_cobradores" EntityType="PosModel.empresa_cobradores" />
           <EntitySet Name="empresa_depositos" EntityType="PosModel.empresa_depositos" />
           <EntitySet Name="empresa_medios" EntityType="PosModel.empresa_medios" />
-          <EntitySet Name="empresa_sucursal" EntityType="PosModel.empresa_sucursal" />
           <EntitySet Name="empresa_transporte" EntityType="PosModel.empresa_transporte" />
           <EntitySet Name="productos_conceptos" EntityType="PosModel.productos_conceptos" />
           <EntitySet Name="vendedores" EntityType="PosModel.vendedores" />
@@ -2194,6 +2194,7 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
             <End Role="cxc" EntitySet="cxc" />
             <End Role="cxc_recibos" EntitySet="cxc_recibos" />
           </AssociationSet>
+          <EntitySet Name="empresa_sucursal" EntityType="PosModel.empresa_sucursal" />
         </EntityContainer>
         <EntityType Name="clientes">
           <Key>
@@ -2319,16 +2320,6 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="estatus_cobro" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="estatus_pago" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="empresa_sucursal">
-          <Key>
-            <PropertyRef Name="auto" />
-          </Key>
-          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="autoDepositoPrincipal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="autoEmpresaGrupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="codigo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="empresa_transporte">
           <Key>
@@ -3396,6 +3387,17 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="empresa_sucursal">
+          <Key>
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="autoDepositoPrincipal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="autoEmpresaGrupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="estatus_facturar_mayor" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3681,17 +3683,6 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
                 <ScalarProperty Name="estatus_cobro" ColumnName="estatus_cobro" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
-                <ScalarProperty Name="auto" ColumnName="auto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="empresa_sucursal">
-            <EntityTypeMapping TypeName="PosModel.empresa_sucursal">
-              <MappingFragment StoreEntitySet="empresa_sucursal">
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="codigo" ColumnName="codigo" />
-                <ScalarProperty Name="autoEmpresaGrupo" ColumnName="autoEmpresaGrupo" />
-                <ScalarProperty Name="autoDepositoPrincipal" ColumnName="autoDepositoPrincipal" />
                 <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -4279,6 +4270,18 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="c_cobranzap" ColumnName="c_cobranzap" />
                 <ScalarProperty Name="c_cobranza" ColumnName="c_cobranza" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empresa_sucursal">
+            <EntityTypeMapping TypeName="PosModel.empresa_sucursal">
+              <MappingFragment StoreEntitySet="empresa_sucursal">
+                <ScalarProperty Name="estatus_facturar_mayor" ColumnName="estatus_facturar_mayor" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="autoEmpresaGrupo" ColumnName="autoEmpresaGrupo" />
+                <ScalarProperty Name="autoDepositoPrincipal" ColumnName="autoDepositoPrincipal" />
                 <ScalarProperty Name="auto" ColumnName="auto" />
               </MappingFragment>
             </EntityTypeMapping>

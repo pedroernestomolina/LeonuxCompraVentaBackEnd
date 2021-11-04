@@ -55,6 +55,15 @@ namespace DtoLibInventario.Producto
         public decimal pNeto4 { get; set; }
         public decimal pNeto5 { get; set; }
 
+        //
+        public decimal pNetoMay1 { get; set; }
+        public decimal pNetoMay2 { get; set; }
+        public int contMay1 { get; set; }
+        public int contMay2 { get; set; }
+        public decimal pDivisaFullMay_1 { get; set; }
+        public decimal pDivisaFullMay_2 { get; set; }
+
+
         public Enumerados.EnumCategoria categoria 
         {
             get 

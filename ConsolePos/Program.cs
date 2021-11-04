@@ -229,6 +229,7 @@ namespace ConsolePos
             //filtro.IdCierre = "0801001004";
             //var r01 = posProv.ReportePos_PagoDetalle(filtro);
 
+            //var r01 = posProv.Producto_GetFichaById("0000000649");
         }
 
     }

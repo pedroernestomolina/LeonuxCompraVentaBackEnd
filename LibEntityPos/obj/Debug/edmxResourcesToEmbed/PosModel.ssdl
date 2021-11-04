@@ -213,6 +213,7 @@
     <Property Name="autoEmpresaGrupo" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="codigo" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="120" Nullable="false" />
+    <Property Name="estatus_facturar_mayor" Type="varchar" MaxLength="1" Nullable="false" />
   </EntityType>
   <EntityType Name="empresa_tasas">
     <Key>

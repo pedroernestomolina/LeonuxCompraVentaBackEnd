@@ -311,7 +311,6 @@
     <EntitySet Name="empresa_cobradores" EntityType="PosModel.empresa_cobradores" />
     <EntitySet Name="empresa_depositos" EntityType="PosModel.empresa_depositos" />
     <EntitySet Name="empresa_medios" EntityType="PosModel.empresa_medios" />
-    <EntitySet Name="empresa_sucursal" EntityType="PosModel.empresa_sucursal" />
     <EntitySet Name="empresa_transporte" EntityType="PosModel.empresa_transporte" />
     <EntitySet Name="productos_conceptos" EntityType="PosModel.productos_conceptos" />
     <EntitySet Name="vendedores" EntityType="PosModel.vendedores" />
@@ -477,6 +476,7 @@
       <End Role="cxc" EntitySet="cxc" />
       <End Role="cxc_recibos" EntitySet="cxc_recibos" />
     </AssociationSet>
+    <EntitySet Name="empresa_sucursal" EntityType="PosModel.empresa_sucursal" />
   </EntityContainer>
   <EntityType Name="clientes">
     <Key>
@@ -602,16 +602,6 @@
     <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="estatus_cobro" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
     <Property Name="estatus_pago" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="empresa_sucursal">
-    <Key>
-      <PropertyRef Name="auto" />
-    </Key>
-    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="autoDepositoPrincipal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="autoEmpresaGrupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="codigo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="empresa_transporte">
     <Key>
@@ -1679,4 +1669,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="empresa_sucursal">
+    <Key>
+      <PropertyRef Name="auto" />
+    </Key>
+    <Property Name="auto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="autoDepositoPrincipal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="autoEmpresaGrupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_facturar_mayor" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>
