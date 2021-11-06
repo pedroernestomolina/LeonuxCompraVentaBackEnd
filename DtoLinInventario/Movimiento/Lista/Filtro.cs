@@ -18,6 +18,7 @@ namespace DtoLibInventario.Movimiento.Lista
         public string IdDepOrigen { get; set; }
         public string IdDepDestino { get; set; }
         public string IdConcepto { get; set; }
+        public string IdProducto { get; set; }
         public enumerados.EnumEstatus Estatus { get; set; }
 
 
@@ -31,6 +32,7 @@ namespace DtoLibInventario.Movimiento.Lista
             IdDepOrigen= "";
             IdDepDestino = "";
             IdConcepto = "";
+            IdProducto = "";
         }
 
     }

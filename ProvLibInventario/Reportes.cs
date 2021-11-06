@@ -309,6 +309,7 @@ namespace ProvLibInventario
                     }
                     sql += sql2;
 
+                    cnn.Database.CommandTimeout = 0;
                     var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.Top20.Ficha>(sql, p1, p2, p3, p4, p5).ToList();
                     rt.Lista = list;
                 }
@@ -899,6 +900,65 @@ namespace ProvLibInventario
                     var sql = sql_1 + sql_2 + sql_3;
                     cnn.Database.CommandTimeout = 0;
                     var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.Valorizacion.Ficha>(sql, p1, p2, p3, p4, p5).ToList();
+                    rt.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibInventario.Reportes.KardexResumen.Ficha> Reportes_KardexResumen(DtoLibInventario.Reportes.Kardex.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibInventario.Reportes.KardexResumen.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var sql_1= @"SELECT sum(cantidad_und*signo) as cnt, nombre_concepto as concepto ";
+                    var sql_2 = " from productos_kardex ";
+                    var sql_3= @" where estatus_anulado='0' ";
+                    var sql_4 = "group by nombre_concepto";
+
+                    sql_3 += " and fecha>=@desde ";
+                    p1.ParameterName = "@desde";
+                    p1.Value = filtro.desde.Date;
+
+                    sql_3 += " and fecha<=@hasta ";
+                    p2.ParameterName = "@hasta";
+                    p2.Value = filtro.hasta.Date;
+
+                    if (filtro.autoProducto != "")
+                    {
+                        sql_3 += " and auto_producto=@autoProducto ";
+                        p3.ParameterName = "@autoProducto";
+                        p3.Value = filtro.autoProducto;
+                    }
+                    if (filtro.autoDeposito != "")
+                    {
+                        sql_1 += @", (select sum(cantidad_und*signo) from productos_kardex where auto_producto=@autoProducto and fecha<@desde 
+                            and estatus_anulado='0' and auto_deposito=@autoDeposito) as exInicial ";
+                        sql_3 += " and auto_deposito=@autoDeposito ";
+                        p4.ParameterName = "@autoDeposito";
+                        p4.Value = filtro.autoDeposito;
+                    }
+                    else
+                    {
+                        sql_1 += ", (select sum(cantidad_und*signo) from productos_kardex where auto_producto=@autoProducto and fecha<@desde " +
+                            "and estatus_anulado='0') as exInicial ";
+                    }
+
+                    var sql = sql_1 + sql_2 + sql_3 + sql_4;
+                    var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.KardexResumen.Ficha>(sql, p1, p2, p3, p4).ToList();
                     rt.Lista = list;
                 }
             }

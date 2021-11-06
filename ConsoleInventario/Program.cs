@@ -281,6 +281,14 @@ namespace ConsoleInventario
             //filt.cadena = "HARINA";
             //filt.MetodoBusqueda = DtoLibInventario.Producto.Enumerados.EnumMetodoBusqueda.Nombre;
             //var rt1 = invPrv.Producto_GetLista(filt);
+
+            //var filt = new DtoLibInventario.Reportes.Kardex.Filtro ();
+            //filt.desde= new DateTime(2021,10,01).Date;
+            //filt.hasta = DateTime.Now.Date;
+            //filt.autoProducto = "0000000649";
+            //filt.autoDeposito = "0000000008";
+            //var rt1 = invPrv.Reportes_KardexResumen (filt);
+
         }
 
     }
