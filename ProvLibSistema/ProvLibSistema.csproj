@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Cobrador.cs" />
     <Compile Include="Configuracion.cs" />
+    <Compile Include="ControlAcceso.cs" />
     <Compile Include="Deposito.cs" />
     <Compile Include="Funcion.cs" />
     <Compile Include="GrupoUsuario.cs" />

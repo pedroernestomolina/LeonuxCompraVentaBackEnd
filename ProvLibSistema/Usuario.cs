@@ -1,6 +1,7 @@
 ﻿using LibEntitySistema;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
@@ -49,65 +50,6 @@ namespace ProvLibSistema
             return result;
         }
 
-        public DtoLib.ResultadoLista<DtoLibSistema.Usuario.Resumen> Usuario_GetLista()
-        {
-            var result = new DtoLib.ResultadoLista<DtoLibSistema.Usuario.Resumen>();
-
-            try
-            {
-                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
-                {
-                    var q = cnn.usuarios.ToList();
-
-                    var list = new List<DtoLibSistema.Usuario.Resumen>();
-                    if (q != null)
-                    {
-                        if (q.Count() > 0)
-                        {
-                            list = q.Select(s =>
-                            {
-                                var _fecha= new DateTime(2000,01,01);
-                                var _fechaBaja=s.fecha_baja==_fecha?(DateTime?)null:s.fecha_baja;
-                                var _fechaUltSesion=s.fecha_sesion==_fecha?(DateTime?)null:s.fecha_sesion;
-                                var _estatus=DtoLibSistema.Usuario.Enumerados.EnumModo.Activo;
-                                if (s.estatus.Trim().ToUpper()!="ACTIVO")
-                                {
-                                    _estatus= DtoLibSistema.Usuario.Enumerados.EnumModo.Inactivo;
-                                }
-                                var _grupo="";
-                                var entGrupo= cnn.usuarios_grupo.Find(s.auto_grupo);
-                                if (entGrupo!=null)
-                                {
-                                    _grupo=entGrupo.nombre;
-                                }
-                                var r = new DtoLibSistema.Usuario.Resumen()
-                                {
-                                    auto = s.auto,
-                                    codigo = s.codigo,
-                                    nombre = s.nombre,
-                                    apellido = s.apellido,
-                                    fechaAlta = s.fecha_alta,
-                                    fechaBaja = _fechaBaja,
-                                    fechaUltSesion = _fechaUltSesion,
-                                    grupo = _grupo,
-                                    estatus = _estatus,
-                                };
-                                return r;
-                            }).ToList();
-                        }
-                    }
-                    result.Lista = list;
-                }
-            }
-            catch (Exception e)
-            {
-                result.Mensaje = e.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return result;
-        }
-
         public DtoLib.ResultadoEntidad<DtoLibSistema.Usuario.Ficha> Usuario_GetFicha(string autoUsu)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibSistema.Usuario.Ficha>();
@@ -124,14 +66,6 @@ namespace ProvLibSistema
                         return result;
                     }
 
-                    var _fecha = new DateTime(2000, 01, 01);
-                    var _fechaBaja = ent.fecha_baja == _fecha ? (DateTime?)null : ent.fecha_baja;
-                    var _fechaUltSesion = ent.fecha_sesion == _fecha ? (DateTime?)null : ent.fecha_sesion;
-                    var _estatus = DtoLibSistema.Usuario.Enumerados.EnumModo.Activo;
-                    if (ent.estatus.Trim().ToUpper() != "ACTIVO")
-                    {
-                        _estatus = DtoLibSistema.Usuario.Enumerados.EnumModo.Inactivo;
-                    }
                     var _grupo = "";
                     var _autoGrupo="";
                     var entGrupo = cnn.usuarios_grupo.Find(ent.auto_grupo);
@@ -147,12 +81,12 @@ namespace ProvLibSistema
                         nombre = ent.nombre,
                         apellido = ent.apellido,
                         fechaAlta = ent.fecha_alta,
-                        fechaBaja = _fechaBaja,
-                        fechaUltSesion = _fechaUltSesion,
+                        fechaBaja = ent.fecha_baja,
+                        fechaUltSesion = ent.fecha_sesion,
                         grupo = _grupo,
-                        estatus = _estatus,
-                        autoGrupo=_autoGrupo,
-                        clave=ent.clave,
+                        estatus = ent.estatus,
+                        autoGrupo = _autoGrupo,
+                        clave = ent.clave,
                     };
                     result.Entidad = r;
                 }
@@ -528,6 +462,87 @@ namespace ProvLibSistema
                     }
                 }
                 result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibSistema.Usuario.Resumen> Usuario_GetLista(DtoLibSistema.Usuario.Lista.Filtro filtro)
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibSistema.Usuario.Resumen>();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var sql_1 = @"select u.auto as uId, u.nombre as uNombre, u.apellido uApellido, 
+                                    u.codigo as uCodigo, u.estatus as uEstatus, 
+                                    u.fecha_alta as uFechaAlta, u.fecha_baja as uFechaBaja, 
+                                    u.fecha_sesion as uFechaUltSesion, 
+                                    ug.nombre as gNombre
+                                    from usuarios as u join usuarios_grupo as ug 
+                                    on u.auto_grupo=ug.auto ";
+                    var sql_2 = " where 1=1 ";
+                    if (filtro.IdGrupo!="")
+                    {
+                        p1.ParameterName = "@idGrupo";
+                        p1.Value = filtro.IdGrupo;
+                        sql_2 += " and u.auto_grupo=@idGrupo ";
+                    }
+                    var sql=sql_1+sql_2;
+                    var lst = cnn.Database.SqlQuery<DtoLibSistema.Usuario.Resumen>(sql, p1).ToList(); ;
+                    result.Lista = lst;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Usuario_Eliminar(string id)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var p1 = new MySql.Data.MySqlClient.MySqlParameter("@id", id);
+                        var sql_1 = "delete from usuarios where auto=@id";
+                        var r1 = cnn.Database.ExecuteSqlCommand(sql_1, p1);
+                        if (r1 == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL TRATAR DE ELIMINAR USUARIO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        cnn.SaveChanges();
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                if (ex.Number == 1451)
+                {
+                    result.Mensaje = "REGISTRO CONTIENE DATA RELACIONADA";
+                    result.Result = DtoLib.Enumerados.EnumResult.isError;
+                    return result;
+                }
+                result.Mensaje = ex.Message;
                 result.Result = DtoLib.Enumerados.EnumResult.isError;
             }
             catch (Exception e)

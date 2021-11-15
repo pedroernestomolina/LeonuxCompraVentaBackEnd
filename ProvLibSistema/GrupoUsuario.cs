@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
@@ -234,6 +235,120 @@ namespace ProvLibSistema
                 }
                 result.Mensaje = msg;
                 result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado GrupoUsuario_ELiminar(string auto)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var p1 = new MySql.Data.MySqlClient.MySqlParameter("@autoGrupo", auto);
+
+                        var sql_1 = "delete from usuarios_grupo where auto=@autoGrupo";
+                        var r1 = cnn.Database.ExecuteSqlCommand(sql_1, p1);
+                        if (r1 == 0) 
+                        {
+                            result.Mensaje = "PROBLEMA AL TRATAR DE ELIMINAR USUARIO GRUPO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        var sql_2 = "delete from usuarios_grupo_permisos where codigo_grupo=@autoGrupo";
+                        var r2 = cnn.Database.ExecuteSqlCommand(sql_2, p1);
+                        if (r2 == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL TRATAR DE ELIMINAR PERMISOS DEL USUARIO GRUPO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                       
+                        cnn.SaveChanges();
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                var dbUpdateEx = ex as DbUpdateException;
+                var sqlEx = dbUpdateEx.InnerException;
+                if (sqlEx != null)
+                {
+                    var exx = (MySql.Data.MySqlClient.MySqlException)sqlEx.InnerException;
+                    if (exx != null)
+                    {
+                        if (exx.Number == 1451)
+                        {
+                            result.Mensaje = "REGISTRO CONTIENE DATA RELACIONADA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                    }
+                }
+                result.Mensaje = ex.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibSistema.GrupoUsuario.Usuario> GrupoUsuario_GetUsuarios(string auto)
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibSistema.GrupoUsuario.Usuario>();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    var p1= new MySql.Data.MySqlClient.MySqlParameter("@autoGrupo", auto);
+                    var sql = @"select auto as autoId, nombre, apellido, codigo, estatus 
+                                from usuarios where auto_grupo=@autoGrupo";
+                    var lst = cnn.Database.SqlQuery<DtoLibSistema.GrupoUsuario.Usuario>(sql, p1).ToList();
+                    result.Lista = lst;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado GrupoUsuario_Validar_EliminarGrupo(string auto)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    var q = cnn.usuarios.Where(w=>w.auto_grupo==auto).ToList();
+                    if (q.Count >0)
+                    {
+                        result.Mensaje = "HAY USUARIOS RELACIONADOS A ESTE GRUPO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                }
             }
             catch (Exception e)
             {

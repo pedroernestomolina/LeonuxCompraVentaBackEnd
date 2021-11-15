@@ -107,6 +107,19 @@ namespace ConsoleSistema
 
             //var r01 = sistPrv.ReconversionMonetaria_GetData();
             //var r01 = sistPrv.ReconversionMonetaria_GetCount();
+
+            //var r01 = sistPrv.GrupoUsuario_GetUsuarios("0000000004");
+            //var r01 = sistPrv.GrupoUsuario_Validar_EliminarGrupo("0000000012");
+            //if (r01.Result != DtoLib.Enumerados.EnumResult.isError) 
+            //{
+            //    var r02 = sistPrv.GrupoUsuario_ELiminar("0000000012");
+            //}
+
+            //var filtro = new DtoLibSistema.Usuario.Lista.Filtro();
+            //filtro.IdGrupo = "0000000004";
+            //var r01 = sistPrv.Usuario_GetLista(filtro);
+
+            //var r01 = sistPrv.Usuario_Eliminar("0000000026");
         }
 
     }

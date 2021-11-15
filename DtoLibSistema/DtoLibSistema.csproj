@@ -52,6 +52,10 @@
     <Compile Include="Configuracion\ActualizarTasaRecepcionPos\Ficha.cs" />
     <Compile Include="Configuracion\Enumerados.cs" />
     <Compile Include="Configuracion\InicializarBD\Ficha.cs" />
+    <Compile Include="ControlAcceso\Actualizar\Ficha.cs" />
+    <Compile Include="ControlAcceso\Actualizar\ItemAcceso.cs" />
+    <Compile Include="ControlAcceso\Data\Ficha.cs" />
+    <Compile Include="GrupoUsuario\Usuario.cs" />
     <Compile Include="Negocio\Editar\Ficha.cs" />
     <Compile Include="Negocio\Entidad\Ficha.cs" />
     <Compile Include="ReconversionMonetaria\Actualizar\Ficha.cs" />
@@ -106,6 +110,7 @@
     <Compile Include="Usuario\Enumerados.cs" />
     <Compile Include="Usuario\Ficha.cs" />
     <Compile Include="Usuario\Inactivar.cs" />
+    <Compile Include="Usuario\Lista\Filtro.cs" />
     <Compile Include="Usuario\Resumen.cs" />
     <Compile Include="Vendedor\ActivarInactivar\Ficha.cs" />
     <Compile Include="Vendedor\Agregar\Ficha.cs" />

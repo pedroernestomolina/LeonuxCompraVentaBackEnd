@@ -26,6 +26,10 @@ namespace DtoLibPos.Producto.Lista
         public int Contenido { get; set; }
         public string Decimales { get; set; }
         public string PLU { get; set; }
+        public decimal precioFullDivisaMay { get; set; }
+        public int contenidoMay { get; set; }
+        public string decimalesMay { get; set; }
+        public string empaqueMay { get; set; }
 
 
         public Ficha()
@@ -45,6 +49,10 @@ namespace DtoLibPos.Producto.Lista
             Contenido = 0;
             Decimales = "";
             PLU = "";
+            precioFullDivisaMay = 0.0m;
+            contenidoMay = 0;
+            decimalesMay = "";
+            empaqueMay = "";
         }
 
     }

@@ -93,7 +93,8 @@ namespace ProvPos
                                 break;
                         }
                     }
-
+                    sql_1 += @" ,pe.pdmf_1 as precioFullDivisaMay, pe.contenido_may_1 contenidoMay ";  
+                    sql_2 += @" join productos_ext as pe on p.auto=pe.auto_producto ";
                     var sql = sql_1 + sql_2 + sql_3 + sql_4;
                     var q = cnn.Database.SqlQuery<DtoLibPos.Producto.Lista.Ficha>(sql,p1,p2,p3).ToList();
                     rt.Lista = q;

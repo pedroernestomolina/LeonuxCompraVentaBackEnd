@@ -12,7 +12,7 @@ namespace ConsoleCajaBanco
     {
         static void Main(string[] args)
         {
-            ILibCajaBanco.IProvider cajaBancoPrv = new ProvLibCajaBanco.Provider("localhost","tronco");
+            ILibCajaBanco.IProvider cajaBancoPrv = new ProvLibCajaBanco.Provider("localhost","bodaraguita3");
             //var filtro = new DtoLibCajaBanco.Reporte.Movimiento.Filtro();
             //filtro.desdeFecha = new DateTime(2020, 07, 01);
             //filtro.hastaFecha = new DateTime(2020, 07, 20);
@@ -117,11 +117,11 @@ namespace ConsoleCajaBanco
             //filtro.hastaFecha= new DateTime(2021, 07, 20);
             //var r01 = cajaBancoPrv.Reporte_VentaPorCliente(filtro);
 
-            //var filtro = new DtoLibCajaBanco.Reporte.Movimiento.Inventario.Filtro();
-            //filtro.desdeFecha = new DateTime(2021, 11, 01);
-            //filtro.hastaFecha = new DateTime(2021, 11, 01);
-            //filtro.autoDeposito = "0000000012";
-            //var r01 = cajaBancoPrv.Reporte_InventarioResumen(filtro);
+            var filtro = new DtoLibCajaBanco.Reporte.Movimiento.Inventario.Filtro();
+            filtro.desdeFecha = new DateTime(2021, 11, 07);
+            filtro.hastaFecha = new DateTime(2021, 11, 08);
+            filtro.autoDeposito = "0000000011";
+            var r01 = cajaBancoPrv.Reporte_InventarioResumen(filtro);
 
         }
     }

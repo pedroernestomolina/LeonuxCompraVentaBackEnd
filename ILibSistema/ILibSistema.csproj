@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="ICobrador.cs" />
     <Compile Include="IConfiguracion.cs" />
+    <Compile Include="IControlAcceso.cs" />
     <Compile Include="IDeposito.cs" />
     <Compile Include="IFuncion.cs" />
     <Compile Include="IGrupoUsuario.cs" />

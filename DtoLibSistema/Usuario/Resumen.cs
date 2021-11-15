@@ -11,15 +11,29 @@ namespace DtoLibSistema.Usuario
     public class Resumen
     {
 
-        public string auto { get; set; }
-        public string nombre { get; set; }
-        public string apellido { get; set; }
-        public string codigo { get; set; }
-        public Enumerados.EnumModo estatus { get; set; }
-        public DateTime fechaAlta { get; set; }
-        public DateTime? fechaBaja { get; set; }
-        public DateTime? fechaUltSesion { get; set; }
-        public string grupo { get; set; }
+        public string uId{ get; set; }
+        public string uNombre { get; set; }
+        public string uApellido { get; set; }
+        public string uCodigo { get; set; }
+        public string uEstatus { get; set; }
+        public DateTime uFechaAlta { get; set; }
+        public DateTime uFechaBaja { get; set; }
+        public DateTime uFechaUltSesion { get; set; }
+        public string gNombre { get; set; }
+
+
+        public Resumen() 
+        {
+            uId = "";
+            uNombre = "";
+            uApellido = "";
+            uCodigo = "";
+            uEstatus = "";
+            uFechaAlta = DateTime.Now.Date;
+            uFechaBaja = DateTime.Now.Date;
+            uFechaUltSesion = DateTime.Now.Date;
+            gNombre = "";
+        }
 
     }
 
