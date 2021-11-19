@@ -395,7 +395,7 @@ namespace ProvPos
             {
                 using (var cnn= new PosEntities(_cnPos.ConnectionString))
                 {
-                    var sql_1 = @"SELECT v.fecha, v.documento, v.total as monto, 
+                    var sql_1 = @"SELECT v.auto as id, v.fecha, v.documento, v.total as monto, 
                                     v.monto_divisa as montoDivisa, v.factor_cambio as tasaDivisa, 
                                     v.estatus_anulado as estatus, v.tipo as codTipoDoc, v.serie, 
                                     v.signo, v.documento_nombre as nombreTipoDoc  ";

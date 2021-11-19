@@ -6,6 +6,5 @@ D:\Proyectos FoxSystem\CompraVenta\LibEntityPos\bin\Debug\EntityFramework.SqlSer
 D:\Proyectos FoxSystem\CompraVenta\LibEntityPos\bin\Debug\MySql.Data.Entity.EF6.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityPos\bin\Debug\EntityFramework.xml
 D:\Proyectos FoxSystem\CompraVenta\LibEntityPos\bin\Debug\EntityFramework.SqlServer.xml
-D:\Proyectos FoxSystem\CompraVenta\LibEntityPos\obj\Debug\LibEntityPos.csprojResolveAssemblyReference.cache
 D:\Proyectos FoxSystem\CompraVenta\LibEntityPos\obj\Debug\LibEntityPos.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityPos\obj\Debug\LibEntityPos.pdb

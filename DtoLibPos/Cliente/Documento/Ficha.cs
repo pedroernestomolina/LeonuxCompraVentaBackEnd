@@ -11,6 +11,7 @@ namespace DtoLibPos.Cliente.Documento
     public class Ficha
     {
 
+        public string id { get; set; }
         public DateTime fecha { get; set; }
         public string documento { get; set; }
         public decimal monto { get; set; }
@@ -24,6 +25,7 @@ namespace DtoLibPos.Cliente.Documento
 
         public Ficha()
         {
+            id = "";
             fecha = new DateTime().Date;
             documento = "";
             monto = 0.0m;
