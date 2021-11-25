@@ -73,6 +73,7 @@
     <Compile Include="Concepto\Lista\Filtro.cs" />
     <Compile Include="Configuracion\Actualizar\Ficha.cs" />
     <Compile Include="Configuracion\BusquedaCliente\Entidad\Ficha.cs" />
+    <Compile Include="Configuracion\BusquedaProducto\Enumerados.cs" />
     <Compile Include="Configuracion\CambioDepositoSucursal\Ficha.cs" />
     <Compile Include="Configuracion\Entidad\Ficha.cs" />
     <Compile Include="Deposito\Entidad\Ficha.cs" />
@@ -143,11 +144,14 @@
     <Compile Include="Pos\Cerrar\Ficha.cs" />
     <Compile Include="Pos\EnUso\Ficha.cs" />
     <Compile Include="Pos\Resumen\Ficha.cs" />
+    <Compile Include="ProductoAdm\Entidad\Ficha.cs" />
+    <Compile Include="ProductoAdm\Lista\Enumerados.cs" />
+    <Compile Include="ProductoAdm\Lista\Ficha.cs" />
+    <Compile Include="ProductoAdm\Lista\Filtro.cs" />
     <Compile Include="Producto\Existencia\Bloquear\Ficha.cs" />
     <Compile Include="Producto\Existencia\Buscar\Ficha.cs" />
     <Compile Include="Producto\Existencia\Entidad\Ficha.cs" />
     <Compile Include="Producto\Entidad\Ficha.cs" />
-    <Compile Include="Producto\Entidad\Precio.cs" />
     <Compile Include="Producto\Lista\Ficha.cs" />
     <Compile Include="Producto\Lista\Filtro.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

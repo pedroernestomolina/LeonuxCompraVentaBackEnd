@@ -12,6 +12,7 @@ namespace IPos
     {
 
         DtoLib.ResultadoEntidad<DtoLibPos.Configuracion.BusquedaCliente.Entidad.Ficha> Configuracion_BusquedaCliente();
+        DtoLib.ResultadoEntidad<DtoLibPos.Configuracion.BusquedaProducto.Enumerados.EnumPreferenciaBusqueda> Configuracion_PreferenciaBusquedaProducto();
 
     }
 

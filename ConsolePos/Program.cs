@@ -229,16 +229,16 @@ namespace ConsolePos
             //filtro.IdCierre = "0801001004";
             //var r01 = posProv.ReportePos_PagoDetalle(filtro);
 
-            //var r01 = posProv.Producto_GetFichaById("0000000649");
-            var filtro = new DtoLibPos.Producto.Lista.Filtro()
-            {
-                AutoDeposito = "0000000001",
-                Cadena = "HARINA",
-                IdPrecioManejar = "1",
-            };
-            var r01 = posProv.Producto_GetLista(filtro);
+            ////var r01 = posProv.Producto_GetFichaById("0000000649");
+            //var filtro = new DtoLibPos.ProductoAdm.Lista.Filtro()
+            //{
+            //    AutoDeposito = "0000000001",
+            //    Cadena = "*XR",
+            //    MetodoBusqueda= DtoLibPos.ProductoAdm.Lista.Enumerados.EnumMetodoBusqueda.PorReferencia,
+            //};
+            //var r01 = posProv.ProductoAdm_GetLista(filtro);
 
-
+            //var r01 = posProv.ProductoAdm_GetFichaById("0000000649");
         }
 
     }

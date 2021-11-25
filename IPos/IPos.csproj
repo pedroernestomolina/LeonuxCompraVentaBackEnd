@@ -53,6 +53,7 @@
     <Compile Include="IPendiente.cs" />
     <Compile Include="IPermiso.cs" />
     <Compile Include="IProducto.cs" />
+    <Compile Include="IProductoAdm.cs" />
     <Compile Include="IProvider.cs" />
     <Compile Include="IReportesAdm.cs" />
     <Compile Include="IReportesCli.cs" />

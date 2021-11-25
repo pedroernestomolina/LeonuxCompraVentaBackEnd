@@ -44,6 +44,46 @@ namespace ProvPos
             return result;
         }
 
+        DtoLib.ResultadoEntidad<DtoLibPos.Configuracion.BusquedaProducto.Enumerados.EnumPreferenciaBusqueda> IPos.IConfiguracionAdm.Configuracion_PreferenciaBusquedaProducto()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPos.Configuracion.BusquedaProducto.Enumerados.EnumPreferenciaBusqueda>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL03");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    var r = DtoLibPos.Configuracion.BusquedaProducto.Enumerados.EnumPreferenciaBusqueda.SnDefinir;
+                    switch (ent.usuario.Trim().ToUpper())
+                    {
+                        case "CODIGO":
+                            r = DtoLibPos.Configuracion.BusquedaProducto.Enumerados.EnumPreferenciaBusqueda.Codigo;
+                            break;
+                        case "NOMBRE":
+                            r = DtoLibPos.Configuracion.BusquedaProducto.Enumerados.EnumPreferenciaBusqueda.Nombre;
+                            break;
+                        case "REFERENCIA":
+                            r = DtoLibPos.Configuracion.BusquedaProducto.Enumerados.EnumPreferenciaBusqueda.Referencia;
+                            break;
+                    }
+                    result.Entidad = r;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }
