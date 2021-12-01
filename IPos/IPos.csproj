@@ -65,6 +65,7 @@
     <Compile Include="IVendedor.cs" />
     <Compile Include="IDocumento.cs" />
     <Compile Include="IVenta.cs" />
+    <Compile Include="IVentaAdm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

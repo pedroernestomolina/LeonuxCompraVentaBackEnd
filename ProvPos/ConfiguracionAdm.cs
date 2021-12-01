@@ -12,7 +12,7 @@ namespace ProvPos
     public partial class Provider : IPos.IProvider
     {
 
-        public DtoLib.ResultadoEntidad<DtoLibPos.Configuracion.BusquedaCliente.Entidad.Ficha> Configuracion_BusquedaCliente()
+        public DtoLib.ResultadoEntidad<DtoLibPos.Configuracion.BusquedaCliente.Entidad.Ficha> ConfiguracionAdm_BusquedaCliente()
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibPos.Configuracion.BusquedaCliente.Entidad.Ficha>();
 
@@ -44,7 +44,7 @@ namespace ProvPos
             return result;
         }
 
-        DtoLib.ResultadoEntidad<DtoLibPos.Configuracion.BusquedaProducto.Enumerados.EnumPreferenciaBusqueda> IPos.IConfiguracionAdm.Configuracion_PreferenciaBusquedaProducto()
+        public DtoLib.ResultadoEntidad<DtoLibPos.Configuracion.BusquedaProducto.Enumerados.EnumPreferenciaBusqueda> ConfiguracionAdm_PreferenciaBusquedaProducto()
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibPos.Configuracion.BusquedaProducto.Enumerados.EnumPreferenciaBusqueda>();
 
@@ -73,6 +73,33 @@ namespace ProvPos
                             break;
                     }
                     result.Entidad = r;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<string> ConfiguracionAdm_RupturaPorExistencia()
+        {
+            var result = new DtoLib.ResultadoEntidad<string>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL14");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    result.Entidad = ent.usuario.Trim().ToUpper();
                 }
             }
             catch (Exception e)

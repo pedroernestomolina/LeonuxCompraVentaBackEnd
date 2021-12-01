@@ -14,6 +14,8 @@ namespace DtoLibPos.ProductoAdm.Entidad
         public string Auto { get; set; }
         public string AutoDepartamento { get; set; }
         public string AutoGrupo { get; set; }
+        public string AutoSubGrupo { get; set; }
+        public string AutoTasaIva { get; set; }
         public string CodigoPrd { get; set; }
         public string NombrePrd { get; set; }
         public string Categoria { get; set; }
@@ -64,6 +66,8 @@ namespace DtoLibPos.ProductoAdm.Entidad
             Auto = "";
             AutoDepartamento = "";
             AutoGrupo = "";
+            AutoSubGrupo = "";
+            AutoTasaIva = "";
             CodigoPrd = "";
             NombrePrd = "";
             Referencia = "";

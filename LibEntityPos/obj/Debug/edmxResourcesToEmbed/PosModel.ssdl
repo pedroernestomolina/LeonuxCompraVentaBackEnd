@@ -379,6 +379,63 @@
     <Property Name="auto_deposito" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="id_p_pendiente" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="p_ventaadm">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idEquipo" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="auto_usuario" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_cliente" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_sucursal" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_deposito" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="cirif_cliente" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="nombre_cliente" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="fecha" Type="date" Nullable="false" />
+    <Property Name="hora" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="monto" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="monto_divisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="renglones" Type="int" Nullable="false" />
+    <Property Name="estatus_pendiente" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="auto_sist_documento" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="factor_divisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="nombre_usuario" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="nombre_deposito" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="nombre_sucursal" Type="varchar" MaxLength="120" Nullable="false" />
+    <Property Name="nombre_sist_documento" Type="varchar" MaxLength="40" Nullable="false" />
+  </EntityType>
+  <EntityType Name="p_ventaadm_det">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_ventaAdm" Type="int" Nullable="false" />
+    <Property Name="auto_producto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_departamento" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_grupo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_subGrupo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_tasa" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="codigo_producto" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="nombre_producto" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="cantidad" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="precio_neto" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="precio_neto_divisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="tarifa_precio" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="tasa_iva" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="tipo_iva" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="categoria_producto" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="decimales" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="empaque_desc" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="empaque_cont" Type="int" Nullable="false" />
+    <Property Name="estatus_pesado" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="costo_und" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="costo" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="costo_promedio" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="costo_promedio_und" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="dscto_porct" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="notas" Type="varchar" MaxLength="160" Nullable="false" />
+    <Property Name="estatusReservaInv" Type="varchar" MaxLength="1" Nullable="false" />
+  </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="pos_arqueo">
@@ -1131,6 +1188,18 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="p_ventaadm_det_ibfk_1">
+    <End Role="p_ventaadm" Type="Self.p_ventaadm" Multiplicity="1" />
+    <End Role="p_ventaadm_det" Type="Self.p_ventaadm_det" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="p_ventaadm">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="p_ventaadm_det">
+        <PropertyRef Name="id_ventaAdm" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="productos_alterno_ibfk_1">
     <End Role="productos" Type="Self.productos" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -1428,6 +1497,8 @@ warning 6002: The table/view 'pita.ventas_detalle' does not have a primary key d
     <EntitySet Name="p_pendiente" EntityType="Self.p_pendiente" Schema="pita" store:Type="Tables" />
     <EntitySet Name="p_resumen" EntityType="Self.p_resumen" Schema="pita" store:Type="Tables" />
     <EntitySet Name="p_venta" EntityType="Self.p_venta" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="p_ventaadm" EntityType="Self.p_ventaadm" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="p_ventaadm_det" EntityType="Self.p_ventaadm_det" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos" EntityType="Self.productos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_alterno" EntityType="Self.productos_alterno" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_conceptos" EntityType="Self.productos_conceptos" Schema="pita" store:Type="Tables" />
@@ -1615,6 +1686,10 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
     <AssociationSet Name="p_venta_ibfk_1" Association="Self.p_venta_ibfk_1">
       <End Role="p_operador" EntitySet="p_operador" />
       <End Role="p_venta" EntitySet="p_venta" />
+    </AssociationSet>
+    <AssociationSet Name="p_ventaadm_det_ibfk_1" Association="Self.p_ventaadm_det_ibfk_1">
+      <End Role="p_ventaadm" EntitySet="p_ventaadm" />
+      <End Role="p_ventaadm_det" EntitySet="p_ventaadm_det" />
     </AssociationSet>
     <AssociationSet Name="productos_alterno_ibfk_1" Association="Self.productos_alterno_ibfk_1">
       <End Role="productos" EntitySet="productos" />

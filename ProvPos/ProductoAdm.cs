@@ -141,7 +141,7 @@ namespace ProvPos
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter("@autoPrd", id);
                     var sql_1 = @"select 
-                       p.auto as Auto, 
+                       p.auto as Auto, p.auto_subgrupo as autoSubGrupo, p.auto_tasa as autoTasaIva, 
                        p.codigo as CodigoPrd, 
                        p.nombre as NombrePrd,
                        p.categoria as Categoria,

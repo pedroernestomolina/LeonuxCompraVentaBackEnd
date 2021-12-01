@@ -11,8 +11,9 @@ namespace IPos
     public interface IConfiguracionAdm
     {
 
-        DtoLib.ResultadoEntidad<DtoLibPos.Configuracion.BusquedaCliente.Entidad.Ficha> Configuracion_BusquedaCliente();
-        DtoLib.ResultadoEntidad<DtoLibPos.Configuracion.BusquedaProducto.Enumerados.EnumPreferenciaBusqueda> Configuracion_PreferenciaBusquedaProducto();
+        DtoLib.ResultadoEntidad<DtoLibPos.Configuracion.BusquedaCliente.Entidad.Ficha> ConfiguracionAdm_BusquedaCliente();
+        DtoLib.ResultadoEntidad<DtoLibPos.Configuracion.BusquedaProducto.Enumerados.EnumPreferenciaBusqueda> ConfiguracionAdm_PreferenciaBusquedaProducto();
+        DtoLib.ResultadoEntidad<string> ConfiguracionAdm_RupturaPorExistencia();
 
     }
 
