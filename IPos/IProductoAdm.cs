@@ -13,6 +13,7 @@ namespace IPos
 
         DtoLib.ResultadoLista<DtoLibPos.ProductoAdm.Lista.Ficha> ProductoAdm_GetLista(DtoLibPos.ProductoAdm.Lista.Filtro filtro);
         DtoLib.ResultadoEntidad<DtoLibPos.ProductoAdm.Entidad.Ficha> ProductoAdm_GetFichaById(string id);
+        DtoLib.ResultadoEntidad<DtoLibPos.ProductoAdm.Existencia.Ficha> ProductoAdm_Existencia_GetFichaByDeposito(string idPrd, string idDeposito);
 
     }
 

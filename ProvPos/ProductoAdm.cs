@@ -200,6 +200,38 @@ namespace ProvPos
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibPos.ProductoAdm.Existencia.Ficha> ProductoAdm_Existencia_GetFichaByDeposito(string idPrd, string idDeposito)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPos.ProductoAdm.Existencia.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+
+                    var ent = cnn.productos_deposito.FirstOrDefault(f => f.auto_producto == idPrd && f.auto_deposito == idDeposito);
+                    if (ent == null) 
+                    {
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Mensaje = "DEPOSITO EXISTENCIA NO ENCONTRADO";
+                        return result;
+                    }
+                    result.Entidad = new DtoLibPos.ProductoAdm.Existencia.Ficha()
+                    {
+                        real = ent.fisica,
+                        disponible = ent.disponible,
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

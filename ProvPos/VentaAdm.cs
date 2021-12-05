@@ -44,7 +44,22 @@ namespace ProvPos
                             nombre_sist_documento = ficha.nombreSistDocumento,
                             nombre_sucursal = ficha.nombreSucursal,
                             nombre_usuario = ficha.nombreUsuario,
-                            renglones = ficha.renglones
+                            renglones = ficha.renglones,
+                            //
+                            auto_cobrador = ficha.autoCobrador,
+                            auto_remision = ficha.autoRemision,
+                            auto_transporte = ficha.autoTransporte,
+                            auto_vendedor = ficha.autoVendedor,
+                            codigo_cliente = ficha.codigoCliente,
+                            dias_credito = ficha.diasCredito,
+                            dias_validez = ficha.diasValidez,
+                            direccion_despacho = ficha.dirDespacho,
+                            dirFiscal_cliente = ficha.dirFiscalCliente,
+                            documento_remision = ficha.documentoRemision,
+                            estatus_credito = ficha.estatusCredito,
+                            notas_documento = ficha.notasDoc,
+                            tarifa_cliente = ficha.tarifaPrecioCliente,
+                            tipo_remision = ficha.tipoRemision,
                         };
                         cnn.p_ventaadm.Add(ent);
                         cnn.SaveChanges();
@@ -120,6 +135,18 @@ namespace ProvPos
                         ent.nombre_cliente = ficha.razonSocialCliente;
                         ent.nombre_deposito = ficha.nombreDeposito;
                         ent.nombre_sucursal = ficha.nombreSucursal;
+                        //
+                        ent.auto_cobrador = ficha.autoCobrador;
+                        ent.auto_transporte = ficha.autoTransporte;
+                        ent.auto_vendedor = ficha.autoVendedor;
+                        ent.codigo_cliente = ficha.codigoCliente;
+                        ent.dias_credito = ficha.diasCredito;
+                        ent.dias_validez = ficha.diasValidez;
+                        ent.direccion_despacho = ficha.dirDespacho;
+                        ent.dirFiscal_cliente = ficha.dirFiscalCliente;
+                        ent.estatus_credito = ficha.estatusCredito;
+                        ent.tarifa_cliente = ficha.tarifaPrecioCliente;
+
                         cnn.SaveChanges();
                         ts.Complete();
                     }
@@ -133,6 +160,8 @@ namespace ProvPos
 
             return result;
         }
+
+        //
 
         public DtoLib.ResultadoId VentaAdm_Temporal_Item_Registrar(DtoLibPos.VentaAdm.Temporal.Item.Registrar.Ficha ficha)
         {
@@ -211,6 +240,10 @@ namespace ProvPos
                             tarifa_precio = it.tarifaPrecio,
                             tasa_iva = it.tasaIva,
                             tipo_iva = it.tipoIva,
+                            auto_deposito = it.autoDeposito,
+                            cantidadUnd = it.cantidadUnd,
+                            total = it.total,
+                            totalDivisa = it.totalDivisa,
                         };
                         cnn.p_ventaadm_det.Add(ent);
                         cnn.SaveChanges();
@@ -272,6 +305,10 @@ namespace ProvPos
                         tarifaPrecio = ent.tarifa_precio,
                         tasaIva = ent.tasa_iva,
                         tipoIva = ent.tipo_iva,
+                        autoDeposito = ent.auto_deposito,
+                        cantidadUnd = ent.cantidadUnd,
+                        total = ent.total,
+                        totalDivisa = ent.totalDivisa,
                     };
                 }
             }
@@ -413,6 +450,154 @@ namespace ProvPos
             return result;
         }
 
+        public DtoLib.ResultadoId VentaAdm_Temporal_Item_Actualizar(DtoLibPos.VentaAdm.Temporal.Item.Actualizar.Ficha ficha)
+        {
+            var result = new DtoLib.ResultadoId();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        //ELIMINAR ITEM -> ACTUALIZO DEPOSITO
+                        var eliminar = ficha.itemEliminar;
+                        if (eliminar.itemActDeposito != null)
+                        {
+                            var actDep = eliminar.itemActDeposito;
+                            var entDep = cnn.productos_deposito.FirstOrDefault(f => f.auto_deposito == actDep.autoDeposito && f.auto_producto == actDep.autoProducto);
+                            if (entDep == null)
+                            {
+                                result.Mensaje = "ENTIDAD DEPOSITO PARA [" + actDep.prdDescripcion + "] NO ENCONTRADO";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result;
+                            }
+                            entDep.reservada -= actDep.cntActualizar;
+                            entDep.disponible += actDep.cntActualizar;
+                            cnn.SaveChanges();
+                        }
+
+                        //ELIMINAR ITEM -> ELIMINAR ITEM
+                        var rgDet = eliminar.itemDetalle;
+                        var entDet = cnn.p_ventaadm_det.Find(rgDet.id);
+                        if (entDet == null)
+                        {
+                            result.Mensaje = "ENTIDAD VENTA TEMPORAL DETALLE NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        cnn.p_ventaadm_det.Remove(entDet);
+                        cnn.SaveChanges();
+
+                        //ELIMINAR ITEM -> ACTUALIZO ENCABEZADO
+                        var rgEnc = eliminar.itemEncabezado;
+                        var ent = cnn.p_ventaadm.Find(rgEnc.id);
+                        if (ent == null)
+                        {
+                            result.Mensaje = "ENTIDAD VENTA TEMPORAL ENCABEZADO NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        ent.renglones -= rgEnc.renglones;
+                        ent.monto -= rgEnc.monto;
+                        ent.monto_divisa -= rgEnc.montoDivisa;
+                        cnn.SaveChanges();
+
+
+                        // REGISTRAR ITEM -> ACTUALIZO ENCABEZADO
+                        var xenc = ficha.itemRegistrar.itemEncabezado;
+                        var entEnc = cnn.p_ventaadm.Find(xenc.id);
+                        if (entEnc == null)
+                        {
+                            result.Mensaje = "ENTIDAD [VENTA TEMPORAL ENCABEZADO] NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        entEnc.monto += xenc.monto;
+                        entEnc.monto_divisa += xenc.montoDivisa;
+                        entEnc.renglones += xenc.renglones;
+                        cnn.SaveChanges();
+
+                        // REGISTRAR ITEM -> ACTUALIZO DEPOSITO
+                        if (ficha.itemRegistrar.itemActDeposito != null)
+                        {
+                            var xit = ficha.itemRegistrar.itemActDeposito;
+                            var entDep = cnn.productos_deposito.FirstOrDefault(f => f.auto_deposito == xit.autoDeposito && f.auto_producto == xit.autoProducto);
+                            if (entDep == null)
+                            {
+                                result.Mensaje = "ENTIDAD DETALLE DEPOSITO [" + xit.prdDescripcion + "] NO ENCONTRADO";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result;
+                            }
+                            entDep.reservada += xit.cntActualizar;
+                            entDep.disponible -= xit.cntActualizar;
+                            cnn.SaveChanges();
+
+                            if (ficha.itemRegistrar.validarExistencia)
+                            {
+                                if (entDep.disponible < 0)
+                                {
+                                    result.Mensaje = "EXISTENCIA NO DISPONIBLE PARA [" + xit.prdDescripcion + "] ";
+                                    result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return result;
+                                }
+                            }
+                        }
+
+                        // REGISTRAR ITEM -> REGISTRAR ITEM
+                        var it = ficha.itemRegistrar.itemDetalle;
+                        var entReg = new p_ventaadm_det()
+                        {
+                            auto_departamento = it.autoDepartamento,
+                            auto_grupo = it.autoGrupo,
+                            auto_producto = it.autoProducto,
+                            auto_subGrupo = it.autoSubGrupo,
+                            auto_tasa = it.autoTasaIva,
+                            cantidad = it.cantidad,
+                            categoria_producto = it.categroiaProducto,
+                            codigo_producto = it.codigoProducto,
+                            costo = it.costo,
+                            costo_promedio = it.costoPromd,
+                            costo_promedio_und = it.costoPromdUnd,
+                            costo_und = it.costoUnd,
+                            decimales = it.decimalesProducto,
+                            dscto_porct = it.dsctoPorct,
+                            empaque_cont = it.empaqueCont,
+                            empaque_desc = it.empaqueDesc,
+                            estatus_pesado = it.estatusPesadoProducto,
+                            estatusReservaInv = it.estatusReservaMerc,
+                            id_ventaAdm = it.idVenta,
+                            nombre_producto = it.nombreProducto,
+                            notas = it.notas,
+                            precio_neto = it.precioNeto,
+                            precio_neto_divisa = it.precioNetoDivisa,
+                            tarifa_precio = it.tarifaPrecio,
+                            tasa_iva = it.tasaIva,
+                            tipo_iva = it.tipoIva,
+                            auto_deposito = it.autoDeposito,
+                            cantidadUnd = it.cantidadUnd,
+                            total = it.total,
+                            totalDivisa = it.totalDivisa,
+                        };
+                        cnn.p_ventaadm_det.Add(entReg);
+                        cnn.SaveChanges();
+                        result.Id = entReg.id;
+
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        //
+
         public DtoLib.Resultado VentaAdm_Temporal_Anular(DtoLibPos.VentaAdm.Temporal.Anular.Ficha ficha)
         {
             var result = new DtoLib.Resultado();
@@ -466,6 +651,263 @@ namespace ProvPos
                         cnn.SaveChanges();
 
                         ts.Complete();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<int> VentaAdm_Temporal_Recuperar(DtoLibPos.VentaAdm.Temporal.Recuperar.Ficha ficha)
+        {
+            var result = new DtoLib.ResultadoEntidad<int> ();
+
+            try
+            {
+                var cntRec = 0;
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var lst = cnn.p_ventaadm.Where(
+                        w => w.auto_usuario == ficha.autoUsuario &&
+                        w.idEquipo == ficha.idEquipo &&
+                        w.auto_sist_documento == ficha.autoSistDocumento &&
+                        w.estatus_pendiente == ""
+                        ).ToList();
+
+                    using (var ts = new TransactionScope())
+                    {
+                        foreach (var rg in lst.Where(w=>w.renglones>0).ToList())
+                        {
+                            if (rg.renglones>0)
+                            {
+                                cntRec += 1;
+                                rg.estatus_pendiente = "1";
+                                cnn.SaveChanges();
+                            }
+                        }
+                        var lst2 = lst.Where(w => w.renglones == 0).ToList();
+                        cnn.p_ventaadm.RemoveRange(lst2);
+                        cnn.SaveChanges();
+
+                        ts.Complete();
+                    }
+                }
+                result.Entidad = cntRec;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        //
+
+        public DtoLib.Resultado VentaAdm_Temporal_Pendiente_Dejar(DtoLibPos.VentaAdm.Temporal.Pendiente.Dejar.Ficha ficha)
+        {
+            var result = new DtoLib.ResultadoId();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var ent = cnn.p_ventaadm.Find(ficha.idTemporal);
+                        if (ent == null)
+                        {
+                            result.Mensaje = "ENTIDAD VENTA TEMPORAL ENCABEZADO NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        ent.estatus_pendiente = "1";
+                        ent.notas_documento = ficha.notas;
+                        cnn.SaveChanges();
+
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<int> VentaAdm_Temporal_Pendiente_GetCantidaDoc(DtoLibPos.VentaAdm.Temporal.Pendiente.Cantidad.Ficha ficha)
+        {
+            var result = new DtoLib.ResultadoEntidad<int>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var lst = cnn.p_ventaadm.Where(
+                        w => w.auto_usuario == ficha.autoUsuario &&
+                        w.idEquipo == ficha.idEquipo &&
+                        w.auto_sist_documento == ficha.autoSistDocumento &&
+                        w.estatus_pendiente == "1"
+                        ).ToList();
+                    result.Entidad = lst.Count;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibPos.VentaAdm.Temporal.Pendiente.Lista.Ficha> VentaAdm_Temporal_Pendiente_GetLista(DtoLibPos.VentaAdm.Temporal.Pendiente.Lista.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibPos.VentaAdm.Temporal.Pendiente.Lista.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter("p1", filtro.autoUsuario);
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter("p2",filtro.autoSistDocumento);
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter("p3", filtro.idEquipo);
+
+                    var sql_1 = @" select p.id as id, p.fecha, p.hora, 
+                                p.nombre_cliente as nombreCliente, 
+                                p.cirif_cliente as cirifCliente,
+                                p.monto, p.monto_divisa as montoDivisa, p.renglones, 
+                                p.nombre_sucursal as sucursal, p.nombre_deposito as deposito";
+                    var sql_2 = @" from p_ventaadm as p ";
+                    var sql_3 = " where p.auto_usuario=@p1 and p.auto_sist_documento=@p2 and idEquipo=@p3 ";
+
+                    var sql = sql_1 + sql_2 + sql_3 ;
+                    var q = cnn.Database.SqlQuery<DtoLibPos.VentaAdm.Temporal.Pendiente.Lista.Ficha>(sql, p1, p2, p3).ToList();
+                    rt.Lista = q;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibPos.VentaAdm.Temporal.Pendiente.Entidad.Ficha> VentaAdm_Temporal_Pendiente_Abrir(int IdTemp)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibPos.VentaAdm.Temporal.Pendiente.Entidad.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var ent = cnn.p_ventaadm.Find(IdTemp);
+                        if (ent == null)
+                        {
+                            result.Mensaje = "ENTIDAD VENTA TEMPORAL ENCABEZADO NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        ent.estatus_pendiente = "";
+                        cnn.SaveChanges();
+
+                        var enc = new DtoLibPos.VentaAdm.Temporal.Encabezado.Entidad.Ficha()
+                        {
+                            autoCliente = ent.auto_cliente,
+                            autoCobrador = ent.auto_cobrador,
+                            autoDeposito = ent.auto_deposito,
+                            autoRemision = ent.auto_remision,
+                            autoSistDocumento = ent.auto_sist_documento,
+                            autoSucursal = ent.auto_sucursal,
+                            autoTransporte = ent.auto_transporte,
+                            autoUsuario = ent.auto_usuario,
+                            autoVendedor = ent.auto_vendedor,
+                            ciRifCliente = ent.cirif_cliente,
+                            codigoCliente = ent.codigo_cliente,
+                            diasCredito = ent.dias_credito,
+                            diasValidez = ent.dias_validez,
+                            dirDespacho = ent.direccion_despacho,
+                            dirFiscalCliente = ent.dirFiscal_cliente,
+                            documentoRemision = ent.documento_remision,
+                            estatusCredito = ent.estatus_credito,
+                            estatusPendiente = ent.estatus_pendiente,
+                            factorDivisa = ent.factor_divisa,
+                            fecha = ent.fecha,
+                            hora = ent.hora,
+                            id = ent.id,
+                            idEquipo = ent.idEquipo,
+                            monto = ent.monto,
+                            montoDivisa = ent.monto_divisa,
+                            nombreDeposito = ent.nombre_deposito,
+                            nombreSistDocumento = ent.nombre_sist_documento,
+                            nombreSucursal = ent.nombre_sucursal,
+                            nombreUsuario = ent.nombre_usuario,
+                            notasDoc = ent.notas_documento,
+                            razonSocialCliente = ent.nombre_cliente,
+                            renglones = ent.renglones,
+                            tarifaPrecioCliente = ent.tarifa_cliente,
+                            tipoRemision = ent.tipo_remision,
+                        };
+
+                        var lst = cnn.p_ventaadm_det.Where(w => w.id_ventaAdm == IdTemp).ToList();
+                        var lstDet= new List<DtoLibPos.VentaAdm.Temporal.Item.Entidad.Ficha>();
+                        foreach(var rg in lst)
+                        {
+                            var det = new DtoLibPos.VentaAdm.Temporal.Item.Entidad.Ficha()
+                            {
+                                autoDepartamento = rg.auto_departamento,
+                                autoGrupo = rg.auto_grupo,
+                                autoProducto = rg.auto_producto,
+                                autoSubGrupo = rg.auto_subGrupo,
+                                autoTasaIva = rg.auto_tasa,
+                                cantidad = rg.cantidad,
+                                categroiaProducto = rg.categoria_producto,
+                                codigoProducto = rg.codigo_producto,
+                                costo = rg.costo,
+                                costoPromd = rg.costo_promedio,
+                                costoPromdUnd = rg.costo_promedio_und,
+                                costoUnd = rg.costo_und,
+                                decimalesProducto = rg.decimales,
+                                dsctoPorct = rg.dscto_porct,
+                                empaqueCont = rg.empaque_cont,
+                                empaqueDesc = rg.empaque_desc,
+                                estatusPesadoProducto = rg.estatus_pesado,
+                                estatusReservaMerc = rg.estatusReservaInv,
+                                id = rg.id,
+                                nombreProducto = rg.nombre_producto,
+                                notas = rg.notas,
+                                precioNeto = rg.precio_neto,
+                                precioNetoDivisa = rg.precio_neto_divisa,
+                                tarifaPrecio = rg.tarifa_precio,
+                                tasaIva = rg.tasa_iva,
+                                tipoIva = rg.tipo_iva,
+                                autoDeposito = rg.auto_deposito,
+                                cantidadUnd = rg.cantidadUnd,
+                                total = rg.total,
+                                totalDivisa = rg.totalDivisa,
+                            };
+                            lstDet.Add(det);
+                        }
+
+                        ts.Complete();
+                        result.Entidad = new DtoLibPos.VentaAdm.Temporal.Pendiente.Entidad.Ficha()
+                        {
+                            encabezado = enc,
+                            items = lstDet,
+                        };
                     }
                 }
             }

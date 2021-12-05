@@ -145,6 +145,7 @@
     <Compile Include="Pos\EnUso\Ficha.cs" />
     <Compile Include="Pos\Resumen\Ficha.cs" />
     <Compile Include="ProductoAdm\Entidad\Ficha.cs" />
+    <Compile Include="ProductoAdm\Existencia\Ficha.cs" />
     <Compile Include="ProductoAdm\Lista\Enumerados.cs" />
     <Compile Include="ProductoAdm\Lista\Ficha.cs" />
     <Compile Include="ProductoAdm\Lista\Filtro.cs" />
@@ -194,7 +195,9 @@
     <Compile Include="VentaAdm\Temporal\Anular\Item.cs" />
     <Compile Include="VentaAdm\Temporal\Anular\ItemActDeposito.cs" />
     <Compile Include="VentaAdm\Temporal\Encabezado\Editar\Ficha.cs" />
+    <Compile Include="VentaAdm\Temporal\Encabezado\Entidad\Ficha.cs" />
     <Compile Include="VentaAdm\Temporal\Encabezado\Registrar\Ficha.cs" />
+    <Compile Include="VentaAdm\Temporal\Item\Actualizar\Ficha.cs" />
     <Compile Include="VentaAdm\Temporal\Item\Eliminar\Ficha.cs" />
     <Compile Include="VentaAdm\Temporal\Item\Eliminar\ItemActDeposito.cs" />
     <Compile Include="VentaAdm\Temporal\Item\Eliminar\ItemDetalle.cs" />
@@ -208,6 +211,12 @@
     <Compile Include="VentaAdm\Temporal\Item\Registrar\ItemDetalle.cs" />
     <Compile Include="VentaAdm\Temporal\Item\Registrar\ItemActDeposito.cs" />
     <Compile Include="VentaAdm\Temporal\Item\Registrar\ItemEncabezado.cs" />
+    <Compile Include="VentaAdm\Temporal\Pendiente\Entidad\Ficha.cs" />
+    <Compile Include="VentaAdm\Temporal\Pendiente\Cantidad\Ficha.cs" />
+    <Compile Include="VentaAdm\Temporal\Pendiente\Dejar\Ficha.cs" />
+    <Compile Include="VentaAdm\Temporal\Pendiente\Lista\Ficha.cs" />
+    <Compile Include="VentaAdm\Temporal\Pendiente\Lista\Filtro.cs" />
+    <Compile Include="VentaAdm\Temporal\Recuperar\Ficha.cs" />
     <Compile Include="Venta\Anular\Ficha.cs" />
     <Compile Include="Venta\Anular\FichaDeposito.cs" />
     <Compile Include="Venta\Anular\FichaItem.cs" />

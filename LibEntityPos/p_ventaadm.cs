@@ -40,6 +40,20 @@ namespace LibEntityPos
         public string nombre_deposito { get; set; }
         public string nombre_sucursal { get; set; }
         public string nombre_sist_documento { get; set; }
+        public string codigo_cliente { get; set; }
+        public string dirFiscal_cliente { get; set; }
+        public string tarifa_cliente { get; set; }
+        public string estatus_credito { get; set; }
+        public int dias_credito { get; set; }
+        public string auto_vendedor { get; set; }
+        public string auto_cobrador { get; set; }
+        public string auto_transporte { get; set; }
+        public int dias_validez { get; set; }
+        public string direccion_despacho { get; set; }
+        public string notas_documento { get; set; }
+        public string tipo_remision { get; set; }
+        public string documento_remision { get; set; }
+        public string auto_remision { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<p_ventaadm_det> p_ventaadm_det { get; set; }

@@ -58,7 +58,7 @@ namespace LibEntityPos
         public virtual DbSet<ventas> ventas { get; set; }
         public virtual DbSet<cxc> cxc { get; set; }
         public virtual DbSet<empresa_sucursal> empresa_sucursal { get; set; }
-        public virtual DbSet<p_ventaadm> p_ventaadm { get; set; }
         public virtual DbSet<p_ventaadm_det> p_ventaadm_det { get; set; }
+        public virtual DbSet<p_ventaadm> p_ventaadm { get; set; }
     }
 }

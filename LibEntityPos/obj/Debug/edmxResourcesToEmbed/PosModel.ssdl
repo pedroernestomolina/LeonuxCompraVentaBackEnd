@@ -403,6 +403,20 @@
     <Property Name="nombre_deposito" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="nombre_sucursal" Type="varchar" MaxLength="120" Nullable="false" />
     <Property Name="nombre_sist_documento" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="codigo_cliente" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="dirFiscal_cliente" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="tarifa_cliente" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="estatus_credito" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="dias_credito" Type="int" Nullable="false" />
+    <Property Name="auto_vendedor" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_cobrador" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_transporte" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="dias_validez" Type="int" Nullable="false" />
+    <Property Name="direccion_despacho" Type="varchar" MaxLength="120" Nullable="false" />
+    <Property Name="notas_documento" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="tipo_remision" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="documento_remision" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="auto_remision" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityType Name="p_ventaadm_det">
     <Key>
@@ -435,6 +449,10 @@
     <Property Name="dscto_porct" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="notas" Type="varchar" MaxLength="160" Nullable="false" />
     <Property Name="estatusReservaInv" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="auto_deposito" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="total" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="totalDivisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cantidadUnd" Type="decimal" Precision="14" Scale="2" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->

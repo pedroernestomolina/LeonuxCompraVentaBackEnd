@@ -41,6 +41,10 @@ namespace LibEntityPos
         public decimal dscto_porct { get; set; }
         public string notas { get; set; }
         public string estatusReservaInv { get; set; }
+        public string auto_deposito { get; set; }
+        public decimal total { get; set; }
+        public decimal totalDivisa { get; set; }
+        public decimal cantidadUnd { get; set; }
     
         public virtual p_ventaadm p_ventaadm { get; set; }
     }

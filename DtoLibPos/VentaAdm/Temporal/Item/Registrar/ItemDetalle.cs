@@ -37,6 +37,10 @@ namespace DtoLibPos.VentaAdm.Temporal.Item.Registrar
         public decimal dsctoPorct { get; set; }
         public string notas { get; set; }
         public string estatusReservaMerc { get; set; }
+        public decimal total { get; set; }
+        public decimal totalDivisa { get; set; }
+        public decimal cantidadUnd { get; set; }
+        public string autoDeposito { get; set; }
 
 
         public ItemDetalle() 
@@ -67,6 +71,10 @@ namespace DtoLibPos.VentaAdm.Temporal.Item.Registrar
             costoUnd = 0m;
             dsctoPorct = 0m;
             notas = "";
+            total = 0m;
+            totalDivisa = 0m;
+            cantidadUnd = 0m;
+            autoDeposito = "";
         }
 
     }

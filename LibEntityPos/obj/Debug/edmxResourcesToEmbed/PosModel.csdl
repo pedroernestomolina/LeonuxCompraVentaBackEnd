@@ -477,8 +477,8 @@
       <End Role="cxc_recibos" EntitySet="cxc_recibos" />
     </AssociationSet>
     <EntitySet Name="empresa_sucursal" EntityType="PosModel.empresa_sucursal" />
-    <EntitySet Name="p_ventaadm" EntityType="PosModel.p_ventaadm" />
     <EntitySet Name="p_ventaadm_det" EntityType="PosModel.p_ventaadm_det" />
+    <EntitySet Name="p_ventaadm" EntityType="PosModel.p_ventaadm" />
     <AssociationSet Name="p_ventaadm_det_ibfk_1" Association="PosModel.p_ventaadm_det_ibfk_1">
       <End Role="p_ventaadm" EntitySet="p_ventaadm" />
       <End Role="p_ventaadm_det" EntitySet="p_ventaadm_det" />
@@ -1686,32 +1686,6 @@
     <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
     <Property Name="estatus_facturar_mayor" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="p_ventaadm">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="idEquipo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-    <Property Name="auto_usuario" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="auto_cliente" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="auto_sucursal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="auto_deposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="cirif_cliente" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-    <Property Name="nombre_cliente" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="fecha" Type="DateTime" Nullable="false" />
-    <Property Name="hora" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="monto" Type="Decimal" Nullable="false" />
-    <Property Name="monto_divisa" Type="Decimal" Nullable="false" />
-    <Property Name="renglones" Type="Int32" Nullable="false" />
-    <Property Name="estatus_pendiente" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="auto_sist_documento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="factor_divisa" Type="Decimal" Nullable="false" />
-    <Property Name="nombre_usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="nombre_deposito" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="nombre_sucursal" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
-    <Property Name="nombre_sist_documento" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="p_ventaadm_det" Relationship="PosModel.p_ventaadm_det_ibfk_1" FromRole="p_ventaadm" ToRole="p_ventaadm_det" />
-  </EntityType>
   <EntityType Name="p_ventaadm_det">
     <Key>
       <PropertyRef Name="id" />
@@ -1743,7 +1717,51 @@
     <Property Name="dscto_porct" Type="Decimal" Nullable="false" />
     <Property Name="notas" Type="String" Nullable="false" MaxLength="160" FixedLength="false" Unicode="false" />
     <Property Name="estatusReservaInv" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="auto_deposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="total" Type="Decimal" Nullable="false" />
+    <Property Name="totalDivisa" Type="Decimal" Nullable="false" />
+    <Property Name="cantidadUnd" Type="Decimal" Nullable="false" />
     <NavigationProperty Name="p_ventaadm" Relationship="PosModel.p_ventaadm_det_ibfk_1" FromRole="p_ventaadm_det" ToRole="p_ventaadm" />
+  </EntityType>
+  <EntityType Name="p_ventaadm">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idEquipo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="auto_usuario" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_cliente" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_sucursal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_deposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cirif_cliente" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="nombre_cliente" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="hora" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="monto" Type="Decimal" Nullable="false" />
+    <Property Name="monto_divisa" Type="Decimal" Nullable="false" />
+    <Property Name="renglones" Type="Int32" Nullable="false" />
+    <Property Name="estatus_pendiente" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="auto_sist_documento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="factor_divisa" Type="Decimal" Nullable="false" />
+    <Property Name="nombre_usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="nombre_deposito" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="nombre_sucursal" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="nombre_sist_documento" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="codigo_cliente" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="dirFiscal_cliente" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="tarifa_cliente" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="estatus_credito" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="dias_credito" Type="Int32" Nullable="false" />
+    <Property Name="auto_vendedor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_cobrador" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_transporte" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="dias_validez" Type="Int32" Nullable="false" />
+    <Property Name="direccion_despacho" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="notas_documento" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="tipo_remision" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="documento_remision" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="auto_remision" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="p_ventaadm_det" Relationship="PosModel.p_ventaadm_det_ibfk_1" FromRole="p_ventaadm" ToRole="p_ventaadm_det" />
   </EntityType>
   <Association Name="p_ventaadm_det_ibfk_1">
     <End Type="PosModel.p_ventaadm" Role="p_ventaadm" Multiplicity="1" />

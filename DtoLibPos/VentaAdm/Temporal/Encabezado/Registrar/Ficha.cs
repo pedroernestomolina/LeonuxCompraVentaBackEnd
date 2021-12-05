@@ -28,6 +28,21 @@ namespace DtoLibPos.VentaAdm.Temporal.Encabezado.Registrar
         public string nombreUsuario { get; set; }
         public string nombreDeposito { get; set; }
         public string nombreSucursal { get; set; }
+        //
+        public string codigoCliente { get; set; }
+        public string dirFiscalCliente { get; set; }
+        public string tarifaPrecioCliente { get; set; }
+        public string estatusCredito { get; set; }
+        public int diasCredito { get; set; }
+        public string autoVendedor { get; set; }
+        public string autoCobrador { get; set; }
+        public string autoTransporte { get; set; }
+        public int diasValidez { get; set; }
+        public string dirDespacho { get; set; }
+        public string notasDoc { get; set; }
+        public string tipoRemision { get; set; }
+        public string documentoRemision { get; set; }
+        public string autoRemision { get; set; }
 
 
         public Ficha() 
@@ -48,6 +63,21 @@ namespace DtoLibPos.VentaAdm.Temporal.Encabezado.Registrar
             nombreUsuario = "";
             nombreDeposito = "";
             nombreSucursal = "";
+            //
+            codigoCliente = "";
+            dirFiscalCliente = "";
+            tarifaPrecioCliente = "";
+            estatusCredito = "";
+            diasCredito = 0;
+            autoVendedor = "";
+            autoCobrador = "";
+            autoTransporte = "";
+            diasValidez = 0;
+            dirDespacho = "";
+            notasDoc = "";
+            tipoRemision = "";
+            documentoRemision = "";
+            autoRemision = "";
         }
 
     }
