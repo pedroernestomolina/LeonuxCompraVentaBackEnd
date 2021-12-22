@@ -13,7 +13,7 @@ namespace DtoLibInventario.Reportes.KardexResumen
 
         public decimal cnt { get; set; }
         public string concepto { get; set; }
-        public decimal exInicial { get; set; }
+        public decimal? exInicial { get; set; }
         
 
         public Ficha() 

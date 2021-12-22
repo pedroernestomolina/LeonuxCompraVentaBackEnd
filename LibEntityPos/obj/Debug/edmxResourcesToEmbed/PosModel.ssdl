@@ -453,6 +453,7 @@
     <Property Name="total" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="totalDivisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="cantidadUnd" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="estatus_remision" Type="varchar" MaxLength="1" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->

@@ -400,7 +400,7 @@ namespace ProvPos
                                     v.estatus_anulado as estatus, v.tipo as codTipoDoc, v.serie, 
                                     v.signo, v.documento_nombre as nombreTipoDoc  ";
                     var sql_2 = " FROM ventas as v";
-                    var sql_3 = " where v.auto_cliente=@p1 and v.fecha>=@p2 and v.fecha<=@p3 ";
+                    var sql_3 = " where 1=1  ";
                     var sql_4 = "";
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
@@ -408,12 +408,30 @@ namespace ProvPos
                     var p3 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p4 = new MySql.Data.MySqlClient.MySqlParameter();
 
-                    p1.ParameterName = "@p1";
-                    p1.Value = filtro.autoCliente;
-                    p2.ParameterName = "@p2";
-                    p2.Value = filtro.desde;
-                    p3.ParameterName = "@p3";
-                    p3.Value = filtro.hasta;
+                    if (filtro.autoCliente !="")
+                    {
+                        p1.ParameterName = "@p1";
+                        p1.Value = filtro.autoCliente;
+                        sql_3 += " and v.auto_cliente=@p1  ";
+                    }
+                    if (filtro.desde.HasValue)
+                    {
+                        p2.ParameterName = "@p2";
+                        p2.Value = filtro.desde;
+                        sql_3 += " and v.fecha>=@p2 ";
+                    }
+                    if (filtro.hasta.HasValue)
+                    {
+                        p3.ParameterName = "@p3";
+                        p3.Value = filtro.hasta;
+                        sql_3 += " and v.fecha<=@p3 ";
+                    }
+                    if (filtro.tipoDoc!= "")
+                    {
+                        p4.ParameterName = "@p4";
+                        p4.Value = filtro.tipoDoc;
+                        sql_3 += " and v.tipo=@p4 ";
+                    }
 
                     var sql = sql_1 + sql_2 + sql_3 + sql_4;
                     var list = cnn.Database.SqlQuery<DtoLibPos.Cliente.Documento.Ficha>(sql, p1, p2, p3, p4).ToList();

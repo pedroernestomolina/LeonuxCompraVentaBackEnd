@@ -45,6 +45,7 @@ namespace LibEntityPos
         public decimal total { get; set; }
         public decimal totalDivisa { get; set; }
         public decimal cantidadUnd { get; set; }
+        public string estatus_remision { get; set; }
     
         public virtual p_ventaadm p_ventaadm { get; set; }
     }

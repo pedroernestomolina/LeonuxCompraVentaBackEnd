@@ -886,6 +886,7 @@
     <EntitySetMapping Name="p_ventaadm_det">
       <EntityTypeMapping TypeName="PosModel.p_ventaadm_det">
         <MappingFragment StoreEntitySet="p_ventaadm_det">
+          <ScalarProperty Name="estatus_remision" ColumnName="estatus_remision" />
           <ScalarProperty Name="cantidadUnd" ColumnName="cantidadUnd" />
           <ScalarProperty Name="totalDivisa" ColumnName="totalDivisa" />
           <ScalarProperty Name="total" ColumnName="total" />

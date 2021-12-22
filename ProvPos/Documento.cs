@@ -601,7 +601,8 @@ namespace ProvPos
                     var p4 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p5 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p6 = new MySql.Data.MySqlClient.MySqlParameter();
-
+                    var p7 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p8 = new MySql.Data.MySqlClient.MySqlParameter();
                     var sql_1 = @"select v.auto as id, v.documento as docNumero, v.control, v.fecha as fechaEmision, 
                                 v.hora as horaEmision, v.razon_social as nombreRazonSocial, v.ci_Rif as cirif, 
                                 v.total as monto, v.estatus_Anulado as estatus, v.renglones, v.serie, v.monto_divisa as montoDivisa, 
@@ -643,9 +644,24 @@ namespace ProvPos
                         p6.ParameterName = "@p6";
                         p6.Value = filtro.idCliente ;
                     }
+                    if (filtro.idProducto != "")
+                    {
+                        sql_2 += @" join ventas_detalle as vd on v.auto= vd.auto_documento and vd.auto_producto=@idProducto ";
+                        p7.ParameterName = "@idProducto";
+                        p7.Value = filtro.idProducto;
+                    }
+                    if (filtro.estatus != DtoLibPos.Documento.Lista.Filtro.enumEstatus.SinDefinir)
+                    {
+                        var xEstatus = "0";
+                        if (filtro.estatus == DtoLibPos.Documento.Lista.Filtro.enumEstatus.Anulado)
+                            xEstatus = "1";
 
-                    var sql = sql_1 + sql_2+ sql_3; 
-                    var q = cnn.Database.SqlQuery<DtoLibPos.Documento.Lista.Ficha>(sql, p1,p2,p3,p4,p5,p6).ToList();
+                        sql_3 += " and v.estatus_anulado=@estatus ";
+                        p8.ParameterName = "@estatus";
+                        p8.Value = xEstatus;
+                    }
+                    var sql = sql_1 + sql_2+ sql_3;
+                    var q = cnn.Database.SqlQuery<DtoLibPos.Documento.Lista.Ficha>(sql, p1, p2, p3, p4, p5, p6, p7, p8).ToList();
                     rt.Lista = q;
                 }
             }

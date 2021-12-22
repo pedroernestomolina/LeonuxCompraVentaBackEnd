@@ -161,6 +161,38 @@ namespace ProvPos
             return result;
         }
 
+        public DtoLib.Resultado VentaAdm_Temporal_Encabezado_Notas(DtoLibPos.VentaAdm.Temporal.Encabezado.Notas.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var ent = cnn.p_ventaadm.Find(ficha.id);
+                        if (ent == null)
+                        {
+                            result.Mensaje = "ENTIDAD NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        ent.notas_documento = ficha.notas;
+                        cnn.SaveChanges();
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
         //
 
         public DtoLib.ResultadoId VentaAdm_Temporal_Item_Registrar(DtoLibPos.VentaAdm.Temporal.Item.Registrar.Ficha ficha)
@@ -244,6 +276,7 @@ namespace ProvPos
                             cantidadUnd = it.cantidadUnd,
                             total = it.total,
                             totalDivisa = it.totalDivisa,
+                            estatus_remision=it.estatusRemision,
                         };
                         cnn.p_ventaadm_det.Add(ent);
                         cnn.SaveChanges();
@@ -309,6 +342,7 @@ namespace ProvPos
                         cantidadUnd = ent.cantidadUnd,
                         total = ent.total,
                         totalDivisa = ent.totalDivisa,
+                        estatusRemision=ent.estatus_remision,
                     };
                 }
             }
@@ -578,6 +612,7 @@ namespace ProvPos
                             cantidadUnd = it.cantidadUnd,
                             total = it.total,
                             totalDivisa = it.totalDivisa,
+                            estatus_remision=it.estatusRemision,
                         };
                         cnn.p_ventaadm_det.Add(entReg);
                         cnn.SaveChanges();
@@ -698,6 +733,33 @@ namespace ProvPos
                     }
                 }
                 result.Entidad = cntRec;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<int> VentaAdm_Temporal_Recuperar_GetCantidaDoc(DtoLibPos.VentaAdm.Temporal.Recuperar.Ficha ficha)
+        {
+            var result = new DtoLib.ResultadoEntidad<int>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var lst = cnn.p_ventaadm.Where(
+                        w => w.auto_usuario == ficha.autoUsuario &&
+                        w.idEquipo == ficha.idEquipo &&
+                        w.auto_sist_documento == ficha.autoSistDocumento &&
+                        w.estatus_pendiente == "" &&
+                        w.renglones>0
+                        ).ToList();
+                    result.Entidad = lst.Count;
+                }
             }
             catch (Exception e)
             {
@@ -908,6 +970,85 @@ namespace ProvPos
                             encabezado = enc,
                             items = lstDet,
                         };
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        // REMISION
+
+        public DtoLib.Resultado VentaAdm_Temporal_Remision_Registrar(DtoLibPos.VentaAdm.Temporal.Remision.Registrar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var entEnc = cnn.p_ventaadm.Find(ficha.idTemporal);
+                        if (entEnc == null)
+                        {
+                            result.Mensaje = "ENTIDAD [VENTA TEMPORAL ENCABEZADO] NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        entEnc.monto += ficha.monto;
+                        entEnc.monto_divisa += ficha.montoDivisa;
+                        entEnc.renglones += ficha.renglones;
+                        entEnc.auto_remision=ficha.autoRemision;
+                        entEnc.documento_remision=ficha.documentoRemision;
+                        entEnc.tipo_remision = ficha.tipoRemision;
+                        cnn.SaveChanges();
+
+                        foreach (var it in ficha.item)
+                        {
+                            var ent = new p_ventaadm_det()
+                            {
+                                auto_departamento = it.autoDepartamento,
+                                auto_grupo = it.autoGrupo,
+                                auto_producto = it.autoProducto,
+                                auto_subGrupo = it.autoSubGrupo,
+                                auto_tasa = it.autoTasaIva,
+                                cantidad = it.cantidad,
+                                categoria_producto = it.categroiaProducto,
+                                codigo_producto = it.codigoProducto,
+                                costo = it.costo,
+                                costo_promedio = it.costoPromd,
+                                costo_promedio_und = it.costoPromdUnd,
+                                costo_und = it.costoUnd,
+                                decimales = it.decimalesProducto,
+                                dscto_porct = it.dsctoPorct,
+                                empaque_cont = it.empaqueCont,
+                                empaque_desc = it.empaqueDesc,
+                                estatus_pesado = it.estatusPesadoProducto,
+                                estatusReservaInv = it.estatusReservaMerc,
+                                id_ventaAdm = it.idVenta,
+                                nombre_producto = it.nombreProducto,
+                                notas = it.notas,
+                                precio_neto = it.precioNeto,
+                                precio_neto_divisa = it.precioNetoDivisa,
+                                tarifa_precio = it.tarifaPrecio,
+                                tasa_iva = it.tasaIva,
+                                tipo_iva = it.tipoIva,
+                                auto_deposito = it.autoDeposito,
+                                cantidadUnd = it.cantidadUnd,
+                                total = it.total,
+                                totalDivisa = it.totalDivisa,
+                                estatus_remision=it.estatusRemision,
+                            };
+                            cnn.p_ventaadm_det.Add(ent);
+                            cnn.SaveChanges();
+                        }
+                        ts.Complete();
                     }
                 }
             }

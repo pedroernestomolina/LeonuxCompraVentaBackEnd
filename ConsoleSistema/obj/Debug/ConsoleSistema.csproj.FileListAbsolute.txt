@@ -1,3 +1,4 @@
+D:\Proyectos FoxSystem\CompraVenta\ConsoleSistema\bin\Debug\ProvLibSistema.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsoleSistema\bin\Debug\ConsoleSistema.exe.config
 D:\Proyectos FoxSystem\CompraVenta\ConsoleSistema\bin\Debug\ConsoleSistema.exe
 D:\Proyectos FoxSystem\CompraVenta\ConsoleSistema\bin\Debug\ConsoleSistema.pdb
@@ -7,7 +8,6 @@ D:\Proyectos FoxSystem\CompraVenta\ConsoleSistema\bin\Debug\EntityFramework.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsoleSistema\bin\Debug\EntityFramework.SqlServer.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsoleSistema\bin\Debug\ILibSistema.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsoleSistema\bin\Debug\MySql.Data.Entity.EF6.dll
-D:\Proyectos FoxSystem\CompraVenta\ConsoleSistema\bin\Debug\ProvLibSistema.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsoleSistema\bin\Debug\LibEntitySistema.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsoleSistema\bin\Debug\DtoLibSistema.pdb
 D:\Proyectos FoxSystem\CompraVenta\ConsoleSistema\bin\Debug\DtoLib.pdb

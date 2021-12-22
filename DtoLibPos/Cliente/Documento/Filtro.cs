@@ -12,9 +12,9 @@ namespace DtoLibPos.Cliente.Documento
     {
 
         public string autoCliente { get; set; }
-        public DateTime desde { get; set; }
-        public DateTime hasta { get; set; }
-        public Enumerados.enumTipoDoc tipoDoc { get; set; }
+        public DateTime? desde { get; set; }
+        public DateTime? hasta { get; set; }
+        public string tipoDoc { get; set; }
 
 
         public Filtro()
@@ -22,7 +22,7 @@ namespace DtoLibPos.Cliente.Documento
             autoCliente = "";
             desde = DateTime.Now.Date;
             hasta = DateTime.Now.Date;
-            tipoDoc = Enumerados.enumTipoDoc.SinDefinir;
+            tipoDoc = "";
         }
 
     }

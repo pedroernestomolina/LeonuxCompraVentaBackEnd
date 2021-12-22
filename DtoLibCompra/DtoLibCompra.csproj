@@ -43,6 +43,7 @@
     <Compile Include="Concepto\Ficha.cs" />
     <Compile Include="Configuracion\Enumerados.cs" />
     <Compile Include="Deposito\Data\Ficha.cs" />
+    <Compile Include="Deposito\Lista\Filtro.cs" />
     <Compile Include="Deposito\Lista\Resumen.cs" />
     <Compile Include="Documento\Agregar\Factura\Ficha.cs" />
     <Compile Include="Documento\Agregar\Factura\FichaCxP.cs" />

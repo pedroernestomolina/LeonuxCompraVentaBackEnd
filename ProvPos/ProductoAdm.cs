@@ -232,6 +232,86 @@ namespace ProvPos
             return result;
         }
 
+        public DtoLib.ResultadoLista<DtoLibPos.ProductoAdm.ListaResumen.Ficha> ProductoAdm_GetListaResumen(DtoLibPos.ProductoAdm.ListaResumen.Filtro filtro)
+        {
+            var rt = new DtoLib.ResultadoLista<DtoLibPos.ProductoAdm.ListaResumen.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var sql_1 = @" select p.auto as id, p.codigo, p.nombre, p.estatus ";
+                    var sql_2 = @" from productos as p  ";
+                    var sql_3 = " where 1=1 ";
+                    var sql_4 = "";
+
+                    var valor = "";
+                    if (filtro.Cadena.Trim() != "")
+                    {
+                        if (filtro.MetodoBusqueda == DtoLibPos.ProductoAdm.ListaResumen.Enumerados.EnumMetodoBusqueda.PorCodigo)
+                        {
+                            var cad = filtro.Cadena.Trim().ToUpper();
+                            if (cad.Substring(0, 1) == "*")
+                            {
+                                cad = cad.Substring(1);
+                                sql_3 += " and p.codigo like @p";
+                                valor = "%" + cad + "%";
+                            }
+                            else
+                            {
+                                sql_3 += " and p.codigo like @p";
+                                valor = cad + "%";
+                            }
+                        }
+                        if (filtro.MetodoBusqueda == DtoLibPos.ProductoAdm.ListaResumen.Enumerados.EnumMetodoBusqueda.PorDescripcion)
+                        {
+                            var cad = filtro.Cadena.Trim().ToUpper();
+                            if (cad.Substring(0, 1) == "*")
+                            {
+                                cad = cad.Substring(1);
+                                sql_3 += " and p.nombre like @p";
+                                valor = "%" + cad + "%";
+                            }
+                            else
+                            {
+                                sql_3 += " and p.nombre like @p";
+                                valor = cad + "%";
+                            }
+                        }
+                        if (filtro.MetodoBusqueda == DtoLibPos.ProductoAdm.ListaResumen.Enumerados.EnumMetodoBusqueda.PorReferencia)
+                        {
+                            var cad = filtro.Cadena.Trim().ToUpper();
+                            if (cad.Substring(0, 1) == "*")
+                            {
+                                cad = cad.Substring(1);
+                                sql_3 += " and p.referencia like @p";
+                                valor = "%" + cad + "%";
+                            }
+                            else
+                            {
+                                sql_3 += " and p.referencia like @p";
+                                valor = cad + "%";
+                            }
+                        }
+                        p1.ParameterName = "@p";
+                        p1.Value = valor;
+                    }
+
+                    var sql = sql_1 + sql_2 + sql_3 + sql_4;
+                    var q = cnn.Database.SqlQuery<DtoLibPos.ProductoAdm.ListaResumen.Ficha>(sql, p1).ToList();
+                    rt.Lista = q;
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
     }
 
 }

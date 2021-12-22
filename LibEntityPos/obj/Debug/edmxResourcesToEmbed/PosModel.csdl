@@ -1721,6 +1721,7 @@
     <Property Name="total" Type="Decimal" Nullable="false" />
     <Property Name="totalDivisa" Type="Decimal" Nullable="false" />
     <Property Name="cantidadUnd" Type="Decimal" Nullable="false" />
+    <Property Name="estatus_remision" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="p_ventaadm" Relationship="PosModel.p_ventaadm_det_ibfk_1" FromRole="p_ventaadm_det" ToRole="p_ventaadm" />
   </EntityType>
   <EntityType Name="p_ventaadm">
