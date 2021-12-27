@@ -1,4 +1,3 @@
-D:\Proyectos FoxSystem\CompraVenta\ConsoleInventario\bin\Debug\ProvLibInventario.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsoleInventario\bin\Debug\ConsoleInventario.exe.config
 D:\Proyectos FoxSystem\CompraVenta\ConsoleInventario\bin\Debug\ConsoleInventario.exe
 D:\Proyectos FoxSystem\CompraVenta\ConsoleInventario\bin\Debug\ConsoleInventario.pdb
@@ -8,6 +7,7 @@ D:\Proyectos FoxSystem\CompraVenta\ConsoleInventario\bin\Debug\EntityFramework.d
 D:\Proyectos FoxSystem\CompraVenta\ConsoleInventario\bin\Debug\EntityFramework.SqlServer.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsoleInventario\bin\Debug\ILibInventario.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsoleInventario\bin\Debug\MySql.Data.Entity.EF6.dll
+D:\Proyectos FoxSystem\CompraVenta\ConsoleInventario\bin\Debug\ProvLibInventario.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsoleInventario\bin\Debug\LibEntityInventario.dll
 D:\Proyectos FoxSystem\CompraVenta\ConsoleInventario\bin\Debug\DtoLib.pdb
 D:\Proyectos FoxSystem\CompraVenta\ConsoleInventario\bin\Debug\DtoLibInventario.pdb

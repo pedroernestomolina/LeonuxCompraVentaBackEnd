@@ -177,6 +177,9 @@
     <Compile Include="Reportes\VentaAdministrativa\GeneralPorGrupo\Filtro.cs" />
     <Compile Include="Reportes\VentaAdministrativa\Resumen\Ficha.cs" />
     <Compile Include="Reportes\VentaAdministrativa\Resumen\Filtro.cs" />
+    <Compile Include="Reportes\VentaAdministrativa\Utilidad\Producto\Ficha.cs" />
+    <Compile Include="Reportes\VentaAdministrativa\Utilidad\Venta\Ficha.cs" />
+    <Compile Include="Reportes\VentaAdministrativa\Utilidad\Filtro.cs" />
     <Compile Include="Reportes\VentaAdministrativa\VentaPorProducto\Ficha.cs" />
     <Compile Include="Reportes\VentaAdministrativa\VentaPorProducto\Filtro.cs" />
     <Compile Include="Sistema\Empresa\Ficha.cs" />
