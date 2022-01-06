@@ -12,11 +12,13 @@ namespace DtoLibInventario.Visor.CostoEddad
     {
 
         public string autoDepartamento { get; set; }
+        public string autoDeposito { get; set; }
 
 
         public Filtro()
         {
             autoDepartamento = "";
+            autoDeposito = "";
         }
 
     }

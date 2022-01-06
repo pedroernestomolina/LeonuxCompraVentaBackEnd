@@ -66,6 +66,7 @@
     <Compile Include="ConfiguracionAdm.cs" />
     <Compile Include="Deposito.cs" />
     <Compile Include="Documento.cs" />
+    <Compile Include="DocumentoAdm.cs" />
     <Compile Include="Fiscal.cs" />
     <Compile Include="Jornada.cs" />
     <Compile Include="MedioPago.cs" />

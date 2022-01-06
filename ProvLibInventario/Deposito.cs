@@ -100,6 +100,45 @@ namespace ProvLibInventario
             return result;
         }
 
+        public DtoLib.ResultadoLista<DtoLibInventario.Deposito.Resumen> Deposito_GetListaBySucursal(string codSuc)
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibInventario.Deposito.Resumen>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var q = cnn.empresa_depositos.Where(w=>w.codigo_sucursal.Trim().ToUpper()==codSuc.Trim().ToUpper()).ToList();
+
+                    var list = new List<DtoLibInventario.Deposito.Resumen>();
+                    if (q != null)
+                    {
+                        if (q.Count() > 0)
+                        {
+                            list = q.Select(s =>
+                            {
+                                var r = new DtoLibInventario.Deposito.Resumen()
+                                {
+                                    auto = s.auto,
+                                    codigo = s.codigo,
+                                    nombre = s.nombre,
+                                };
+                                return r;
+                            }).ToList();
+                        }
+                    }
+                    result.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

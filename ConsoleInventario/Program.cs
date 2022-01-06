@@ -289,6 +289,9 @@ namespace ConsoleInventario
             //filt.autoDeposito = "0000000008";
             //var rt1 = invPrv.Reportes_KardexResumen (filt);
 
+            //var rt1 = invPrv.Deposito_GetListaBySucursal("01");
+            //var filt = new DtoLibInventario.Visor.CostoEddad.Filtro() { autoDeposito = "0000000001", };
+            //var rt1 = invPrv.Visor_CostoEdad (filt);
         }
 
     }

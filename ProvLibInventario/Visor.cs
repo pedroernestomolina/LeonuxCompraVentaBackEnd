@@ -112,14 +112,21 @@ namespace ProvLibInventario
                         "WHERE 1 = 1 and (pdep.fisica<>0) ";
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
                     if (filtro.autoDepartamento != "")
                     {
                         sql += " and p.auto_departamento=@autoDepartamento ";
                         p1.ParameterName = "@autoDepartamento";
                         p1.Value = filtro.autoDepartamento;
                     }
+                    if (filtro.autoDeposito != "")
+                    {
+                        sql += " and pdep.auto_deposito=@autoDeposito";
+                        p2.ParameterName = "@autoDeposito";
+                        p2.Value = filtro.autoDeposito;
+                    }
 
-                    var lst = cnn.Database.SqlQuery<DtoLibInventario.Visor.CostoEddad.FichaDetalle>(sql, p1).ToList();
+                    var lst = cnn.Database.SqlQuery<DtoLibInventario.Visor.CostoEddad.FichaDetalle>(sql, p1, p2).ToList();
                     rt.Entidad = new DtoLibInventario.Visor.CostoEddad.Ficha();
                     rt.Entidad.fechaServidor= fechaSistema.Date;
                     rt.Entidad.detalles=lst;

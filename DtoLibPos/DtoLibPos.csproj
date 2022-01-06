@@ -79,6 +79,7 @@
     <Compile Include="Deposito\Entidad\Ficha.cs" />
     <Compile Include="Deposito\Lista\Ficha.cs" />
     <Compile Include="Deposito\Lista\Filtro.cs" />
+    <Compile Include="DocumentoAdm\Anular\CapturarData\Ficha.cs" />
     <Compile Include="Documento\Agregar\Factura\Ficha.cs" />
     <Compile Include="Documento\Agregar\Factura\FichaCxC.cs" />
     <Compile Include="Documento\Agregar\Factura\FichaCxCDocumento.cs" />
