@@ -91,13 +91,14 @@ namespace ProvSqLitePosOffLine
             {
                 using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
                 {
-
+                    var fechaSistema = DateTime.Now.Date; //cnn.Database.SqlQuery<DateTime>("select date('now')").FirstOrDefault();
                     var entCliente = new LibEntitySqLitePosOffLine.Cliente()
                     {
                         cirif= ficha.CiRif,
                         nombreRazonSocial= ficha.NombreRazaonSocial,
                         dirFiscal=ficha.DirFiscal,
                         telefono=ficha.Telefono,
+                        fechaAlta= fechaSistema.ToShortDateString(),
                     };
                     cnn.Cliente.Add(entCliente);
                     cnn.SaveChanges();
@@ -196,6 +197,38 @@ namespace ProvSqLitePosOffLine
                     var xsql= xsql_1 +xsql_2;
                     var list = cnn.Database.SqlQuery<DtoLibPosOffLine.Cliente.ExportarData.Ficha>(xsql).ToList();
                     result.Lista = list;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado Cliente_Editar(DtoLibPosOffLine.Cliente.Editar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new LibEntitySqLitePosOffLine.LeonuxPosOffLineEntities(_cnn.ConnectionString))
+                {
+
+                    var entCliente = cnn.Cliente.Find(ficha.Id);
+                    if (entCliente == null)
+                    {
+                        result.Mensaje = "CLIENTE [ ID ] NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    };
+
+                    entCliente.nombreRazonSocial = ficha.NombreRazaonSocial;
+                    entCliente.dirFiscal = ficha.DirFiscal;
+                    entCliente.telefono = ficha.Telefono;
+                    cnn.SaveChanges();
                 }
             }
             catch (Exception e)

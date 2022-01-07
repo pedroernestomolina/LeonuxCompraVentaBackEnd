@@ -26,7 +26,6 @@ namespace LibEntitySqLitePosOffLine
         }
     
         public virtual DbSet<ProductoBarra> ProductoBarra { get; set; }
-        public virtual DbSet<Cliente> Cliente { get; set; }
         public virtual DbSet<UsuarioGrupo> UsuarioGrupo { get; set; }
         public virtual DbSet<Item> Item { get; set; }
         public virtual DbSet<Fiscal> Fiscal { get; set; }
@@ -49,5 +48,6 @@ namespace LibEntitySqLitePosOffLine
         public virtual DbSet<UsuarioPermiso> UsuarioPermiso { get; set; }
         public virtual DbSet<OperadorCierre> OperadorCierre { get; set; }
         public virtual DbSet<Sistema> Sistema { get; set; }
+        public virtual DbSet<Cliente> Cliente { get; set; }
     }
 }

@@ -6,7 +6,6 @@
     <edmx:Diagrams>
       <Diagram DiagramId="eb60b3614d814707b7ef7859a6faee73" Name="Diagram1" ZoomLevel="53">
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.ProductoBarra" Width="1.5" PointX="3.375" PointY="0.75" />
-        <EntityTypeShape EntityType="LeonuxPosOffLineModel.Cliente" Width="1.5" PointX="4.875" PointY="3.5" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.UsuarioGrupo" Width="1.5" PointX="3.375" PointY="6.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Item" Width="1.5" PointX="6.375" PointY="6.625" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Fiscal" Width="1.5" PointX="5.375" PointY="0.75" />
@@ -29,6 +28,7 @@
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.UsuarioPermiso" Width="1.5" PointX="0.75" PointY="6.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.OperadorCierre" Width="1.5" PointX="15.625" PointY="4.75" />
         <EntityTypeShape EntityType="LeonuxPosOffLineModel.Sistema" Width="1.5" PointX="9.375" PointY="14.75" />
+        <EntityTypeShape EntityType="LeonuxPosOffLineModel.Cliente" Width="1.5" PointX="3.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

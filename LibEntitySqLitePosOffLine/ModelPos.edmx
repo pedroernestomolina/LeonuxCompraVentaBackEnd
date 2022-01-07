@@ -14,6 +14,7 @@
           <Property Name="cirif" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="dirFiscal" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="telefono" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="fechaAlta" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="Cobrador">
           <Key>
@@ -508,7 +509,6 @@
       <Schema Namespace="LeonuxPosOffLineModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="LeonuxPosOffLineEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ProductoBarra" EntityType="LeonuxPosOffLineModel.ProductoBarra" />
-          <EntitySet Name="Cliente" EntityType="LeonuxPosOffLineModel.Cliente" />
           <EntitySet Name="UsuarioGrupo" EntityType="LeonuxPosOffLineModel.UsuarioGrupo" />
           <EntitySet Name="Item" EntityType="LeonuxPosOffLineModel.Item" />
           <EntitySet Name="Fiscal" EntityType="LeonuxPosOffLineModel.Fiscal" />
@@ -531,6 +531,7 @@
           <EntitySet Name="UsuarioPermiso" EntityType="LeonuxPosOffLineModel.UsuarioPermiso" />
           <EntitySet Name="OperadorCierre" EntityType="LeonuxPosOffLineModel.OperadorCierre" />
           <EntitySet Name="Sistema" EntityType="LeonuxPosOffLineModel.Sistema" />
+          <EntitySet Name="Cliente" EntityType="LeonuxPosOffLineModel.Cliente" />
         </EntityContainer>
         <EntityType Name="ProductoBarra">
           <Key>
@@ -538,16 +539,6 @@
           </Key>
           <Property Name="autoProducto" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="codigo" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Cliente">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombreRazonSocial" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="cirif" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="dirFiscal" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="telefono" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UsuarioGrupo">
           <Key>
@@ -1003,6 +994,17 @@
           <Property Name="habilitar_precio5_ventamayor" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="habilitar_ventaMayor" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombreRazonSocial" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="cirif" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="dirFiscal" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="telefono" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="fechaAlta" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1014,17 +1016,6 @@
               <MappingFragment StoreEntitySet="ProductoBarra">
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="autoProducto" ColumnName="autoProducto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Cliente">
-            <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Cliente">
-              <MappingFragment StoreEntitySet="Cliente">
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="dirFiscal" ColumnName="dirFiscal" />
-                <ScalarProperty Name="cirif" ColumnName="cirif" />
-                <ScalarProperty Name="nombreRazonSocial" ColumnName="nombreRazonSocial" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1500,6 +1491,18 @@
                 <ScalarProperty Name="sucursalCodigo" ColumnName="sucursalCodigo" />
                 <ScalarProperty Name="factorCambio" ColumnName="factorCambio" />
                 <ScalarProperty Name="auto" ColumnName="auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="dirFiscal" ColumnName="dirFiscal" />
+                <ScalarProperty Name="cirif" ColumnName="cirif" />
+                <ScalarProperty Name="nombreRazonSocial" ColumnName="nombreRazonSocial" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

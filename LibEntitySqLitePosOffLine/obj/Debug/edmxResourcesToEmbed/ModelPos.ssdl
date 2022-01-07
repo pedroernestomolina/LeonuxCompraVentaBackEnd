@@ -9,6 +9,7 @@
     <Property Name="cirif" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
     <Property Name="dirFiscal" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
     <Property Name="telefono" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="fechaAlta" Type="nvarchar" MaxLength="2147483647" />
   </EntityType>
   <EntityType Name="Cobrador">
     <Key>

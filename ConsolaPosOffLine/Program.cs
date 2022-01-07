@@ -15,8 +15,8 @@ namespace ConsolaPosOffLine
         {
             //IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"C:\Modulos Leonux\POS\Data\Leonux.db");
             //IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"D:\Proyectos FoxSystem\CompraVenta\LeonuxPosOffLine.db");
-            IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"C:\POS\Data\LeonuxPosOffLine.db");
-            _offLine.setServidorRemoto("localhost", "00000001");
+            IPosOffLine.IProvider _offLine = new ProvSqLitePosOffLine.Provider(@"C:\Modulos Leonux\POS\Data\LeonuxPosOffLine.db");
+            _offLine.setServidorRemoto("localhost", "bodaraguita");
 
             //var fechaActual = _offLine.FechaServidor();
             //var r01 = _offLine.Producto("0000000005");
@@ -103,16 +103,34 @@ namespace ConsolaPosOffLine
             //}
 
 
-            var r01 = _offLine.Gestion_AgregarCampos();
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
-            {
-                Console.WriteLine(r01.Mensaje);
-            }
-            else
-            {
-                Console.WriteLine("CAMPO CREADO SATISFACTORIAMENTE");
-            }
-            Console.ReadKey();
+            //var r01 = _offLine.Gestion_AgregarCampos();
+            //if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            //{
+            //    Console.WriteLine(r01.Mensaje);
+            //}
+            //else
+            //{
+            //    Console.WriteLine("CAMPO CREADO SATISFACTORIAMENTE");
+            //}
+            //Console.ReadKey();
+
+            //var ficha = new DtoLibPosOffLine.Cliente.Editar.Ficha()
+            //{
+            //    Id = 6647,
+            //    NombreRazaonSocial = "PEDRO ERNESTO MOLINA",
+            //    DirFiscal = "CONJUNTO RESIDENCIAL EL PARQUE, SAN DIEGO",
+            //    Telefono = "04144322860",
+            //};
+            //var r01 = _offLine.Cliente_Editar (ficha);
+
+            //var ficha = new DtoLibPosOffLine.Cliente.Agregar()
+            //{
+            //    CiRif="V11351098",
+            //    NombreRazaonSocial = "PEDRO MOLINA",
+            //    DirFiscal = "SAN DIEGO",
+            //    Telefono = "",
+            //};
+            //var r01 = _offLine.Cliente_Agregar(ficha);
 
         }
 

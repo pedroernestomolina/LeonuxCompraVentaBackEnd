@@ -9,17 +9,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Cliente">
-      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Cliente">
-        <MappingFragment StoreEntitySet="Cliente">
-          <ScalarProperty Name="telefono" ColumnName="telefono" />
-          <ScalarProperty Name="dirFiscal" ColumnName="dirFiscal" />
-          <ScalarProperty Name="cirif" ColumnName="cirif" />
-          <ScalarProperty Name="nombreRazonSocial" ColumnName="nombreRazonSocial" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="UsuarioGrupo">
       <EntityTypeMapping TypeName="LeonuxPosOffLineModel.UsuarioGrupo">
         <MappingFragment StoreEntitySet="UsuarioGrupo">
@@ -492,6 +481,18 @@
           <ScalarProperty Name="sucursalCodigo" ColumnName="sucursalCodigo" />
           <ScalarProperty Name="factorCambio" ColumnName="factorCambio" />
           <ScalarProperty Name="auto" ColumnName="auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cliente">
+      <EntityTypeMapping TypeName="LeonuxPosOffLineModel.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="dirFiscal" ColumnName="dirFiscal" />
+          <ScalarProperty Name="cirif" ColumnName="cirif" />
+          <ScalarProperty Name="nombreRazonSocial" ColumnName="nombreRazonSocial" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

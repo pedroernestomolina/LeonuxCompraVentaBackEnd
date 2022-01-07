@@ -19,5 +19,6 @@ namespace LibEntitySqLitePosOffLine
         public string cirif { get; set; }
         public string dirFiscal { get; set; }
         public string telefono { get; set; }
+        public string fechaAlta { get; set; }
     }
 }
