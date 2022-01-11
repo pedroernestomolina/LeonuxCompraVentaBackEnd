@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibPos.VentaAdm.Temporal.Encabezado.Notas
+namespace DtoLibPos.VentaAdm.Temporal.Cambiar.Notas
 {
     
     public class Ficha

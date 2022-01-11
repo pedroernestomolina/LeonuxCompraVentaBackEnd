@@ -201,9 +201,10 @@
     <Compile Include="VentaAdm\Temporal\Anular\Ficha.cs" />
     <Compile Include="VentaAdm\Temporal\Anular\Item.cs" />
     <Compile Include="VentaAdm\Temporal\Anular\ItemActDeposito.cs" />
+    <Compile Include="VentaAdm\Temporal\Cambiar\Notas\Ficha.cs" />
+    <Compile Include="VentaAdm\Temporal\Cambiar\TasaDivisa\Ficha.cs" />
     <Compile Include="VentaAdm\Temporal\Encabezado\Editar\Ficha.cs" />
     <Compile Include="VentaAdm\Temporal\Encabezado\Entidad\Ficha.cs" />
-    <Compile Include="VentaAdm\Temporal\Encabezado\Notas\Ficha.cs" />
     <Compile Include="VentaAdm\Temporal\Encabezado\Registrar\Ficha.cs" />
     <Compile Include="VentaAdm\Temporal\Item\Actualizar\Ficha.cs" />
     <Compile Include="VentaAdm\Temporal\Item\Eliminar\Ficha.cs" />

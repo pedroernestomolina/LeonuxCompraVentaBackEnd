@@ -21,41 +21,47 @@ namespace ProvSqLitePosOffLine
                     using (var ts = cnn.Database.BeginTransaction())
                     {
 
-                        var sql1 = "alter table sistema add habilitar_ventaMayor TEXT";
+                        //2022-01-10
+                        var sql1 = "alter table cliente add fechaAlta TEXT";
                         var r1 = cnn.Database.ExecuteSqlCommand(sql1);
                         cnn.SaveChanges();
 
-                        var sql2 = @"alter table producto add precioMay_1 NUMERIC";
-                        var r2 = cnn.Database.ExecuteSqlCommand(sql2);
-                        cnn.SaveChanges();
+                        //2021-11-01
+                        //var sql1 = "alter table sistema add habilitar_ventaMayor TEXT";
+                        //var r1 = cnn.Database.ExecuteSqlCommand(sql1);
+                        //cnn.SaveChanges();
+
+                        //var sql2 = @"alter table producto add precioMay_1 NUMERIC";
+                        //var r2 = cnn.Database.ExecuteSqlCommand(sql2);
+                        //cnn.SaveChanges();
                         
-                        sql2 = @"alter table producto add precioMay_2 NUMERIC";
-                        r2 = cnn.Database.ExecuteSqlCommand(sql2);
-                        cnn.SaveChanges();
+                        //sql2 = @"alter table producto add precioMay_2 NUMERIC";
+                        //r2 = cnn.Database.ExecuteSqlCommand(sql2);
+                        //cnn.SaveChanges();
 
-                        sql2 = @"alter table producto add contMay_1 INTEGER";
-                        r2 = cnn.Database.ExecuteSqlCommand(sql2);
-                        cnn.SaveChanges();
+                        //sql2 = @"alter table producto add contMay_1 INTEGER";
+                        //r2 = cnn.Database.ExecuteSqlCommand(sql2);
+                        //cnn.SaveChanges();
 
-                        sql2 = @"alter table producto add contMay_2 INTEGER";
-                        r2 = cnn.Database.ExecuteSqlCommand(sql2);
-                        cnn.SaveChanges();
+                        //sql2 = @"alter table producto add contMay_2 INTEGER";
+                        //r2 = cnn.Database.ExecuteSqlCommand(sql2);
+                        //cnn.SaveChanges();
 
-                        sql2 = @"alter table producto add empMay_1 TEXT";
-                        r2 = cnn.Database.ExecuteSqlCommand(sql2);
-                        cnn.SaveChanges();
+                        //sql2 = @"alter table producto add empMay_1 TEXT";
+                        //r2 = cnn.Database.ExecuteSqlCommand(sql2);
+                        //cnn.SaveChanges();
 
-                        sql2 = @"alter table producto add empMay_2 TEXT";
-                        r2 = cnn.Database.ExecuteSqlCommand(sql2);
-                        cnn.SaveChanges();
+                        //sql2 = @"alter table producto add empMay_2 TEXT";
+                        //r2 = cnn.Database.ExecuteSqlCommand(sql2);
+                        //cnn.SaveChanges();
 
-                        sql2 = @"alter table producto add decMay_1 TEXT";
-                        r2 = cnn.Database.ExecuteSqlCommand(sql2);
-                        cnn.SaveChanges();
+                        //sql2 = @"alter table producto add decMay_1 TEXT";
+                        //r2 = cnn.Database.ExecuteSqlCommand(sql2);
+                        //cnn.SaveChanges();
 
-                        sql2 = @"alter table producto add decMay_2 TEXT";
-                        r2 = cnn.Database.ExecuteSqlCommand(sql2);
-                        cnn.SaveChanges();
+                        //sql2 = @"alter table producto add decMay_2 TEXT";
+                        //r2 = cnn.Database.ExecuteSqlCommand(sql2);
+                        //cnn.SaveChanges();
 
                         ts.Commit();
                     }

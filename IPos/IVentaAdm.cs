@@ -15,7 +15,6 @@ namespace IPos
         DtoLib.ResultadoId VentaAdm_Temporal_Encabezado_Registrar(DtoLibPos.VentaAdm.Temporal.Encabezado.Registrar.Ficha ficha);
         DtoLib.Resultado VentaAdm_Temporal_Encabezado_Editar(DtoLibPos.VentaAdm.Temporal.Encabezado.Editar.Ficha ficha);
         DtoLib.Resultado VentaAdm_Temporal_Encabezado_Eliminar(int idEncabezado);
-        DtoLib.Resultado VentaAdm_Temporal_Encabezado_Notas(DtoLibPos.VentaAdm.Temporal.Encabezado.Notas.Ficha ficha);
         // MANEJO ITEM
         DtoLib.ResultadoId VentaAdm_Temporal_Item_Registrar(DtoLibPos.VentaAdm.Temporal.Item.Registrar.Ficha ficha);
         DtoLib.ResultadoId VentaAdm_Temporal_Item_Actualizar(DtoLibPos.VentaAdm.Temporal.Item.Actualizar.Ficha ficha);
@@ -34,6 +33,9 @@ namespace IPos
             VentaAdm_Temporal_Pendiente_GetLista(DtoLibPos.VentaAdm.Temporal.Pendiente.Lista.Filtro filtro);
         //REMISION
         DtoLib.Resultado VentaAdm_Temporal_Remision_Registrar(DtoLibPos.VentaAdm.Temporal.Remision.Registrar.Ficha ficha);
+        //
+        DtoLib.Resultado VentaAdm_Temporal_SetNotas(DtoLibPos.VentaAdm.Temporal.Cambiar.Notas.Ficha ficha);
+        DtoLib.Resultado VentaAdm_Temporal_SetTasaDivisa(DtoLibPos.VentaAdm.Temporal.Cambiar.TasaDivisa.Ficha ficha);
 
     }
 

@@ -77,7 +77,6 @@ namespace ProvPos
 
             return result;
         }
-
         public DtoLib.Resultado VentaAdm_Temporal_Encabezado_Eliminar(int idEncabezado)
         {
             var result = new DtoLib.Resultado();
@@ -110,7 +109,6 @@ namespace ProvPos
 
             return result;
         }
-
         public DtoLib.Resultado VentaAdm_Temporal_Encabezado_Editar(DtoLibPos.VentaAdm.Temporal.Encabezado.Editar.Ficha ficha)
         {
             var result = new DtoLib.Resultado();
@@ -160,39 +158,6 @@ namespace ProvPos
 
             return result;
         }
-
-        public DtoLib.Resultado VentaAdm_Temporal_Encabezado_Notas(DtoLibPos.VentaAdm.Temporal.Encabezado.Notas.Ficha ficha)
-        {
-            var result = new DtoLib.Resultado();
-
-            try
-            {
-                using (var cnn = new PosEntities(_cnPos.ConnectionString))
-                {
-                    using (var ts = new TransactionScope())
-                    {
-                        var ent = cnn.p_ventaadm.Find(ficha.id);
-                        if (ent == null)
-                        {
-                            result.Mensaje = "ENTIDAD NO ENCONTRADO";
-                            result.Result = DtoLib.Enumerados.EnumResult.isError;
-                            return result;
-                        }
-                        ent.notas_documento = ficha.notas;
-                        cnn.SaveChanges();
-                        ts.Complete();
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                result.Mensaje = e.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return result;
-        }
-
         //
 
         public DtoLib.ResultadoId VentaAdm_Temporal_Item_Registrar(DtoLibPos.VentaAdm.Temporal.Item.Registrar.Ficha ficha)
@@ -294,7 +259,6 @@ namespace ProvPos
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibPos.VentaAdm.Temporal.Item.Entidad.Ficha> VentaAdm_Temporal_Item_GetFichaById(int idItem)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibPos.VentaAdm.Temporal.Item.Entidad.Ficha>();
@@ -354,7 +318,6 @@ namespace ProvPos
 
             return result;
         }
-
         public DtoLib.Resultado VentaAdm_Temporal_Item_Eliminar(DtoLibPos.VentaAdm.Temporal.Item.Eliminar.Ficha ficha)
         {
             var result = new DtoLib.Resultado();
@@ -417,7 +380,6 @@ namespace ProvPos
 
             return result;
         }
-
         public DtoLib.Resultado VentaAdm_Temporal_Item_Limpiar(DtoLibPos.VentaAdm.Temporal.Item.Limpiar.Ficha ficha)
         {
             var result = new DtoLib.Resultado();
@@ -483,7 +445,6 @@ namespace ProvPos
 
             return result;
         }
-
         public DtoLib.ResultadoId VentaAdm_Temporal_Item_Actualizar(DtoLibPos.VentaAdm.Temporal.Item.Actualizar.Ficha ficha)
         {
             var result = new DtoLib.ResultadoId();
@@ -630,7 +591,6 @@ namespace ProvPos
 
             return result;
         }
-
         //
 
         public DtoLib.Resultado VentaAdm_Temporal_Anular(DtoLibPos.VentaAdm.Temporal.Anular.Ficha ficha)
@@ -697,7 +657,6 @@ namespace ProvPos
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<int> VentaAdm_Temporal_Recuperar(DtoLibPos.VentaAdm.Temporal.Recuperar.Ficha ficha)
         {
             var result = new DtoLib.ResultadoEntidad<int> ();
@@ -742,7 +701,6 @@ namespace ProvPos
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<int> VentaAdm_Temporal_Recuperar_GetCantidaDoc(DtoLibPos.VentaAdm.Temporal.Recuperar.Ficha ficha)
         {
             var result = new DtoLib.ResultadoEntidad<int>();
@@ -769,7 +727,6 @@ namespace ProvPos
 
             return result;
         }
-
         //
 
         public DtoLib.Resultado VentaAdm_Temporal_Pendiente_Dejar(DtoLibPos.VentaAdm.Temporal.Pendiente.Dejar.Ficha ficha)
@@ -805,7 +762,6 @@ namespace ProvPos
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<int> VentaAdm_Temporal_Pendiente_GetCantidaDoc(DtoLibPos.VentaAdm.Temporal.Pendiente.Cantidad.Ficha ficha)
         {
             var result = new DtoLib.ResultadoEntidad<int>();
@@ -831,7 +787,6 @@ namespace ProvPos
 
             return result;
         }
-
         public DtoLib.ResultadoLista<DtoLibPos.VentaAdm.Temporal.Pendiente.Lista.Ficha> VentaAdm_Temporal_Pendiente_GetLista(DtoLibPos.VentaAdm.Temporal.Pendiente.Lista.Filtro filtro)
         {
             var rt = new DtoLib.ResultadoLista<DtoLibPos.VentaAdm.Temporal.Pendiente.Lista.Ficha>();
@@ -865,7 +820,6 @@ namespace ProvPos
 
             return rt;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibPos.VentaAdm.Temporal.Pendiente.Entidad.Ficha> VentaAdm_Temporal_Pendiente_Abrir(int IdTemp)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibPos.VentaAdm.Temporal.Pendiente.Entidad.Ficha>();
@@ -983,7 +937,6 @@ namespace ProvPos
         }
 
         // REMISION
-
         public DtoLib.Resultado VentaAdm_Temporal_Remision_Registrar(DtoLibPos.VentaAdm.Temporal.Remision.Registrar.Ficha ficha)
         {
             var result = new DtoLib.Resultado();
@@ -1048,6 +1001,71 @@ namespace ProvPos
                             cnn.p_ventaadm_det.Add(ent);
                             cnn.SaveChanges();
                         }
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        //
+        public DtoLib.Resultado VentaAdm_Temporal_SetNotas(DtoLibPos.VentaAdm.Temporal.Cambiar.Notas.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var ent = cnn.p_ventaadm.Find(ficha.id);
+                        if (ent == null)
+                        {
+                            result.Mensaje = "ENTIDAD NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        ent.notas_documento = ficha.notas;
+                        cnn.SaveChanges();
+                        ts.Complete();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+        public DtoLib.Resultado VentaAdm_Temporal_SetTasaDivisa(DtoLibPos.VentaAdm.Temporal.Cambiar.TasaDivisa.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var ent = cnn.p_ventaadm.Find(ficha.id);
+                        if (ent == null)
+                        {
+                            result.Mensaje = "ENTIDAD NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        ent.factor_divisa = ficha.tasaDivisa;
+                        ent.monto_divisa = ficha.montoDivisa;
+                        cnn.SaveChanges();
                         ts.Complete();
                     }
                 }
