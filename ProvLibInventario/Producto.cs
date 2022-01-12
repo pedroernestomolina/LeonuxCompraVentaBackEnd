@@ -27,7 +27,8 @@ namespace ProvLibInventario
                     var xsql1 = @"select p.auto, p.codigo, p.nombre_corto as nombre, p.nombre as descripcion, ed.nombre as departamento, pg.nombre as grupo, 
                         pmarca.nombre as marca, p.modelo, p.referencia, p.categoria as xcategoria, p.origen as xorigen, 
                         p.contenido_compras as contenido, p.estatus_cambio, 
-                        pm.nombre as empaque, etasa.tasa as tasaIva, etasa.nombre as tasaIvaDescripcion, 
+                        pm.nombre as empaque,  pm.decimales as decimales, 
+                        etasa.tasa as tasaIva, etasa.nombre as tasaIvaDescripcion, 
                         p.estatus as xestatus, p.estatus_divisa, p.estatus_pesado, p.estatus_catalogo, p.estatus_oferta, 
                         p.fecha_alta as fechaAlta, p.fecha_cambio as fechaUltActualizacion, p.fecha_ult_costo as fechaUltCambioCosto, 
                         p.pdf_1 as pDivisaFull_1, p.pdf_2 as pDivisaFull_2, p.pdf_3 as pDivisaFull_3, 
@@ -289,8 +290,9 @@ namespace ProvLibInventario
                     {
                         if (filtro.precioMayorHabilitado.Value == true) 
                         {
-                            xsql2 += " join productos_ext as pext on p.auto=pext.auto_producto ";
-                            xsql3 += " and (pext.utilidad_may_1<>0 or pext.utilidad_may_2<>0 or pext.contenido_may_1>1 or pext.contenido_may_2>1) ";
+                            //xsql2 += " join productos_ext as pext on p.auto=pext.auto_producto ";
+                            //xsql3 += " and (pext.utilidad_may_1<>0 or pext.utilidad_may_2<>0 or pext.contenido_may_1>1 or pext.contenido_may_2>1) ";
+                            xsql3 += " and ((pext.contenido_may_1>1 or pext.contenido_may_2>1) and (pext.precio_may_1>0 or pext.precio_may_2>0)) ";
                         }
                     }
 

@@ -1066,6 +1066,22 @@ namespace ProvPos
                         ent.factor_divisa = ficha.tasaDivisa;
                         ent.monto_divisa = ficha.montoDivisa;
                         cnn.SaveChanges();
+
+                        if (ficha.items != null)
+                        {
+                            foreach (var it in ficha.items)
+                            {
+                                var entDet = cnn.p_ventaadm_det.Find(it.id);
+                                if (entDet == null)
+                                {
+                                    result.Mensaje = "[ ENTIDAD DETALLE: "+it.descProducto+" ] NO ENCONTRADO";
+                                    result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return result;
+                                }
+                                entDet.totalDivisa = it.totalDivisa ;
+                                cnn.SaveChanges();
+                            }
+                        }
                         ts.Complete();
                     }
                 }

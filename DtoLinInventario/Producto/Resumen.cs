@@ -32,6 +32,7 @@ namespace DtoLibInventario.Producto
 
         public int contenido { get; set; }
         public string empaque { get; set; }
+        public string decimales { get; set; }
         public decimal tasaIva { get; set; }
         public string tasaIvaDescripcion { get; set; }
 
