@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auditoria.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="ClienteGrupo.cs" />
     <Compile Include="ClienteZona.cs" />

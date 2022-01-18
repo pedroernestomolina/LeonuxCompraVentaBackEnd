@@ -167,6 +167,7 @@ namespace ProvPos
                        eTasa.tasa as TasaImpuesto, 
                        pext.precio_may_1 as pnetoMay_1, pext.contenido_may_1 as contenidoMay_1, 
                        pext.precio_may_2 as pnetoMay_2, pext.contenido_may_2 as contenidoMay_2, 
+                       pm.decimales as decimales,
                        pm1.auto as AutoMedidaEmpaque_1, pm1.nombre as empaque_1, pm1.decimales as decimales_1, 
                        pm2.auto as AutoMedidaEmpaque_2, pm2.nombre as empaque_2, pm2.decimales as decimales_2, 
                        pm3.auto as AutoMedidaEmpaque_3, pm3.nombre as empaque_3, pm3.decimales as decimales_3, 
@@ -179,6 +180,7 @@ namespace ProvPos
                        join productos_ext as pext on p.auto=pext.auto_producto 
                        join productos_grupo as g on p.auto_grupo=g.auto 
                        join empresa_tasas as eTasa on p.auto_tasa=eTasa.auto
+                       join productos_medida as pm on p.auto_empaque_compra=pm.auto 
                        join productos_medida as pm1 on p.auto_precio_1=pm1.auto 
                        join productos_medida as pm2 on p.auto_precio_2=pm2.auto 
                        join productos_medida as pm3 on p.auto_precio_3=pm3.auto 

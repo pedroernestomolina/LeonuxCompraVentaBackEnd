@@ -16,7 +16,6 @@ namespace DtoLibPos.DocumentoAdm.Agregar.Presupuesto
 
         public Ficha()
         {
-            DocumentoNro = "";
             RazonSocial = "";
             DirFiscal = "";
             CiRif = "";

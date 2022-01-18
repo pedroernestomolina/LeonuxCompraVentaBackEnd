@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auditoria\Buscar\Ficha.cs" />
+    <Compile Include="Auditoria\Entidad\Ficha.cs" />
     <Compile Include="ClienteGrupo\Agregar\Ficha.cs" />
     <Compile Include="ClienteGrupo\Editar\Ficha.cs" />
     <Compile Include="ClienteGrupo\Entidad\Ficha.cs" />
@@ -85,7 +87,11 @@
     <Compile Include="DocumentoAdm\Agregar\Presupuesto\Ficha.cs" />
     <Compile Include="DocumentoAdm\Agregar\Presupuesto\FichaDetalle.cs" />
     <Compile Include="DocumentoAdm\Agregar\Presupuesto\FichaTemporalVenta.cs" />
+    <Compile Include="DocumentoAdm\Anular\BaseAuditoria.cs" />
     <Compile Include="DocumentoAdm\Anular\CapturarData\Ficha.cs" />
+    <Compile Include="DocumentoAdm\Anular\BaseFicha.cs" />
+    <Compile Include="DocumentoAdm\Anular\Prersupuesto\Ficha.cs" />
+    <Compile Include="DocumentoAdm\Anular\Prersupuesto\FichaAuditoria.cs" />
     <Compile Include="Documento\Agregar\Factura\Ficha.cs" />
     <Compile Include="Documento\Agregar\Factura\FichaCxC.cs" />
     <Compile Include="Documento\Agregar\Factura\FichaCxCDocumento.cs" />

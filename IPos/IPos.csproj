@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAuditoria.cs" />
     <Compile Include="ICliente.cs" />
     <Compile Include="IClienteGrupo.cs" />
     <Compile Include="IClienteZona.cs" />

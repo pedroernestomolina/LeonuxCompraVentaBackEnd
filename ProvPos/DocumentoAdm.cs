@@ -34,7 +34,7 @@ namespace ProvPos
                         var anoRelacion = fechaSistema.Year.ToString().Trim().PadLeft(4, '0');
                         var fechaNula = new DateTime(2000, 1, 1);
 
-                        var sql = "update sistema_contadores set a_ventas=a_ventas+1";
+                        var sql = "update sistema_contadores set a_ventas=a_ventas+1, a_ventas_presupuesto=a_ventas_presupuesto+1";
                         var r1 = cn.Database.ExecuteSqlCommand(sql);
                         if (r1 == 0)
                         {
@@ -44,6 +44,7 @@ namespace ProvPos
                         }
 
                         var aVenta = cn.Database.SqlQuery<int>("select a_ventas from sistema_contadores").FirstOrDefault();
+                        var aDocumento = cn.Database.SqlQuery<int>("select a_ventas_presupuesto from sistema_contadores").FirstOrDefault();
                         var largo = 0;
                         largo = 10 - ficha.Prefijo.Length;
                         var fechaVenc = fechaSistema.AddDays(ficha.Dias);
@@ -51,12 +52,13 @@ namespace ProvPos
                         var autoCxC = "";
                         var autoRecibo = "";
                         var reciboNUmero = "";
+                        var documentoNro = aDocumento.ToString().Trim().PadLeft(10, '0');
 
                         //DOCUMENTO VENTA
                         var entVenta = new ventas()
                         {
                             auto = autoVenta,
-                            documento = ficha.DocumentoNro,
+                            documento = documentoNro,
                             fecha = fechaSistema.Date,
                             fecha_vencimiento = fechaVenc.Date,
                             razon_social = ficha.RazonSocial,
@@ -234,6 +236,115 @@ namespace ProvPos
                         cn.SaveChanges();
                         ts.Complete();
                         result.Auto = autoVenta;
+                    }
+                };
+            }
+            catch (DbEntityValidationException e)
+            {
+                var msg = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msg += ve.ErrorMessage;
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                var msg = "";
+                foreach (var eve in e.Entries)
+                {
+                    //msg += eve.m;
+                    foreach (var ve in eve.CurrentValues.PropertyNames)
+                    {
+                        msg += ve.ToString();
+                    }
+                }
+                result.Mensaje = msg;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.Resultado DocumentoAdm_Anular_Presupuesto(DtoLibPos.DocumentoAdm.Anular.Prersupuesto.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    using (var ts = new TransactionScope())
+                    {
+                        var fechaSistema = cn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                        var fechaNula = new DateTime(2000, 1, 1);
+
+                        var ent = cn.ventas.Find(ficha.autoDocumento);
+                        if (ent == null)
+                        {
+                            result.Mensaje = "PROBLEMA AL ENCONTRAR DOCUMENTO [ NO REGISTRADO ] ";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+                        if (ent.estatus_anulado == "1")
+                        {
+                            result.Mensaje = "PROBLEMA ESTATUS DEL DOCUMENTO [ ANULADO ] ";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        //AUDITORIA
+                        var sql = @"INSERT INTO `auditoria_documentos` (`auto_documento`, `auto_sistema_documentos`, 
+                                    `auto_usuario`, `usuario`, `codigo`, `fecha`, `hora`, `memo`, `estacion`, `ip`) 
+                                    VALUES (@p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, '')";
+                        var p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.autoDocumento);
+                        var p2 = new MySql.Data.MySqlClient.MySqlParameter("@p2", ficha.auditoria.autoSistemaDocumento);
+                        var p3 = new MySql.Data.MySqlClient.MySqlParameter("@p3", ficha.auditoria.autoUsuario);
+                        var p4 = new MySql.Data.MySqlClient.MySqlParameter("@p4", ficha.auditoria.usuario);
+                        var p5 = new MySql.Data.MySqlClient.MySqlParameter("@p5", ficha.auditoria.codigo);
+                        var p6 = new MySql.Data.MySqlClient.MySqlParameter("@p6", fechaSistema.Date);
+                        var p7 = new MySql.Data.MySqlClient.MySqlParameter("@p7", fechaSistema.ToShortTimeString());
+                        var p8 = new MySql.Data.MySqlClient.MySqlParameter("@p8", ficha.auditoria.motivo);
+                        var p9 = new MySql.Data.MySqlClient.MySqlParameter("@p9", ficha.auditoria.estacion);
+                        var v1 = cn.Database.ExecuteSqlCommand(sql, p1, p2, p3, p4, p5, p6, p7, p8, p9);
+                        if (v1 == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL REGISTRAR MOVIMIENTO AUDITORIA";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        //DOCUMENTO
+                        sql = "update ventas set estatus_anulado='1' where auto=@p1";
+                        var v2 = cn.Database.ExecuteSqlCommand(sql, p1);
+                        if (v2 == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL ACTUALIZAR ESTATUS [ ANULADO ] AL DOCUMENTO ";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        //ITEMS DETALLE
+                        sql = "update ventas_detalle set estatus_anulado='1' where auto_documento=@p1";
+                        var v3 = cn.Database.ExecuteSqlCommand(sql, p1);
+                        if (v3 == 0)
+                        {
+                            result.Mensaje = "PROBLEMA AL ACTUALIZAR ESTATUS [ ANULADO ] A LOS ITEMS DEL DOCUMENTO ";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        cn.SaveChanges();
+                        ts.Complete();
                     }
                 };
             }

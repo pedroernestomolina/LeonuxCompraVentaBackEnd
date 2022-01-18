@@ -11,7 +11,6 @@ namespace DtoLibPos.DocumentoAdm.Agregar
     public abstract class  BaseFicha
     {
 
-        public string DocumentoNro { get; set; }
         public string RazonSocial { get; set; }
         public string DirFiscal { get; set; }
         public string CiRif { get; set; }

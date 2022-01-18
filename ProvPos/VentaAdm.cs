@@ -805,7 +805,7 @@ namespace ProvPos
                                 p.monto, p.monto_divisa as montoDivisa, p.renglones, 
                                 p.nombre_sucursal as sucursal, p.nombre_deposito as deposito";
                     var sql_2 = @" from p_ventaadm as p ";
-                    var sql_3 = " where p.auto_usuario=@p1 and p.auto_sist_documento=@p2 and idEquipo=@p3 ";
+                    var sql_3 = " where estatus_pendiente='1' and p.auto_usuario=@p1 and p.auto_sist_documento=@p2 and idEquipo=@p3 ";
 
                     var sql = sql_1 + sql_2 + sql_3 ;
                     var q = cnn.Database.SqlQuery<DtoLibPos.VentaAdm.Temporal.Pendiente.Lista.Ficha>(sql, p1, p2, p3).ToList();
