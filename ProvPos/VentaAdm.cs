@@ -24,6 +24,7 @@ namespace ProvPos
                     using (var ts = new TransactionScope())
                     {
                         var fechaSistema = cnn.Database.SqlQuery<DateTime>("select now()").FirstOrDefault();
+                        var fechaNula= new DateTime(2000,1,1);
                         var ent = new p_ventaadm()
                         {
                             auto_cliente = ficha.autoCliente,
@@ -60,6 +61,8 @@ namespace ProvPos
                             notas_documento = ficha.notasDoc,
                             tarifa_cliente = ficha.tarifaPrecioCliente,
                             tipo_remision = ficha.tipoRemision,
+                            nombre_doc_remision=ficha.nombreTipoDocRemision,
+                            fecha_remision= fechaNula,
                         };
                         cnn.p_ventaadm.Add(ent);
                         cnn.SaveChanges();
@@ -242,6 +245,7 @@ namespace ProvPos
                             total = it.total,
                             totalDivisa = it.totalDivisa,
                             estatus_remision=it.estatusRemision,
+                            nombre_deposito=it.nombreDeposito,
                         };
                         cnn.p_ventaadm_det.Add(ent);
                         cnn.SaveChanges();
@@ -573,7 +577,8 @@ namespace ProvPos
                             cantidadUnd = it.cantidadUnd,
                             total = it.total,
                             totalDivisa = it.totalDivisa,
-                            estatus_remision=it.estatusRemision,
+                            estatus_remision = it.estatusRemision,
+                            nombre_deposito = it.nombreDeposito,
                         };
                         cnn.p_ventaadm_det.Add(entReg);
                         cnn.SaveChanges();
@@ -581,6 +586,66 @@ namespace ProvPos
 
                         ts.Complete();
                     }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+        public DtoLib.ResultadoLista<DtoLibPos.VentaAdm.Temporal.Item.Entidad.Ficha> VentaAdm_Temporal_Item_GetLista(int idTemporal)
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibPos.VentaAdm.Temporal.Item.Entidad.Ficha>();
+
+            try
+            {
+                using (var cnn = new PosEntities(_cnPos.ConnectionString))
+                {
+                    var lst = cnn.p_ventaadm_det.Where(w => w.id_ventaAdm == idTemporal).ToList();
+                    var lstDet = new List<DtoLibPos.VentaAdm.Temporal.Item.Entidad.Ficha>();
+                    foreach (var rg in lst)
+                    {
+                        var det = new DtoLibPos.VentaAdm.Temporal.Item.Entidad.Ficha()
+                        {
+                            autoDepartamento = rg.auto_departamento,
+                            autoGrupo = rg.auto_grupo,
+                            autoProducto = rg.auto_producto,
+                            autoSubGrupo = rg.auto_subGrupo,
+                            autoTasaIva = rg.auto_tasa,
+                            cantidad = rg.cantidad,
+                            categroiaProducto = rg.categoria_producto,
+                            codigoProducto = rg.codigo_producto,
+                            costo = rg.costo,
+                            costoPromd = rg.costo_promedio,
+                            costoPromdUnd = rg.costo_promedio_und,
+                            costoUnd = rg.costo_und,
+                            decimalesProducto = rg.decimales,
+                            dsctoPorct = rg.dscto_porct,
+                            empaqueCont = rg.empaque_cont,
+                            empaqueDesc = rg.empaque_desc,
+                            estatusPesadoProducto = rg.estatus_pesado,
+                            estatusReservaMerc = rg.estatusReservaInv,
+                            id = rg.id,
+                            nombreProducto = rg.nombre_producto,
+                            notas = rg.notas,
+                            precioNeto = rg.precio_neto,
+                            precioNetoDivisa = rg.precio_neto_divisa,
+                            tarifaPrecio = rg.tarifa_precio,
+                            tasaIva = rg.tasa_iva,
+                            tipoIva = rg.tipo_iva,
+                            autoDeposito = rg.auto_deposito,
+                            cantidadUnd = rg.cantidadUnd,
+                            total = rg.total,
+                            totalDivisa = rg.totalDivisa,
+                            estatusRemision = rg.estatus_remision,
+                            nombreDeposito=rg.nombre_deposito,
+                        };
+                        lstDet.Add(det);
+                    }
+                    result.Lista =lstDet;
                 }
             }
             catch (Exception e)
@@ -747,7 +812,6 @@ namespace ProvPos
                             return result;
                         }
                         ent.estatus_pendiente = "1";
-                        ent.notas_documento = ficha.notas;
                         cnn.SaveChanges();
 
                         ts.Complete();
@@ -876,6 +940,8 @@ namespace ProvPos
                             renglones = ent.renglones,
                             tarifaPrecioCliente = ent.tarifa_cliente,
                             tipoRemision = ent.tipo_remision,
+                            fechaRemision = ent.fecha_remision,
+                            nombreTipoDocRemision = ent.nombre_doc_remision,
                         };
 
                         var lst = cnn.p_ventaadm_det.Where(w => w.id_ventaAdm == IdTemp).ToList();
@@ -914,6 +980,8 @@ namespace ProvPos
                                 cantidadUnd = rg.cantidadUnd,
                                 total = rg.total,
                                 totalDivisa = rg.totalDivisa,
+                                estatusRemision= rg.estatus_remision,
+                                nombreDeposito=rg.nombre_deposito,
                             };
                             lstDet.Add(det);
                         }
@@ -957,9 +1025,11 @@ namespace ProvPos
                         entEnc.monto += ficha.monto;
                         entEnc.monto_divisa += ficha.montoDivisa;
                         entEnc.renglones += ficha.renglones;
-                        entEnc.auto_remision=ficha.autoRemision;
-                        entEnc.documento_remision=ficha.documentoRemision;
-                        entEnc.tipo_remision = ficha.tipoRemision;
+                        entEnc.auto_remision=ficha.autoDoc;
+                        entEnc.documento_remision=ficha.numeroDoc;
+                        entEnc.tipo_remision = ficha.codigoDoc;
+                        entEnc.fecha_remision=ficha.fechaDoc;
+                        entEnc.nombre_doc_remision=ficha.nombreDoc;
                         cnn.SaveChanges();
 
                         foreach (var it in ficha.item)
@@ -997,6 +1067,7 @@ namespace ProvPos
                                 total = it.total,
                                 totalDivisa = it.totalDivisa,
                                 estatus_remision=it.estatusRemision,
+                                nombre_deposito=it.nombreDeposito,
                             };
                             cnn.p_ventaadm_det.Add(ent);
                             cnn.SaveChanges();

@@ -12,13 +12,11 @@ namespace DtoLibPos.VentaAdm.Temporal.Pendiente.Dejar
     {
 
         public int idTemporal { get; set; }
-        public string notas { get; set; }
 
 
         public Ficha() 
         {
             idTemporal = -1;
-            notas = "";
         }
 
     }

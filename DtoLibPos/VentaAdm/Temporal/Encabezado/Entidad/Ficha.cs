@@ -46,6 +46,8 @@ namespace DtoLibPos.VentaAdm.Temporal.Encabezado.Entidad
         public string tipoRemision { get; set; }
         public string documentoRemision { get; set; }
         public string autoRemision { get; set; }
+        public DateTime fechaRemision { get; set; }
+        public string nombreTipoDocRemision { get; set; }
 
 
         public Ficha()
@@ -84,6 +86,8 @@ namespace DtoLibPos.VentaAdm.Temporal.Encabezado.Entidad
             tipoRemision = "";
             documentoRemision = "";
             autoRemision = "";
+            nombreTipoDocRemision = "";
+            fechaRemision = DateTime.Now.Date;
         }
 
     }

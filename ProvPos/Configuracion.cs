@@ -21,7 +21,7 @@ namespace ProvPos
             {
                 using (var cnn = new PosEntities(_cnPos.ConnectionString))
                 {
-                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL12");
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL48");
                     if (ent == null)
                     {
                         result.Mensaje = "[ ID ] CONFIGURACION GLOBAL NO ENCONTRADO";

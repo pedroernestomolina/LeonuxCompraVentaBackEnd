@@ -417,6 +417,8 @@
     <Property Name="tipo_remision" Type="varchar" MaxLength="2" Nullable="false" />
     <Property Name="documento_remision" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="auto_remision" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="fecha_remision" Type="date" Nullable="false" />
+    <Property Name="nombre_doc_remision" Type="varchar" MaxLength="40" Nullable="false" />
   </EntityType>
   <EntityType Name="p_ventaadm_det">
     <Key>
@@ -454,6 +456,7 @@
     <Property Name="totalDivisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="cantidadUnd" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="estatus_remision" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="nombre_deposito" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->

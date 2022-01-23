@@ -42,6 +42,7 @@ namespace DtoLibPos.VentaAdm.Temporal.Item.Entidad
         public decimal cantidadUnd { get; set; }
         public string autoDeposito { get; set; }
         public string estatusRemision { get; set; }
+        public string nombreDeposito { get; set; }
 
 
         public Ficha() 
@@ -77,6 +78,7 @@ namespace DtoLibPos.VentaAdm.Temporal.Item.Entidad
             total = 0m;
             totalDivisa = 0m;
             estatusRemision = "";
+            nombreDeposito = "";
         }
 
     }

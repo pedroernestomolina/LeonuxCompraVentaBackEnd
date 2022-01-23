@@ -76,8 +76,8 @@
         <AssociationConnector Association="PosModel.cxc_ibfk_3" />
         <AssociationConnector Association="PosModel.cxc_recibos_ibfk_4" />
         <EntityTypeShape EntityType="PosModel.empresa_sucursal" Width="1.5" PointX="12.375" PointY="8.75" />
-        <EntityTypeShape EntityType="PosModel.p_ventaadm_det" Width="1.5" PointX="44.875" PointY="9.25" />
-        <EntityTypeShape EntityType="PosModel.p_ventaadm" Width="1.5" PointX="42.625" PointY="9" />
+        <EntityTypeShape EntityType="PosModel.p_ventaadm" Width="1.5" PointX="42.625" PointY="8.875" />
+        <EntityTypeShape EntityType="PosModel.p_ventaadm_det" Width="1.5" PointX="44.875" PointY="9.125" />
         <AssociationConnector Association="PosModel.p_ventaadm_det_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>

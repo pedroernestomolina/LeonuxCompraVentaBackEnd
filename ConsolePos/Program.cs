@@ -239,6 +239,8 @@ namespace ConsolePos
             //var r01 = posProv.ProductoAdm_GetLista(filtro);
 
             //var r01 = posProv.ProductoAdm_GetFichaById("0000000649");
+
+            var r01 = posProv.DocumentoAdm_GetById("0000000121");
         }
 
     }

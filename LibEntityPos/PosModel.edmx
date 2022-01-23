@@ -422,6 +422,8 @@
           <Property Name="tipo_remision" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="documento_remision" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="auto_remision" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="fecha_remision" Type="date" Nullable="false" />
+          <Property Name="nombre_doc_remision" Type="varchar" MaxLength="40" Nullable="false" />
         </EntityType>
         <EntityType Name="p_ventaadm_det">
           <Key>
@@ -459,6 +461,7 @@
           <Property Name="totalDivisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="cantidadUnd" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="estatus_remision" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="nombre_deposito" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'pita.pos_arqueo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2289,8 +2292,8 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
             <End Role="cxc_recibos" EntitySet="cxc_recibos" />
           </AssociationSet>
           <EntitySet Name="empresa_sucursal" EntityType="PosModel.empresa_sucursal" />
-          <EntitySet Name="p_ventaadm_det" EntityType="PosModel.p_ventaadm_det" />
           <EntitySet Name="p_ventaadm" EntityType="PosModel.p_ventaadm" />
+          <EntitySet Name="p_ventaadm_det" EntityType="PosModel.p_ventaadm_det" />
           <AssociationSet Name="p_ventaadm_det_ibfk_1" Association="PosModel.p_ventaadm_det_ibfk_1">
             <End Role="p_ventaadm" EntitySet="p_ventaadm" />
             <End Role="p_ventaadm_det" EntitySet="p_ventaadm_det" />
@@ -3498,44 +3501,6 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
           <Property Name="estatus_facturar_mayor" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="p_ventaadm_det">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_ventaAdm" Type="Int32" Nullable="false" />
-          <Property Name="auto_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="auto_departamento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="auto_grupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="auto_subGrupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="auto_tasa" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="codigo_producto" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="nombre_producto" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="cantidad" Type="Decimal" Nullable="false" />
-          <Property Name="precio_neto" Type="Decimal" Nullable="false" />
-          <Property Name="precio_neto_divisa" Type="Decimal" Nullable="false" />
-          <Property Name="tarifa_precio" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="tasa_iva" Type="Decimal" Nullable="false" />
-          <Property Name="tipo_iva" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="categoria_producto" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="decimales" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="empaque_desc" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="empaque_cont" Type="Int32" Nullable="false" />
-          <Property Name="estatus_pesado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="costo_und" Type="Decimal" Nullable="false" />
-          <Property Name="costo" Type="Decimal" Nullable="false" />
-          <Property Name="costo_promedio" Type="Decimal" Nullable="false" />
-          <Property Name="costo_promedio_und" Type="Decimal" Nullable="false" />
-          <Property Name="dscto_porct" Type="Decimal" Nullable="false" />
-          <Property Name="notas" Type="String" Nullable="false" MaxLength="160" FixedLength="false" Unicode="false" />
-          <Property Name="estatusReservaInv" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="auto_deposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="total" Type="Decimal" Nullable="false" />
-          <Property Name="totalDivisa" Type="Decimal" Nullable="false" />
-          <Property Name="cantidadUnd" Type="Decimal" Nullable="false" />
-          <Property Name="estatus_remision" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="p_ventaadm" Relationship="PosModel.p_ventaadm_det_ibfk_1" FromRole="p_ventaadm_det" ToRole="p_ventaadm" />
-        </EntityType>
         <EntityType Name="p_ventaadm">
           <Key>
             <PropertyRef Name="id" />
@@ -3574,7 +3539,48 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
           <Property Name="tipo_remision" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="documento_remision" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="auto_remision" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_remision" Type="DateTime" Nullable="false" />
+          <Property Name="nombre_doc_remision" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="p_ventaadm_det" Relationship="PosModel.p_ventaadm_det_ibfk_1" FromRole="p_ventaadm" ToRole="p_ventaadm_det" />
+        </EntityType>
+        <EntityType Name="p_ventaadm_det">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_ventaAdm" Type="Int32" Nullable="false" />
+          <Property Name="auto_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_departamento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_grupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_subGrupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="auto_tasa" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_producto" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_producto" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="cantidad" Type="Decimal" Nullable="false" />
+          <Property Name="precio_neto" Type="Decimal" Nullable="false" />
+          <Property Name="precio_neto_divisa" Type="Decimal" Nullable="false" />
+          <Property Name="tarifa_precio" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="tasa_iva" Type="Decimal" Nullable="false" />
+          <Property Name="tipo_iva" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="categoria_producto" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="decimales" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="empaque_desc" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="empaque_cont" Type="Int32" Nullable="false" />
+          <Property Name="estatus_pesado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="costo_und" Type="Decimal" Nullable="false" />
+          <Property Name="costo" Type="Decimal" Nullable="false" />
+          <Property Name="costo_promedio" Type="Decimal" Nullable="false" />
+          <Property Name="costo_promedio_und" Type="Decimal" Nullable="false" />
+          <Property Name="dscto_porct" Type="Decimal" Nullable="false" />
+          <Property Name="notas" Type="String" Nullable="false" MaxLength="160" FixedLength="false" Unicode="false" />
+          <Property Name="estatusReservaInv" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="auto_deposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="total" Type="Decimal" Nullable="false" />
+          <Property Name="totalDivisa" Type="Decimal" Nullable="false" />
+          <Property Name="cantidadUnd" Type="Decimal" Nullable="false" />
+          <Property Name="estatus_remision" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_deposito" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="p_ventaadm" Relationship="PosModel.p_ventaadm_det_ibfk_1" FromRole="p_ventaadm_det" ToRole="p_ventaadm" />
         </EntityType>
         <Association Name="p_ventaadm_det_ibfk_1">
           <End Type="PosModel.p_ventaadm" Role="p_ventaadm" Multiplicity="1" />
@@ -4476,47 +4482,11 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="p_ventaadm_det">
-            <EntityTypeMapping TypeName="PosModel.p_ventaadm_det">
-              <MappingFragment StoreEntitySet="p_ventaadm_det">
-                <ScalarProperty Name="estatus_remision" ColumnName="estatus_remision" />
-                <ScalarProperty Name="cantidadUnd" ColumnName="cantidadUnd" />
-                <ScalarProperty Name="totalDivisa" ColumnName="totalDivisa" />
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="auto_deposito" ColumnName="auto_deposito" />
-                <ScalarProperty Name="estatusReservaInv" ColumnName="estatusReservaInv" />
-                <ScalarProperty Name="notas" ColumnName="notas" />
-                <ScalarProperty Name="dscto_porct" ColumnName="dscto_porct" />
-                <ScalarProperty Name="costo_promedio_und" ColumnName="costo_promedio_und" />
-                <ScalarProperty Name="costo_promedio" ColumnName="costo_promedio" />
-                <ScalarProperty Name="costo" ColumnName="costo" />
-                <ScalarProperty Name="costo_und" ColumnName="costo_und" />
-                <ScalarProperty Name="estatus_pesado" ColumnName="estatus_pesado" />
-                <ScalarProperty Name="empaque_cont" ColumnName="empaque_cont" />
-                <ScalarProperty Name="empaque_desc" ColumnName="empaque_desc" />
-                <ScalarProperty Name="decimales" ColumnName="decimales" />
-                <ScalarProperty Name="categoria_producto" ColumnName="categoria_producto" />
-                <ScalarProperty Name="tipo_iva" ColumnName="tipo_iva" />
-                <ScalarProperty Name="tasa_iva" ColumnName="tasa_iva" />
-                <ScalarProperty Name="tarifa_precio" ColumnName="tarifa_precio" />
-                <ScalarProperty Name="precio_neto_divisa" ColumnName="precio_neto_divisa" />
-                <ScalarProperty Name="precio_neto" ColumnName="precio_neto" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="nombre_producto" ColumnName="nombre_producto" />
-                <ScalarProperty Name="codigo_producto" ColumnName="codigo_producto" />
-                <ScalarProperty Name="auto_tasa" ColumnName="auto_tasa" />
-                <ScalarProperty Name="auto_subGrupo" ColumnName="auto_subGrupo" />
-                <ScalarProperty Name="auto_grupo" ColumnName="auto_grupo" />
-                <ScalarProperty Name="auto_departamento" ColumnName="auto_departamento" />
-                <ScalarProperty Name="auto_producto" ColumnName="auto_producto" />
-                <ScalarProperty Name="id_ventaAdm" ColumnName="id_ventaAdm" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="p_ventaadm">
             <EntityTypeMapping TypeName="PosModel.p_ventaadm">
               <MappingFragment StoreEntitySet="p_ventaadm">
+                <ScalarProperty Name="nombre_doc_remision" ColumnName="nombre_doc_remision" />
+                <ScalarProperty Name="fecha_remision" ColumnName="fecha_remision" />
                 <ScalarProperty Name="auto_remision" ColumnName="auto_remision" />
                 <ScalarProperty Name="documento_remision" ColumnName="documento_remision" />
                 <ScalarProperty Name="tipo_remision" ColumnName="tipo_remision" />
@@ -4550,6 +4520,45 @@ FROM `ventas_detalle` AS `ventas_detalle`</DefiningQuery>
                 <ScalarProperty Name="auto_cliente" ColumnName="auto_cliente" />
                 <ScalarProperty Name="auto_usuario" ColumnName="auto_usuario" />
                 <ScalarProperty Name="idEquipo" ColumnName="idEquipo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="p_ventaadm_det">
+            <EntityTypeMapping TypeName="PosModel.p_ventaadm_det">
+              <MappingFragment StoreEntitySet="p_ventaadm_det">
+                <ScalarProperty Name="nombre_deposito" ColumnName="nombre_deposito" />
+                <ScalarProperty Name="estatus_remision" ColumnName="estatus_remision" />
+                <ScalarProperty Name="cantidadUnd" ColumnName="cantidadUnd" />
+                <ScalarProperty Name="totalDivisa" ColumnName="totalDivisa" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="auto_deposito" ColumnName="auto_deposito" />
+                <ScalarProperty Name="estatusReservaInv" ColumnName="estatusReservaInv" />
+                <ScalarProperty Name="notas" ColumnName="notas" />
+                <ScalarProperty Name="dscto_porct" ColumnName="dscto_porct" />
+                <ScalarProperty Name="costo_promedio_und" ColumnName="costo_promedio_und" />
+                <ScalarProperty Name="costo_promedio" ColumnName="costo_promedio" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="costo_und" ColumnName="costo_und" />
+                <ScalarProperty Name="estatus_pesado" ColumnName="estatus_pesado" />
+                <ScalarProperty Name="empaque_cont" ColumnName="empaque_cont" />
+                <ScalarProperty Name="empaque_desc" ColumnName="empaque_desc" />
+                <ScalarProperty Name="decimales" ColumnName="decimales" />
+                <ScalarProperty Name="categoria_producto" ColumnName="categoria_producto" />
+                <ScalarProperty Name="tipo_iva" ColumnName="tipo_iva" />
+                <ScalarProperty Name="tasa_iva" ColumnName="tasa_iva" />
+                <ScalarProperty Name="tarifa_precio" ColumnName="tarifa_precio" />
+                <ScalarProperty Name="precio_neto_divisa" ColumnName="precio_neto_divisa" />
+                <ScalarProperty Name="precio_neto" ColumnName="precio_neto" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="nombre_producto" ColumnName="nombre_producto" />
+                <ScalarProperty Name="codigo_producto" ColumnName="codigo_producto" />
+                <ScalarProperty Name="auto_tasa" ColumnName="auto_tasa" />
+                <ScalarProperty Name="auto_subGrupo" ColumnName="auto_subGrupo" />
+                <ScalarProperty Name="auto_grupo" ColumnName="auto_grupo" />
+                <ScalarProperty Name="auto_departamento" ColumnName="auto_departamento" />
+                <ScalarProperty Name="auto_producto" ColumnName="auto_producto" />
+                <ScalarProperty Name="id_ventaAdm" ColumnName="id_ventaAdm" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

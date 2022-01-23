@@ -43,6 +43,7 @@ namespace DtoLibPos.VentaAdm.Temporal.Encabezado.Registrar
         public string tipoRemision { get; set; }
         public string documentoRemision { get; set; }
         public string autoRemision { get; set; }
+        public string nombreTipoDocRemision { get; set; }
 
 
         public Ficha() 
@@ -78,6 +79,7 @@ namespace DtoLibPos.VentaAdm.Temporal.Encabezado.Registrar
             tipoRemision = "";
             documentoRemision = "";
             autoRemision = "";
+            nombreTipoDocRemision = "";
         }
 
     }

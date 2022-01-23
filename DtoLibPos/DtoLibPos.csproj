@@ -83,7 +83,13 @@
     <Compile Include="Deposito\Lista\Filtro.cs" />
     <Compile Include="DocumentoAdm\Agregar\BaseFicha.cs" />
     <Compile Include="DocumentoAdm\Agregar\BaseFichaDetalle.cs" />
+    <Compile Include="DocumentoAdm\Agregar\BaseFichaItemDepositoBloquear.cs" />
     <Compile Include="DocumentoAdm\Agregar\BaseFichaTemporalVenta.cs" />
+    <Compile Include="DocumentoAdm\Agregar\Pedido\Ficha.cs" />
+    <Compile Include="DocumentoAdm\Agregar\Pedido\FichaDetalle.cs" />
+    <Compile Include="DocumentoAdm\Agregar\Pedido\FichaEncabezado.cs" />
+    <Compile Include="DocumentoAdm\Agregar\Pedido\FichaItemDepositoBloquear.cs" />
+    <Compile Include="DocumentoAdm\Agregar\Pedido\FichaTemporalVenta.cs" />
     <Compile Include="DocumentoAdm\Agregar\Presupuesto\Ficha.cs" />
     <Compile Include="DocumentoAdm\Agregar\Presupuesto\FichaDetalle.cs" />
     <Compile Include="DocumentoAdm\Agregar\Presupuesto\FichaTemporalVenta.cs" />
@@ -92,6 +98,8 @@
     <Compile Include="DocumentoAdm\Anular\BaseFicha.cs" />
     <Compile Include="DocumentoAdm\Anular\Prersupuesto\Ficha.cs" />
     <Compile Include="DocumentoAdm\Anular\Prersupuesto\FichaAuditoria.cs" />
+    <Compile Include="DocumentoAdm\Entidad\Ficha.cs" />
+    <Compile Include="DocumentoAdm\Entidad\Item.cs" />
     <Compile Include="Documento\Agregar\Factura\Ficha.cs" />
     <Compile Include="Documento\Agregar\Factura\FichaCxC.cs" />
     <Compile Include="Documento\Agregar\Factura\FichaCxCDocumento.cs" />

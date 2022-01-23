@@ -54,6 +54,8 @@ namespace LibEntityPos
         public string tipo_remision { get; set; }
         public string documento_remision { get; set; }
         public string auto_remision { get; set; }
+        public System.DateTime fecha_remision { get; set; }
+        public string nombre_doc_remision { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<p_ventaadm_det> p_ventaadm_det { get; set; }
