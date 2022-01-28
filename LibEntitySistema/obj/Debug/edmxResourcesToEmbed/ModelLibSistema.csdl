@@ -49,6 +49,7 @@
       <End Role="cxp" EntitySet="cxp" />
     </AssociationSet>
     <EntitySet Name="productos_ext" EntityType="sistemaModel.productos_ext" />
+    <EntitySet Name="empresa_depositos_ext" EntityType="sistemaModel.empresa_depositos_ext" />
   </EntityContainer>
   <EntityType Name="empresa">
     <Key>
@@ -651,5 +652,13 @@
     <Property Name="pdmf_1" Type="Decimal" Nullable="false" />
     <Property Name="pdmf_2" Type="Decimal" Nullable="false" />
     <Property Name="pdmf_3" Type="Decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="empresa_depositos_ext">
+    <Key>
+      <PropertyRef Name="auto_deposito" />
+    </Key>
+    <Property Name="auto_deposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="es_predeterminado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="es_activo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

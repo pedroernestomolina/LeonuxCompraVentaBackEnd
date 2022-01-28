@@ -86,6 +86,14 @@
     <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="codigo_sucursal" Type="varchar" MaxLength="30" Nullable="false" />
   </EntityType>
+  <EntityType Name="empresa_depositos_ext">
+    <Key>
+      <PropertyRef Name="auto_deposito" />
+    </Key>
+    <Property Name="auto_deposito" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="es_predeterminado" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="es_activo" Type="varchar" MaxLength="1" Nullable="false" />
+  </EntityType>
   <EntityType Name="empresa_grupo">
     <Key>
       <PropertyRef Name="auto" />
@@ -620,6 +628,7 @@ warning 6002: The table/view 'pita.sistema_contadores' does not have a primary k
     <EntitySet Name="empresa" EntityType="Self.empresa" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_cobradores" EntityType="Self.empresa_cobradores" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_depositos" EntityType="Self.empresa_depositos" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="empresa_depositos_ext" EntityType="Self.empresa_depositos_ext" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_grupo" EntityType="Self.empresa_grupo" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_series_fiscales" EntityType="Self.empresa_series_fiscales" Schema="pita" store:Type="Tables" />
     <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />

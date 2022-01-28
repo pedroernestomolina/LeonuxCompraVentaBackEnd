@@ -63,11 +63,11 @@ namespace ProvPos
 
                     if (filtro.IdPrecioManejar.Trim() != "")
                     {
-                        var idPrecio=filtro.IdPrecioManejar.Trim();
-                        switch (idPrecio) 
+                        var idPrecio = filtro.IdPrecioManejar.Trim();
+                        switch (idPrecio)
                         {
                             case "1":
-                                sql_1 += " ,p.precio_1 as precioNeto, p.pdf_1 as precioFullDivisa, "+
+                                sql_1 += " ,p.precio_1 as precioNeto, p.pdf_1 as precioFullDivisa, " +
                                     "p.contenido_1 as contenido, pm.decimales, pm.nombre as empaque ";
                                 sql_2 += " join productos_medida as pm on p.auto_precio_1=pm.auto ";
                                 break;
@@ -92,6 +92,12 @@ namespace ProvPos
                                 sql_2 += " join productos_medida as pm on p.auto_precio_pto=pm.auto ";
                                 break;
                         }
+                    }
+                    else 
+                    {
+                        sql_1 += " ,p.precio_1 as precioNeto, p.pdf_1 as precioFullDivisa, " +
+                            "p.contenido_1 as contenido, pm.decimales, pm.nombre as empaque ";
+                        sql_2 += " join productos_medida as pm on p.auto_precio_1=pm.auto ";
                     }
                     sql_1 += @" ,pe.pdmf_1 as precioFullDivisaMay, pe.contenido_may_1 contenidoMay ";  
                     sql_2 += @" join productos_ext as pe on p.auto=pe.auto_producto ";

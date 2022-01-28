@@ -143,6 +143,15 @@ namespace ProvLibSistema
                         cnn.empresa_depositos.Add(ent);
                         cnn.SaveChanges();
 
+                        var entExt = new empresa_depositos_ext()
+                        {
+                            auto_deposito = autoEmpresaDeposito,
+                            es_activo = "1",
+                            es_predeterminado = "",
+                        };
+                        cnn.empresa_depositos_ext.Add(entExt);
+                        cnn.SaveChanges();
+
                         ts.Complete();
                         result.Auto = autoEmpresaDeposito;
                     }

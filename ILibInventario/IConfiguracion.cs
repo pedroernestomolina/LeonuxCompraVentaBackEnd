@@ -23,9 +23,9 @@ namespace ILibInventario
         DtoLib.Resultado Configuracion_SetPreferenciaRegistroPrecio (DtoLibInventario.Configuracion.PreferenciaPrecio.Editar.Ficha ficha);
         DtoLib.Resultado Configuracion_SetMetodoCalculoUtilidad(DtoLibInventario.Configuracion.MetodoCalculoUtilidad.Editar.Ficha ficha);
         DtoLib.Resultado Configuracion_SetBusquedaPredeterminada(DtoLibInventario.Configuracion.BusquedaPredeterminada.Editar.Ficha ficha);
+        DtoLib.Resultado Configuracion_SetDepositosPreDeterminado(DtoLibInventario.Configuracion.DepositoPredeterminado.Ficha ficha);
 
         DtoLib.ResultadoLista<DtoLibInventario.Configuracion.MetodoCalculoUtilidad.CapturarData.Ficha> Configuracion_MetodoCalculoUtilidad_CapturarData();
-
         DtoLib.ResultadoEntidad<string> Configuracion_HabilitarPrecio_5_ParaVentaMayorPos();
 
     }

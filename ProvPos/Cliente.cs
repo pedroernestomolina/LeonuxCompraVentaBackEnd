@@ -464,7 +464,7 @@ namespace ProvPos
                                 join productos as p on vd.auto_producto=p.auto 
                                 join ventas as v on vd.auto_documento=v.auto ";
 
-                    var sql_3 = " where v.auto_cliente=@p1 and v.fecha>=@p2 and v.fecha<=@p3 ";
+                    var sql_3 = " where v.auto_cliente=@p1 and v.fecha>=@p2 and v.fecha<=@p3 and v.tipo in ('01','04') ";
                     var sql_4 = "";
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();

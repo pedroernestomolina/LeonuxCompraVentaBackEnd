@@ -70,6 +70,9 @@
     <Compile Include="empresa_depositos.cs">
       <DependentUpon>ModelLibSistema.tt</DependentUpon>
     </Compile>
+    <Compile Include="empresa_depositos_ext.cs">
+      <DependentUpon>ModelLibSistema.tt</DependentUpon>
+    </Compile>
     <Compile Include="empresa_grupo.cs">
       <DependentUpon>ModelLibSistema.tt</DependentUpon>
     </Compile>

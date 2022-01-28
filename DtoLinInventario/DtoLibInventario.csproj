@@ -53,6 +53,8 @@
     <Compile Include="Concepto\Resumen.cs" />
     <Compile Include="Configuracion\BusquedaPredeterminada\Editar\Ficha.cs" />
     <Compile Include="Configuracion\CostoEdad\Editar\Ficha.cs" />
+    <Compile Include="Configuracion\DepositoPredeterminado\Ficha.cs" />
+    <Compile Include="Configuracion\DepositoPredeterminado\Item.cs" />
     <Compile Include="Configuracion\Enumerados.cs" />
     <Compile Include="Configuracion\MetodoCalculoUtilidad\CapturarData\Ficha.cs" />
     <Compile Include="Configuracion\MetodoCalculoUtilidad\Editar\Ficha.cs" />

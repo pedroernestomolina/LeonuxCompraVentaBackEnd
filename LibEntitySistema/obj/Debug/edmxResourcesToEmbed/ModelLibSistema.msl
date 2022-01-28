@@ -514,5 +514,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="empresa_depositos_ext">
+      <EntityTypeMapping TypeName="sistemaModel.empresa_depositos_ext">
+        <MappingFragment StoreEntitySet="empresa_depositos_ext">
+          <ScalarProperty Name="es_activo" ColumnName="es_activo" />
+          <ScalarProperty Name="es_predeterminado" ColumnName="es_predeterminado" />
+          <ScalarProperty Name="auto_deposito" ColumnName="auto_deposito" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

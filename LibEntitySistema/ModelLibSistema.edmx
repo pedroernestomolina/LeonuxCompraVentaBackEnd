@@ -91,6 +91,14 @@
           <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="codigo_sucursal" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
+        <EntityType Name="empresa_depositos_ext">
+          <Key>
+            <PropertyRef Name="auto_deposito" />
+          </Key>
+          <Property Name="auto_deposito" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="es_predeterminado" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="es_activo" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
         <EntityType Name="empresa_grupo">
           <Key>
             <PropertyRef Name="auto" />
@@ -625,6 +633,7 @@ warning 6002: The table/view 'pita.sistema_contadores' does not have a primary k
           <EntitySet Name="empresa" EntityType="Self.empresa" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_cobradores" EntityType="Self.empresa_cobradores" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_depositos" EntityType="Self.empresa_depositos" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="empresa_depositos_ext" EntityType="Self.empresa_depositos_ext" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_grupo" EntityType="Self.empresa_grupo" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_series_fiscales" EntityType="Self.empresa_series_fiscales" Schema="pita" store:Type="Tables" />
           <EntitySet Name="empresa_sucursal" EntityType="Self.empresa_sucursal" Schema="pita" store:Type="Tables" />
@@ -789,6 +798,7 @@ FROM `sistema_contadores` AS `sistema_contadores`</DefiningQuery>
             <End Role="cxp" EntitySet="cxp" />
           </AssociationSet>
           <EntitySet Name="productos_ext" EntityType="sistemaModel.productos_ext" />
+          <EntitySet Name="empresa_depositos_ext" EntityType="sistemaModel.empresa_depositos_ext" />
         </EntityContainer>
         <EntityType Name="empresa">
           <Key>
@@ -1392,6 +1402,14 @@ FROM `sistema_contadores` AS `sistema_contadores`</DefiningQuery>
           <Property Name="pdmf_2" Type="Decimal" Nullable="false" />
           <Property Name="pdmf_3" Type="Decimal" Nullable="false" />
         </EntityType>
+        <EntityType Name="empresa_depositos_ext">
+          <Key>
+            <PropertyRef Name="auto_deposito" />
+          </Key>
+          <Property Name="auto_deposito" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="es_predeterminado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="es_activo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1908,6 +1926,15 @@ FROM `sistema_contadores` AS `sistema_contadores`</DefiningQuery>
                 <ScalarProperty Name="auto_precio_may_2" ColumnName="auto_precio_may_2" />
                 <ScalarProperty Name="auto_precio_may_1" ColumnName="auto_precio_may_1" />
                 <ScalarProperty Name="auto_producto" ColumnName="auto_producto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empresa_depositos_ext">
+            <EntityTypeMapping TypeName="sistemaModel.empresa_depositos_ext">
+              <MappingFragment StoreEntitySet="empresa_depositos_ext">
+                <ScalarProperty Name="es_activo" ColumnName="es_activo" />
+                <ScalarProperty Name="es_predeterminado" ColumnName="es_predeterminado" />
+                <ScalarProperty Name="auto_deposito" ColumnName="auto_deposito" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

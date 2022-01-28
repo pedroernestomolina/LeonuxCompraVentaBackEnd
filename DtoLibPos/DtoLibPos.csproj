@@ -63,6 +63,8 @@
     <Compile Include="Cliente\Editar\ObtenerData\Ficha.cs" />
     <Compile Include="Cliente\Entidad\Ficha.cs" />
     <Compile Include="Cliente\EstatusActivarInactivar\Ficha.cs" />
+    <Compile Include="ModuloAdm\Configuracion\Actualizar\Ficha.cs" />
+    <Compile Include="ModuloAdm\Configuracion\Capturar\Ficha.cs" />
     <Compile Include="Configuracion\BusquedaCliente\Entidad\Enumerados.cs" />
     <Compile Include="Cliente\Lista\Enumerados.cs" />
     <Compile Include="Cliente\Lista\Ficha.cs" />
@@ -196,6 +198,8 @@
     <Compile Include="Reportes\VentaAdministrativa\GeneralPorDepartamento\Filtro.cs" />
     <Compile Include="Reportes\VentaAdministrativa\GeneralPorGrupo\Ficha.cs" />
     <Compile Include="Reportes\VentaAdministrativa\GeneralPorGrupo\Filtro.cs" />
+    <Compile Include="Reportes\VentaAdministrativa\LibroVenta\Ficha.cs" />
+    <Compile Include="Reportes\VentaAdministrativa\LibroVenta\Filtro.cs" />
     <Compile Include="Reportes\VentaAdministrativa\Resumen\Ficha.cs" />
     <Compile Include="Reportes\VentaAdministrativa\Resumen\Filtro.cs" />
     <Compile Include="Reportes\VentaAdministrativa\Utilidad\Producto\Ficha.cs" />

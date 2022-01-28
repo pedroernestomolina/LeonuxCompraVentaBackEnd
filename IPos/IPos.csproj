@@ -52,6 +52,7 @@
     <Compile Include="IFiscal.cs" />
     <Compile Include="IJornada.cs" />
     <Compile Include="IMedioPago.cs" />
+    <Compile Include="IModuloAdm.cs" />
     <Compile Include="IPendiente.cs" />
     <Compile Include="IPermiso.cs" />
     <Compile Include="IProducto.cs" />

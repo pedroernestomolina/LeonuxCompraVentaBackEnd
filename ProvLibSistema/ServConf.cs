@@ -95,12 +95,19 @@ namespace ProvLibSistema
                     cmd = "INSERT INTO `empresa_departamentos` (`auto`, `codigo`, `nombre`, `comision_g`, `comision_1`, `comision_2`, `comision_3`, `comision_4`) VALUES ('0000000001', '01', 'GENERICO', '0.00', '0.00', '0.00', '0.00', '0.00')";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
+                    cmd = "truncate table empresa_depositos_ext";
+                    cnn.Database.ExecuteSqlCommand(cmd);
+
                     cmd = "truncate table empresa_depositos";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
                     cmd = "INSERT INTO `empresa_depositos` (`auto`, `nombre`, `codigo`, `codigo_sucursal`) "+ 
                         "VALUES ('0000000001', 'PISO DE VENTA', '01', '01'), "+
                         "('0000000002', 'ALMACEN', '02', '01')";
+                    cnn.Database.ExecuteSqlCommand(cmd);
+
+                    cmd = @"INSERT INTO empresa_depositos_ext (auto_deposito, es_predeterminado, es_activo) 
+                            select auto,'','1' from empresa_depositos";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
                     cmd = "truncate table empresa_grupo";
@@ -332,6 +339,9 @@ namespace ProvLibSistema
                     cmd = "truncate table productos_costos";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
+                    cmd = "truncate table productos_precios_ext";
+                    cnn.Database.ExecuteSqlCommand(cmd);
+
                     cmd = "truncate table productos_precios";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
@@ -405,6 +415,9 @@ namespace ProvLibSistema
                         "('0000000006', 'SALIDAS', 'SALIDAS DE MERCANCIA'), " +
                         "('0000000007', 'AJUSTE', 'AJUSTE DE INVENTARIO'), " +
                         "('0000000008', 'TRASL', 'TRASLADO ENTRE DEPOSITOS')";
+                    cnn.Database.ExecuteSqlCommand(cmd);
+
+                    cmd = "truncate table productos_ext";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
                     cmd = "truncate table productos";
@@ -518,9 +531,14 @@ namespace ProvLibSistema
                         "'0.00', '0.00')";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
-
+                    cmd = @"insert into productos_ext(auto_producto, auto_precio_may_1, auto_precio_may_2, auto_precio_may_3, 
+                            contenido_may_1, contenido_may_2, contenido_may_3, utilidad_may_1, utilidad_may_2, utilidad_may_3, 
+                            precio_may_1, precio_may_2, precio_may_3, pdmf_1, pdmf_2, pdmf_3) 
+                            select auto, '0000000001',  '0000000001',  '0000000001', 1,1,1, 0,0,0, 0,0,0, 0,0,0 from productos" ;
+                    cnn.Database.ExecuteSqlCommand(cmd);
+                    
                     //SISTEMA 
-                    cmd = "update sistema set deposito_principal='000000001', codigo_empresa='01', prefijo='0101'";
+                    cmd = "update sistema set deposito_principal='0000000001', codigo_empresa='01', prefijo='0101'";
                     cnn.Database.ExecuteSqlCommand(cmd);
 
                     cmd = "truncate table sistema_estados";

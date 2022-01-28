@@ -518,6 +518,47 @@ namespace ProvLibInventario
             return result;
         }
 
+        public DtoLib.Resultado Configuracion_SetDepositosPreDeterminado(DtoLibInventario.Configuracion.DepositoPredeterminado.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    using (var ts = cnn.Database.BeginTransaction())
+                    {
+                        var sql = @"update empresa_depositos_ext set es_predeterminado=@p2 
+                                    where auto_deposito=@p1";
+                        var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                        var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                        p1.ParameterName = "@p1";
+                        p2.ParameterName = "@p2";
+                        foreach (var it in ficha.ListaPreDet)
+                        {
+                            p1.Value = it.AutoDeposito;
+                            p2.Value = it.Estatus;
+                            var xsql = cnn.Database.ExecuteSqlCommand(sql, p1, p2);
+                            if (xsql == 0)
+                            {
+                                result.Mensaje = "[ ID ] DEPOSITO NO ENCONTRADO";
+                                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return result;
+                            }
+                        }
+                        ts.Commit();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }

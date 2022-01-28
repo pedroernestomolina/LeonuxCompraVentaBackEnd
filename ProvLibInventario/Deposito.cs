@@ -20,26 +20,12 @@ namespace ProvLibInventario
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
-                    var q = cnn.empresa_depositos.ToList();
-
-                    var list = new List<DtoLibInventario.Deposito.Resumen>();
-                    if (q != null)
-                    {
-                        if (q.Count() > 0)
-                        {
-                            list = q.Select(s =>
-                            {
-                                var r = new DtoLibInventario.Deposito.Resumen()
-                                {
-                                    auto = s.auto,
-                                    codigo = s.codigo,
-                                    nombre = s.nombre,
-                                };
-                                return r;
-                            }).ToList();
-                        }
-                    }
-                    result.Lista = list;
+                    var xsql = @"SELECT ed.auto, ed.codigo, ed.nombre, 
+                                edExt.es_activo as estatusActivo, edExt.es_predeterminado as estatusPredeterminado
+                                FROM empresa_depositos as ed 
+                                join empresa_depositos_ext as edExt on ed.auto=edExt.auto_deposito";
+                    var lst = cnn.Database.SqlQuery<DtoLibInventario.Deposito.Resumen>(xsql).ToList(); ;
+                    result.Lista = lst;
                 }
             }
             catch (Exception e)
