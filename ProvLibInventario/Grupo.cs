@@ -53,7 +53,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Grupo.Ficha> Grupo_GetFicha(string auto)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Grupo.Ficha>();
@@ -86,7 +85,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoAuto Grupo_Agregar(DtoLibInventario.Grupo.Agregar ficha)
         {
             var result = new DtoLib.ResultadoAuto();
@@ -157,7 +155,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.Resultado Grupo_Editar(DtoLibInventario.Grupo.Editar ficha)
         {
             var result = new DtoLib.Resultado();
@@ -218,7 +215,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoLista<DtoLibInventario.Grupo.Resumen> Grupo_GetListaByDepartamento(string id)
         {
             var result = new DtoLib.ResultadoLista<DtoLibInventario.Grupo.Resumen>();
@@ -251,7 +247,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.Resultado Grupo_Eliminar(string auto)
         {
             var result = new DtoLib.Resultado();

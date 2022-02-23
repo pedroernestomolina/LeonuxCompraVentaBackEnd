@@ -14,6 +14,13 @@ namespace DtoLibInventario.Movimiento.Cargo.Insertar
         public decimal precioNeto { get; set; }
         public decimal precio_divisa_full { get; set; }
 
+
+        public FichaPrecio() 
+        {
+            precioNeto = 0m;
+            precio_divisa_full = 0m;
+        }
+
     }
 
 }

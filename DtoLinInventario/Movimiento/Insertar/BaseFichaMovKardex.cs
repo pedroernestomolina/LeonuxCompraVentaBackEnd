@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibInventario.Movimiento.Traslado.Insertar
+namespace DtoLibInventario.Movimiento.Insertar
 {
     
-    public class FichaKardex
+    abstract public class BaseFichaMovKardex
     {
 
         public string autoProducto { get; set; }
@@ -17,7 +17,7 @@ namespace DtoLibInventario.Movimiento.Traslado.Insertar
         public string autoConcepto { get; set; }
         public string modulo { get; set; }
         public string entidad { get; set; }
-        public int signo { get; set; }
+        public int signoMov { get; set; }
         public decimal cantidad { get; set; }
         public decimal cantidadBono { get; set; }
         public decimal cantidadUnd { get; set; }
@@ -25,8 +25,8 @@ namespace DtoLibInventario.Movimiento.Traslado.Insertar
         public string estatusAnulado { get; set; }
         public string nota { get; set; }
         public decimal precioUnd { get; set; }
-        public string codigo { get; set; }
-        public string siglas { get; set; }
+        public string codigoMov { get; set; }
+        public string siglasMov { get; set; }
         public string codigoSucursal { get; set; }
         public string codigoConcepto { get; set; }
         public string nombreConcepto { get; set; }

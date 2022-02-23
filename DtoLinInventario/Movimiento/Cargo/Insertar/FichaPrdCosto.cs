@@ -18,6 +18,16 @@ namespace DtoLibInventario.Movimiento.Cargo.Insertar
         public decimal cantidadEntranteUnd { get; set; }
         public decimal importeEntradaUnd { get { return cantidadEntranteUnd * costoFinalUnd; } }
 
+
+        public FichaPrdCosto() 
+        {
+            autoProducto = "";
+            costoFinal = 0m;
+            costoFinalUnd = 0m;
+            costoDivisa = 0m;
+            cantidadEntranteUnd = 0m;
+        }
+
     }
 
 }

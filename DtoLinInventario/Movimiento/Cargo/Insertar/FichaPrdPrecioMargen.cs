@@ -18,6 +18,17 @@ namespace DtoLibInventario.Movimiento.Cargo.Insertar
         public FichaPrecioMargen precio_4 { get; set; }
         public FichaPrecioMargen precio_5 { get; set; }
 
+
+        public FichaPrdPrecioMargen() 
+        {
+            autoProducto = "";
+            precio_1 = new FichaPrecioMargen();
+            precio_2 = new FichaPrecioMargen();
+            precio_3 = new FichaPrecioMargen();
+            precio_4 = new FichaPrecioMargen();
+            precio_5 = new FichaPrecioMargen();
+        }
+
     }
 
 }

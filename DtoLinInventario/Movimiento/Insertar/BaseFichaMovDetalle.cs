@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DtoLibInventario.Movimiento.DesCargo.Insertar
+namespace DtoLibInventario.Movimiento.Insertar
 {
     
-    public class FichaDetalle
+    abstract public class BaseFichaMovDetalle
     {
+
 
         public string autoProducto { get; set; }
         public string codigoProducto { get; set; }

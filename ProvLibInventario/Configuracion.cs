@@ -55,7 +55,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Configuracion.Enumerados.EnumMetodoCalculoUtilidad> Configuracion_MetodoCalculoUtilidad()
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Configuracion.Enumerados.EnumMetodoCalculoUtilidad>();
@@ -94,7 +93,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<string> Configuracion_TasaCambioActual()
         {
             var result = new DtoLib.ResultadoEntidad<string>();
@@ -131,7 +129,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta> Configuracion_ForzarRedondeoPrecioVenta()
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta>();
@@ -173,7 +170,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio> Configuracion_PreferenciaRegistroPrecio()
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio>();
@@ -212,7 +208,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<int> Configuracion_CostoEdadProducto()
         {
             var result = new DtoLib.ResultadoEntidad<int>();
@@ -249,8 +244,34 @@ namespace ProvLibInventario
 
             return result;
         }
+        public DtoLib.ResultadoEntidad<string> Configuracion_VisualizarProductosInactivos()
+        {
+            var result = new DtoLib.ResultadoEntidad<string>();
 
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL52");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
 
+                    result.Entidad = ent.usuario;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+        
         public DtoLib.Resultado Configuracion_SetCostoEdadProducto(DtoLibInventario.Configuracion.CostoEdad.Editar.Ficha ficha)
         {
             var result = new DtoLib.Resultado();
@@ -278,7 +299,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.Resultado Configuracion_SetRedondeoPrecioVenta(DtoLibInventario.Configuracion.RedondeoPrecio.Editar.Ficha ficha)
         {
             var result = new DtoLib.Resultado();
@@ -306,7 +326,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.Resultado Configuracion_SetPreferenciaRegistroPrecio(DtoLibInventario.Configuracion.PreferenciaPrecio.Editar.Ficha ficha)
         {
             var result = new DtoLib.Resultado();
@@ -334,7 +353,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.Resultado Configuracion_SetMetodoCalculoUtilidad(DtoLibInventario.Configuracion.MetodoCalculoUtilidad.Editar.Ficha ficha)
         {
             var result = new DtoLib.Resultado();
@@ -433,7 +451,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.Resultado Configuracion_SetBusquedaPredeterminada(DtoLibInventario.Configuracion.BusquedaPredeterminada.Editar.Ficha ficha)
         {
             var result = new DtoLib.Resultado();
@@ -461,63 +478,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
-
-        public DtoLib.ResultadoLista<DtoLibInventario.Configuracion.MetodoCalculoUtilidad.CapturarData.Ficha> Configuracion_MetodoCalculoUtilidad_CapturarData()
-        {
-            var result = new DtoLib.ResultadoLista<DtoLibInventario.Configuracion.MetodoCalculoUtilidad.CapturarData.Ficha>();
-
-            try
-            {
-                using (var cnn = new invEntities(_cnInv.ConnectionString))
-                {
-                    var sql = @"SELECT auto as idProducto, costo_und as costoUnd, divisa as costoDivisa, estatus_divisa as estatusDivisa, 
-                                    contenido_compras as contenidoEmpCompra, tasa as tasaIva, 
-                                    utilidad_1, utilidad_2, utilidad_3, utilidad_4, utilidad_pto as utilidad_5,
-                                    contenido_1, contenido_2, contenido_3, contenido_4, contenido_pto as contenido_5,
-                                    precio_1, precio_2, precio_3, precio_4 , precio_pto as precio_5
-                                from productos 
-                                where estatus='Activo' and categoria='Producto Terminado'";
-                    var lst= cnn.Database.SqlQuery<DtoLibInventario.Configuracion.MetodoCalculoUtilidad.CapturarData.Ficha>(sql).ToList();
-                    result.Lista = lst;
-                }
-            }
-            catch (Exception e)
-            {
-                result.Mensaje = e.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return result;
-        }
-
-        public DtoLib.ResultadoEntidad<string> Configuracion_HabilitarPrecio_5_ParaVentaMayorPos()
-        {
-            var result = new DtoLib.ResultadoEntidad<string>();
-
-            try
-            {
-                using (var cnn = new invEntities(_cnInv.ConnectionString))
-                {
-                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL51");
-                    if (ent == null)
-                    {
-                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
-                        result.Result = DtoLib.Enumerados.EnumResult.isError;
-                        return result;
-                    }
-                    result.Entidad = ent.usuario;
-                }
-            }
-            catch (Exception e)
-            {
-                result.Mensaje = e.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return result;
-        }
-
         public DtoLib.Resultado Configuracion_SetDepositosPreDeterminado(DtoLibInventario.Configuracion.DepositoPredeterminado.Ficha ficha)
         {
             var result = new DtoLib.Resultado();
@@ -548,6 +508,60 @@ namespace ProvLibInventario
                         }
                         ts.Commit();
                     }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoLista<DtoLibInventario.Configuracion.MetodoCalculoUtilidad.CapturarData.Ficha> Configuracion_MetodoCalculoUtilidad_CapturarData()
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibInventario.Configuracion.MetodoCalculoUtilidad.CapturarData.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var sql = @"SELECT auto as idProducto, costo_und as costoUnd, divisa as costoDivisa, estatus_divisa as estatusDivisa, 
+                                    contenido_compras as contenidoEmpCompra, tasa as tasaIva, 
+                                    utilidad_1, utilidad_2, utilidad_3, utilidad_4, utilidad_pto as utilidad_5,
+                                    contenido_1, contenido_2, contenido_3, contenido_4, contenido_pto as contenido_5,
+                                    precio_1, precio_2, precio_3, precio_4 , precio_pto as precio_5
+                                from productos 
+                                where estatus='Activo' and categoria='Producto Terminado'";
+                    var lst= cnn.Database.SqlQuery<DtoLibInventario.Configuracion.MetodoCalculoUtilidad.CapturarData.Ficha>(sql).ToList();
+                    result.Lista = lst;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+        public DtoLib.ResultadoEntidad<string> Configuracion_HabilitarPrecio_5_ParaVentaMayorPos()
+        {
+            var result = new DtoLib.ResultadoEntidad<string>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL51");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    result.Entidad = ent.usuario;
                 }
             }
             catch (Exception e)

@@ -16,6 +16,15 @@ namespace DtoLibInventario.Movimiento.Cargo.Insertar
         public string precio_id { get; set; }
         public decimal precio { get; set; }
 
+
+        public FichaPrdPrecioHistorico() 
+        {
+            autoProducto = "";
+            nota = "";
+            precio_id = "";
+            precio = 0m;
+        }
+
     }
 
 }

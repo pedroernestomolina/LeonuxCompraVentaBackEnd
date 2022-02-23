@@ -18,6 +18,17 @@ namespace DtoLibInventario.Movimiento.Cargo.Insertar
         public string serie { get; set; }
         public string nota { get; set; }
 
+
+        public FichaPrdCostoHistorico() 
+        {
+            autoProducto = "";
+            costo = 0m;
+            divisa = 0m;
+            tasaCambio = 0m;
+            serie = "";
+            nota = "";
+        }
+
     }
 
 }
