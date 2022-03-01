@@ -120,6 +120,19 @@ namespace ConsoleSistema
             //var r01 = sistPrv.Usuario_GetLista(filtro);
 
             //var r01 = sistPrv.Usuario_Eliminar("0000000026");
+
+            //var r01 = sistPrv.Configuracion_Modulo_Capturar();
+
+            //var ficha = new DtoLibSistema.Configuracion.Modulo.Actualizar.Ficha()
+            //{
+            //    claveNivMaximo = "123",
+            //    claveNivMedio = "",
+            //    claveNivMinimo = "",
+            //    visualizarPrdInactivos = "No",
+            //    cantDocVisualizar = 1500,
+            //};
+            //var r01 = sistPrv.Configuracion_Modulo_Actualizar(ficha);
+
         }
 
     }

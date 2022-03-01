@@ -18,6 +18,7 @@ namespace ILibInventario
         DtoLib.ResultadoEntidad<DtoLibInventario.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio> Configuracion_PreferenciaRegistroPrecio();
         DtoLib.ResultadoEntidad<int > Configuracion_CostoEdadProducto();
         DtoLib.ResultadoEntidad<string> Configuracion_VisualizarProductosInactivos();
+        DtoLib.ResultadoEntidad<string> Configuracion_CantDocVisualizar();
 
         DtoLib.Resultado Configuracion_SetCostoEdadProducto(DtoLibInventario.Configuracion.CostoEdad.Editar.Ficha ficha);
         DtoLib.Resultado Configuracion_SetRedondeoPrecioVenta(DtoLibInventario.Configuracion.RedondeoPrecio.Editar.Ficha ficha);

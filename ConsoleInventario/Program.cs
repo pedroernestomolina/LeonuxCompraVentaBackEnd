@@ -294,6 +294,16 @@ namespace ConsoleInventario
             //var rt1 = invPrv.Visor_CostoEdad (filt);
 
             //var rt1 = invPrv.Configuracion_VisualizarProductosInactivos();
+
+            //var filt = new DtoLibInventario.Reportes.Kardex.Filtro()
+            //{
+            //    desde = new DateTime(2022, 02, 01),
+            //    hasta = new DateTime(2022, 02, 28),
+            //    autoDeposito="0000000001",
+            //    autoProducto="0000000481",
+            //};
+            //var rt1 = invPrv.Reportes_Kardex(filt);
+
         }
 
     }

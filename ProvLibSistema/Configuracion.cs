@@ -42,7 +42,6 @@ namespace ProvLibSistema
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<string> Configuracion_TasaRecepcionPos()
         {
             var result = new DtoLib.ResultadoEntidad<string>();
@@ -98,7 +97,6 @@ namespace ProvLibSistema
 
             return result;
         }
-
         public DtoLib.ResultadoLista<DtoLibSistema.Configuracion.ActualizarTasaDivisa.CapturarData.Ficha> Configuracion_Actualizar_TasaDivisa_CapturarData()
         {
             var result = new DtoLib.ResultadoLista<DtoLibSistema.Configuracion.ActualizarTasaDivisa.CapturarData.Ficha>();
@@ -126,89 +124,6 @@ namespace ProvLibSistema
 
             return result;
         }
-
-
-        public DtoLib.ResultadoEntidad<DtoLibSistema.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta> Configuracion_ForzarRedondeoPrecioVenta()
-        {
-            var result = new DtoLib.ResultadoEntidad<DtoLibSistema.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta>();
-
-            try
-            {
-                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
-                {
-                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL46");
-                    if (ent == null)
-                    {
-                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
-                        result.Result = DtoLib.Enumerados.EnumResult.isError;
-                        return result;
-                    }
-
-                    var modo = DtoLibSistema.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta.SinDefinir;
-                    switch (ent.usuario.Trim().ToUpper())
-                    {
-                        case "SIN REDONDEO":
-                            modo = DtoLibSistema.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta.SinRedeondeo;
-                            break;
-                        case "UNIDAD":
-                            modo = DtoLibSistema.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta.Unidad;
-                            break;
-                        case "DECENA":
-                            modo = DtoLibSistema.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta.Decena;
-                            break;
-                    }
-
-                    result.Entidad = modo;
-                }
-            }
-            catch (Exception e)
-            {
-                result.Mensaje = e.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return result;
-        }
-
-        public DtoLib.ResultadoEntidad<DtoLibSistema.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio> Configuracion_PreferenciaRegistroPrecio()
-        {
-            var result = new DtoLib.ResultadoEntidad<DtoLibSistema.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio>();
-
-            try
-            {
-                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
-                {
-                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL41");
-                    if (ent == null)
-                    {
-                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
-                        result.Result = DtoLib.Enumerados.EnumResult.isError;
-                        return result;
-                    }
-
-                    var modo = DtoLibSistema.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio.SinDefinir;
-                    switch (ent.usuario.Trim().ToUpper())
-                    {
-                        case "PRECIO NETO":
-                            modo = DtoLibSistema.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio.Neto;
-                            break;
-                        case "PRECIO+IVA":
-                            modo = DtoLibSistema.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio.Full;
-                            break;
-                    }
-
-                    result.Entidad = modo;
-                }
-            }
-            catch (Exception e)
-            {
-                result.Mensaje = e.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return result;
-        }
-
         public DtoLib.Resultado Configuracion_Actualizar_TasaDivisa_ActualizarData(DtoLibSistema.Configuracion.ActualizarTasaDivisa.ActualizarData.Ficha ficha)
         {
             var rt = new DtoLib.Resultado();
@@ -265,21 +180,21 @@ namespace ProvLibSistema
 
                             foreach (var rg in ficha.productosCostoPrecioDivisa)
                             {
-                                var p1= new MySql.Data.MySqlClient.MySqlParameter("@costoProveedor", rg.costoProveedor);
-                                var p2= new MySql.Data.MySqlClient.MySqlParameter("@costoProveedorUnd", rg.costoProveedorUnd);
-                                var p3= new MySql.Data.MySqlClient.MySqlParameter("@costoImportacion", rg.costoImportacion);
-                                var p4= new MySql.Data.MySqlClient.MySqlParameter("@costoImportacionUnd", rg.costoImportacionUnd);
-                                var p5= new MySql.Data.MySqlClient.MySqlParameter("@costoVario", rg.costoVario);
-                                var p6= new MySql.Data.MySqlClient.MySqlParameter("@costoVarioUnd", rg.costoVarioUnd);
-                                var p7= new MySql.Data.MySqlClient.MySqlParameter("@costo", rg.costo);
-                                var p8= new MySql.Data.MySqlClient.MySqlParameter("@costoUnd", rg.costoUnd);
-                                var p9= new MySql.Data.MySqlClient.MySqlParameter("@fecha", fechaSistema.Date);
-                                var pa= new MySql.Data.MySqlClient.MySqlParameter("@precio_1", rg.precio_1);
-                                var pb= new MySql.Data.MySqlClient.MySqlParameter("@precio_2", rg.precio_2);
-                                var pc= new MySql.Data.MySqlClient.MySqlParameter("@precio_3", rg.precio_3);
-                                var pd= new MySql.Data.MySqlClient.MySqlParameter("@precio_4", rg.precio_4);
-                                var pe= new MySql.Data.MySqlClient.MySqlParameter("@precio_5", rg.precio_5);
-                                var pf= new MySql.Data.MySqlClient.MySqlParameter("@auto", rg.autoPrd);
+                                var p1 = new MySql.Data.MySqlClient.MySqlParameter("@costoProveedor", rg.costoProveedor);
+                                var p2 = new MySql.Data.MySqlClient.MySqlParameter("@costoProveedorUnd", rg.costoProveedorUnd);
+                                var p3 = new MySql.Data.MySqlClient.MySqlParameter("@costoImportacion", rg.costoImportacion);
+                                var p4 = new MySql.Data.MySqlClient.MySqlParameter("@costoImportacionUnd", rg.costoImportacionUnd);
+                                var p5 = new MySql.Data.MySqlClient.MySqlParameter("@costoVario", rg.costoVario);
+                                var p6 = new MySql.Data.MySqlClient.MySqlParameter("@costoVarioUnd", rg.costoVarioUnd);
+                                var p7 = new MySql.Data.MySqlClient.MySqlParameter("@costo", rg.costo);
+                                var p8 = new MySql.Data.MySqlClient.MySqlParameter("@costoUnd", rg.costoUnd);
+                                var p9 = new MySql.Data.MySqlClient.MySqlParameter("@fecha", fechaSistema.Date);
+                                var pa = new MySql.Data.MySqlClient.MySqlParameter("@precio_1", rg.precio_1);
+                                var pb = new MySql.Data.MySqlClient.MySqlParameter("@precio_2", rg.precio_2);
+                                var pc = new MySql.Data.MySqlClient.MySqlParameter("@precio_3", rg.precio_3);
+                                var pd = new MySql.Data.MySqlClient.MySqlParameter("@precio_4", rg.precio_4);
+                                var pe = new MySql.Data.MySqlClient.MySqlParameter("@precio_5", rg.precio_5);
+                                var pf = new MySql.Data.MySqlClient.MySqlParameter("@auto", rg.autoPrd);
                                 var sql = @"update productos set 
                                             costo_proveedor=@costoProveedor,
                                             costo_proveedor_und = @costoProveedorUnd,
@@ -297,10 +212,10 @@ namespace ProvLibSistema
                                             precio_4 = @precio_4,
                                             precio_pto = @precio_5
                                             where auto=@auto";
-                                var i= cnn.Database.ExecuteSqlCommand(sql, p1, p2, p3, p4, p5, p6, p7, p8, p9, pa, pb, pc, pd, pe, pf);
-                                if (i == 0) 
+                                var i = cnn.Database.ExecuteSqlCommand(sql, p1, p2, p3, p4, p5, p6, p7, p8, p9, pa, pb, pc, pd, pe, pf);
+                                if (i == 0)
                                 {
-                                    rt.Mensaje = "PROBLEMA AL ACTUALIZAR ITEM ["+rg.autoPrd+"]";
+                                    rt.Mensaje = "PROBLEMA AL ACTUALIZAR ITEM [" + rg.autoPrd + "]";
                                     rt.Result = DtoLib.Enumerados.EnumResult.isError;
                                     return rt;
                                 }
@@ -422,9 +337,258 @@ namespace ProvLibSistema
                             rt.Mensaje = ex.Message;
                             rt.Result = DtoLib.Enumerados.EnumResult.isError;
                         }
-                        finally 
+                        finally
                         {
                             cnn.Configuration.AutoDetectChangesEnabled = false;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return rt;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibSistema.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta> Configuracion_ForzarRedondeoPrecioVenta()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibSistema.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta>();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL46");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var modo = DtoLibSistema.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta.SinDefinir;
+                    switch (ent.usuario.Trim().ToUpper())
+                    {
+                        case "SIN REDONDEO":
+                            modo = DtoLibSistema.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta.SinRedeondeo;
+                            break;
+                        case "UNIDAD":
+                            modo = DtoLibSistema.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta.Unidad;
+                            break;
+                        case "DECENA":
+                            modo = DtoLibSistema.Configuracion.Enumerados.EnumForzarRedondeoPrecioVenta.Decena;
+                            break;
+                    }
+
+                    result.Entidad = modo;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+        public DtoLib.ResultadoEntidad<DtoLibSistema.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio> Configuracion_PreferenciaRegistroPrecio()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibSistema.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio>();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    var ent = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL41");
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ ID ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var modo = DtoLibSistema.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio.SinDefinir;
+                    switch (ent.usuario.Trim().ToUpper())
+                    {
+                        case "PRECIO NETO":
+                            modo = DtoLibSistema.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio.Neto;
+                            break;
+                        case "PRECIO+IVA":
+                            modo = DtoLibSistema.Configuracion.Enumerados.EnumPreferenciaRegistroPrecio.Full;
+                            break;
+                    }
+
+                    result.Entidad = modo;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibSistema.Configuracion.Modulo.Capturar.Ficha> Configuracion_Modulo_Capturar()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibSistema.Configuracion.Modulo.Capturar.Ficha>();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    var  ent1= cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL17");
+                    if (ent1 == null)
+                    {
+                        result.Mensaje = "[ GLOBAL17 ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    var ent2 = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL18");
+                    if (ent2 == null)
+                    {
+                        result.Mensaje = "[ GLOBAL18 ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    var ent3 = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL19");
+                    if (ent3 == null)
+                    {
+                        result.Mensaje = "[ GLOBAL19 ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    var ent4 = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL52");
+                    if (ent4 == null)
+                    {
+                        result.Mensaje = "[ GLOBAL52 ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    var ent5 = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL53");
+                    if (ent5 == null)
+                    {
+                        result.Mensaje = "[ GLOBAL53 ] CONFIGURACION NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var rg = new DtoLibSistema.Configuracion.Modulo.Capturar.Ficha()
+                    {
+                        claveNivMaximo = ent1.usuario,
+                        claveNivMedio = ent2.usuario,
+                        claveNivMinimo = ent3.usuario,
+                        visualizarPrdInactivos = ent4.usuario,
+                        cantDocVisualizar = ent5.usuario,
+                    };
+                    result.Entidad = rg;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+        public DtoLib.Resultado Configuracion_Modulo_Actualizar(DtoLibSistema.Configuracion.Modulo.Actualizar.Ficha ficha)
+        {
+            var rt= new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new sistemaEntities(_cnSist.ConnectionString))
+                {
+                    using (var ts = cnn.Database.BeginTransaction())
+                    { 
+                        try
+                        {
+                            var ent1 = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL17");
+                            if (ent1 == null)
+                            {
+                                rt.Mensaje = "[ GLOBAL17 ] CONFIGURACION NO ENCONTRADO";
+                                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return rt;
+                            }
+                            ent1.usuario = ficha.claveNivMaximo;
+                            cnn.SaveChanges();
+
+                            var ent2 = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL18");
+                            if (ent2 == null)
+                            {
+                                rt.Mensaje = "[ GLOBAL18 ] CONFIGURACION NO ENCONTRADO";
+                                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return rt;
+                            }
+                            ent2.usuario = ficha.claveNivMedio;
+                            cnn.SaveChanges();
+
+                            ent1.usuario = ficha.claveNivMaximo;
+                            var ent3 = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL19");
+                            if (ent3 == null)
+                            {
+                                rt.Mensaje = "[ GLOBAL19 ] CONFIGURACION NO ENCONTRADO";
+                                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return rt;
+                            }
+                            ent3.usuario = ficha.claveNivMinimo;
+                            cnn.SaveChanges();
+
+                            var ent4 = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL52");
+                            if (ent4 == null)
+                            {
+                                rt.Mensaje = "[ GLOBAL52 ] CONFIGURACION NO ENCONTRADO";
+                                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return rt;
+                            }
+                            ent4.usuario = ficha.visualizarPrdInactivos;
+                            cnn.SaveChanges();
+
+                            var ent5 = cnn.sistema_configuracion.FirstOrDefault(f => f.codigo == "GLOBAL53");
+                            if (ent5 == null)
+                            {
+                                rt.Mensaje = "[ GLOBAL53 ] CONFIGURACION NO ENCONTRADO";
+                                rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                return rt;
+                            }
+                            ent5.usuario = ficha.cantDocVisualizar.ToString();
+                            cnn.SaveChanges();
+
+                            ts.Commit();
+                        }
+                        catch (DbUpdateException ex)
+                        {
+                            var dbUpdateEx = ex as DbUpdateException;
+                            var sqlEx = dbUpdateEx.InnerException;
+                            if (sqlEx != null)
+                            {
+                                var exx = (MySql.Data.MySqlClient.MySqlException)sqlEx.InnerException;
+                                if (exx != null)
+                                {
+                                    if (exx.Number == 1451)
+                                    {
+                                        rt.Mensaje = "REGISTRO CONTIENE DATA RELACIONADA";
+                                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                        return rt;
+                                    }
+                                    if (exx.Number == 1062)
+                                    {
+                                        rt.Mensaje = exx.Message;
+                                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                        return rt;
+                                    }
+                                    rt.Mensaje = exx.Message;
+                                    rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                                    return rt;
+                                }
+                            }
+                            rt.Mensaje = ex.Message;
+                            rt.Result = DtoLib.Enumerados.EnumResult.isError;
                         }
                     }
                 }

@@ -570,7 +570,7 @@ namespace ProvLibInventario
                         }
                     }
                     var sql = sql_1 + sql_2;
-                    var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.MaestroPrecio.Ficha>(sql, p1, p2, p3, p4).ToList();
+                    var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.MaestroPrecio.Ficha>(sql, p1, p2, p3, p4, p5, p6, p7, p8).ToList();
                     rt.Lista = list;
                 }
             }
@@ -583,17 +583,34 @@ namespace ProvLibInventario
             return rt;
         }
 
-        public DtoLib.ResultadoLista<DtoLibInventario.Reportes.Kardex.Ficha> Reportes_Kardex(DtoLibInventario.Reportes.Kardex.Filtro filtro)
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Reportes.Kardex.Ficha> Reportes_Kardex(DtoLibInventario.Reportes.Kardex.Filtro filtro)
         {
-            var rt = new DtoLib.ResultadoLista<DtoLibInventario.Reportes.Kardex.Ficha>();
+            var rt = new DtoLib.ResultadoEntidad<DtoLibInventario.Reportes.Kardex.Ficha>();
 
             try
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
-                    var sql_1 = "SELECT p.nombre, p.codigo, p.referencia, p.modelo, pmed.decimales, " +
+                    var deposito = "";
+                    if (filtro.autoDeposito != "") 
+                    {
+                        deposito += " and auto_deposito=@autoDeposito ";
+                    }
+
+                    var tsql_1 = @"select t1.autoPrd, 
+                                   (select sum(cantidad_und*signo)
+                                      from productos_kardex   
+                                      where auto_producto=t1.autoPrd and fecha<@desde and estatus_anulado='0' "+deposito+@"
+                                      group by auto_producto) as exInicial
+                                 from (
+                                        SELECT distinct kard.auto_producto as autoPrd
+                                        FROM `productos_kardex` as kard ";
+                    var tsql_2 = "where estatus_anulado='0' and fecha>=@desde and fecha<=@hasta ";
+                    var tsql_3 = ") as t1";
+
+                    var sql_1 = "SELECT p.auto, p.nombre, p.codigo, p.referencia, p.modelo, pmed.decimales, " +
                         "kard.fecha, kard.hora, kard.modulo, kard.siglas, kard.documento, kard.nombre_deposito, " +
-                        "kard.cantidad_und, kard.nombre_concepto, kard.signo, kard.codigo_sucursal, kard.entidad, ";
+                        "kard.cantidad_und, kard.nombre_concepto, kard.signo, kard.codigo_sucursal, kard.entidad ";
 
                     var sql_2="FROM `productos_kardex` as kard "+
                         "join productos p on p.auto=kard.auto_producto "+
@@ -608,38 +625,61 @@ namespace ProvLibInventario
                     var p6 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p7 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p8 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    var tp1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var tp2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var tp3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var tp4 = new MySql.Data.MySqlClient.MySqlParameter();
                     
                     sql_2 += " and fecha>=@desde ";
                     p1.ParameterName = "@desde";
                     p1.Value = filtro.desde;
+                    //
+                    tp1.ParameterName = "@desde";
+                    tp1.Value = filtro.desde;
                     
                     sql_2 += " and fecha<=@hasta ";
                     p2.ParameterName = "@hasta";
                     p2.Value = filtro.hasta;
+                    //
+                    tp2.ParameterName = "@hasta";
+                    tp2.Value = filtro.hasta;
 
                     if (filtro.autoProducto != "")
                     {
                         sql_2 += " and auto_producto=@autoProducto ";
                         p4.ParameterName = "@autoProducto";
                         p4.Value = filtro.autoProducto;
+
+                        tsql_2 += " and auto_producto=@autoProducto ";
+                        tp3.ParameterName = "@autoProducto";
+                        tp3.Value = filtro.autoProducto;
                     }
+
                     if (filtro.autoDeposito != "")
                     {
-                        sql_1 += "(select sum(cantidad_und*signo) from productos_kardex where auto_producto=p.auto and fecha<@desde " +
-                            "and estatus_anulado='0' and auto_deposito=@autoDeposito) as exInicial ";
                         sql_2 += " and auto_deposito=@autoDeposito ";
                         p3.ParameterName = "@autoDeposito";
                         p3.Value = filtro.autoDeposito;
-                    }
-                    else 
-                    {
-                        sql_1 += "(select sum(cantidad_und*signo) from productos_kardex where auto_producto=p.auto and fecha<@desde " +
-                            "and estatus_anulado='0') as exInicial ";
+
+                        tsql_2 += " and auto_deposito=@autoDeposito ";
+                        tp4.ParameterName = "@autoDeposito";
+                        tp4.Value = filtro.autoDeposito;
                     }
 
+                    // EXISTENCIA INICIAL
+                    var tsql = tsql_1 + tsql_2 + tsql_3;
+                    cnn.Database.CommandTimeout = 0;
+                    var tlist = cnn.Database.SqlQuery<DtoLibInventario.Reportes.Kardex.Existencia>(tsql, tp1, tp2, tp3, tp4).ToList();
+                    // MOVIMIENTOS
                     var sql = sql_1 + sql_2;
-                    var list = cnn.Database.SqlQuery<DtoLibInventario.Reportes.Kardex.Ficha>(sql, p1, p2, p3, p4).ToList();
-                    rt.Lista = list;
+                    cnn.Database.CommandTimeout=0;
+                    var mov = cnn.Database.SqlQuery<DtoLibInventario.Reportes.Kardex.Mov>(sql, p1, p2, p3, p4).ToList();
+                    rt.Entidad = new DtoLibInventario.Reportes.Kardex.Ficha()
+                    {
+                        exInicial = tlist,
+                        movimientos = mov,
+                    };
                 }
             }
             catch (Exception e)

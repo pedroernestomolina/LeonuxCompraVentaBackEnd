@@ -207,7 +207,9 @@
     <Compile Include="Reportes\DepositoResumen\Ficha.cs" />
     <Compile Include="Reportes\enumerados.cs" />
     <Compile Include="Reportes\KardexResumen\Ficha.cs" />
+    <Compile Include="Reportes\Kardex\Existencia.cs" />
     <Compile Include="Reportes\Kardex\Ficha.cs" />
+    <Compile Include="Reportes\Kardex\Mov.cs" />
     <Compile Include="Reportes\Kardex\Filtro.cs" />
     <Compile Include="Reportes\MaestroExistencia\Ficha.cs" />
     <Compile Include="Reportes\MaestroExistencia\Filtro.cs" />
