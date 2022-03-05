@@ -133,6 +133,9 @@ namespace ConsoleSistema
             //};
             //var r01 = sistPrv.Configuracion_Modulo_Actualizar(ficha);
 
+            //var r01 = sistPrv.Deposito_Inactivar("0000000004");
+            //var r01 = sistPrv.Deposito_Activar("0000000004");
+
         }
 
     }

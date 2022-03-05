@@ -40,7 +40,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<string> Permiso_PedirClaveAcceso_NivelMedio()
         {
             var result = new DtoLib.ResultadoEntidad<string>();
@@ -68,7 +67,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<string> Permiso_PedirClaveAcceso_NivelMinimo()
         {
             var result = new DtoLib.ResultadoEntidad<string>();
@@ -128,7 +126,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_ModificarProducto(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -159,7 +156,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CambiarPrecios(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -190,7 +186,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CambiarCostos(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -221,7 +216,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_AsignarDepositos(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -252,7 +246,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CambiarDatosDelDeposito(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -283,7 +276,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_ActualizarEstatusDelProducto(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -314,7 +306,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CambiarImagenDelProducto(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -346,7 +337,6 @@ namespace ProvLibInventario
             return result;
         }
 
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearDepartamento(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -377,7 +367,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_ModificarDepartamento(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -439,7 +428,6 @@ namespace ProvLibInventario
             return result;
         }
 
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearGrupo(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -470,7 +458,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_ModificarGrupo(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -502,7 +489,6 @@ namespace ProvLibInventario
             return result;
         }
 
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearMarca(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -533,7 +519,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_ModificarMarca(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -565,7 +550,6 @@ namespace ProvLibInventario
             return result;
         }
 
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearUnidadEmpaque(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -596,7 +580,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_ModificarUnidadEmpaque(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -628,7 +611,6 @@ namespace ProvLibInventario
             return result;
         }
 
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearConceptoInventario(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -659,7 +641,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_ModificarConceptoInventario(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -690,7 +671,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
 
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_ToolInventario(string autoGrupoUsuario)
         {
@@ -723,7 +703,6 @@ namespace ProvLibInventario
             return result;
         }
 
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_MovimientoCargoInventario(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -754,7 +733,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_MovimientoDescargoInventario(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -785,7 +763,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_MovimientoTrasladoInventario(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -816,7 +793,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_MovimientoTrasladoPorDevolucionInventario(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -847,8 +823,36 @@ namespace ProvLibInventario
 
             return result;
         }
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_MovimientoAjusteInventarioCero(string autoGrupoUsuario)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
 
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "@p1";
+                    p1.Value = autoGrupoUsuario;
+                    var permiso = cnn.Database.SqlQuery<DtoLibInventario.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='0308060000'", p1).FirstOrDefault();
+                    if (permiso == null)
+                    {
+                        result.Mensaje = "PERMISO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Entidad = null;
+                        return result;
+                    }
+                    result.Entidad = permiso;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
 
+            return result;
+        }
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_MovimientoAjusteInventario(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -910,7 +914,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_AdmAnularMovimientoInventario(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -941,7 +944,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_AdmVisualizarMovimientoInventario(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -972,7 +974,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_AdmReporteMovimientoInventario(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -1003,7 +1004,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
 
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_DefinirNivelMinimoMaximoInventario(string autoGrupoUsuario)
         {
@@ -1097,7 +1097,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_Visor(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -1128,7 +1127,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_Estadistica(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -1159,8 +1157,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_Configuracion_Sistema(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -1192,7 +1188,6 @@ namespace ProvLibInventario
             return result;
         }
 
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarGrupo(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -1223,7 +1218,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarMarca(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -1254,7 +1248,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarUnidadEmpaque(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -1285,7 +1278,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarConcepto(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();

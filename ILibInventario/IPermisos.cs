@@ -51,6 +51,7 @@ namespace ILibInventario
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_MovimientoTrasladoInventario(string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_MovimientoTrasladoPorDevolucionInventario(string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_MovimientoAjusteInventario(string autoGrupoUsuario);
+        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_MovimientoAjusteInventarioCero(string autoGrupoUsuario);
 
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_AdministradorMovimientoInventario(string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_AdmAnularMovimientoInventario(string autoGrupoUsuario);

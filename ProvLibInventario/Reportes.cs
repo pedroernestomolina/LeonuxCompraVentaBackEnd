@@ -776,31 +776,33 @@ namespace ProvLibInventario
                     var p3 = new MySql.Data.MySqlClient.MySqlParameter();
 
                     var sql_1 =
-                        "Select (select count(*) from productos_deposito as pd " +
-                        "where pd.auto_deposito=a.autoDeposito and pd.fisica<>0) as cntStock , a.* "+
-                        "from (" +
-                        "select " +
-                        "ed.auto as autoDeposito, " +
-                        "count(*) as cItem, " +
-                        "ed.nombre as nombreDeposito, " +
-                        "sum(pd.fisica*(p.Divisa/p.contenido_compras)) as costo, " +
-                        "sum(pd.fisica*(p.pdf_1/ ((et.tasa/100)+1)  )) as pn1, " +
-                        "sum(pd.fisica*(p.pdf_2/ ((et.tasa/100)+1)  )) as pn2, " +
-                        "sum(pd.fisica*(p.pdf_3/ ((et.tasa/100)+1)  )) as pn3, " +
-                        "sum(pd.fisica*(p.pdf_4/ ((et.tasa/100)+1)  )) as pn4, " +
-                        "sum(pd.fisica*(p.pdf_pto/ ((et.tasa/100)+1)  )) as pn5, " +
-                        "es.codigo as codigoSuc, " +
-                        "eg.nombre as nombreGrupo, " +
-                        "eg.idprecio as precioId " +
-                        "FROM `productos_deposito` as pd " +
-                        "join empresa_depositos as ed on ed.auto=pd.auto_deposito " +
-                        "join productos as p on pd.auto_producto=p.auto " +
-                        "join empresa_tasas as et on et.auto=p.auto_tasa " +
-                        "join empresa_sucursal as es on ed.codigo_sucursal=es.codigo " +
-                        "join empresa_grupo as eg on eg.auto=es.autoempresagrupo " +
-                        "where p.estatus='Activo' and p.categoria<>'Bien de Servicio' " +
-                        "group by auto_deposito,nombreDeposito,codigoSuc,nombreGrupo,precioId" +
-                        ") as a";
+                        @"Select (select count(*) from productos_deposito as pd 
+                        where pd.auto_deposito=a.autoDeposito and pd.fisica<>0) as cntStock , a.* 
+                        from 
+                        (
+                        select 
+                        ed.auto as autoDeposito, 
+                        count(*) as cItem, 
+                        ed.nombre as nombreDeposito, 
+                        sum(pd.fisica*(p.Divisa/p.contenido_compras)) as costo, 
+                        sum(pd.fisica*(p.pdf_1/ ((et.tasa/100)+1)  )) as pn1, 
+                        sum(pd.fisica*(p.pdf_2/ ((et.tasa/100)+1)  )) as pn2, 
+                        sum(pd.fisica*(p.pdf_3/ ((et.tasa/100)+1)  )) as pn3, 
+                        sum(pd.fisica*(p.pdf_4/ ((et.tasa/100)+1)  )) as pn4, 
+                        sum(pd.fisica*(p.pdf_pto/ ((et.tasa/100)+1)  )) as pn5, 
+                        es.codigo as codigoSuc, 
+                        eg.nombre as nombreGrupo, 
+                        eg.idprecio as precioId 
+                        FROM `productos_deposito` as pd 
+                        join empresa_depositos as ed on ed.auto=pd.auto_deposito 
+                        join empresa_depositos_ext as edExt on edExt.auto_deposito=ed.auto 
+                        join productos as p on pd.auto_producto=p.auto 
+                        join empresa_tasas as et on et.auto=p.auto_tasa 
+                        join empresa_sucursal as es on ed.codigo_sucursal=es.codigo 
+                        join empresa_grupo as eg on eg.auto=es.autoempresagrupo 
+                        where p.estatus='Activo' and p.categoria<>'Bien de Servicio' and edExt.es_activo='1'
+                        group by autoDeposito,nombreDeposito,codigoSuc,nombreGrupo,precioId
+                        ) as a";
                     var lst = cnn.Database.SqlQuery<DtoLibInventario.Reportes.DepositoResumen.Ficha>(sql_1, p1).ToList();
                     rt.Lista = lst;
                 }

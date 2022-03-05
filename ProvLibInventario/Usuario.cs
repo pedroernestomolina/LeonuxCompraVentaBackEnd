@@ -48,7 +48,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Usuario.Ficha> Usuario_Buscar(DtoLibInventario.Usuario.Buscar.Ficha ficha)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Usuario.Ficha>();
@@ -86,7 +85,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.Resultado Usuario_ActualizarSesion(DtoLibInventario.Usuario.ActualizarSesion.Ficha ficha)
         {
             var result = new DtoLib.Resultado();
@@ -140,6 +138,36 @@ namespace ProvLibInventario
                 }
                 result.Mensaje = msg;
                 result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+        public DtoLib.ResultadoEntidad<string> Usuario_GetClave_ById(string idUsuario)
+        {
+            var result = new DtoLib.ResultadoEntidad<string>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var sql = @"SELECT clave 
+                                FROM usuarios 
+                                where auto=@autoUsuario";
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter("@autoUsuario", idUsuario);
+                    var clav = cnn.Database.SqlQuery<string>(sql, p1).FirstOrDefault();
+                    if (clav == null) 
+                    {
+                        result.Mensaje = "USUARIO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    result.Entidad = clav;
+                }
             }
             catch (Exception e)
             {

@@ -16,6 +16,18 @@ namespace DtoLibSistema.Deposito
         public string nombre { get; set; }
         public string codigoSucursal { get; set; }
         public string sucursal { get; set; }
+        public string estatusDep { get; set; }
+
+
+        public Resumen() 
+        {
+            auto = "";
+            codigo = "";
+            nombre = "";
+            codigoSucursal = "";
+            sucursal = "";
+            estatusDep = "";
+        }
 
     }
 

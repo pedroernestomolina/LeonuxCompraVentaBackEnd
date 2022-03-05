@@ -98,6 +98,14 @@
     <Compile Include="Marca\Resumen.cs" />
     <Compile Include="MonitorPos\Entidad\Ficha.cs" />
     <Compile Include="MonitorPos\Lista\Filtro.cs" />
+    <Compile Include="Movimiento\AjusteInvCero\Capture\Data.cs" />
+    <Compile Include="Movimiento\AjusteInvCero\Capture\Ficha.cs" />
+    <Compile Include="Movimiento\AjusteInvCero\Capture\Filtro.cs" />
+    <Compile Include="Movimiento\AjusteInvCero\Insertar\Ficha.cs" />
+    <Compile Include="Movimiento\AjusteInvCero\Insertar\FichaMov.cs" />
+    <Compile Include="Movimiento\AjusteInvCero\Insertar\FichaMovDeposito.cs" />
+    <Compile Include="Movimiento\AjusteInvCero\Insertar\FichaMovDetalle.cs" />
+    <Compile Include="Movimiento\AjusteInvCero\Insertar\FichaMovKardex.cs" />
     <Compile Include="Movimiento\Ajuste\Insertar\Ficha.cs" />
     <Compile Include="Movimiento\Ajuste\Insertar\FichaMov.cs" />
     <Compile Include="Movimiento\Ajuste\Insertar\FichaMovDetalle.cs" />

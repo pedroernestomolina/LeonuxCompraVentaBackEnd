@@ -23,7 +23,8 @@ namespace ProvLibInventario
                     var xsql = @"SELECT ed.auto, ed.codigo, ed.nombre, 
                                 edExt.es_activo as estatusActivo, edExt.es_predeterminado as estatusPredeterminado
                                 FROM empresa_depositos as ed 
-                                join empresa_depositos_ext as edExt on ed.auto=edExt.auto_deposito";
+                                join empresa_depositos_ext as edExt on ed.auto=edExt.auto_deposito 
+                                where edExt.es_activo='1'";
                     var lst = cnn.Database.SqlQuery<DtoLibInventario.Deposito.Resumen>(xsql).ToList(); ;
                     result.Lista = lst;
                 }
@@ -36,7 +37,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Deposito.Ficha> Deposito_GetFicha(string autoDep)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Deposito.Ficha>();
@@ -85,7 +85,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoLista<DtoLibInventario.Deposito.Resumen> Deposito_GetListaBySucursal(string codSuc)
         {
             var result = new DtoLib.ResultadoLista<DtoLibInventario.Deposito.Resumen>();
@@ -94,26 +93,33 @@ namespace ProvLibInventario
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
-                    var q = cnn.empresa_depositos.Where(w=>w.codigo_sucursal.Trim().ToUpper()==codSuc.Trim().ToUpper()).ToList();
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter("@codSucursal", codSuc.Trim().ToUpper());
+                    var xsql = @"SELECT ed.auto, ed.codigo, ed.nombre 
+                                FROM empresa_depositos as ed 
+                                join empresa_depositos_ext as edExt on ed.auto=edExt.auto_deposito 
+                                where upper(trim(ed.codigo_sucursal))=@codSucursal and edExt.es_activo='1'";
+                    var lst = cnn.Database.SqlQuery<DtoLibInventario.Deposito.Resumen>(xsql, p1).ToList(); ;
+                    result.Lista = lst;
 
-                    var list = new List<DtoLibInventario.Deposito.Resumen>();
-                    if (q != null)
-                    {
-                        if (q.Count() > 0)
-                        {
-                            list = q.Select(s =>
-                            {
-                                var r = new DtoLibInventario.Deposito.Resumen()
-                                {
-                                    auto = s.auto,
-                                    codigo = s.codigo,
-                                    nombre = s.nombre,
-                                };
-                                return r;
-                            }).ToList();
-                        }
-                    }
-                    result.Lista = list;
+                    //var q = cnn.empresa_depositos.Where(w=>w.codigo_sucursal.Trim().ToUpper()==codSuc.Trim().ToUpper()).ToList();
+                    //var list = new List<DtoLibInventario.Deposito.Resumen>();
+                    //if (q != null)
+                    //{
+                    //    if (q.Count() > 0)
+                    //    {
+                    //        list = q.Select(s =>
+                    //        {
+                    //            var r = new DtoLibInventario.Deposito.Resumen()
+                    //            {
+                    //                auto = s.auto,
+                    //                codigo = s.codigo,
+                    //                nombre = s.nombre,
+                    //            };
+                    //            return r;
+                    //        }).ToList();
+                    //    }
+                    //}
+                    //result.Lista = list;
                 }
             }
             catch (Exception e)

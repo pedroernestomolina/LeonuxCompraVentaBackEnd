@@ -304,6 +304,14 @@ namespace ConsoleInventario
             //};
             //var rt1 = invPrv.Reportes_Kardex(filt);
 
+            //var filt = new DtoLibInventario.Movimiento.AjusteInvCero.Capture.Filtro()
+            //{
+            //    idDeposito = "0000000004",
+            //};
+            //var rt1 = invPrv.Producto_Movimiento_AjusteInventarioCero_Capture(filt);
+
+            //var rt1 = invPrv.Usuario_GetClave_ById("");
+
         }
 
     }
