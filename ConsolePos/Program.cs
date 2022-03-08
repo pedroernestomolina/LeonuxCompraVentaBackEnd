@@ -244,6 +244,15 @@ namespace ConsolePos
 
             //var filtro = new DtoLibPos.Reportes.VentaAdministrativa.LibroVenta.Filtro() { anoRelacion = "2022", mesRelacion = "01" };
             //var r01 = posProv.ReportesAdm_LibroVenta(filtro);
+
+            //var filtro = new DtoLibPos.Reportes.VentaAdministrativa.GeneralDocumentoDetalle.Filtro()
+            //{
+            //    desdeFecha = new DateTime(2022, 01, 01),
+            //    hastaFecha = new DateTime(2022, 02, 28),
+            //    codigoSucursal = "",
+            //    palabraClave = "7127658",
+            //};
+            //var r01 = posProv.ReportesAdm_GeneralDocumentoDetalle(filtro);
         }
 
     }

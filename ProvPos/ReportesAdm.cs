@@ -342,6 +342,7 @@ namespace ProvPos
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p2 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p4 = new MySql.Data.MySqlClient.MySqlParameter();
 
                     p1.ParameterName = "@desde";
                     p1.Value = filtro.desdeFecha;
@@ -351,12 +352,19 @@ namespace ProvPos
                     var sql_1 = @"select v.auto, v.documento, v.fecha, v.usuario as usuarioNombre, v.signo, 
                         v.documento_nombre as documentoNombre, v.codigo_usuario as usuarioCodigo, v.total, v.renglones, 
                         vd.nombre as nombreProducto, vd.cantidad_und as cantidadUnd, vd.precio_und as precioUnd, 
-                        vd.total as totalRenglon, v.hora, s.codigo as sucCodigo, s.nombre as sucNombre ";
+                        vd.total as totalRenglon, v.hora, s.codigo as sucCodigo, s.nombre as sucNombre, 
+                        v.ci_rif as ciRif, v.razon_social as razonSocial ";
                     var sql_2 = @" from ventas as v 
                                     join empresa_sucursal as s on s.codigo=v.codigo_sucursal 
                                     join ventas_detalle as vd on vd.auto_documento=v.auto ";
                     var sql_3 = @" where v.fecha>=@desde and v.fecha<=@hasta and v.estatus_anulado='0' ";
 
+                    if (filtro.palabraClave != "")
+                    {
+                        p4.ParameterName = "@clave";
+                        p4.Value = "%"+filtro.palabraClave+"%";
+                        sql_3 += " and (v.ci_rif LIKE @clave or v.razon_social LIKE @clave) ";
+                    }
                     if (filtro.codigoSucursal != "")
                     {
                         sql_3 += " and v.codigo_sucursal=@suc ";
@@ -401,7 +409,7 @@ namespace ProvPos
                     }
 
                     var sql = sql_1 + sql_2 + sql_3;
-                    var list = cnn.Database.SqlQuery<DtoLibPos.Reportes.VentaAdministrativa.GeneralDocumentoDetalle.Ficha>(sql, p1, p2, p3).ToList();
+                    var list = cnn.Database.SqlQuery<DtoLibPos.Reportes.VentaAdministrativa.GeneralDocumentoDetalle.Ficha>(sql, p1, p2, p3, p4).ToList();
                     rt.Lista = list;
                 }
             }

@@ -26,23 +26,28 @@ namespace ILibInventario
 
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_ToolInventario (string autoGrupoUsuario);
 
+        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_Departamento(string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearDepartamento(string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_ModificarDepartamento(string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarDepartamento(string autoGrupoUsuario);
 
-        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearGrupo (string autoGrupoUsuario);
+        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_Grupo(string autoGrupoUsuario);
+        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearGrupo(string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_ModificarGrupo (string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarGrupo(string autoGrupoUsuario);
 
+        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_Marca(string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearMarca(string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_ModificarMarca (string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarMarca(string autoGrupoUsuario);
 
-        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearUnidadEmpaque (string autoGrupoUsuario);
+        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_UnidadEmpaque(string autoGrupoUsuario);
+        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearUnidadEmpaque(string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_ModificarUnidadEmpaque (string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarUnidadEmpaque(string autoGrupoUsuario);
 
-        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearConceptoInventario (string autoGrupoUsuario);
+        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_ConceptoInventario(string autoGrupoUsuario);
+        DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearConceptoInventario(string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_ModificarConceptoInventario (string autoGrupoUsuario);
         DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarConcepto(string autoGrupoUsuario);
 

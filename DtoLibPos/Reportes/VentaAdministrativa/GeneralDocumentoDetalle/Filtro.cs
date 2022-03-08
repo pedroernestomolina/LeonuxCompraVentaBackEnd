@@ -11,6 +11,7 @@ namespace DtoLibPos.Reportes.VentaAdministrativa.GeneralDocumentoDetalle
     public class Filtro
     {
 
+        public string palabraClave { get; set; }
         public string codigoSucursal { get; set; }
         public DateTime desdeFecha { get; set; }
         public DateTime hastaFecha { get; set; }
@@ -22,6 +23,7 @@ namespace DtoLibPos.Reportes.VentaAdministrativa.GeneralDocumentoDetalle
 
         public Filtro()
         {
+            palabraClave = "";
             codigoSucursal = "";
             desdeFecha = DateTime.Now.Date;
             hastaFecha = DateTime.Now.Date;

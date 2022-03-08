@@ -337,6 +337,36 @@ namespace ProvLibInventario
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_Departamento(string autoGrupoUsuario)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "@p1";
+                    p1.Value = autoGrupoUsuario;
+                    var permiso = cnn.Database.SqlQuery<DtoLibInventario.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='0303000000'", p1).FirstOrDefault();
+                    if (permiso == null)
+                    {
+                        result.Mensaje = "PERMISO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Entidad = null;
+                        return result;
+                    }
+                    result.Entidad = permiso;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearDepartamento(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -428,6 +458,36 @@ namespace ProvLibInventario
             return result;
         }
 
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_Grupo(string autoGrupoUsuario)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "@p1";
+                    p1.Value = autoGrupoUsuario;
+                    var permiso = cnn.Database.SqlQuery<DtoLibInventario.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='0304000000'", p1).FirstOrDefault();
+                    if (permiso == null)
+                    {
+                        result.Mensaje = "PERMISO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Entidad = null;
+                        return result;
+                    }
+                    result.Entidad = permiso;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearGrupo(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -488,7 +548,67 @@ namespace ProvLibInventario
 
             return result;
         }
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarGrupo(string autoGrupoUsuario)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
 
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "@p1";
+                    p1.Value = autoGrupoUsuario;
+                    var permiso = cnn.Database.SqlQuery<DtoLibInventario.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='0304030000'", p1).FirstOrDefault();
+                    if (permiso == null)
+                    {
+                        result.Mensaje = "PERMISO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Entidad = null;
+                        return result;
+                    }
+                    result.Entidad = permiso;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+        
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_Marca(string autoGrupoUsuario)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "@p1";
+                    p1.Value = autoGrupoUsuario;
+                    var permiso = cnn.Database.SqlQuery<DtoLibInventario.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='0305000000'", p1).FirstOrDefault();
+                    if (permiso == null)
+                    {
+                        result.Mensaje = "PERMISO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Entidad = null;
+                        return result;
+                    }
+                    result.Entidad = permiso;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearMarca(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -549,7 +669,67 @@ namespace ProvLibInventario
 
             return result;
         }
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarMarca(string autoGrupoUsuario)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
 
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "@p1";
+                    p1.Value = autoGrupoUsuario;
+                    var permiso = cnn.Database.SqlQuery<DtoLibInventario.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='0305030000'", p1).FirstOrDefault();
+                    if (permiso == null)
+                    {
+                        result.Mensaje = "PERMISO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Entidad = null;
+                        return result;
+                    }
+                    result.Entidad = permiso;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+        
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_UnidadEmpaque(string autoGrupoUsuario)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "@p1";
+                    p1.Value = autoGrupoUsuario;
+                    var permiso = cnn.Database.SqlQuery<DtoLibInventario.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='0306000000'", p1).FirstOrDefault();
+                    if (permiso == null)
+                    {
+                        result.Mensaje = "PERMISO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Entidad = null;
+                        return result;
+                    }
+                    result.Entidad = permiso;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearUnidadEmpaque(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -610,7 +790,67 @@ namespace ProvLibInventario
 
             return result;
         }
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarUnidadEmpaque(string autoGrupoUsuario)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
 
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "@p1";
+                    p1.Value = autoGrupoUsuario;
+                    var permiso = cnn.Database.SqlQuery<DtoLibInventario.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='0306030000'", p1).FirstOrDefault();
+                    if (permiso == null)
+                    {
+                        result.Mensaje = "PERMISO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Entidad = null;
+                        return result;
+                    }
+                    result.Entidad = permiso;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_ConceptoInventario(string autoGrupoUsuario)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "@p1";
+                    p1.Value = autoGrupoUsuario;
+                    var permiso = cnn.Database.SqlQuery<DtoLibInventario.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='0307000000'", p1).FirstOrDefault();
+                    if (permiso == null)
+                    {
+                        result.Mensaje = "PERMISO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Entidad = null;
+                        return result;
+                    }
+                    result.Entidad = permiso;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
         public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_CrearConceptoInventario(string autoGrupoUsuario)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
@@ -653,6 +893,36 @@ namespace ProvLibInventario
                     p1.ParameterName = "@p1";
                     p1.Value = autoGrupoUsuario;
                     var permiso = cnn.Database.SqlQuery<DtoLibInventario.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='0307020000'", p1).FirstOrDefault();
+                    if (permiso == null)
+                    {
+                        result.Mensaje = "PERMISO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        result.Entidad = null;
+                        return result;
+                    }
+                    result.Entidad = permiso;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarConcepto(string autoGrupoUsuario)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "@p1";
+                    p1.Value = autoGrupoUsuario;
+                    var permiso = cnn.Database.SqlQuery<DtoLibInventario.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='0307030000'", p1).FirstOrDefault();
                     if (permiso == null)
                     {
                         result.Mensaje = "PERMISO NO ENCONTRADO";
@@ -1169,127 +1439,6 @@ namespace ProvLibInventario
                     p1.ParameterName = "@p1";
                     p1.Value = autoGrupoUsuario;
                     var permiso = cnn.Database.SqlQuery<DtoLibInventario.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='1202000000'", p1).FirstOrDefault();
-                    if (permiso == null)
-                    {
-                        result.Mensaje = "PERMISO NO ENCONTRADO";
-                        result.Result = DtoLib.Enumerados.EnumResult.isError;
-                        result.Entidad = null;
-                        return result;
-                    }
-                    result.Entidad = permiso;
-                }
-            }
-            catch (Exception e)
-            {
-                result.Mensaje = e.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return result;
-        }
-
-        public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarGrupo(string autoGrupoUsuario)
-        {
-            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
-
-            try
-            {
-                using (var cnn = new invEntities(_cnInv.ConnectionString))
-                {
-                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
-                    p1.ParameterName = "@p1";
-                    p1.Value = autoGrupoUsuario;
-                    var permiso = cnn.Database.SqlQuery<DtoLibInventario.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='0304030000'", p1).FirstOrDefault();
-                    if (permiso == null)
-                    {
-                        result.Mensaje = "PERMISO NO ENCONTRADO";
-                        result.Result = DtoLib.Enumerados.EnumResult.isError;
-                        result.Entidad = null;
-                        return result;
-                    }
-                    result.Entidad = permiso;
-                }
-            }
-            catch (Exception e)
-            {
-                result.Mensaje = e.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return result;
-        }
-        public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarMarca(string autoGrupoUsuario)
-        {
-            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
-
-            try
-            {
-                using (var cnn = new invEntities(_cnInv.ConnectionString))
-                {
-                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
-                    p1.ParameterName = "@p1";
-                    p1.Value = autoGrupoUsuario;
-                    var permiso = cnn.Database.SqlQuery<DtoLibInventario.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='0305030000'", p1).FirstOrDefault();
-                    if (permiso == null)
-                    {
-                        result.Mensaje = "PERMISO NO ENCONTRADO";
-                        result.Result = DtoLib.Enumerados.EnumResult.isError;
-                        result.Entidad = null;
-                        return result;
-                    }
-                    result.Entidad = permiso;
-                }
-            }
-            catch (Exception e)
-            {
-                result.Mensaje = e.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return result;
-        }
-        public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarUnidadEmpaque(string autoGrupoUsuario)
-        {
-            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
-
-            try
-            {
-                using (var cnn = new invEntities(_cnInv.ConnectionString))
-                {
-                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
-                    p1.ParameterName = "@p1";
-                    p1.Value = autoGrupoUsuario;
-                    var permiso = cnn.Database.SqlQuery<DtoLibInventario.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='0306030000'", p1).FirstOrDefault();
-                    if (permiso == null)
-                    {
-                        result.Mensaje = "PERMISO NO ENCONTRADO";
-                        result.Result = DtoLib.Enumerados.EnumResult.isError;
-                        result.Entidad = null;
-                        return result;
-                    }
-                    result.Entidad = permiso;
-                }
-            }
-            catch (Exception e)
-            {
-                result.Mensaje = e.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return result;
-        }
-        public DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha> Permiso_EliminarConcepto(string autoGrupoUsuario)
-        {
-            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Permiso.Ficha>();
-
-            try
-            {
-                using (var cnn = new invEntities(_cnInv.ConnectionString))
-                {
-                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
-                    p1.ParameterName = "@p1";
-                    p1.Value = autoGrupoUsuario;
-                    var permiso = cnn.Database.SqlQuery<DtoLibInventario.Permiso.Ficha>("select estatus, seguridad from usuarios_grupo_permisos where codigo_grupo=@p1 and codigo_funcion='0307030000'", p1).FirstOrDefault();
                     if (permiso == null)
                     {
                         result.Mensaje = "PERMISO NO ENCONTRADO";

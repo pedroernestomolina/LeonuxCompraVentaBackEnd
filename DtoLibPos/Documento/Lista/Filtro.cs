@@ -34,6 +34,7 @@ namespace DtoLibPos.Documento.Lista
         public string idCliente { get; set; }
         public string idProducto { get; set; }
         public enumEstatus estatus { get; set; }
+        public string palabraClave { get; set; }
 
 
         public Filtro()
@@ -45,6 +46,7 @@ namespace DtoLibPos.Documento.Lista
             codSucursal = "";
             codTipoDocumento = "";
             estatus = enumEstatus.SinDefinir;
+            palabraClave = "";
         }
 
     }

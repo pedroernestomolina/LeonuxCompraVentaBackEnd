@@ -14,6 +14,8 @@ namespace DtoLibPos.Reportes.VentaAdministrativa.GeneralDocumentoDetalle
         public string auto { get; set; }
         public string documento { get; set; }
         public DateTime fecha { get; set; }
+        public string ciRif { get; set; }
+        public string razonSocial { get; set; }
         public string usuarioNombre { get; set; }
         public string usuarioCodigo { get; set; }
         public decimal total { get; set; }
@@ -34,6 +36,8 @@ namespace DtoLibPos.Reportes.VentaAdministrativa.GeneralDocumentoDetalle
         {
             auto = "";
             documento = "";
+            ciRif = "";
+            razonSocial = "";
             fecha = new DateTime().Date;
             usuarioCodigo = "";
             usuarioNombre = "";

@@ -603,6 +603,7 @@ namespace ProvPos
                     var p6 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p7 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p8 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p9 = new MySql.Data.MySqlClient.MySqlParameter();
                     var sql_1 = @"select v.auto as id, v.documento as docNumero, v.control, v.fecha as fechaEmision, 
                                 v.hora as horaEmision, v.razon_social as nombreRazonSocial, v.ci_Rif as cirif, 
                                 v.total as monto, v.estatus_Anulado as estatus, v.renglones, v.serie, v.monto_divisa as montoDivisa, 
@@ -660,8 +661,14 @@ namespace ProvPos
                         p8.ParameterName = "@estatus";
                         p8.Value = xEstatus;
                     }
+                    if (filtro.palabraClave != "")
+                    {
+                        p9.ParameterName = "@clave";
+                        p9.Value = "%"+filtro.palabraClave+"%";
+                        sql_3 += " and (v.ci_rif LIKE @clave or v.razon_social LIKE @clave) ";
+                    }
                     var sql = sql_1 + sql_2+ sql_3;
-                    var q = cnn.Database.SqlQuery<DtoLibPos.Documento.Lista.Ficha>(sql, p1, p2, p3, p4, p5, p6, p7, p8).ToList();
+                    var q = cnn.Database.SqlQuery<DtoLibPos.Documento.Lista.Ficha>(sql, p1, p2, p3, p4, p5, p6, p7, p8, p9).ToList();
                     rt.Lista = q;
                 }
             }
