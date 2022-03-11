@@ -312,6 +312,13 @@ namespace ConsoleInventario
 
             //var rt1 = invPrv.Usuario_GetClave_ById("");
 
+            //var filt = new DtoLibInventario.Movimiento.DesCargo.CapturaMov.Filtro()
+            //{
+            //    idDeposito = "0000000001",
+            //    idProducto = "0000000050",
+            //};
+            //var rt1 = invPrv.Producto_Movimiento_Descargo_Capture(filt);
+
         }
 
     }
