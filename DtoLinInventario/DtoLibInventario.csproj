@@ -116,6 +116,9 @@
     <Compile Include="Movimiento\Anular\Descargo\Ficha.cs" />
     <Compile Include="Movimiento\Anular\FichaBase.cs" />
     <Compile Include="Movimiento\Anular\Traslado\Ficha.cs" />
+    <Compile Include="Movimiento\Cargo\CapturaMov\Data.cs" />
+    <Compile Include="Movimiento\Cargo\CapturaMov\Ficha.cs" />
+    <Compile Include="Movimiento\Cargo\CapturaMov\Filtro.cs" />
     <Compile Include="Movimiento\Cargo\Insertar\FichaMov.cs" />
     <Compile Include="Movimiento\Cargo\Insertar\Ficha.cs" />
     <Compile Include="Movimiento\Cargo\Insertar\FichaPrdCosto.cs" />
@@ -145,6 +148,9 @@
     <Compile Include="Movimiento\Lista\Resumen.cs" />
     <Compile Include="Analisis\General\Ficha.cs" />
     <Compile Include="Analisis\General\Filtro.cs" />
+    <Compile Include="Movimiento\Traslado\CapturaMov\Data.cs" />
+    <Compile Include="Movimiento\Traslado\CapturaMov\Ficha.cs" />
+    <Compile Include="Movimiento\Traslado\CapturaMov\Filtro.cs" />
     <Compile Include="Movimiento\Traslado\Capturar\ProductoPorDebajoNivelMinimo\Ficha.cs" />
     <Compile Include="Movimiento\Traslado\Capturar\ProductoPorDebajoNivelMinimo\Filtro.cs" />
     <Compile Include="Movimiento\Traslado\Consultar\Filtro.cs" />

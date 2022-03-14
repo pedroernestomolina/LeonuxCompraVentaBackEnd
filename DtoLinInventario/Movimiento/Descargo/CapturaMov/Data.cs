@@ -28,6 +28,7 @@ namespace DtoLibInventario.Movimiento.DesCargo.CapturaMov
         public string autoTasa {get;set;}
         public string descTasa {get;set;}
         public decimal valorTasa {get;set;}
+        public DateTime fechaUltActCosto { get; set; }
 
 
         public Data() 
@@ -49,6 +50,7 @@ namespace DtoLibInventario.Movimiento.DesCargo.CapturaMov
             autoTasa = "";
             descTasa = "";
             valorTasa = 0m;
+            fechaUltActCosto = DateTime.Now.Date;
         }
 
     }
