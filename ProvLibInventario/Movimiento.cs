@@ -2325,9 +2325,9 @@ namespace ProvLibInventario
 
                     var sql_1 = @"select p.auto as autoPrd, p.codigo as codigoPrd, p.nombre as nombrePrd, p.contenido_compras as empCompraCont, 
                                   p.auto_departamento as autoDepartamento, p.auto_grupo as autoGrupo, p.categoria, 
-                                  p.costo_und as costoUnd, p.divisa as costoDivisa, p.estatus_divisa as estatusDivisa,
-                                  p.fecha_cambio as fechaUltActualizacion,
-                                  eTasa.tasa as tasaIva, eTasa.nombre as tasaIvaNombre,
+                                  p.costo as costo, p.costo_und as costoUnd, p.divisa as costoDivisa, p.estatus_divisa as estatusDivisa,
+                                  p.fecha_ult_costo as fechaUltActualizacion,
+                                  eTasa.tasa as tasaIva, eTasa.nombre as tasaIvaNombre, etasa.auto as tasaAuto,
                                   eDepo.auto as autoDeposito, eDepo.codigo as codigoDeposito, eDepo.nombre as nombreDeposito, 
                                   pDepo.fisica as exFisica, pDepo.disponible as exDisponible, pDepo.reservada as exReservada,
                                   pDepo.nivel_minimo as nivelMinimo, pDepo.nivel_optimo as nivelOptimo,

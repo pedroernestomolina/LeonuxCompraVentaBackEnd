@@ -44,6 +44,9 @@ namespace DtoLibInventario.Movimiento.Traslado.Capturar.ProductoPorDebajoNivelMi
         public DateTime fechaUltActualizacion { get; set; }
         public decimal tasaIva { get; set; }
         public string tasaIvaNombre { get; set; }
+        //
+        public decimal costo { get; set; }
+        public string tasaAuto { get; set; }
 
 
         public Ficha() 
@@ -81,6 +84,9 @@ namespace DtoLibInventario.Movimiento.Traslado.Capturar.ProductoPorDebajoNivelMi
             fechaUltActualizacion = new DateTime(2000, 01, 01);
             tasaIva = 0.0m;
             tasaIvaNombre = "";
+            //
+            tasaAuto = "";
+            costo = 0m;
         }
 
     }

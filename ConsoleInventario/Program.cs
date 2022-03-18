@@ -319,6 +319,14 @@ namespace ConsoleInventario
             //};
             //var rt1 = invPrv.Producto_Movimiento_Descargo_Capture(filt);
 
+
+            //var ficha = new DtoLibInventario.Configuracion.DepositoConceptoDev.Editar.Ficha()
+            //{
+            //    IdConcepto = "0000000035",
+            //    IdDeposito = "0000000021",
+            //};
+            //var rt1 = invPrv.Configuracion_SetDepositoConceptoPreDeterminadoParaDevolucion(ficha);
+
         }
 
     }

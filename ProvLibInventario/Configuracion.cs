@@ -600,6 +600,93 @@ namespace ProvLibInventario
             return result;
         }
 
+        //
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Configuracion.DepositoConceptoDev.Captura.Ficha> 
+            Configuracion_DepositoConceptoPreDeterminadoParaDevolucion()
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Configuracion.DepositoConceptoDev.Captura.Ficha>(); 
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var sql = @"select usuario from sistema_configuracion where codigo='GLOBAL54'";
+                    var entDeposito= cnn.Database.SqlQuery<string>(sql).FirstOrDefault();
+                    if (entDeposito == null) 
+                    {
+                        result.Mensaje = "[ GLOBAL 54 ] DEPOSITO PREDETERMINADO PARA MOVIMIENTO DEVOLUCION INVENTARIO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    sql = @"select usuario from sistema_configuracion where codigo='GLOBAL55'";
+                    var entConcepto= cnn.Database.SqlQuery<string>(sql).FirstOrDefault();
+                    if (entConcepto == null)
+                    {
+                        result.Mensaje = "[ GLOBAL 55 ] CONCEPTO PREDETERMINADO PARA MOVIMIENTO DEVOLUCION INVENTARIO NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    var ent = new DtoLibInventario.Configuracion.DepositoConceptoDev.Captura.Ficha()
+                    {
+                        IdConcepto = entConcepto,
+                        IdDeposito = entDeposito,
+                    };
+                    result.Entidad=ent;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+        public DtoLib.Resultado Configuracion_SetDepositoConceptoPreDeterminadoParaDevolucion(DtoLibInventario.Configuracion.DepositoConceptoDev.Editar.Ficha ficha)
+        {
+            var result = new DtoLib.Resultado();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    using (var ts = cnn.Database.BeginTransaction())
+                    {
+                        var p1 = new MySql.Data.MySqlClient.MySqlParameter("@p1", ficha.IdDeposito);
+                        var sql = @"update sistema_configuracion set usuario=@p1 
+                                    where codigo='GLOBAL54'";
+                        var i = cnn.Database.ExecuteSqlCommand(sql, p1);
+                        if (i == 0) 
+                        {
+                            result.Mensaje = "[ GLOBAL 54 ] DEPOSITO PREDETERMINADO PARA MOVIMIENTO DEVOLUCION INVENTARIO NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        var p2 = new MySql.Data.MySqlClient.MySqlParameter("@p2", ficha.IdConcepto);
+                        sql = @"update sistema_configuracion set usuario=@p2 
+                                    where codigo='GLOBAL55'";
+                        i = cnn.Database.ExecuteSqlCommand(sql, p2);
+                        if (i == 0)
+                        {
+                            result.Mensaje = "[ GLOBAL 55 ] CONCEPTO PREDETERMINADO PARA MOVIMIENTO DEVOLUCION INVENTARIO NO ENCONTRADO";
+                            result.Result = DtoLib.Enumerados.EnumResult.isError;
+                            return result;
+                        }
+
+                        ts.Commit();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
     }
 
 }
