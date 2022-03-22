@@ -611,6 +611,39 @@ warning 6002: The table/view 'pita.productos_movimientos_detalle' does not have 
           <Property Name="desUsuario" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="estacionEquipo" Type="varchar" MaxLength="60" Nullable="false" />
         </EntityType>
+        <EntityType Name="productos_movimientos_transito_detalle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idTransito" Type="int" Nullable="false" />
+          <Property Name="autoDepart" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="autoGrupo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="autoTasa" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="autoProd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="codigoProd" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="nombreProd" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="categoriaProd" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="exFisica" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+          <Property Name="contEmpaque" Type="int" Nullable="false" />
+          <Property Name="descEmpaque" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="decimales" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="costo" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="costoUnd" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="costoDivisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="esAdmDivisa" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="descTasa" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="valorTasa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="fechaUltActCosto" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cantSolicitada" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+          <Property Name="empaqueIdSolicitado" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="ajusteIdSolicitado" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="costoSolicitado" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="nivelMinimo" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+          <Property Name="nivelOptimo" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+          <Property Name="costoDivisaUnd" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="exFisicaDestino" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+        </EntityType>
         <EntityType Name="productos_precios">
           <Key>
             <PropertyRef Name="id" />
@@ -1014,6 +1047,18 @@ warning 6002: The table/view 'pita.productos_movimientos_detalle' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="productos_movimientos_transito_detalle_ibfk_1">
+          <End Role="productos_movimientos_transito" Type="Self.productos_movimientos_transito" Multiplicity="1" />
+          <End Role="productos_movimientos_transito_detalle" Type="Self.productos_movimientos_transito_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_movimientos_transito">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_movimientos_transito_detalle">
+              <PropertyRef Name="idTransito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="productos_precios_ibfk_1">
           <End Role="productos" Type="Self.productos" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1076,6 +1121,7 @@ warning 6002: The table/view 'pita.productos_movimientos_detalle' does not have 
           <EntitySet Name="productos_movimientos" EntityType="Self.productos_movimientos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_movimientos_extra" EntityType="Self.productos_movimientos_extra" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_movimientos_transito" EntityType="Self.productos_movimientos_transito" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="productos_movimientos_transito_detalle" EntityType="Self.productos_movimientos_transito_detalle" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_precios" EntityType="Self.productos_precios" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_precios_ext" EntityType="Self.productos_precios_ext" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_proveedor" EntityType="Self.productos_proveedor" Schema="pita" store:Type="Tables" />
@@ -1305,6 +1351,10 @@ FROM `productos_movimientos_detalle` AS `productos_movimientos_detalle`</Definin
           <AssociationSet Name="productos_movimientos_ibfk_4" Association="Self.productos_movimientos_ibfk_4">
             <End Role="empresa_depositos" EntitySet="empresa_depositos" />
             <End Role="productos_movimientos" EntitySet="productos_movimientos" />
+          </AssociationSet>
+          <AssociationSet Name="productos_movimientos_transito_detalle_ibfk_1" Association="Self.productos_movimientos_transito_detalle_ibfk_1">
+            <End Role="productos_movimientos_transito" EntitySet="productos_movimientos_transito" />
+            <End Role="productos_movimientos_transito_detalle" EntitySet="productos_movimientos_transito_detalle" />
           </AssociationSet>
           <AssociationSet Name="productos_precios_ibfk_1" Association="Self.productos_precios_ibfk_1">
             <End Role="productos" EntitySet="productos" />
@@ -1576,6 +1626,11 @@ FROM `productos_movimientos_detalle` AS `productos_movimientos_detalle`</Definin
           <EntitySet Name="productos_precios_ext" EntityType="invModel.productos_precios_ext" />
           <EntitySet Name="productos_ext" EntityType="invModel.productos_ext" />
           <EntitySet Name="productos_movimientos_transito" EntityType="invModel.productos_movimientos_transito" />
+          <EntitySet Name="productos_movimientos_transito_detalle" EntityType="invModel.productos_movimientos_transito_detalle" />
+          <AssociationSet Name="productos_movimientos_transito_detalle_ibfk_1" Association="invModel.productos_movimientos_transito_detalle_ibfk_1">
+            <End Role="productos_movimientos_transito" EntitySet="productos_movimientos_transito" />
+            <End Role="productos_movimientos_transito_detalle" EntitySet="productos_movimientos_transito_detalle" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="empresa_departamentos">
           <Key>
@@ -2559,7 +2614,54 @@ FROM `productos_movimientos_detalle` AS `productos_movimientos_detalle`</Definin
           <Property Name="desConcepto" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="desUsuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="estacionEquipo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="productos_movimientos_transito_detalle" Relationship="invModel.productos_movimientos_transito_detalle_ibfk_1" FromRole="productos_movimientos_transito" ToRole="productos_movimientos_transito_detalle" />
         </EntityType>
+        <EntityType Name="productos_movimientos_transito_detalle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTransito" Type="Int32" Nullable="false" />
+          <Property Name="autoDepart" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="autoGrupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="autoTasa" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="autoProd" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="codigoProd" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="nombreProd" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="categoriaProd" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="exFisica" Type="Decimal" Nullable="false" />
+          <Property Name="contEmpaque" Type="Int32" Nullable="false" />
+          <Property Name="descEmpaque" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="decimales" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="costo" Type="Decimal" Nullable="false" />
+          <Property Name="costoUnd" Type="Decimal" Nullable="false" />
+          <Property Name="costoDivisa" Type="Decimal" Nullable="false" />
+          <Property Name="esAdmDivisa" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="descTasa" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="valorTasa" Type="Decimal" Nullable="false" />
+          <Property Name="fechaUltActCosto" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cantSolicitada" Type="Decimal" Nullable="false" />
+          <Property Name="empaqueIdSolicitado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ajusteIdSolicitado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="costoSolicitado" Type="Decimal" Nullable="false" />
+          <Property Name="nivelMinimo" Type="Decimal" Nullable="false" />
+          <Property Name="nivelOptimo" Type="Decimal" Nullable="false" />
+          <Property Name="costoDivisaUnd" Type="Decimal" Nullable="false" />
+          <Property Name="exFisicaDestino" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="productos_movimientos_transito" Relationship="invModel.productos_movimientos_transito_detalle_ibfk_1" FromRole="productos_movimientos_transito_detalle" ToRole="productos_movimientos_transito" />
+        </EntityType>
+        <Association Name="productos_movimientos_transito_detalle_ibfk_1">
+          <End Type="invModel.productos_movimientos_transito" Role="productos_movimientos_transito" Multiplicity="1" />
+          <End Type="invModel.productos_movimientos_transito_detalle" Role="productos_movimientos_transito_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos_movimientos_transito">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_movimientos_transito_detalle">
+              <PropertyRef Name="idTransito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3191,6 +3293,40 @@ FROM `productos_movimientos_detalle` AS `productos_movimientos_detalle`</Definin
                 <ScalarProperty Name="idDepOrigen" ColumnName="idDepOrigen" />
                 <ScalarProperty Name="idSucDestino" ColumnName="idSucDestino" />
                 <ScalarProperty Name="idSucOrigen" ColumnName="idSucOrigen" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos_movimientos_transito_detalle">
+            <EntityTypeMapping TypeName="invModel.productos_movimientos_transito_detalle">
+              <MappingFragment StoreEntitySet="productos_movimientos_transito_detalle">
+                <ScalarProperty Name="exFisicaDestino" ColumnName="exFisicaDestino" />
+                <ScalarProperty Name="costoDivisaUnd" ColumnName="costoDivisaUnd" />
+                <ScalarProperty Name="nivelOptimo" ColumnName="nivelOptimo" />
+                <ScalarProperty Name="nivelMinimo" ColumnName="nivelMinimo" />
+                <ScalarProperty Name="costoSolicitado" ColumnName="costoSolicitado" />
+                <ScalarProperty Name="ajusteIdSolicitado" ColumnName="ajusteIdSolicitado" />
+                <ScalarProperty Name="empaqueIdSolicitado" ColumnName="empaqueIdSolicitado" />
+                <ScalarProperty Name="cantSolicitada" ColumnName="cantSolicitada" />
+                <ScalarProperty Name="fechaUltActCosto" ColumnName="fechaUltActCosto" />
+                <ScalarProperty Name="valorTasa" ColumnName="valorTasa" />
+                <ScalarProperty Name="descTasa" ColumnName="descTasa" />
+                <ScalarProperty Name="esAdmDivisa" ColumnName="esAdmDivisa" />
+                <ScalarProperty Name="costoDivisa" ColumnName="costoDivisa" />
+                <ScalarProperty Name="costoUnd" ColumnName="costoUnd" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="decimales" ColumnName="decimales" />
+                <ScalarProperty Name="descEmpaque" ColumnName="descEmpaque" />
+                <ScalarProperty Name="contEmpaque" ColumnName="contEmpaque" />
+                <ScalarProperty Name="exFisica" ColumnName="exFisica" />
+                <ScalarProperty Name="categoriaProd" ColumnName="categoriaProd" />
+                <ScalarProperty Name="nombreProd" ColumnName="nombreProd" />
+                <ScalarProperty Name="codigoProd" ColumnName="codigoProd" />
+                <ScalarProperty Name="autoProd" ColumnName="autoProd" />
+                <ScalarProperty Name="autoTasa" ColumnName="autoTasa" />
+                <ScalarProperty Name="autoGrupo" ColumnName="autoGrupo" />
+                <ScalarProperty Name="autoDepart" ColumnName="autoDepart" />
+                <ScalarProperty Name="idTransito" ColumnName="idTransito" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

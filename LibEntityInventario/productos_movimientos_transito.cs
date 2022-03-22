@@ -14,6 +14,12 @@ namespace LibEntityInventario
     
     public partial class productos_movimientos_transito
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public productos_movimientos_transito()
+        {
+            this.productos_movimientos_transito_detalle = new HashSet<productos_movimientos_transito_detalle>();
+        }
+    
         public int id { get; set; }
         public string idSucOrigen { get; set; }
         public string idSucDestino { get; set; }
@@ -37,5 +43,8 @@ namespace LibEntityInventario
         public string desConcepto { get; set; }
         public string desUsuario { get; set; }
         public string estacionEquipo { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<productos_movimientos_transito_detalle> productos_movimientos_transito_detalle { get; set; }
     }
 }

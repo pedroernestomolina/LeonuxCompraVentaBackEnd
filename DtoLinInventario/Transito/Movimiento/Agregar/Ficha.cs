@@ -12,11 +12,13 @@ namespace DtoLibInventario.Transito.Movimiento.Agregar
     {
 
         public Mov mov { get; set; }
+        public List<Detalle> detalles { get; set; }
 
 
         public Ficha() 
         {
             mov = new Mov();
+            detalles = new List<Detalle>();
         }
 
     }

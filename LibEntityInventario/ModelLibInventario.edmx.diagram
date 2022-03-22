@@ -61,7 +61,9 @@
         <EntityTypeShape EntityType="invModel.productos_movimientos_extra" Width="1.5" PointX="6.375" PointY="9.75" />
         <EntityTypeShape EntityType="invModel.productos_precios_ext" Width="1.5" PointX="10.375" PointY="5.75" />
         <EntityTypeShape EntityType="invModel.productos_ext" Width="1.5" PointX="11.375" PointY="0.75" />
-        <EntityTypeShape EntityType="invModel.productos_movimientos_transito" Width="1.5" PointX="27.125" PointY="25.875" />
+        <EntityTypeShape EntityType="invModel.productos_movimientos_transito" Width="1.5" PointX="30.25" PointY="26.375" />
+        <EntityTypeShape EntityType="invModel.productos_movimientos_transito_detalle" Width="1.5" PointX="32.5" PointY="25.875" />
+        <AssociationConnector Association="invModel.productos_movimientos_transito_detalle_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

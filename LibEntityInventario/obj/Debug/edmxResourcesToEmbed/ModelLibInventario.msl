@@ -630,5 +630,39 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="productos_movimientos_transito_detalle">
+      <EntityTypeMapping TypeName="invModel.productos_movimientos_transito_detalle">
+        <MappingFragment StoreEntitySet="productos_movimientos_transito_detalle">
+          <ScalarProperty Name="exFisicaDestino" ColumnName="exFisicaDestino" />
+          <ScalarProperty Name="costoDivisaUnd" ColumnName="costoDivisaUnd" />
+          <ScalarProperty Name="nivelOptimo" ColumnName="nivelOptimo" />
+          <ScalarProperty Name="nivelMinimo" ColumnName="nivelMinimo" />
+          <ScalarProperty Name="costoSolicitado" ColumnName="costoSolicitado" />
+          <ScalarProperty Name="ajusteIdSolicitado" ColumnName="ajusteIdSolicitado" />
+          <ScalarProperty Name="empaqueIdSolicitado" ColumnName="empaqueIdSolicitado" />
+          <ScalarProperty Name="cantSolicitada" ColumnName="cantSolicitada" />
+          <ScalarProperty Name="fechaUltActCosto" ColumnName="fechaUltActCosto" />
+          <ScalarProperty Name="valorTasa" ColumnName="valorTasa" />
+          <ScalarProperty Name="descTasa" ColumnName="descTasa" />
+          <ScalarProperty Name="esAdmDivisa" ColumnName="esAdmDivisa" />
+          <ScalarProperty Name="costoDivisa" ColumnName="costoDivisa" />
+          <ScalarProperty Name="costoUnd" ColumnName="costoUnd" />
+          <ScalarProperty Name="costo" ColumnName="costo" />
+          <ScalarProperty Name="decimales" ColumnName="decimales" />
+          <ScalarProperty Name="descEmpaque" ColumnName="descEmpaque" />
+          <ScalarProperty Name="contEmpaque" ColumnName="contEmpaque" />
+          <ScalarProperty Name="exFisica" ColumnName="exFisica" />
+          <ScalarProperty Name="categoriaProd" ColumnName="categoriaProd" />
+          <ScalarProperty Name="nombreProd" ColumnName="nombreProd" />
+          <ScalarProperty Name="codigoProd" ColumnName="codigoProd" />
+          <ScalarProperty Name="autoProd" ColumnName="autoProd" />
+          <ScalarProperty Name="autoTasa" ColumnName="autoTasa" />
+          <ScalarProperty Name="autoGrupo" ColumnName="autoGrupo" />
+          <ScalarProperty Name="autoDepart" ColumnName="autoDepart" />
+          <ScalarProperty Name="idTransito" ColumnName="idTransito" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

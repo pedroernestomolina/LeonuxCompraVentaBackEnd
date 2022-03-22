@@ -254,9 +254,12 @@
     <Compile Include="Tool\AjusteNivelMinimoMaximo\Ajustar\Ficha.cs" />
     <Compile Include="Tool\AjusteNivelMinimoMaximo\Capturar\Ficha.cs" />
     <Compile Include="Tool\AjusteNivelMinimoMaximo\Capturar\Filtro.cs" />
+    <Compile Include="Transito\Movimiento\Agregar\Detalle.cs" />
     <Compile Include="Transito\Movimiento\Agregar\Ficha.cs" />
     <Compile Include="Transito\Movimiento\Agregar\Mov.cs" />
+    <Compile Include="Transito\Movimiento\Entidad\Detalle.cs" />
     <Compile Include="Transito\Movimiento\Entidad\Ficha.cs" />
+    <Compile Include="Transito\Movimiento\Entidad\Mov.cs" />
     <Compile Include="Transito\Movimiento\Lista\Ficha.cs" />
     <Compile Include="Transito\Movimiento\Lista\Filtro.cs" />
     <Compile Include="Usuario\ActualizarSesion\Ficha.cs" />

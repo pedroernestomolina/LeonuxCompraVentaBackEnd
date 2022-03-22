@@ -328,6 +328,16 @@ namespace ConsoleInventario
             //var rt1 = invPrv.Configuracion_SetDepositoConceptoPreDeterminadoParaDevolucion(ficha);
 
             //var rt1 = invPrv.Producto_Movimiento_Verificar_DepositoSucursalActivo("0000000001","0000000008","08");
+
+            //var filtro = new DtoLibInventario.Transito.Movimiento.Lista.Filtro()
+            //{
+            //    codMov = "03",
+            //    tipMov = "3"
+            //};
+            ////var rt1 = invPrv.Transito_Movimiento_GetCnt(filtro);
+            //var rt2 = invPrv.Transito_Movimiento_GetLista(filtro);
+            //var rt3 = invPrv.Transito_Movimiento_GetById(2);
+            //var rt4 = invPrv.Transito_Movimiento_AnularById(2);
         }
 
     }

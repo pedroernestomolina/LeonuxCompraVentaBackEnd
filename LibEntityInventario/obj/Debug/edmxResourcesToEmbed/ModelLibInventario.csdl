@@ -253,6 +253,11 @@
     <EntitySet Name="productos_precios_ext" EntityType="invModel.productos_precios_ext" />
     <EntitySet Name="productos_ext" EntityType="invModel.productos_ext" />
     <EntitySet Name="productos_movimientos_transito" EntityType="invModel.productos_movimientos_transito" />
+    <EntitySet Name="productos_movimientos_transito_detalle" EntityType="invModel.productos_movimientos_transito_detalle" />
+    <AssociationSet Name="productos_movimientos_transito_detalle_ibfk_1" Association="invModel.productos_movimientos_transito_detalle_ibfk_1">
+      <End Role="productos_movimientos_transito" EntitySet="productos_movimientos_transito" />
+      <End Role="productos_movimientos_transito_detalle" EntitySet="productos_movimientos_transito_detalle" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="empresa_departamentos">
     <Key>
@@ -1236,5 +1241,52 @@
     <Property Name="desConcepto" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
     <Property Name="desUsuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="estacionEquipo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="productos_movimientos_transito_detalle" Relationship="invModel.productos_movimientos_transito_detalle_ibfk_1" FromRole="productos_movimientos_transito" ToRole="productos_movimientos_transito_detalle" />
   </EntityType>
+  <EntityType Name="productos_movimientos_transito_detalle">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idTransito" Type="Int32" Nullable="false" />
+    <Property Name="autoDepart" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="autoGrupo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="autoTasa" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="autoProd" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigoProd" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="nombreProd" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="categoriaProd" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="exFisica" Type="Decimal" Nullable="false" />
+    <Property Name="contEmpaque" Type="Int32" Nullable="false" />
+    <Property Name="descEmpaque" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="decimales" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="costo" Type="Decimal" Nullable="false" />
+    <Property Name="costoUnd" Type="Decimal" Nullable="false" />
+    <Property Name="costoDivisa" Type="Decimal" Nullable="false" />
+    <Property Name="esAdmDivisa" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="descTasa" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="valorTasa" Type="Decimal" Nullable="false" />
+    <Property Name="fechaUltActCosto" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="cantSolicitada" Type="Decimal" Nullable="false" />
+    <Property Name="empaqueIdSolicitado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="ajusteIdSolicitado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="costoSolicitado" Type="Decimal" Nullable="false" />
+    <Property Name="nivelMinimo" Type="Decimal" Nullable="false" />
+    <Property Name="nivelOptimo" Type="Decimal" Nullable="false" />
+    <Property Name="costoDivisaUnd" Type="Decimal" Nullable="false" />
+    <Property Name="exFisicaDestino" Type="Decimal" Nullable="false" />
+    <NavigationProperty Name="productos_movimientos_transito" Relationship="invModel.productos_movimientos_transito_detalle_ibfk_1" FromRole="productos_movimientos_transito_detalle" ToRole="productos_movimientos_transito" />
+  </EntityType>
+  <Association Name="productos_movimientos_transito_detalle_ibfk_1">
+    <End Type="invModel.productos_movimientos_transito" Role="productos_movimientos_transito" Multiplicity="1" />
+    <End Type="invModel.productos_movimientos_transito_detalle" Role="productos_movimientos_transito_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos_movimientos_transito">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="productos_movimientos_transito_detalle">
+        <PropertyRef Name="idTransito" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
