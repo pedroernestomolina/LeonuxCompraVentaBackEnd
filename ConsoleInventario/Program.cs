@@ -327,6 +327,7 @@ namespace ConsoleInventario
             //};
             //var rt1 = invPrv.Configuracion_SetDepositoConceptoPreDeterminadoParaDevolucion(ficha);
 
+            //var rt1 = invPrv.Producto_Movimiento_Verificar_DepositoSucursalActivo("0000000001","0000000008","08");
         }
 
     }

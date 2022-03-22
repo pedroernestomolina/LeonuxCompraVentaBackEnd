@@ -578,6 +578,34 @@ warning 6002: The table/view 'pita.productos_movimientos_detalle' does not have 
     <Property Name="factor_cambio" Type="decimal" Precision="14" Scale="2" Nullable="false" />
     <Property Name="monto_divisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
   </EntityType>
+  <EntityType Name="productos_movimientos_transito">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idSucOrigen" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="idSucDestino" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="idDepOrigen" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="idDepDestino" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="idConcepto" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="fecha" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="autoriza" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="motivo" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="monto" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="montoDivisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="factorCambio" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+    <Property Name="cntRenglones" Type="int" Nullable="false" />
+    <Property Name="codigoMov" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="tipoMov" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="desMov" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="desSucOrigen" Type="varchar" MaxLength="120" Nullable="false" />
+    <Property Name="desSucDestino" Type="varchar" MaxLength="120" Nullable="false" />
+    <Property Name="desDepOrigen" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="desDepDestino" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="desConcepto" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="desUsuario" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="estacionEquipo" Type="varchar" MaxLength="60" Nullable="false" />
+  </EntityType>
   <EntityType Name="productos_precios">
     <Key>
       <PropertyRef Name="id" />
@@ -1042,6 +1070,7 @@ warning 6002: The table/view 'pita.productos_movimientos_detalle' does not have 
     <EntitySet Name="productos_medida" EntityType="Self.productos_medida" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_movimientos" EntityType="Self.productos_movimientos" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_movimientos_extra" EntityType="Self.productos_movimientos_extra" Schema="pita" store:Type="Tables" />
+    <EntitySet Name="productos_movimientos_transito" EntityType="Self.productos_movimientos_transito" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_precios" EntityType="Self.productos_precios" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_precios_ext" EntityType="Self.productos_precios_ext" Schema="pita" store:Type="Tables" />
     <EntitySet Name="productos_proveedor" EntityType="Self.productos_proveedor" Schema="pita" store:Type="Tables" />

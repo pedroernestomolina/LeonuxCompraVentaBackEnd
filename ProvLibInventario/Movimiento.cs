@@ -1292,8 +1292,10 @@ namespace ProvLibInventario
             return result;
         }
 
+
         //GET
-        public DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.Ver.Ficha> Producto_Movimiento_GetFicha(string autoDoc)
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.Ver.Ficha> 
+            Producto_Movimiento_GetFicha(string autoDoc)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.Ver.Ficha>();
 
@@ -1381,7 +1383,8 @@ namespace ProvLibInventario
 
             return result;
         }
-        public DtoLib.ResultadoLista<DtoLibInventario.Movimiento.Lista.Resumen> Producto_Movimiento_GetLista(DtoLibInventario.Movimiento.Lista.Filtro filtro)
+        public DtoLib.ResultadoLista<DtoLibInventario.Movimiento.Lista.Resumen> 
+            Producto_Movimiento_GetLista(DtoLibInventario.Movimiento.Lista.Filtro filtro)
         {
             var result = new DtoLib.ResultadoLista<DtoLibInventario.Movimiento.Lista.Resumen>();
 
@@ -1613,49 +1616,63 @@ namespace ProvLibInventario
 
             return result;
         }
-        public DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.AjusteInvCero.Capture.Ficha> Producto_Movimiento_AjusteInventarioCero_Capture(DtoLibInventario.Movimiento.AjusteInvCero.Capture.Filtro filtro)
+        public DtoLib.ResultadoLista<DtoLibInventario.Movimiento.Traslado.Consultar.ProductoPorDebajoNivelMinimo>
+            Producto_Movimiento_Traslado_Consultar_ProductosPorDebajoNivelMinimo(DtoLibInventario.Movimiento.Traslado.Consultar.Filtro filtro)
         {
-            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.AjusteInvCero.Capture.Ficha>();
+            var result = new DtoLib.ResultadoLista<DtoLibInventario.Movimiento.Traslado.Consultar.ProductoPorDebajoNivelMinimo>();
 
             try
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
-                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
-                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
-                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
-
-                    p1.ParameterName = "@autoDeposito";
-                    p1.Value = filtro.idDeposito;
-                    var sql_1 = @"SELECT 
-                                    p.auto autoPrd, 
-                                    p.auto_departamento autoDepart, 
-                                    p.auto_grupo autoGrupo, 
-                                    p.codigo codigoPrd, 
-                                    p.nombre nombrePrd, 
-                                    p.categoria catPrd, 
-                                    pdepo.fisica as exFisica, 
-                                    p.contenido_compras contEmp, 
-                                    pmed.nombre nombreEmp, 
-                                    pmed.decimales, 
-                                    p.costo_und costoUnd, 
-                                    p.costo,
-                                    p.estatus_divisa as estatusDivisa,
-                                    p.divisa as costoDivisa,
-                                    etasa.auto as autoTasa,
-                                    etasa.nombre as descTasa,
-                                    etasa.tasa as valorTasa
-                                    from productos_deposito as pdepo
-                                    join productos as p on p.auto=pdepo.auto_producto
-                                    join productos_medida as pmed on pmed.auto=p.auto_empaque_compra
-                                    join empresa_tasas as etasa on etasa.auto=p.auto_tasa
-                                    where pdepo.auto_deposito=@autoDeposito and pdepo.fisica<>0";
-                    var sql = sql_1;
-                    var lt = cnn.Database.SqlQuery<DtoLibInventario.Movimiento.AjusteInvCero.Capture.Data>(sql, p1, p2, p3).ToList();
-                    result.Entidad = new DtoLibInventario.Movimiento.AjusteInvCero.Capture.Ficha()
+                    var q = cnn.productos_deposito.ToList();
+                    q = q.Where(f => f.fisica < f.nivel_minimo && f.productos.estatus.Trim().ToUpper() == "ACTIVO").ToList();
+                    if (filtro.autoDeposito != "")
                     {
-                        data = lt,
-                    };
+                        q = q.Where(f => f.auto_deposito == filtro.autoDeposito).ToList();
+                    }
+                    if (filtro.autoDepartamento != "")
+                    {
+                        q = q.Where(f => f.productos.auto_departamento == filtro.autoDepartamento).ToList();
+                    }
+
+                    var list = new List<DtoLibInventario.Movimiento.Traslado.Consultar.ProductoPorDebajoNivelMinimo>();
+                    if (q != null)
+                    {
+                        if (q.Count() > 0)
+                        {
+                            list = q.Select(s =>
+                            {
+                                var _decimales = "";
+                                var _empaque = "";
+                                //var ent = cnn.productos_medida.Find(s.productos.auto_empaque_compra);
+                                var ent = s.productos.productos_medida2;
+                                if (ent != null)
+                                {
+                                    _decimales = ent.decimales;
+                                    _empaque = ent.nombre;
+                                }
+
+                                var nr = new DtoLibInventario.Movimiento.Traslado.Consultar.ProductoPorDebajoNivelMinimo()
+                                {
+                                    autoProducto = s.auto_producto,
+                                    autoDepartamento = s.productos.auto_departamento,
+                                    autoGrupo = s.productos.auto_grupo,
+                                    categoria = s.productos.categoria,
+                                    codigoProducto = s.productos.codigo,
+                                    contenidEmpCompra = s.productos.contenido_compras,
+                                    costoFinalCompra = s.productos.costo,
+                                    costoFinalUnd = s.productos.costo_und,
+                                    cntUndReponer = s.nivel_optimo - s.fisica,
+                                    decimales = _decimales,
+                                    empaqueCompra = _empaque,
+                                    nombreProducto = s.productos.nombre,
+                                };
+                                return nr;
+                            }).ToList();
+                        }
+                    }
+                    result.Lista = list;
                 }
             }
             catch (Exception e)
@@ -2173,6 +2190,320 @@ namespace ProvLibInventario
         }
 
 
+        // CAPTURE DE DATA PARA MOVIMIENTO TRASLADO PRODUCTOS POR DEBAJO DEL NIVEL MINIMO 
+        public DtoLib.ResultadoLista<DtoLibInventario.Movimiento.Traslado.Capturar.ProductoPorDebajoNivelMinimo.Ficha> 
+            Capturar_ProductosPorDebajoNivelMinimo(DtoLibInventario.Movimiento.Traslado.Capturar.ProductoPorDebajoNivelMinimo.Filtro filtro)
+        {
+            var result = new DtoLib.ResultadoLista<DtoLibInventario.Movimiento.Traslado.Capturar.ProductoPorDebajoNivelMinimo.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    var sql_1 = @"select p.auto as autoPrd, p.codigo as codigoPrd, p.nombre as nombrePrd, p.contenido_compras as empCompraCont, 
+                                  p.auto_departamento as autoDepartamento, p.auto_grupo as autoGrupo, p.categoria, 
+                                  p.costo as costo, p.costo_und as costoUnd, p.divisa as costoDivisa, p.estatus_divisa as estatusDivisa,
+                                  p.fecha_ult_costo as fechaUltActualizacion,
+                                  eTasa.tasa as tasaIva, eTasa.nombre as tasaIvaNombre, etasa.auto as tasaAuto,
+                                  eDepo.auto as autoDeposito, eDepo.codigo as codigoDeposito, eDepo.nombre as nombreDeposito, 
+                                  pDepo.fisica as exFisica, pDepo.disponible as exDisponible, pDepo.reservada as exReservada,
+                                  pDepo.nivel_minimo as nivelMinimo, pDepo.nivel_optimo as nivelOptimo,
+                                  eDepoOrigen.auto as autoDepositoOrigen, eDepoOrigen.codigo as codigoDepositoOrigen, eDepoOrigen.nombre as nombreDepositoOrigen, 
+                                  pDepoOrigen.fisica as exFisicaOrigen, pDepoOrigen.reservada as exReservaOrigen, pDepoOrigen.disponible as exDisponibleOrigen,
+                                  pMed.decimales, pMed.nombre as empCompra
+                                  from productos as p 
+                                  join productos_medida as pMed on p.auto_empaque_compra=pMed.auto 
+                                  join productos_deposito as pDepo on p.auto=pDepo.auto_producto 
+                                  join productos_deposito as pDepoOrigen on p.auto=pDepoOrigen.auto_producto and pDepoOrigen.auto_deposito=@autoDepOrigen
+                                  join empresa_depositos as eDepo on pDepo.auto_deposito=eDepo.auto
+                                  join empresa_depositos as eDepoOrigen on pDepoOrigen.auto_deposito=eDepoOrigen.auto
+                                  join empresa_departamentos as eDepart on p.auto_departamento=eDepart.auto
+                                  join empresa_tasas as eTasa on p.auto_tasa=eTasa.auto ";
+                    p3.ParameterName = "@autoDepOrigen";
+                    p3.Value = filtro.autoDepositoOrigen;
+
+                    var sql_2 = @" where p.estatus='ACTIVO' and pDepo.fisica<pDepo.nivel_minimo ";
+                    if (filtro.autoDepositoVerificarNivel != "")
+                    {
+                        p1.ParameterName = "@autoDeposito";
+                        p1.Value = filtro.autoDepositoVerificarNivel;
+                        sql_2 += " and pDepo.auto_deposito=@autoDeposito ";
+                    }
+                    if (filtro.autoDepartamento != "")
+                    {
+                        p2.ParameterName = "@autoDepartamento";
+                        p2.Value = filtro.autoDepartamento;
+                        sql_2 += " and p.auto_departamento=@autoDepartamento ";
+                    }
+                    var sql = sql_1 + sql_2;
+                    var lt=cnn.Database.SqlQuery<DtoLibInventario.Movimiento.Traslado.Capturar.ProductoPorDebajoNivelMinimo.Ficha>(sql, p1, p2,p3).ToList();
+                    result.Lista = lt;
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        // CAPTURE DE DATA PARA MOVIMIENTO DESCARGO 
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.DesCargo.CapturaMov.Ficha> 
+            Producto_Movimiento_Descargo_Capture(DtoLibInventario.Movimiento.DesCargo.CapturaMov.Filtro filtro)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.DesCargo.CapturaMov.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@autoDeposito";
+                    p1.Value = filtro.idDeposito;
+                    p2.ParameterName = "@autoProducto";
+                    p2.Value = filtro.idProducto;
+                    var sql_1 = @"SELECT 
+                                    p.auto autoPrd, 
+                                    p.auto_departamento autoDepart, 
+                                    p.auto_grupo autoGrupo, 
+                                    p.codigo codigoPrd, 
+                                    p.nombre nombrePrd, 
+                                    p.categoria catPrd, 
+                                    pdepo.fisica as exFisica, 
+                                    p.contenido_compras contEmp, 
+                                    pmed.nombre nombreEmp, 
+                                    pmed.decimales, 
+                                    p.costo_und costoUnd, 
+                                    p.costo,
+                                    p.estatus_divisa as estatusDivisa,
+                                    p.divisa as costoDivisa,
+                                    etasa.auto as autoTasa,
+                                    etasa.nombre as descTasa,
+                                    etasa.tasa as valorTasa,
+                                    p.fecha_ult_costo as fechaUltActCosto
+                                    from productos_deposito as pdepo
+                                    join productos as p on p.auto=pdepo.auto_producto
+                                    join productos_medida as pmed on pmed.auto=p.auto_empaque_compra
+                                    join empresa_tasas as etasa on etasa.auto=p.auto_tasa
+                                    where pdepo.auto_deposito=@autoDeposito and pdepo.auto_producto=@autoProducto";
+                    var sql = sql_1;
+                    var ent = cnn.Database.SqlQuery<DtoLibInventario.Movimiento.DesCargo.CapturaMov.Data>(sql, p1, p2, p3).FirstOrDefault();
+                    if (ent == null) 
+                    {
+                        result.Mensaje = "[ PRODUCTO / DEPOSITO ] NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    result.Entidad = new DtoLibInventario.Movimiento.DesCargo.CapturaMov.Ficha() { data = ent };
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        // CAPTURE DE DATA PARA MOVIMIENTO CARGO
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.Cargo.CapturaMov.Ficha> 
+            Producto_Movimiento_Cargo_Capture(DtoLibInventario.Movimiento.Cargo.CapturaMov.Filtro filtro)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.Cargo.CapturaMov.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@autoDeposito";
+                    p1.Value = filtro.idDeposito;
+                    p2.ParameterName = "@autoProducto";
+                    p2.Value = filtro.idProducto;
+                    var sql_1 = @"SELECT 
+                                    p.auto autoPrd, 
+                                    p.auto_departamento autoDepart, 
+                                    p.auto_grupo autoGrupo, 
+                                    p.codigo codigoPrd, 
+                                    p.nombre nombrePrd, 
+                                    p.categoria catPrd, 
+                                    pdepo.fisica as exFisica, 
+                                    p.contenido_compras contEmp, 
+                                    pmed.nombre nombreEmp, 
+                                    pmed.decimales, 
+                                    p.costo_und costoUnd, 
+                                    p.costo,
+                                    p.estatus_divisa as estatusDivisa,
+                                    p.divisa as costoDivisa,
+                                    etasa.auto as autoTasa,
+                                    etasa.nombre as descTasa,
+                                    etasa.tasa as valorTasa,
+                                    p.fecha_ult_costo as fechaUltActCosto
+                                    from productos_deposito as pdepo
+                                    join productos as p on p.auto=pdepo.auto_producto
+                                    join productos_medida as pmed on pmed.auto=p.auto_empaque_compra
+                                    join empresa_tasas as etasa on etasa.auto=p.auto_tasa
+                                    where pdepo.auto_deposito=@autoDeposito and pdepo.auto_producto=@autoProducto";
+                    var sql = sql_1;
+                    var ent = cnn.Database.SqlQuery<DtoLibInventario.Movimiento.Cargo.CapturaMov.Data>(sql, p1, p2, p3).FirstOrDefault();
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ PRODUCTO / DEPOSITO ] NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    result.Entidad = new DtoLibInventario.Movimiento.Cargo.CapturaMov.Ficha() { data = ent };
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        // CAPTURE DE DATA PARA MOVIMIENTO TRASLADO ENTRE DEPOSITO
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.Traslado.CapturaMov.Ficha> 
+            Producto_Movimiento_Traslado_Capture(DtoLibInventario.Movimiento.Traslado.CapturaMov.Filtro filtro)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.Traslado.CapturaMov.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var xent = cnn.productos_deposito.FirstOrDefault(f => f.auto_producto == filtro.idProducto 
+                        && f.auto_deposito == filtro.idDepDestino);
+                    if (xent == null) 
+                    {
+                        result.Mensaje = "[ PRODUCTO / DEPOSITO DESTINO ] NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+                    p1.ParameterName = "@autoDeposito";
+                    p1.Value = filtro.idDepOrigen;
+                    p2.ParameterName = "@autoProducto";
+                    p2.Value = filtro.idProducto;
+                    var sql_1 = @"SELECT 
+                                    p.auto autoPrd, 
+                                    p.auto_departamento autoDepart, 
+                                    p.auto_grupo autoGrupo, 
+                                    p.codigo codigoPrd, 
+                                    p.nombre nombrePrd, 
+                                    p.categoria catPrd, 
+                                    pdepo.fisica as exFisica, 
+                                    p.contenido_compras contEmp, 
+                                    pmed.nombre nombreEmp, 
+                                    pmed.decimales, 
+                                    p.costo_und costoUnd, 
+                                    p.costo,
+                                    p.estatus_divisa as estatusDivisa,
+                                    p.divisa as costoDivisa,
+                                    etasa.auto as autoTasa,
+                                    etasa.nombre as descTasa,
+                                    etasa.tasa as valorTasa,
+                                    p.fecha_ult_costo as fechaUltActCosto
+                                    from productos_deposito as pdepo
+                                    join productos as p on p.auto=pdepo.auto_producto
+                                    join productos_medida as pmed on pmed.auto=p.auto_empaque_compra
+                                    join empresa_tasas as etasa on etasa.auto=p.auto_tasa
+                                    where pdepo.auto_deposito=@autoDeposito and pdepo.auto_producto=@autoProducto";
+                    var sql = sql_1;
+                    var ent = cnn.Database.SqlQuery<DtoLibInventario.Movimiento.Traslado.CapturaMov.Data>(sql, p1, p2, p3).FirstOrDefault();
+                    if (ent == null)
+                    {
+                        result.Mensaje = "[ PRODUCTO / DEPOSITO ORIGEN ] NO ENCONTRADO";
+                        result.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return result;
+                    }
+                    result.Entidad = new DtoLibInventario.Movimiento.Traslado.CapturaMov.Ficha() { data = ent };
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+        // CAPTURE DE DATA PARA MOVIMIENTO AJUSTE INVENTARIO EN CERO(0)
+        public DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.AjusteInvCero.Capture.Ficha> 
+            Producto_Movimiento_AjusteInventarioCero_Capture(DtoLibInventario.Movimiento.AjusteInvCero.Capture.Filtro filtro)
+        {
+            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.AjusteInvCero.Capture.Ficha>();
+
+            try
+            {
+                using (var cnn = new invEntities(_cnInv.ConnectionString))
+                {
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
+
+                    p1.ParameterName = "@autoDeposito";
+                    p1.Value = filtro.idDeposito;
+                    var sql_1 = @"SELECT 
+                                    p.auto autoPrd, 
+                                    p.auto_departamento autoDepart, 
+                                    p.auto_grupo autoGrupo, 
+                                    p.codigo codigoPrd, 
+                                    p.nombre nombrePrd, 
+                                    p.categoria catPrd, 
+                                    pdepo.fisica as exFisica, 
+                                    p.contenido_compras contEmp, 
+                                    pmed.nombre nombreEmp, 
+                                    pmed.decimales, 
+                                    p.costo_und costoUnd, 
+                                    p.costo,
+                                    p.estatus_divisa as estatusDivisa,
+                                    p.divisa as costoDivisa,
+                                    etasa.auto as autoTasa,
+                                    etasa.nombre as descTasa,
+                                    etasa.tasa as valorTasa
+                                    from productos_deposito as pdepo
+                                    join productos as p on p.auto=pdepo.auto_producto
+                                    join productos_medida as pmed on pmed.auto=p.auto_empaque_compra
+                                    join empresa_tasas as etasa on etasa.auto=p.auto_tasa
+                                    where pdepo.auto_deposito=@autoDeposito and pdepo.fisica<>0";
+                    var sql = sql_1;
+                    var lt = cnn.Database.SqlQuery<DtoLibInventario.Movimiento.AjusteInvCero.Capture.Data>(sql, p1, p2, p3).ToList();
+                    result.Entidad = new DtoLibInventario.Movimiento.AjusteInvCero.Capture.Ficha()
+                    {
+                        data = lt,
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = DtoLib.Enumerados.EnumResult.isError;
+            }
+
+            return result;
+        }
+
+
         //VERIFICAR
         public DtoLib.ResultadoEntidad<bool> Producto_Movimiento_Verificar_AnularDocumento(string autoDocumento)
         {
@@ -2193,7 +2524,7 @@ namespace ProvLibInventario
                         rt.Entidad = false;
                         return rt;
                     }
-                    if (entMov.estatus_anulado == "1") 
+                    if (entMov.estatus_anulado == "1")
                     {
                         rt.Mensaje = "DOCUMENTO YA ANULADO";
                         rt.Result = DtoLib.Enumerados.EnumResult.isError;
@@ -2207,11 +2538,71 @@ namespace ProvLibInventario
                         rt.Entidad = false;
                         return rt;
                     }
-                    if (entMov.estatus_cierre_contable=="1")
+                    if (entMov.estatus_cierre_contable == "1")
                     {
                         rt.Mensaje = "DOCUMENTO SE ENCUENTRA BLOQUEADO CONTABLEMENTE";
                         rt.Result = DtoLib.Enumerados.EnumResult.isError;
                         rt.Entidad = false;
+                        return rt;
+                    }
+
+                    var idDepOrigen = entMov.auto_deposito;
+                    var idDepDestino = entMov.auto_destino;
+                    var codSucursal = entMov.codigo_sucursal;
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter("@idDepOrigen", idDepOrigen);
+                    var sql1 = @"select es_activo
+                                from empresa_depositos_ext as eDepExt 
+                                join empresa_depositos as eDep on eDep.auto=eDepExt.auto_deposito
+                                where eDep.auto=@idDepOrigen";
+                    var entDepOrigen = cnn.Database.SqlQuery<string>(sql1, p1).FirstOrDefault();
+                    if (entDepOrigen == null)
+                    {
+                        rt.Mensaje = "DEPOSITO ORIGEN NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    if (entDepOrigen == "0")
+                    {
+                        rt.Mensaje = "DEPOSITO ORIGEN ESTATUS INACTIVO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter("@idDepDestino", idDepDestino);
+                    var sql2 = @"select es_activo
+                                from empresa_depositos_ext as eDepExt 
+                                join empresa_depositos as eDep on eDep.auto=eDepExt.auto_deposito
+                                where eDep.auto=@idDepDestino";
+                    var entDepDestino = cnn.Database.SqlQuery<string>(sql2, p2).FirstOrDefault();
+                    if (entDepDestino == null)
+                    {
+                        rt.Mensaje = "DEPOSITO DESTINO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    if (entDepDestino == "0")
+                    {
+                        rt.Mensaje = "DEPOSITO DESTINO ESTATUS INACTIVO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter("@codSuc", codSucursal);
+                    var sql = @"select es_activo
+                                from empresa_sucursal_ext as eSucExt
+                                join empresa_sucursal as eSuc on eSuc.auto=eSucExt.auto_sucursal
+                                where esuc.codigo=@codSuc";
+                    var entSuc = cnn.Database.SqlQuery<string>(sql, p3).FirstOrDefault();
+                    if (entSuc == null)
+                    {
+                        rt.Mensaje = "SUCURSAL NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    if (entSuc == "0")
+                    {
+                        rt.Mensaje = "SUCURSAL ESTATUS INACTIVO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
                         return rt;
                     }
                 }
@@ -2308,327 +2699,82 @@ namespace ProvLibInventario
 
             return rt;
         }
-
-
-        //
-        public DtoLib.ResultadoLista<DtoLibInventario.Movimiento.Traslado.Capturar.ProductoPorDebajoNivelMinimo.Ficha> Capturar_ProductosPorDebajoNivelMinimo(DtoLibInventario.Movimiento.Traslado.Capturar.ProductoPorDebajoNivelMinimo.Filtro filtro)
+        public DtoLib.ResultadoEntidad<bool> Producto_Movimiento_Verificar_DepositoSucursalActivo(string idDepOrigen, string idDepDestino, string codSucursal)
         {
-            var result = new DtoLib.ResultadoLista<DtoLibInventario.Movimiento.Traslado.Capturar.ProductoPorDebajoNivelMinimo.Ficha>();
+            var rt = new DtoLib.ResultadoEntidad<bool>();
 
             try
             {
                 using (var cnn = new invEntities(_cnInv.ConnectionString))
                 {
-                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
-                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
-                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
-
-                    var sql_1 = @"select p.auto as autoPrd, p.codigo as codigoPrd, p.nombre as nombrePrd, p.contenido_compras as empCompraCont, 
-                                  p.auto_departamento as autoDepartamento, p.auto_grupo as autoGrupo, p.categoria, 
-                                  p.costo as costo, p.costo_und as costoUnd, p.divisa as costoDivisa, p.estatus_divisa as estatusDivisa,
-                                  p.fecha_ult_costo as fechaUltActualizacion,
-                                  eTasa.tasa as tasaIva, eTasa.nombre as tasaIvaNombre, etasa.auto as tasaAuto,
-                                  eDepo.auto as autoDeposito, eDepo.codigo as codigoDeposito, eDepo.nombre as nombreDeposito, 
-                                  pDepo.fisica as exFisica, pDepo.disponible as exDisponible, pDepo.reservada as exReservada,
-                                  pDepo.nivel_minimo as nivelMinimo, pDepo.nivel_optimo as nivelOptimo,
-                                  eDepoOrigen.auto as autoDepositoOrigen, eDepoOrigen.codigo as codigoDepositoOrigen, eDepoOrigen.nombre as nombreDepositoOrigen, 
-                                  pDepoOrigen.fisica as exFisicaOrigen, pDepoOrigen.reservada as exReservaOrigen, pDepoOrigen.disponible as exDisponibleOrigen,
-                                  pMed.decimales, pMed.nombre as empCompra
-                                  from productos as p 
-                                  join productos_medida as pMed on p.auto_empaque_compra=pMed.auto 
-                                  join productos_deposito as pDepo on p.auto=pDepo.auto_producto 
-                                  join productos_deposito as pDepoOrigen on p.auto=pDepoOrigen.auto_producto and pDepoOrigen.auto_deposito=@autoDepOrigen
-                                  join empresa_depositos as eDepo on pDepo.auto_deposito=eDepo.auto
-                                  join empresa_depositos as eDepoOrigen on pDepoOrigen.auto_deposito=eDepoOrigen.auto
-                                  join empresa_departamentos as eDepart on p.auto_departamento=eDepart.auto
-                                  join empresa_tasas as eTasa on p.auto_tasa=eTasa.auto ";
-                    p3.ParameterName = "@autoDepOrigen";
-                    p3.Value = filtro.autoDepositoOrigen;
-
-                    var sql_2 = @" where p.estatus='ACTIVO' and pDepo.fisica<pDepo.nivel_minimo ";
-                    if (filtro.autoDepositoVerificarNivel != "")
+                    var p1 = new MySql.Data.MySqlClient.MySqlParameter("@idDepOrigen", idDepOrigen);
+                    var sql1 = @"select es_activo
+                                from empresa_depositos_ext as eDepExt 
+                                join empresa_depositos as eDep on eDep.auto=eDepExt.auto_deposito
+                                where eDep.auto=@idDepOrigen";
+                    var entDepOrigen = cnn.Database.SqlQuery<string>(sql1, p1).FirstOrDefault();
+                    if (entDepOrigen == null)
                     {
-                        p1.ParameterName = "@autoDeposito";
-                        p1.Value = filtro.autoDepositoVerificarNivel;
-                        sql_2 += " and pDepo.auto_deposito=@autoDeposito ";
+                        rt.Mensaje = "DEPOSITO ORIGEN NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
                     }
-                    if (filtro.autoDepartamento != "")
+                    if (entDepOrigen == "0")
                     {
-                        p2.ParameterName = "@autoDepartamento";
-                        p2.Value = filtro.autoDepartamento;
-                        sql_2 += " and p.auto_departamento=@autoDepartamento ";
+                        rt.Mensaje = "DEPOSITO ORIGEN ESTATUS INACTIVO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
                     }
-                    var sql = sql_1 + sql_2;
-                    var lt=cnn.Database.SqlQuery<DtoLibInventario.Movimiento.Traslado.Capturar.ProductoPorDebajoNivelMinimo.Ficha>(sql, p1, p2,p3).ToList();
-                    result.Lista = lt;
+
+                    var p2 = new MySql.Data.MySqlClient.MySqlParameter("@idDepDestino", idDepDestino);
+                    var sql2 = @"select es_activo
+                                from empresa_depositos_ext as eDepExt 
+                                join empresa_depositos as eDep on eDep.auto=eDepExt.auto_deposito
+                                where eDep.auto=@idDepDestino";
+                    var entDepDestino = cnn.Database.SqlQuery<string>(sql2, p2).FirstOrDefault();
+                    if (entDepDestino == null)
+                    {
+                        rt.Mensaje = "DEPOSITO DESTINO NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    if (entDepDestino == "0")
+                    {
+                        rt.Mensaje = "DEPOSITO DESTINO ESTATUS INACTIVO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    var p3 = new MySql.Data.MySqlClient.MySqlParameter("@codSuc", codSucursal);
+                    var sql = @"select es_activo
+                                from empresa_sucursal_ext as eSucExt
+                                join empresa_sucursal as eSuc on eSuc.auto=eSucExt.auto_sucursal
+                                where esuc.codigo=@codSuc";
+                    var entSuc = cnn.Database.SqlQuery<string>(sql, p3).FirstOrDefault();
+                    if (entSuc == null) 
+                    {
+                        rt.Mensaje = "SUCURSAL NO ENCONTRADO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+                    if (entSuc == "0")
+                    {
+                        rt.Mensaje = "SUCURSAL ESTATUS INACTIVO";
+                        rt.Result = DtoLib.Enumerados.EnumResult.isError;
+                        return rt;
+                    }
+
+                    rt.Entidad = true;
+                    return rt;
                 }
             }
             catch (Exception e)
             {
-                result.Mensaje = e.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
+                rt.Mensaje = e.Message;
+                rt.Result = DtoLib.Enumerados.EnumResult.isError;
             }
 
-            return result;
-        }
-        public DtoLib.ResultadoLista<DtoLibInventario.Movimiento.Traslado.Consultar.ProductoPorDebajoNivelMinimo> Producto_Movimiento_Traslado_Consultar_ProductosPorDebajoNivelMinimo(DtoLibInventario.Movimiento.Traslado.Consultar.Filtro filtro)
-        {
-            var result = new DtoLib.ResultadoLista<DtoLibInventario.Movimiento.Traslado.Consultar.ProductoPorDebajoNivelMinimo>();
-
-            try
-            {
-                using (var cnn = new invEntities(_cnInv.ConnectionString))
-                {
-                    var q = cnn.productos_deposito.ToList();
-                    q = q.Where(f => f.fisica < f.nivel_minimo && f.productos.estatus.Trim().ToUpper() == "ACTIVO").ToList();
-                    if (filtro.autoDeposito != "")
-                    {
-                        q = q.Where(f => f.auto_deposito == filtro.autoDeposito).ToList();
-                    }
-                    if (filtro.autoDepartamento != "")
-                    {
-                        q = q.Where(f => f.productos.auto_departamento == filtro.autoDepartamento).ToList();
-                    }
-
-                    var list = new List<DtoLibInventario.Movimiento.Traslado.Consultar.ProductoPorDebajoNivelMinimo>();
-                    if (q != null)
-                    {
-                        if (q.Count() > 0)
-                        {
-                            list = q.Select(s =>
-                            {
-                                var _decimales = "";
-                                var _empaque = "";
-                                //var ent = cnn.productos_medida.Find(s.productos.auto_empaque_compra);
-                                var ent = s.productos.productos_medida2;
-                                if (ent != null)
-                                {
-                                    _decimales = ent.decimales;
-                                    _empaque = ent.nombre;
-                                }
-
-                                var nr = new DtoLibInventario.Movimiento.Traslado.Consultar.ProductoPorDebajoNivelMinimo()
-                                {
-                                    autoProducto = s.auto_producto,
-                                    autoDepartamento = s.productos.auto_departamento,
-                                    autoGrupo = s.productos.auto_grupo,
-                                    categoria = s.productos.categoria,
-                                    codigoProducto = s.productos.codigo,
-                                    contenidEmpCompra = s.productos.contenido_compras,
-                                    costoFinalCompra = s.productos.costo,
-                                    costoFinalUnd = s.productos.costo_und,
-                                    cntUndReponer = s.nivel_optimo - s.fisica,
-                                    decimales = _decimales,
-                                    empaqueCompra = _empaque,
-                                    nombreProducto = s.productos.nombre,
-                                };
-                                return nr;
-                            }).ToList();
-                        }
-                    }
-                    result.Lista = list;
-                }
-            }
-            catch (Exception e)
-            {
-                result.Mensaje = e.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return result;
-        }
-
-
-        // CAPTURE DE DATA PARA MOVIMIENTO DESCARGO 
-        public DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.DesCargo.CapturaMov.Ficha> 
-            Producto_Movimiento_Descargo_Capture(DtoLibInventario.Movimiento.DesCargo.CapturaMov.Filtro filtro)
-        {
-            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.DesCargo.CapturaMov.Ficha>();
-
-            try
-            {
-                using (var cnn = new invEntities(_cnInv.ConnectionString))
-                {
-                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
-                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
-                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
-
-                    p1.ParameterName = "@autoDeposito";
-                    p1.Value = filtro.idDeposito;
-                    p2.ParameterName = "@autoProducto";
-                    p2.Value = filtro.idProducto;
-                    var sql_1 = @"SELECT 
-                                    p.auto autoPrd, 
-                                    p.auto_departamento autoDepart, 
-                                    p.auto_grupo autoGrupo, 
-                                    p.codigo codigoPrd, 
-                                    p.nombre nombrePrd, 
-                                    p.categoria catPrd, 
-                                    pdepo.fisica as exFisica, 
-                                    p.contenido_compras contEmp, 
-                                    pmed.nombre nombreEmp, 
-                                    pmed.decimales, 
-                                    p.costo_und costoUnd, 
-                                    p.costo,
-                                    p.estatus_divisa as estatusDivisa,
-                                    p.divisa as costoDivisa,
-                                    etasa.auto as autoTasa,
-                                    etasa.nombre as descTasa,
-                                    etasa.tasa as valorTasa,
-                                    p.fecha_ult_costo as fechaUltActCosto
-                                    from productos_deposito as pdepo
-                                    join productos as p on p.auto=pdepo.auto_producto
-                                    join productos_medida as pmed on pmed.auto=p.auto_empaque_compra
-                                    join empresa_tasas as etasa on etasa.auto=p.auto_tasa
-                                    where pdepo.auto_deposito=@autoDeposito and pdepo.auto_producto=@autoProducto";
-                    var sql = sql_1;
-                    var ent = cnn.Database.SqlQuery<DtoLibInventario.Movimiento.DesCargo.CapturaMov.Data>(sql, p1, p2, p3).FirstOrDefault();
-                    if (ent == null) 
-                    {
-                        result.Mensaje = "[ PRODUCTO / DEPOSITO ] NO ENCONTRADO";
-                        result.Result = DtoLib.Enumerados.EnumResult.isError;
-                        return result;
-                    }
-                    result.Entidad = new DtoLibInventario.Movimiento.DesCargo.CapturaMov.Ficha() { data = ent };
-                }
-            }
-            catch (Exception e)
-            {
-                result.Mensaje = e.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return result;
-        }
-
-        // CAPTURE DE DATA PARA MOVIMIENTO CARGO
-        public DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.Cargo.CapturaMov.Ficha> Producto_Movimiento_Cargo_Capture(DtoLibInventario.Movimiento.Cargo.CapturaMov.Filtro filtro)
-        {
-            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.Cargo.CapturaMov.Ficha>();
-
-            try
-            {
-                using (var cnn = new invEntities(_cnInv.ConnectionString))
-                {
-                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
-                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
-                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
-
-                    p1.ParameterName = "@autoDeposito";
-                    p1.Value = filtro.idDeposito;
-                    p2.ParameterName = "@autoProducto";
-                    p2.Value = filtro.idProducto;
-                    var sql_1 = @"SELECT 
-                                    p.auto autoPrd, 
-                                    p.auto_departamento autoDepart, 
-                                    p.auto_grupo autoGrupo, 
-                                    p.codigo codigoPrd, 
-                                    p.nombre nombrePrd, 
-                                    p.categoria catPrd, 
-                                    pdepo.fisica as exFisica, 
-                                    p.contenido_compras contEmp, 
-                                    pmed.nombre nombreEmp, 
-                                    pmed.decimales, 
-                                    p.costo_und costoUnd, 
-                                    p.costo,
-                                    p.estatus_divisa as estatusDivisa,
-                                    p.divisa as costoDivisa,
-                                    etasa.auto as autoTasa,
-                                    etasa.nombre as descTasa,
-                                    etasa.tasa as valorTasa,
-                                    p.fecha_ult_costo as fechaUltActCosto
-                                    from productos_deposito as pdepo
-                                    join productos as p on p.auto=pdepo.auto_producto
-                                    join productos_medida as pmed on pmed.auto=p.auto_empaque_compra
-                                    join empresa_tasas as etasa on etasa.auto=p.auto_tasa
-                                    where pdepo.auto_deposito=@autoDeposito and pdepo.auto_producto=@autoProducto";
-                    var sql = sql_1;
-                    var ent = cnn.Database.SqlQuery<DtoLibInventario.Movimiento.Cargo.CapturaMov.Data>(sql, p1, p2, p3).FirstOrDefault();
-                    if (ent == null)
-                    {
-                        result.Mensaje = "[ PRODUCTO / DEPOSITO ] NO ENCONTRADO";
-                        result.Result = DtoLib.Enumerados.EnumResult.isError;
-                        return result;
-                    }
-                    result.Entidad = new DtoLibInventario.Movimiento.Cargo.CapturaMov.Ficha() { data = ent };
-                }
-            }
-            catch (Exception e)
-            {
-                result.Mensaje = e.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return result;
-        }
-
-        // CAPTURE DE DATA PARA MOVIMIENTO TRASLADO ENTRE DEPOSITO
-        public DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.Traslado.CapturaMov.Ficha> Producto_Movimiento_Traslado_Capture(DtoLibInventario.Movimiento.Traslado.CapturaMov.Filtro filtro)
-        {
-            var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Movimiento.Traslado.CapturaMov.Ficha>();
-
-            try
-            {
-                using (var cnn = new invEntities(_cnInv.ConnectionString))
-                {
-                    var xent = cnn.productos_deposito.FirstOrDefault(f => f.auto_producto == filtro.idProducto 
-                        && f.auto_deposito == filtro.idDepDestino);
-                    if (xent == null) 
-                    {
-                        result.Mensaje = "[ PRODUCTO / DEPOSITO DESTINO ] NO ENCONTRADO";
-                        result.Result = DtoLib.Enumerados.EnumResult.isError;
-                        return result;
-                    }
-
-                    var p1 = new MySql.Data.MySqlClient.MySqlParameter();
-                    var p2 = new MySql.Data.MySqlClient.MySqlParameter();
-                    var p3 = new MySql.Data.MySqlClient.MySqlParameter();
-                    p1.ParameterName = "@autoDeposito";
-                    p1.Value = filtro.idDepOrigen;
-                    p2.ParameterName = "@autoProducto";
-                    p2.Value = filtro.idProducto;
-                    var sql_1 = @"SELECT 
-                                    p.auto autoPrd, 
-                                    p.auto_departamento autoDepart, 
-                                    p.auto_grupo autoGrupo, 
-                                    p.codigo codigoPrd, 
-                                    p.nombre nombrePrd, 
-                                    p.categoria catPrd, 
-                                    pdepo.fisica as exFisica, 
-                                    p.contenido_compras contEmp, 
-                                    pmed.nombre nombreEmp, 
-                                    pmed.decimales, 
-                                    p.costo_und costoUnd, 
-                                    p.costo,
-                                    p.estatus_divisa as estatusDivisa,
-                                    p.divisa as costoDivisa,
-                                    etasa.auto as autoTasa,
-                                    etasa.nombre as descTasa,
-                                    etasa.tasa as valorTasa,
-                                    p.fecha_ult_costo as fechaUltActCosto
-                                    from productos_deposito as pdepo
-                                    join productos as p on p.auto=pdepo.auto_producto
-                                    join productos_medida as pmed on pmed.auto=p.auto_empaque_compra
-                                    join empresa_tasas as etasa on etasa.auto=p.auto_tasa
-                                    where pdepo.auto_deposito=@autoDeposito and pdepo.auto_producto=@autoProducto";
-                    var sql = sql_1;
-                    var ent = cnn.Database.SqlQuery<DtoLibInventario.Movimiento.Traslado.CapturaMov.Data>(sql, p1, p2, p3).FirstOrDefault();
-                    if (ent == null)
-                    {
-                        result.Mensaje = "[ PRODUCTO / DEPOSITO ORIGEN ] NO ENCONTRADO";
-                        result.Result = DtoLib.Enumerados.EnumResult.isError;
-                        return result;
-                    }
-                    result.Entidad = new DtoLibInventario.Movimiento.Traslado.CapturaMov.Ficha() { data = ent };
-                }
-            }
-            catch (Exception e)
-            {
-                result.Mensaje = e.Message;
-                result.Result = DtoLib.Enumerados.EnumResult.isError;
-            }
-
-            return result;
+            return rt;
         }
 
     }

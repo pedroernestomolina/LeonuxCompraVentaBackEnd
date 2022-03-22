@@ -252,6 +252,7 @@
     <EntitySet Name="productos_movimientos_extra" EntityType="invModel.productos_movimientos_extra" />
     <EntitySet Name="productos_precios_ext" EntityType="invModel.productos_precios_ext" />
     <EntitySet Name="productos_ext" EntityType="invModel.productos_ext" />
+    <EntitySet Name="productos_movimientos_transito" EntityType="invModel.productos_movimientos_transito" />
   </EntityContainer>
   <EntityType Name="empresa_departamentos">
     <Key>
@@ -1207,5 +1208,33 @@
     <Property Name="pdmf_1" Type="Decimal" Nullable="false" />
     <Property Name="pdmf_2" Type="Decimal" Nullable="false" />
     <Property Name="pdmf_3" Type="Decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="productos_movimientos_transito">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idSucOrigen" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idSucDestino" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idDepOrigen" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idDepDestino" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idConcepto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="autoriza" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="motivo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="monto" Type="Decimal" Nullable="false" />
+    <Property Name="montoDivisa" Type="Decimal" Nullable="false" />
+    <Property Name="factorCambio" Type="Decimal" Nullable="false" />
+    <Property Name="cntRenglones" Type="Int32" Nullable="false" />
+    <Property Name="codigoMov" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="tipoMov" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="desMov" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="desSucOrigen" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="desSucDestino" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="desDepOrigen" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="desDepDestino" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="desConcepto" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="desUsuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="estacionEquipo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

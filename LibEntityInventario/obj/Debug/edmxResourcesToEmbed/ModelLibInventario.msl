@@ -601,5 +601,34 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="productos_movimientos_transito">
+      <EntityTypeMapping TypeName="invModel.productos_movimientos_transito">
+        <MappingFragment StoreEntitySet="productos_movimientos_transito">
+          <ScalarProperty Name="estacionEquipo" ColumnName="estacionEquipo" />
+          <ScalarProperty Name="desUsuario" ColumnName="desUsuario" />
+          <ScalarProperty Name="desConcepto" ColumnName="desConcepto" />
+          <ScalarProperty Name="desDepDestino" ColumnName="desDepDestino" />
+          <ScalarProperty Name="desDepOrigen" ColumnName="desDepOrigen" />
+          <ScalarProperty Name="desSucDestino" ColumnName="desSucDestino" />
+          <ScalarProperty Name="desSucOrigen" ColumnName="desSucOrigen" />
+          <ScalarProperty Name="desMov" ColumnName="desMov" />
+          <ScalarProperty Name="tipoMov" ColumnName="tipoMov" />
+          <ScalarProperty Name="codigoMov" ColumnName="codigoMov" />
+          <ScalarProperty Name="cntRenglones" ColumnName="cntRenglones" />
+          <ScalarProperty Name="factorCambio" ColumnName="factorCambio" />
+          <ScalarProperty Name="montoDivisa" ColumnName="montoDivisa" />
+          <ScalarProperty Name="monto" ColumnName="monto" />
+          <ScalarProperty Name="motivo" ColumnName="motivo" />
+          <ScalarProperty Name="autoriza" ColumnName="autoriza" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="idConcepto" ColumnName="idConcepto" />
+          <ScalarProperty Name="idDepDestino" ColumnName="idDepDestino" />
+          <ScalarProperty Name="idDepOrigen" ColumnName="idDepOrigen" />
+          <ScalarProperty Name="idSucDestino" ColumnName="idSucDestino" />
+          <ScalarProperty Name="idSucOrigen" ColumnName="idSucOrigen" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

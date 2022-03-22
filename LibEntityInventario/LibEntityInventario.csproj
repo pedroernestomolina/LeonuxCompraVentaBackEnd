@@ -140,6 +140,9 @@
     <Compile Include="productos_movimientos_extra.cs">
       <DependentUpon>ModelLibInventario.tt</DependentUpon>
     </Compile>
+    <Compile Include="productos_movimientos_transito.cs">
+      <DependentUpon>ModelLibInventario.tt</DependentUpon>
+    </Compile>
     <Compile Include="productos_precios.cs">
       <DependentUpon>ModelLibInventario.tt</DependentUpon>
     </Compile>

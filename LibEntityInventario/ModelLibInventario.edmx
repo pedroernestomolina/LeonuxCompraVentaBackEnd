@@ -583,6 +583,34 @@ warning 6002: The table/view 'pita.productos_movimientos_detalle' does not have 
           <Property Name="factor_cambio" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="monto_divisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="productos_movimientos_transito">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idSucOrigen" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="idSucDestino" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="idDepOrigen" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="idDepDestino" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="idConcepto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="fecha" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="autoriza" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="motivo" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="monto" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="montoDivisa" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="factorCambio" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="cntRenglones" Type="int" Nullable="false" />
+          <Property Name="codigoMov" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="tipoMov" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="desMov" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="desSucOrigen" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="desSucDestino" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="desDepOrigen" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="desDepDestino" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="desConcepto" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="desUsuario" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="estacionEquipo" Type="varchar" MaxLength="60" Nullable="false" />
+        </EntityType>
         <EntityType Name="productos_precios">
           <Key>
             <PropertyRef Name="id" />
@@ -1047,6 +1075,7 @@ warning 6002: The table/view 'pita.productos_movimientos_detalle' does not have 
           <EntitySet Name="productos_medida" EntityType="Self.productos_medida" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_movimientos" EntityType="Self.productos_movimientos" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_movimientos_extra" EntityType="Self.productos_movimientos_extra" Schema="pita" store:Type="Tables" />
+          <EntitySet Name="productos_movimientos_transito" EntityType="Self.productos_movimientos_transito" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_precios" EntityType="Self.productos_precios" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_precios_ext" EntityType="Self.productos_precios_ext" Schema="pita" store:Type="Tables" />
           <EntitySet Name="productos_proveedor" EntityType="Self.productos_proveedor" Schema="pita" store:Type="Tables" />
@@ -1546,6 +1575,7 @@ FROM `productos_movimientos_detalle` AS `productos_movimientos_detalle`</Definin
           <EntitySet Name="productos_movimientos_extra" EntityType="invModel.productos_movimientos_extra" />
           <EntitySet Name="productos_precios_ext" EntityType="invModel.productos_precios_ext" />
           <EntitySet Name="productos_ext" EntityType="invModel.productos_ext" />
+          <EntitySet Name="productos_movimientos_transito" EntityType="invModel.productos_movimientos_transito" />
         </EntityContainer>
         <EntityType Name="empresa_departamentos">
           <Key>
@@ -2502,6 +2532,34 @@ FROM `productos_movimientos_detalle` AS `productos_movimientos_detalle`</Definin
           <Property Name="pdmf_2" Type="Decimal" Nullable="false" />
           <Property Name="pdmf_3" Type="Decimal" Nullable="false" />
         </EntityType>
+        <EntityType Name="productos_movimientos_transito">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idSucOrigen" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idSucDestino" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idDepOrigen" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idDepDestino" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idConcepto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="autoriza" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="motivo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="monto" Type="Decimal" Nullable="false" />
+          <Property Name="montoDivisa" Type="Decimal" Nullable="false" />
+          <Property Name="factorCambio" Type="Decimal" Nullable="false" />
+          <Property Name="cntRenglones" Type="Int32" Nullable="false" />
+          <Property Name="codigoMov" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="tipoMov" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="desMov" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="desSucOrigen" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="desSucDestino" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="desDepOrigen" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="desDepDestino" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="desConcepto" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="desUsuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="estacionEquipo" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3105,6 +3163,35 @@ FROM `productos_movimientos_detalle` AS `productos_movimientos_detalle`</Definin
                 <ScalarProperty Name="auto_precio_may_2" ColumnName="auto_precio_may_2" />
                 <ScalarProperty Name="auto_precio_may_1" ColumnName="auto_precio_may_1" />
                 <ScalarProperty Name="auto_producto" ColumnName="auto_producto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos_movimientos_transito">
+            <EntityTypeMapping TypeName="invModel.productos_movimientos_transito">
+              <MappingFragment StoreEntitySet="productos_movimientos_transito">
+                <ScalarProperty Name="estacionEquipo" ColumnName="estacionEquipo" />
+                <ScalarProperty Name="desUsuario" ColumnName="desUsuario" />
+                <ScalarProperty Name="desConcepto" ColumnName="desConcepto" />
+                <ScalarProperty Name="desDepDestino" ColumnName="desDepDestino" />
+                <ScalarProperty Name="desDepOrigen" ColumnName="desDepOrigen" />
+                <ScalarProperty Name="desSucDestino" ColumnName="desSucDestino" />
+                <ScalarProperty Name="desSucOrigen" ColumnName="desSucOrigen" />
+                <ScalarProperty Name="desMov" ColumnName="desMov" />
+                <ScalarProperty Name="tipoMov" ColumnName="tipoMov" />
+                <ScalarProperty Name="codigoMov" ColumnName="codigoMov" />
+                <ScalarProperty Name="cntRenglones" ColumnName="cntRenglones" />
+                <ScalarProperty Name="factorCambio" ColumnName="factorCambio" />
+                <ScalarProperty Name="montoDivisa" ColumnName="montoDivisa" />
+                <ScalarProperty Name="monto" ColumnName="monto" />
+                <ScalarProperty Name="motivo" ColumnName="motivo" />
+                <ScalarProperty Name="autoriza" ColumnName="autoriza" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="idConcepto" ColumnName="idConcepto" />
+                <ScalarProperty Name="idDepDestino" ColumnName="idDepDestino" />
+                <ScalarProperty Name="idDepOrigen" ColumnName="idDepOrigen" />
+                <ScalarProperty Name="idSucDestino" ColumnName="idSucDestino" />
+                <ScalarProperty Name="idSucOrigen" ColumnName="idSucOrigen" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
