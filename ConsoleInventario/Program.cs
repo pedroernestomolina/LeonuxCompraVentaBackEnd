@@ -336,7 +336,7 @@ namespace ConsoleInventario
             //};
             ////var rt1 = invPrv.Transito_Movimiento_GetCnt(filtro);
             //var rt2 = invPrv.Transito_Movimiento_GetLista(filtro);
-            //var rt3 = invPrv.Transito_Movimiento_GetById(2);
+            //var rt3 = invPrv.Transito_Movimiento_GetById(12);
             //var rt4 = invPrv.Transito_Movimiento_AnularById(2);
         }
 

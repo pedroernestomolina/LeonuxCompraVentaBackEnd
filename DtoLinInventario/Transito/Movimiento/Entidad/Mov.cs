@@ -15,7 +15,7 @@ namespace DtoLibInventario.Transito.Movimiento.Entidad
         public DateTime fecha { get; set; }
         public string idSucOrigen { get; set; }
         public string idSucDestino { get; set; }
-        public string idDeOrigen { get; set; }
+        public string idDepOrigen { get; set; }
         public string idDepDestino { get; set; }
         public string idConcepto { get; set; }
         public string autoriza { get; set; }
@@ -41,7 +41,7 @@ namespace DtoLibInventario.Transito.Movimiento.Entidad
             id = -1;
             fecha = DateTime.Now.Date;
             idConcepto = "";
-            idDeOrigen = "";
+            idDepOrigen = "";
             idDepDestino = "";
             idSucDestino = "";
             idSucOrigen = "";
