@@ -54,6 +54,7 @@
     <Compile Include="IServConf.cs" />
     <Compile Include="ISucursal.cs" />
     <Compile Include="ISucursalGrupo.cs" />
+    <Compile Include="ITablaPrecio.cs" />
     <Compile Include="IUsuario.cs" />
     <Compile Include="IVendedor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

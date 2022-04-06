@@ -73,6 +73,7 @@
     <Compile Include="ServConf.cs" />
     <Compile Include="Sucursal.cs" />
     <Compile Include="SucursalGrupo.cs" />
+    <Compile Include="TablaPrecio.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Vendedor.cs" />
   </ItemGroup>

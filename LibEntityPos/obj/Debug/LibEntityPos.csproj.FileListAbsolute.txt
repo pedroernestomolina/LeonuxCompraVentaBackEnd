@@ -1,5 +1,5 @@
-D:\Proyectos FoxSystem\CompraVenta\LibEntityPos\bin\Debug\LibEntityPos.dll.config
 D:\Proyectos FoxSystem\CompraVenta\LibEntityPos\bin\Debug\LibEntityPos.dll
+D:\Proyectos FoxSystem\CompraVenta\LibEntityPos\bin\Debug\LibEntityPos.dll.config
 D:\Proyectos FoxSystem\CompraVenta\LibEntityPos\bin\Debug\LibEntityPos.pdb
 D:\Proyectos FoxSystem\CompraVenta\LibEntityPos\bin\Debug\EntityFramework.dll
 D:\Proyectos FoxSystem\CompraVenta\LibEntityPos\bin\Debug\EntityFramework.SqlServer.dll

@@ -2208,7 +2208,7 @@ namespace ProvLibInventario
                                   p.auto_departamento as autoDepartamento, p.auto_grupo as autoGrupo, p.categoria, 
                                   p.costo as costo, p.costo_und as costoUnd, p.divisa as costoDivisa, p.estatus_divisa as estatusDivisa,
                                   p.fecha_ult_costo as fechaUltActualizacion,
-                                  eTasa.tasa as tasaIva, eTasa.nombre as tasaIvaNombre, etasa.auto as tasaAuto,
+                                  eTasa.tasa as tasaIva, eTasa.nombre as tasaIvaNombre, eTasa.auto as tasaAuto,
                                   eDepo.auto as autoDeposito, eDepo.codigo as codigoDeposito, eDepo.nombre as nombreDeposito, 
                                   pDepo.fisica as exFisica, pDepo.disponible as exDisponible, pDepo.reservada as exReservada,
                                   pDepo.nivel_minimo as nivelMinimo, pDepo.nivel_optimo as nivelOptimo,
@@ -2749,7 +2749,7 @@ namespace ProvLibInventario
                     var sql = @"select es_activo
                                 from empresa_sucursal_ext as eSucExt
                                 join empresa_sucursal as eSuc on eSuc.auto=eSucExt.auto_sucursal
-                                where esuc.codigo=@codSuc";
+                                where eSuc.codigo=@codSuc";
                     var entSuc = cnn.Database.SqlQuery<string>(sql, p3).FirstOrDefault();
                     if (entSuc == null) 
                     {

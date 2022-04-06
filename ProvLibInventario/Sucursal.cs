@@ -50,7 +50,6 @@ namespace ProvLibInventario
 
             return result;
         }
-
         public DtoLib.ResultadoEntidad<DtoLibInventario.Sucursal.Ficha> Sucursal_GetFicha(string auto)
         {
             var result = new DtoLib.ResultadoEntidad<DtoLibInventario.Sucursal.Ficha>();

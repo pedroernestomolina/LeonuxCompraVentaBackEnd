@@ -103,6 +103,7 @@
     <Compile Include="Sucursal\Editar.cs" />
     <Compile Include="Sucursal\Ficha.cs" />
     <Compile Include="Sucursal\Resumen.cs" />
+    <Compile Include="TablaPrecio\Crear\Ficha.cs" />
     <Compile Include="Usuario\Activar.cs" />
     <Compile Include="Usuario\ActualizarSesion\Ficha.cs" />
     <Compile Include="Usuario\Agregar.cs" />

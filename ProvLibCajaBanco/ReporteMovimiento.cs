@@ -168,8 +168,51 @@ namespace ProvLibCajaBanco
                         (select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and fecha>=@desde and fecha<=@hasta and signo=1 and estatus_anulado='0' and modulo='Inventario') as entradas, 
                         (select sum(cantidad_und) from productos_kardex where auto_producto=p.auto and auto_deposito=@autoDeposito and fecha>=@desde and fecha<=@hasta and signo=1 and estatus_anulado='0' and modulo<>'Inventario') as entradasOt 
                         from productos as p 
-                        join productos_medida as pmed on pmed.auto=p.auto_empaque_compra
-                        join productos_deposito as pd on pd.auto_producto=p.auto and pd.auto_deposito=@autoDeposito";
+                        join productos_medida as pmed on pmed.auto=p.auto_empaque_compra";
+                        //join productos_deposito as pd on pd.auto_producto=p.auto and pd.auto_deposito=@autoDeposito";
+
+                    var sql_2 = @"select auto, nombrePrd, codigoPrd, decimales, tEntradas, 
+                                (
+                                    select 
+                                    sum(cantidad_und) 
+                                    from productos_kardex 
+                                    where auto_producto=auto and auto_deposito=@autoDeposito
+                                    and signo=-1 and estatus_anulado='0' and fecha<=@hasta
+                                ) as tSalidas,
+                                (
+                                    select sum(cantidad_und) 
+                                    from productos_kardex 
+                                    where auto_producto=auto and auto_deposito=@autoDeposito
+                                    and fecha>=@desde and fecha<=@hasta and signo=-1 and estatus_anulado='0'
+                                ) as salidas,
+                                (
+                                    select 
+                                    sum(cantidad_und) 
+                                    from productos_kardex 
+                                    where auto_producto=auto and auto_deposito=@autoDeposito
+                                    and fecha>=@desde and fecha<=@hasta and signo=1 and estatus_anulado='0' 
+                                    and modulo='Inventario'
+                                ) as entradas,
+                                (
+                                    select sum(cantidad_und) 
+                                    from productos_kardex 
+                                    where auto_producto=auto and auto_deposito=@autoDeposito and fecha>=@desde
+                                    and fecha<=@hasta and signo=1 and estatus_anulado='0' and modulo<>'Inventario'
+                                ) as entradasOt 
+                                from 
+                                (
+                                    select p.auto, p.nombre as nombrePrd, p.codigo as codigoPrd, pmed.decimales,
+                                    (
+                                        select 
+                                        sum(cantidad_und) 
+                                        from productos_kardex 
+                                        where auto_producto=p.auto and auto_deposito=@autoDeposito
+                                        and signo=1 and estatus_anulado='0' and fecha<=@hasta
+                                    ) as tEntradas
+                                    from productos as p
+                                    join productos_medida as pmed on pmed.auto=p.auto_empaque_compra
+                                ) v1
+                                where tEntradas is not null";
 
                     var p1 = new MySql.Data.MySqlClient.MySqlParameter();
                     var p2 = new MySql.Data.MySqlClient.MySqlParameter();
@@ -183,7 +226,8 @@ namespace ProvLibCajaBanco
                     p3.Value = filtro.autoDeposito;
 
                     cnn.Database.CommandTimeout = 0;
-                    var list = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.Inventario.Ficha>(sql, p1, p2, p3).ToList();
+                    //var list = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.Inventario.Ficha>(sql, p1, p2, p3).ToList();
+                    var list = cnn.Database.SqlQuery<DtoLibCajaBanco.Reporte.Movimiento.Inventario.Ficha>(sql_2,p1,p2,p3).ToList();
                     rt.Lista = list;
                 }
             }
